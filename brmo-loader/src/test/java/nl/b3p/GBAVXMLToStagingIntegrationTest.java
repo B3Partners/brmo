@@ -114,7 +114,7 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -123,9 +123,9 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue(0L == brmo.getCountBerichten(null, null, "gbav", "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten("gbav", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "gbav", "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen("gbav", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -154,9 +154,9 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen...).");
         }
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten(bestandType, "STAGING_OK"),
                 "Verwacht aantal berichten");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"),
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(bestandType, "STAGING_OK"),
                 "Verwacht aantal laadprocessen");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
@@ -164,7 +164,7 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten(bestandType, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         for (Bericht b : brmo.listBerichten()) {

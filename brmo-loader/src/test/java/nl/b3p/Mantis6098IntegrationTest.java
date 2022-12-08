@@ -97,12 +97,12 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
-        assumeTrue(3L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assumeTrue(3L == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn 3 STAGING_OK berichten");
-        assumeTrue(3L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        assumeTrue(3L == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn 3 STAGING_OK laadprocessen");
     }
 
@@ -131,9 +131,9 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand}, null);
         t.join();
 
-        assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assertEquals(2L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Twee berichten zijn niet getransformeerd");
-        assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(1L, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Een bericht is OK getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -156,9 +156,9 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, mutatie}, null);
         t.join();
 
-        assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(2L, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Twee berichten zijn OK getransformeerd");
-        assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assertEquals(1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Een bericht is niet getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -187,7 +187,7 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        Assertions.assertEquals(3L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assertions.assertEquals(3L, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Alle berichten zijn OK getransformeerd");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
@@ -210,9 +210,9 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, verwijder}, null);
         t.join();
 
-        Assertions.assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assertions.assertEquals(2L, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Twee berichten zijn OK getransformeerd");
-        Assertions.assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        Assertions.assertEquals(1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Een bericht is niet getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -236,17 +236,17 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t1 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, verwijder}, null);
         t1.join();
 
-        Assertions.assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assertions.assertEquals(2L, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Verwacht 2 berichten zijn OK getransformeerd");
-        Assertions.assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        Assertions.assertEquals(1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Verwacht 1 bericht is niet getransformeerd");
 
         Thread t2 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{mutatie}, null);
         t2.join();
 
-        Assertions.assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assertions.assertEquals(2L, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Twee berichten zijn OK getransformeerd");
-        Assertions.assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OUTDATED"),
+        Assertions.assertEquals(1L, brmo.getCountBerichten("brk", "RSGB_OUTDATED"),
                 "Verwacht 1 bericht is outdated");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");

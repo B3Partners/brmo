@@ -103,7 +103,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
             Assertions.fail("Geen ondersteunde database aangegegeven");
         }
         sequential.lock();
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBrk);
         brmo.setOrderBerichten(true);
     }
 
@@ -129,9 +129,9 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
-        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten");
-        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen");
     }
 
@@ -206,7 +206,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
 
         Assertions.assertEquals(
                 aantalBerichten,
-                brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Alle berichten hebben status RSGB_OK");
     }
 }

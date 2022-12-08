@@ -166,7 +166,7 @@ public class StUFBGasynchroon {
     private void saveBericht(Object body, String datum) {
         try {
             DataSource ds = ConfigUtil.getDataSourceStaging();
-            BrmoFramework brmo = new BrmoFramework(ds, null);
+            BrmoFramework brmo = new BrmoFramework(ds, null, null);
             InputStream in = getXml(body);
 
             Date d = StUFbg204Util.sdf.parse(datum);

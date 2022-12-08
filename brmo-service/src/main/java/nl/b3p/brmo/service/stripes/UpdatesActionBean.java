@@ -199,7 +199,8 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
             DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+            DataSource dataSourceRsgbBrk = ConfigUtil.getDataSourceRsgbBrk();
+            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
 
             boolean enableTransformPipeline = "true".equals(getContext().getServletContext().getInitParameter("pipelining.enabled"));
             brmo.setEnablePipeline(enableTransformPipeline);

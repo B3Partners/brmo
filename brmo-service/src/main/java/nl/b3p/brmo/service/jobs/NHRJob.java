@@ -56,7 +56,7 @@ public class NHRJob implements Job {
         BrmoFramework brmo = null;
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            brmo = new BrmoFramework(dataSourceStaging, null, null, null);
+            brmo = new BrmoFramework(dataSourceStaging, null, null, null, null);
 
             brmo.setOrderBerichten(false);
 

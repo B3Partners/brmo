@@ -14,7 +14,6 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
-import static nl.b3p.brmo.service.scanner.AbstractExecutableProces.OLD_LOG_LENGTH;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -95,9 +94,9 @@ public class BerichtstatusRapport extends AbstractExecutableProces {
         StringBuilder samenvatting = new StringBuilder("Berichtstatus overzicht");
         samenvatting.append(AutomatischProces.LOG_NEWLINE);
         try {
-            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null, null);
             for (Bericht.STATUS status : Bericht.STATUS.values()) {
-                aantal = brmo.getCountBerichten(null, null, null, status.name());
+                aantal = brmo.getCountBerichten(null, status.name());
                 msg = String.format("Aantal berichten met status %s: %s.", status.name(), aantal);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 samenvatting.append(msg).append(AutomatischProces.LOG_NEWLINE);

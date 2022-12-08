@@ -148,7 +148,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         dsTopnl.setAccessToUnderlyingConnectionAllowed(true);
         topnl = new DatabaseDataSourceConnection(dsTopnl);
 
-        brmo = new BrmoFramework(dsStaging, null, null, dsTopnl);
+        brmo = new BrmoFramework(dsStaging, null, null, dsTopnl, null);
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
@@ -171,9 +171,9 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0L == brmo.getCountBerichten(null, null, null, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten(null, "STAGING_OK"),
                 "Er zijn STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, null, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen(null, "STAGING_OK"),
                 "Er zijn STAGING_OK laadprocessen");
     }
 

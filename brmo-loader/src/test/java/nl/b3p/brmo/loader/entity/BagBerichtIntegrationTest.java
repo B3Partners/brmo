@@ -89,7 +89,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
         if (this.isOracle) {
@@ -116,9 +116,9 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue(0L == brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten(BR_BAG, "STAGING_OK"),
                 "Er zijn STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen(BR_BAG, "STAGING_OK"),
                 "Er zijn STAGING_OK laadprocessen");
     }
 
@@ -150,9 +150,9 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         String timestamp = (String) data[3];
 
         brmo.loadFromFile(BR_BAG, BagBerichtIntegrationTest.class.getResource(bestandNaam).getFile(), null);
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten(BR_BAG, "STAGING_OK"),
                 "Aantal berichten is niet als verwacht");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"),
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(BR_BAG, "STAGING_OK"),
                 "Aantal laadprocessen is niet als verwacht");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
@@ -185,9 +185,9 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
             _aantalProcessen += (int) data[2];
         }
 
-        assertEquals(_aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+        assertEquals(_aantalBerichten, brmo.getCountBerichten(BR_BAG, "STAGING_OK"),
                 "Aantal berichten is niet als verwacht");
-        assertEquals(_aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"),
+        assertEquals(_aantalProcessen, brmo.getCountLaadProcessen(BR_BAG, "STAGING_OK"),
                 "Aantal laadprocessen is niet als verwacht");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
@@ -212,7 +212,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals(1, brondocument.getRowCount(), "Het aantal brondocumenten klopt niet");
         assertEquals("VA1071182", brondocument.getValue(0, "identificatie"), "brondocumentnummer klopt niet");
 
-        assertEquals(0, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+        assertEquals(0, brmo.getCountBerichten(BR_BAG, "STAGING_OK"),
                 "Aantal verwerkte berichten is niet als verwacht");
 
         ITable bericht2 = staging.createDataSet().getTable("bericht");

@@ -118,7 +118,8 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
             try {
                 DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
                 DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-                brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+                DataSource dataSourceRsgbBrk = ConfigUtil.getDataSourceRsgbBrk();
+                brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
                 brmo.setEnablePipeline(true);
                 brmo.setOrderBerichten(true);
                 brmo.setTransformPipelineCapacity(100);

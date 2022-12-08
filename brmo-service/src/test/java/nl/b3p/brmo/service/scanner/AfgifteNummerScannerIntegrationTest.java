@@ -106,7 +106,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         } else {
             fail("Geen ondersteunde database aangegeven");
         }
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
 
         scanner = new AfgifteNummerScanner(new AfgifteNummerScannerProces());
         FieldUtils.writeField(scanner, "listener", new ProgressUpdateListener() {
@@ -149,7 +149,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         assumeTrue(
-                lAantalLaadProcessen == brmo.getCountLaadProcessen(null, null, null, null),
+                lAantalLaadProcessen == brmo.getCountLaadProcessen(null, null),
                 "Er zijn anders dan verwacht aantal laadprocessen"
         );
 

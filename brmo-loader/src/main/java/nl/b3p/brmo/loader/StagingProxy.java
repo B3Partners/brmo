@@ -64,9 +64,9 @@ public class StagingProxy {
 
     private static final Log log = LogFactory.getLog(StagingProxy.class);
 
-    private Connection connStaging = null;
-    private DataSource dataSourceStaging =  null;
-    private GeometryJdbcConverter geomToJdbc = null;
+    private Connection connStaging;
+    private DataSource dataSourceStaging;
+    private GeometryJdbcConverter geomToJdbc;
     private Integer batchCapacity = 150;
     private Integer limitStandBerichtenToTransform = -1;
 
@@ -94,7 +94,7 @@ public class StagingProxy {
         List<LaadProces> processen;
 
         ResultSetHandler<List<LaadProces>> h
-                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+                = new BeanListHandler<>(LaadProces.class, new StagingRowHandler());
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE id = ?", h, id);
@@ -109,7 +109,7 @@ public class StagingProxy {
     public Bericht getBerichtById(Long id) throws SQLException {
         List<Bericht> berichten;
         ResultSetHandler<List<Bericht>> h
-                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+                = new BeanListHandler<>(Bericht.class, new StagingRowHandler());
 
         berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE id = ?", h, id);
@@ -124,7 +124,7 @@ public class StagingProxy {
     public List<Bericht> getBerichtByLaadProces(LaadProces lp) throws SQLException {
         List<Bericht> berichten;
         ResultSetHandler<List<Bericht>> h
-                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+                = new BeanListHandler<>(Bericht.class, new StagingRowHandler());
 
         berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE laadprocesid = ?", h, lp.getId());
@@ -135,7 +135,7 @@ public class StagingProxy {
     public LaadProces getLaadProcesByFileName(String name) throws SQLException {
         List<LaadProces> processen;
         ResultSetHandler<List<LaadProces>> h
-                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+                = new BeanListHandler<>(LaadProces.class, new StagingRowHandler());
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?", h, name);
@@ -150,30 +150,12 @@ public class StagingProxy {
     public LaadProces getLaadProcesByRestoredFilename(String name) throws SQLException {
         List<LaadProces> processen;
         ResultSetHandler<List<LaadProces>> h
-                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+                = new BeanListHandler<>(LaadProces.class, new StagingRowHandler());
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam_hersteld = ?", h,  name);
 
         if (processen != null && processen.size() == 1) {
-            return processen.get(0);
-        }
-
-        return null;
-    }
-
-    private LaadProces getLaadProcesByNaturalKey(String name, long date) throws SQLException {
-        List<LaadProces> processen;
-        ResultSetHandler<List<LaadProces>> h
-                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
-
-        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?"
-                        + " AND bestand_datum = ?", h,
-                        name,
-                        new Timestamp(date));
-
-        if (processen != null && processen.size() > 0) {
             return processen.get(0);
         }
 
@@ -189,16 +171,15 @@ public class StagingProxy {
      * @throws SQLException if any
      */
     public Bericht getExistingBericht(Bericht b) throws SQLException {
-        Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(),
+        return getBerichtByNaturalKey(b.getObjectRef(),
                 b.getDatum().getTime(),
                 b.getVolgordeNummer());
-        return b2;
     }
 
     private Bericht getBerichtByNaturalKey(String object_ref, long date, Integer volgnr) throws SQLException {
         List<Bericht> processen;
         ResultSetHandler<List<Bericht>> h
-                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+                = new BeanListHandler<>(Bericht.class, new StagingRowHandler());
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE object_ref = ?"
@@ -217,7 +198,7 @@ public class StagingProxy {
     public long getCountJob() throws SQLException {
         Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "select count(*) from " + BrmoFramework.JOB_TABLE,
-                new ScalarHandler());
+                new ScalarHandler<>());
         if (o instanceof BigDecimal) {
             return ((BigDecimal) o).longValue();
         } else if (o instanceof Integer) {
@@ -228,14 +209,11 @@ public class StagingProxy {
 
     public boolean removeJob() throws SQLException {
         int count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "truncate table " + BrmoFramework.JOB_TABLE );
-        if (count>0) {
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     public boolean cleanJob() throws SQLException {
-        int count = 0;
+        int count;
         if (geomToJdbc instanceof OracleJdbcConverter) {
             count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                     "delete from " + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from "
@@ -250,10 +228,7 @@ public class StagingProxy {
                     + BrmoFramework.BERICHT_TABLE + " b "
                     + " where b.id = j.id and status != ?)", Bericht.STATUS.STAGING_OK.toString());
         }
-        if (count > 0) {
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     public long setBerichtenJobByStatus(Bericht.STATUS status, boolean orderBerichten) throws SQLException {
@@ -262,7 +237,7 @@ public class StagingProxy {
                 + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
                 + BrmoFramework.BERICHT_TABLE + " where status = ? and datum <= ? ");
         if (orderBerichten) {
-            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+            q.append(" order by ").append(BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
             if (this.limitStandBerichtenToTransform > 0) {
@@ -280,7 +255,7 @@ public class StagingProxy {
                 + " select id, datum, volgordenummer, object_ref, br_xml, soort from "
                 + BrmoFramework.BERICHT_TABLE + " where status = ? and soort = ? and datum <= ? ");
         if (orderBerichten) {
-            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+            q.append(" order by ").append(BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
             if (this.limitStandBerichtenToTransform > 0) {
@@ -305,7 +280,7 @@ public class StagingProxy {
         }
         q.append(") and datum <= ? ");
         if (orderBerichten) {
-            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+            q.append(" order by ").append(BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
             if (this.limitStandBerichtenToTransform > 0) {
@@ -331,7 +306,7 @@ public class StagingProxy {
         }
         q.append(") and status = ? and datum <= ? ");
         if (orderBerichten) {
-            q.append(" order by " + BerichtenSorter.SQL_ORDER_BY);
+            q.append(" order by ").append(BerichtenSorter.SQL_ORDER_BY);
         } else {
             q.append(" and volgordenummer < 0 ");
             if (this.limitStandBerichtenToTransform > 0) {
@@ -370,51 +345,46 @@ public class StagingProxy {
 
                 processed.setValue(0);
                 final Split getBerichten = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.getbatch").start();
-                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ResultSetHandler<Exception>() {
-                    @Override
-                    public Exception handle(ResultSet rs) throws SQLException {
-                        getBerichten.stop();
-                        final Split processResultSet = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.processresultset").start();
+                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, rs -> {
+                    getBerichten.stop();
+                    final Split processResultSet = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".staging.berichten.processresultset").start();
 
-                        while(rs.next()) {
-                            try {
-                                Bericht bericht = processor.toBean(rs, Bericht.class);
-                                if (bericht.getVolgordeNummer() >= 0  && !doOrderBerichten) {
-                                    // mutaties hebben volgnr >=0 dan sortering verplicht
-                                    throw new Exception(String.format("Het sorteren van berichten staat uit, terwijl bericht (id: %d) geen standbericht is (volgnummer >=0)", bericht.getId()));
-                                }
-                                final BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);
-
-                                handler.updateBerichtProcessing(bericht); // op basis van id
-
-                                if(enablePipeline) {
-
-                                    List<TableData> tableData = handler.transformToTableData(bericht);
-                                    if(tableData == null) {
-                                        // Exception during transform
-
-                                        // updateProcessingResult() is aangeroepen, geen updateResultPipeline
-                                        continue;
-                                    }
-                                    workUnit.setTableData(tableData);
-                                    workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);
-                                    Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.processdbxml.put").start();
-                                    processDbXmlPipeline.getQueue().put(workUnit);
-                                    pipelinePut.stop();
-                                } else {
-                                    Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
-                                    handler.handle(bericht, null, true);
-                                    berichtSplit.stop();
-                                }
-                                lastJid.setValue(rs.getInt("jid"));
-                            } catch(Exception e) {
-                                return e;
+                    while(rs.next()) {
+                        try {
+                            Bericht bericht = processor.toBean(rs, Bericht.class);
+                            if (bericht.getVolgordeNummer() >= 0  && !doOrderBerichten) {
+                                // mutaties hebben volgnr >=0 dan sortering verplicht
+                                throw new Exception(String.format("Het sorteren van berichten staat uit, terwijl bericht (id: %d) geen standbericht is (volgnummer >=0)", bericht.getId()));
                             }
-                            processed.increment();
+                            final BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);
+
+                            if(enablePipeline) {
+
+                                List<TableData> tableData = handler.transformToTableData(bericht);
+                                if(tableData == null) {
+                                    // Exception during transform
+
+                                    // updateProcessingResult() is aangeroepen, geen updateResultPipeline
+                                    continue;
+                                }
+                                workUnit.setTableData(tableData);
+                                workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);
+                                Split pipelinePut = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".pipeline.processdbxml.put").start();
+                                processDbXmlPipeline.getQueue().put(workUnit);
+                                pipelinePut.stop();
+                            } else {
+                                Split berichtSplit = SimonManager.getStopwatch("b3p.rsgb.job." + dateTime + ".bericht").start();
+                                handler.handle(bericht, null, true);
+                                berichtSplit.stop();
+                            }
+                            lastJid.setValue(rs.getInt("jid"));
+                        } catch(Exception e1) {
+                            return e1;
                         }
-                        processResultSet.stop();
-                        return null;
+                        processed.increment();
                     }
+                    processResultSet.stop();
+                    return null;
                 });
 
                 offset += processed.intValue();
@@ -451,7 +421,7 @@ public class StagingProxy {
         split.stop();
     }
 
-    public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
+    public void updateBerichtenDbXml(List<Bericht> berichten, RsgbTransformer transformer) throws SAXException, IOException, TransformerException  {
         for (Bericht ber : berichten) {
             Split split = SimonManager.getStopwatch("b3p.staging.bericht.dbxml.transform").start();
             String dbxml = transformer.transformToDbXml(ber);
@@ -479,7 +449,7 @@ public class StagingProxy {
 
         Bericht bericht = null;
         ResultSetHandler<List<Bericht>> h
-                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+                = new BeanListHandler<>(Bericht.class, new StagingRowHandler());
 
         if(getOldBerichtStatement == null) {
             String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM "
@@ -548,19 +518,13 @@ public class StagingProxy {
 
     /**
      * Gets the previous bericht (not the first).
-     * @param objectRef
-     * @param datum
-     * @param currentBerichtId
-     * @param loadLog
-     * @return
-     * @throws SQLException 
      */
     public Bericht getPreviousBericht(String objectRef, Date datum, Long currentBerichtId, StringBuilder loadLog) throws SQLException {
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.getprevious").start();
 
         Bericht bericht = null;
         ResultSetHandler<List<Bericht>> h
-                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+                = new BeanListHandler<>(Bericht.class, new StagingRowHandler());
 
         if(getPreviousBerichtStatement == null) {
             String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM "
@@ -624,8 +588,8 @@ public class StagingProxy {
      * volgordenummer, soort, opmerking, status, status_datum, br_xml,
      * br_orgineel_xml, db_xml, xsl_version)
      *
-     * @param b
-     * @throws SQLException
+     * @param b bij te werken bericht
+     * @throws SQLException if any
      */
     public void updateBericht(Bericht b) throws SQLException {
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.update").start();
@@ -699,14 +663,14 @@ public class StagingProxy {
 
     public List<LaadProces> getLaadProcessen() throws SQLException {
         List<LaadProces> list;
-        ResultSetHandler<List<LaadProces>> h = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+        ResultSetHandler<List<LaadProces>> h = new BeanListHandler<>(LaadProces.class, new StagingRowHandler());
         list = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), "select * from " + BrmoFramework.LAADPROCES_TABEL, h);
         return list;
     }
 
     public List<Bericht> getBerichten() throws SQLException {
         List<Bericht> berichten;
-        ResultSetHandler<List<Bericht>> h = new BeanListHandler(Bericht.class, new StagingRowHandler());
+        ResultSetHandler<List<Bericht>> h = new BeanListHandler<>(Bericht.class, new StagingRowHandler());
         berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), "select * from " + BrmoFramework.BERICHT_TABLE, h);
         return berichten;
     }
@@ -921,15 +885,11 @@ public class StagingProxy {
     /**
      * Bepaal aan de hand van bestandsnaam en bestandsdatum van het laadproces
      * of dit al bestaat.
-     *
-     * @param lp
-     * @return
-     * @throws SQLException
      */
     private boolean laadProcesExists(LaadProces lp) throws SQLException {
         Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "select 1 from laadproces where bestand_naam = ? and"
-                + " bestand_datum = ?", new ScalarHandler(),
+                + " bestand_datum = ?", new ScalarHandler<>(),
                 lp.getBestandNaam(),
                 new Timestamp(lp.getBestandDatum().getTime()));
 
@@ -956,7 +916,7 @@ public class StagingProxy {
         try (
                 // PG: Caused by: org.postgresql.util.PSQLException: ERROR: column "ID" does not exist
                 // maar lowercase werkt ook met oracle
-                PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{"id"});
+                PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{"id"})
                 // door een bug in de PG driver geen kolom index gebruiken, zie https://github.com/pgjdbc/pgjdbc/issues/1661
                 // PreparedStatement stmt = getConnection().prepareStatement(sql, new int[]{1});
         ) {
@@ -1062,7 +1022,7 @@ public class StagingProxy {
     public List<Bericht> getBerichten(int page, int start, int limit, String sort,
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
-        List<String> params = new ArrayList();
+        List<String> params = new ArrayList<>();
         if (sort==null || sort.trim().isEmpty()) {
             sort = "id";
         }
@@ -1074,13 +1034,13 @@ public class StagingProxy {
 
         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
-        return (List<Bericht>)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(Bericht.class, new StagingRowHandler()), params.toArray());
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler<>(Bericht.class, new StagingRowHandler()), params.toArray());
     }
 
 
-    public long getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
+    public long getCountBerichten(String filterSoort, String filterStatus) throws SQLException {
 
-        List<String> params = new ArrayList();
+        List<String> params = new ArrayList<>();
         String filter = buildFilterSql(0, null, null, filterSoort,filterStatus, params);
 
         String sql;
@@ -1139,23 +1099,13 @@ public class StagingProxy {
                 //ignore
             }
         }
-
-
-//        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());
-//
-//        if (o instanceof BigDecimal) {
-//            return ((BigDecimal)o).longValue();
-//        } else if(o instanceof Integer) {
-//            return ((Integer)o).longValue();
-//        }
-//        return (Long)o;
     }
 
     private String buildFilterSql(int page, String sort, String dir, String filterSoort, String filterStatus, List<String> params) {
 
         StringBuilder builder = new StringBuilder();
 
-        List<String> conjunctions = new ArrayList();
+        List<String> conjunctions = new ArrayList<>();
 
         if(!StringUtils.isBlank(filterSoort)) {
             String[] soorten = filterSoort.split(",");
@@ -1186,13 +1136,13 @@ public class StagingProxy {
         return builder.toString();
     }
 
-    public long getCountLaadProces(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
+    public long getCountLaadProces(String filterSoort, String filterStatus) throws SQLException {
 
-        List<String> params = new ArrayList();
+        List<String> params = new ArrayList<>();
         String sql = "SELECT count(*) FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(0, null, null, filterSoort,
               filterStatus, params);
 
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler<>(), params.toArray());
         if (o instanceof BigDecimal) {
             return ((BigDecimal)o).longValue();
         } else if(o instanceof Integer) {
@@ -1204,7 +1154,7 @@ public class StagingProxy {
     public List<LaadProces> getLaadprocessen(int page, int start, int limit, String sort,
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
-        List<String> params = new ArrayList();
+        List<String> params = new ArrayList<>();
         if (sort==null || sort.trim().isEmpty()) {
             sort = "id";
         }
@@ -1216,11 +1166,11 @@ public class StagingProxy {
 
         sql = geomToJdbc.buildPaginationSql(sql, start, limit);
 
-        return (List<LaadProces>)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());
+        return new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler<>(LaadProces.class, new StagingRowHandler()), params.toArray());
     }
 
     public Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
-        List<String> params = new ArrayList();
+        List<String> params = new ArrayList<>();
         if (sort == null || sort.trim().isEmpty()) {
             sort = "id";
         }
@@ -1230,10 +1180,6 @@ public class StagingProxy {
         String sql = "SELECT ID FROM " + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(-1, sort, dir, filterSoort, filterStatus, params);
         List<Long> ids = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new LongColumnListHandler("id"), params.toArray());
         return ids.toArray(new Long[ids.size()]);
-    }
-
-    Bericht getOldBericht(Bericht nieuwBericht) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**

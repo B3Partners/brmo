@@ -108,7 +108,7 @@ public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegratio
         rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
         rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -117,9 +117,9 @@ public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegratio
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue(0L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -177,7 +177,7 @@ public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegratio
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         berichten = brmo.listBerichten();

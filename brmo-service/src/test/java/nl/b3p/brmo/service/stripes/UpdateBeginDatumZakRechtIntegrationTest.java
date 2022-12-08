@@ -106,11 +106,11 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBrk);
         brmo.setOrderBerichten(true);
 
-        assumeTrue(1 == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Er zijn x RSGB_OK berichten");
-        assumeTrue(1 == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"), "Er zijn x STAGING_OK laadprocessen");
+        assumeTrue(1 == brmo.getCountBerichten("brk", "RSGB_OK"), "Er zijn x RSGB_OK berichten");
+        assumeTrue(1 == brmo.getCountLaadProcessen("brk", "STAGING_OK"), "Er zijn x STAGING_OK laadprocessen");
     }
 
     
