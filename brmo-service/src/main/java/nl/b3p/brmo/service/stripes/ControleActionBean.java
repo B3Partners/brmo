@@ -86,7 +86,7 @@ public class ControleActionBean implements ActionBean {
         try {
 
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            brmo = new BrmoFramework(dataSourceStaging, null);
+            brmo = new BrmoFramework(dataSourceStaging, null, null);
             File temp = File.createTempFile("afgiftelijst", "report.pdf");
             temp.deleteOnExit();
 

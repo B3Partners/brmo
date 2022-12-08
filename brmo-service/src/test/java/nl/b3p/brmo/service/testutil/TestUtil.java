@@ -47,6 +47,7 @@ public abstract class TestUtil {
 
     protected static BasicDataSource dsStaging;
     protected static BasicDataSource dsRsgb;
+    protected static BasicDataSource dsRsgbBrk;
 
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
@@ -118,6 +119,18 @@ public abstract class TestUtil {
         dsRsgb.setMinEvictableIdleTimeMillis(1000 * 10);
         dsRsgb.setPoolPreparedStatements(true);
 
+        dsRsgbBrk = new BasicDataSource();
+        dsRsgbBrk.setUrl(DBPROPS.getProperty("rsgbbrk.url"));
+        dsRsgbBrk.setUsername(DBPROPS.getProperty("rsgbbrk.username"));
+        dsRsgbBrk.setPassword(DBPROPS.getProperty("rsgbbrk.password"));
+        dsRsgbBrk.setAccessToUnderlyingConnectionAllowed(true);
+        dsRsgbBrk.setInitialSize(1);
+        dsRsgbBrk.setMaxTotal(20);
+        dsRsgbBrk.setMaxIdle(1);
+        dsRsgbBrk.setMaxConnLifetimeMillis(1000 * 60);
+        dsRsgbBrk.setMinEvictableIdleTimeMillis(1000 * 10);
+        dsRsgbBrk.setPoolPreparedStatements(true);
+
         setupJNDI();
     }
 
@@ -149,6 +162,7 @@ public abstract class TestUtil {
         try {
             InitialContext ic = new InitialContext();
             ic.unbind("java:comp/env/jdbc/brmo/rsgb");
+            ic.unbind("java:comp/env/jdbc/brmo/rsgbbrk");
             ic.unbind("java:comp/env/jdbc/brmo/staging");
             ic.destroySubcontext("java:comp/env/jdbc/brmo");
             ic.destroySubcontext("java:comp/env/jdbc");
@@ -179,6 +193,7 @@ public abstract class TestUtil {
                 ic.createSubcontext("java:comp/env/jdbc");
                 ic.createSubcontext("java:comp/env/jdbc/brmo");
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
+                ic.bind("java:comp/env/jdbc/brmo/rsgbbrk", dsRsgbBrk);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van jndi datasources is mislukt: " + ex.getLocalizedMessage());

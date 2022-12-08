@@ -96,7 +96,7 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         }
         staging.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBrk);
         brmo.setOrderBerichten(true);
         sequential.lock();
     }
@@ -117,11 +117,11 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
         Assumptions.assumeTrue(
-                1 == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                1 == brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten"
         );
         Assumptions.assumeTrue(
-                1 == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                1 == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen"
         );
     }
@@ -181,7 +181,7 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         bean.setUpdateProcessName("Bijwerken subject adres comfort data");
         bean.update();
 
-        assertEquals(1, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(1, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "niet alle berichten zijn 'RSGB_OK'");
 
         // subject tabel opnieuw openen

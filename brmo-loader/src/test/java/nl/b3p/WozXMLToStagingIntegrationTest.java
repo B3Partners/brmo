@@ -122,7 +122,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -133,9 +133,9 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         // CleanUtil.cleanRSGB_WOZ(rsgb, true);
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue(0L == brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten(BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Er zijn STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen(BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Er zijn STAGING_OK laadprocessen");
     }
 
@@ -174,8 +174,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         assumeTrue(WozXMLToStagingIntegrationTest.class.getResource(bestandNaam) != null, "Het bestand met test bericht zou moeten bestaan.");
         brmo.loadFromFile(BrmoFramework.BR_WOZ, WozXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"), "Verwacht aantal STAGING_OK berichten");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"), "Verwacht aantal laadprocessen");
+        assertEquals(aantalBerichten, brmo.getCountBerichten(BrmoFramework.BR_WOZ, "STAGING_OK"), "Verwacht aantal STAGING_OK berichten");
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(BrmoFramework.BR_WOZ, "STAGING_OK"), "Verwacht aantal laadprocessen");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
         int rowNum = 0;
@@ -189,7 +189,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(aantalBerichten, brmo.getCountBerichten(BrmoFramework.BR_WOZ, "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
 
         for (Bericht b : brmo.getBerichten(0, 0, 10, null, null, BrmoFramework.BR_WOZ, "RSGB_OK")) {
             assertNotNull(b, "Bericht is 'null'");

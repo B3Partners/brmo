@@ -84,7 +84,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         } else {
             Assertions.fail("Geen ondersteunde database aangegegeven");
         }
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
         sequential.lock();
     }
 
@@ -106,11 +106,11 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         Assumptions.assumeTrue(
-                aantalBerichtenRsgbOk == brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_OK"),
+                aantalBerichtenRsgbOk == brmo.getCountBerichten(BrmoFramework.BR_BAG, "RSGB_OK"),
                 "Er zijn anders dan verwacht aantal RSGB_OK berichten"
         );
         Assumptions.assumeTrue(
-                aantalBerichtenArchive == brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE"),
+                aantalBerichtenArchive == brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
                 "Er zijn anders dan verwacht aantal ARCHIVE berichten"
         );
     }
@@ -143,12 +143,12 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         bean.cleanupBerichten(Bericht.STATUS.RSGB_OK.toString(), BrmoFramework.BR_BAG);
         Assertions.assertEquals(
                 aantalBerichtenRsgbOk - aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_OK"),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, "RSGB_OK"),
                 "Er zijn anders dan verwacht aantal RSGB_OK berichten"
         );
         Assertions.assertEquals(
                 aantalBerichtenArchive + aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE"),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
                 "Er zijn anders dan verwacht aantal ARCHIVE berichten"
         );
     }
@@ -162,7 +162,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         bean.deleteBerichten(Bericht.STATUS.ARCHIVE.toString(), BrmoFramework.BR_BAG);
         Assertions.assertEquals(
                 0,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE"),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
                 "Er zijn nog ARCHIVE berichten"
         );
     }
@@ -183,15 +183,15 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
         Assertions.assertEquals(
                 aantalBerichtenRsgbOk - aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
                 "Er zijn nog RSGB_OK berichten");
         Assertions.assertEquals(
                 0,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
                 "Er zijn nog ARCHIVE berichten over");
         Assertions.assertEquals(
                 aantalBerichtenRsgbNok,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_NOK.toString()),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_NOK.toString()),
                 "Er zijn nog RSGB_NOK berichten over");
     }
 }

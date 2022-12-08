@@ -96,7 +96,7 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             fail("Geen ondersteunde database aangegegeven");
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBrk);
         brmo.setOrderBerichten(true);
         sequential.lock();
     }
@@ -117,9 +117,9 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
-        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten");
-        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen");
     }
 

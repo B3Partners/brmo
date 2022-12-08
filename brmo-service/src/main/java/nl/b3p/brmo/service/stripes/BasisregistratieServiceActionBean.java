@@ -73,7 +73,7 @@ public class BasisregistratieServiceActionBean implements ActionBean {
         BrmoFramework brmo = null;
         try {
             DataSource ds = ConfigUtil.getDataSourceStaging();
-            brmo = new BrmoFramework(ds, null);
+            brmo = new BrmoFramework(ds, null, null);
 
             // Check of bestand begint met ZIP header
             InputStream in = new BufferedInputStream(req.getInputStream());

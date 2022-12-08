@@ -101,7 +101,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         }
         sequential.lock();
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
     }
 
@@ -141,15 +141,15 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
 
         assumeTrue(aantalBerichten > 0, "Er zijn meer dan 0 berichten in het bestand om te laden");
         assumeTrue(aantalProcessen > 0, "Er zijn meer dan 0 laadprocessen in het bestand om te laden");
-        assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK berichten om te verwerken");
-        assumeTrue(aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen in de database");
 
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Alle berichten zijn OK getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");

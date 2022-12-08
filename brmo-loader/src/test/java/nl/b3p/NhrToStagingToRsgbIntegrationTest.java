@@ -143,7 +143,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
@@ -154,9 +154,9 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        Assumptions.assumeTrue(0L == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountBerichten("nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen("nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -212,7 +212,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         assertEquals(berichtId, bericht.getValue(0, "id"),
                 "bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie");
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "nhr", "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("nhr", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {

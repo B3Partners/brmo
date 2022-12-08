@@ -96,9 +96,9 @@ public class LaadprocesStatusRapport extends AbstractExecutableProces {
         StringBuilder samenvatting = new StringBuilder("Laadproces Status overzicht");
         samenvatting.append(AutomatischProces.LOG_NEWLINE);
         try {
-            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null, null);
             for (LaadProces.STATUS status : LaadProces.STATUS.values()) {
-                aantal = brmo.getCountLaadProcessen(null, null, null, status.name());
+                aantal = brmo.getCountLaadProcessen(null, status.name());
                 msg = String.format("Aantal laadprocessen met status %s: %s.", status.name(), aantal);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 samenvatting.append(msg).append(AutomatischProces.LOG_NEWLINE);

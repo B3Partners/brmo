@@ -50,7 +50,7 @@ public class NHRLoadUtils {
         dsStaging.setUsername(databaseOptions.getUser());
         dsStaging.setPassword(databaseOptions.getPassword());
 
-        BrmoFramework fw = new BrmoFramework(dsStaging, null);
+        BrmoFramework fw = new BrmoFramework(dsStaging, null, null);
         fw.setOrderBerichten(true);
         return fw;
     }

@@ -21,12 +21,8 @@ import java.util.Properties;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
@@ -40,14 +36,11 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static nl.b3p.brmo.commandline.Main.sysexits.*;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.io.FileUtils;
-import org.geotools.util.factory.GeoTools;
-import org.geotools.util.logging.Logging;
 
 /**
  * run:
@@ -130,18 +123,15 @@ public class Main {
 
     private static void printHelp() {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.setOptionComparator(new Comparator<Option>() {
-            @Override
-            public int compare(Option lhs, Option rhs) {
-                List[] lists = new List[]{modeOpts, dbOpts};
-                for (List l : lists) {
-                    int lhsIndex = l.indexOf(lhs);
-                    if (lhsIndex != -1) {
-                        return Integer.compare(lhsIndex, l.indexOf(rhs));
-                    }
+        formatter.setOptionComparator((lhs, rhs) -> {
+            List[] lists = new List[]{modeOpts, dbOpts};
+            for (List l : lists) {
+                int lhsIndex = l.indexOf(lhs);
+                if (lhsIndex != -1) {
+                    return Integer.compare(lhsIndex, l.indexOf(rhs));
                 }
-                return lhs.getArgName().compareTo(rhs.getArgName());
             }
+            return lhs.getArgName().compareTo(rhs.getArgName());
         });
         final int W = 100;
         StringWriter sw = new StringWriter();
@@ -170,6 +160,7 @@ public class Main {
         int exitcode = 0;
         BasicDataSource dsStaging = null;
         BasicDataSource dsRsgb = null;
+        BasicDataSource dsRsgbBrk = null;
 
         try {
             dbProps.load(new FileInputStream(cl.getOptionValue("dbprops")));
@@ -199,6 +190,13 @@ public class Main {
                 dsRsgb.setUsername(dbProps.getProperty("rsgb.user"));
                 dsRsgb.setPassword(dbProps.getProperty("rsgb.password"));
                 dsRsgb.setConnectionProperties(dbProps.getProperty("rsgb.options", ""));
+
+                LOG.info("Verbinding maken met RSGB BRK database... ");
+                dsRsgbBrk = new BasicDataSource();
+                dsRsgbBrk.setUrl(dbProps.getProperty("rsgbbrk.url"));
+                dsRsgbBrk.setUsername(dbProps.getProperty("rsgbbrk.user"));
+                dsRsgbBrk.setPassword(dbProps.getProperty("rsgbbrk.password"));
+                dsRsgbBrk.setConnectionProperties(dbProps.getProperty("rsgbbrk.options", ""));
             }
 
             // staging-only commando's
@@ -228,11 +226,11 @@ public class Main {
             // ----------------
             // rsgb commando's
             else if (cl.hasOption("torsgb")) {
-                exitcode = toRsgb(dsStaging, dsRsgb, cl.getOptionValue("berichtstatus", "ignore"));
+                exitcode = toRsgb(dsStaging, dsRsgb, dsRsgbBrk, cl.getOptionValue("berichtstatus", "ignore"));
             } // ----------------
             // alle schema's / databases
             else if (cl.hasOption("versieinfo")) {
-                exitcode = versieInfo(dsStaging, dsRsgb, cl.getOptionValue("versieinfo", "text"));
+                exitcode = versieInfo(dsStaging, dsRsgb, dsRsgbBrk, cl.getOptionValue("versieinfo", "text"));
             }
         } catch (BrmoException | InterruptedException ex) {
             LOG.error("Fout tijdens uitvoeren met argumenten: " + Arrays.toString(args), ex);
@@ -261,9 +259,9 @@ public class Main {
         System.exit(exitcode);
     }
 
-    private static int toRsgb(DataSource dataSourceStaging, DataSource dataSourceRsgb, String errorState) throws BrmoException, InterruptedException {
+    private static int toRsgb(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, String errorState) throws BrmoException, InterruptedException {
         LOG.info("Start staging naar rsgb transformatie.");
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
         brmo.setOrderBerichten(true);
         brmo.setErrorState(errorState);
         Thread t = brmo.toRsgb();
@@ -273,8 +271,8 @@ public class Main {
         return 0;
     }
 
-    private static int versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, String format) throws BrmoException {
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+    private static int versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, String format) throws BrmoException {
+        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
         if (format.equalsIgnoreCase("json")) {
             StringBuilder sb = new StringBuilder("{");
             sb.append("\"staging_versie\":\"").append(brmo.getStagingVersion()).append("\",")
@@ -297,7 +295,7 @@ public class Main {
      */
     private static int list(DataSource ds, String format) throws BrmoException {
         LOG.info("Ophalen laadproces informatie.");
-        BrmoFramework brmo = new BrmoFramework(ds, null);
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
         List<LaadProces> processen = brmo.listLaadProcessen();
 
         if (format.equalsIgnoreCase("json")) {
@@ -340,7 +338,7 @@ public class Main {
     }
     
     private static int checkAfgiftelijst(DataSource ds, String input, String output) throws BrmoException {
-        BrmoFramework brmo = new BrmoFramework(ds, null);
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
         try {
             LOG.info("Afgiftelijst controleren.");
             File f = new File (input);
@@ -364,14 +362,14 @@ public class Main {
 
     private static int berichtStatus(DataSource ds, String format) throws BrmoException {
         LOG.info("Ophalen bericht status informatie.");
-        BrmoFramework brmo = new BrmoFramework(ds, null);
-        long staging_ok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.STAGING_OK.name());
-        long staging_nok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.STAGING_NOK.name());
-        long rsgb_ok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_OK.name());
-        long rsgb_nok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_NOK.name());
-        long rsgb_bag_nok = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_BAG_NOK.name());
-        long rsgb_outdated = brmo.getCountBerichten(null, null, null, Bericht.STATUS.RSGB_OUTDATED.name());
-        long archive = brmo.getCountBerichten(null, null, null, Bericht.STATUS.ARCHIVE.name());
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
+        long staging_ok = brmo.getCountBerichten(null, Bericht.STATUS.STAGING_OK.name());
+        long staging_nok = brmo.getCountBerichten(null, Bericht.STATUS.STAGING_NOK.name());
+        long rsgb_ok = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_OK.name());
+        long rsgb_nok = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_NOK.name());
+        long rsgb_bag_nok = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_BAG_NOK.name());
+        long rsgb_outdated = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_OUTDATED.name());
+        long archive = brmo.getCountBerichten(null, Bericht.STATUS.ARCHIVE.name());
 
         if (format.equalsIgnoreCase("json")) {
             System.out.printf(
@@ -395,7 +393,7 @@ public class Main {
 
     private static int jobStatus(DataSource ds, String format) throws BrmoException {
         LOG.info("Ophalen staging job informatie.");
-        BrmoFramework brmo = new BrmoFramework(ds, null);
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
         long count = brmo.getCountJob();
 
         if (format.equalsIgnoreCase("json")) {
@@ -415,7 +413,7 @@ public class Main {
             laadProcesId = Long.valueOf(id);
         }
 
-        BrmoFramework brmo = new BrmoFramework(ds, null);
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
         brmo.delete(laadProcesId);
         brmo.closeBrmoFramework();
         return 0;
@@ -506,7 +504,7 @@ public class Main {
         String archiefDir = opts.length == 3 ? opts[2] : null;
 
         LOG.debug(String.format("Begin laden van bestand: %s, type %s", fileName, brType));
-        BrmoFramework brmo = new BrmoFramework(ds, null);
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
         brmo.setOrderBerichten(true);
         brmo.setErrorState("ignore");
         brmo.loadFromFile(brType, fileName, null);
@@ -542,7 +540,7 @@ public class Main {
             String[] fNames = dir.list((File f, String name) -> {
                 return (name.endsWith(".xml") || name.endsWith(".XML") || name.endsWith(".zip") || name.endsWith(".ZIP"));
             });
-            BrmoFramework brmo = new BrmoFramework(ds, null);
+            BrmoFramework brmo = new BrmoFramework(ds, null, null);
             brmo.setOrderBerichten(true);
             brmo.setErrorState("ignore");
 

@@ -533,7 +533,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
         }
 
-        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null, null);
 
         ZipInputStream zip = new ZipInputStream(input);
         ZipEntry entry = zip.getNextEntry();

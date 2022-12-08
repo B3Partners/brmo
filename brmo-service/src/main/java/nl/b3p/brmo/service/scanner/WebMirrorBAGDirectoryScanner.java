@@ -60,7 +60,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
     public WebMirrorBAGDirectoryScanner(WebMirrorBAGScannerProces config) {
         this.config = config;
         try {
-            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);
+            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null, null);
         } catch (BrmoException ex) {
             log.fatal("Initialisatie van BRMO framework is mislukt", ex);
         }

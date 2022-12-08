@@ -57,7 +57,7 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
 
     public Resolution upload() throws BrmoException {
         DataSource ds = ConfigUtil.getDataSourceStaging();
-        BrmoFramework brmo = new BrmoFramework(ds, null);
+        BrmoFramework brmo = new BrmoFramework(ds, null, null);
         ZipInputStream zip = null;
         ZipEntry entry = null;
         int errors = 0;

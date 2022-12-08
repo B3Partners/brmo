@@ -90,10 +90,10 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
-        assumeTrue(6l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
+        assumeTrue(6l == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn geen 6 STAGING_OK berichten");
-        assumeTrue(1l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        assumeTrue(1l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn geen 1 STAGING_OK laadproces");
     }
 
@@ -124,11 +124,11 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(0l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assertEquals(0l, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(6l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(6l, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+        assertEquals(0l, brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");

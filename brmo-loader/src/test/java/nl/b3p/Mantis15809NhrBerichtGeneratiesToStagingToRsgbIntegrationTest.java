@@ -94,7 +94,7 @@ public class Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest exten
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
         sequential.lock();
@@ -103,9 +103,9 @@ public class Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest exten
         CleanUtil.cleanSTAGING(staging, false);
         CleanUtil.cleanRSGB_NHR(rsgb);
 
-        Assumptions.assumeTrue(0L == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountBerichten("nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen("nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -221,7 +221,7 @@ public class Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest exten
                 "bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie");
 
         // controle van transformatie
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "nhr", "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("nhr", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {

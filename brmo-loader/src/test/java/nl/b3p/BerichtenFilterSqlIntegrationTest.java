@@ -59,7 +59,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
@@ -78,11 +78,11 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(60l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"),
+        assumeTrue(60l == brmo.getCountBerichten("brk,bag,nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(6l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+        assumeTrue(6l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn BAG geen STAGING_OK laadprocessen");
-        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn BRK STAGING_OK laadprocessen");
     }
 
@@ -99,9 +99,9 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     public void emptyStagingDb() throws BrmoException {
         brmo.emptyStagingDb();
 
-        assertTrue(0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"),
+        assertTrue(0l == brmo.getCountBerichten("brk,bag,nhr", "STAGING_OK"),
                 "Er zijn STAGING_OK berichten");
-        assertTrue(0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+        assertTrue(0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn STAGING_OK laadprocessen");
     }
 

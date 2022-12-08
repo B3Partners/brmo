@@ -91,12 +91,12 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         // skip als de bron data er niet is
-        Assumptions.assumeTrue(2L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(2L == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn geen 2 STAGING_OK berichten");
-        Assumptions.assumeTrue(2L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(2L == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn geen 2 STAGING_OK laadproces");
     }
 
@@ -122,11 +122,11 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         t.join();
 
         assertEquals(
-                1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         assertEquals(
-                1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                1L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Er zijn berichten met status RSGB_NOK");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
@@ -167,11 +167,11 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         t.join();
 
         assertEquals(
-                0L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                0L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         assertEquals(
-                2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                2L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
@@ -220,11 +220,11 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         t.join();
 
         assertEquals(
-                1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         assertEquals(
-                1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                1L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Er zijn berichten met status RSGB_NOK");
 
         brmo.setOrderBerichten(true);
@@ -232,11 +232,11 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         t.join();
 
         assertEquals(
-                0L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                0L, brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         assertEquals(
-                2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                2L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
@@ -288,22 +288,22 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
             t.join();
 
             assertEquals(
-                    1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                    1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                     "Niet alle berichten zijn OK getransformeerd");
             assertEquals(
-                    1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-            assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                    1L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                     "Er zijn berichten met status RSGB_NOK");
 
             // delete stand bericht
             brmo.delete(1L);
 
             assertEquals(
-                    1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                    1L, brmo.getCountBerichten("brk", "STAGING_OK"),
                     "Niet alle berichten zijn OK getransformeerd");
             assertEquals(
-                    0L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-            assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                    0L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                     "Er zijn berichten met status RSGB_NOK");
 
             // transformeer mutatie
@@ -312,11 +312,11 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
             t.join();
 
             assertEquals(
-                    0L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                    0L, brmo.getCountBerichten("brk", "STAGING_OK"),
                     "Niet alle berichten zijn OK getransformeerd");
             assertEquals(
-                    1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
-            assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                    1L, brmo.getCountBerichten("brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(0L, brmo.getCountBerichten("brk", "RSGB_NOK"),
                     "Er zijn berichten met status RSGB_NOK");
 
             ITable brondocument = rsgb.createDataSet().getTable("brondocument");

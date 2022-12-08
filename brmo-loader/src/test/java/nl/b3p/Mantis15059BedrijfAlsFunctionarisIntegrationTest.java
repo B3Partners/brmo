@@ -110,7 +110,7 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
@@ -121,9 +121,9 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0L == brmo.getCountBerichten(null, null, BESTANDTYPE, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten(BESTANDTYPE, "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, BESTANDTYPE, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen(BESTANDTYPE, "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -176,7 +176,7 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         assertEquals(berichtId, bericht.getValue(0, "id"),
                 "bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie");
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BESTANDTYPE, "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten(BESTANDTYPE, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {

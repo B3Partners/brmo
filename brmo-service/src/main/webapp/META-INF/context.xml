@@ -7,6 +7,7 @@
 <Context path="/brmo-service" antiResourceLocking="false">
     <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbbrk" name="jdbc/brmo/rsgbbrk" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbag" name="jdbc/brmo/rsgbbag" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>

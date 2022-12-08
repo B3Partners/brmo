@@ -19,7 +19,6 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -28,7 +27,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -107,7 +105,7 @@ class Brk2ToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 //            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -117,9 +115,9 @@ class Brk2ToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        Assumptions.assumeTrue(0L == brmo.getCountBerichten(null, null, "brk2", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountBerichten("brk2", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "brk2", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen("brk2", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -151,7 +149,7 @@ class Brk2ToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
         List<LaadProces> processen = brmo.listLaadProcessen();
         assertNotNull(berichten, "De verzameling berichten bestaat niet.");
         assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
-        assertEquals(aantalBerichten, brmo.getCountLaadProcessen(null, null, "brk2", "STAGING_OK"), "Het aantal berichten is niet als verwacht.");
+        assertEquals(aantalBerichten, brmo.getCountLaadProcessen("brk2", "STAGING_OK"), "Het aantal berichten is niet als verwacht.");
         assertNotNull(processen, "De verzameling processen bestaat niet.");
         assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
 

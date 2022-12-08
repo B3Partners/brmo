@@ -59,7 +59,7 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
     @BeforeEach
     @Override
     public void setUp() throws SQLException, BrmoException, DatabaseUnitException {
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         // brmo.setEnablePipeline(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -97,12 +97,12 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
     public void testToevoeging() throws Exception {
         doRequest("/testdata-tnt/mergetest/toevoeging.xml");
         // check staging database inhoud
-        assertEquals(1L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertEquals(1L, brmo.getCountLaadProcessen(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         assertEquals("2019-01-14 15:54:26.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.2275c97ea44fceef93fde351a9ff06eeb3a1ecf3", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2019-01-14 15:54:26.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
@@ -133,12 +133,12 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         doRequest("/testdata-tnt/mergetest/wijziging_aanpassing.xml");
 
         // check staging database inhoud
-        assertEquals(2L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 2 STAGING_OK laadprocessen");
+        assertEquals(2L, brmo.getCountLaadProcessen(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 2 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         assertEquals("2019-01-14 15:54:26.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.2275c97ea44fceef93fde351a9ff06eeb3a1ecf3", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2019-01-14 15:54:26.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
@@ -173,13 +173,13 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         doRequest("/testdata-tnt/mergetest/wijziging_waardeonbekend_geenelement.xml");
 
         // check staging database inhoud
-        assertEquals(2L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 2 STAGING_OK laadprocessen");
+        assertEquals(2L, brmo.getCountLaadProcessen(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 2 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         assertEquals("2019-01-14 15:54:26.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
         assertEquals("2019-01-14 16:11:52.0", laadproces.getValue(1, "bestand_datum").toString(), "datum klopt niet");
 
-        assertEquals(3L, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 3 STAGING_OK berichten");
+        assertEquals(3L, brmo.getCountBerichten(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 3 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.2275c97ea44fceef93fde351a9ff06eeb3a1ecf3", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2019-01-14 15:54:26.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
@@ -217,13 +217,13 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         doRequest("/testdata-tnt/mergetest/wijziging_geenWaarde.xml");
 
         // check staging database inhoud
-        assertEquals(2L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertEquals(2L, brmo.getCountLaadProcessen(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         assertEquals("2019-01-14 15:54:26.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
         assertEquals("2019-01-14 16:11:52.0", laadproces.getValue(1, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.2275c97ea44fceef93fde351a9ff06eeb3a1ecf3", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2019-01-14 15:54:26.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
@@ -259,9 +259,9 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         doRequest("/testdata-tnt/mergetest/wijziging_nietmeesturen_ongeauthoriseerd.xml");
 
         // check staging database inhoud
-        assertEquals(2L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertEquals(2L, brmo.getCountLaadProcessen(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
-        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.2275c97ea44fceef93fde351a9ff06eeb3a1ecf3", bericht.getValue(0, "object_ref"), "object ref klopt niet");
 
@@ -292,8 +292,8 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         doRequest("/testdata-tnt/mergetest/wijziging_gevuldveldleeg.xml");
 
         // check staging database inhoud
-        assertEquals(2L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
-        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertEquals(2L, brmo.getCountLaadProcessen(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertTrue(1L <= brmo.getCountBerichten(BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.2275c97ea44fceef93fde351a9ff06eeb3a1ecf3", bericht.getValue(0, "object_ref"), "object ref klopt niet");
 

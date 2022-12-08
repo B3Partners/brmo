@@ -64,18 +64,18 @@ public class BrmoFramework {
     public static final String BRMO_METADATA_TABEL = "brmo_metadata";
 
     private StagingProxy stagingProxy = null;
-    private DataSource dataSourceRsgb = null;
+    private DataSource dataSourceRsgb;
+    private DataSource dataSourceRsgbBrk;
     private DataSource dataSourceRsgbBgt = null;
-    private DataSource dataSourceStaging = null;
+    private DataSource dataSourceStaging;
     private DataSource dataSourceTopNL = null;
-
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
     private boolean renewConnectionAfterCommit = false;
     private boolean orderBerichten = true;
     private String errorState = null;
 
-    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb) throws BrmoException {
+    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk) throws BrmoException {
         if (dataSourceStaging != null) {
             try {
                 stagingProxy = new StagingProxy(dataSourceStaging);
@@ -85,23 +85,10 @@ public class BrmoFramework {
         }
         this.dataSourceStaging = dataSourceStaging;
         this.dataSourceRsgb = dataSourceRsgb;
+        this.dataSourceRsgbBrk = dataSourceRsgbBrk;
     }
 
-    @Deprecated(since = "2.1.0")
-    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBgt) throws BrmoException {
-        if (dataSourceStaging != null) {
-            try {
-                stagingProxy = new StagingProxy(dataSourceStaging);
-            } catch (SQLException ex) {
-                throw new BrmoException(ex);
-            }
-        }
-        this.dataSourceRsgb = dataSourceRsgb;
-        this.dataSourceRsgbBgt = dataSourceRsgbBgt;
-        this.dataSourceStaging = dataSourceStaging;
-    }
-
-    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBgt, DataSource dataSourceTopNL) throws BrmoException {
+    public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBgt, DataSource dataSourceTopNL, DataSource dataSourceRsgbBrk) throws BrmoException {
         if (dataSourceStaging != null) {
             try {
                 stagingProxy = new StagingProxy(dataSourceStaging);
@@ -113,6 +100,7 @@ public class BrmoFramework {
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
         this.dataSourceStaging = dataSourceStaging;
         this.dataSourceTopNL = dataSourceTopNL;
+        this.dataSourceRsgbBrk = dataSourceRsgbBrk;
     }
 
     public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
@@ -150,13 +138,22 @@ public class BrmoFramework {
         }
     }
 
+    public String getRsgbBrkVersion() {
+        try {
+            return getVersion(dataSourceRsgbBrk);
+        } catch (SQLException ex) {
+            log.error("Versienummer kon niet uit de RSGB BRK database worden gelezen.", ex);
+            return "";
+        }
+    }
+
     private String getVersion(DataSource dataSource) throws SQLException {
         String sql = "SELECT waarde FROM " + BrmoFramework.BRMO_METADATA_TABEL + " WHERE naam = 'brmoversie'";
         final Connection c = dataSource.getConnection();
         GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler());
+        String o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler<>());
         DbUtils.closeQuietly(c);
-        return o.toString();
+        return o;
     }
 
     public void setEnablePipeline(boolean enablePipeline) {
@@ -212,7 +209,7 @@ public class BrmoFramework {
     }
 
     public Thread toRsgb(Bericht.STATUS status, ProgressUpdateListener listener) throws BrmoException {
-        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, status, listener);
+        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, status, listener);
         rsgbProxy.setEnablePipeline(enablePipeline);
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
@@ -251,7 +248,7 @@ public class BrmoFramework {
                 throw new BrmoException("Probleem met TopNL parser initialiseren: ", ex);
             }
         }else{
-            worker = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
+            worker = new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, mode, ids, listener);
             ((RsgbProxy) worker).setEnablePipeline(enablePipeline);
             if (pipelineCapacity != null) {
                 ((RsgbProxy) worker).setPipelineCapacity(pipelineCapacity);
@@ -266,7 +263,7 @@ public class BrmoFramework {
     }
 
     public Thread toRsgb(UpdateProcess updateProcess, ProgressUpdateListener listener) throws BrmoException  {
-        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, stagingProxy, updateProcess, listener);
+        RsgbProxy rsgbProxy = new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, updateProcess, listener);
         rsgbProxy.setEnablePipeline(enablePipeline);
         if(pipelineCapacity != null) {
             rsgbProxy.setPipelineCapacity(pipelineCapacity);
@@ -608,17 +605,17 @@ public class BrmoFramework {
         }
     }
 
-    public long getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) throws BrmoException {
+    public long getCountBerichten(String filterSoort, String filterStatus) throws BrmoException {
         try {
-            return stagingProxy.getCountBerichten(sort, dir, filterSoort, filterStatus);
+            return stagingProxy.getCountBerichten(filterSoort, filterStatus);
         } catch (SQLException ex) {
              throw new BrmoException(ex);
         }
     }
 
-    public long getCountLaadProcessen(String sort, String dir, String filterSoort, String filterStatus) throws BrmoException {
+    public long getCountLaadProcessen(String filterSoort, String filterStatus) throws BrmoException {
         try {
-            return stagingProxy.getCountLaadProces(sort, dir, filterSoort, filterStatus);
+            return stagingProxy.getCountLaadProces(filterSoort, filterStatus);
         } catch (SQLException ex) {
             throw new BrmoException(ex);
         }
