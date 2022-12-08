@@ -77,7 +77,7 @@ public class Art37aIntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());

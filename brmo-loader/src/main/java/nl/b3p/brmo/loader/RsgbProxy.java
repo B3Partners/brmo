@@ -201,29 +201,31 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     public void init() throws SQLException {
-        connRsgb = dataSourceRsgb.getConnection();
-        geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgb);
-
         ResultSet tablesRs = null;
-        try {
-            dbMetadata = connRsgb.getMetaData();
-            tablesRs = dbMetadata.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
-            while (tablesRs.next()) {
-                tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
+        if(null != this.dataSourceRsgb){
+            connRsgb = dataSourceRsgb.getConnection();
+            geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgb);
+
+            try {
+                dbMetadata = connRsgb.getMetaData();
+                tablesRs = dbMetadata.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
+                while (tablesRs.next()) {
+                    tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
+                }
+            } catch (SQLException sqlEx) {
+                throw new SQLException("Fout bij ophalen rsgb tabellen: ", sqlEx);
+            } finally {
+                DbUtils.closeQuietly(tablesRs);
             }
-        } catch (SQLException sqlEx) {
-            throw new SQLException("Fout bij ophalen rsgb tabellen: ", sqlEx);
-        } finally {
-            DbUtils.closeQuietly(tablesRs);
         }
 
-        if (dataSourceRsgbBrk != null) {
+        if (null != dataSourceRsgbBrk) {
             connRsgbBrk = dataSourceRsgbBrk.getConnection();
             geomToJdbcBrk = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgbBrk);
 
             try {
                 dbMetadataBrk = connRsgbBrk.getMetaData();
-                tablesRs = dbMetadataBrk.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
+                tablesRs = dbMetadataBrk.getTables(null, geomToJdbcBrk.getSchema(), "%", new String[]{"TABLE"});
                 while (tablesRs.next()) {
                     tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
                 }
@@ -285,9 +287,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     @Override
     public void run() {
         try {
-
             init();
-
             // Set all berichten to waiting
             long total = setWaitingStatus();
             if (listener != null) {
@@ -295,7 +295,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
-            if (total>0) {
+            if (total > 0) {
                 stagingProxy.handleBerichtenByJob(total, this, enablePipeline, pipelineCapacity, orderBerichten);
             }
         } catch (Exception e) {
@@ -322,7 +322,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         switch (mode) {
             case BY_STATUS:
-                 return stagingProxy.setBerichtenJobByStatus(status, orderBerichten);
+                return stagingProxy.setBerichtenJobByStatus(status, orderBerichten);
             case BY_IDS:
                 return stagingProxy.setBerichtenJobByIds(berichtIds, orderBerichten);
             case BY_LAADPROCES:
@@ -718,7 +718,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private StringBuilder parseNewData(List<TableData> oldList,
                                        List<TableData> newList,
-                                       StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection conn, DatabaseMetaData metaData) throws SQLException, ParseException, BrmoException {
+                                       StringBuilder loadLog,
+                                       GeometryJdbcConverter jdbcConverter,
+                                       Connection conn,
+                                       DatabaseMetaData metaData)
+            throws SQLException, ParseException, BrmoException {
         Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
 
         // parse new db xml
@@ -779,7 +783,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         split2.stop();
                     } else {
                         split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
-                        boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog,jdbcConverter, conn, metaData);
+                        boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                         // wis metadata en update hoofdtabel
                         if (inMetaDataTable) {
@@ -791,7 +795,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         if ("brondocument".equalsIgnoreCase(row.getTable())) {
                             // Nooit stukdeel wat al bestaat updaten, en ook alle
                             // volgende stukdelen niet
-
                             lastExistingBrondocumentId = row.getColumnValue("tabel_identificatie");
                             loadLog.append("\nRij voor stukdeel ").append(lastExistingBrondocumentId).append(" bestaat al, geen update");
                             continue;
@@ -837,10 +840,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 String waarde = newData.getComfortSearchValue();
                 String datum = newData.getComfortSnapshotDate();
                 
-                Split split2 = null;
+                Split split2;
 
                 for (TableRow row : newData.getRows()) {
-                    
                     String subclass = row.getTable();
                     loadLog.append(String.format("\n\nComfort data voor %s (class: %s, %s=%s), controleer aanwezigheid in tabel",
                             subclass, tabel, kolom, waarde));
@@ -863,7 +865,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 // Voeg herkomst van metadata toe, alleen voor superclass tabel!
                 split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
-                createInsertMetadataSql(tabel, kolom, waarde, datum, loadLog, jdbcConverter, conn);
+                if(metaData != dbMetadataBrk) {
+                    // overslaan voor brk 2
+                    createInsertMetadataSql(tabel, kolom, waarde, datum, loadLog, jdbcConverter, conn);
+                }
                 split2.stop();
 
                 splitComfort.stop();
@@ -1428,6 +1433,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData)
             throws SQLException, BrmoException {
 
+        if(metaData == this.dbMetadataBrk) {
+            // geen metadata voor brk 2
+            return false;
+        }
+
         if (connection == null || connection.isClosed()) {
             // if used not-threaded, init() required
             throw new BrmoException("No connection found");
@@ -1691,7 +1701,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         Object param = null;
         if (cm == null) {
             throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
-        } else if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())) {
+        } else if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())
+                // in geval we in een ander dan public schema werken, en postgis zit in public schema
+                || cm.getTypeName().replace("\"","").equals("public."+jdbcConverter.getGeomTypeName())) {
             param = jdbcConverter.convertToNativeGeometryObject(value);
         } else if (value != null) {
             param = GeometryJdbcConverter.convertToSQLObject(value, cm, tableName, column);

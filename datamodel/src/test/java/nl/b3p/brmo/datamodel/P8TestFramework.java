@@ -126,7 +126,7 @@ public abstract class P8TestFramework {
         dsRsgb.setUsername(params.getProperty("rsgb.username"));
         dsRsgb.setPassword(params.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
         rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
     }
 }

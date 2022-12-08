@@ -67,7 +67,7 @@ public class Mantis10315IntegrationTest extends AbstractDatabaseIntegrationTest 
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {

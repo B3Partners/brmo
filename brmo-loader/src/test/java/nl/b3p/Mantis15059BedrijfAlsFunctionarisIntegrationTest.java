@@ -94,7 +94,7 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         dsRsgb.setConnectionProperties(params.getProperty("rsgb.options", ""));
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());

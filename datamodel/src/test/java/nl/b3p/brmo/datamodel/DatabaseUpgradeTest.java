@@ -73,7 +73,8 @@ public class DatabaseUpgradeTest {
                 Arguments.of("staging"),
                 Arguments.of("rsgb"),
                 Arguments.of("rsgbbgt"),
-                Arguments.of("bag")
+                Arguments.of("bag"),
+                Arguments.of("brk")
         );
     }
 
@@ -110,8 +111,9 @@ public class DatabaseUpgradeTest {
         ds.setUrl(params.getProperty(dbName + ".url"));
         ds.setUsername(params.getProperty(dbName + ".username"));
         ds.setPassword(params.getProperty(dbName + ".password"));
+        ds.setDefaultSchema(params.getProperty(dbName + ".schema"));
         ds.setAccessToUnderlyingConnectionAllowed(true);
-        db = new DatabaseDataSourceConnection(ds);
+        db = new DatabaseDataSourceConnection(ds,params.getProperty(dbName + ".schema"));
 
         if (this.isOracle) {
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
@@ -176,7 +178,7 @@ public class DatabaseUpgradeTest {
                 "mb_pand",
                 "mb_benoemd_obj_adres",
                 "mb_ben_obj_nevenadres",
-                // brk
+                // brk 1
                 "mb_subject",
                 "mb_avg_subject",
                 "mb_util_app_re_kad_perceel",

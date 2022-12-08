@@ -359,11 +359,9 @@ public class StagingProxy {
                             final BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);
 
                             if(enablePipeline) {
-
                                 List<TableData> tableData = handler.transformToTableData(bericht);
                                 if(tableData == null) {
                                     // Exception during transform
-
                                     // updateProcessingResult() is aangeroepen, geen updateResultPipeline
                                     continue;
                                 }

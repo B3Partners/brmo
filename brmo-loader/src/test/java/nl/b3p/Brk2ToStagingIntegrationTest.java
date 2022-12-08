@@ -34,6 +34,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
@@ -89,7 +90,7 @@ class Brk2ToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 //        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-//        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+//        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgbbrk.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
@@ -109,7 +110,7 @@ class Brk2ToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(Brk2ToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(Objects.requireNonNull(Brk2ToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml")).toURI())));
 
         sequential.lock();
 

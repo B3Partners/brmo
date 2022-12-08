@@ -87,7 +87,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);

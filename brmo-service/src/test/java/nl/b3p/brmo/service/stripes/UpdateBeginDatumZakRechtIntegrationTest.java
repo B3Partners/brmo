@@ -76,7 +76,7 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         assumeTrue(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam) != null, "Het bestand met staging testdata zou moeten bestaan.");
         assumeTrue(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam) != null, "Het bestand met rsgb testdata zou moeten bestaan.");
 
-        rsgb = new DatabaseConnection(dsRsgb.getConnection());
+        rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
         staging = new DatabaseConnection(dsStaging.getConnection());
 
         if (isOracle) {

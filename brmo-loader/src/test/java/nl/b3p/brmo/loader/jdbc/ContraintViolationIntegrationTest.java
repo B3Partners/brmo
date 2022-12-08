@@ -74,7 +74,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
         staging = new DatabaseDataSourceConnection(dsStaging);
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 

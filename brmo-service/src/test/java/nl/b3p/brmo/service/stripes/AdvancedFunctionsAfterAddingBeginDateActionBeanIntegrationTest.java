@@ -84,7 +84,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         when(updatesBean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        rsgb = new DatabaseConnection(dsRsgb.getConnection());
+        rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
         staging = new DatabaseConnection(dsStaging.getConnection());
 
         if (isOracle) {
