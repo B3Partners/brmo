@@ -128,6 +128,9 @@ public class DataComfortXMLReader {
                         }
                         // Detecteer XML elementen of text
                         xer.next();
+                        while (xer.isWhiteSpace()) {
+                            xer.next();
+                        }
                         if (xer.isStartElement()) {
                             Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
                             Geometry geom = geometryReader.readGeometry();
