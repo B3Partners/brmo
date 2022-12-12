@@ -4,11 +4,25 @@ import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stax.StAXSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +40,8 @@ public class DataComfortXMLReader {
 
     private final TransformerFactory tf = TransformerFactory.newInstance();
     private final XMLInputFactory xif = XMLInputFactory.newInstance();
+    private final GeometryFactory gf;
+    private final Parser gmlParser;
 
     public DataComfortXMLReader() {
         xif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters

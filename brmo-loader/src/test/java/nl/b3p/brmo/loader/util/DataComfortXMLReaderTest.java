@@ -18,8 +18,6 @@ package nl.b3p.brmo.loader.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.stream.StreamSource;
@@ -37,15 +35,6 @@ public class DataComfortXMLReaderTest {
     private static final Log log = LogFactory.getLog(DataComfortXMLReaderTest.class);
     private static final DataComfortXMLReader reader = new DataComfortXMLReader();
     
-    @BeforeEach
-    public void setUp(){
-        log.debug("Testing DataComfortXMLReader");
-    }
-
-    @AfterEach
-    public void tearDown() {
-    }
-
     @Test
     public void testEmptyStackExceptionXML() throws Exception {
         InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("EmptyStackException.xml");
@@ -69,7 +58,7 @@ public class DataComfortXMLReaderTest {
         }
     }
     @Test
-    public void test() throws Exception {
+    public void testComfortdata() throws Exception {
         InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata.xml");
         StreamSource source = new StreamSource(stream);
         List<TableData> data = reader.readDataXML(source);
