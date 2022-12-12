@@ -79,9 +79,6 @@
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-gml-geometry-streaming</artifactId>
-            <!-- NOTE: we use a SNAPSHOT version, as this module is not yet released! -->
-            <version>26-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.geotools.jdbc</groupId>
