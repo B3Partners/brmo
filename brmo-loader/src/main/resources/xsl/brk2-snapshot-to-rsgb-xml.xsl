@@ -3,6 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:gml="http://www.opengis.net/gml/3.2"
+                xmlns:Stand="http://www.kadaster.nl/schemas/brk-levering/product-stand/v20211119"
                 xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20211119"
                 xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
                 xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
@@ -11,6 +12,8 @@
                 xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
                 xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
                 xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                xmlns:PubliekrechtelijkeBeperking="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking/v20210702"
+                xmlns:PubliekrechtelijkeBeperking-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking-ref/v20210702"
                 xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
                 xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
                 xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
@@ -22,8 +25,9 @@
                 xmlns:KIMNHRRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimnhr-rechtspersoon/v20210702"
                 version="1.0">
 
-    <xsl:strip-space elements="*"/>
-    <xsl:output indent="yes" method="xml" encoding="UTF-8" omit-xml-declaration="no"/>
+    <!--        <xsl:strip-space elements="*"/>-->
+    <!--     method="xml" omit-xml-declaration="no" -->
+<!--    <xsl:output encoding="UTF-8" version="1.0" standalone="yes" indent="yes"/>-->
 
     <!-- parameters van het bericht -->
     <xsl:param name="objectRef" select="'NL.KAD.OnroerendeZaak:onbekend'"/>
@@ -31,16 +35,13 @@
     <xsl:param name="volgordeNummer" select="'volgordeNummer-onbekend'"/>
     <xsl:param name="soort" select="'soort-onbekend'"/>
     <xsl:variable name="kad_oz_id"
-                  select="/Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Perceel/KadastraalObject:identificatie |
-                         /Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Appartementsrecht/KadastraalObject:identificatie"
+                  select="Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Perceel/KadastraalObject:identificatie |
+                         Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Appartementsrecht/KadastraalObject:identificatie"
     />
-    <xsl:variable name="toestandsdatum" select="/Snapshot:KadastraalObjectSnapshot/Snapshot:toestandsdatum"/>
-    <xsl:variable name="persoonId"/>
+    <xsl:variable name="toestandsdatum" select="Snapshot:KadastraalObjectSnapshot/Snapshot:toestandsdatum"/>
 
     <xsl:template match="/">
-        <xsl:text>&#xa;</xsl:text>
         <root>
-            <xsl:text>&#xa;</xsl:text>
             <xsl:comment>
                 <xsl:text>objectRef: </xsl:text>
                 <xsl:value-of select="$objectRef"/>
@@ -51,17 +52,6 @@
                 <xsl:text>, soort: </xsl:text>
                 <xsl:value-of select="$soort"/>
             </xsl:comment>
-            <xsl:text>&#xa;</xsl:text>
-            <xsl:comment>
-                <xsl:text>debug info: </xsl:text>
-                <xsl:text>&#xa;</xsl:text>
-                <xsl:text>kad_oz_id: </xsl:text><xsl:value-of select="$kad_oz_id"/>
-                <xsl:text>&#xa;</xsl:text>
-                <xsl:text>toestandsdatum: </xsl:text><xsl:value-of select="$toestandsdatum"/>
-                <xsl:text>&#xa;</xsl:text>
-            </xsl:comment>
-            <xsl:text>&#xa;</xsl:text>
-
             <data>
                 <xsl:if test="not(/Snapshot:KadastraalObjectSnapshot)">
                     <!--    
@@ -71,7 +61,7 @@
                     <delete>
                         <onroerendezaak>
                             <identificatie>
-                                <xsl:value-of select="substring($objectRef, 23)"/>
+                                <xsl:value-of select="$objectRef"/>
                             </identificatie>
                         </onroerendezaak>
                     </delete>
@@ -89,24 +79,100 @@
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
-                <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:*">
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
-
-                <!--  TODO
-                       <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Aantekening">-->
-                <!--                    <xsl:apply-templates select="."/>-->
-                <!--                </xsl:for-each>-->
 
                 <xsl:apply-templates select="/Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Perceel"/>
 
+                <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Hoofdsplitsing">
+                    <!-- eerst de splising, dan de appartementsrecht en dan andere rechten -->
+                    <xsl:call-template name="recht">
+                        <xsl:with-param name="recht" select="."/>
+                    </xsl:call-template>
+                </xsl:for-each>
+
                 <xsl:apply-templates select="/Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Appartementsrecht"/>
 
+                <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:*">
+                    <xsl:if test="local-name(.) != 'Hoofdsplitsing'">
+                        <xsl:call-template name="recht">
+                            <xsl:with-param name="recht" select="."/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+
+                <xsl:for-each
+                        select="/Snapshot:KadastraalObjectSnapshot/PubliekrechtelijkeBeperking:PubliekrechtelijkeBeperking">
+                    <xsl:apply-templates select="."/>
+                </xsl:for-each>
             </data>
         </root>
     </xsl:template>
 
-    <xsl:template match="/Snapshot:KadastraalObjectSnapshot/Adres:* | KIMBAGAdres:Verblijfsobject">
+    <xsl:template match="/Snapshot:KadastraalObjectSnapshot/PubliekrechtelijkeBeperking:PubliekrechtelijkeBeperking">
+        <xsl:variable name="beperkingId">
+            <xsl:call-template name="domein_identificatie">
+                <xsl:with-param name="id" select="PubliekrechtelijkeBeperking:identificatie"/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <!-- vult publiekrechtelijkebeperking en gerelateerde onroerendezaakbeperking -->
+        <publiekrechtelijkebeperking>
+            <identificatie>
+                <xsl:value-of select="$beperkingId"/>
+            </identificatie>
+            <grondslag>
+                <xsl:value-of select="PubliekrechtelijkeBeperking:grondslag/Typen:waarde"/>
+            </grondslag>
+            <datuminwerking>
+                <xsl:value-of select="PubliekrechtelijkeBeperking:datumInWerking"/>
+            </datuminwerking>
+            <datumbeeindiging>
+                <xsl:value-of select="PubliekrechtelijkeBeperking:datumBeeindiging"/>
+            </datumbeeindiging>
+            <isgebaseerdop>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id" select="PubliekrechtelijkeBeperking:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
+                </xsl:call-template>
+            </isgebaseerdop>
+            <bevoegdgezag>
+                <!-- NNP referentie
+                        zoek de bevoegdgezag
+                        ../PubliekrechtelijkeBeperking:BevoegdGezag/PubliekrechtelijkeBeperking:is/Persoon-ref:NietNatuurlijkPersoonRef
+                        welke verwijst naar deze publiekrechtelijkebeperking met
+                        ../PubliekrechtelijkeBeperking:BevoegdGezag/PubliekrechtelijkeBeperking:beheert/PubliekrechtelijkeBeperking-ref:PubliekrechtelijkeBeperkingRef
+                -->
+                <xsl:variable name="gezagLinkId">
+                    <xsl:value-of select="@id"/>
+                </xsl:variable>
+                <xsl:variable name="bevoegdGezag"
+                              select="../PubliekrechtelijkeBeperking:BevoegdGezag[PubliekrechtelijkeBeperking:beheert/PubliekrechtelijkeBeperking-ref:PubliekrechtelijkeBeperkingRef[substring(@xlink:href,2) = $gezagLinkId]]"/>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id"
+                                    select="$bevoegdGezag/PubliekrechtelijkeBeperking:is/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                </xsl:call-template>
+            </bevoegdgezag>
+        </publiekrechtelijkebeperking>
+
+        <xsl:for-each select="PubliekrechtelijkeBeperking:leidtTot">
+            <onroerendezaakbeperking>
+                <inonderzoek>
+                    <xsl:value-of select="PubliekrechtelijkeBeperking:inOnderzoek"/>
+                </inonderzoek>
+                <beperkt>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id"
+                                        select="PubliekrechtelijkeBeperking:beperkt/OnroerendeZaak-ref:PerceelRef |
+                                                PubliekrechtelijkeBeperking:beperkt/OnroerendeZaak-ref:AppartementsrechtRef"/>
+                    </xsl:call-template>
+                </beperkt>
+                <leidttot>
+                    <xsl:value-of select="$beperkingId"/>
+                </leidttot>
+            </onroerendezaakbeperking>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template
+            match="/Snapshot:KadastraalObjectSnapshot/Adres:* | KIMBAGAdres:Verblijfsobject |KIMBAGAdres:Standplaats|KIMBAGAdres:Ligplaats">
         <adres ignore-duplicates="yes">
             <identificatie>
                 <xsl:call-template name="domein_identificatie">
@@ -140,16 +206,32 @@
                         select="Adres:woonplaatsNaam|
                         Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:gerelateerdeOpenbareRuimte/KIMBAGAdres:OpenbareRuimte/KIMBAGAdres:gerelateerdeWoonplaats/KIMBAGAdres:Woonplaats/KIMBAGAdres:woonplaatsNaam"/>
             </woonplaatsnaam>
-            <openbareruimte><!-- TODO: BAG OPR id --></openbareruimte>
+            <openbareruimte>
+                <!-- TODO: BAG OPR id Controle -->
+                <xsl:value-of
+                        select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:gerelateerdeOpenbareRuimte/KIMBAGAdres:OpenbareRuimte/KIMBAGAdres:identificatie"/>
+            </openbareruimte>
             <verblijfsobject>
-                <xsl:value-of select="KIMBAGAdres:identificatie"/>
+                <xsl:if test="local-name() = 'Verblijfsobject'">
+                    <xsl:value-of select="KIMBAGAdres:identificatie"/>
+                </xsl:if>
             </verblijfsobject>
-            <adresseerbaarobject><!-- TODO: BAG ADR id --></adresseerbaarobject>
+            <adresseerbaarobject>
+                <!-- TODO: BAG ADR id -->
+            </adresseerbaarobject>
             <nummeraanduiding>
                 <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:identificatie"/>
             </nummeraanduiding>
-            <standplaats><!-- TODO: BAG STA id --></standplaats>
-            <ligplaats><!-- TODO: BAG LIG id --></ligplaats>
+            <standplaats>
+                <xsl:if test="local-name() = 'Standplaats'">
+                    <xsl:value-of select="KIMBAGAdres:identificatie"/>
+                </xsl:if>
+            </standplaats>
+            <ligplaats>
+                <xsl:if test="local-name() = 'Ligplaats'">
+                    <xsl:value-of select="KIMBAGAdres:identificatie"/>
+                </xsl:if>
+            </ligplaats>
             <nevenadres>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="KIMBAGAdres:nevenadres/Adres-ref:ObjectlocatieBinnenlandRef"/>
@@ -163,8 +245,13 @@
             <koppelingswijze>
                 <!-- TODO uitzoeken
                           https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
-                          ook relatie met onroerendezaak en meerder adressen
+                          ook relatie met onroerendezaak en meerdere adressen
+                          bijv. alleen voor het hoofdadres? of ook voor andere adressen?
+                          xpath is
+                          /Stand:Stand/Stand:stand/Snapshot:KadastraalObjectSnapshot/KadastraalObject:LocatieKadastraalObject/KadastraalObject:koppelingswijze/Typen:waarde
                  -->
+                <xsl:value-of
+                        select="../KadastraalObject:LocatieKadastraalObject/KadastraalObject:koppelingswijze/Typen:waarde"/>
             </koppelingswijze>
             <!-- adres buitenland -->
             <buitenlandadres>
@@ -181,14 +268,18 @@
             </land>
             <onroerendezaak>
                 <!-- TODO een onroerende zaak kan meer dan 1 adres hebben,
-                          dus waarschijnlijk/mogelijk een koppeltabel nodig
+                          dus misschien een koppeltabel nodig
                           VARCHAR REFERENCES onroerendezaak (identificatie)
+                          maar adres kan ook van een persoon (postlocatie/woonlocatie) zijn...
+                          <xsl:value-of select="$objectRef"/>
                 -->
+
             </onroerendezaak>
         </adres>
     </xsl:template>
 
-    <xsl:template match="/Snapshot:KadastraalObjectSnapshot/Recht:*">
+    <xsl:template name="recht">
+        <xsl:param name="recht"/>
         <!--
         TODO:
              - relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
@@ -202,102 +293,122 @@
         <recht column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="einddatumrecht">
             <identificatie>
                 <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="Recht:identificatie"/>
+                    <xsl:with-param name="id" select="$recht/Recht:identificatie"/>
                 </xsl:call-template>
             </identificatie>
             <aard>
-                <xsl:value-of select="Recht:identificatie/Recht:aard/Typen:waarde"/>
+                <xsl:value-of select="$recht/Recht:identificatie/Recht:aard/Typen:waarde"/>
             </aard>
             <toelichtingbewaarder><!-- TODO --></toelichtingbewaarder>
             <isbelastmet>
-                <xsl:value-of select="Recht:isBelastMet/Recht-ref:ZakelijkRechtRef"/>
+                <xsl:value-of select="$recht/Recht:isBelastMet/Recht-ref:ZakelijkRechtRef"/>
             </isbelastmet>
             <isgebaseerdop>
                 <xsl:call-template name="domein_identificatie">
                     <!-- TODO Er kunnen meer dan 1 stukdelen zijn...
                               bijv. NL.IMKAD.KadastraalObject.53730012470000             -->
-                    <xsl:with-param name="id" select="Recht:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
                 </xsl:call-template>
             </isgebaseerdop>
             <rustop>
                 <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="Recht:rustOp/OnroerendeZaak-ref:PerceelRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:rustOp/OnroerendeZaak-ref:PerceelRef"/>
                 </xsl:call-template>
             </rustop>
             <isontstaanuit>
                 <xsl:call-template name="domein_identificatie">
                     <!-- TODO check of dit ook een ondersplitsing kan zijn -->
-                    <xsl:with-param name="id" select="Recht:isOntstaanUit/Recht-ref:HoofdsplitsingRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:isOntstaanUit/Recht-ref:HoofdsplitsingRef"/>
                 </xsl:call-template>
             </isontstaanuit>
             <isbetrokkenbij>
                 <xsl:call-template name="domein_identificatie">
                     <!-- TODO check of dit ook een ondersplitsing kan zijn -->
-                    <xsl:with-param name="id" select="Recht:isBetrokkenBij/Recht-ref:HoofdsplitsingRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:isBetrokkenBij/Recht-ref:HoofdsplitsingRef"/>
                 </xsl:call-template>
             </isbetrokkenbij>
             <isbestemdtot>
                 <!-- TODO -->
             </isbestemdtot>
             <isbeperkttot>
-                <!-- TODO -->
+                <!-- TODO: dit kunnen er meer dan 1 zijn -->
             </isbeperkttot>
             <soort>
-                <xsl:value-of select="Recht:soort/Typen:waarde"/>
+                <xsl:value-of select="$recht/Recht:soort/Typen:waarde"/>
             </soort>
             <jaarlijksbedrag>
-                <xsl:value-of select="Recht:jaarlijksBedrag/Typen:som"/>
+                <xsl:value-of select="$recht/Recht:jaarlijksBedrag/Typen:som"/>
             </jaarlijksbedrag>
             <jaarlijksbedragbetreftmeerdere_oz>
-                <xsl:value-of select="Recht:betreftMeerOnroerendeZaken"/>
+                <xsl:value-of select="$recht/Recht:betreftMeerOnroerendeZaken"/>
             </jaarlijksbedragbetreftmeerdere_oz>
             <einddatumafkoop><!-- TODO --></einddatumafkoop>
             <indicatieoudeonroerendezaakbetrokken>
-                <xsl:value-of select="Recht:indicatieOudeOnroerendeZaakBetrokken"/>
+                <xsl:value-of select="$recht/Recht:indicatieOudeOnroerendeZaakBetrokken"/>
             </indicatieoudeonroerendezaakbetrokken>
             <heefthoofdzaak><!-- TODO --></heefthoofdzaak>
             <heeftverenigingvaneigenaren>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id"
-                                    select="Recht:heeftVerenigingVanEigenaren/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                                    select="$recht/Recht:heeftVerenigingVanEigenaren/Persoon-ref:NietNatuurlijkPersoonRef"/>
                 </xsl:call-template>
             </heeftverenigingvaneigenaren>
             <aandeel_teller>
-                <xsl:value-of select="Recht:aandeel/Recht:teller"/>
+                <xsl:value-of select="$recht/Recht:aandeel/Recht:teller"/>
             </aandeel_teller>
             <aandeel_noemer>
-                <xsl:value-of select="Recht:aandeel/Recht:noemer"/>
+                <xsl:value-of select="$recht/Recht:aandeel/Recht:noemer"/>
             </aandeel_noemer>
             <burgerlijkestaattentijdevanverkrijging>
-                <xsl:value-of select="Recht:burgerlijkeStaatTenTijdeVanVerkrijging/Typen:waarde"/>
+                <xsl:value-of select="$recht/Recht:burgerlijkeStaatTenTijdeVanVerkrijging/Typen:waarde"/>
             </burgerlijkestaattentijdevanverkrijging>
             <verkregennamenssamenwerkingsverband><!-- TODO --></verkregennamenssamenwerkingsverband>
             <betrokkenpartner>
                 <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="Recht:betrokkenPartner/Persoon-ref:NatuurlijkPersoonRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:betrokkenPartner/Persoon-ref:NatuurlijkPersoonRef"/>
                 </xsl:call-template>
             </betrokkenpartner>
-            <geldtvoor><!-- TODO --></geldtvoor>
+            <geldtvoor>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id"
+                                    select="$recht/Recht:geldtVoor/Recht-ref:GezamenlijkAandeelRef"/>
+                </xsl:call-template>
+            </geldtvoor>
             <betrokkensamenwerkingsverband>
-                <xsl:value-of select="Recht:betrokkenSamenwerkingsverband/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                <xsl:value-of select="$recht/Recht:betrokkenSamenwerkingsverband/Persoon-ref:NietNatuurlijkPersoonRef"/>
             </betrokkensamenwerkingsverband>
             <betrokkengorzenenaanwassen><!-- TODO --></betrokkengorzenenaanwassen>
             <tennamevan>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id"
-                                    select="Recht:tenNameVan/Persoon-ref:NatuurlijkPersoonRef | Recht:tenNameVan/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                                    select="$recht/Recht:tenNameVan/Persoon-ref:NatuurlijkPersoonRef | Recht:tenNameVan/Persoon-ref:NietNatuurlijkPersoonRef"/>
                 </xsl:call-template>
             </tennamevan>
             <omschrijving><!-- TODO --></omschrijving>
             <einddatumrecht alleen-archief="true"><!-- TODO --></einddatumrecht>
             <einddatum><!-- TODO --></einddatum>
-            <betreftgedeeltevanperceel>                <!-- TODO --></betreftgedeeltevanperceel>
-            <aantekeningrecht>                <!-- TODO --></aantekeningrecht>
-            <aantekeningkadastraalobject>                <!-- TODO --></aantekeningkadastraalobject>
+            <betreftgedeeltevanperceel>
+                <xsl:value-of select="$recht/Recht:betreftGedeelteVanPerceel"/>
+            </betreftgedeeltevanperceel>
+            <aantekeningrecht>
+                <!--
+                TODO : dit kunnen er meer dan 1 zijn, bijv. tenaamstellingen
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id" select="$recht/Recht:aantekeningRecht/Recht-ref:TenaamstellingRef">
+                </xsl:call-template>
+                 -->
+            </aantekeningrecht>
+            <aantekeningkadastraalobject>
+                <!-- TODO: valideren voor andere typen, check of dit er meer kunnen zijn -->
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id"
+                                    select="$recht/Recht:aantekeningKadastraalObject/OnroerendeZaak-ref:AppartementsrechtRef"/>
+                </xsl:call-template>
+            </aantekeningkadastraalobject>
             <betrokkenpersoon>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id"
-                                    select="Recht:betrokkenPersoon/Persoon-ref:NatuurlijkPersoonRef | Recht:betrokkenPersoon/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                                    select="$recht/Recht:betrokkenPersoon/Persoon-ref:NatuurlijkPersoonRef | Recht:betrokkenPersoon/Persoon-ref:NietNatuurlijkPersoonRef"/>
                 </xsl:call-template>
             </betrokkenpersoon>
             <begingeldigheid>
@@ -312,14 +423,19 @@
             <xsl:with-param name="oz" select="."/>
         </xsl:call-template>
 
-        <perceel column-dat-beg-geldh="begingeldigheid">
-            <identifcatie>
+        <perceel>
+            <begingeldigheid alleen-archief="true">
+                <xsl:value-of select="$toestandsdatum"/>
+            </begingeldigheid>
+            <identificatie>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="KadastraalObject:identificatie"/>
                 </xsl:call-template>
-            </identifcatie>
+            </identificatie>
             <begrenzing_perceel>
+                <!--     TODO geometrie parsen mislukt...
                 <xsl:copy-of select="OnroerendeZaak:begrenzingPerceel/gml:Surface"/>
+                -->
             </begrenzing_perceel>
             <kadastralegrootte>
                 <xsl:value-of select="OnroerendeZaak:kadastraleGrootte/OnroerendeZaak:waarde"/>
@@ -342,9 +458,6 @@
             <meettariefverschuldigd>
                 <xsl:value-of select="OnroerendeZaak:meettariefVerschuldigd"/>
             </meettariefverschuldigd>
-            <begingeldigheid alleen-archief="true">
-                <xsl:value-of select="$toestandsdatum"/>
-            </begingeldigheid>
         </perceel>
     </xsl:template>
 
@@ -353,20 +466,20 @@
             <xsl:with-param name="oz" select="."/>
         </xsl:call-template>
 
-        <appartementsrecht column-dat-beg-geldh="begingeldigheid">
-            <identifcatie>
+        <appartementsrecht>
+            <begingeldigheid alleen-archief="true">
+                <xsl:value-of select="$toestandsdatum"/>
+            </begingeldigheid>
+            <identificatie>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="KadastraalObject:identificatie"/>
                 </xsl:call-template>
-            </identifcatie>
+            </identificatie>
             <hoofdsplitsing>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="OnroerendeZaak:hoofdsplitsing/Recht-ref:HoofdsplitsingRef"/>
                 </xsl:call-template>
             </hoofdsplitsing>
-            <begingeldigheid alleen-archief="true">
-                <xsl:value-of select="$toestandsdatum"/>
-            </begingeldigheid>
         </appartementsrecht>
     </xsl:template>
 
@@ -380,10 +493,14 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <onroerendezaak column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="datum_einde_geldh">
-            <identifcatie>
+        <onroerendezaak column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="eindegeldigheid">
+            <begingeldigheid>
+                <xsl:value-of select="$toestandsdatum"/>
+            </begingeldigheid>
+            <eindegeldigheid></eindegeldigheid>
+            <identificatie>
                 <xsl:value-of select="$ozId"/>
-            </identifcatie>
+            </identificatie>
             <akrkadastralegemeentecode>
                 <xsl:value-of
                         select="$oz/OnroerendeZaak:kadastraleAanduiding/OnroerendeZaak:akrKadastraleGemeenteCode/Typen:code"/>
@@ -404,7 +521,7 @@
                 <xsl:value-of select="$oz/OnroerendeZaak:kadastraleAanduiding/OnroerendeZaak:sectie"/>
             </sectie>
             <perceelnummer>
-                <xsl:value-of select="$oz/OnroerendeZaak:kadastraleAanduiding/OnroerendeZaak:sectie"/>
+                <xsl:value-of select="$oz/OnroerendeZaak:kadastraleAanduiding/OnroerendeZaak:perceelnummer"/>
             </perceelnummer>
             <appartementsrechtvolgnummer>
                 <xsl:value-of
@@ -460,9 +577,6 @@
                 </xsl:if>
             </oudstdigitaalbekend>
             <ontstaanuit><!-- TODO deze ws kan weg omdat de relatie andersom is --></ontstaanuit>
-            <begingeldigheid>
-                <xsl:value-of select="$toestandsdatum"/>
-            </begingeldigheid>
         </onroerendezaak>
 
         <xsl:for-each select="OnroerendeZaak:ontstaanUitOZ/OnroerendeZaak:OnroerendeZaakFiliatie">
@@ -473,7 +587,7 @@
                 <betreft>
                     <xsl:value-of select="$ozId"/>
                 </betreft>
-                <begingeldigheid alleen-archief="true">
+                <begingeldigheid>
                     <xsl:value-of select="$toestandsdatum"/>
                 </begingeldigheid>
             </onroerendezaakfiliatie>
@@ -489,23 +603,12 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <xsl:variable name="persoonType">
-            <xsl:choose>
-                <xsl:when test="Persoon:betreft/KIMBRPPersoon:GeregistreerdPersoon">
-                    <xsl:value-of select="'INGESCHREVEN NATUURLIJK PERSOON'"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="'ANDER NATUURLIJK PERSOON'"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-
         <comfort search-table="natuurlijkpersoon" search-column="identificatie" search-value="{$comfort-search-value}"
                  snapshot-date="{$toestandsdatum}">
 
             <xsl:call-template name="persoon">
                 <xsl:with-param name="persoon" select="."/>
-                <xsl:with-param name="clazz" select="$persoonType"/>
+                <xsl:with-param name="clazz" select="'natuurlijkpersoon'"/>
             </xsl:call-template>
 
             <natuurlijkpersoon>
@@ -593,16 +696,6 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <xsl:variable name="persoonType">
-            <xsl:choose>
-                <xsl:when test="Persoon:betreft/KIMNHRRechtspersoon:Rechtspersoon">
-                    <xsl:value-of select="'INGESCHREVEN NIET-NATUURLIJK PERSOON'"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="'NIET-NATUURLIJK PERSOON'"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
 
         <comfort search-table="nietnatuurlijkpersoon" search-column="identificatie"
                  search-value="{$comfort-search-value}"
@@ -610,7 +703,7 @@
 
             <xsl:call-template name="persoon">
                 <xsl:with-param name="persoon" select="."/>
-                <xsl:with-param name="clazz" select="$persoonType"/>
+                <xsl:with-param name="clazz" select="'nietnatuurlijkpersoon'"/>
             </xsl:call-template>
 
             <nietnatuurlijkpersoon>
@@ -694,7 +787,9 @@
             <toelichtingbewaarder>
                 <xsl:value-of select="Stuk:toelichtingBewaarder"/>
             </toelichtingbewaarder>
-            <portefeuillenummer><!-- TODO --></portefeuillenummer>
+            <portefeuillenummer>
+                <xsl:value-of select="Stuk:portefeuillenummer"/>
+            </portefeuillenummer>
             <deel>
                 <xsl:value-of select="Stuk:deelEnNummer/Stuk:deel"/>
             </deel>
@@ -766,7 +861,7 @@
     <xsl:template name="domein_identificatie">
         <xsl:param name="id"/>
         <xsl:if test="$id">
-            <xsl:value-of select="$id/@domein"/><xsl:text>.</xsl:text><xsl:value-of select="$id"/>
+            <xsl:value-of select="$id/@domein"/><xsl:text>:</xsl:text><xsl:value-of select="$id"/>
         </xsl:if>
     </xsl:template>
 

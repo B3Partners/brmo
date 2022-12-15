@@ -70,6 +70,9 @@ CREATE TABLE onroerendezaak
     -- De Kadaster identificatie is een door het Kadaster toegekend landelijk uniek nummer aan dit object binnen de kadastrale registratie.
     -- NL.IMKAD.KadastraalObject
     identificatie                 VARCHAR(255) NOT NULL PRIMARY KEY,
+    -- metadata tbv archivering
+    begingeldigheid               DATE         NOT NULL,
+    eindegeldigheid               DATE         ,
     -- Kadastrale aanduiding is de unieke aanduiding van een onroerende zaak, die door het kadaster wordt vastgesteld.
     -- Kadastrale aanduiding is de unieke aanduiding van een onroerende zaak, die door het kadaster wordt vastgesteld.
     -- Percelen worden kadastraal aangeduid door vermelding van achtereenvolgens de kadastrale gemeente en sectie,
@@ -151,14 +154,14 @@ CREATE TABLE onroerendezaak
     -- Dit gegeven is te zien als het technisch tijdstip ontstaan van de eerste versie van een object.
     oudstdigitaalbekend           TIMESTAMP,
     -- TODO ontstaan uit OZ filiatie relatie?
-    ontstaanuit                   VARCHAR,
-    -- metadata tbv archivering
-    begingeldigheid               DATE         NOT NULL
+    ontstaanuit                   VARCHAR
 );
 
 CREATE TABLE archief_onroerendezaak
 (
     identificatie                 VARCHAR(255) NOT NULL,
+    begingeldigheid               DATE         NOT NULL,
+    eindegeldigheid               DATE         NOT NULL,
     akrkadastralegemeentecode     DECIMAL(4, 0),
     akrkadastralegemeente         VARCHAR(5),
     kadastralegemeentecode        DECIMAL(4, 0),
@@ -177,7 +180,6 @@ CREATE TABLE archief_onroerendezaak
     tijdstipontstaanobject        TIMESTAMP,
     oudstdigitaalbekend           TIMESTAMP,
     ontstaanuit                   VARCHAR,
-    begingeldigheid               DATE         NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 
@@ -272,7 +274,7 @@ CREATE TABLE natuurlijkpersoon
     -- https://developer.kadaster.nl/schemas/waardelijsten/BRPAanduidingGeslacht/ (gebruikt M/V/O)
     geslacht                             VARCHAR(8),
     -- De geboortedatum is de datum waarop de persoon is geboren: OnvolledigeDatum
-    geboortedatum                        VARCHAR(4),
+    geboortedatum                        VARCHAR(8),
     -- De geboorteplaats is de plaats of een plaatsbepaling, die aangeeft waar de persoon is geboren
     geboorteplaats                       VARCHAR(80),
     -- Het geboorteland is de naam, die het land aangeeft waar de persoon is geboren.
@@ -281,7 +283,7 @@ CREATE TABLE natuurlijkpersoon
     -- indicatieGeheim is een aanduiding die aangeeft dat gegevens van een persoon wel of niet verstrekt mogen worden.
     indicatiegeheim                      BOOLEAN,
     -- Datum overlijden is de datum waarop de persoon overleden is: OnvolledigeDatum
-    datumoverlijden                      VARCHAR(4),
+    datumoverlijden                      VARCHAR(8),
     partnergeslachtsnaam                 VARCHAR(200),
     partnervoornamen                     VARCHAR(200),
     partnervoorvoegselsgeslachtsnaam     VARCHAR(10)
@@ -330,10 +332,11 @@ CREATE TABLE publiekrechtelijkebeperking
 
 CREATE TABLE onroerendezaakbeperking
 (
-    identificatie VARCHAR(255) PRIMARY KEY NOT NULL,
+    -- geen identificatie?
+    -- identificatie VARCHAR(255) PRIMARY KEY NOT NULL,
+    -- TODO primary key bepalen
     inonderzoek   BOOLEAN,
     beperkt       VARCHAR REFERENCES onroerendezaak (identificatie),
-    -- publiekrechtelijkebeperking ref
     leidttot      VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie)
 );
 
@@ -365,11 +368,12 @@ CREATE TABLE archief_onroerendezaakfiliatie
 -- Tussen alle kadastrale percelen in Nederland geldt een topologische relatie (opdelende vlakstructuur), d.w.z. dat naburige perceelsvlakken naadloos moeten aansluiten en elkaar niet mogen overlappen.
 CREATE TABLE perceel
 (
-    identifcatie           VARCHAR(255)                  NOT NULL PRIMARY KEY,
+    identificatie          VARCHAR(255)                  NOT NULL PRIMARY KEY,
     -- Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is.
     -- Het gehele Nederlandse grondgebied is aaneengesloten kadastraal geïdentificeerd.
     -- Perceel is authentiek volgens de BRK voorzover het de attribuutsoorten kadastraleGrootte en KadatraleAanduiding betreft.
-    begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992) NOT NULL,
+    -- TODO:  NOT NULL toevoegen
+    begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992) ,
     -- De grootte van een perceel zoals vermeld in de kadastrale registratie. Het Kadaster bepaalt niet een excacte maar een indicatieve grootte.
     -- Grootte is alleen authentiek als soort groote de waarde "vastgesteld" heeft.
     -- De oppervlakgrootte wordt vastgelegd in vierkante meter.
@@ -396,14 +400,15 @@ CREATE TABLE perceel
     -- Meettarief verschuldigd is een indicatie voor het verschuldigd zijn van een meettarief bij overdracht van een perceel.
     -- Een meettarief is verschuldigd (indicator is true) als het een administratief gevormd perceel met voorlopige grenzen,
     -- of een perceel met voorlopige grenzen betreft dat nog nooit is overgedragen.
-    meettariefverschuldigd BOOLEAN,
-    -- metadata tbv archivering
-    begingeldigheid        DATE                          NOT NULL
+    meettariefverschuldigd BOOLEAN
+    -- alleen archief
+    -- begingeldigheid        DATE                          NOT NULL
 );
 
 CREATE TABLE archief_perceel
 (
     identificatie          VARCHAR(255)                  NOT NULL,
+    begingeldigheid        DATE                          NOT NULL,
     begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992) NOT NULL,
     kadastralegrootte      DECIMAL(9, 1),
     soortgrootte           VARCHAR(100),
@@ -412,7 +417,6 @@ CREATE TABLE archief_perceel
     perceelnummer_deltay   DECIMAL(10, 10),
     plaatscoordinaten      GEOMETRY(POINT, 28992)        NOT NULL,
     meettariefverschuldigd BOOLEAN,
-    begingeldigheid        DATE                          NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 
@@ -618,21 +622,21 @@ CREATE TABLE archief_recht
 
 CREATE TABLE appartementsrecht
 (
-    identifcatie    VARCHAR(255) NOT NULL PRIMARY KEY,
+    identificatie   VARCHAR(255) NOT NULL PRIMARY KEY,
     -- Een Hoofdsplitsing is het gesplitste Zakelijk recht van 1 of meer Percelen.
     -- De eigendom, het recht van erfpacht en/of het recht van opstal van 1 of enkele percelen (de zogenaamde grondpercelen) is gesplitst.
     -- De bij de hoofdsplitsing ontstane eigendom van de appartemenstrechten (de zogenaamde hoofd appartementsrechten) is
     -- tenaamgesteld van de gerechtigden (van het gesplitste zakelijke recht).
     -- Het gesplitste zakelijk recht van de grondpercelen is niet tenaamgesteld.
-    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie),
+    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie)
     -- metadata tbv archivering
-    begingeldigheid DATE         NOT NULL
+    -- begingeldigheid DATE         NOT NULL
 );
 CREATE TABLE archief_appartementsrecht
 (
     identificatie   VARCHAR(255) NOT NULL,
-    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie),
     begingeldigheid DATE         NOT NULL,
+    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie),
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 

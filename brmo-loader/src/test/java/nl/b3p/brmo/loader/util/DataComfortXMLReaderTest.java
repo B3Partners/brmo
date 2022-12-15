@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -86,10 +87,23 @@ public class DataComfortXMLReaderTest {
             assertEquals("MULTIPOLYGON (((214606.115 581137.695, 214593.637 581184.181, 214586.404 581200.432, 214582.757 581198.853, 214579.699 581197.328, 214595.919 581135.491, 214597.599 581135.854, 214606.115 581137.695)))",
                     row.getColumnValue("begrenzing_perceel"));
 
+    @Test
+    public void testBrk2() throws Exception {
+        InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata-brk2.xml");
+        StreamSource source = new StreamSource(stream);
+        List<TableData> data = reader.readDataXML(source);
+        assertEquals(7, data.size(), "Er zijn niet 7 table data elementen");
+        TableData d = data.get(2);
+        assertTrue(d.isComfortData(), "3e table data is comfort data.");
+        assertEquals(2, d.getRows().size(), "Er zijn vier table rows");
+        TableRow row = d.getRows().get(1);
+        assertEquals("21013149", row.getColumnValue("kvknummer"));
 
-        } catch (Exception e) {
-            fail(e.getLocalizedMessage());
-        }
+        d = data.get(6);
+        row = d.getRows().get(0);
+        assertEquals("NL.IMKAD.KadastraalObject.50247970000", row.getColumnValue("identificatie"));
+        assertEquals("19452.172 366623.187 19476.238 366616.882 19477.741 366622.664 19453.125 366629.117 19452.172 366623.187",
+                row.getColumnValue("posList"));
     }
 
     @Test

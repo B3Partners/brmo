@@ -46,7 +46,7 @@ class Brk2SnapshotXMLReaderTest {
                 arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", "2021-10-12", 1),
                 arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", "2021-11-02", 1),
                 // stand
-                arguments("/brk2/GEBKX02-20210610-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", "2021-06-10", -1)
+                arguments("/brk2//stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", "2021-06-10", -1)
         );
     }
 
