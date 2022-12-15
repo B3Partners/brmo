@@ -145,13 +145,17 @@ public final class CleanUtil {
                 new DefaultTable("nietnatuurlijkpersoon"),
                 new DefaultTable("onroerendezaak"),
                 new DefaultTable("perceel"),
-                new DefaultTable("onroerendezaakbeperking"),
                 new DefaultTable("onroerendezaakfiliatie"),
-                new DefaultTable("publiekrechtelijkebeperking"),
+
+
+
+
                 new DefaultTable("stuk"),
                 new DefaultTable("stukdeel"),
                 new DefaultTable("recht"),
                 new DefaultTable("appartementsrecht"),
+                new DefaultTable("publiekrechtelijkebeperking"),
+                new DefaultTable("onroerendezaakbeperking"),
                 new DefaultTable("archief_appartementsrecht"),
                 new DefaultTable("archief_onroerendezaak"),
                 new DefaultTable("archief_onroerendezaakfiliatie"),
