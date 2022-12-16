@@ -274,7 +274,7 @@ CREATE TABLE natuurlijkpersoon
     -- https://developer.kadaster.nl/schemas/waardelijsten/BRPAanduidingGeslacht/ (gebruikt M/V/O)
     geslacht                             VARCHAR(8),
     -- De geboortedatum is de datum waarop de persoon is geboren: OnvolledigeDatum
-    geboortedatum                        VARCHAR(8),
+    geboortedatum                        VARCHAR(10),
     -- De geboorteplaats is de plaats of een plaatsbepaling, die aangeeft waar de persoon is geboren
     geboorteplaats                       VARCHAR(80),
     -- Het geboorteland is de naam, die het land aangeeft waar de persoon is geboren.
@@ -283,7 +283,7 @@ CREATE TABLE natuurlijkpersoon
     -- indicatieGeheim is een aanduiding die aangeeft dat gegevens van een persoon wel of niet verstrekt mogen worden.
     indicatiegeheim                      BOOLEAN,
     -- Datum overlijden is de datum waarop de persoon overleden is: OnvolledigeDatum
-    datumoverlijden                      VARCHAR(8),
+    datumoverlijden                      VARCHAR(10),
     partnergeslachtsnaam                 VARCHAR(200),
     partnervoornamen                     VARCHAR(200),
     partnervoorvoegselsgeslachtsnaam     VARCHAR(10)

@@ -121,11 +121,11 @@ CREATE TABLE natuurlijkpersoon
     voornamen                            VARCHAR2(200),
     voorvoegselsgeslachtsnaam            VARCHAR2(10),
     geslacht                             VARCHAR2(8),
-    geboortedatum                        VARCHAR2(8),
+    geboortedatum                        VARCHAR2(10),
     geboorteplaats                       VARCHAR2(80),
     geboorteland                         VARCHAR2(40),
     indicatiegeheim                      NUMBER(1),
-    datumoverlijden                      VARCHAR2(8),
+    datumoverlijden                      VARCHAR2(10),
     partnergeslachtsnaam                 VARCHAR2(200),
     partnervoornamen                     VARCHAR2(200),
     partnervoorvoegselsgeslachtsnaam     VARCHAR2(10)
