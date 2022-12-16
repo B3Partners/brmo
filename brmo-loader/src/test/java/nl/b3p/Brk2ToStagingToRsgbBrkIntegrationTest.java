@@ -66,14 +66,14 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // { "filename", objectRef, aantalBerichten, aantalProcessen, aantalRecht, aantalStuk, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalPubliekRBeperking, aantalOnrndZkBeperking},
-                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 1, 1, 3, 2, 1, 1, 3 + 1, 0, 0),
-                arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 1, 1, 2, 1, 0, 1, 2, 0, 0),
-                arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 1, 1, 2, 1, 0, 1, 2, 0, 0),
-                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 1, 1, 2, 2, 1, 1, 4 + 1, 1, 1),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 1, 1, 3, 2, 2, 0, 2, 0, 0),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 1, 1, 3, 2, 1, 1, 2, 0, 0),
-                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 1, 1, 18, 4, 6, 2, 19 + 8, 0, 0)
+                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalPubliekRBeperking, aantalOnrndZkBeperking},
+                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 3, 2, 2, 1, 1, 3 + 1, 0, 0),
+                arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 2, 1, 1, 0, 1, 2, 0, 0),
+                arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 2, 1, 1, 0, 1, 2, 0, 0),
+                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 2, 2, 2, 1, 1, 4 + 1, 1, 1),
+                arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 2, 0, 2, 0, 0),
+                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, 2, 0, 0),
+                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, 19 + 8, 0, 0)
         );
     }
 
@@ -115,7 +115,7 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
         sequential.lock();
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        CleanUtil.cleanRSGB_BRK2(rsgbBrk);
+        // CleanUtil.cleanRSGB_BRK2(rsgbBrk);
 
         Assumptions.assumeTrue(0L == brmo.getCountBerichten(BrmoFramework.BR_BRK2, "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
@@ -127,8 +127,8 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
     void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-//        CleanUtil.cleanSTAGING(staging, false);
-//        CleanUtil.cleanRSGB_BRK2(rsgbBrk);
+        CleanUtil.cleanSTAGING(staging, false);
+        CleanUtil.cleanRSGB_BRK2(rsgbBrk);
         staging.close();
         dsStaging.close();
         rsgbBrk.close();
@@ -140,8 +140,8 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
     @DisplayName("BRK2 XML in staging laden en transformeren")
     @ParameterizedTest(name = "testBrk2XMLToStagingToRsgb #{index}: bestand: {0}, object ref: {1}")
     @MethodSource("argumentsProvider")
-    void testBericht(String bestandNaam, String objectRef, long aantalBerichten, long aantalProcessen,
-                     int aantalRecht, int aantalStuk, int aantalNP, int aantalNNP, int aantalAdres,
+    void testBericht(String bestandNaam, String objectRef,
+                     int aantalRecht, int aantalStuk, int aantalStukdeel, int aantalNP, int aantalNNP, int aantalAdres,
                      int aantalPubliekRBeperking, int aantalOnrndZkBeperking)
             throws Exception {
 
@@ -153,10 +153,10 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
         assertNotNull(berichten, "De verzameling berichten bestaat niet.");
-        assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
-        assertEquals(aantalBerichten, brmo.getCountLaadProcessen(BrmoFramework.BR_BRK2, "STAGING_OK"), "Het aantal berichten is niet als verwacht.");
+        assertEquals(1, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertEquals(1, brmo.getCountLaadProcessen(BrmoFramework.BR_BRK2, "STAGING_OK"), "Het aantal berichten is niet als verwacht.");
         assertNotNull(processen, "De verzameling processen bestaat niet.");
-        assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
+        assertEquals(1, processen.size(), "Het aantal processen is niet als verwacht.");
 
         for (Bericht b : berichten) {
             assertNotNull(b, "Bericht is 'null'");
@@ -168,7 +168,7 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(BrmoFramework.BR_BRK2, "RSGB_OK"),
+        assertEquals(1, brmo.getCountBerichten(BrmoFramework.BR_BRK2, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
@@ -180,7 +180,7 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
 
         ITable onroerendezaak = rsgbBrk.createDataSet().getTable("onroerendezaak");
-        assertEquals(aantalBerichten, onroerendezaak.getRowCount(), "Er is geen (of teveel) onroerendezaak");
+        assertEquals(1, onroerendezaak.getRowCount(), "Er is geen (of teveel) onroerendezaak");
         assertEquals(objectRef, onroerendezaak.getValue(0, "identificatie"),
                 "identificatie is niet gelijk aan objectRef");
 
@@ -215,6 +215,7 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         assertEquals(aantalStuk, stuk.getRowCount(), "Er is geen/teveel/te weinig stuk");
 
         ITable stukdeel = rsgbBrk.createDataSet().getTable("stukdeel");
+        assertEquals(aantalStukdeel, stukdeel.getRowCount(), "Het aantal stukdeel is niet als verwacht.");
 
         ITable persoon = rsgbBrk.createDataSet().getTable("persoon");
         assertEquals(aantalNP + aantalNNP, persoon.getRowCount(), "Het aantal persoon is niet als verwacht.");
