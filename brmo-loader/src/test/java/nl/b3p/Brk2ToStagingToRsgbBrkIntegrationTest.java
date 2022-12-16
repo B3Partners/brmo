@@ -66,14 +66,14 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // { "filename", objectRef, aantalBerichten, aantalProcessen, aantalRecht, aantalStuk, aantalNP, aantalNNP, aantalAdres, aantalPubliekRBeperking, aantalOnrndZkBeperking},
-                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 1, 1, 3, 2, 1, 1, 3, 0, 0),
+                // { "filename", objectRef, aantalBerichten, aantalProcessen, aantalRecht, aantalStuk, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalPubliekRBeperking, aantalOnrndZkBeperking},
+                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 1, 1, 3, 2, 1, 1, 3 + 1, 0, 0),
                 arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 1, 1, 2, 1, 0, 1, 2, 0, 0),
                 arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 1, 1, 2, 1, 0, 1, 2, 0, 0),
-                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 1, 1, 2, 2, 1, 1, 4, 1, 1),
-                // arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 1, 1, 17, 4, 6, 27, 3, 0, 0),
+                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 1, 1, 2, 2, 1, 1, 4 + 1, 1, 1),
                 arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 1, 1, 3, 2, 2, 0, 2, 0, 0),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 1, 1, 3, 2, 1, 1, 2, 0, 0)
+                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 1, 1, 3, 2, 1, 1, 2, 0, 0),
+                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 1, 1, 18, 4, 6, 2, 19 + 8, 0, 0)
         );
     }
 
@@ -115,7 +115,7 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
         sequential.lock();
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        //CleanUtil.cleanRSGB_BRK2(rsgbBrk);
+        CleanUtil.cleanRSGB_BRK2(rsgbBrk);
 
         Assumptions.assumeTrue(0L == brmo.getCountBerichten(BrmoFramework.BR_BRK2, "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
@@ -127,8 +127,8 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
     void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanSTAGING(staging, false);
-        CleanUtil.cleanRSGB_BRK2(rsgbBrk);
+//        CleanUtil.cleanSTAGING(staging, false);
+//        CleanUtil.cleanRSGB_BRK2(rsgbBrk);
         staging.close();
         dsStaging.close();
         rsgbBrk.close();

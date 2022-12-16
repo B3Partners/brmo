@@ -1,0 +1,1782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-12-16+01:00, zie commentaar in bericht.-->
+<Stand:Stand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:Stand="http://www.kadaster.nl/schemas/brk-levering/product-stand/v20211119">
+<Stand:productType>GemeentegebaseerdeStand</Stand:productType>
+<Stand:productSpecificatie>
+<Stand:kenmerknaam>Peildatum</Stand:kenmerknaam>
+<Stand:kenmerkwaarde>2022-11-15</Stand:kenmerkwaarde>
+</Stand:productSpecificatie>
+<Stand:productSpecificatie>
+<Stand:kenmerknaam>Gemeentenummer</Stand:kenmerknaam>
+<Stand:kenmerkwaarde>0106</Stand:kenmerkwaarde>
+</Stand:productSpecificatie>
+<Stand:productSpecificatie>
+<Stand:kenmerknaam>Gemeentenaam</Stand:kenmerknaam>
+<Stand:kenmerkwaarde>Assen</Stand:kenmerkwaarde>
+</Stand:productSpecificatie>
+<Stand:stand>
+<Snapshot:KadastraalObjectSnapshot xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20211119">
+   <Snapshot:referentie>30F9F9184FB1-788576B9</Snapshot:referentie>
+   <Snapshot:toestandsdatum>2022-01-26</Snapshot:toestandsdatum>
+   <OnroerendeZaak:Appartementsrecht xmlns:OnroerendeZaak="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak/v20211119"
+                                     id="ID.9329157220">
+      <KadastraalObject:identificatie xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702"
+                                      domein="NL.IMKAD.KadastraalObject">53850184110001</KadastraalObject:identificatie>
+      <OnroerendeZaak:kadastraleAanduiding>
+         <OnroerendeZaak:akrKadastraleGemeenteCode>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">106</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ASN00</Typen:waarde>
+         </OnroerendeZaak:akrKadastraleGemeenteCode>
+         <OnroerendeZaak:kadastraleGemeente>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">59</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Assen</Typen:waarde>
+         </OnroerendeZaak:kadastraleGemeente>
+         <OnroerendeZaak:sectie>S</OnroerendeZaak:sectie>
+         <OnroerendeZaak:perceelnummer>1841</OnroerendeZaak:perceelnummer>
+         <OnroerendeZaak:appartementsrechtVolgnummer>1</OnroerendeZaak:appartementsrechtVolgnummer>
+      </OnroerendeZaak:kadastraleAanduiding>
+      <OnroerendeZaak:aardCultuurBebouwd>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">27</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Bedrijvigheid (detailhandel)</Typen:waarde>
+      </OnroerendeZaak:aardCultuurBebouwd>
+      <OnroerendeZaak:koopsom>
+         <OnroerendeZaak:TypeKoopsom>
+            <OnroerendeZaak:bedrag>
+               <Typen:som xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1021000</Typen:som>
+               <Typen:valuta xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">
+                  <Typen:code>EUR</Typen:code>
+                  <Typen:waarde>Euro</Typen:waarde>
+               </Typen:valuta>
+            </OnroerendeZaak:bedrag>
+            <OnroerendeZaak:koopjaar>2005</OnroerendeZaak:koopjaar>
+            <OnroerendeZaak:indicatieMeerObjecten>true</OnroerendeZaak:indicatieMeerObjecten>
+         </OnroerendeZaak:TypeKoopsom>
+      </OnroerendeZaak:koopsom>
+      <OnroerendeZaak:tijdstipOntstaanObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <OnroerendeZaak:tijdstipOntstaanObjectNilreason>waardeOnbekend</OnroerendeZaak:tijdstipOntstaanObjectNilreason>
+      <OnroerendeZaak:oudstDigitaalBekend>
+         <Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1989-01-23</Typen:datum>
+         <Typen:tijd xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:nil="true"/>
+         <Typen:tijdNilreason xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">waardeOnbekend</Typen:tijdNilreason>
+      </OnroerendeZaak:oudstDigitaalBekend>
+      <OnroerendeZaak:hoofdsplitsing>
+         <Recht-ref:HoofdsplitsingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      domein="NL.IMKAD.AppartementsrechtSplitsing">50000221</Recht-ref:HoofdsplitsingRef>
+      </OnroerendeZaak:hoofdsplitsing>
+   </OnroerendeZaak:Appartementsrecht>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157221"
+                                               domein="NL.IMKAD.AdresLocatie">6797864</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157222"
+                                               domein="NL.IMKAD.AdresLocatie">6797868</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157223"
+                                               domein="NL.IMKAD.AdresLocatie">6797873</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157224"
+                                               domein="NL.IMKAD.AdresLocatie">6797877</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157225"
+                                               domein="NL.IMKAD.AdresLocatie">6797881</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157226"
+                                               domein="NL.IMKAD.AdresLocatie">6812765</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157227"
+                                               domein="NL.IMKAD.AdresLocatie">6812769</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM_GEO</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratiefgeometrisch</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157228"
+                                               domein="NL.IMKAD.AdresLocatie">6812773</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratief</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157229"
+                                               domein="NL.IMKAD.AdresLocatie">12799490</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratief</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157230"
+                                               domein="NL.IMKAD.AdresLocatie">12799491</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <KadastraalObject:LocatieKadastraalObject xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702">
+      <KadastraalObject:koppelingswijze>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ADM</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">administratief</Typen:waarde>
+      </KadastraalObject:koppelingswijze>
+      <KadastraalObject:heeft>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </KadastraalObject:heeft>
+      <KadastraalObject:betreft>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157231"
+                                               domein="NL.IMKAD.AdresLocatie">12799492</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KadastraalObject:betreft>
+   </KadastraalObject:LocatieKadastraalObject>
+   <Recht:ZakelijkRecht xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                        id="ID.9329157218">
+      <Recht:identificatie domein="NL.IMKAD.ZakelijkRecht">50235223</Recht:identificatie>
+      <Recht:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigendom (recht van)</Typen:waarde>
+      </Recht:aard>
+      <Recht:isBelastMet>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157211"
+                                     domein="NL.IMKAD.ZakelijkRecht">50412290</Recht-ref:ZakelijkRechtRef>
+      </Recht:isBelastMet>
+      <Recht:rustOp>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </Recht:rustOp>
+      <Recht:isOntstaanUit>
+         <Recht-ref:HoofdsplitsingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157160"
+                                      domein="NL.IMKAD.AppartementsrechtSplitsing">50000221</Recht-ref:HoofdsplitsingRef>
+      </Recht:isOntstaanUit>
+   </Recht:ZakelijkRecht>
+   <Recht:ZakelijkRecht xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                        id="ID.9329157211">
+      <Recht:identificatie domein="NL.IMKAD.ZakelijkRecht">50412290</Recht:identificatie>
+      <Recht:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">12</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Vruchtgebruik (recht van)</Typen:waarde>
+      </Recht:aard>
+      <Recht:isBeperktTot>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157206"
+                                      domein="NL.IMKAD.Tenaamstelling">50097229</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157205"
+                                      domein="NL.IMKAD.Tenaamstelling">50097230</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157209"
+                                      domein="NL.IMKAD.Tenaamstelling">50097231</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157210"
+                                      domein="NL.IMKAD.Tenaamstelling">50097232</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157208"
+                                      domein="NL.IMKAD.Tenaamstelling">50097233</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157207"
+                                      domein="NL.IMKAD.Tenaamstelling">50097234</Recht-ref:TenaamstellingRef>
+      </Recht:isBeperktTot>
+   </Recht:ZakelijkRecht>
+   <Recht:Hoofdsplitsing xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157160">
+      <Recht:identificatie domein="NL.IMKAD.AppartementsrechtSplitsing">50000221</Recht:identificatie>
+      <Recht:heeftVerenigingVanEigenaren>
+         <Persoon-ref:NietNatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157161"
+                                               domein="NL.IMKAD.Persoon">58162710</Persoon-ref:NietNatuurlijkPersoonRef>
+      </Recht:heeftVerenigingVanEigenaren>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157163"
+                               domein="NL.IMKAD.Stukdeel">1022571435</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+   </Recht:Hoofdsplitsing>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157209">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097231</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Ongehuwd en geen geregistreerd partnerschap</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:geldtVoor>
+         <Recht-ref:GezamenlijkAandeelRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="#ID.9329157165"
+                                          domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht-ref:GezamenlijkAandeelRef>
+      </Recht:geldtVoor>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157189"
+                                           domein="NL.IMKAD.Persoon">23331955</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157205">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097230</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Ongehuwd en geen geregistreerd partnerschap</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:geldtVoor>
+         <Recht-ref:GezamenlijkAandeelRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="#ID.9329157165"
+                                          domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht-ref:GezamenlijkAandeelRef>
+      </Recht:geldtVoor>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157183"
+                                           domein="NL.IMKAD.Persoon">23331926</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157204">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097235</Recht:identificatie>
+      <Recht:aandeel>
+         <Recht:teller>1</Recht:teller>
+         <Recht:noemer>2</Recht:noemer>
+      </Recht:aandeel>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Ongehuwd en geen geregistreerd partnerschap</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157193"
+                                           domein="NL.IMKAD.Persoon">58111695</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157206">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097229</Recht:identificatie>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:geldtVoor>
+         <Recht-ref:GezamenlijkAandeelRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="#ID.9329157165"
+                                          domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht-ref:GezamenlijkAandeelRef>
+      </Recht:geldtVoor>
+      <Recht:tenNameVan>
+         <Persoon-ref:NietNatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157195"
+                                               domein="NL.IMKAD.Persoon">83308054</Persoon-ref:NietNatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157207">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097234</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Gehuwd</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:geldtVoor>
+         <Recht-ref:GezamenlijkAandeelRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="#ID.9329157165"
+                                          domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht-ref:GezamenlijkAandeelRef>
+      </Recht:geldtVoor>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157191"
+                                           domein="NL.IMKAD.Persoon">23102595</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157208">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097233</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Gehuwd</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:geldtVoor>
+         <Recht-ref:GezamenlijkAandeelRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="#ID.9329157165"
+                                          domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht-ref:GezamenlijkAandeelRef>
+      </Recht:geldtVoor>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157187"
+                                           domein="NL.IMKAD.Persoon">23102585</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157210">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097232</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Gehuwd</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157218"
+                                     domein="NL.IMKAD.ZakelijkRecht">50235223</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:geldtVoor>
+         <Recht-ref:GezamenlijkAandeelRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          xlink:href="#ID.9329157165"
+                                          domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht-ref:GezamenlijkAandeelRef>
+      </Recht:geldtVoor>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157185"
+                                           domein="NL.IMKAD.Persoon">23331940</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157199">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097236</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Gehuwd</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157211"
+                                     domein="NL.IMKAD.ZakelijkRecht">50412290</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157200"
+                               domein="NL.IMKAD.Stukdeel">1022934787</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157148"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000006241758</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157187"
+                                           domein="NL.IMKAD.Persoon">23102585</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157203">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097237</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Gehuwd</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157211"
+                                     domein="NL.IMKAD.ZakelijkRecht">50412290</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157200"
+                               domein="NL.IMKAD.Stukdeel">1022934787</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157148"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000006241758</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157191"
+                                           domein="NL.IMKAD.Persoon">23102595</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157202">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097238</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Ongehuwd en geen geregistreerd partnerschap</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157211"
+                                     domein="NL.IMKAD.ZakelijkRecht">50412290</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157147"
+                               domein="NL.IMKAD.Stukdeel">1022840446</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157156"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000013954991</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157189"
+                                           domein="NL.IMKAD.Persoon">23331955</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157197">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097239</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Ongehuwd en geen geregistreerd partnerschap</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157211"
+                                     domein="NL.IMKAD.ZakelijkRecht">50412290</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157147"
+                               domein="NL.IMKAD.Stukdeel">1022840446</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157156"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000013954991</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157183"
+                                           domein="NL.IMKAD.Persoon">23331926</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:Tenaamstelling xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                         id="ID.9329157198">
+      <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50097240</Recht:identificatie>
+      <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Gehuwd</Typen:waarde>
+      </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+      <Recht:van>
+         <Recht-ref:ZakelijkRechtRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="#ID.9329157211"
+                                     domein="NL.IMKAD.ZakelijkRecht">50412290</Recht-ref:ZakelijkRechtRef>
+      </Recht:van>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157147"
+                               domein="NL.IMKAD.Stukdeel">1022840446</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157156"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000013954991</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+      <Recht:tenNameVan>
+         <Persoon-ref:NatuurlijkPersoonRef xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+                                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                                           xlink:href="#ID.9329157185"
+                                           domein="NL.IMKAD.Persoon">23331940</Persoon-ref:NatuurlijkPersoonRef>
+      </Recht:tenNameVan>
+   </Recht:Tenaamstelling>
+   <Recht:GezamenlijkAandeel xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                             id="ID.9329157165">
+      <Recht:identificatie domein="NL.IMKAD.GezamenlijkAandeel">50186904</Recht:identificatie>
+      <Recht:aandeel>
+         <Recht:teller>1</Recht:teller>
+         <Recht:noemer>2</Recht:noemer>
+      </Recht:aandeel>
+   </Recht:GezamenlijkAandeel>
+   <Recht:Aantekening xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                      id="ID.9329157144">
+      <Recht:identificatie domein="NL.IMKAD.Aantekening">50171685</Recht:identificatie>
+      <Recht:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">39</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Raadpleeg brondocument</Typen:waarde>
+      </Recht:aard>
+      <Recht:betreftGedeelteVanPerceel>false</Recht:betreftGedeelteVanPerceel>
+      <Recht:aantekeningRecht>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157209"
+                                      domein="NL.IMKAD.Tenaamstelling">50097231</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157205"
+                                      domein="NL.IMKAD.Tenaamstelling">50097230</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157206"
+                                      domein="NL.IMKAD.Tenaamstelling">50097229</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157210"
+                                      domein="NL.IMKAD.Tenaamstelling">50097232</Recht-ref:TenaamstellingRef>
+      </Recht:aantekeningRecht>
+      <Recht:aantekeningKadastraalObject>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </Recht:aantekeningKadastraalObject>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+   </Recht:Aantekening>
+   <Recht:Aantekening xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+                      id="ID.9329157153">
+      <Recht:identificatie domein="NL.IMKAD.Aantekening">50171682</Recht:identificatie>
+      <Recht:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">14</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Aanvaarding nalatenschap onder voorrecht van boedelbeschrijving</Typen:waarde>
+      </Recht:aard>
+      <Recht:betreftGedeelteVanPerceel>false</Recht:betreftGedeelteVanPerceel>
+      <Recht:aantekeningRecht>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157202"
+                                      domein="NL.IMKAD.Tenaamstelling">50097238</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157197"
+                                      domein="NL.IMKAD.Tenaamstelling">50097239</Recht-ref:TenaamstellingRef>
+         <Recht-ref:TenaamstellingRef xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+                                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                                      xlink:href="#ID.9329157198"
+                                      domein="NL.IMKAD.Tenaamstelling">50097240</Recht-ref:TenaamstellingRef>
+      </Recht:aantekeningRecht>
+      <Recht:aantekeningKadastraalObject>
+         <OnroerendeZaak-ref:AppartementsrechtRef xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#ID.9329157220"
+                                                  domein="NL.IMKAD.KadastraalObject">53850184110001</OnroerendeZaak-ref:AppartementsrechtRef>
+      </Recht:aantekeningKadastraalObject>
+      <Recht:isGebaseerdOp>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157154"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000013954932</Stuk-ref:StukdeelRef>
+      </Recht:isGebaseerdOp>
+   </Recht:Aantekening>
+   <Persoon:NatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                              id="ID.9329157187">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">23102585</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:woonlocatie>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157188"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.3603844</Adres-ref:ObjectlocatieBinnenlandRef>
+      </Persoon:woonlocatie>
+      <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+      <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+      <Persoon:betreft>
+         <KIMBRPPersoon:GeregistreerdPersoon xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903">
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+            <KIMBRPPersoon:aanduidingNaamgebruik>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">E</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigen geslachtsnaam</Typen:waarde>
+            </KIMBRPPersoon:aanduidingNaamgebruik>
+            <KIMBRPPersoon:naam>
+               <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>297d25</KIMBRPPersoon:geslachtsnaam>
+                  <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>eae3 1a4b 68a3cb</KIMBRPPersoon:voornamen>
+                  <!--Anonimisatie 'KIMBRPPersoon:voorvoegselsgeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voorvoegselsgeslachtsnaam>970</KIMBRPPersoon:voorvoegselsgeslachtsnaam>
+               </KIMBRPPersoon:Naam>
+            </KIMBRPPersoon:naam>
+            <KIMBRPPersoon:geslacht>
+               <KIMBRPPersoon:Geslacht>
+                  <KIMBRPPersoon:geslachtsaanduiding>
+                     <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">M</Typen:code>
+                     <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Man</Typen:waarde>
+                  </KIMBRPPersoon:geslachtsaanduiding>
+               </KIMBRPPersoon:Geslacht>
+            </KIMBRPPersoon:geslacht>
+            <KIMBRPPersoon:geboorte>
+               <KIMBRPPersoon:Geboorte>
+                  <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">20281129</Typen:datum>
+                  </KIMBRPPersoon:geboortedatum>
+                  <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>44fd77be9cf8f</KIMBRPPersoon:geboorteplaats>
+               </KIMBRPPersoon:Geboorte>
+            </KIMBRPPersoon:geboorte>
+            <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+         </KIMBRPPersoon:GeregistreerdPersoon>
+      </Persoon:betreft>
+   </Persoon:NatuurlijkPersoon>
+   <Persoon:NatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                              id="ID.9329157191">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">23102595</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:woonlocatie>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157192"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.9759283</Adres-ref:ObjectlocatieBinnenlandRef>
+      </Persoon:woonlocatie>
+      <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+      <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+      <Persoon:betreft>
+         <KIMBRPPersoon:GeregistreerdPersoon xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903">
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+            <KIMBRPPersoon:aanduidingNaamgebruik>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">E</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigen geslachtsnaam</Typen:waarde>
+            </KIMBRPPersoon:aanduidingNaamgebruik>
+            <KIMBRPPersoon:naam>
+               <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>297d25</KIMBRPPersoon:geslachtsnaam>
+                  <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>789cfd c7cf8 6e17a112</KIMBRPPersoon:voornamen>
+                  <!--Anonimisatie 'KIMBRPPersoon:voorvoegselsgeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voorvoegselsgeslachtsnaam>970</KIMBRPPersoon:voorvoegselsgeslachtsnaam>
+               </KIMBRPPersoon:Naam>
+            </KIMBRPPersoon:naam>
+            <KIMBRPPersoon:geslacht>
+               <KIMBRPPersoon:Geslacht>
+                  <KIMBRPPersoon:geslachtsaanduiding>
+                     <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">M</Typen:code>
+                     <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Man</Typen:waarde>
+                  </KIMBRPPersoon:geslachtsaanduiding>
+               </KIMBRPPersoon:Geslacht>
+            </KIMBRPPersoon:geslacht>
+            <KIMBRPPersoon:geboorte>
+               <KIMBRPPersoon:Geboorte>
+                  <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">20200226</Typen:datum>
+                  </KIMBRPPersoon:geboortedatum>
+                  <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>44fd77be9cf8f</KIMBRPPersoon:geboorteplaats>
+               </KIMBRPPersoon:Geboorte>
+            </KIMBRPPersoon:geboorte>
+            <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+         </KIMBRPPersoon:GeregistreerdPersoon>
+      </Persoon:betreft>
+   </Persoon:NatuurlijkPersoon>
+   <Persoon:NatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                              id="ID.9329157183">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">23331926</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:woonlocatie>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157184"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.1962051</Adres-ref:ObjectlocatieBinnenlandRef>
+      </Persoon:woonlocatie>
+      <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+      <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+      <Persoon:betreft>
+         <KIMBRPPersoon:GeregistreerdPersoon xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903">
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+            <KIMBRPPersoon:aanduidingNaamgebruik>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">E</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigen geslachtsnaam</Typen:waarde>
+            </KIMBRPPersoon:aanduidingNaamgebruik>
+            <KIMBRPPersoon:naam>
+               <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>6cb08</KIMBRPPersoon:geslachtsnaam>
+                  <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>721ab1 6cbc5d03e</KIMBRPPersoon:voornamen>
+               </KIMBRPPersoon:Naam>
+            </KIMBRPPersoon:naam>
+            <KIMBRPPersoon:geslacht>
+               <KIMBRPPersoon:Geslacht>
+                  <KIMBRPPersoon:geslachtsaanduiding>
+                     <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">V</Typen:code>
+                     <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Vrouw</Typen:waarde>
+                  </KIMBRPPersoon:geslachtsaanduiding>
+               </KIMBRPPersoon:Geslacht>
+            </KIMBRPPersoon:geslacht>
+            <KIMBRPPersoon:geboorte>
+               <KIMBRPPersoon:Geboorte>
+                  <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">19460414</Typen:datum>
+                  </KIMBRPPersoon:geboortedatum>
+                  <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>44fd77be9cf8f</KIMBRPPersoon:geboorteplaats>
+               </KIMBRPPersoon:Geboorte>
+            </KIMBRPPersoon:geboorte>
+            <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+         </KIMBRPPersoon:GeregistreerdPersoon>
+      </Persoon:betreft>
+   </Persoon:NatuurlijkPersoon>
+   <Persoon:NatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                              id="ID.9329157185">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">23331940</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:woonlocatie>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157186"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.8898937</Adres-ref:ObjectlocatieBinnenlandRef>
+      </Persoon:woonlocatie>
+      <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+      <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+      <Persoon:betreft>
+         <KIMBRPPersoon:GeregistreerdPersoon xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903">
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+            <KIMBRPPersoon:aanduidingNaamgebruik>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">E</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigen geslachtsnaam</Typen:waarde>
+            </KIMBRPPersoon:aanduidingNaamgebruik>
+            <KIMBRPPersoon:naam>
+               <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>6cb08</KIMBRPPersoon:geslachtsnaam>
+                  <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>685560 79e05db0ca 6ad46496</KIMBRPPersoon:voornamen>
+               </KIMBRPPersoon:Naam>
+            </KIMBRPPersoon:naam>
+            <KIMBRPPersoon:geslacht>
+               <KIMBRPPersoon:Geslacht>
+                  <KIMBRPPersoon:geslachtsaanduiding>
+                     <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">V</Typen:code>
+                     <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Vrouw</Typen:waarde>
+                  </KIMBRPPersoon:geslachtsaanduiding>
+               </KIMBRPPersoon:Geslacht>
+            </KIMBRPPersoon:geslacht>
+            <KIMBRPPersoon:geboorte>
+               <KIMBRPPersoon:Geboorte>
+                  <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">19870728</Typen:datum>
+                  </KIMBRPPersoon:geboortedatum>
+                  <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>44fd77be9cf8f</KIMBRPPersoon:geboorteplaats>
+               </KIMBRPPersoon:Geboorte>
+            </KIMBRPPersoon:geboorte>
+            <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+         </KIMBRPPersoon:GeregistreerdPersoon>
+      </Persoon:betreft>
+   </Persoon:NatuurlijkPersoon>
+   <Persoon:NatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                              id="ID.9329157189">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">23331955</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:postlocatie>
+         <Adres-ref:ObjectlocatieBuitenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157190"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.546396826</Adres-ref:ObjectlocatieBuitenlandRef>
+      </Persoon:postlocatie>
+      <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+      <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+      <Persoon:betreft>
+         <KIMBRPPersoon:GeregistreerdPersoon xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903">
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+            <KIMBRPPersoon:aanduidingNaamgebruik>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">E</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigen geslachtsnaam</Typen:waarde>
+            </KIMBRPPersoon:aanduidingNaamgebruik>
+            <KIMBRPPersoon:landWaarnaarVertrokken>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">7050</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Portugal</Typen:waarde>
+            </KIMBRPPersoon:landWaarnaarVertrokken>
+            <KIMBRPPersoon:naam>
+               <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>6cb08</KIMBRPPersoon:geslachtsnaam>
+                  <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>8b80ba7 37a510e</KIMBRPPersoon:voornamen>
+               </KIMBRPPersoon:Naam>
+            </KIMBRPPersoon:naam>
+            <KIMBRPPersoon:geslacht>
+               <KIMBRPPersoon:Geslacht>
+                  <KIMBRPPersoon:geslachtsaanduiding>
+                     <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">M</Typen:code>
+                     <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Man</Typen:waarde>
+                  </KIMBRPPersoon:geslachtsaanduiding>
+               </KIMBRPPersoon:Geslacht>
+            </KIMBRPPersoon:geslacht>
+            <KIMBRPPersoon:geboorte>
+               <KIMBRPPersoon:Geboorte>
+                  <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">20060828</Typen:datum>
+                  </KIMBRPPersoon:geboortedatum>
+                  <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>4dbfd0c27</KIMBRPPersoon:geboorteplaats>
+                  <KIMBRPPersoon:geboorteland>
+<!--Anonimisatie 'Typen:code': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1866</Typen:code>
+                     <!--Anonimisatie 'Typen:waarde': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">8a869db3f</Typen:waarde>
+                  </KIMBRPPersoon:geboorteland>
+               </KIMBRPPersoon:Geboorte>
+            </KIMBRPPersoon:geboorte>
+            <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+         </KIMBRPPersoon:GeregistreerdPersoon>
+      </Persoon:betreft>
+   </Persoon:NatuurlijkPersoon>
+   <Persoon:NatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                              id="ID.9329157193">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">58111695</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:woonlocatie>
+         <Adres-ref:ObjectlocatieBuitenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157194"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.527747876</Adres-ref:ObjectlocatieBuitenlandRef>
+      </Persoon:woonlocatie>
+      <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+      <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+      <Persoon:betreft>
+         <KIMBRPPersoon:GeregistreerdPersoon xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903">
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+            <KIMBRPPersoon:aanduidingNaamgebruik>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">E</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Eigen geslachtsnaam</Typen:waarde>
+            </KIMBRPPersoon:aanduidingNaamgebruik>
+            <KIMBRPPersoon:landWaarnaarVertrokken>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">7054</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Verenigde Arabische Emiraten</Typen:waarde>
+            </KIMBRPPersoon:landWaarnaarVertrokken>
+            <KIMBRPPersoon:naam>
+               <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>689</KIMBRPPersoon:geslachtsnaam>
+                  <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>1981fd3bd 29ba22e0 30402e0ea</KIMBRPPersoon:voornamen>
+               </KIMBRPPersoon:Naam>
+            </KIMBRPPersoon:naam>
+            <KIMBRPPersoon:geslacht>
+               <KIMBRPPersoon:Geslacht>
+                  <KIMBRPPersoon:geslachtsaanduiding>
+                     <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">M</Typen:code>
+                     <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Man</Typen:waarde>
+                  </KIMBRPPersoon:geslachtsaanduiding>
+               </KIMBRPPersoon:Geslacht>
+            </KIMBRPPersoon:geslacht>
+            <KIMBRPPersoon:geboorte>
+               <KIMBRPPersoon:Geboorte>
+                  <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">20120521</Typen:datum>
+                  </KIMBRPPersoon:geboortedatum>
+                  <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>16fd</KIMBRPPersoon:geboorteplaats>
+                  <KIMBRPPersoon:geboorteland>
+<!--Anonimisatie 'Typen:code': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1866</Typen:code>
+                     <!--Anonimisatie 'Typen:waarde': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">8a869db3f</Typen:waarde>
+                  </KIMBRPPersoon:geboorteland>
+               </KIMBRPPersoon:Geboorte>
+            </KIMBRPPersoon:geboorte>
+            <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+         </KIMBRPPersoon:GeregistreerdPersoon>
+      </Persoon:betreft>
+   </Persoon:NatuurlijkPersoon>
+   <Persoon:NietNatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                                  id="ID.9329157161">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">58162710</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:postlocatie>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157162"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.58162755</Adres-ref:ObjectlocatieBinnenlandRef>
+      </Persoon:postlocatie>
+      <Persoon:statutaireNaam>Vereniging Van Eigenaars Molenstate Korenmolen 3 Tot Enmet 67 Enn Oude Molenstraat 107 Tot En Met 117</Persoon:statutaireNaam>
+      <Persoon:rechtsvorm>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">21</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Vereniging van eigenaars</Typen:waarde>
+      </Persoon:rechtsvorm>
+      <Persoon:statutaireZetel>ASSEN</Persoon:statutaireZetel>
+   </Persoon:NietNatuurlijkPersoon>
+   <Persoon:NietNatuurlijkPersoon xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+                                  id="ID.9329157195">
+      <Persoon:identificatie domein="NL.IMKAD.Persoon">83308054</Persoon:identificatie>
+      <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+      <Persoon:woonlocatie>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157196"
+                                               domein="NL.IMKAD.AdresLocatie">KPR.83308057</Adres-ref:ObjectlocatieBinnenlandRef>
+      </Persoon:woonlocatie>
+      <Persoon:statutaireNaam>De Campagne Maastricht B.V.</Persoon:statutaireNaam>
+      <Persoon:rechtsvorm>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Besloten vennootschap</Typen:waarde>
+      </Persoon:rechtsvorm>
+      <Persoon:statutaireZetel>MAASTRICHT</Persoon:statutaireZetel>
+      <Persoon:betreft>
+         <KIMNHRRechtspersoon:Rechtspersoon xmlns:KIMNHRRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimnhr-rechtspersoon/v20210702">
+            <KIMNHRRechtspersoon:rsin>008251952</KIMNHRRechtspersoon:rsin>
+            <KIMNHRRechtspersoon:kvkNummer>14625022</KIMNHRRechtspersoon:kvkNummer>
+         </KIMNHRRechtspersoon:Rechtspersoon>
+      </Persoon:betreft>
+   </Persoon:NietNatuurlijkPersoon>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157221">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6797864</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000012402</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>59</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DW</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Korenmolen</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157222">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6797868</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000012403</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>61</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DW</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Korenmolen</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157223">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6797873</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000012404</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>63</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DW</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Korenmolen</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157224">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6797877</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000012405</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>65</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DW</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Korenmolen</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157225">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6797881</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000012406</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>67</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DW</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Korenmolen</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157226">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6812765</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000016189</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>107</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DN</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Oude-Molenstraat</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157227">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6812769</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000016190</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>111</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DN</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Oude-Molenstraat</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157228">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">6812773</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie>0106200000016191</KIMBAGAdres:identificatie>
+            <KIMBAGAdres:huisnummer>115</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DN</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Oude-Molenstraat</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>Assen</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157229">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">12799490</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>109</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DN</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>OUDE MOLENSTR</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>ASSEN</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157230">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">12799491</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>113</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DN</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>OUDE MOLENSTR</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>ASSEN</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157231">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">12799492</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>117</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>9401DN</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>OUDE MOLENSTR</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>ASSEN</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157184">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.1962051</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>137</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>1018MS</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Louise Wentstraat</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>AMSTERDAM</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157188">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.3603844</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>255</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>2271BC</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Parkweg</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>VOORBURG</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157186">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.8898937</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>28</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>7201NB</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Dieserstraat</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>ZUTPHEN</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157192">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.9759283</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>18</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>8162EG</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Lariksweg</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>EPE</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157162">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.58162755</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:huisnummerNilreason>waardeOnbekend</KIMBAGAdres:huisnummerNilreason>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                  <KIMBAGAdres:openbareRuimteNaamNilreason>waardeOnbekend</KIMBAGAdres:openbareRuimteNaamNilreason>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>ASSEN</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBinnenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157196">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.83308057</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBAGAdres:Nummeraanduiding xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+            <KIMBAGAdres:identificatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+            <KIMBAGAdres:huisnummer>21</KIMBAGAdres:huisnummer>
+            <KIMBAGAdres:postcode>6221CL</KIMBAGAdres:postcode>
+            <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               <KIMBAGAdres:OpenbareRuimte>
+                  <KIMBAGAdres:openbareRuimteNaam>Akerstr</KIMBAGAdres:openbareRuimteNaam>
+                  <KIMBAGAdres:gerelateerdeWoonplaats>
+                     <KIMBAGAdres:Woonplaats>
+                        <KIMBAGAdres:woonplaatsNaam>MAASTRICHT</KIMBAGAdres:woonplaatsNaam>
+                     </KIMBAGAdres:Woonplaats>
+                  </KIMBAGAdres:gerelateerdeWoonplaats>
+               </KIMBAGAdres:OpenbareRuimte>
+            </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+         </KIMBAGAdres:Nummeraanduiding>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBinnenland>
+   <Adres:ObjectlocatieBuitenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157194">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.527747876</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBRPAdres:AdresBuitenland xmlns:KIMBRPAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-adres/v20210702">
+            <KIMBRPAdres:adres>Villa 12 street 1 Saheel</KIMBRPAdres:adres>
+            <KIMBRPAdres:woonplaats>ARABIAN RANCHES</KIMBRPAdres:woonplaats>
+            <KIMBRPAdres:regio>Dubai</KIMBRPAdres:regio>
+            <KIMBRPAdres:land>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">7054</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Verenigde Arabische Emiraten</Typen:waarde>
+            </KIMBRPAdres:land>
+         </KIMBRPAdres:AdresBuitenland>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBuitenland>
+   <Adres:ObjectlocatieBuitenland xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+                                  id="ID.9329157190">
+      <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.546396826</Adres:identificatie>
+      <Adres:adresgegevens>
+         <KIMBRPAdres:AdresBuitenland xmlns:KIMBRPAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-adres/v20210702">
+            <KIMBRPAdres:adres>Villa Figuera</KIMBRPAdres:adres>
+            <KIMBRPAdres:woonplaats>8200-385 SESMARIAS</KIMBRPAdres:woonplaats>
+            <KIMBRPAdres:land>
+               <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">7050</Typen:code>
+               <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Portugal</Typen:waarde>
+            </KIMBRPAdres:land>
+         </KIMBRPAdres:AdresBuitenland>
+      </Adres:adresgegevens>
+   </Adres:ObjectlocatieBuitenland>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157221"
+                                               domein="NL.IMKAD.AdresLocatie">6797864</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000012402</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157222"
+                                               domein="NL.IMKAD.AdresLocatie">6797868</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000012403</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157223"
+                                               domein="NL.IMKAD.AdresLocatie">6797873</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000012404</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157224"
+                                               domein="NL.IMKAD.AdresLocatie">6797877</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000012405</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157225"
+                                               domein="NL.IMKAD.AdresLocatie">6797881</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000012406</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157226"
+                                               domein="NL.IMKAD.AdresLocatie">6812765</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000016189</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157227"
+                                               domein="NL.IMKAD.AdresLocatie">6812769</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000016190</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <KIMBAGAdres:Verblijfsobject xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903">
+      <KIMBAGAdres:hoofdadres>
+         <Adres-ref:ObjectlocatieBinnenlandRef xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+                                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                                               xlink:href="#ID.9329157228"
+                                               domein="NL.IMKAD.AdresLocatie">6812773</Adres-ref:ObjectlocatieBinnenlandRef>
+      </KIMBAGAdres:hoofdadres>
+      <KIMBAGAdres:identificatie>0106010000016191</KIMBAGAdres:identificatie>
+   </KIMBAGAdres:Verblijfsobject>
+   <Stuk:TerInschrijvingAangebodenStuk xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                                       id="ID.9329157164">
+      <Stuk:omvat>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157163"
+                               domein="NL.IMKAD.Stukdeel">1022571435</Stuk-ref:StukdeelRef>
+      </Stuk:omvat>
+      <Stuk:identificatie domein="NL.IMKAD.TIAStuk">18011021000246</Stuk:identificatie>
+      <Stuk:deelEnNummer>
+         <Stuk:deel>3748</Stuk:deel>
+         <Stuk:nummer>15</Stuk:nummer>
+         <Stuk:reeks>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ASN</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Assen</Typen:waarde>
+         </Stuk:reeks>
+         <Stuk:registercode>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Hyp4</Typen:waarde>
+         </Stuk:registercode>
+         <Stuk:soortRegister>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Onroerende Zaken</Typen:waarde>
+         </Stuk:soortRegister>
+      </Stuk:deelEnNummer>
+      <Stuk:tijdstipAanbieding>
+         <Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">1983-09-19</Typen:datum>
+         <Typen:tijd xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:nil="true"/>
+         <Typen:tijdNilreason xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">waardeOnbekend</Typen:tijdNilreason>
+      </Stuk:tijdstipAanbieding>
+      <Stuk:tekeningIngeschreven>false</Stuk:tekeningIngeschreven>
+   </Stuk:TerInschrijvingAangebodenStuk>
+   <Stuk:TerInschrijvingAangebodenStuk xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                                       id="ID.9329157146">
+      <Stuk:omvat>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157147"
+                               domein="NL.IMKAD.Stukdeel">1022840446</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157145"
+                               domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157148"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000006241758</Stuk-ref:StukdeelRef>
+      </Stuk:omvat>
+      <Stuk:identificatie domein="NL.IMKAD.TIAStuk">20050530000615</Stuk:identificatie>
+      <Stuk:deelEnNummer>
+         <Stuk:deel>8036</Stuk:deel>
+         <Stuk:nummer>80</Stuk:nummer>
+         <Stuk:reeks>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">ASN</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Assen</Typen:waarde>
+         </Stuk:reeks>
+         <Stuk:registercode>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Hyp4</Typen:waarde>
+         </Stuk:registercode>
+         <Stuk:soortRegister>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Onroerende Zaken</Typen:waarde>
+         </Stuk:soortRegister>
+      </Stuk:deelEnNummer>
+      <Stuk:tijdstipAanbieding>
+         <Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2005-05-30</Typen:datum>
+         <Typen:tijd xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">09:00:00</Typen:tijd>
+      </Stuk:tijdstipAanbieding>
+      <Stuk:tekeningIngeschreven>false</Stuk:tekeningIngeschreven>
+   </Stuk:TerInschrijvingAangebodenStuk>
+   <Stuk:TerInschrijvingAangebodenStuk xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                                       id="ID.9329157201">
+      <Stuk:omvat>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157200"
+                               domein="NL.IMKAD.Stukdeel">1022934787</Stuk-ref:StukdeelRef>
+      </Stuk:omvat>
+      <Stuk:identificatie domein="NL.IMKAD.TIAStuk">20130501000675</Stuk:identificatie>
+      <Stuk:deelEnNummer>
+         <Stuk:deel>62830</Stuk:deel>
+         <Stuk:nummer>119</Stuk:nummer>
+         <Stuk:registercode>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Hyp4</Typen:waarde>
+         </Stuk:registercode>
+         <Stuk:soortRegister>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Onroerende Zaken</Typen:waarde>
+         </Stuk:soortRegister>
+      </Stuk:deelEnNummer>
+      <Stuk:tijdstipAanbieding>
+         <Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2013-05-01</Typen:datum>
+         <Typen:tijd xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">09:00:00</Typen:tijd>
+      </Stuk:tijdstipAanbieding>
+      <Stuk:tekeningIngeschreven>false</Stuk:tekeningIngeschreven>
+   </Stuk:TerInschrijvingAangebodenStuk>
+   <Stuk:TerInschrijvingAangebodenStuk xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                                       id="ID.9329157155">
+      <Stuk:omvat>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157154"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000013954932</Stuk-ref:StukdeelRef>
+         <Stuk-ref:StukdeelRef xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xlink:href="#ID.9329157156"
+                               domein="NL.IMKAD.Stukdeel">AKR1.100000013954991</Stuk-ref:StukdeelRef>
+      </Stuk:omvat>
+      <Stuk:identificatie domein="NL.IMKAD.TIAStuk">20180614002372</Stuk:identificatie>
+      <Stuk:deelEnNummer>
+         <Stuk:deel>73387</Stuk:deel>
+         <Stuk:nummer>5</Stuk:nummer>
+         <Stuk:registercode>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Hyp4</Typen:waarde>
+         </Stuk:registercode>
+         <Stuk:soortRegister>
+            <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2</Typen:code>
+            <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Onroerende Zaken</Typen:waarde>
+         </Stuk:soortRegister>
+      </Stuk:deelEnNummer>
+      <Stuk:tijdstipAanbieding>
+         <Typen:datum xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">2018-06-14</Typen:datum>
+         <Typen:tijd xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">14:24:00</Typen:tijd>
+      </Stuk:tijdstipAanbieding>
+      <Stuk:tekeningIngeschreven>false</Stuk:tekeningIngeschreven>
+   </Stuk:TerInschrijvingAangebodenStuk>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157163">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">1022571435</Stuk:identificatie>
+      <Stuk:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">403</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Raadpleeg brondocument</Typen:waarde>
+      </Stuk:aard>
+   </Stuk:Stukdeel>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157147">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">1022840446</Stuk:identificatie>
+      <Stuk:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">403</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Raadpleeg brondocument</Typen:waarde>
+      </Stuk:aard>
+   </Stuk:Stukdeel>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157200">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">1022934787</Stuk:identificatie>
+      <Stuk:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">403</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Raadpleeg brondocument</Typen:waarde>
+      </Stuk:aard>
+   </Stuk:Stukdeel>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157145">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">AKR1.10891288</Stuk:identificatie>
+      <Stuk:aard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <Stuk:aardNilreason>waardeOnbekend</Stuk:aardNilreason>
+   </Stuk:Stukdeel>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157148">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">AKR1.100000006241758</Stuk:identificatie>
+      <Stuk:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">132</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Verklaring van Erfrecht</Typen:waarde>
+      </Stuk:aard>
+   </Stuk:Stukdeel>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157154">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">AKR1.100000013954932</Stuk:identificatie>
+      <Stuk:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">063</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Stuk aanbrengen beperkende bepaling op zakelijk recht overig</Typen:waarde>
+      </Stuk:aard>
+   </Stuk:Stukdeel>
+   <Stuk:Stukdeel xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+                  id="ID.9329157156">
+      <Stuk:identificatie domein="NL.IMKAD.Stukdeel">AKR1.100000013954991</Stuk:identificatie>
+      <Stuk:aard>
+         <Typen:code xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">132</Typen:code>
+         <Typen:waarde xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702">Verklaring van Erfrecht</Typen:waarde>
+      </Stuk:aard>
+   </Stuk:Stukdeel>
+</Snapshot:KadastraalObjectSnapshot>
+</Stand:stand></Stand:Stand>
