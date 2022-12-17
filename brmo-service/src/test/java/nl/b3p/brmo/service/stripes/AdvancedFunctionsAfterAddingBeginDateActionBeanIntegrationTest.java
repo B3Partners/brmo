@@ -149,7 +149,8 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
         }
-
+        staging = null;
+        rsgb = null;
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {

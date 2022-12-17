@@ -159,6 +159,9 @@ public abstract class TestUtil {
         //if (dsRsgb != null) {
         //    dsRsgb.close();
         //}
+        //if (dsRsgbBrk != null) {
+        //    dsRsgbBrk.close();
+        //}
         try {
             InitialContext ic = new InitialContext();
             ic.unbind("java:comp/env/jdbc/brmo/rsgb");
