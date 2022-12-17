@@ -126,6 +126,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
         }
+        staging = null;
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
