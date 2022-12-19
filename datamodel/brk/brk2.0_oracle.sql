@@ -45,8 +45,7 @@ CREATE TABLE onroerendezaak
     koopsom_indicatiemeerobjecten NUMBER(1),
     toelichtingbewaarder          VARCHAR2(4000 BYTE),
     tijdstipontstaanobject        TIMESTAMP,
-    oudstdigitaalbekend           TIMESTAMP,
-    ontstaanuit                   VARCHAR2(255)
+    oudstdigitaalbekend           TIMESTAMP
 );
 CREATE TABLE archief_onroerendezaak
 (
@@ -164,9 +163,10 @@ CREATE TABLE onroerendezaakbeperking
 CREATE TABLE onroerendezaakfiliatie
 (
     aard            VARCHAR2(65) NOT NULL,
-    betreft         VARCHAR2(255) REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
+    onroerendezaak  VARCHAR2(255) REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
+    betreft         VARCHAR2(255),
     begingeldigheid DATE NOT NULL,
-    PRIMARY KEY (aard, betreft)
+    PRIMARY KEY (aard, onroerendezaak, betreft)
 );
 CREATE TABLE archief_onroerendezaakfiliatie
 (

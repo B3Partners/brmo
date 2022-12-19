@@ -40,9 +40,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
@@ -74,8 +76,12 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
                 arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, (2), 0, 0, 0, 0),
                 arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, (19 + 8), 11, 0, 0, 0),
                 // met ligplaatsen
-                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14 + 11), 11, 0, 0, 1)
-                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres),aantalObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie}
+                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14 + 11), 11, 0, 0, 1),
+                // samenvoeging van 3 percelen
+                arguments("/brk2/stand-perceel-5.anon.xml", "NL.IMKAD.KadastraalObject:53750049870000", 2, 1, 1, 2, 0, (1), 0, 0, 0, 3)
+                // app.re met ondersplitsing en ontbrekende hoofdsplitsing referentie - vanwege een constraint violation kan die niet alleen geladen worden...
+                //, arguments("/brk2/stand-appre-3.anon.xml", "NL.IMKAD.KadastraalObject:53830693710057", 4, 3, 3, 1, 1, (1), 0, 0, 0, 0)
+                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie}
         );
     }
 
@@ -119,9 +125,9 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         // CleanUtil.cleanRSGB_BRK2(rsgbBrk);
 
-        Assumptions.assumeTrue(0L == brmo.getCountBerichten(BrmoFramework.BR_BRK2, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten(BrmoFramework.BR_BRK2, "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(BrmoFramework.BR_BRK2, "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen(BrmoFramework.BR_BRK2, "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -149,7 +155,10 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
         final boolean isPerceel = objectRef.endsWith("0000");
 
-        assumeFalse(null == Brk2ToStagingToRsgbBrkIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
+        assumeFalse(
+                null == Brk2ToStagingToRsgbBrkIntegrationTest.class.getResource(bestandNaam),
+                () -> "Het test bestand '" + bestandNaam + "' moet er zijn."
+        );
 
         brmo.loadFromFile(BrmoFramework.BR_BRK2, Objects.requireNonNull(Brk2ToStagingToRsgbBrkIntegrationTest.class.getResource(bestandNaam)).getFile(), null);
         LOG.debug("klaar met laden van berichten in staging DB.");
@@ -157,16 +166,16 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
         assertNotNull(berichten, "De verzameling berichten bestaat niet.");
-        assertEquals(1, berichten.size(), "Het aantal berichten is niet als verwacht.");
-        assertEquals(1, brmo.getCountLaadProcessen(BrmoFramework.BR_BRK2, "STAGING_OK"), "Het aantal berichten is niet als verwacht.");
+        assertEquals(1, berichten.size(), "Het aantal berichten is niet 1.");
+        assertEquals(1, brmo.getCountLaadProcessen(BrmoFramework.BR_BRK2, "STAGING_OK"), "Het aantal berichten is niet 1.");
         assertNotNull(processen, "De verzameling processen bestaat niet.");
-        assertEquals(1, processen.size(), "Het aantal processen is niet als verwacht.");
+        assertEquals(1, processen.size(), "Het aantal processen is niet 1.");
 
         for (Bericht b : berichten) {
             assertNotNull(b, "Bericht is 'null'");
             assertNotNull(b.getBrXml(), "'br-xml' van bericht is 'null'");
         }
-        assertEquals(objectRef, berichten.get(0).getObjectRef(), "Het bericht heeft niet de juiste objectRef.");
+        assertEquals(objectRef, berichten.get(0).getObjectRef(), "Het bericht uit de database heeft niet de juiste objectRef.");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
@@ -194,14 +203,17 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
         ITable onroerendezaakfiliatie = rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie");
         assertEquals(aantalFiliatie, onroerendezaakfiliatie.getRowCount(), "Aantal onroerendezaakfiliatie klopt niet");
+        // check dat alle records de objectRef als "onroerendezaak" hebben
+        for (int i = 0; i < onroerendezaakfiliatie.getRowCount(); i++) {
+            assertEquals(objectRef, onroerendezaakfiliatie.getValue(i, "onroerendezaak"), "onroerendezaakfiliatie.onroerendezaak is niet gelijk aan objectRef");
+        }
 
         ITable perceelOfAppRe;
         if (isPerceel) {
             perceelOfAppRe = rsgbBrk.createDataSet().getTable("perceel");
             assertEquals(objectRef, perceelOfAppRe.getValue(0, "identificatie"),
                     "Perceel identificatie is niet gelijk aan objectRef");
-            // TODO
-            //    assertNotNull(perceelOfAppRe.getValue(0, "begrenzing_perceel"), "Perceel begrenzing geometrie is 'null'");
+            assertNotNull(perceelOfAppRe.getValue(0, "begrenzing_perceel"), "Perceel begrenzing geometrie is 'null'");
             assertNotNull(perceelOfAppRe.getValue(0, "plaatscoordinaten"), "Plaatscoordinaten geometrie is 'null'");
         } else {
             perceelOfAppRe = rsgbBrk.createDataSet().getTable("appartementsrecht");
@@ -231,10 +243,15 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         assertEquals(aantalAdres, adres.getRowCount(), "Het aantal adressen is niet als verwacht.");
 
         ITable objectlocatie = rsgbBrk.createDataSet().getTable("objectlocatie");
-        assertEquals(aantalObjLocatie, objectlocatie.getRowCount(), "Het aantal objectlocatie is niet als verwacht.");
-        // check dat alle records de objectRef als "heeft" hebben
-        for (int i = 0; i < objectlocatie.getRowCount(); i++) {
-            assertEquals(objectRef, objectlocatie.getValue(i, "heeft"), "objectlocatie.heeft is niet gelijk aan objectRef");
-        }
+        assertAll("objectlocatie",
+                () -> assertEquals(aantalObjLocatie, objectlocatie.getRowCount(), "Het aantal objectlocatie is niet als verwacht."),
+                () -> {
+                    // check dat alle records de objectRef als "heeft" hebben
+                    for (int i = 0; i < objectlocatie.getRowCount(); i++) {
+                        assertEquals(objectRef, objectlocatie.getValue(i, "heeft"), "objectlocatie.heeft is niet gelijk aan objectRef");
+                    }
+                }
+        );
+
     }
 }
