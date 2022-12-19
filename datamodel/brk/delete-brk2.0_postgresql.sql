@@ -2,6 +2,7 @@ CREATE SCHEMA IF NOT EXISTS brk;
 
 SET search_path = brk,public;
 DROP TABLE IF EXISTS brmo_metadata CASCADE;
+DROP TABLE IF EXISTS objectlocatie CASCADE;
 DROP TABLE IF EXISTS adres CASCADE;
 DROP TABLE IF EXISTS appartementsrecht CASCADE;
 DROP TABLE IF EXISTS natuurlijkpersoon CASCADE;

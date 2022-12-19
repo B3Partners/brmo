@@ -60,20 +60,22 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
     private BasicDataSource dsRsgbBrk;
     private BasicDataSource dsStaging;
     private BrmoFramework brmo;
-    // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgbBrk;
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalPubliekRBeperking, aantalOnrndZkBeperking},
-                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 3, 2, 2, 1, 1, 3 + 1, 0, 0),
-                arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 2, 1, 1, 0, 1, 2, 0, 0),
-                arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 2, 1, 1, 0, 1, 2, 0, 0),
-                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 2, 2, 2, 1, 1, 4 + 1, 1, 1),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 2, 0, 2, 0, 0),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, 2, 0, 0),
-                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, 19 + 8, 0, 0)
+                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie},
+                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 3, 2, 2, 1, 1, (3 + 1), 1, 0, 0, 0),
+                arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 2, 1, 1, 0, 1, (2), 0, 0, 0, 0),
+                arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 2, 1, 1, 0, 1, (2), 0, 0, 0, 0),
+                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 2, 2, 2, 1, 1, (4 + 1), 1, 1, 1, 1, 0),
+                arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 2, 0, (2), 0, 0, 0, 0),
+                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, (2), 0, 0, 0, 0),
+                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, (19 + 8), 11, 0, 0, 0),
+                // met ligplaatsen
+                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14 + 11), 11, 0, 0, 1)
+                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres),aantalObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie}
         );
     }
 
@@ -142,8 +144,10 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
     @MethodSource("argumentsProvider")
     void testBericht(String bestandNaam, String objectRef,
                      int aantalRecht, int aantalStuk, int aantalStukdeel, int aantalNP, int aantalNNP, int aantalAdres,
-                     int aantalPubliekRBeperking, int aantalOnrndZkBeperking)
+                     int aantalObjLocatie, int aantalPubliekRBeperking, int aantalOnrndZkBeperking, int aantalFiliatie)
             throws Exception {
+
+        final boolean isPerceel = objectRef.endsWith("0000");
 
         assumeFalse(null == Brk2ToStagingToRsgbBrkIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
 
@@ -176,9 +180,6 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
             assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
         }
 
-        final boolean isPerceel = objectRef.endsWith("0000");
-
-
         ITable onroerendezaak = rsgbBrk.createDataSet().getTable("onroerendezaak");
         assertEquals(1, onroerendezaak.getRowCount(), "Er is geen (of teveel) onroerendezaak");
         assertEquals(objectRef, onroerendezaak.getValue(0, "identificatie"),
@@ -189,10 +190,10 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         assertEquals(aantalPubliekRBeperking, publiekrechtelijkebeperking.getRowCount(), "Aantal publiekrechtelijkebeperking klopt niet");
 
         ITable onroerendezaakbeperking = rsgbBrk.createDataSet().getTable("onroerendezaakbeperking");
-        assertEquals(aantalPubliekRBeperking, onroerendezaakbeperking.getRowCount(), "Aantal onroerendezaakbeperking klopt niet");
-
+        assertEquals(aantalOnrndZkBeperking, onroerendezaakbeperking.getRowCount(), "Aantal onroerendezaakbeperking klopt niet");
 
         ITable onroerendezaakfiliatie = rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie");
+        assertEquals(aantalFiliatie, onroerendezaakfiliatie.getRowCount(), "Aantal onroerendezaakfiliatie klopt niet");
 
         ITable perceelOfAppRe;
         if (isPerceel) {
@@ -228,5 +229,12 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
         ITable adres = rsgbBrk.createDataSet().getTable("adres");
         assertEquals(aantalAdres, adres.getRowCount(), "Het aantal adressen is niet als verwacht.");
+
+        ITable objectlocatie = rsgbBrk.createDataSet().getTable("objectlocatie");
+        assertEquals(aantalObjLocatie, objectlocatie.getRowCount(), "Het aantal objectlocatie is niet als verwacht.");
+        // check dat alle records de objectRef als "heeft" hebben
+        for (int i = 0; i < objectlocatie.getRowCount(); i++) {
+            assertEquals(objectRef, objectlocatie.getValue(i, "heeft"), "objectlocatie.heeft is niet gelijk aan objectRef");
+        }
     }
 }

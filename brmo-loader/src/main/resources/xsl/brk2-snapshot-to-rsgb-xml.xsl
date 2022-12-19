@@ -82,7 +82,8 @@
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
-                <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Stuk:TerInschrijvingAangebodenStuk | /Snapshot:KadastraalObjectSnapshot/Stuk:Kadasterstuk">
+                <xsl:for-each
+                        select="/Snapshot:KadastraalObjectSnapshot/Stuk:TerInschrijvingAangebodenStuk | /Snapshot:KadastraalObjectSnapshot/Stuk:Kadasterstuk">
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
@@ -150,6 +151,13 @@
                         select="/Snapshot:KadastraalObjectSnapshot/PubliekrechtelijkeBeperking:PubliekrechtelijkeBeperking">
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
+
+                <!-- Koppel tabellen -->
+                <xsl:for-each
+                        select="/Snapshot:KadastraalObjectSnapshot/KadastraalObject:LocatieKadastraalObject">
+                    <xsl:apply-templates select="."/>
+                </xsl:for-each>
+
             </data>
         </root>
     </xsl:template>
@@ -291,17 +299,6 @@
                     <xsl:with-param name="id" select="KIMBAGAdres:hoofdadres/Adres-ref:ObjectlocatieBinnenlandRef"/>
                 </xsl:call-template>
             </hoofdadres>
-            <koppelingswijze>
-                <!-- TODO uitzoeken
-                          https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
-                          ook relatie met onroerendezaak en meerdere adressen
-                          bijv. alleen voor het hoofdadres? of ook voor andere adressen?
-                          xpath is
-                          /Stand:Stand/Stand:stand/Snapshot:KadastraalObjectSnapshot/KadastraalObject:LocatieKadastraalObject/KadastraalObject:koppelingswijze/Typen:waarde
-                 -->
-                <xsl:value-of
-                        select="../KadastraalObject:LocatieKadastraalObject/KadastraalObject:koppelingswijze/Typen:waarde"/>
-            </koppelingswijze>
             <!-- adres buitenland -->
             <buitenlandadres>
                 <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:adres"/>
@@ -315,16 +312,27 @@
             <land>
                 <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:land/Typen:waarde"/>
             </land>
-            <onroerendezaak>
-                <!-- TODO een onroerende zaak kan meer dan 1 adres hebben,
-                          dus misschien een koppeltabel nodig
-                          VARCHAR REFERENCES onroerendezaak (identificatie)
-                          maar adres kan ook van een persoon (postlocatie/woonlocatie) zijn...
-                          <xsl:value-of select="$objectRef"/>
-                -->
-
-            </onroerendezaak>
         </adres>
+    </xsl:template>
+
+
+    <xsl:template match="/Snapshot:KadastraalObjectSnapshot/KadastraalObject:LocatieKadastraalObject">
+        <objectlocatie>
+            <heeft>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id" select="KadastraalObject:heeft/OnroerendeZaak-ref:PerceelRef |
+                                                  KadastraalObject:heeft/OnroerendeZaak-ref:AppartementsrechtRef"/>
+                </xsl:call-template>
+            </heeft>
+            <betreft>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id" select="KadastraalObject:betreft/Adres-ref:ObjectlocatieBinnenlandRef"/>
+                </xsl:call-template>
+            </betreft>
+            <koppelingswijze>
+                <xsl:value-of select="KadastraalObject:koppelingswijze/Typen:waarde"/>
+            </koppelingswijze>
+        </objectlocatie>
     </xsl:template>
 
 
@@ -892,7 +900,6 @@
                 </xsl:call-template>
             </aantekeningrecht>
             <aantekeningkadastraalobject>
-                <!-- TODO: valideren voor andere typen, check of dit er meer kunnen zijn -->
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id"
                                     select="$recht/Recht:aantekeningKadastraalObject/OnroerendeZaak-ref:PerceelRef |
@@ -959,9 +966,14 @@
     <!-- maak een domein identificatie aan -->
     <xsl:template name="domein_identificatie">
         <xsl:param name="id"/>
+        <xsl:variable name="nameSpace" select="$id/@domein"/>
+
         <xsl:if test="$id">
-            <xsl:value-of select="$id/@domein"/>
-            <xsl:text>:</xsl:text>
+            <xsl:value-of select="$nameSpace"/>
+            <xsl:if test="'' != $nameSpace">
+                <!-- BAG id's hebben geen domein/NEN3610 namespace als bijv. NL.IMBAG.Openbareruimte -->
+                <xsl:text>:</xsl:text>
+            </xsl:if>
             <xsl:value-of select="$id"/>
         </xsl:if>
     </xsl:template>
