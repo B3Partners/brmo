@@ -210,17 +210,21 @@ CREATE TABLE adres
     nevenadres           VARCHAR,
     -- TODO uitzoeken
     hoofdadres           VARCHAR,
-    -- TODO uitzoeken
-    -- https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
-    koppelingswijze      VARCHAR(29),
     -- adres buitenland
     buitenlandadres      VARCHAR(200),
     buitenlandwoonplaats VARCHAR(200),
     buitenlandregio      VARCHAR(150),
     -- https://developer.kadaster.nl/schemas/waardelijsten/BRPLand/
-    land                 VARCHAR(40),
-    -- een onroerende kan meer dan 1 adres hebben
-    onroerendezaak       VARCHAR REFERENCES onroerendezaak (identificatie)
+    land                 VARCHAR(40)
+);
+
+CREATE TABLE objectlocatie
+(
+    heeft                VARCHAR REFERENCES onroerendezaak (identificatie),
+    betreft              VARCHAR REFERENCES adres (identificatie),
+    -- https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
+    koppelingswijze      VARCHAR(29),
+    PRIMARY KEY (heeft, betreft)
 );
 
 -- Een persoon is een natuurlijk persoon of een niet-natuurlijk persoon.
@@ -628,6 +632,7 @@ CREATE TABLE appartementsrecht
     -- metadata tbv archivering
     -- begingeldigheid DATE         NOT NULL
 );
+
 CREATE TABLE archief_appartementsrecht
 (
     identificatie   VARCHAR(255) NOT NULL,

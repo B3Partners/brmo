@@ -146,10 +146,6 @@ public final class CleanUtil {
                 new DefaultTable("onroerendezaak"),
                 new DefaultTable("perceel"),
                 new DefaultTable("onroerendezaakfiliatie"),
-
-
-
-
                 new DefaultTable("stuk"),
                 new DefaultTable("stukdeel"),
                 new DefaultTable("recht"),
@@ -161,6 +157,7 @@ public final class CleanUtil {
                 new DefaultTable("archief_onroerendezaakfiliatie"),
                 new DefaultTable("archief_perceel"),
                 new DefaultTable("archief_recht"),
+                new DefaultTable("objectlocatie"),
         }));
     }
 

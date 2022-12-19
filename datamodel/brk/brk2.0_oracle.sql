@@ -91,13 +91,20 @@ CREATE TABLE adres
     ligplaats            VARCHAR2(16),
     nevenadres           VARCHAR2(255),
     hoofdadres           VARCHAR2(255),
-    koppelingswijze      VARCHAR2(29),
     buitenlandadres      VARCHAR2(200),
     buitenlandwoonplaats VARCHAR2(200),
     buitenlandregio      VARCHAR2(150),
-    land                 VARCHAR2(40),
-    onroerendezaak       VARCHAR2(255) REFERENCES onroerendezaak (identificatie)
+    land                 VARCHAR2(40)
 );
+
+CREATE TABLE objectlocatie
+(
+    heeft                VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
+    betreft              VARCHAR2(255) REFERENCES adres (identificatie),
+    koppelingswijze      VARCHAR(29),
+    PRIMARY KEY (heeft, betreft)
+);
+
 CREATE TABLE persoon
 (
     identificatie                 VARCHAR2(255) NOT NULL PRIMARY KEY,
