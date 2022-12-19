@@ -153,20 +153,22 @@ CREATE TABLE onroerendezaakbeperking
 (
     inonderzoek   NUMBER(1),
     beperkt       VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
-    leidttot      VARCHAR2(255) REFERENCES publiekrechtelijkebeperking (identificatie)
+    leidttot      VARCHAR2(255) REFERENCES publiekrechtelijkebeperking (identificatie),
+    PRIMARY KEY (beperkt, leidttot)
 );
 CREATE TABLE onroerendezaakfiliatie
 (
-    aard            VARCHAR2(65),
+    aard            VARCHAR2(65) NOT NULL,
     betreft         VARCHAR2(255) REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
-    begingeldigheid DATE NOT NULL
+    begingeldigheid DATE NOT NULL,
+    PRIMARY KEY (aard, betreft)
 );
 CREATE TABLE archief_onroerendezaakfiliatie
 (
-    aard            VARCHAR2(65),
+    aard            VARCHAR2(65) NOT NULL,
     betreft         VARCHAR2(255) NOT NULL,
     begingeldigheid DATE          NOT NULL,
-    PRIMARY KEY (betreft, begingeldigheid)
+    PRIMARY KEY (aard, betreft, begingeldigheid)
 );
 CREATE TABLE perceel
 (
@@ -175,8 +177,8 @@ CREATE TABLE perceel
     kadastralegrootte      DECIMAL(9, 1),
     soortgrootte           VARCHAR2(100),
     perceelnummerrotatie   DECIMAL(3, 1),
-    perceelnummer_deltax   DECIMAL(10, 10),
-    perceelnummer_deltay   DECIMAL(10, 10),
+    perceelnummer_deltax   DECIMAL(20, 10),
+    perceelnummer_deltay   DECIMAL(20, 10),
     plaatscoordinaten      SDO_GEOMETRY  NOT NULL,
     meettariefverschuldigd NUMBER(1)
     -- alleen archief
@@ -190,8 +192,8 @@ CREATE TABLE archief_perceel
     kadastralegrootte      DECIMAL(9, 1),
     soortgrootte           VARCHAR2(100),
     perceelnummerrotatie   DECIMAL(3, 1),
-    perceelnummer_deltax   DECIMAL(10, 10),
-    perceelnummer_deltay   DECIMAL(10, 10),
+    perceelnummer_deltax   DECIMAL(20, 10),
+    perceelnummer_deltay   DECIMAL(20, 10),
     plaatscoordinaten      SDO_GEOMETRY  NOT NULL,
     meettariefverschuldigd NUMBER(1),
     PRIMARY KEY (identificatie, begingeldigheid)
