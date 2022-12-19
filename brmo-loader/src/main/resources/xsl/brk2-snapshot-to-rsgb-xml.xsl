@@ -67,7 +67,10 @@
                     </delete>
                 </xsl:if>
 
-                <!-- TODO bepalen of we ook de KIMBAGAdres moeten verwerken -->
+                <!--
+                    TODO bepalen of we ook de KIMBAGAdres moeten verwerken
+                         bevat waarschijnlijk een BAG referentie naar een adres
+                -->
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Adres:* |
                          /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Verblijfsobject |
                          /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Standplaats |
@@ -79,14 +82,14 @@
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
-                <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Stuk:TerInschrijvingAangebodenStuk">
+                <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Stuk:TerInschrijvingAangebodenStuk | /Snapshot:KadastraalObjectSnapshot/Stuk:Kadasterstuk">
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
                 <xsl:apply-templates select="/Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Perceel"/>
 
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Hoofdsplitsing">
-                    <!-- eerst de hoofdsplitsing vanwege verwijzing naar appartementsrecht en dan andere rechten -->
+                    <!-- eerst de hoofdsplitsing vanwege verwijzing naar appartementsrecht en later andere rechten -->
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
@@ -136,7 +139,7 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:ZakelijkRecht">
-                    <!-- laagste recht id eerst -->
+                    <!-- recht met laagste identificatie eerst - met aanname dat lagere nummers geen verwijzing hebben naar hogere nummers, maar wel andersom -->
                     <xsl:sort select="Recht:identificatie" data-type="number" order="descending"/>
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
@@ -199,13 +202,14 @@
         <xsl:for-each select="PubliekrechtelijkeBeperking:leidtTot">
             <onroerendezaakbeperking>
                 <inonderzoek>
-                    <xsl:value-of select="PubliekrechtelijkeBeperking:inOnderzoek"/>
+                    <xsl:value-of
+                            select="PubliekrechtelijkeBeperking:OnroerendeZaakBeperking/PubliekrechtelijkeBeperking:inOnderzoek"/>
                 </inonderzoek>
                 <beperkt>
                     <xsl:call-template name="domein_identificatie">
                         <xsl:with-param name="id"
-                                        select="PubliekrechtelijkeBeperking:beperkt/OnroerendeZaak-ref:PerceelRef |
-                                                PubliekrechtelijkeBeperking:beperkt/OnroerendeZaak-ref:AppartementsrechtRef"/>
+                                        select="PubliekrechtelijkeBeperking:OnroerendeZaakBeperking/PubliekrechtelijkeBeperking:beperkt/OnroerendeZaak-ref:PerceelRef |
+                                                PubliekrechtelijkeBeperking:OnroerendeZaakBeperking/PubliekrechtelijkeBeperking:beperkt/OnroerendeZaak-ref:AppartementsrechtRef"/>
                     </xsl:call-template>
                 </beperkt>
                 <leidttot>
@@ -528,7 +532,7 @@
     <!--
         Stukken en bijbehorende stukdelen
     -->
-    <xsl:template match="Stuk:TerInschrijvingAangebodenStuk">
+    <xsl:template match="Stuk:TerInschrijvingAangebodenStuk | Stuk:Kadasterstuk">
         <xsl:variable name="stukId">
             <xsl:call-template name="domein_identificatie">
                 <xsl:with-param name="id" select="Stuk:identificatie"/>
@@ -851,10 +855,16 @@
                 </xsl:call-template>
             </geldtvoor>
             <betrokkensamenwerkingsverband>
-                <xsl:value-of select="$recht/Recht:betrokkenSamenwerkingsverband/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id"
+                                    select="$recht/Recht:betrokkenSamenwerkingsverband/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                </xsl:call-template>
             </betrokkensamenwerkingsverband>
             <betrokkengorzenenaanwassen>
-                <xsl:value-of select="$recht/Recht:betrokkenGorzenEnAanwassen/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id"
+                                    select="$recht/Recht:betrokkenGorzenEnAanwassen/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                </xsl:call-template>
             </betrokkengorzenenaanwassen>
             <tennamevan>
                 <xsl:call-template name="domein_identificatie">

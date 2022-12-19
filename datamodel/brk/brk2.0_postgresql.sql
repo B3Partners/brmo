@@ -337,7 +337,8 @@ CREATE TABLE onroerendezaakbeperking
     -- TODO primary key bepalen
     inonderzoek   BOOLEAN,
     beperkt       VARCHAR REFERENCES onroerendezaak (identificatie),
-    leidttot      VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie)
+    leidttot      VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie),
+    PRIMARY KEY (beperkt, leidttot)
 );
 
 -- Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak.
@@ -348,19 +349,20 @@ CREATE TABLE onroerendezaakfiliatie
     -- Onroerende zaak filiatie wordt gebruikt om aan te geven hoe een onroerende zaak (historisch) tot stand gekomen is.
     -- Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere.
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardFiliatie/
-    aard            VARCHAR(65),
+    aard            VARCHAR(65) NOT NULL,
     -- betreft OZ relatie; referentie naar OZ/Perceel/AppRe
     betreft         VARCHAR REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
     -- metadata tbv archivering
-    begingeldigheid DATE NOT NULL
+    begingeldigheid DATE NOT NULL,
+    PRIMARY KEY (aard, betreft)
 );
 
 CREATE TABLE archief_onroerendezaakfiliatie
 (
-    aard            VARCHAR(65),
+    aard            VARCHAR(65) NOT NULL,
     betreft         VARCHAR(255) NOT NULL,
     begingeldigheid DATE         NOT NULL,
-    PRIMARY KEY (betreft, begingeldigheid)
+    PRIMARY KEY (aard, betreft, begingeldigheid)
 );
 
 -- In de BRK is een kadastraal perceel een specialisatie van een onroerende zaak.
@@ -392,9 +394,9 @@ CREATE TABLE perceel
     -- Perceelnummers worden bijvoorbeeld gekanteld om in een smal perceel te passen.
     perceelnummerrotatie   DECIMAL(3, 1),
     -- Verschuiving op de X as.
-    perceelnummer_deltax   DECIMAL(10, 10),
+    perceelnummer_deltax   DECIMAL(20, 10),
     -- Verschuiving op de Y as.
-    perceelnummer_deltay   DECIMAL(10, 10),
+    perceelnummer_deltay   DECIMAL(20, 10),
     --  Betreft de plaatsing van het perceelnummer bij verbeelding op een kaart, om deze op een overzichtelijke plek in de perceel begrenzing te plaatsen.
     plaatscoordinaten      GEOMETRY(POINT, 28992)        NOT NULL,
     -- Meettarief verschuldigd is een indicatie voor het verschuldigd zijn van een meettarief bij overdracht van een perceel.
@@ -413,8 +415,8 @@ CREATE TABLE archief_perceel
     kadastralegrootte      DECIMAL(9, 1),
     soortgrootte           VARCHAR(100),
     perceelnummerrotatie   DECIMAL(3, 1),
-    perceelnummer_deltax   DECIMAL(10, 10),
-    perceelnummer_deltay   DECIMAL(10, 10),
+    perceelnummer_deltax   DECIMAL(20, 10),
+    perceelnummer_deltay   DECIMAL(20, 10),
     plaatscoordinaten      GEOMETRY(POINT, 28992)        NOT NULL,
     meettariefverschuldigd BOOLEAN,
     PRIMARY KEY (identificatie, begingeldigheid)
