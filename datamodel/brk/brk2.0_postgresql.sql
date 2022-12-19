@@ -253,9 +253,6 @@ CREATE TABLE natuurlijkpersoon
     -- Indicatie Afscherming Persoonsgegevens is een indicatie om aan te geven dat de gegevens van een persoon zijn afgeschermd.Op grond van artikel 37a Kadasterbesluit heeft het Kadaster de mogelijkheid op verzoek van een persoon gedurende een periode van vijf jaar geen gegevens over deze persoon te verstrekken. Alleen personen die binnen het stelsel Bewaken en Beveiligen vallen komen hiervoor in aanmerking.
     -- Gegevens worden wel verstrekt aan notarissen, deurwaarders en bestuursorganen indien zij deze gegevens nodig hebben voor de uitvoering van hun wettelijke taak.
     indicatieafschermingpersoonsgegevens BOOLEAN,
-    -- De extern gekoppelde gegevens van NatuurlijkePersonen zijn gemodelleerd volgens het model van de BasisRegistratiePersonen.
-    -- TODO kan mogelijk weg?
-    betreft                              VARCHAR,
     -- Het BSN is het burgerservicenummer van de persoon.
     bsn                                  VARCHAR,
     -- adellijkeTitelOfPredikaat is de adellijke titel of het predikaat dat behoort tot de naam van de persoon (bij adellijke titel geslachtsnaam, bij predikaat voornaam).
@@ -300,9 +297,6 @@ CREATE TABLE nietnatuurlijkpersoon
     rechtsvorm      VARCHAR(52),
     --Statutaire zetel is de plaats waar een Rechtspersoon volgens de statuten gevestigd is.
     statutairezetel VARCHAR(40),
-    -- TODO kan mogelijk weg?
-    -- De extern gekoppelde gegevens van NietNatuurlijkePersonen zijn gemodelleerd volgens het model van het HandelsRegister
-    betreft         VARCHAR,
     -- Het RSIN is het Rechtspersonen Samenwerkingsverbanden Informatie Nummer is een uniek nummer wat iedere rechtspersoon krijgt.
     -- Een RSIN is een uniek nummen dat wordt toegekend aan een rechtspersoon of samenwerkingsverband.
     -- Een eenmanszaak is geen rechtspersoon en heeft dus ook geen RSIN.

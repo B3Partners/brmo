@@ -419,7 +419,6 @@
                 <indicatieafschermingpersoonsgegevens>
                     <xsl:value-of select="Persoon:indicatieAfschermingPersoonsgegevens"/>
                 </indicatieafschermingpersoonsgegevens>
-                <betreft><!-- TODO ?? evt vullen met $persoonType --></betreft>
                 <bsn>
                     <xsl:value-of select="Persoon:betreft/KIMBRPPersoon:GeregistreerdPersoon/KIMBRPPersoon:bsn"/>
                 </bsn>
@@ -517,7 +516,6 @@
                 <statutairezetel>
                     <xsl:value-of select="Persoon:statutaireZetel"/>
                 </statutairezetel>
-                <betreft><!-- TODO ?? evt vullen met $persoonType --></betreft>
                 <rsin>
                     <xsl:value-of select="Persoon:betreft/KIMNHRRechtspersoon:Rechtspersoon/KIMNHRRechtspersoon:rsin"/>
                 </rsin>
@@ -937,7 +935,9 @@
                 <xsl:if test="$persoon/Persoon:postlocatie/Adres-ref:ObjectlocatieBinnenlandRef">
                     <xsl:call-template name="domein_identificatie">
                         <xsl:with-param name="id"
-                                        select="$persoon/Persoon:postlocatie/Adres-ref:ObjectlocatieBinnenlandRef"/>
+                                        select="$persoon/Persoon:postlocatie/Adres-ref:ObjectlocatieBinnenlandRef |
+                                                $persoon/Persoon:postlocatie/Adres-ref:ObjectlocatieBuitenlandRef |
+                                                $persoon/Persoon:postlocatie/Adres-ref:PostbusLocatieRef"/>
                     </xsl:call-template>
                 </xsl:if>
             </postlocatie>
@@ -945,7 +945,8 @@
                 <xsl:if test="$persoon/Persoon:woonlocatie/Adres-ref:ObjectlocatieBinnenlandRef">
                     <xsl:call-template name="domein_identificatie">
                         <xsl:with-param name="id"
-                                        select="$persoon/Persoon:woonlocatie/Adres-ref:ObjectlocatieBinnenlandRef"/>
+                                        select="$persoon/Persoon:woonlocatie/Adres-ref:ObjectlocatieBinnenlandRef |
+                                                $persoon/Persoon:woonlocatie/Adres-ref:ObjectlocatieBuitenlandRef"/>
                     </xsl:call-template>
                 </xsl:if>
             </woonlocatie>

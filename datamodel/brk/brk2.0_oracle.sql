@@ -112,7 +112,6 @@ CREATE TABLE natuurlijkpersoon
     identificatie                        VARCHAR2(255) NOT NULL PRIMARY KEY,
     indicatieoverleden                   NUMBER(1),
     indicatieafschermingpersoonsgegevens NUMBER(1),
-    betreft                              VARCHAR2(255),
     bsn                                  VARCHAR2(255),
     adellijketitelofpredicaat            VARCHAR2(10),
     aanduidingnaamgebruik                VARCHAR2(72),
@@ -136,7 +135,6 @@ CREATE TABLE nietnatuurlijkpersoon
     statutairenaam  VARCHAR2(200),
     rechtsvorm      VARCHAR2(52),
     statutairezetel VARCHAR2(40),
-    betreft         VARCHAR2(255),
     rsin            VARCHAR2(9),
     kvknummer       VARCHAR2(8)
 );
