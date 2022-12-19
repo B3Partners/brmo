@@ -152,9 +152,7 @@ CREATE TABLE onroerendezaak
     -- OudstDigitaalBekend is de datum waarop het object voor het eerst vanuit een digitale Kadastrale registratie beschikbaar was is.
     -- Dit is een vaststaand gegeven en zal niet veranderen als gevolg van het digitaliseren van analoge registraties.
     -- Dit gegeven is te zien als het technisch tijdstip ontstaan van de eerste versie van een object.
-    oudstdigitaalbekend           TIMESTAMP,
-    -- TODO ontstaan uit OZ filiatie relatie?
-    ontstaanuit                   VARCHAR
+    oudstdigitaalbekend           TIMESTAMP
 );
 
 CREATE TABLE archief_onroerendezaak
@@ -348,11 +346,12 @@ CREATE TABLE onroerendezaakfiliatie
     -- Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere.
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardFiliatie/
     aard            VARCHAR(65) NOT NULL,
+    onroerendezaak  VARCHAR REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
     -- betreft OZ relatie; referentie naar OZ/Perceel/AppRe
-    betreft         VARCHAR REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
+    betreft         VARCHAR(255),
     -- metadata tbv archivering
     begingeldigheid DATE NOT NULL,
-    PRIMARY KEY (aard, betreft)
+    PRIMARY KEY (aard, onroerendezaak, betreft)
 );
 
 CREATE TABLE archief_onroerendezaakfiliatie

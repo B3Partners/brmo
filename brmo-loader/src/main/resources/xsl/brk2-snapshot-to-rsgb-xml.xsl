@@ -68,8 +68,8 @@
                 </xsl:if>
 
                 <!--
-                    TODO bepalen of we ook de KIMBAGAdres moeten verwerken
-                         bevat waarschijnlijk een BAG referentie naar een adres
+                    TODO (adres): bepalen of we ook de KIMBAGAdres moeten verwerken
+                         bevat waarschijnlijk een BAG referentie naar een verblijfsobject, ligplaats of standplaats
                 -->
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Adres:* |
                          /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Verblijfsobject |
@@ -678,11 +678,9 @@
                         select="$oz/OnroerendeZaak:landinrichtingsrente/OnroerendeZaak:TypeLandinrichtingsrente/OnroerendeZaak:eindjaar"/>
             </landinrichtingsrente_jaar>
             <aard_cultuur_onbebouwd>
-                <!-- TODO Er kunnen meerdere culturen onbebouwd bij een onbebouwde onroerende zaak voorkomen. -->
                 <xsl:value-of select="$oz/OnroerendeZaak:aardCultuurOnbebouwd/Typen:waarde"/>
             </aard_cultuur_onbebouwd>
             <aard_cultuur_bebouwd>
-                <!-- TODO  Er kunnen meerdere culturen bebouwd bij een onbebouwde onroerende zaak voorkomen. -->
                 <xsl:value-of
                         select="$oz/OnroerendeZaak:aardCultuurBebouwd/Typen:waarde"/>
             </aard_cultuur_bebouwd>
@@ -718,7 +716,6 @@
                     </xsl:if>
                 </xsl:if>
             </oudstdigitaalbekend>
-            <ontstaanuit><!-- TODO deze ws kan weg omdat de relatie andersom is --></ontstaanuit>
         </onroerendezaak>
 
         <xsl:for-each select="OnroerendeZaak:ontstaanUitOZ/OnroerendeZaak:OnroerendeZaakFiliatie">
@@ -726,8 +723,15 @@
                 <aard>
                     <xsl:value-of select="OnroerendeZaak:aard/Typen:waarde"/>
                 </aard>
-                <betreft>
+                <onroerendezaak>
                     <xsl:value-of select="$ozId"/>
+                </onroerendezaak>
+                <betreft>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id"
+                                        select="OnroerendeZaak:betreftOZ/OnroerendeZaak-ref:PerceelRef |
+                                                OnroerendeZaak:betreftOZ/OnroerendeZaak-ref:AppartementsrechtRef"/>
+                    </xsl:call-template>
                 </betreft>
                 <begingeldigheid>
                     <xsl:value-of select="$toestandsdatum"/>
@@ -743,7 +747,7 @@
     <xsl:template name="recht">
         <xsl:param name="recht"/>
         <!--
-        TODO:
+        TODO (recht):
              - relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
              - relatie Recht:Tenaamstelling/Recht:van/Recht-ref:ZakelijkRechtRef
              - relatie Recht:Tenaamstelling/Recht:tenNameVan/Persoon-ref:NietNatuurlijkPersoonRef
@@ -765,14 +769,14 @@
                 <xsl:value-of select="$recht/Recht:toelichtingBewaarder"/>
             </toelichtingbewaarder>
             <isbelastmet>
-                <!-- TODO: dit kunnen er meer dan 1 zijn -->
+                <!-- TODO (recht): dit kunnen er meer dan 1 zijn -->
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="$recht/Recht:isBelastMet/Recht-ref:ZakelijkRechtRef"/>
                 </xsl:call-template>
             </isbelastmet>
             <isgebaseerdop>
                 <xsl:call-template name="domein_identificatie">
-                    <!-- TODO Er kunnen meer dan 1 stukdelen zijn (xsd zegt max 2)
+                    <!-- TODO (recht): Er kunnen meer dan 1 stukdelen zijn (xsd zegt max 2)
                               bijv. NL.IMKAD.KadastraalObject.53730012470000             -->
                     <xsl:with-param name="id" select="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
                 </xsl:call-template>
@@ -805,7 +809,7 @@
                 </xsl:call-template>
             </isbestemdtot>
             <isbeperkttot>
-                <!-- TODO: dit kunnen er meer dan 1 zijn -->
+                <!-- TODO (recht): dit kunnen er meer dan 1 zijn -->
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="$recht/Recht:isBeperktTot/Recht-ref:TenaamstellingRef"/>
                 </xsl:call-template>
@@ -883,7 +887,7 @@
                 <xsl:value-of select="$recht/Recht:omschrijving"/>
             </omschrijving>
             <einddatumrecht alleen-archief="true">
-                <!-- TODO check alleen-archief="true"       -->
+                <!-- TODO (recht): check alleen-archief="true"       -->
                 <xsl:value-of select="$recht/Recht:einddatumRecht"/>
             </einddatumrecht>
             <einddatum>
@@ -894,7 +898,7 @@
                 <xsl:value-of select="$recht/Recht:betreftGedeelteVanPerceel"/>
             </betreftgedeeltevanperceel>
             <aantekeningrecht>
-                <!-- TODO : dit kunnen er meer dan 1 ref naar tenaamstellingen zijn -->
+                <!-- TODO (recht): dit kunnen er meer dan 1 ref naar tenaamstellingen zijn -->
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="$recht/Recht:aantekeningRecht/Recht-ref:TenaamstellingRef"/>
                 </xsl:call-template>

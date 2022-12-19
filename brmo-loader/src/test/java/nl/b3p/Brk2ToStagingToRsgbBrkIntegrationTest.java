@@ -74,7 +74,9 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
                 arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, (2), 0, 0, 0, 0),
                 arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, (19 + 8), 11, 0, 0, 0),
                 // met ligplaatsen
-                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14 + 11), 11, 0, 0, 1)
+                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14 + 11), 11, 0, 0, 1),
+                // samenvoeging van 3 percelen
+                arguments("/brk2/stand-perceel-5.anon.xml", "NL.IMKAD.KadastraalObject:53750049870000", 2, 1, 1, 2, 0, (1), 0, 0, 0, 3)
                 // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres),aantalObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie}
         );
     }
@@ -194,6 +196,10 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
         ITable onroerendezaakfiliatie = rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie");
         assertEquals(aantalFiliatie, onroerendezaakfiliatie.getRowCount(), "Aantal onroerendezaakfiliatie klopt niet");
+        // check dat alle records de objectRef als "onroerendezaak" hebben
+        for (int i = 0; i < onroerendezaakfiliatie.getRowCount(); i++) {
+            assertEquals(objectRef, onroerendezaakfiliatie.getValue(i, "onroerendezaak"), "onroerendezaakfiliatie.onroerendezaak is niet gelijk aan objectRef");
+        }
 
         ITable perceelOfAppRe;
         if (isPerceel) {
