@@ -4,6 +4,8 @@ import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Polygon;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
@@ -163,6 +165,10 @@ public class DataComfortXMLReader {
                             Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
 
                             Geometry geom = geometryReader.readGeometry();
+                            // TODO/HACK force polygon to multi-polygon
+                            if (geom instanceof Polygon) {
+                                geom = new MultiPolygon(new Polygon[]{(Polygon) geom}, geom.getFactory());
+                            }
 
                             // Note: this linearizes curves, we could use a WKTWriter2 instead!
                             row.getValues().add(geom.toString());
