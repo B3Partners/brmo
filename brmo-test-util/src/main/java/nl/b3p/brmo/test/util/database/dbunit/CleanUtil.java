@@ -186,7 +186,7 @@ public final class CleanUtil {
     public static void cleanRSGB_BRP(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
             throws DatabaseUnitException, SQLException {
         if (deleteBrondocument) {
-            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
                     new DefaultTable("brondocument")}
             ));
         }

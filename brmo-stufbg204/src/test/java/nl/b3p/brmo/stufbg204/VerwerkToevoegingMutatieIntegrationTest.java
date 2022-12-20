@@ -62,8 +62,6 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         // brmo.setEnablePipeline(true);
 
-        staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb, DBPROPS.getProperty("rsgb.schema"));
         if (this.isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             dsRsgb.getConnection().setAutoCommit(true);
@@ -74,7 +72,9 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
+            staging = new DatabaseDataSourceConnection(dsStaging);
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb = new DatabaseDataSourceConnection(dsRsgb, DBPROPS.getProperty("rsgb.schema"));
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegegeven");
