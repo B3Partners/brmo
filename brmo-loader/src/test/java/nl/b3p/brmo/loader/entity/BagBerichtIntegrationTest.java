@@ -42,8 +42,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Draaien met:
- * {@code mvn -Dit.test=BagBerichtIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql >
- * /tmp/postgresql.log}
+ * {@code mvn -Dit.test=BagBerichtIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins

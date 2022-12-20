@@ -52,7 +52,7 @@ public class DataComfortXMLReaderTest {
         StreamSource source= new StreamSource(stream);
         List<TableData> data = reader.readDataXML(source);
         try{
-            assertEquals(6, data.size());
+            assertEquals(22, data.size());
         }catch (Exception e){
             fail(e.getLocalizedMessage());
         }
@@ -63,7 +63,7 @@ public class DataComfortXMLReaderTest {
         StreamSource source= new StreamSource(stream);
         List<TableData> data = reader.readDataXML(source);
         try{
-            assertEquals(6, data.size());
+            assertEquals(15, data.size());
         }catch (Exception e){
             fail(e.getLocalizedMessage());
         }
@@ -74,7 +74,7 @@ public class DataComfortXMLReaderTest {
         StreamSource source = new StreamSource(stream);
         List<TableData> data = reader.readDataXML(source);
         try {
-            assertEquals(3, data.size(), "Er zijn drie table data elementen");
+            assertEquals(9, data.size(), "Er zijn drie table data elementen");
             TableData d = data.get(0);
             assertTrue(d.isComfortData(), "eerste table data is comfort data.");
             assertEquals(4, d.getRows().size(), "Er zijn vier table rows");
@@ -83,10 +83,27 @@ public class DataComfortXMLReaderTest {
 
             d = data.get(2);
             row = d.getRows().get(0);
-            assertEquals("214606.115 581137.695 214593.637 581184.181 214586.404 581200.432 214582.757 581198.853 214579.699 581197.328 214595.919 581135.491 214597.599 581135.854 214606.115 581137.695",
-                    row.getColumnValue("posList"));
+            assertEquals("MULTIPOLYGON (((214606.115 581137.695, 214593.637 581184.181, 214586.404 581200.432, 214582.757 581198.853, 214579.699 581197.328, 214595.919 581135.491, 214597.599 581135.854, 214606.115 581137.695)))",
+                    row.getColumnValue("begrenzing_perceel"));
 
 
+        } catch (Exception e) {
+            fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void testGml32() throws Exception {
+        InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata32.xml");
+        StreamSource source = new StreamSource(stream);
+        List<TableData> data = reader.readDataXML(source);
+        try {
+            assertEquals(9, data.size(), "Er zijn drie table data elementen");
+            TableData d = data.get(6);
+            assertEquals(1, d.getRows().size(), "Er is één table row");
+            TableRow row = d.getRows().get(0);
+            assertEquals("perceel", row.getTable());
+            assertEquals("MULTIPOLYGON (((19452.172 366623.187, 19476.238 366616.882, 19477.741 366622.664, 19453.125 366629.117, 19452.172 366623.187)))", row.getValues().get(2));
         } catch (Exception e) {
             fail(e.getLocalizedMessage());
         }
