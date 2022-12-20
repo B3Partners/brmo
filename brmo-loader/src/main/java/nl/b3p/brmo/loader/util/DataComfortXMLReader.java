@@ -8,7 +8,6 @@ import org.locationtech.jts.geom.Geometry;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
-import javax.xml.transform.TransformerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,6 @@ public class DataComfortXMLReader {
     private static final int LEVEL_COMFORT = 2;
     private static final int LEVEL_TABLE = 3;
     private static final int LEVEL_DELETE = 4;
-
-    private final TransformerFactory tf = TransformerFactory.newInstance();
     private final XMLInputFactory xif = XMLInputFactory.newInstance();
 
     public DataComfortXMLReader() {
@@ -39,7 +36,7 @@ public class DataComfortXMLReader {
         XmlStreamGeometryReader geometryReader = new XmlStreamGeometryReader(xer);
 
         int level = LEVEL_ROOT;
-        List<TableData> list = new ArrayList();
+        List<TableData> list = new ArrayList<>();
         TableData data = null;
         TableRow row = null;
         boolean inComfortData = false;
@@ -170,8 +167,12 @@ public class DataComfortXMLReader {
                             // Note: this linearizes curves, we could use a WKTWriter2 instead!
                             row.getValues().add(geom.toString());
 
-                            //System.out.println("Sub elements " + tag + ": " + sw.toString());
                             split2.stop();
+
+                            // After parsing geometry, move to end of enclosing tag
+                            while(!(tag.equals(xer.getLocalName()) && xer.isEndElement())) {
+                                xer.nextTag();
+                            }
                         } else if (xer.isCharacters()) {
                             StringBuilder t = new StringBuilder();
                             do {
