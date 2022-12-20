@@ -627,7 +627,8 @@ CREATE TABLE appartementsrecht
     -- De bij de hoofdsplitsing ontstane eigendom van de appartemenstrechten (de zogenaamde hoofd appartementsrechten) is
     -- tenaamgesteld van de gerechtigden (van het gesplitste zakelijke recht).
     -- Het gesplitste zakelijk recht van de grondpercelen is niet tenaamgesteld.
-    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie)
+    -- geen  `REFERENCES recht (identificatie)` omdat niet in alle berichten de de Hoofdsplitsing is opgenomen en er dan een constraint violation optreedt
+    hoofdsplitsing  VARCHAR(255) NOT NULL
     -- metadata tbv archivering
     -- begingeldigheid DATE         NOT NULL
 );

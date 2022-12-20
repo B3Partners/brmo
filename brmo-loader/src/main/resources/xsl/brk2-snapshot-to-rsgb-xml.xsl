@@ -400,6 +400,7 @@
                 </xsl:call-template>
             </identificatie>
             <hoofdsplitsing>
+                <!-- deze is soms niet in het bericht opgenomen, derhalve geen foreign key -->
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="OnroerendeZaak:hoofdsplitsing/Recht-ref:HoofdsplitsingRef"/>
                 </xsl:call-template>

@@ -281,7 +281,7 @@ CREATE TABLE archief_recht
 CREATE TABLE appartementsrecht
 (
     identificatie   VARCHAR2(255) NOT NULL PRIMARY KEY,
-    hoofdsplitsing  VARCHAR2(255) NOT NULL REFERENCES recht (identificatie)
+    hoofdsplitsing  VARCHAR2(255) NOT NULL
     -- begingeldigheid DATE          NOT NULL
 );
 CREATE TABLE archief_appartementsrecht

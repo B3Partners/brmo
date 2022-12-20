@@ -78,9 +78,9 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
                 // met ligplaatsen
                 arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14 + 11), 11, 0, 0, 1),
                 // samenvoeging van 3 percelen
-                arguments("/brk2/stand-perceel-5.anon.xml", "NL.IMKAD.KadastraalObject:53750049870000", 2, 1, 1, 2, 0, (1), 0, 0, 0, 3)
-                // app.re met ondersplitsing en ontbrekende hoofdsplitsing referentie - vanwege een constraint violation kan die niet alleen geladen worden...
-                //, arguments("/brk2/stand-appre-3.anon.xml", "NL.IMKAD.KadastraalObject:53830693710057", 4, 3, 3, 1, 1, (1), 0, 0, 0, 0)
+                arguments("/brk2/stand-perceel-5.anon.xml", "NL.IMKAD.KadastraalObject:53750049870000", 2, 1, 1, 2, 0, (1), 0, 0, 0, 3),
+                // app.re met ondersplitsing en ontbrekende hoofdsplitsing referentie
+                arguments("/brk2/stand-appre-3.anon.xml", "NL.IMKAD.KadastraalObject:53830693710057", 4, 3, 3, 1, 1, (1), 0, 0, 0, 0)
                 // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:* + KIMBAGAdres), aantalObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie}
         );
     }
