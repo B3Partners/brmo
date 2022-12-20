@@ -72,9 +72,9 @@
                          bevat waarschijnlijk een BAG referentie naar een verblijfsobject, ligplaats of standplaats
                 -->
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Adres:* |
-                         /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Verblijfsobject |
-                         /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Standplaats |
-                         /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Ligplaats">
+                                      /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Verblijfsobject |
+                                      /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Standplaats |
+                                      /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Ligplaats">
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
@@ -83,7 +83,8 @@
                 </xsl:for-each>
 
                 <xsl:for-each
-                        select="/Snapshot:KadastraalObjectSnapshot/Stuk:TerInschrijvingAangebodenStuk | /Snapshot:KadastraalObjectSnapshot/Stuk:Kadasterstuk">
+                        select="/Snapshot:KadastraalObjectSnapshot/Stuk:TerInschrijvingAangebodenStuk |
+                                /Snapshot:KadastraalObjectSnapshot/Stuk:Kadasterstuk">
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
@@ -140,7 +141,10 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:ZakelijkRecht">
-                    <!-- recht met laagste identificatie eerst - met aanname dat lagere nummers geen verwijzing hebben naar hogere nummers, maar wel andersom -->
+                    <!--
+                    het recht met laagste identificatie eerst in database zetten - met aanname dat lagere nummers
+                    geen verwijzing hebben naar hogere nummers, maar wel andersom
+                    -->
                     <xsl:sort select="Recht:identificatie" data-type="number" order="descending"/>
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
@@ -152,7 +156,9 @@
                     <xsl:apply-templates select="."/>
                 </xsl:for-each>
 
-                <!-- Koppel tabellen -->
+                <!--
+                    Koppel tabellen.
+                -->
                 <xsl:for-each
                         select="/Snapshot:KadastraalObjectSnapshot/KadastraalObject:LocatieKadastraalObject">
                     <xsl:apply-templates select="."/>
@@ -226,6 +232,7 @@
             </onroerendezaakbeperking>
         </xsl:for-each>
     </xsl:template>
+
 
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/Adres:* |
                          /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:Verblijfsobject |
@@ -351,9 +358,7 @@
                 </xsl:call-template>
             </identificatie>
             <begrenzing_perceel>
-                <!--     TODO geometrie parsen mislukt...
                 <xsl:copy-of select="OnroerendeZaak:begrenzingPerceel/gml:Surface"/>
-                -->
             </begrenzing_perceel>
             <kadastralegrootte>
                 <xsl:value-of select="OnroerendeZaak:kadastraleGrootte/OnroerendeZaak:waarde"/>
@@ -379,6 +384,7 @@
         </perceel>
     </xsl:template>
 
+
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/OnroerendeZaak:Appartementsrecht">
         <xsl:call-template name="kadastraal_onroerende_zaak">
             <xsl:with-param name="oz" select="."/>
@@ -400,6 +406,7 @@
             </hoofdsplitsing>
         </appartementsrecht>
     </xsl:template>
+
 
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/Persoon:NatuurlijkPersoon">
         <!-- comfort data -->
@@ -493,6 +500,7 @@
             </natuurlijkpersoon>
         </comfort>
     </xsl:template>
+
 
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/Persoon:NietNatuurlijkPersoon">
         <xsl:variable name="comfort-search-value">
@@ -624,7 +632,7 @@
 
 
     <!--
-    vult tabellen "onroerendezaak" en "onroerendezaakfiliatie"
+        Vult tabellen "onroerendezaak" en "onroerendezaakfiliatie", aangeroepen vanuit Perceel of Appartementsrecht.
     -->
     <xsl:template name="kadastraal_onroerende_zaak">
         <xsl:param name="oz"/>
@@ -741,8 +749,9 @@
 
     </xsl:template>
 
+
     <!--
-        vult recht.
+        Maakt een recht record.
     -->
     <xsl:template name="recht">
         <xsl:param name="recht"/>
@@ -809,7 +818,9 @@
                 </xsl:call-template>
             </isbestemdtot>
             <isbeperkttot>
-                <!-- TODO (recht): dit kunnen er meer dan 1 zijn -->
+                <!-- TODO (recht): dit kunnen er meer dan 1 zijn;
+                        bijv. test bestand "/brk2/stand-appre-2.anon.xml" / NL.IMKAD.KadastraalObject:53850184110001
+                -->
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="$recht/Recht:isBeperktTot/Recht-ref:TenaamstellingRef"/>
                 </xsl:call-template>
@@ -923,11 +934,14 @@
         </recht>
     </xsl:template>
 
+
     <!--
         vult de tabel persoon (superklasse).
     -->
     <xsl:template name="persoon">
+        <!-- De NP of NNP -->
         <xsl:param name="persoon"/>
+        <!-- type persoon [natuurlijkpersoon|nietnatuurlijkpersoon] (tabel naam) -->
         <xsl:param name="clazz"/>
 
         <persoon>
@@ -967,7 +981,11 @@
         </persoon>
     </xsl:template>
 
-    <!-- maak een domein identificatie aan -->
+
+    <!--
+    Maak een domein identificatie aan.
+    Geprobeerd wordt om een volledige NEN 3610 id te maken, iets wat voor BAG elementen mislukt vanwege ontbrekend domein.
+    -->
     <xsl:template name="domein_identificatie">
         <xsl:param name="id"/>
         <xsl:variable name="nameSpace" select="$id/@domein"/>
@@ -981,6 +999,7 @@
             <xsl:value-of select="$id"/>
         </xsl:if>
     </xsl:template>
+
 
     <!-- converteer datum: jjjj-mm-dd -> jjjjmmdd -->
     <xsl:template name="numeric-date">
