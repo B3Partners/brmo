@@ -192,22 +192,18 @@ CREATE TABLE adres
     postcode             VARCHAR(6),
     openbareruimtenaam   VARCHAR(80),
     woonplaatsnaam       VARCHAR(80),
-    -- BAG OPR id
-    openbareruimte       VARCHAR(16),
-    --BAG VBO id
-    verblijfsobject      VARCHAR(16),
-    -- BAG ADR id
-    adresseerbaarobject  VARCHAR(16),
     -- BAG NUM id
     nummeraanduiding     VARCHAR(16),
+    -- BAG ADR id: en verblijfsobject , standplaats of ligplaats
+    adresseerbaarobject  VARCHAR(16),
+    --BAG VBO id
+    verblijfsobject      VARCHAR(16),
     -- BAG STA id
     standplaats          VARCHAR(16),
     --BAG LIG id
     ligplaats            VARCHAR(16),
-    -- TODO uitzoeken
-    nevenadres           VARCHAR,
-    -- TODO uitzoeken
-    hoofdadres           VARCHAR,
+    hoofdadres           VARCHAR(16),
+    nevenadres           VARCHAR(16),
     -- adres buitenland
     buitenlandadres      VARCHAR(200),
     buitenlandwoonplaats VARCHAR(200),
@@ -442,7 +438,7 @@ CREATE TABLE recht
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardAantekening/
     aard                                   VARCHAR(255),
     toelichtingbewaarder                   VARCHAR(4000),
-    -- zak. recht referentie
+    -- TODO: 0..∞ zak. recht referentie
     isbelastmet                            VARCHAR REFERENCES recht (identificatie),
     -- Meerdere ‘is gebaseerd op’ bij een zakelijk recht is een valide situatie.
     -- Dit komt voor als het zakelijk recht eerst ontstaat onder opschortende voorwaarden (ontstaat dan nog niet in de BRK)
@@ -461,8 +457,11 @@ CREATE TABLE recht
     -- krijgen de tenaamstellingen van het onderliggend recht het te verwerken stuk als extra ‘is gebaseerd op’,
     -- omdat dit ook een vorm van verkrijging is. Bv. Afstand beperkt recht.
     --
-    -- stukdeel referentie
+    -- TODO: 0..2 stukdeel referentie
     isgebaseerdop                          VARCHAR(255) REFERENCES stukdeel (identificatie),
+    -- zakelijke recht referentie
+    -- relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
+    betreft                                VARCHAR(255) REFERENCES recht (identificatie),
     -- OZ referentie
     rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
     -- een splitsing ref
@@ -471,8 +470,9 @@ CREATE TABLE recht
     isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
     -- Mandeligheid ref
     isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
-    --     tenaamstelling ref
-    isbeperkttot                           VARCHAR REFERENCES recht (identificatie),
+    -- TODO: 1 of meer tenaamstelling ref
+    -- bijv. test bestand "/brk2/stand-appre-2.anon.xml" / NL.IMKAD.KadastraalObject:53850184110001
+    isbeperkttot                           VARCHAR(255),
     -- Erfpachtcanon.Soort is een nadere aanduiding van de erfpachtcanon. De waarden zijn opgenomen in een waardelijst
     -- We onderkennen de volgende soorten erfpachtcanon* Eeuwigdurend afgekocht* Afgekocht tot* Variabel bedrag* Jaarlijks bedrag
     -- https://developer.kadaster.nl/schemas/waardelijsten/SoortErfpachtcanon/
@@ -531,6 +531,8 @@ CREATE TABLE recht
     -- een natuurlijk persoon deze tenaamstelling heeft verkregen.
     -- https://developer.kadaster.nl/schemas/waardelijsten/Samenwerkingsverband/
     verkregennamenssamenwerkingsverband    VARCHAR(26),
+    -- relatie Recht:Tenaamstelling/Recht:van/Recht-ref:ZakelijkRechtRef
+    van                                    VARCHAR REFERENCES recht (identificatie),
     -- NP verwijzing
     betrokkenpartner                       VARCHAR REFERENCES natuurlijkpersoon (identificatie),
     -- GezamenlijkAandeelRef
@@ -557,6 +559,7 @@ CREATE TABLE recht
     betreftgedeeltevanperceel              BOOLEAN,
     -- AantekeningRecht is een aantekening bij een tenaamstelling van een recht.
     -- tenaamstelling ref
+    -- TODO dit kunnen er meer dan 1 (1..∞) referenties naar tenaamstellingen zijn
     aantekeningrecht                       VARCHAR REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR REFERENCES onroerendezaak (identificatie),
     -- NNP of NP verwijzing
@@ -574,6 +577,9 @@ CREATE TABLE archief_recht
     isbelastmet                            VARCHAR REFERENCES recht (identificatie),
     -- stukdeel referentie
     isgebaseerdop                          VARCHAR(255) REFERENCES stukdeel (identificatie),
+    -- zakelijke recht referentie
+    -- relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
+    betreft                                VARCHAR(255) REFERENCES recht (identificatie),
     -- OZ referentie
     rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
     -- een splitsing ref
@@ -583,7 +589,7 @@ CREATE TABLE archief_recht
     -- Mandeligheid ref
     isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
     -- tenaamstelling ref
-    isbeperkttot                           VARCHAR REFERENCES recht (identificatie),
+    isbeperkttot                           VARCHAR(255),
     soort                                  VARCHAR(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
@@ -596,6 +602,8 @@ CREATE TABLE archief_recht
     aandeel_noemer                         DECIMAL(32, 0),
     burgerlijkestaattentijdevanverkrijging VARCHAR(43),
     verkregennamenssamenwerkingsverband    VARCHAR(26),
+    -- relatie Recht:Tenaamstelling/Recht:van/Recht-ref:ZakelijkRechtRef
+    van                                    VARCHAR REFERENCES recht (identificatie),
     -- NP verwijzing
     betrokkenpartner                       VARCHAR REFERENCES natuurlijkpersoon (identificatie),
     -- GezamenlijkAandeelRef
