@@ -33,13 +33,18 @@ import java.io.StringReader;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * Testcases voor updaten van zak_recht.begind_recht tabel
- *
+ * <p>
  * Draaien met:
  * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
@@ -47,22 +52,18 @@ import static org.mockito.Mockito.*;
  *
  * @author meine
  */
-public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
+public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(UpdateBeginDatumZakRechtIntegrationTest.class);
-
-    private BrmoFramework brmo;
-
-    private IDatabaseConnection rsgb;
-    private IDatabaseConnection staging;
-
     private final String sBestandsNaam = "/GH557-brk-comfort-adres/staging-flat.xml";
     private final String rBestandsNaam = "/GH557-brk-comfort-adres/rsgb-flat.xml";
     private final Lock sequential = new ReentrantLock();
-
     private final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
+    private BrmoFramework brmo;
+    private IDatabaseConnection rsgb;
+    private IDatabaseConnection staging;
     private UpdatesActionBean bean;
+
     @BeforeEach
     @Override
     public void setUp() throws Exception {
@@ -76,18 +77,17 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         assumeTrue(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam) != null, "Het bestand met staging testdata zou moeten bestaan.");
         assumeTrue(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam) != null, "Het bestand met rsgb testdata zou moeten bestaan.");
 
-        rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
-        staging = new DatabaseConnection(dsStaging.getConnection());
-
         if (isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), DBPROPS.getProperty("rsgb.username").toUpperCase());
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), DBPROPS.getProperty("rsgb.schema").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), DBPROPS.getProperty("staging.username").toUpperCase());
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), DBPROPS.getProperty("staging.schema").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
+            rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging = new DatabaseConnection(dsStaging.getConnection());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegegeven");
@@ -113,26 +113,25 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         assumeTrue(1 == brmo.getCountLaadProcessen("brk", "STAGING_OK"), "Er zijn x STAGING_OK laadprocessen");
     }
 
-    
+
     @AfterEach
     public void cleanup() throws Exception {
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
+            brmo = null;
         }
-        brmo = null;
         bean = null;
         if (rsgb != null) {
             CleanUtil.cleanRSGB_BRK(rsgb, true);
             rsgb.close();
+            rsgb = null;
         }
-        rsgb = null;
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
-        staging = null;
-
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
@@ -144,7 +143,6 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
 
     @Test
     public void runUpdate() throws Exception {
-
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
         assertEquals(6, zak_recht.getRowCount(), "Aantal zakelijk rechten klopt niet");
         /*
@@ -153,7 +151,7 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         for (int i = 0; i < 6; i++) {
             assertNull(zak_recht.getValue(i, "ingangsdatum_recht"), "Ingangsdatum recht is gevuld");
         }
-       
+
         bean.populateUpdateProcesses();
         bean.setUpdateProcessName("Bijwerken ingangsdatum_recht zakelijk recht");
         bean.update();

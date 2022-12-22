@@ -93,15 +93,14 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        staging = new DatabaseConnection(dsStaging.getConnection());
-
         if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    DBPROPS.getProperty("staging.username").toUpperCase());
+                    DBPROPS.getProperty("staging.schema").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
+            staging = new DatabaseConnection(dsStaging.getConnection());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegeven");
@@ -166,18 +165,18 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void tearDown() throws Exception {
         if (brmo != null) {
             brmo.closeBrmoFramework();
-            brmo = null;
         }
+        brmo = null;
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
-            staging = null;
         }
+        staging = null;
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
             // in geval van niet waar gemaakte assumptions
-            LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen.");
+            LOG.warn("unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen.");
         }
     }
 
