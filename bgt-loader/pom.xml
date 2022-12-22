@@ -365,21 +365,5 @@ SPDX-License-Identifier: MIT
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>lgtm</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- skip op LGTM service -->
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <verbose>false</verbose>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>
