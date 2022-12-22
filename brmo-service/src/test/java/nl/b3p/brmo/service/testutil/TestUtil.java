@@ -99,9 +99,10 @@ public abstract class TestUtil {
         dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
+        dsStaging.setDefaultSchema(DBPROPS.getProperty("staging.schema"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setInitialSize(5);
-        dsStaging.setMaxTotal(150);
+        dsStaging.setMaxTotal(100);
         dsStaging.setMaxIdle(1);
         dsStaging.setMaxConnLifetimeMillis(1000 * 120);
         dsStaging.setMinEvictableIdleTimeMillis(1000 * 10);
@@ -113,11 +114,12 @@ public abstract class TestUtil {
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgb.setInitialSize(1);
-        dsRsgb.setMaxTotal(20);
+        dsRsgb.setMaxTotal(50);
         dsRsgb.setMaxIdle(1);
         dsRsgb.setMaxConnLifetimeMillis(1000 * 60);
         dsRsgb.setMinEvictableIdleTimeMillis(1000 * 10);
         dsRsgb.setPoolPreparedStatements(true);
+        dsRsgb.setClearStatementPoolOnReturn(true);
 
         dsRsgbBrk = new BasicDataSource();
         dsRsgbBrk.setUrl(DBPROPS.getProperty("rsgbbrk.url"));
@@ -125,11 +127,12 @@ public abstract class TestUtil {
         dsRsgbBrk.setPassword(DBPROPS.getProperty("rsgbbrk.password"));
         dsRsgbBrk.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgbBrk.setInitialSize(1);
-        dsRsgbBrk.setMaxTotal(20);
+        dsRsgbBrk.setMaxTotal(50);
         dsRsgbBrk.setMaxIdle(1);
         dsRsgbBrk.setMaxConnLifetimeMillis(1000 * 60);
         dsRsgbBrk.setMinEvictableIdleTimeMillis(1000 * 10);
         dsRsgbBrk.setPoolPreparedStatements(true);
+        dsRsgbBrk.setClearStatementPoolOnReturn(true);
 
         setupJNDI();
     }

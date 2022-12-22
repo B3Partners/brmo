@@ -20,7 +20,10 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -33,8 +36,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * testcase voor snelle update van brk berichten en daarna een herhalen van brk verwijder berichten. Draaien
@@ -84,20 +90,22 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         when(updatesBean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
-        staging = new DatabaseConnection(dsStaging.getConnection());
+
+
 
         if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
-                    DBPROPS.getProperty("rsgb.username").toUpperCase());
+                    DBPROPS.getProperty("rsgb.schema").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    DBPROPS.getProperty("staging.username").toUpperCase());
+                    DBPROPS.getProperty("staging.schema").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
+            rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging = new DatabaseConnection(dsStaging.getConnection());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             Assertions.fail("Geen ondersteunde database aangegegeven");
@@ -110,10 +118,10 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
     private void loadData(String sBestandsNaam, long aantalBerichten, long aantalProcessen, String rBestandsNaam)
             throws Exception {
 
-        Assumptions.assumeTrue(
+        assumeTrue(
                 AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null,
                 "Het bestand met staging testdata zou moeten bestaan.");
-        Assumptions.assumeTrue(
+        assumeTrue(
                 AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null,
                 "Het bestand met rsgb testdata zou moeten bestaan.");
 
@@ -129,9 +137,9 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
-        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "RSGB_OK"),
+        assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten");
-        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
+        assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen");
     }
 
@@ -140,17 +148,18 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
+            brmo = null;
         }
         if (rsgb != null) {
             CleanUtil.cleanRSGB_BRK(rsgb, true);
             rsgb.close();
+            rsgb = null;
         }
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
-        staging = null;
-        rsgb = null;
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {

@@ -33,9 +33,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * testcases voor GH 557 (overnemen comfort adresgegevens uit BRK in subject
@@ -76,35 +83,34 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         when(bean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
-        staging = new DatabaseConnection(dsStaging.getConnection());
-
         if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
-                    DBPROPS.getProperty("rsgb.username").toUpperCase());
+                    DBPROPS.getProperty("rsgb.schema").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    DBPROPS.getProperty("staging.username").toUpperCase());
+                    DBPROPS.getProperty("staging.schema").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
+            rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging = new DatabaseConnection(dsStaging.getConnection());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
         staging.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
-        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBrk);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
         sequential.lock();
     }
 
     private void loadData(String sStagingBestand, String sRsgbBestand) throws Exception {
-        Assumptions.assumeTrue(BRKComfortAdresUpdatesIntegrationTest.class.getResource(sStagingBestand) != null,
+        assumeTrue(BRKComfortAdresUpdatesIntegrationTest.class.getResource(sStagingBestand) != null,
                 "Het bestand met staging testdata zou moeten bestaan.");
-        Assumptions.assumeTrue(BRKComfortAdresUpdatesIntegrationTest.class.getResource(sRsgbBestand) != null,
+        assumeTrue(BRKComfortAdresUpdatesIntegrationTest.class.getResource(sRsgbBestand) != null,
                 "Het bestand met rsgb testdata zou moeten bestaan.");
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -116,11 +122,11 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
-        Assumptions.assumeTrue(
+        assumeTrue(
                 1 == brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten"
         );
-        Assumptions.assumeTrue(
+        assumeTrue(
                 1 == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen"
         );
@@ -131,20 +137,19 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
+            brmo = null;
         }
-        brmo = null;
         bean = null;
         if (rsgb != null) {
             CleanUtil.cleanRSGB_BRK(rsgb, true);
             rsgb.close();
+            rsgb = null;
         }
-        rsgb = null;
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
-        staging = null;
-
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
@@ -160,7 +165,7 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
      *
      * @throws Exception if any
      */
-    @ParameterizedTest(name =  "Snelle Update {index}: verwerken bestanden: ''{0}'' en ''{1}''")
+    @ParameterizedTest(name = "Snelle Update {index}: verwerken bestanden: ''{0}'' en ''{1}''")
     @MethodSource("argumentsProvider")
     public void testSnelleUpdate(String sStagingBestand, String sRsgbBestand) throws Exception {
         loadData(sStagingBestand, sRsgbBestand);
