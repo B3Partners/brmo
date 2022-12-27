@@ -158,6 +158,9 @@ public final class CleanUtil {
                 new DefaultTable("archief_perceel"),
                 new DefaultTable("archief_recht"),
                 new DefaultTable("objectlocatie"),
+                new DefaultTable("aantekeningrecht"),
+                new DefaultTable("isbelastmet"),
+                new DefaultTable("isbeperkttot"),
         }));
     }
 

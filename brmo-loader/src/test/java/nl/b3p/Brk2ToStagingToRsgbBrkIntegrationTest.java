@@ -66,26 +66,28 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:*), aantalKadObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie},
-                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 3, 2, 2, 1, 1, (3), 1, 0, 0, 0),
-                arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 2, 1, 1, 0, 1, (2), 0, 0, 0, 0),
-                arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 2, 1, 1, 0, 1, (2), 0, 0, 0, 0),
-                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 2, 2, 2, 1, 1, (4), 1, 1, 1, 1, 0),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 2, 0, (2), 0, 0, 0, 0),
-                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, (2), 0, 0, 0, 0),
+                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:*), aantalKadObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie, aantalAantekeningRecht, aantalIsbelastmetRecht, aantalIsbeperkttotRecht},
+                arguments("/brk2/stand-appre-1.anon.xml", "NL.IMKAD.KadastraalObject:53761288010001", 3, 2, 2, 1, 1, (3), 1, 0, 0, 0, 0, 0, 0),
+                arguments("/brk2/stand-perceel-1.anon.xml", "NL.IMKAD.KadastraalObject:50247970000", 2, 1, 1, 0, 1, (2), 0, 0, 0, 0, 0, 0, 0),
+                arguments("/brk2/stand-perceel-2.anon.xml", "NL.IMKAD.KadastraalObject:53730000170000", 2, 1, 1, 0, 1, (2), 0, 0, 0, 0, 0, 0, 0),
+                arguments("/brk2/stand-perceel-3.anon.xml", "NL.IMKAD.KadastraalObject:89760037170000", 2, 2, 2, 1, 1, (4), 1, 1, 1, 1, 0, 0, 0, 0),
+                arguments("/brk2/MUTKX02-ABG00F1856-20211012-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 2, 0, (2), 0, 0, 0, 0, 1, 0, 0),
+                arguments("/brk2/MUTKX02-ABG00F1856-20211102-1.anon.xml", "NL.IMKAD.KadastraalObject:5260185670000", 3, 2, 2, 1, 1, (2), 0, 0, 0, 0, 1, 0, 0),
                 // buitenlands adres
-                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, (19), 11, 0, 0, 0),
+                arguments("/brk2/stand-appre-2.anon.xml", "NL.IMKAD.KadastraalObject:53850184110001", 18, 4, 7, 6, 2, (19), 11, 0, 0, 0, 4 + 3, 1, 6),
                 // met ligplaatsen
-                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14), 11, 0, 0, 1),
+                arguments("/brk2/stand-perceel-4.anon.xml", "NL.IMKAD.KadastraalObject:53830384970000", 3, 2, 2, 0, 2, (14), 11, 0, 0, 1, 0, 0, 0),
                 // samenvoeging van 3 percelen
-                arguments("/brk2/stand-perceel-5.anon.xml", "NL.IMKAD.KadastraalObject:53750049870000", 2, 1, 1, 2, 0, (1), 0, 0, 0, 3),
+                arguments("/brk2/stand-perceel-5.anon.xml", "NL.IMKAD.KadastraalObject:53750049870000", 2, 1, 1, 2, 0, (1), 0, 0, 0, 3, 0, 0, 0),
                 // app.re met ondersplitsing en ontbrekende hoofdsplitsing referentie
-                arguments("/brk2/stand-appre-3.anon.xml", "NL.IMKAD.KadastraalObject:53830693710057", 4, 3, 3, 1, 1, (1), 0, 0, 0, 0),
+                arguments("/brk2/stand-appre-3.anon.xml", "NL.IMKAD.KadastraalObject:53830693710057", 4, 3, 3, 1, 1, (1), 0, 0, 0, 0, 0, 0, 0),
                 // erfpacht
-                arguments("/brk2/stand-perceel-6.anon.xml", "NL.IMKAD.KadastraalObject:53810161070000", 7, 3, 4, 0, 2, (3), 0, 0, 0, 1),
+                arguments("/brk2/stand-perceel-6.anon.xml", "NL.IMKAD.KadastraalObject:53810161070000", 7, 3, 4, 0, 2, (3), 0, 0, 0, 1, 1, 1, 0),
                 // nevenadres
-                arguments("/brk2/stand-perceel-7.anon.xml", "NL.IMKAD.KadastraalObject:53850231870000", 2, 4, 4, 0, 1, (6), 4, 0, 0, 1)
-                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:*), aantalKadObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie}
+                arguments("/brk2/stand-perceel-7.anon.xml", "NL.IMKAD.KadastraalObject:53850231870000", 2, 4, 4, 0, 1, (6), 4, 0, 0, 1, 0, 0, 0),
+                // meerdere stukdelen onder tenaamstelling
+                arguments("/brk2/stand-perceel-8.anon.xml", "NL.IMKAD.KadastraalObject:53730012470000", 8, 7, 8, 2, 3, (3), 0, 0, 0, 0, 0, 2, 0)
+                // { "filename", objectRef, aantalRecht, aantalStuk, aantalStukdeel, aantalNP, aantalNNP, aantalAdres (Adres:*), aantalKadObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie, aantalAantekeningRecht, aantalIsbelastmetRecht, aantalIsbeperkttotRecht}
         );
     }
 
@@ -154,7 +156,8 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
     @MethodSource("argumentsProvider")
     void testBericht(String bestandNaam, String objectRef,
                      int aantalRecht, int aantalStuk, int aantalStukdeel, int aantalNP, int aantalNNP, int aantalAdres,
-                     int aantalKadObjLocatie, int aantalPubliekRBeperking, int aantalOnrndZkBeperking, int aantalFiliatie)
+                     int aantalKadObjLocatie, int aantalPubliekRBeperking, int aantalOnrndZkBeperking, int aantalFiliatie,
+                     int aantalAantekeningRecht, int aantalIsbelastmetRecht, int aantalIsbeperkttotRecht)
             throws Exception {
 
         final boolean isPerceel = objectRef.endsWith("0000");
@@ -226,7 +229,16 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         }
 
         ITable recht = rsgbBrk.createDataSet().getTable("recht");
-        assertEquals(aantalRecht, recht.getRowCount(), "Er is geen/teveel/te weinig recht");
+        ITable aantekeningrecht = rsgbBrk.createDataSet().getTable("aantekeningrecht");
+        ITable isbelastmet = rsgbBrk.createDataSet().getTable("isbelastmet");
+        ITable isbeperkttot = rsgbBrk.createDataSet().getTable("isbeperkttot");
+        assertAll("rechten", () -> {
+            assertEquals(aantalRecht, recht.getRowCount(), "Er is geen/teveel/te weinig recht");
+            assertEquals(aantalAantekeningRecht, aantekeningrecht.getRowCount(), "Er zijn geen/teveel/te weinig aantekeningrecht relaties");
+            assertEquals(aantalIsbelastmetRecht, isbelastmet.getRowCount(), "Er zijn geen/teveel/te weinig isbelastmet relaties");
+            assertEquals(aantalIsbeperkttotRecht, isbeperkttot.getRowCount(), "Er zijn geen/teveel/te weinig isbeperkttot relaties");
+        });
+
 
         ITable stuk = rsgbBrk.createDataSet().getTable("stuk");
         assertEquals(aantalStuk, stuk.getRowCount(), "Er is geen/teveel/te weinig stuk");

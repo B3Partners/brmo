@@ -207,14 +207,13 @@ CREATE TABLE recht
     identificatie                          VARCHAR2(255) NOT NULL PRIMARY KEY,
     aard                                   VARCHAR2(255),
     toelichtingbewaarder                   VARCHAR2(4000 BYTE),
-    isbelastmet                            VARCHAR2(255) REFERENCES recht (identificatie),
     isgebaseerdop                          VARCHAR2(255) REFERENCES stukdeel (identificatie),
+    isgebaseerdop2                         VARCHAR2(255) REFERENCES stukdeel (identificatie),
     betreft                                VARCHAR2(255) REFERENCES recht (identificatie),
     rustop                                 VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     isontstaanuit                          VARCHAR2(255) REFERENCES recht (identificatie),
     isbetrokkenbij                         VARCHAR2(255) REFERENCES recht (identificatie),
     isbestemdtot                           VARCHAR2(255) REFERENCES recht (identificatie),
-    isbeperkttot                           VARCHAR2(255),
     soort                                  VARCHAR2(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      NUMBER(1),
@@ -236,24 +235,43 @@ CREATE TABLE recht
     einddatumrecht                         DATE,
     einddatum                              DATE,
     betreftgedeeltevanperceel              NUMBER(1),
-    aantekeningrecht                       VARCHAR2(255) REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     betrokkenpersoon                       VARCHAR2(255) REFERENCES persoon (identificatie),
     begingeldigheid                        DATE          NOT NULL
 );
+
+-- koppeltabellen voor 1:n (n>1) recht:recht relaties
+CREATE TABLE aantekeningrecht
+(
+    aantekening    VARCHAR2(255) REFERENCES recht (identificatie),
+    tenaamstelling VARCHAR2(255) REFERENCES recht (identificatie),
+    PRIMARY KEY (aantekening, tenaamstelling)
+);
+CREATE TABLE isbelastmet
+(
+    zakelijkrecht VARCHAR2(255) REFERENCES recht (identificatie),
+    isbelastmet   VARCHAR2(255) REFERENCES recht (identificatie),
+    PRIMARY KEY (zakelijkrecht, isbelastmet)
+);
+CREATE TABLE isbeperkttot
+(
+    zakelijkrecht  VARCHAR2(255) REFERENCES recht (identificatie),
+    tenaamstelling VARCHAR2(255) NOT NULL,
+    PRIMARY KEY (zakelijkrecht, tenaamstelling)
+);
+
 CREATE TABLE archief_recht
 (
     identificatie                          VARCHAR2(255) NOT NULL,
     aard                                   VARCHAR2(255),
     toelichtingbewaarder                   VARCHAR2(4000),
-    isbelastmet                            VARCHAR2(255) REFERENCES recht (identificatie),
     isgebaseerdop                          VARCHAR2(255) REFERENCES stukdeel (identificatie),
+    isgebaseerdop2                         VARCHAR2(255) REFERENCES stukdeel (identificatie),
     recht                                  VARCHAR2(255) REFERENCES recht (identificatie),
     rustop                                 VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     isontstaanuit                          VARCHAR2(255) REFERENCES recht (identificatie),
     isbetrokkenbij                         VARCHAR2(255) REFERENCES recht (identificatie),
     isbestemdtot                           VARCHAR2(255) REFERENCES recht (identificatie),
-    isbeperkttot                           VARCHAR2(255),
     soort                                  VARCHAR2(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      NUMBER(1),
@@ -275,7 +293,6 @@ CREATE TABLE archief_recht
     einddatumrecht                         DATE,
     einddatum                              DATE,
     betreftgedeeltevanperceel              NUMBER(1),
-    aantekeningrecht                       VARCHAR2(255) REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     betrokkenpersoon                       VARCHAR2(255) REFERENCES persoon (identificatie),
     begingeldigheid                        DATE          NOT NULL,

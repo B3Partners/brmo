@@ -72,7 +72,7 @@ CREATE TABLE onroerendezaak
     identificatie                 VARCHAR(255) NOT NULL PRIMARY KEY,
     -- metadata tbv archivering
     begingeldigheid               DATE         NOT NULL,
-    eindegeldigheid               DATE         ,
+    eindegeldigheid               DATE,
     -- Kadastrale aanduiding is de unieke aanduiding van een onroerende zaak, die door het kadaster wordt vastgesteld.
     -- Kadastrale aanduiding is de unieke aanduiding van een onroerende zaak, die door het kadaster wordt vastgesteld.
     -- Percelen worden kadastraal aangeduid door vermelding van achtereenvolgens de kadastrale gemeente en sectie,
@@ -214,10 +214,10 @@ CREATE TABLE adres
 
 CREATE TABLE objectlocatie
 (
-    heeft                VARCHAR REFERENCES onroerendezaak (identificatie),
-    betreft              VARCHAR REFERENCES adres (identificatie),
+    heeft           VARCHAR REFERENCES onroerendezaak (identificatie),
+    betreft         VARCHAR REFERENCES adres (identificatie),
     -- https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
-    koppelingswijze      VARCHAR(29),
+    koppelingswijze VARCHAR(29),
     PRIMARY KEY (heeft, betreft)
 );
 
@@ -327,9 +327,9 @@ CREATE TABLE onroerendezaakbeperking
     -- geen identificatie?
     -- identificatie VARCHAR(255) PRIMARY KEY NOT NULL,
     -- TODO primary key bepalen
-    inonderzoek   BOOLEAN,
-    beperkt       VARCHAR REFERENCES onroerendezaak (identificatie),
-    leidttot      VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie),
+    inonderzoek BOOLEAN,
+    beperkt     VARCHAR REFERENCES onroerendezaak (identificatie),
+    leidttot    VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie),
     PRIMARY KEY (beperkt, leidttot)
 );
 
@@ -346,13 +346,13 @@ CREATE TABLE onroerendezaakfiliatie
     -- betreft OZ relatie; referentie naar OZ/Perceel/AppRe
     betreft         VARCHAR(255),
     -- metadata tbv archivering
-    begingeldigheid DATE NOT NULL,
+    begingeldigheid DATE        NOT NULL,
     PRIMARY KEY (aard, onroerendezaak, betreft)
 );
 
 CREATE TABLE archief_onroerendezaakfiliatie
 (
-    aard            VARCHAR(65) NOT NULL,
+    aard            VARCHAR(65)  NOT NULL,
     betreft         VARCHAR(255) NOT NULL,
     begingeldigheid DATE         NOT NULL,
     PRIMARY KEY (aard, betreft, begingeldigheid)
@@ -363,12 +363,12 @@ CREATE TABLE archief_onroerendezaakfiliatie
 -- Tussen alle kadastrale percelen in Nederland geldt een topologische relatie (opdelende vlakstructuur), d.w.z. dat naburige perceelsvlakken naadloos moeten aansluiten en elkaar niet mogen overlappen.
 CREATE TABLE perceel
 (
-    identificatie          VARCHAR(255)                  NOT NULL PRIMARY KEY,
+    identificatie          VARCHAR(255)           NOT NULL PRIMARY KEY,
     -- Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is.
     -- Het gehele Nederlandse grondgebied is aaneengesloten kadastraal geïdentificeerd.
     -- Perceel is authentiek volgens de BRK voorzover het de attribuutsoorten kadastraleGrootte en KadatraleAanduiding betreft.
     -- TODO:  NOT NULL toevoegen
-    begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992) ,
+    begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992),
     -- De grootte van een perceel zoals vermeld in de kadastrale registratie. Het Kadaster bepaalt niet een excacte maar een indicatieve grootte.
     -- Grootte is alleen authentiek als soort groote de waarde "vastgesteld" heeft.
     -- De oppervlakgrootte wordt vastgelegd in vierkante meter.
@@ -391,7 +391,7 @@ CREATE TABLE perceel
     -- Verschuiving op de Y as.
     perceelnummer_deltay   DECIMAL(20, 10),
     --  Betreft de plaatsing van het perceelnummer bij verbeelding op een kaart, om deze op een overzichtelijke plek in de perceel begrenzing te plaatsen.
-    plaatscoordinaten      GEOMETRY(POINT, 28992)        NOT NULL,
+    plaatscoordinaten      GEOMETRY(POINT, 28992) NOT NULL,
     -- Meettarief verschuldigd is een indicatie voor het verschuldigd zijn van een meettarief bij overdracht van een perceel.
     -- Een meettarief is verschuldigd (indicator is true) als het een administratief gevormd perceel met voorlopige grenzen,
     -- of een perceel met voorlopige grenzen betreft dat nog nooit is overgedragen.
@@ -438,8 +438,6 @@ CREATE TABLE recht
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardAantekening/
     aard                                   VARCHAR(255),
     toelichtingbewaarder                   VARCHAR(4000),
-    -- TODO: 0..∞ zak. recht referentie
-    isbelastmet                            VARCHAR REFERENCES recht (identificatie),
     -- Meerdere ‘is gebaseerd op’ bij een zakelijk recht is een valide situatie.
     -- Dit komt voor als het zakelijk recht eerst ontstaat onder opschortende voorwaarden (ontstaat dan nog niet in de BRK)
     -- en er later een stuk komt waarin deze opschortende voorwaarden in vervulling gaan.
@@ -457,8 +455,9 @@ CREATE TABLE recht
     -- krijgen de tenaamstellingen van het onderliggend recht het te verwerken stuk als extra ‘is gebaseerd op’,
     -- omdat dit ook een vorm van verkrijging is. Bv. Afstand beperkt recht.
     --
-    -- TODO: 0..2 stukdeel referentie
+    -- 0..2 stukdeel referentie
     isgebaseerdop                          VARCHAR(255) REFERENCES stukdeel (identificatie),
+    isgebaseerdop2                         VARCHAR(255) REFERENCES stukdeel (identificatie),
     -- zakelijke recht referentie
     -- relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
     betreft                                VARCHAR(255) REFERENCES recht (identificatie),
@@ -470,9 +469,6 @@ CREATE TABLE recht
     isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
     -- Mandeligheid ref
     isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
-    -- TODO: 1 of meer tenaamstelling ref
-    -- bijv. test bestand "/brk2/stand-appre-2.anon.xml" / NL.IMKAD.KadastraalObject:53850184110001
-    isbeperkttot                           VARCHAR(255),
     -- Erfpachtcanon.Soort is een nadere aanduiding van de erfpachtcanon. De waarden zijn opgenomen in een waardelijst
     -- We onderkennen de volgende soorten erfpachtcanon* Eeuwigdurend afgekocht* Afgekocht tot* Variabel bedrag* Jaarlijks bedrag
     -- https://developer.kadaster.nl/schemas/waardelijsten/SoortErfpachtcanon/
@@ -557,10 +553,6 @@ CREATE TABLE recht
     einddatum                              DATE,
     -- BetreftGedeelteVanPerceel is een aanduiding of de aantekening het gehele perceel (nee of niet gevuld) betreft of slechts een gedeelte (ja).
     betreftgedeeltevanperceel              BOOLEAN,
-    -- AantekeningRecht is een aantekening bij een tenaamstelling van een recht.
-    -- tenaamstelling ref
-    -- TODO dit kunnen er meer dan 1 (1..∞) referenties naar tenaamstellingen zijn
-    aantekeningrecht                       VARCHAR REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR REFERENCES onroerendezaak (identificatie),
     -- NNP of NP verwijzing
     betrokkenpersoon                       VARCHAR REFERENCES persoon (identificatie),
@@ -568,15 +560,35 @@ CREATE TABLE recht
     begingeldigheid                        DATE         NOT NULL
 );
 
+-- koppeltabellen voor 1:n (n>1) recht:recht relaties
+CREATE TABLE aantekeningrecht
+(
+    aantekening    VARCHAR REFERENCES recht (identificatie),
+    tenaamstelling VARCHAR REFERENCES recht (identificatie),
+    PRIMARY KEY (aantekening, tenaamstelling)
+);
+CREATE TABLE isbelastmet
+(
+    zakelijkrecht VARCHAR REFERENCES recht (identificatie),
+    isbelastmet   VARCHAR REFERENCES recht (identificatie),
+    PRIMARY KEY (zakelijkrecht, isbelastmet)
+);
+CREATE TABLE isbeperkttot
+(
+    zakelijkrecht  VARCHAR REFERENCES recht (identificatie),
+    -- tenaamstelling VARCHAR REFERENCES recht (identificatie); maar tenaamstelling onbreekt soms in bericht
+    tenaamstelling VARCHAR(255) NOT NULL,
+    PRIMARY KEY (zakelijkrecht, tenaamstelling)
+);
+
 CREATE TABLE archief_recht
 (
     identificatie                          VARCHAR(255) NOT NULL,
     aard                                   VARCHAR(255),
     toelichtingbewaarder                   VARCHAR(4000),
-    -- zak. recht referentie
-    isbelastmet                            VARCHAR REFERENCES recht (identificatie),
     -- stukdeel referentie
     isgebaseerdop                          VARCHAR(255) REFERENCES stukdeel (identificatie),
+    isgebaseerdop2                         VARCHAR(255) REFERENCES stukdeel (identificatie),
     -- zakelijke recht referentie
     -- relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
     betreft                                VARCHAR(255) REFERENCES recht (identificatie),
@@ -588,8 +600,6 @@ CREATE TABLE archief_recht
     isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
     -- Mandeligheid ref
     isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
-    -- tenaamstelling ref
-    isbeperkttot                           VARCHAR(255),
     soort                                  VARCHAR(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
@@ -618,8 +628,6 @@ CREATE TABLE archief_recht
     einddatumrecht                         DATE,
     einddatum                              DATE,
     betreftgedeeltevanperceel              BOOLEAN,
-    -- tenaamstelling ref
-    aantekeningrecht                       VARCHAR REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR REFERENCES onroerendezaak (identificatie),
     -- NNP of NP verwijzing
     betrokkenpersoon                       VARCHAR REFERENCES persoon (identificatie),
@@ -629,14 +637,14 @@ CREATE TABLE archief_recht
 
 CREATE TABLE appartementsrecht
 (
-    identificatie   VARCHAR(255) NOT NULL PRIMARY KEY,
+    identificatie  VARCHAR(255) NOT NULL PRIMARY KEY,
     -- Een Hoofdsplitsing is het gesplitste Zakelijk recht van 1 of meer Percelen.
     -- De eigendom, het recht van erfpacht en/of het recht van opstal van 1 of enkele percelen (de zogenaamde grondpercelen) is gesplitst.
     -- De bij de hoofdsplitsing ontstane eigendom van de appartemenstrechten (de zogenaamde hoofd appartementsrechten) is
     -- tenaamgesteld van de gerechtigden (van het gesplitste zakelijke recht).
     -- Het gesplitste zakelijk recht van de grondpercelen is niet tenaamgesteld.
     -- geen  `REFERENCES recht (identificatie)` omdat niet in alle berichten de de Hoofdsplitsing is opgenomen en er dan een constraint violation optreedt
-    hoofdsplitsing  VARCHAR(255) NOT NULL
+    hoofdsplitsing VARCHAR(255) NOT NULL
     -- metadata tbv archivering
     -- begingeldigheid DATE         NOT NULL
 );
@@ -650,11 +658,13 @@ CREATE TABLE archief_appartementsrecht
 );
 
 
-CREATE TABLE brmo_metadata (
-    naam VARCHAR(255) NOT NULL PRIMARY KEY,
+CREATE TABLE brmo_metadata
+(
+    naam   VARCHAR(255) NOT NULL PRIMARY KEY,
     waarde VARCHAR(255)
 );
 COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
 
 -- brmo versienummer
-INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');
+INSERT INTO brmo_metadata (naam, waarde)
+VALUES ('brmoversie', '${project.version}');

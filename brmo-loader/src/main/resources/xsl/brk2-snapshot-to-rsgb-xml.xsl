@@ -25,7 +25,7 @@
                 version="1.0">
 
     <xsl:strip-space elements="*"/>
-    <!--<xsl:output encoding="UTF-8" version="1.0" indent="yes"/>-->
+    <xsl:output encoding="UTF-8" version="1.0" indent="yes"/>
 
     <!-- parameters van het bericht -->
     <xsl:param name="objectRef" select="'NL.KAD.OnroerendeZaak:onbekend'"/>
@@ -756,11 +756,15 @@
     <xsl:template name="recht">
         <xsl:param name="recht"/>
 
+        <xsl:variable name="rechtId">
+            <xsl:call-template name="domein_identificatie">
+                <xsl:with-param name="id" select="$recht/Recht:identificatie"/>
+            </xsl:call-template>
+        </xsl:variable>
+
         <recht column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="einddatumrecht">
             <identificatie>
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="$recht/Recht:identificatie"/>
-                </xsl:call-template>
+                <xsl:value-of select="$rechtId"/>
             </identificatie>
             <aard>
                 <xsl:value-of select="$recht/Recht:aard/Typen:waarde"/>
@@ -768,21 +772,37 @@
             <toelichtingbewaarder>
                 <xsl:value-of select="$recht/Recht:toelichtingBewaarder"/>
             </toelichtingbewaarder>
-            <isbelastmet>
-                <!-- TODO (recht): (bron Zakelijkrecht) dit kunnen er meer dan 1 (0..∞) zijn -->
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="$recht/Recht:isBelastMet/Recht-ref:ZakelijkRechtRef"/>
-                </xsl:call-template>
-            </isbelastmet>
+            <!-- isbelastmet via koppeltabel -->
             <isgebaseerdop>
                 <xsl:call-template name="domein_identificatie">
-                    <!-- TODO (recht): (bron oa. ZakelijkRecht/Mandeligheid/Aantekening)
+                    <!-- (bron oa. ZakelijkRecht/Mandeligheid/Aantekening)
                             Er kunnen meer dan 1 stukdelen zijn (xsd zegt max 2)
-                            bijv. NL.IMKAD.KadastraalObject.53730012470000 heeft meerdere stukdeel referenties
+                            bijv. NL.IMKAD.KadastraalObject:53730012470000 / /brk2/stand-perceel-8.anon.xml uit stand
+                            nov.2022 heeft meerdere stukdeel referenties;
+                            dit betreft een datafout want er is een tenaamstelling met 4 stukdelen (xsd stelt max 2.
+                            We nemen alleen de eerste 2 stukdelen mee.
                     -->
-                    <xsl:with-param name="id" select="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef[1]"/>
                 </xsl:call-template>
             </isgebaseerdop>
+            <isgebaseerdop2>
+                <xsl:call-template name="domein_identificatie">
+                    <xsl:with-param name="id" select="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef[2]"/>
+                </xsl:call-template>
+            </isgebaseerdop2>
+            <xsl:if test="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef[3]">
+                <xsl:comment>
+                    <xsl:text>LET OP (DATAFOUT): er zijn meer dan 2 stukdeel referenties voor relatie 'isGebaseerdOp' van: </xsl:text>
+                    <xsl:value-of select="$rechtId"/>
+                </xsl:comment>
+                <xsl:for-each select="$recht/Recht:isGebaseerdOp/Stuk-ref:StukdeelRef">
+                    <xsl:comment>
+                        <xsl:call-template name="domein_identificatie">
+                            <xsl:with-param name="id" select="."/>
+                        </xsl:call-template>
+                    </xsl:comment>
+                </xsl:for-each>
+            </xsl:if>
             <betreft>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="$recht/Recht:betreft/Recht-ref:ZakelijkRechtRef"/>
@@ -815,14 +835,7 @@
                     <xsl:with-param name="id" select="$recht/Recht:isBestemdTot/Recht-ref:MandeligheidRef"/>
                 </xsl:call-template>
             </isbestemdtot>
-            <isbeperkttot>
-                <!-- TODO (recht): (bron Zakelijkrecht) dit kunnen er meer dan 1 (0..∞) zijn;
-                        bijv. test bestand "/brk2/stand-appre-2.anon.xml" / NL.IMKAD.KadastraalObject:53850184110001
-                -->
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="$recht/Recht:isBeperktTot/Recht-ref:TenaamstellingRef"/>
-                </xsl:call-template>
-            </isbeperkttot>
+            <!-- isbeperkttot via koppeltabel -->
             <soort>
                 <xsl:value-of select="$recht/Recht:soort/Typen:waarde"/>
             </soort>
@@ -910,12 +923,7 @@
             <betreftgedeeltevanperceel>
                 <xsl:value-of select="$recht/Recht:betreftGedeelteVanPerceel"/>
             </betreftgedeeltevanperceel>
-            <aantekeningrecht>
-                <!-- TODO (recht): (bron Aantekening) dit kunnen er meer dan 1 (0..∞) referenties naar tenaamstellingen zijn -->
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="$recht/Recht:aantekeningRecht/Recht-ref:TenaamstellingRef"/>
-                </xsl:call-template>
-            </aantekeningrecht>
+            <!-- aantekeningrecht via koppeltabel -->
             <aantekeningkadastraalobject>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id"
@@ -934,6 +942,52 @@
                 <xsl:value-of select="$toestandsdatum"/>
             </begingeldigheid>
         </recht>
+
+
+        <!-- 1:n relaties van rechten -->
+        <xsl:for-each select="$recht/Recht:isBeperktTot/Recht-ref:TenaamstellingRef">
+            <!-- (bron Zakelijkrecht) dit kunnen er meer dan 1 (0..∞) zijn;
+                 bijv. test bestand "/brk2/stand-appre-2.anon.xml" / NL.IMKAD.KadastraalObject:53850184110001
+            -->
+            <isbeperkttot>
+                <zakelijkrecht>
+                    <xsl:value-of select="$rechtId"/>
+                </zakelijkrecht>
+                <tenaamstelling>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id" select="."/>
+                    </xsl:call-template>
+                </tenaamstelling>
+            </isbeperkttot>
+        </xsl:for-each>
+
+        <xsl:for-each select="$recht/Recht:isBelastMet/Recht-ref:ZakelijkRechtRef">
+            <!-- (bron Zakelijkrecht) dit kunnen er meer dan 1 (0..∞) zijn -->
+            <isbelastmet>
+                <zakelijkrecht>
+                    <xsl:value-of select="$rechtId"/>
+                </zakelijkrecht>
+                <isbelastmet>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id" select="."/>
+                    </xsl:call-template>
+                </isbelastmet>
+            </isbelastmet>
+        </xsl:for-each>
+
+        <xsl:for-each select="$recht/Recht:aantekeningRecht/Recht-ref:TenaamstellingRef">
+            <!-- (bron Aantekening) er kunnen er meer dan 1 (0..∞) referenties naar tenaamstellingen zijn -->
+            <aantekeningrecht>
+                <aantekening>
+                    <xsl:value-of select="$rechtId"/>
+                </aantekening>
+                <tenaamstelling>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id" select="."/>
+                    </xsl:call-template>
+                </tenaamstelling>
+            </aantekeningrecht>
+        </xsl:for-each>
     </xsl:template>
 
 
