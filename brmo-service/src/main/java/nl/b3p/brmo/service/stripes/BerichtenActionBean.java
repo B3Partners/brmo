@@ -89,9 +89,9 @@ public class BerichtenActionBean implements ActionBean {
         JSONArray jsoNBerichten = new JSONArray();
         BrmoFramework brmo = null;
         try {
-            brmo = new BrmoFramework(dataSourceStaging, null);
+            brmo = new BrmoFramework(dataSourceStaging, null, null);
 
-            count = brmo.getCountBerichten(sort, dir, filterSoort, filterStatus);
+            count = brmo.getCountBerichten(filterSoort, filterStatus);
 
             if (start < 0) {
                 start = 0;
@@ -166,7 +166,7 @@ public class BerichtenActionBean implements ActionBean {
         DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("success", Boolean.FALSE);
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, null);
+        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, null, null);
         try{
             Bericht bericht = brmo.getBerichtById(selectedIds[0]);
             jsonObj = bericht2Json(bericht);

@@ -20,12 +20,14 @@ public class ConfigUtil implements Servlet {
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_STAGING = "jdbc/brmo/staging";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
+    private static final String JDBC_NAME_RSGBBRK = "jdbc/brmo/rsgbbrk";
     private static final String JDBC_NAME_RSGB_BAG = "jdbc/brmo/rsgbbag";
     private static final String JDBC_NAME_RSGB_BGT = "jdbc/brmo/rsgbbgt";
     private static final String JDBC_NAME_RSGB_TOPNL = "jdbc/brmo/rsgbtopnl";
 
     private static DataSource datasourceStaging = null;
     private static DataSource datasourceRsgb = null;
+    private static DataSource datasourceRsgbBrk = null;
     private static DataSource datasourceRsgbBag = null;
     private static DataSource datasourceRsgbBgt = null;
     private static DataSource datasourceTopNL = null;
@@ -78,6 +80,21 @@ public class ConfigUtil implements Servlet {
         }
 
         return datasourceRsgb;
+    }
+
+    public static DataSource getDataSourceRsgbBrk() throws BrmoException {
+        try {
+            if (datasourceRsgbBrk == null) {
+                InitialContext ic = new InitialContext();
+                Context xmlContext = (Context) ic.lookup(JNDI_NAME);
+                datasourceRsgbBrk = (DataSource) xmlContext.lookup(JDBC_NAME_RSGBBRK);
+            }
+        } catch (Exception ex) {
+            log.error("Fout verbinden naar rsgb db. ", ex);
+            throw new BrmoException(ex);
+        }
+
+        return datasourceRsgbBrk;
     }
 
     public static DataSource getDataSourceRsgbBag() throws BrmoException {

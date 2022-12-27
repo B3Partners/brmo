@@ -96,7 +96,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
@@ -112,7 +112,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -122,9 +122,9 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        Assumptions.assumeTrue(0L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -163,7 +163,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {

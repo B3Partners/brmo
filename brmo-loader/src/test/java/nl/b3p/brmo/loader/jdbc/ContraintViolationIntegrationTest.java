@@ -74,9 +74,9 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
         staging = new DatabaseDataSourceConnection(dsStaging);
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         if (this.isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
@@ -97,9 +97,9 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         sequential.lock();
         CleanUtil.cleanSTAGING(staging, false);
 
-        Assumptions.assumeTrue(0l == brmo.getCountBerichten(null, null, "bag", "STAGING_OK"),
+        Assumptions.assumeTrue(0l == brmo.getCountBerichten("bag", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        Assumptions.assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+        Assumptions.assumeTrue(0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
 
     }
@@ -155,7 +155,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         t.join();
         LOG.debug("Klaar met transformeren berichten naar rsgb DB.");
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "bag", "RSGB_BAG_NOK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("bag", "RSGB_BAG_NOK"),
                 "Niet alle berichten zijn naar RSGB_BAG_NOK getransformeerd");
 
         ITable gem_openb_rmte = rsgb.createDataSet().getTable("gem_openb_rmte");

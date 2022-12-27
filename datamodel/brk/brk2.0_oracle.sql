@@ -27,6 +27,8 @@ CREATE TABLE stukdeel
 CREATE TABLE onroerendezaak
 (
     identificatie                 VARCHAR2(255) NOT NULL PRIMARY KEY,
+    begingeldigheid               DATE         NOT NULL,
+    eindegeldigheid               DATE         ,
     akrkadastralegemeentecode     DECIMAL(4, 0),
     akrkadastralegemeente         VARCHAR2(5),
     kadastralegemeentecode        DECIMAL(4, 0),
@@ -43,13 +45,13 @@ CREATE TABLE onroerendezaak
     koopsom_indicatiemeerobjecten NUMBER(1),
     toelichtingbewaarder          VARCHAR2(4000 BYTE),
     tijdstipontstaanobject        TIMESTAMP,
-    oudstdigitaalbekend           TIMESTAMP,
-    ontstaanuit                   VARCHAR2(255),
-    begingeldigheid               DATE          NOT NULL
+    oudstdigitaalbekend           TIMESTAMP
 );
 CREATE TABLE archief_onroerendezaak
 (
     identificatie                 VARCHAR2(255) NOT NULL,
+    begingeldigheid               DATE          NOT NULL,
+    eindegeldigheid               DATE          NOT NULL,
     akrkadastralegemeentecode     DECIMAL(4, 0),
     akrkadastralegemeente         VARCHAR2(5),
     kadastralegemeentecode        DECIMAL(4, 0),
@@ -68,7 +70,6 @@ CREATE TABLE archief_onroerendezaak
     tijdstipontstaanobject        TIMESTAMP,
     oudstdigitaalbekend           TIMESTAMP,
     ontstaanuit                   VARCHAR2(255),
-    begingeldigheid               DATE          NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 CREATE TABLE adres
@@ -81,21 +82,27 @@ CREATE TABLE adres
     postcode             VARCHAR2(6),
     openbareruimtenaam   VARCHAR2(80),
     woonplaatsnaam       VARCHAR2(80),
-    openbareruimte       VARCHAR2(16),
-    verblijfsobject      VARCHAR2(16),
-    adresseerbaarobject  VARCHAR2(16),
     nummeraanduiding     VARCHAR2(16),
+    adresseerbaarobject  VARCHAR2(16),
+    verblijfsobject      VARCHAR2(16),
     standplaats          VARCHAR2(16),
     ligplaats            VARCHAR2(16),
-    nevenadres           VARCHAR2(255),
-    hoofdadres           VARCHAR2(255),
-    koppelingswijze      VARCHAR2(29),
+    hoofdadres           VARCHAR2(16),
+    nevenadres           VARCHAR2(16),
     buitenlandadres      VARCHAR2(200),
     buitenlandwoonplaats VARCHAR2(200),
     buitenlandregio      VARCHAR2(150),
-    land                 VARCHAR2(40),
-    onroerendezaak       VARCHAR2(255) REFERENCES onroerendezaak (identificatie)
+    land                 VARCHAR2(40)
 );
+
+CREATE TABLE objectlocatie
+(
+    heeft                VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
+    betreft              VARCHAR2(255) REFERENCES adres (identificatie),
+    koppelingswijze      VARCHAR(29),
+    PRIMARY KEY (heeft, betreft)
+);
+
 CREATE TABLE persoon
 (
     identificatie                 VARCHAR2(255) NOT NULL PRIMARY KEY,
@@ -110,7 +117,6 @@ CREATE TABLE natuurlijkpersoon
     identificatie                        VARCHAR2(255) NOT NULL PRIMARY KEY,
     indicatieoverleden                   NUMBER(1),
     indicatieafschermingpersoonsgegevens NUMBER(1),
-    betreft                              VARCHAR2(255),
     bsn                                  VARCHAR2(255),
     adellijketitelofpredicaat            VARCHAR2(10),
     aanduidingnaamgebruik                VARCHAR2(72),
@@ -119,11 +125,11 @@ CREATE TABLE natuurlijkpersoon
     voornamen                            VARCHAR2(200),
     voorvoegselsgeslachtsnaam            VARCHAR2(10),
     geslacht                             VARCHAR2(8),
-    geboortedatum                        VARCHAR2(4),
+    geboortedatum                        VARCHAR2(10),
     geboorteplaats                       VARCHAR2(80),
     geboorteland                         VARCHAR2(40),
     indicatiegeheim                      NUMBER(1),
-    datumoverlijden                      VARCHAR2(4),
+    datumoverlijden                      VARCHAR2(10),
     partnergeslachtsnaam                 VARCHAR2(200),
     partnervoornamen                     VARCHAR2(200),
     partnervoorvoegselsgeslachtsnaam     VARCHAR2(10)
@@ -134,7 +140,6 @@ CREATE TABLE nietnatuurlijkpersoon
     statutairenaam  VARCHAR2(200),
     rechtsvorm      VARCHAR2(52),
     statutairezetel VARCHAR2(40),
-    betreft         VARCHAR2(255),
     rsin            VARCHAR2(9),
     kvknummer       VARCHAR2(8)
 );
@@ -149,49 +154,52 @@ CREATE TABLE publiekrechtelijkebeperking
 );
 CREATE TABLE onroerendezaakbeperking
 (
-    identificatie VARCHAR2(255) PRIMARY KEY NOT NULL,
     inonderzoek   NUMBER(1),
     beperkt       VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
-    leidttot      VARCHAR2(255) REFERENCES publiekrechtelijkebeperking (identificatie)
+    leidttot      VARCHAR2(255) REFERENCES publiekrechtelijkebeperking (identificatie),
+    PRIMARY KEY (beperkt, leidttot)
 );
 CREATE TABLE onroerendezaakfiliatie
 (
-    aard            VARCHAR2(65),
-    betreft         VARCHAR2(255) REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
-    begingeldigheid DATE NOT NULL
+    aard            VARCHAR2(65) NOT NULL,
+    onroerendezaak  VARCHAR2(255) REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
+    betreft         VARCHAR2(255),
+    begingeldigheid DATE NOT NULL,
+    PRIMARY KEY (aard, onroerendezaak, betreft)
 );
 CREATE TABLE archief_onroerendezaakfiliatie
 (
-    aard            VARCHAR2(65),
+    aard            VARCHAR2(65) NOT NULL,
     betreft         VARCHAR2(255) NOT NULL,
     begingeldigheid DATE          NOT NULL,
-    PRIMARY KEY (betreft, begingeldigheid)
+    PRIMARY KEY (aard, betreft, begingeldigheid)
 );
 CREATE TABLE perceel
 (
-    identifcatie           VARCHAR2(255) NOT NULL PRIMARY KEY,
+    identificatie          VARCHAR2(255) NOT NULL PRIMARY KEY,
     begrenzing_perceel     SDO_GEOMETRY  NOT NULL,
     kadastralegrootte      DECIMAL(9, 1),
     soortgrootte           VARCHAR2(100),
     perceelnummerrotatie   DECIMAL(3, 1),
-    perceelnummer_deltax   DECIMAL(10, 10),
-    perceelnummer_deltay   DECIMAL(10, 10),
+    perceelnummer_deltax   DECIMAL(20, 10),
+    perceelnummer_deltay   DECIMAL(20, 10),
     plaatscoordinaten      SDO_GEOMETRY  NOT NULL,
-    meettariefverschuldigd NUMBER(1),
-    begingeldigheid        DATE          NOT NULL
+    meettariefverschuldigd NUMBER(1)
+    -- alleen archief
+    -- begingeldigheid        DATE          NOT NULL
 );
 CREATE TABLE archief_perceel
 (
     identificatie          VARCHAR2(255) NOT NULL,
-    begrenzing_perceel     SDO_GEOMETRY  NOT NULL,
+    begingeldigheid        DATE          NOT NULL,
+    begrenzing_perceel     SDO_GEOMETRY,
     kadastralegrootte      DECIMAL(9, 1),
     soortgrootte           VARCHAR2(100),
     perceelnummerrotatie   DECIMAL(3, 1),
-    perceelnummer_deltax   DECIMAL(10, 10),
-    perceelnummer_deltay   DECIMAL(10, 10),
+    perceelnummer_deltax   DECIMAL(20, 10),
+    perceelnummer_deltay   DECIMAL(20, 10),
     plaatscoordinaten      SDO_GEOMETRY  NOT NULL,
     meettariefverschuldigd NUMBER(1),
-    begingeldigheid        DATE          NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 CREATE TABLE recht
@@ -199,13 +207,13 @@ CREATE TABLE recht
     identificatie                          VARCHAR2(255) NOT NULL PRIMARY KEY,
     aard                                   VARCHAR2(255),
     toelichtingbewaarder                   VARCHAR2(4000 BYTE),
-    isbelastmet                            VARCHAR2(255) REFERENCES recht (identificatie),
     isgebaseerdop                          VARCHAR2(255) REFERENCES stukdeel (identificatie),
+    isgebaseerdop2                         VARCHAR2(255) REFERENCES stukdeel (identificatie),
+    betreft                                VARCHAR2(255) REFERENCES recht (identificatie),
     rustop                                 VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     isontstaanuit                          VARCHAR2(255) REFERENCES recht (identificatie),
     isbetrokkenbij                         VARCHAR2(255) REFERENCES recht (identificatie),
     isbestemdtot                           VARCHAR2(255) REFERENCES recht (identificatie),
-    isbeperkttot                           VARCHAR2(255) REFERENCES recht (identificatie),
     soort                                  VARCHAR2(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      NUMBER(1),
@@ -217,6 +225,7 @@ CREATE TABLE recht
     aandeel_noemer                         DECIMAL(32, 0),
     burgerlijkestaattentijdevanverkrijging VARCHAR2(43),
     verkregennamenssamenwerkingsverband    VARCHAR2(26),
+    van                                    VARCHAR2(255) REFERENCES recht (identificatie),
     betrokkenpartner                       VARCHAR2(255) REFERENCES natuurlijkpersoon (identificatie),
     geldtvoor                              VARCHAR2(255) REFERENCES recht (identificatie),
     betrokkensamenwerkingsverband          VARCHAR2(255) REFERENCES nietnatuurlijkpersoon (identificatie),
@@ -226,23 +235,43 @@ CREATE TABLE recht
     einddatumrecht                         DATE,
     einddatum                              DATE,
     betreftgedeeltevanperceel              NUMBER(1),
-    aantekeningrecht                       VARCHAR2(255) REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     betrokkenpersoon                       VARCHAR2(255) REFERENCES persoon (identificatie),
     begingeldigheid                        DATE          NOT NULL
 );
+
+-- koppeltabellen voor 1:n (n>1) recht:recht relaties
+CREATE TABLE aantekeningrecht
+(
+    aantekening    VARCHAR2(255) REFERENCES recht (identificatie),
+    tenaamstelling VARCHAR2(255) REFERENCES recht (identificatie),
+    PRIMARY KEY (aantekening, tenaamstelling)
+);
+CREATE TABLE isbelastmet
+(
+    zakelijkrecht VARCHAR2(255) REFERENCES recht (identificatie),
+    isbelastmet   VARCHAR2(255) REFERENCES recht (identificatie),
+    PRIMARY KEY (zakelijkrecht, isbelastmet)
+);
+CREATE TABLE isbeperkttot
+(
+    zakelijkrecht  VARCHAR2(255) REFERENCES recht (identificatie),
+    tenaamstelling VARCHAR2(255) NOT NULL,
+    PRIMARY KEY (zakelijkrecht, tenaamstelling)
+);
+
 CREATE TABLE archief_recht
 (
     identificatie                          VARCHAR2(255) NOT NULL,
     aard                                   VARCHAR2(255),
     toelichtingbewaarder                   VARCHAR2(4000),
-    isbelastmet                            VARCHAR2(255) REFERENCES recht (identificatie),
     isgebaseerdop                          VARCHAR2(255) REFERENCES stukdeel (identificatie),
+    isgebaseerdop2                         VARCHAR2(255) REFERENCES stukdeel (identificatie),
+    recht                                  VARCHAR2(255) REFERENCES recht (identificatie),
     rustop                                 VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     isontstaanuit                          VARCHAR2(255) REFERENCES recht (identificatie),
     isbetrokkenbij                         VARCHAR2(255) REFERENCES recht (identificatie),
     isbestemdtot                           VARCHAR2(255) REFERENCES recht (identificatie),
-    isbeperkttot                           VARCHAR2(255) REFERENCES recht (identificatie),
     soort                                  VARCHAR2(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      NUMBER(1),
@@ -254,6 +283,7 @@ CREATE TABLE archief_recht
     aandeel_noemer                         DECIMAL(32, 0),
     burgerlijkestaattentijdevanverkrijging VARCHAR2(43),
     verkregennamenssamenwerkingsverband    VARCHAR2(26),
+    van                                    VARCHAR2(255) REFERENCES recht (identificatie),
     betrokkenpartner                       VARCHAR2(255) REFERENCES natuurlijkpersoon (identificatie),
     geldtvoor                              VARCHAR2(255) REFERENCES recht (identificatie),
     betrokkensamenwerkingsverband          VARCHAR2(255) REFERENCES nietnatuurlijkpersoon (identificatie),
@@ -263,7 +293,6 @@ CREATE TABLE archief_recht
     einddatumrecht                         DATE,
     einddatum                              DATE,
     betreftgedeeltevanperceel              NUMBER(1),
-    aantekeningrecht                       VARCHAR2(255) REFERENCES recht (identificatie),
     aantekeningkadastraalobject            VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
     betrokkenpersoon                       VARCHAR2(255) REFERENCES persoon (identificatie),
     begingeldigheid                        DATE          NOT NULL,
@@ -271,14 +300,24 @@ CREATE TABLE archief_recht
 );
 CREATE TABLE appartementsrecht
 (
-    identifcatie    VARCHAR2(255) NOT NULL PRIMARY KEY,
-    hoofdsplitsing  VARCHAR2(255) NOT NULL REFERENCES recht (identificatie),
-    begingeldigheid DATE          NOT NULL
+    identificatie   VARCHAR2(255) NOT NULL PRIMARY KEY,
+    hoofdsplitsing  VARCHAR2(255) NOT NULL
+    -- begingeldigheid DATE          NOT NULL
 );
 CREATE TABLE archief_appartementsrecht
 (
     identificatie   VARCHAR2(255) NOT NULL,
-    hoofdsplitsing  VARCHAR2(255) NOT NULL REFERENCES recht (identificatie),
     begingeldigheid DATE          NOT NULL,
+    hoofdsplitsing  VARCHAR2(255) NOT NULL REFERENCES recht (identificatie),
     PRIMARY KEY (identificatie, begingeldigheid)
 );
+
+
+CREATE TABLE brmo_metadata (
+    naam VARCHAR2(255 CHAR) NOT NULL PRIMARY KEY,
+    waarde VARCHAR2(255 CHAR)
+);
+COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
+
+-- brmo versienummer
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');

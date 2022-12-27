@@ -14,21 +14,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author mprins
  */
-public class BRKScannerProcesTest extends TestUtil {
+public class BRK2ScannerProcesTest extends TestUtil {
 
     /**
      * round trip test van maken, opslaan en uitlezen van een BRKScannerProces.
      */
     @Test
     public void roundtrip() {
-        BRKScannerProces p = new BRKScannerProces();
+        BRK2ScannerProces p = new BRK2ScannerProces();
         p.setScanDirectory(DIR);
         p.getConfig().put("isActive", new ClobElement("true"));
         entityManager.persist(p);
 
         final long id = p.getId();
 
-        BRKScannerProces c = entityManager.find(BRKScannerProces.class, id);
+        BRK2ScannerProces c = entityManager.find(BRK2ScannerProces.class, id);
         assertEquals(DIR, c.getScanDirectory(), "De directory is zoals geconfigureerd.");
         assertEquals("true", c.getConfig().get("isActive").getValue(), "Verwacht dat de parameter is zoals geconfigureerd.");
 
@@ -41,12 +41,12 @@ public class BRKScannerProcesTest extends TestUtil {
      */
     @Test
     public void testUpdateSamenvattingEnLogfile() {
-        BRKScannerProces p = new BRKScannerProces();
+        BRK2ScannerProces p = new BRK2ScannerProces();
         p.updateSamenvattingEnLogfile(NAAM_BESCHIJVING);
         entityManager.persist(p);
         final long id = p.getId();
 
-        BRKScannerProces c = entityManager.find(BRKScannerProces.class, id);
+        BRK2ScannerProces c = entityManager.find(BRK2ScannerProces.class, id);
         assertEquals(c.getLogfile(), c.getSamenvatting(), "Verwacht dat de logfile en de samenvatting hetzelfde zijn.");
 
         c.updateSamenvattingEnLogfile(NAAM);

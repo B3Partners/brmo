@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-12-12+01:00, zie commentaar in bericht.-->
+<Stand:Stand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:Stand="http://www.kadaster.nl/schemas/brk-levering/product-stand/v20211119"
+             xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20211119"
+             xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+             xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+             xmlns:Herverkaveling="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling/v20210702"
+             xmlns:Herverkaveling-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling-ref/v20210702"
+             xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20210702"
+             xmlns:InOnderzoek-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek-ref/v20210702"
+             xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702"
+             xmlns:KadastraalObject-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20210702"
+             xmlns:OnroerendeZaak="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak/v20211119"
+             xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+             xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+             xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+             xmlns:PubliekrechtelijkeBeperking="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking/v20210702"
+             xmlns:PubliekrechtelijkeBeperking-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking-ref/v20210702"
+             xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+             xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+             xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+             xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+             xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702"
+             xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903"
+             xmlns:KIMBAGAdres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres-ref/v20210702"
+             xmlns:KIMBRPAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-adres/v20210702"
+             xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903"
+             xmlns:KIMNHRRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimnhr-rechtspersoon/v20210702"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             xmlns:gml="http://www.opengis.net/gml/3.2">
+   <Stand:productType>GemeentegebaseerdeStand</Stand:productType>
+   <Stand:productSpecificatie>
+      <Stand:kenmerknaam>Peildatum</Stand:kenmerknaam>
+      <Stand:kenmerkwaarde>2022-11-15</Stand:kenmerkwaarde>
+   </Stand:productSpecificatie>
+   <Stand:productSpecificatie>
+      <Stand:kenmerknaam>Gemeentenummer</Stand:kenmerknaam>
+      <Stand:kenmerkwaarde>0106</Stand:kenmerkwaarde>
+   </Stand:productSpecificatie>
+   <Stand:productSpecificatie>
+      <Stand:kenmerknaam>Gemeentenaam</Stand:kenmerknaam>
+      <Stand:kenmerkwaarde>Assen</Stand:kenmerkwaarde>
+   </Stand:productSpecificatie>
+   <Stand:stand>
+      <Snapshot:KadastraalObjectSnapshot>
+         <Snapshot:referentie>30DDFD92EC10-1D52D7E1718</Snapshot:referentie>
+         <Snapshot:toestandsdatum>2015-10-28</Snapshot:toestandsdatum>
+         <OnroerendeZaak:Perceel id="ID.4475304113">
+            <KadastraalObject:identificatie domein="NL.IMKAD.KadastraalObject">53730000170000</KadastraalObject:identificatie>
+            <OnroerendeZaak:kadastraleAanduiding>
+               <OnroerendeZaak:akrKadastraleGemeenteCode>
+                  <Typen:code>106</Typen:code>
+                  <Typen:waarde>ASN00</Typen:waarde>
+               </OnroerendeZaak:akrKadastraleGemeenteCode>
+               <OnroerendeZaak:kadastraleGemeente>
+                  <Typen:code>59</Typen:code>
+                  <Typen:waarde>Assen</Typen:waarde>
+               </OnroerendeZaak:kadastraleGemeente>
+               <OnroerendeZaak:sectie>AA</OnroerendeZaak:sectie>
+               <OnroerendeZaak:perceelnummer>1</OnroerendeZaak:perceelnummer>
+            </OnroerendeZaak:kadastraleAanduiding>
+            <OnroerendeZaak:aardCultuurOnbebouwd>
+               <Typen:code>41</Typen:code>
+               <Typen:waarde>Wegen</Typen:waarde>
+            </OnroerendeZaak:aardCultuurOnbebouwd>
+            <OnroerendeZaak:tijdstipOntstaanObject xsi:nil="true"/>
+            <OnroerendeZaak:tijdstipOntstaanObjectNilreason>waardeOnbekend</OnroerendeZaak:tijdstipOntstaanObjectNilreason>
+            <OnroerendeZaak:oudstDigitaalBekend>
+               <Typen:datum>1989-01-19</Typen:datum>
+               <Typen:tijd xsi:nil="true"/>
+               <Typen:tijdNilreason>waardeOnbekend</Typen:tijdNilreason>
+            </OnroerendeZaak:oudstDigitaalBekend>
+            <OnroerendeZaak:begrenzingPerceel>
+               <gml:Surface srsName="urn:ogc:def:crs:EPSG::28992">
+                  <gml:patches>
+                     <gml:PolygonPatch>
+                        <gml:exterior>
+                           <gml:LinearRing>
+                              <gml:posList srsDimension="2" count="59">236490.581 560610.985 236490.42 560634.395 236490.193 560646.912 236490.173 560658.938 236490.395 560674.764 236490.375 560674.998 236490.054 560686.222 236489.847 560706.739 236489.747 560729.175 236489.48 560757.445 236489.332 560768.627 236489.032 560788.314 236488.716 560807.37 236488.678 560831.63 236487.728 560868.242 236482.336 560868.055 236472.785 560867.725 236473.064 560795.304 236477.263 560383.479 236477.727 560325.267 236479.555 560095.8 236481.661 559889.363 236493.416 559889.17 236495.222 559889.159 236494.525 559958.563 236494.068 560010.619 236493.702 560092.321 236493.336 560099.539 236492.412 560155.036 236492.223 560213.177 236492.403 560215.74 236492.625 560216.806 236493.309 560218.154 236493.952 560218.777 236494.776 560219.211 236494.572 560224.213 236494.505 560252.181 236494.467 560261.114 236494.386 560267.129 236494.41 560273.158 236494.413 560281.077 236494.288 560294.673 236493.87 560308.506 236493.682 560320.798 236493.54 560330.083 236493.402 560339.131 236493.317 560348.353 236493.164 560362.898 236493.047 560376.854 236492.923 560390.035 236492.778 560407.517 236492.521 560424.349 236492.149 560470.52 236491.853 560490.883 236491.795 560513.884 236491.489 560537.95 236491.279 560562.212 236490.878 560585.683 236490.581 560610.985</gml:posList>
+                           </gml:LinearRing>
+                        </gml:exterior>
+                     </gml:PolygonPatch>
+                  </gml:patches>
+               </gml:Surface>
+            </OnroerendeZaak:begrenzingPerceel>
+            <OnroerendeZaak:kadastraleGrootte>
+               <OnroerendeZaak:waarde>14476</OnroerendeZaak:waarde>
+               <OnroerendeZaak:soortGrootte>
+                  <Typen:code>1</Typen:code>
+                  <Typen:waarde>Vastgesteld</Typen:waarde>
+               </OnroerendeZaak:soortGrootte>
+            </OnroerendeZaak:kadastraleGrootte>
+            <OnroerendeZaak:plaatscoordinaten>
+               <gml:Point srsName="urn:ogc:def:crs:EPSG::28992">
+                  <gml:pos>236485.293 560378.651</gml:pos>
+               </gml:Point>
+            </OnroerendeZaak:plaatscoordinaten>
+            <OnroerendeZaak:meettariefVerschuldigd>false</OnroerendeZaak:meettariefVerschuldigd>
+         </OnroerendeZaak:Perceel>
+         <Recht:ZakelijkRecht id="ID.4475304114">
+            <Recht:identificatie domein="NL.IMKAD.ZakelijkRecht">50238464</Recht:identificatie>
+            <Recht:aard>
+               <Typen:code>2</Typen:code>
+               <Typen:waarde>Eigendom (recht van)</Typen:waarde>
+            </Recht:aard>
+            <Recht:rustOp>
+               <OnroerendeZaak-ref:PerceelRef xlink:href="#ID.4475304113" domein="NL.IMKAD.KadastraalObject">53730000170000</OnroerendeZaak-ref:PerceelRef>
+            </Recht:rustOp>
+         </Recht:ZakelijkRecht>
+         <Recht:Tenaamstelling id="ID.4475304122">
+            <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50080455</Recht:identificatie>
+            <Recht:aandeel>
+               <Recht:teller>1</Recht:teller>
+               <Recht:noemer>1</Recht:noemer>
+            </Recht:aandeel>
+            <Recht:van>
+               <Recht-ref:ZakelijkRechtRef xlink:href="#ID.4475304114" domein="NL.IMKAD.ZakelijkRecht">50238464</Recht-ref:ZakelijkRechtRef>
+            </Recht:van>
+            <Recht:isGebaseerdOp>
+               <Stuk-ref:StukdeelRef xlink:href="#ID.4475304119" domein="NL.IMKAD.Stukdeel">AKR1.10984155</Stuk-ref:StukdeelRef>
+            </Recht:isGebaseerdOp>
+            <Recht:tenNameVan>
+               <Persoon-ref:NietNatuurlijkPersoonRef xlink:href="#ID.4475304115" domein="NL.IMKAD.Persoon">58148858</Persoon-ref:NietNatuurlijkPersoonRef>
+            </Recht:tenNameVan>
+         </Recht:Tenaamstelling>
+         <Persoon:NietNatuurlijkPersoon id="ID.4475304115">
+            <Persoon:identificatie domein="NL.IMKAD.Persoon">58148858</Persoon:identificatie>
+            <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+            <Persoon:postlocatie>
+               <Adres-ref:PostbusLocatieRef xlink:href="#ID.8333097555" domein="NL.IMKAD.AdresLocatie">KPR.261247675</Adres-ref:PostbusLocatieRef>
+            </Persoon:postlocatie>
+            <Persoon:woonlocatie>
+               <Adres-ref:ObjectlocatieBinnenlandRef xlink:href="#ID.8333097554" domein="NL.IMKAD.AdresLocatie">KPR.10310347</Adres-ref:ObjectlocatieBinnenlandRef>
+            </Persoon:woonlocatie>
+            <Persoon:statutaireNaam>Gemeente Assen</Persoon:statutaireNaam>
+            <Persoon:rechtsvorm>
+               <Typen:code>10</Typen:code>
+               <Typen:waarde>Publiekrechtelijke rechtspersoon</Typen:waarde>
+            </Persoon:rechtsvorm>
+            <Persoon:statutaireZetel>ASSEN</Persoon:statutaireZetel>
+            <Persoon:betreft>
+               <KIMNHRRechtspersoon:Rechtspersoon>
+                  <KIMNHRRechtspersoon:rsin>001587936</KIMNHRRechtspersoon:rsin>
+                  <KIMNHRRechtspersoon:kvkNummer>50788590</KIMNHRRechtspersoon:kvkNummer>
+               </KIMNHRRechtspersoon:Rechtspersoon>
+            </Persoon:betreft>
+         </Persoon:NietNatuurlijkPersoon>
+         <Adres:ObjectlocatieBinnenland id="ID.8333097554">
+            <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.10310347</Adres:identificatie>
+            <Adres:adresgegevens>
+               <KIMBAGAdres:Nummeraanduiding>
+                  <KIMBAGAdres:identificatie xsi:nil="true"/>
+                  <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+                  <KIMBAGAdres:huisnummer>33</KIMBAGAdres:huisnummer>
+                  <KIMBAGAdres:postcode>9401JW</KIMBAGAdres:postcode>
+                  <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+                     <KIMBAGAdres:OpenbareRuimte>
+                        <KIMBAGAdres:openbareRuimteNaam>Noordersingel</KIMBAGAdres:openbareRuimteNaam>
+                        <KIMBAGAdres:gerelateerdeWoonplaats>
+                           <KIMBAGAdres:Woonplaats>
+                              <KIMBAGAdres:woonplaatsNaam>ASSEN</KIMBAGAdres:woonplaatsNaam>
+                           </KIMBAGAdres:Woonplaats>
+                        </KIMBAGAdres:gerelateerdeWoonplaats>
+                     </KIMBAGAdres:OpenbareRuimte>
+                  </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               </KIMBAGAdres:Nummeraanduiding>
+            </Adres:adresgegevens>
+         </Adres:ObjectlocatieBinnenland>
+         <Adres:PostbusLocatie id="ID.8333097555">
+            <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.261247675</Adres:identificatie>
+            <Adres:postbusnummer>30018</Adres:postbusnummer>
+            <Adres:postcode>9400RA</Adres:postcode>
+            <Adres:woonplaatsNaam>ASSEN</Adres:woonplaatsNaam>
+         </Adres:PostbusLocatie>
+         <Stuk:TerInschrijvingAangebodenStuk id="ID.4475304118">
+            <Stuk:omvat>
+               <Stuk-ref:StukdeelRef xlink:href="#ID.4475304119" domein="NL.IMKAD.Stukdeel">AKR1.10984155</Stuk-ref:StukdeelRef>
+            </Stuk:omvat>
+            <Stuk:identificatie domein="NL.IMKAD.TIAStuk">18011021000363</Stuk:identificatie>
+            <Stuk:deelEnNummer>
+               <Stuk:deel>3750</Stuk:deel>
+               <Stuk:nummer>1</Stuk:nummer>
+               <Stuk:reeks>
+                  <Typen:code>ASN</Typen:code>
+                  <Typen:waarde>Assen</Typen:waarde>
+               </Stuk:reeks>
+               <Stuk:registercode>
+                  <Typen:code>2</Typen:code>
+                  <Typen:waarde>Hyp4</Typen:waarde>
+               </Stuk:registercode>
+               <Stuk:soortRegister>
+                  <Typen:code>2</Typen:code>
+                  <Typen:waarde>Onroerende Zaken</Typen:waarde>
+               </Stuk:soortRegister>
+            </Stuk:deelEnNummer>
+            <Stuk:tijdstipAanbieding xsi:nil="true"/>
+            <Stuk:tijdstipAanbiedingNilreason>waardeOnbekend</Stuk:tijdstipAanbiedingNilreason>
+            <Stuk:tekeningIngeschreven>false</Stuk:tekeningIngeschreven>
+         </Stuk:TerInschrijvingAangebodenStuk>
+         <Stuk:Stukdeel id="ID.4475304119">
+            <Stuk:identificatie domein="NL.IMKAD.Stukdeel">AKR1.10984155</Stuk:identificatie>
+            <Stuk:aard xsi:nil="true"/>
+            <Stuk:aardNilreason>waardeOnbekend</Stuk:aardNilreason>
+         </Stuk:Stukdeel>
+      </Snapshot:KadastraalObjectSnapshot>
+   </Stand:stand>
+</Stand:Stand>

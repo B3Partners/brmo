@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Boy de Wit
  */
 public class DataComfortXMLReader {
@@ -65,48 +64,32 @@ public class DataComfortXMLReader {
                         String comfortSearchColumn = xer.getAttributeValue(null, "search-column");
                         String comfortSearchValue = xer.getAttributeValue(null, "search-value");
                         String snapshotDate = xer.getAttributeValue(null, "snapshot-date");
-
                         data = new TableData(comfortSearchTable, comfortSearchColumn, comfortSearchValue, snapshotDate);
-
                         level = LEVEL_COMFORT;
-
                         inComfortData = true;
                         inDeleteData = false;
-
                     } else if ("delete".equals(tag)) {
-    
                         data = new TableData();
-                        
                         level = LEVEL_DELETE;
-                        
                         inComfortData = false;
                         inDeleteData = true;
-                        
                     } else {
                         row = new TableRow();
                         row.setTable(tag);
                         row.setIgnoreDuplicates("yes".equals(xer.getAttributeValue(null, "ignore-duplicates")));
-
                         String beginDatumColumn = xer.getAttributeValue(null, "column-dat-beg-geldh");
                         String eindeDatumColumn = xer.getAttributeValue(null, "column-datum-einde-geldh");
-
                         row.setColumnDatumBeginGeldigheid(beginDatumColumn);
                         row.setColumnDatumEindeGeldigheid(eindeDatumColumn);
-
                         data = new TableData(row);
-
                         level = LEVEL_TABLE;
-
                         inComfortData = false;
                         inDeleteData = false;
                     }
-
                     list.add(data);
-
                     break;
 
                 case LEVEL_COMFORT:
-
                     if (xer.isEndElement() && "comfort".equals(tag)) {
                         level = LEVEL_DATA;
                     } else {
@@ -117,27 +100,19 @@ public class DataComfortXMLReader {
 
                         level = LEVEL_TABLE;
                     }
-
                     break;
-
                 case LEVEL_DELETE:
-                    
                     if (xer.isEndElement() && "delete".equals(tag)) {
                         level = LEVEL_DATA;
                     } else {
                         row = new TableRow();
                         row.setTable(tag);
-
                         data.addRow(row);
-
                         level = LEVEL_TABLE;
                     }
-
                     break;
-                   
                 case LEVEL_TABLE:
                     if (xer.isEndElement()) {
-
                         if (inComfortData) {
                             level = LEVEL_COMFORT;
                         } else if (inDeleteData) {
@@ -147,36 +122,29 @@ public class DataComfortXMLReader {
                         }
                     } else {
                         data = list.get(list.size() - 1);
-
                         row.getColumns().add(tag);
-
                         String alleenArchief = xer.getAttributeValue(null, "alleen-archief");
-                        if("true".equals(alleenArchief)) {
+                        if ("true".equals(alleenArchief)) {
                             row.setAlleenArchiefColumn(tag);
                         }
-
                         // Detecteer XML elementen of text
                         xer.next();
                         // Skip whitespace before a possible element
-                        while(xer.isWhiteSpace()) {
+                        while (xer.isWhiteSpace()) {
                             xer.next();
                         }
                         if (xer.isStartElement()) {
                             Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
-
                             Geometry geom = geometryReader.readGeometry();
                             // TODO/HACK force polygon to multi-polygon
                             if (geom instanceof Polygon) {
                                 geom = new MultiPolygon(new Polygon[]{(Polygon) geom}, geom.getFactory());
                             }
-
                             // Note: this linearizes curves, we could use a WKTWriter2 instead!
                             row.getValues().add(geom.toString());
-
                             split2.stop();
-
                             // After parsing geometry, move to end of enclosing tag
-                            while(!(tag.equals(xer.getLocalName()) && xer.isEndElement())) {
+                            while (!(tag.equals(xer.getLocalName()) && xer.isEndElement())) {
                                 xer.nextTag();
                             }
                         } else if (xer.isCharacters()) {
@@ -191,11 +159,9 @@ public class DataComfortXMLReader {
                             row.getValues().add(null);
                         }
                     }
-
                     break;
             }
         }
-
         split.stop();
         return list;
     }

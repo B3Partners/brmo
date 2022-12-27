@@ -18,7 +18,10 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -29,6 +32,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
@@ -71,8 +75,6 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     @BeforeEach
     public void setUp() throws Exception {
         bean = new AdvancedFunctionsActionBean();
-        staging = new DatabaseConnection(dsStaging.getConnection());
-
         if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
@@ -80,17 +82,18 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
+            staging = new DatabaseConnection(dsStaging.getConnection());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             Assertions.fail("Geen ondersteunde database aangegegeven");
         }
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
         sequential.lock();
     }
 
     private void loadData(String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenArchive)
             throws Exception {
-        Assumptions.assumeTrue(
+        assumeTrue(
                 AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam) != null,
                 "Het bestand met staging testdata zou moeten bestaan."
         );
@@ -105,12 +108,12 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        Assumptions.assumeTrue(
-                aantalBerichtenRsgbOk == brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_OK"),
+        assumeTrue(
+                aantalBerichtenRsgbOk == brmo.getCountBerichten(BrmoFramework.BR_BAG, "RSGB_OK"),
                 "Er zijn anders dan verwacht aantal RSGB_OK berichten"
         );
-        Assumptions.assumeTrue(
-                aantalBerichtenArchive == brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE"),
+        assumeTrue(
+                aantalBerichtenArchive == brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
                 "Er zijn anders dan verwacht aantal ARCHIVE berichten"
         );
     }
@@ -120,11 +123,13 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         // in geval van niet waar gemaakte assumptions zijn sommige objecten null
         if (brmo != null) {
             brmo.closeBrmoFramework();
+            brmo = null;
         }
 
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
         try {
             sequential.unlock();
@@ -143,12 +148,12 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         bean.cleanupBerichten(Bericht.STATUS.RSGB_OK.toString(), BrmoFramework.BR_BAG);
         Assertions.assertEquals(
                 aantalBerichtenRsgbOk - aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_OK"),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, "RSGB_OK"),
                 "Er zijn anders dan verwacht aantal RSGB_OK berichten"
         );
         Assertions.assertEquals(
                 aantalBerichtenArchive + aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE"),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
                 "Er zijn anders dan verwacht aantal ARCHIVE berichten"
         );
     }
@@ -162,7 +167,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         bean.deleteBerichten(Bericht.STATUS.ARCHIVE.toString(), BrmoFramework.BR_BAG);
         Assertions.assertEquals(
                 0,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "ARCHIVE"),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
                 "Er zijn nog ARCHIVE berichten"
         );
     }
@@ -183,15 +188,15 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
 
         Assertions.assertEquals(
                 aantalBerichtenRsgbOk - aantalBerichtenToArchive,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),
                 "Er zijn nog RSGB_OK berichten");
         Assertions.assertEquals(
                 0,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
                 "Er zijn nog ARCHIVE berichten over");
         Assertions.assertEquals(
                 aantalBerichtenRsgbNok,
-                brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_NOK.toString()),
+                brmo.getCountBerichten(BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_NOK.toString()),
                 "Er zijn nog RSGB_NOK berichten over");
     }
 }

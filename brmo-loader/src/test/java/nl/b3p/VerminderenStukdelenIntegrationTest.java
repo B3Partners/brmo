@@ -81,7 +81,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
@@ -97,7 +97,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -107,9 +107,9 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0l == brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountBerichten(BrmoFramework.BR_BRK, "STAGING_OK"),
                 "Er zijn brk STAGING_OK berichten");
-        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRK, "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountLaadProcessen(BrmoFramework.BR_BRK, "STAGING_OK"),
                 "Er zijn brk STAGING_OK laadprocessen");
     }
 
@@ -147,7 +147,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(1, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"),
+        assertEquals(1, brmo.getCountBerichten(BrmoFramework.BR_BRK, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         // test inhoud van rsgb tabellen na transformatie ontstaan bericht
@@ -171,7 +171,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
         // test staging inhoud
         assertEquals(2, brmo.listBerichten().size(), "Het aantal berichten is niet als verwacht.");
         assertEquals(2, brmo.listLaadProcessen().size(), "Het aantal processen is niet als verwacht.");
-        assertEquals(2, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"),
+        assertEquals(2, brmo.getCountBerichten(BrmoFramework.BR_BRK, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         for (Bericht b : brmo.listBerichten()) {
             assertNotNull(b, "Bericht is 'null'");

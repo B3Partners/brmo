@@ -25,13 +25,11 @@ import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
-import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.logging.Log;
@@ -112,8 +110,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private final String NHR_OPNIEUW_VERWERKEN  = "Opnieuw verwerken van nHR berichten";
     private final String BRK_HERSTEL_BESTANDSNAAM = "Vul de 'herstelde bestandsnaam' van BRK laadprocessen";
     private final String WOZ_OPNIEUW_VERWERKING = "Originele WOZ berichten opnieuw verwerken";
-
-    private final boolean repairFirst = false;
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
     @Override
@@ -418,57 +414,54 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             
 
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
 
-                    while (rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
-                            StringBuilder message = new StringBuilder();
-                            if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
-                                message.append(bericht.getBrOrgineelXml());
+                while (rs.next()) {
+                    try {
+                        Bericht bericht = processor.toBean(rs, Bericht.class);
+                        StringBuilder message = new StringBuilder();
+                        if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
+                            message.append(bericht.getBrOrgineelXml());
+                        } else {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            message.append(String.format(MUTOPEN,
+                                    dateFormat.format(bericht.getDatum()),
+                                    bericht.getVolgordeNummer(),
+                                    bericht.getObjectRef()));
+                            if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
+                                // strip <?xml version="1.0"?>
+                                message.append(bericht.getBrXml().substring(21));
                             } else {
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                message.append(String.format(MUTOPEN,
-                                        dateFormat.format(bericht.getDatum()),
-                                        bericht.getVolgordeNummer(),
-                                        bericht.getObjectRef()));
-                                if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
-                                    // strip <?xml version="1.0"?>
-                                    message.append(bericht.getBrXml().substring(21));
-                                } else {
-                                    message.append(bericht.getBrXml());
-                                }
-                                message.append(MUTCLOSE);
+                                message.append(bericht.getBrXml());
                             }
-
-                            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes(StandardCharsets.UTF_8)));
-                            Bericht brk = reader.next();
-                            if (brk != null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
-                                bericht.setDatum(brk.getDatum());
-                                bericht.setObjectRef(brk.getObjectRef());
-                                bericht.setVolgordeNummer(brk.getVolgordeNummer());
-                            }
-                            if (brk != null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
-                                if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
-                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                            .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
-                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
-                                } else {
-                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                            .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
-                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
-                                }
-                            }
-                                
-                        } catch (Exception e) {
-                            return e;
+                            message.append(MUTCLOSE);
                         }
-                        processed.increment();
+
+                        BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes(StandardCharsets.UTF_8)));
+                        Bericht brk = reader.next();
+                        if (brk != null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                            bericht.setDatum(brk.getDatum());
+                            bericht.setObjectRef(brk.getObjectRef());
+                            bericht.setVolgordeNummer(brk.getVolgordeNummer());
+                        }
+                        if (brk != null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                            if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
+                                new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                        .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
+                                                bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
+                            } else {
+                                new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                        .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
+                                                bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
+                            }
+                        }
+
+                    } catch (Exception e1) {
+                        return e1;
                     }
-                    return null;
+                    processed.increment();
                 }
+                return null;
             });
             offset += processed.intValue();
 
@@ -504,53 +497,49 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             
             
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
 
-                    while (rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
+                while (rs.next()) {
+                    try {
+                        Bericht bericht = processor.toBean(rs, Bericht.class);
 
-                            StringBuilder message = new StringBuilder();
-                            if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
-                                message.append(bericht.getBrOrgineelXml());
+                        StringBuilder message = new StringBuilder();
+                        if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
+                            message.append(bericht.getBrOrgineelXml());
+                        } else {
+                            if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
+                                // strip <?xml version="1.0"?>
+                                message.append(bericht.getBrXml().substring(21));
                             } else {
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
-                                    // strip <?xml version="1.0"?>
-                                    message.append(bericht.getBrXml().substring(21));
-                                } else {
-                                    message.append(bericht.getBrXml());
-                                }
+                                message.append(bericht.getBrXml());
                             }
-
-                            BagXMLReader reader = new BagXMLReader(new ByteArrayInputStream(message.toString().getBytes(StandardCharsets.UTF_8)));
-                            reader.hasNext();
-                            Bericht bag = reader.next();
-                            if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
-                                bericht.setDatum(bag.getDatum());
-                                bericht.setObjectRef(bag.getObjectRef());
-                                bericht.setVolgordeNummer(bag.getVolgordeNummer());
-                            }
-                            if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
-                                if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
-                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                            .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
-                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
-                                } else {
-                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                            .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
-                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
-                                }
-                            }
-                        } catch (Exception e) {
-                            return e;
                         }
-                        processed.increment();
+
+                        BagXMLReader reader = new BagXMLReader(new ByteArrayInputStream(message.toString().getBytes(StandardCharsets.UTF_8)));
+                        reader.hasNext();
+                        Bericht bag = reader.next();
+                        if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
+                            bericht.setDatum(bag.getDatum());
+                            bericht.setObjectRef(bag.getObjectRef());
+                            bericht.setVolgordeNummer(bag.getVolgordeNummer());
+                        }
+                        if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
+                            if (bericht.getBrOrgineelXml() != null && !bericht.getBrOrgineelXml().isEmpty()) {
+                                new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                        .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
+                                                bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());
+                            } else {
+                                new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                        .update(conn, "update " + BrmoFramework.BERICHT_TABLE + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
+                                                bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());
+                            }
+                        }
+                    } catch (Exception e1) {
+                        return e1;
                     }
-                    return null;
+                    processed.increment();
                 }
+                return null;
             });
             offset += processed.intValue();
 
@@ -566,7 +555,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     }
 
     public void exportBRKMutatieBerichten(String locatie) throws Exception {
-        
+
+        boolean repairFirst = false;
         if (repairFirst) {
             repairBRKMutatieBerichten(null);
         }
@@ -595,71 +585,68 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
 
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
 
-                    while (rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
+                while (rs.next()) {
+                    try {
+                        Bericht bericht = processor.toBean(rs, Bericht.class);
 
-                            boolean infoOK = true;
-                            if (bericht.getBrOrgineelXml() != null) {
-                                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes(StandardCharsets.UTF_8)));
-                                Bericht brk = reader.next();
-                                if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
-                                    bericht.setDatum(brk.getDatum());
-                                    bericht.setObjectRef(brk.getObjectRef());
-                                    bericht.setVolgordeNummer(brk.getVolgordeNummer());
-                                } else {
-                                    infoOK = false;
-                                }
+                        boolean infoOK = true;
+                        if (bericht.getBrOrgineelXml() != null) {
+                            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes(StandardCharsets.UTF_8)));
+                            Bericht brk = reader.next();
+                            if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
+                                bericht.setDatum(brk.getDatum());
+                                bericht.setObjectRef(brk.getObjectRef());
+                                bericht.setVolgordeNummer(brk.getVolgordeNummer());
                             } else {
                                 infoOK = false;
                             }
-                            StringBuilder sb = new StringBuilder();
-                            if (!infoOK) {
-                                sb.append("I");
-                            }
-                            if (bericht.getObjectRef() != null) {
-                                //substring om NL.KAD.OnroerendeZaak: eraf te strippen
-                                sb.append(bericht.getObjectRef().substring(22));
-                            } else {
-                                sb.append((new Date()).getTime());
-                            }
-                            sb.append("_");
-                            if (bericht.getDatum() != null) {
-                                sb.append(bericht.getDatum().getTime());
-                            } else {
-                                sb.append("O");
-                                sb.append((new Date()).getTime());
-                            }
-                            sb.append("_");
-                            sb.append(bericht.getVolgordeNummer());
-                            sb.append(".xml");
-
-                            ZipEntry e = new ZipEntry(sb.toString());
-                            try {
-                                out.putNextEntry(e);
-                                byte[] data = null;
-                                if (infoOK) {
-                                    data = bericht.getBrOrgineelXml().getBytes(StandardCharsets.UTF_8);
-                                } else {
-                                    data = "ERROR".getBytes(StandardCharsets.UTF_8);
-                                }
-                                out.write(data, 0, data.length);
-                            } catch (ZipException ze) {
-                                LOG.info(ze.getLocalizedMessage());
-                            } finally {
-                                out.closeEntry();
-                            }
-                         } catch (Exception e) {
-                            return e;
+                        } else {
+                            infoOK = false;
                         }
-                        processed.increment();
+                        StringBuilder sb = new StringBuilder();
+                        if (!infoOK) {
+                            sb.append("I");
+                        }
+                        if (bericht.getObjectRef() != null) {
+                            //substring om NL.KAD.OnroerendeZaak: eraf te strippen
+                            sb.append(bericht.getObjectRef().substring(22));
+                        } else {
+                            sb.append((new Date()).getTime());
+                        }
+                        sb.append("_");
+                        if (bericht.getDatum() != null) {
+                            sb.append(bericht.getDatum().getTime());
+                        } else {
+                            sb.append("O");
+                            sb.append((new Date()).getTime());
+                        }
+                        sb.append("_");
+                        sb.append(bericht.getVolgordeNummer());
+                        sb.append(".xml");
+
+                        ZipEntry e1 = new ZipEntry(sb.toString());
+                        try {
+                            out.putNextEntry(e1);
+                            byte[] data = null;
+                            if (infoOK) {
+                                data = bericht.getBrOrgineelXml().getBytes(StandardCharsets.UTF_8);
+                            } else {
+                                data = "ERROR".getBytes(StandardCharsets.UTF_8);
+                            }
+                            out.write(data, 0, data.length);
+                        } catch (ZipException ze) {
+                            LOG.info(ze.getLocalizedMessage());
+                        } finally {
+                            out.closeEntry();
+                        }
+                     } catch (Exception e1) {
+                        return e1;
                     }
-                    return null;
+                    processed.increment();
                 }
+                return null;
             });
             if (out != null) {
                 out.close();
@@ -696,12 +683,12 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                     + " where soort='" + soort + "' "
                     + " and status='" + config + "'"
                     + " and status_datum < ? ";
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
-                countsql, new ScalarHandler(), new Timestamp(c.getTimeInMillis()));
+        Number o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
+                countsql, new ScalarHandler<>(), new Timestamp(c.getTimeInMillis()));
         if (o instanceof BigDecimal) {
-            total(((BigDecimal) o).longValue());
+            total(o.longValue());
         } else if (o instanceof Integer) {
-            total(((Integer) o).longValue());
+            total(o.longValue());
         } else {
             total((Long) o);
         }
@@ -717,33 +704,30 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             LOG.debug("SQL voor ophalen berichten batch: " + sql);
             
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
 
-                    while (rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
+                while (rs.next()) {
+                    try {
+                        Bericht bericht = processor.toBean(rs, Bericht.class);
 
-                            bericht.setBrOrgineelXml("opgeschoond");
-                            bericht.setBrXml("opgeschoond");
-                            bericht.setOpmerking("opgeschoond, status was: " + bericht.getStatus().toString());
-                            bericht.setStatus(Bericht.STATUS.ARCHIVE);
-                            bericht.setStatusDatum(new Date());
+                        bericht.setBrOrgineelXml("opgeschoond");
+                        bericht.setBrXml("opgeschoond");
+                        bericht.setOpmerking("opgeschoond, status was: " + bericht.getStatus().toString());
+                        bericht.setStatus(Bericht.STATUS.ARCHIVE);
+                        bericht.setStatusDatum(new Date());
 
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE 
-                                            + " set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?",
-                                            new Timestamp(bericht.getStatusDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(),
-                                            bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());
-                                 
-                        } catch (Exception e) {
-                            return e;
-                        }
-                        processed.increment();
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                        + " set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?",
+                                        new Timestamp(bericht.getStatusDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(),
+                                        bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());
+
+                    } catch (Exception e1) {
+                        return e1;
                     }
-                    return null;
+                    processed.increment();
                 }
+                return null;
             }, new Timestamp(c.getTimeInMillis()));
             progress += processed.intValue();
 
@@ -767,12 +751,12 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE
                 + " WHERE soort='" + soort + "' "
                 + " AND status='" + config + "'";
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
-                countsql, new ScalarHandler());
+        Number o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
+                countsql, new ScalarHandler<>());
         if (o instanceof BigDecimal) {
-            total(((BigDecimal) o).longValue());
+            total(o.longValue());
         } else if (o instanceof Integer) {
-            total(((Integer) o).longValue());
+            total(o.longValue());
         } else {
             total((Long) o);
         }
@@ -783,9 +767,9 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 + " AND status='" + config + "'");
         
         if (o instanceof BigDecimal) {
-            progress(((BigDecimal) o).longValue());
+            progress(o.longValue());
         } else if (o instanceof Integer) {
-            progress(((Integer) o).longValue());
+            progress(o.longValue());
         } else {
             progress((Long) o);
         }
@@ -818,21 +802,21 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 + " where soort='" + soort + "'"
                 + " and status='" + status + "'";
         LOG.debug("SQL voor tellen van berichten batch: " + countsql);
-        Object o = new QueryRunner(
+        Number o = new QueryRunner(
                 geomToJdbc.isPmdKnownBroken()).query(conn,
-                countsql, new ScalarHandler());
+                countsql, new ScalarHandler<>());
         LOG.debug("Totaal te verwerken verwijder berichten: " + o);
 
         if (o instanceof BigDecimal) {
-            total(((BigDecimal) o).longValue());
+            total(o.longValue());
         } else if (o instanceof Integer) {
-            total(((Integer) o).longValue());
+            total(o.longValue());
         } else {
             total((Long) o);
         }
 
         StagingProxy staging = new StagingProxy(dataSourceStaging);
-        RsgbProxy rsgb = new RsgbProxy(dataSourceRsgb, staging, Bericht.STATUS.RSGB_NOK, this);
+        RsgbProxy rsgb = new RsgbProxy(dataSourceRsgb, null, staging, Bericht.STATUS.RSGB_NOK, this);
         rsgb.setErrorState(getContext().getServletContext().getInitParameter("error.state"));
         rsgb.setOrderBerichten(true);
         rsgb.init();
@@ -847,44 +831,41 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             LOG.debug("SQL voor ophalen berichten batch: " + sql);
 
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
-                    while (rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
-                            LOG.debug("Opnieuw verwerken van bericht: " + bericht);
-                            // bewaar oude log
-                            String oudeOpmerkingen = bericht.getOpmerking();
-                            // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken
-                            bericht.setStatus(Bericht.STATUS.STAGING_OK);
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE
-                                            + " set status_datum = ?, status = ? where id = ?",
-                                            new Timestamp(bericht.getStatusDatum().getTime()),
-                                            bericht.getStatus().toString(),
-                                            bericht.getId());
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
+                while (rs.next()) {
+                    try {
+                        Bericht bericht = processor.toBean(rs, Bericht.class);
+                        LOG.debug("Opnieuw verwerken van bericht: " + bericht);
+                        // bewaar oude log
+                        String oudeOpmerkingen = bericht.getOpmerking();
+                        // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken
+                        bericht.setStatus(Bericht.STATUS.STAGING_OK);
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                        + " set status_datum = ?, status = ? where id = ?",
+                                        new Timestamp(bericht.getStatusDatum().getTime()),
+                                        bericht.getStatus().toString(),
+                                        bericht.getId());
 
-                            rsgb.handle(bericht, rsgb.transformToTableData(bericht), true);
+                        rsgb.handle(bericht, rsgb.transformToTableData(bericht), true);
 
-                            bericht.setOpmerking("Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"
-                                    + bericht.getOpmerking()
-                                    + "\n\nOude verwerkingslog\n\n"
-                                    + oudeOpmerkingen
-                            );
-                            bericht.setStatusDatum(new Date());
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE
-                                            + " set opmerking = ? where id = ?",
-                                            bericht.getOpmerking(),
-                                            bericht.getId());
-                        } catch (Exception e) {
-                            return e;
-                        }
-                        processed.increment();
+                        bericht.setOpmerking("Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"
+                                + bericht.getOpmerking()
+                                + "\n\nOude verwerkingslog\n\n"
+                                + oudeOpmerkingen
+                        );
+                        bericht.setStatusDatum(new Date());
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                        + " set opmerking = ? where id = ?",
+                                        bericht.getOpmerking(),
+                                        bericht.getId());
+                    } catch (Exception e1) {
+                        return e1;
                     }
-                    return null;
+                    processed.increment();
                 }
+                return null;
             });
             offset += processed.intValue();
 
@@ -930,21 +911,21 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 // gebruik like (en niet =) omdat anders ORA-00932 want br_xml is clob
                 + " and br_xml like '<empty/>'";
         LOG.debug("SQL voor tellen van berichten batch: " + countsql);
-        Object o = new QueryRunner(
+        Number o = new QueryRunner(
                 geomToJdbc.isPmdKnownBroken()).query(conn,
-                countsql, new ScalarHandler());
+                countsql, new ScalarHandler<>());
         LOG.debug("Totaal te verwerken verwijder berichten: " + o);
 
         if (o instanceof BigDecimal) {
-            total(((BigDecimal) o).longValue());
+            total(o.longValue());
         } else if (o instanceof Integer) {
-            total(((Integer) o).longValue());
+            total(o.longValue());
         } else {
             total((Long) o);
         }
 
         StagingProxy staging = new StagingProxy(dataSourceStaging);
-        RsgbProxy rsgb = new RsgbProxy(dataSourceRsgb, staging, Bericht.STATUS.RSGB_OK, this);
+        RsgbProxy rsgb = new RsgbProxy(dataSourceRsgb, null, staging, Bericht.STATUS.RSGB_OK, this);
         rsgb.setOrderBerichten(true);
         rsgb.init();
 
@@ -959,44 +940,41 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             LOG.debug("SQL voor ophalen berichten batch: " + sql);
 
             processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
-                    while (rs.next()) {
-                        try {
-                            Bericht bericht = processor.toBean(rs, Bericht.class);
-                            LOG.debug("Opnieuw verwerken van bericht: " + bericht);
-                            // bewaar oude log
-                            String oudeOpmerkingen = bericht.getOpmerking();
-                            // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken
-                            bericht.setStatus(Bericht.STATUS.STAGING_OK);
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE
-                                            + " set status_datum = ?, status = ? where id = ?",
-                                            new Timestamp(bericht.getStatusDatum().getTime()),
-                                            bericht.getStatus().toString(),
-                                            bericht.getId());
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
+                while (rs.next()) {
+                    try {
+                        Bericht bericht = processor.toBean(rs, Bericht.class);
+                        LOG.debug("Opnieuw verwerken van bericht: " + bericht);
+                        // bewaar oude log
+                        String oudeOpmerkingen = bericht.getOpmerking();
+                        // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken
+                        bericht.setStatus(Bericht.STATUS.STAGING_OK);
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                        + " set status_datum = ?, status = ? where id = ?",
+                                        new Timestamp(bericht.getStatusDatum().getTime()),
+                                        bericht.getStatus().toString(),
+                                        bericht.getId());
 
-                            rsgb.handle(bericht, rsgb.transformToTableData(bericht), true);
+                        rsgb.handle(bericht, rsgb.transformToTableData(bericht), true);
 
-                            bericht.setOpmerking("Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"
-                                    + bericht.getOpmerking()
-                                    + "\n\nOude verwerkingslog\n\n"
-                                    + oudeOpmerkingen
-                            );
-                            bericht.setStatusDatum(new Date());
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE
-                                            + " set opmerking = ? where id = ?",
-                                            bericht.getOpmerking(),
-                                            bericht.getId());
-                        } catch (Exception e) {
-                            return e;
-                        }
-                        processed.increment();
+                        bericht.setOpmerking("Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"
+                                + bericht.getOpmerking()
+                                + "\n\nOude verwerkingslog\n\n"
+                                + oudeOpmerkingen
+                        );
+                        bericht.setStatusDatum(new Date());
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                        + " set opmerking = ? where id = ?",
+                                        bericht.getOpmerking(),
+                                        bericht.getId());
+                    } catch (Exception e1) {
+                        return e1;
                     }
-                    return null;
+                    processed.increment();
                 }
+                return null;
             });
             offset += processed.intValue();
 
@@ -1038,7 +1016,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         final int typeringColWidth = 35;
 
         // betroffen tabel + kolom
-        final Map<String, String> tables = new HashMap<String, String>() {
+        final Map<String, String> tables = new HashMap<>() {
             {
                 put("subject", "clazz");
                 put("prs", "clazz");
@@ -1057,13 +1035,13 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             String countsql = "select count(*) from " + table.getKey() + " where " + table.getValue() + " = '" + _was + "'";
             LOG.debug("SQL voor tellen van berichten batch: " + countsql);
 
-            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler());
+            Number o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler<>());
             LOG.info("Totaal te bewerken records in tabel/kolom: " + table + " is: " + o);
 
             if (o instanceof BigDecimal) {
-                total(this.total + ((Number) o).longValue());
+                total(this.total + o.longValue());
             } else if (o instanceof Integer) {
-                total(this.total + ((Number) o).longValue());
+                total(this.total + o.longValue());
             } else {
                 total(this.total + (Long) o);
             }
@@ -1075,22 +1053,19 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 LOG.trace("SQL voor ophalen berichten batch: " + sql);
                 _processed.setValue(0);
 
-                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                    @Override
-                    public Exception handle(ResultSet rs) throws SQLException {
-                        while (rs.next()) {
-                            try {
-                                new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                        .update(conn,
-                                                "update " + table.getKey() + " set " + table.getValue() + " = '" + _wordt + "' where " + table.getValue() + " = '" + _was + "'"
-                                        );
-                            } catch (Exception e) {
-                                return e;
-                            }
-                            _processed.increment();
+                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, rs -> {
+                    while (rs.next()) {
+                        try {
+                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                    .update(conn,
+                                            "update " + table.getKey() + " set " + table.getValue() + " = '" + _wordt + "' where " + table.getValue() + " = '" + _was + "'"
+                                    );
+                        } catch (Exception e1) {
+                            return e1;
                         }
-                        return null;
+                        _processed.increment();
                     }
+                    return null;
                 });
                 offset += _processed.intValue();
 
@@ -1105,7 +1080,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         closeQuietly(conn);
     }
 
-    public void fillbestandsNaamHersteld(String soort, String config) throws BrmoException, SQLException, Exception {
+    public void fillbestandsNaamHersteld(String soort, String config) throws Exception {
         int offset = 0;
         int batch = 100;
         final MutableInt _processed = new MutableInt(0);
@@ -1116,11 +1091,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
         String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE + " where soort='" + soort + "' " + " and volgordenummer > " + config;
 
-        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler());
+        Number o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler<>());
         if (o instanceof BigDecimal) {
-            total(((Number) o).longValue());
+            total(o.longValue());
         } else if (o instanceof Integer) {
-            total(((Number) o).longValue());
+            total(o.longValue());
         } else {
             total((Long) o);
         }
@@ -1135,34 +1110,31 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             LOG.debug("SQL voor ophalen berichten batch: " + sql);
 
             _processed.setValue(0);
-            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
-                @Override
-                public Exception handle(ResultSet rs) throws SQLException {
-                    while (rs.next()) {
-                        try {
-                            final Bericht bericht = processor.toBean(rs, Bericht.class);
-                            final BrkBericht brkBericht = new BrkBericht(bericht.getBrXml());
-                            brkBericht.setBrOrgineelXml(bericht.getBrOrgineelXml());
-                            final String bestandsnaamHersteld = brkBericht.getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer());
-                            LOG.debug(String.format(
-                                    "Bijwerken bestand_naam_hersteld voor laadproces %d met waarde '%s' op basis van bericht %d",
-                                    bericht.getLaadProcesId(),
-                                    bestandsnaamHersteld,
-                                    bericht.getId())
-                            );
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                    .update(conn,
-                                            "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
-                                            bestandsnaamHersteld,
-                                            bericht.getLaadProcesId()
-                                    );
-                        } catch (SQLException e) {
-                            return e;
-                        }
-                        _processed.increment();
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, (ResultSetHandler<Exception>) rs -> {
+                while (rs.next()) {
+                    try {
+                        final Bericht bericht = processor.toBean(rs, Bericht.class);
+                        final BrkBericht brkBericht = new BrkBericht(bericht.getBrXml());
+                        brkBericht.setBrOrgineelXml(bericht.getBrOrgineelXml());
+                        final String bestandsnaamHersteld = brkBericht.getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer());
+                        LOG.debug(String.format(
+                                "Bijwerken bestand_naam_hersteld voor laadproces %d met waarde '%s' op basis van bericht %d",
+                                bericht.getLaadProcesId(),
+                                bestandsnaamHersteld,
+                                bericht.getId())
+                        );
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn,
+                                        "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
+                                        bestandsnaamHersteld,
+                                        bericht.getLaadProcesId()
+                                );
+                    } catch (SQLException e1) {
+                        return e1;
                     }
-                    return null;
+                    _processed.increment();
                 }
+                return null;
             });
             offset += _processed.intValue();
 

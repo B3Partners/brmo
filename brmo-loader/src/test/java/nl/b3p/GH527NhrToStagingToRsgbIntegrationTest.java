@@ -73,7 +73,7 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         dsRsgb.setConnectionProperties(params.getProperty("rsgb.options", ""));
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
@@ -89,7 +89,7 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
@@ -100,9 +100,9 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0l == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountBerichten("nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountLaadProcessen("nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 

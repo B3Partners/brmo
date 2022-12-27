@@ -35,9 +35,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * testcases voor GH issue 260; herhalen van brk verwijder berichten. Draaien
@@ -77,26 +84,25 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         when(updatesBean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        rsgb = new DatabaseConnection(dsRsgb.getConnection());
-        staging = new DatabaseConnection(dsStaging.getConnection());
-
         if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
-                    DBPROPS.getProperty("rsgb.username").toUpperCase());
+                    DBPROPS.getProperty("rsgb.schema").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    DBPROPS.getProperty("staging.username").toUpperCase());
+                    DBPROPS.getProperty("staging.schema").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
+            rsgb = new DatabaseConnection(dsRsgb.getConnection(), DBPROPS.getProperty("rsgb.schema"));
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging = new DatabaseConnection(dsStaging.getConnection());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
         sequential.lock();
     }
@@ -117,9 +123,9 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
-        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten");
-        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen");
     }
 
@@ -128,16 +134,18 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
+            brmo = null;
         }
         if (rsgb != null) {
             CleanUtil.cleanRSGB_BRK(rsgb, true);
             rsgb.close();
+            rsgb = null;
         }
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
-
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {

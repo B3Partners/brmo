@@ -55,13 +55,19 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
+        BasicDataSource dsRsgbBrk = new BasicDataSource();
+        dsRsgbBrk.setUrl(params.getProperty("rsgbbrk.jdbc.url"));
+        dsRsgbBrk.setUsername(params.getProperty("rsgbbrk.user"));
+        dsRsgbBrk.setPassword(params.getProperty("rsgbbrk.passwd"));
+        dsRsgbBrk.setAccessToUnderlyingConnectionAllowed(true);
+
         BasicDataSource dsRsgbBgt = new BasicDataSource();
         dsRsgbBgt.setUrl(params.getProperty("rsgbbgt.jdbc.url"));
         dsRsgbBgt.setUsername(params.getProperty("rsgbbgt.user"));
         dsRsgbBgt.setPassword(params.getProperty("rsgbbgt.passwd"));
         dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBgt, null);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBgt, null, dsRsgbBrk);
     }
 
     @AfterEach
@@ -75,7 +81,7 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
     }
 
     @Test
-    @Disabled
+    @Disabled("metadata tabel is nog niet aangemaakt/gevuld")
     public void testRsgbBgtVersion() {
         assertEquals(currentVersion, brmo.getRsgbBgtVersion(), "Versies komen niet overeen");
     }
@@ -83,5 +89,10 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
     @Test
     public void testStagingVersion() {
         assertEquals(currentVersion, brmo.getStagingVersion(), "Versies komen niet overeen");
+    }
+
+    @Test
+    public void testRsgbBrkVersion() {
+        assertEquals(currentVersion, brmo.getRsgbBrkVersion(), "Versies komen niet overeen");
     }
 }

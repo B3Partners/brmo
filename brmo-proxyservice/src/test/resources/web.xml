@@ -6,7 +6,7 @@
          metadata-complete="true">
     <display-name>brmo-proxyservices test</display-name>
     <servlet>
-        <servlet-name>BRK_file</servlet-name>
+        <servlet-name>BRK2_file</servlet-name>
         <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
         <init-param>
             <description>directory waar bestanden terecht komen</description>
@@ -15,7 +15,7 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>BRK_file</servlet-name>
-        <url-pattern>/post/brk</url-pattern>
+        <servlet-name>BRK2_file</servlet-name>
+        <url-pattern>/post/brk2</url-pattern>
     </servlet-mapping>
 </web-app>

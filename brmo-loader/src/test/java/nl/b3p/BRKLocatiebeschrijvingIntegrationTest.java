@@ -85,11 +85,11 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         brmo.setOrderBerichten(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
@@ -130,7 +130,7 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+        assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Het aantal STAGING_OK berichten is anders dan verwacht");
 
         List<Bericht> berichten = brmo.listBerichten();
@@ -141,7 +141,7 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");

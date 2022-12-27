@@ -12,6 +12,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import nl.b3p.brmo.loader.BrmoFramework;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,7 +27,7 @@ import org.xml.sax.SAXException;
  */
 public class BrkBericht extends Bericht {
 
-    private final String soort = "brk";
+    private final String soort = BrmoFramework.BR_BRK;
     private boolean xpathEvaluated = false;
 
     private static final Log log = LogFactory.getLog(BrkBericht.class);

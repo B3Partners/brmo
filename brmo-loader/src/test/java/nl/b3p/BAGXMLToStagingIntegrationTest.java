@@ -69,7 +69,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
@@ -104,9 +104,9 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0l == brmo.getCountBerichten(null, null, "bag", "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountBerichten("bag", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+        assumeTrue(0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
 
 
@@ -117,9 +117,9 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen).");
         }
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten(bestandType, "STAGING_OK"),
                 "Verwacht aantal berichten");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"),
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(bestandType, "STAGING_OK"),
                 "Verwacht aantal laadprocessen");
     }
 }

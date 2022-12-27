@@ -14,11 +14,12 @@
                     <td>
                         <stripes:select name="basisregistratie">
                             <stripes:option/>
-                            <stripes:option value="bag">bag</stripes:option>
-                            <stripes:option value="brk">brk</stripes:option>
-                            <stripes:option value="nhr">nhr</stripes:option>
-                            <stripes:option value="gbav">gbav</stripes:option>
-                            <stripes:option value="woz">woz</stripes:option>
+                            <stripes:option value="bag">BAG</stripes:option>
+                            <stripes:option value="brk2">BRK 2</stripes:option>
+                            <stripes:option value="brk">BRK</stripes:option>
+                            <stripes:option value="nhr">nHR</stripes:option>
+                            <stripes:option value="gbav">GBAV</stripes:option>
+                            <stripes:option value="woz">WOZ</stripes:option>
                         </stripes:select>
                     </td>
                 </tr>
@@ -38,11 +39,12 @@
                     <td>
                         <stripes:select name="basisregistratie">
                             <stripes:option/>
-                            <stripes:option value="bag">bag</stripes:option>
-                            <stripes:option value="brk">brk</stripes:option>
-                            <stripes:option value="nhr">nhr</stripes:option>
-                            <stripes:option value="gbav">gbav</stripes:option>
-                            <stripes:option value="woz">woz</stripes:option>
+                            <stripes:option value="bag">BAG</stripes:option>
+                            <stripes:option value="brk2">BRK 2</stripes:option>
+                            <stripes:option value="brk">BRK</stripes:option>
+                            <stripes:option value="nhr">nHR</stripes:option>
+                            <stripes:option value="gbav">GBAV</stripes:option>
+                            <stripes:option value="woz">WOZ</stripes:option>
                         </stripes:select>
                     </td>
                 </tr>

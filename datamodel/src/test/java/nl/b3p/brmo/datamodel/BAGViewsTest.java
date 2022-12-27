@@ -43,12 +43,13 @@ public class BAGViewsTest {
     private static final String dbUrl = System.getProperty("bag.dburl");
     private static final String dbUser = System.getProperty("bag.dbuser", "rsgb");
     private static final String dbPass = System.getProperty("bag.dbpassword", "rsgb");
+    private static final String dbSchema = System.getProperty("bag.dbschema", "bag");
     private IDatabaseConnection bag;
 
     @BeforeEach
     void setUp() throws Exception {
         assumeFalse(StringUtils.isEmpty(dbUrl), "skipping integration test: missing database url");
-        bag = new DatabaseConnection(DriverManager.getConnection(dbUrl, dbUser, dbPass));
+        bag = new DatabaseConnection(DriverManager.getConnection(dbUrl, dbUser, dbPass), dbSchema);
 
         if (dbUrl.contains("postgresql")) {
             bag.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());

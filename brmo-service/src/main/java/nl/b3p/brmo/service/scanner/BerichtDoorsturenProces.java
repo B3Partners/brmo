@@ -73,7 +73,11 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             String id = ClobElement.nullSafeGet(config.getConfig().get("gds2_ophaalproces_id"));
             GDS2OphaalProces proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));
 
-            List<Long> berichtIDs = Stripersist.getEntityManager().createQuery("select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces")
+            List<Long> berichtIDs = Stripersist.getEntityManager()
+                    .createQuery(
+                            "select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces",
+                            Long.class
+                    )
                     .setParameter("proces", proces)
                     .getResultList();
 

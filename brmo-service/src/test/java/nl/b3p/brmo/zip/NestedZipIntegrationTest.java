@@ -5,7 +5,6 @@ package nl.b3p.brmo.zip;
 
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +30,7 @@ public class NestedZipIntegrationTest extends TestUtil {
 
     @BeforeEach
     public void setUp() throws Exception {
-        brmo = new BrmoFramework(dsStaging, null);
+        brmo = new BrmoFramework(dsStaging, null, null);
     }
 
     @AfterEach
@@ -71,12 +70,12 @@ public class NestedZipIntegrationTest extends TestUtil {
 
         Assertions.assertEquals(
                 2l,
-                brmo.getCountLaadProcessen(null, null, "bag", null),
+                brmo.getCountLaadProcessen("bag", null),
                 "het aantal LP mag niet afwijken"
         );
         Assertions.assertEquals(
                 /*<product_LVC:Nieuw> - 5723l + 3210l= 8933*/ 8921l /*<product_LVC:Mutatie-product>  10000l + 6301l*/,
-                brmo.getCountBerichten(null, null, "bag", null),
+                brmo.getCountBerichten("bag", null),
                 "het aantal Bericht mag niet afwijken"
         );
     }

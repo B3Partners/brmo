@@ -61,6 +61,7 @@ jobs:
           echo $projectversion
           export PROJECTVERSION=$projectversion
           sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-oracle.sql
+          sed -i s/\${project.version}/$projectversion/g ./datamodel/brk/brk2.0_oracle.sql
 
       - name: Setup Oracle XE
         run: |

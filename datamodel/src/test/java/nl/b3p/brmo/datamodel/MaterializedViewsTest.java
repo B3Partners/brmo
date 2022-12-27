@@ -83,8 +83,9 @@ public class MaterializedViewsTest {
         ds.setUrl(params.getProperty("rsgb.url"));
         ds.setUsername(params.getProperty("rsgb.username"));
         ds.setPassword(params.getProperty("rsgb.password"));
+        ds.setDefaultSchema(params.getProperty("rsgb.schema"));
         ds.setAccessToUnderlyingConnectionAllowed(true);
-        db = new DatabaseDataSourceConnection(ds);
+        db = new DatabaseDataSourceConnection(ds, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             // db = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(db.getConnection()), params.getProperty(this.dbName + ".user").toUpperCase());

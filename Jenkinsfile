@@ -169,7 +169,7 @@ timestamps {
             }
 
             stage('Publish Test Results') {
-                junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
+                junit allowEmptyResults: true, skipMarkingBuildUnstable: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
             }
 
             stage('Publish Test Coverage') {

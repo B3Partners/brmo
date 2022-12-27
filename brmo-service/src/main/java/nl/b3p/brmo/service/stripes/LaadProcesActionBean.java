@@ -59,7 +59,7 @@ public class LaadProcesActionBean implements ActionBean {
         DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("success", Boolean.FALSE);
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, null);
+        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, null, null);
         try {
             LaadProces lp = brmo.getLaadProcesById(selectedIds[0]);
             jsonObj = laadProces2Json(lp);
@@ -83,9 +83,7 @@ public class LaadProcesActionBean implements ActionBean {
             BrmoFramework brmo = null;
             try {
                 DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-                DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-
-                brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+                brmo = new BrmoFramework(dataSourceStaging, null, null);
 
                 for (Long id : selectedIds) {
                     brmo.delete(id);
@@ -142,9 +140,9 @@ public class LaadProcesActionBean implements ActionBean {
             long count = 0l;
             JSONArray jsonProcessen = new JSONArray();
 
-            brmo = new BrmoFramework(dataSourceStaging, null);
+            brmo = new BrmoFramework(dataSourceStaging, null, null);
 
-            count = brmo.getCountLaadProcessen(sort, dir, filterSoort, filterStatus);
+            count = brmo.getCountLaadProcessen(filterSoort, filterStatus);
             if (start < 0) {
                 start = 0;
             }
