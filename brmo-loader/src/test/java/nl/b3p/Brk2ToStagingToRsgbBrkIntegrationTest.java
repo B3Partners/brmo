@@ -229,15 +229,15 @@ class Brk2ToStagingToRsgbBrkIntegrationTest extends AbstractDatabaseIntegrationT
         }
 
         ITable recht = rsgbBrk.createDataSet().getTable("recht");
-        ITable aantekeningrecht = rsgbBrk.createDataSet().getTable("aantekeningrecht");
-        ITable isbelastmet = rsgbBrk.createDataSet().getTable("isbelastmet");
-        ITable isbeperkttot = rsgbBrk.createDataSet().getTable("isbeperkttot");
-        assertAll("rechten", () -> {
-            assertEquals(aantalRecht, recht.getRowCount(), "Er is geen/teveel/te weinig recht");
-            assertEquals(aantalAantekeningRecht, aantekeningrecht.getRowCount(), "Er zijn geen/teveel/te weinig aantekeningrecht relaties");
-            assertEquals(aantalIsbelastmetRecht, isbelastmet.getRowCount(), "Er zijn geen/teveel/te weinig isbelastmet relaties");
-            assertEquals(aantalIsbeperkttotRecht, isbeperkttot.getRowCount(), "Er zijn geen/teveel/te weinig isbeperkttot relaties");
-        });
+        ITable aantekeningrecht = rsgbBrk.createDataSet().getTable("recht_aantekeningrecht");
+        ITable isbelastmet = rsgbBrk.createDataSet().getTable("recht_isbelastmet");
+        ITable isbeperkttot = rsgbBrk.createDataSet().getTable("recht_isbeperkttot");
+        assertAll("rechten",
+                () -> assertEquals(aantalRecht, recht.getRowCount(), "Er is geen/teveel/te weinig recht"),
+                () -> assertEquals(aantalAantekeningRecht, aantekeningrecht.getRowCount(), "Er zijn geen/teveel/te weinig aantekeningrecht relaties"),
+                () -> assertEquals(aantalIsbelastmetRecht, isbelastmet.getRowCount(), "Er zijn geen/teveel/te weinig isbelastmet relaties"),
+                () -> assertEquals(aantalIsbeperkttotRecht, isbeperkttot.getRowCount(), "Er zijn geen/teveel/te weinig isbeperkttot relaties")
+        );
 
 
         ITable stuk = rsgbBrk.createDataSet().getTable("stuk");

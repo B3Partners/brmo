@@ -189,6 +189,10 @@ public class BrmoFramework {
         this.orderBerichten = orderBerichten;
     }
 
+    public boolean isOrderBerichten() {
+        return this.orderBerichten;
+    }
+
     public void setErrorState(String errorState) {
         this.errorState = errorState;
     }

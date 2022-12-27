@@ -25,10 +25,10 @@
                 version="1.0">
 
     <xsl:strip-space elements="*"/>
-    <xsl:output encoding="UTF-8" version="1.0" indent="yes"/>
+    <xsl:output encoding="UTF-8" version="1.0" indent="no"/>
 
     <!-- parameters van het bericht -->
-    <xsl:param name="objectRef" select="'NL.KAD.OnroerendeZaak:onbekend'"/>
+    <xsl:param name="objectRef" select="'NL.IMKAD.KadastraalObject:onbekend'"/>
     <xsl:param name="datum" select="'datum-onbekend'"/>
     <xsl:param name="volgordeNummer" select="'volgordeNummer-onbekend'"/>
     <xsl:param name="soort" select="'soort-onbekend'"/>
@@ -110,19 +110,16 @@
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
-
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:GezamenlijkAandeel">
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
-
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Mandeligheid">
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
-
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:ZakelijkRecht">
                     <!--
                     het ZakelijkRecht recht met laagste identificatie eerst in database zetten - de aanname
@@ -133,19 +130,16 @@
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
-
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Tenaamstelling">
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
-
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Aantekening">
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
-
                 <xsl:for-each select="/Snapshot:KadastraalObjectSnapshot/Recht:Erfpachtcanon">
                     <xsl:call-template name="recht">
                         <xsl:with-param name="recht" select="."/>
@@ -178,7 +172,10 @@
         </xsl:variable>
 
         <!-- vult publiekrechtelijkebeperking en gerelateerde onroerendezaakbeperking -->
-        <publiekrechtelijkebeperking>
+        <publiekrechtelijkebeperking column-dat-beg-geldh="begingeldigheid">
+            <begingeldigheid alleen-archief="true">
+                <xsl:value-of select="$toestandsdatum"/>
+            </begingeldigheid>
             <identificatie>
                 <xsl:value-of select="$beperkingId"/>
             </identificatie>
@@ -216,7 +213,10 @@
         </publiekrechtelijkebeperking>
 
         <xsl:for-each select="PubliekrechtelijkeBeperking:leidtTot">
-            <onroerendezaakbeperking>
+            <onroerendezaakbeperking column-dat-beg-geldh="begingeldigheid">
+                <begingeldigheid alleen-archief="true">
+                    <xsl:value-of select="$toestandsdatum"/>
+                </begingeldigheid>
                 <inonderzoek>
                     <xsl:value-of
                             select="PubliekrechtelijkeBeperking:OnroerendeZaakBeperking/PubliekrechtelijkeBeperking:inOnderzoek"/>
@@ -239,91 +239,102 @@
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/Adres:*">
         <!-- zoek de gerelateerde BAG hoofd/neven adressen /Snapshot:KadastraalObjectSnapshot/KIMBAGAdres:*... -->
         <xsl:variable name="adresId" select="@id"/>
+        <xsl:variable name="adresIdentificatie">
+            <xsl:call-template name="domein_identificatie">
+                <xsl:with-param name="id" select="Adres:identificatie"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:variable name="relatedBAGhoofdadres"
                       select="../KIMBAGAdres:*[KIMBAGAdres:hoofdadres/Adres-ref:ObjectlocatieBinnenlandRef[substring(@xlink:href,2) = $adresId]]"/>
         <xsl:variable name="relatedBAGnevenadres"
                       select="../KIMBAGAdres:*[KIMBAGAdres:nevenadres/Adres-ref:ObjectlocatieBinnenlandRef[substring(@xlink:href,2) = $adresId]]"/>
 
-        <adres ignore-duplicates="yes">
-            <identificatie>
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="Adres:identificatie|KIMBAGAdres:identificatie"/>
-                </xsl:call-template>
-            </identificatie>
-            <huisnummer>
-                <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:huisnummer"/>
-            </huisnummer>
-            <huisletter>
-                <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:huisletter"/>
-            </huisletter>
-            <huisnummertoevoeging>
-                <xsl:value-of
-                        select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:huisnummertoevoeging"/>
-            </huisnummertoevoeging>
-            <postbusnummer>
-                <xsl:value-of select="Adres:postbusnummer"/>
-            </postbusnummer>
-            <postcode>
-                <xsl:value-of
-                        select="Adres:postcode |
+        <comfort search-table="natuurlijkpersoon" search-column="identificatie" search-value="{$adresIdentificatie}"
+                 snapshot-date="{$toestandsdatum}">
+            <adres ignore-duplicates="yes">
+                <identificatie>
+                    <xsl:value-of select="$adresIdentificatie"/>
+                </identificatie>
+                <huisnummer>
+                    <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:huisnummer"/>
+                </huisnummer>
+                <huisletter>
+                    <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:huisletter"/>
+                </huisletter>
+                <huisnummertoevoeging>
+                    <xsl:value-of
+                            select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:huisnummertoevoeging"/>
+                </huisnummertoevoeging>
+                <postbusnummer>
+                    <xsl:value-of select="Adres:postbusnummer"/>
+                </postbusnummer>
+                <postcode>
+                    <xsl:value-of
+                            select="Adres:postcode |
                                 Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:postcode"/>
-            </postcode>
-            <openbareruimtenaam>
-                <xsl:value-of
-                        select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:gerelateerdeOpenbareRuimte/KIMBAGAdres:OpenbareRuimte/KIMBAGAdres:openbareRuimteNaam"/>
-            </openbareruimtenaam>
-            <woonplaatsnaam>
-                <xsl:value-of
-                        select="Adres:woonplaatsNaam|
+                </postcode>
+                <openbareruimtenaam>
+                    <xsl:value-of
+                            select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:gerelateerdeOpenbareRuimte/KIMBAGAdres:OpenbareRuimte/KIMBAGAdres:openbareRuimteNaam"/>
+                </openbareruimtenaam>
+                <woonplaatsnaam>
+                    <xsl:value-of
+                            select="Adres:woonplaatsNaam|
                         Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:gerelateerdeOpenbareRuimte/KIMBAGAdres:OpenbareRuimte/KIMBAGAdres:gerelateerdeWoonplaats/KIMBAGAdres:Woonplaats/KIMBAGAdres:woonplaatsNaam"/>
-            </woonplaatsnaam>
-            <nummeraanduiding>
-                <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:identificatie"/>
-            </nummeraanduiding>
-            <adresseerbaarobject>
-                <!-- een verblijfsobject , standplaats of ligplaats -->
-                <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
-            </adresseerbaarobject>
-            <verblijfsobject>
-                <xsl:if test="local-name($relatedBAGhoofdadres) = 'Verblijfsobject'">
+                </woonplaatsnaam>
+                <nummeraanduiding>
+                    <xsl:value-of select="Adres:adresgegevens/KIMBAGAdres:Nummeraanduiding/KIMBAGAdres:identificatie"/>
+                </nummeraanduiding>
+                <adresseerbaarobject>
+                    <!-- een verblijfsobject , standplaats of ligplaats -->
                     <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
-                </xsl:if>
-            </verblijfsobject>
-            <standplaats>
-                <xsl:if test="local-name($relatedBAGhoofdadres) = 'Standplaats'">
+                </adresseerbaarobject>
+                <verblijfsobject>
+                    <xsl:if test="local-name($relatedBAGhoofdadres) = 'Verblijfsobject'">
+                        <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
+                    </xsl:if>
+                </verblijfsobject>
+                <standplaats>
+                    <xsl:if test="local-name($relatedBAGhoofdadres) = 'Standplaats'">
+                        <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
+                    </xsl:if>
+                </standplaats>
+                <ligplaats>
+                    <xsl:if test="local-name($relatedBAGhoofdadres) = 'Ligplaats'">
+                        <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
+                    </xsl:if>
+                </ligplaats>
+                <hoofdadres>
                     <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
-                </xsl:if>
-            </standplaats>
-            <ligplaats>
-                <xsl:if test="local-name($relatedBAGhoofdadres) = 'Ligplaats'">
-                    <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
-                </xsl:if>
-            </ligplaats>
-            <hoofdadres>
-                <xsl:value-of select="$relatedBAGhoofdadres/KIMBAGAdres:identificatie"/>
-            </hoofdadres>
-            <nevenadres>
-                <xsl:value-of select="$relatedBAGnevenadres/KIMBAGAdres:identificatie"/>
-            </nevenadres>
-            <!-- adres buitenland -->
-            <buitenlandadres>
-                <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:adres"/>
-            </buitenlandadres>
-            <buitenlandwoonplaats>
-                <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:woonplaats"/>
-            </buitenlandwoonplaats>
-            <buitenlandregio>
-                <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:regio"/>
-            </buitenlandregio>
-            <land>
-                <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:land/Typen:waarde"/>
-            </land>
-        </adres>
+                </hoofdadres>
+                <nevenadres>
+                    <xsl:value-of select="$relatedBAGnevenadres/KIMBAGAdres:identificatie"/>
+                </nevenadres>
+                <!-- adres buitenland -->
+                <buitenlandadres>
+                    <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:adres"/>
+                </buitenlandadres>
+                <buitenlandwoonplaats>
+                    <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:woonplaats"/>
+                </buitenlandwoonplaats>
+                <buitenlandregio>
+                    <xsl:value-of select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:regio"/>
+                </buitenlandregio>
+                <land>
+                    <xsl:value-of
+                            select="Adres:adresgegevens/KIMBRPAdres:AdresBuitenland/KIMBRPAdres:land/Typen:waarde"/>
+                </land>
+            </adres>
+
+        </comfort>
     </xsl:template>
 
 
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/KadastraalObject:LocatieKadastraalObject">
-        <objectlocatie>
+        <objectlocatie column-dat-beg-geldh="begingeldigheid">
+            <begingeldigheid alleen-archief="true">
+                <xsl:value-of select="$toestandsdatum"/>
+            </begingeldigheid>
             <heeft>
                 <xsl:call-template name="domein_identificatie">
                     <xsl:with-param name="id" select="KadastraalObject:heeft/OnroerendeZaak-ref:PerceelRef |
@@ -347,7 +358,7 @@
             <xsl:with-param name="oz" select="."/>
         </xsl:call-template>
 
-        <perceel>
+        <perceel column-dat-beg-geldh="begingeldigheid">
             <begingeldigheid alleen-archief="true">
                 <xsl:value-of select="$toestandsdatum"/>
             </begingeldigheid>
@@ -389,7 +400,8 @@
             <xsl:with-param name="oz" select="."/>
         </xsl:call-template>
 
-        <appartementsrecht>
+        <appartementsrecht
+                column-dat-beg-geldh="begingeldigheid">
             <begingeldigheid alleen-archief="true">
                 <xsl:value-of select="$toestandsdatum"/>
             </begingeldigheid>
@@ -544,7 +556,9 @@
     </xsl:template>
 
     <!--
-        Stukken en bijbehorende stukdelen
+        Stukken en bijbehorende stukdelen.
+        Worden als "comfort" opgenomen omdat er vanuit verschillende berichten verwijzingen zijn naar bijv. stukdeel.
+        Deze tabellen blijven dus altijd groeien
     -->
     <xsl:template match="Stuk:TerInschrijvingAangebodenStuk | Stuk:Kadasterstuk">
         <xsl:variable name="stukId">
@@ -553,53 +567,59 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <stuk>
-            <identificatie>
-                <xsl:value-of select="$stukId"/>
-            </identificatie>
-            <toelichtingbewaarder>
-                <xsl:value-of select="Stuk:toelichtingBewaarder"/>
-            </toelichtingbewaarder>
-            <portefeuillenummer>
-                <xsl:value-of select="Stuk:portefeuillenummer"/>
-            </portefeuillenummer>
-            <deel>
-                <xsl:value-of select="Stuk:deelEnNummer/Stuk:deel"/>
-            </deel>
-            <nummer>
-                <xsl:value-of select="Stuk:deelEnNummer/Stuk:nummer"/>
-            </nummer>
-            <reeks>
-                <xsl:value-of select="Stuk:deelEnNummer/Stuk:reeks/Typen:waarde"/>
-            </reeks>
-            <registercode>
-                <xsl:value-of select="Stuk:deelEnNummer/Stuk:registercode/Typen:waarde"/>
-            </registercode>
-            <soortregister>
-                <xsl:value-of select="Stuk:deelEnNummer/Stuk:soortRegister/Typen:waarde"/>
-            </soortregister>
-            <tijdstipaanbieding>
-                <xsl:if test="Stuk:tijdstipAanbieding and not(Stuk:tijdstipAanbieding/@xsi:nil)">
-                    <xsl:value-of select="Stuk:tijdstipAanbieding/Typen:datum"/>
-                    <xsl:if test="not(Stuk:tijdstipAanbieding/Typen:tijd/@xsi:nil='true')">
-                        <xsl:text>T</xsl:text>
-                        <xsl:value-of select="Stuk:tijdstipAanbieding/Typen:tijd"/>
+        <comfort search-table="stukdeel" search-column="identificatie" search-value="{$stukId}"
+                 snapshot-date="{$toestandsdatum}">
+            <stuk ignore-duplicates="yes">
+                <begingeldigheid alleen-archief="true">
+                    <xsl:value-of select="$toestandsdatum"/>
+                </begingeldigheid>
+                <identificatie>
+                    <xsl:value-of select="$stukId"/>
+                </identificatie>
+                <toelichtingbewaarder>
+                    <xsl:value-of select="Stuk:toelichtingBewaarder"/>
+                </toelichtingbewaarder>
+                <portefeuillenummer>
+                    <xsl:value-of select="Stuk:portefeuillenummer"/>
+                </portefeuillenummer>
+                <deel>
+                    <xsl:value-of select="Stuk:deelEnNummer/Stuk:deel"/>
+                </deel>
+                <nummer>
+                    <xsl:value-of select="Stuk:deelEnNummer/Stuk:nummer"/>
+                </nummer>
+                <reeks>
+                    <xsl:value-of select="Stuk:deelEnNummer/Stuk:reeks/Typen:waarde"/>
+                </reeks>
+                <registercode>
+                    <xsl:value-of select="Stuk:deelEnNummer/Stuk:registercode/Typen:waarde"/>
+                </registercode>
+                <soortregister>
+                    <xsl:value-of select="Stuk:deelEnNummer/Stuk:soortRegister/Typen:waarde"/>
+                </soortregister>
+                <tijdstipaanbieding>
+                    <xsl:if test="Stuk:tijdstipAanbieding and not(Stuk:tijdstipAanbieding/@xsi:nil)">
+                        <xsl:value-of select="Stuk:tijdstipAanbieding/Typen:datum"/>
+                        <xsl:if test="not(Stuk:tijdstipAanbieding/Typen:tijd/@xsi:nil='true')">
+                            <xsl:text>T</xsl:text>
+                            <xsl:value-of select="Stuk:tijdstipAanbieding/Typen:tijd"/>
+                        </xsl:if>
                     </xsl:if>
-                </xsl:if>
-            </tijdstipaanbieding>
-            <tijdstipondertekening>
-                <xsl:if test="Stuk:tijdstipOndertekening and not(Stuk:tijdstipOndertekening/@xsi:nil)">
-                    <xsl:value-of select="Stuk:tijdstipOndertekening/Typen:datum"/>
-                    <xsl:if test="not(Stuk:tijdstipOndertekening/Typen:tijd/@xsi:nil='true')">
-                        <xsl:text>T</xsl:text>
-                        <xsl:value-of select="Stuk:tijdstipOndertekening/Typen:tijd"/>
+                </tijdstipaanbieding>
+                <tijdstipondertekening>
+                    <xsl:if test="Stuk:tijdstipOndertekening and not(Stuk:tijdstipOndertekening/@xsi:nil)">
+                        <xsl:value-of select="Stuk:tijdstipOndertekening/Typen:datum"/>
+                        <xsl:if test="not(Stuk:tijdstipOndertekening/Typen:tijd/@xsi:nil='true')">
+                            <xsl:text>T</xsl:text>
+                            <xsl:value-of select="Stuk:tijdstipOndertekening/Typen:tijd"/>
+                        </xsl:if>
                     </xsl:if>
-                </xsl:if>
-            </tijdstipondertekening>
-            <tekeningingeschreven>
-                <xsl:value-of select="Stuk:tekeningIngeschreven"/>
-            </tekeningingeschreven>
-        </stuk>
+                </tijdstipondertekening>
+                <tekeningingeschreven>
+                    <xsl:value-of select="Stuk:tekeningIngeschreven"/>
+                </tekeningingeschreven>
+            </stuk>
+        </comfort>
 
         <xsl:for-each select="Stuk:omvat/Stuk-ref:StukdeelRef">
             <xsl:variable name="stukdeelRefID">
@@ -607,25 +627,32 @@
             </xsl:variable>
 
             <xsl:for-each select="//Stuk:Stukdeel[@id=$stukdeelRefID]">
-                <stukdeel>
-                    <identificatie>
-                        <xsl:call-template name="domein_identificatie">
-                            <xsl:with-param name="id" select="Stuk:identificatie"/>
-                        </xsl:call-template>
-                    </identificatie>
-                    <aard>
-                        <xsl:value-of select="Stuk:aard/Typen:waarde"/>
-                    </aard>
-                    <bedragtransactiesomlevering>
-                        <xsl:value-of select="Stuk:bedragTransactiesomLevering/Typen:som"/>
-                    </bedragtransactiesomlevering>
-                    <datumkenbaarheidpb>
-                        <xsl:value-of select="Stuk:datumKenbaarheidPB"/>
-                    </datumkenbaarheidpb>
-                    <deelvan>
-                        <xsl:value-of select="$stukId"/>
-                    </deelvan>
-                </stukdeel>
+                <xsl:variable name="stukdeelId">
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id" select="Stuk:identificatie"/>
+                    </xsl:call-template>
+                </xsl:variable>
+
+                <comfort search-table="stukdeel" search-column="identificatie" search-value="{$stukdeelId}"
+                         snapshot-date="{$toestandsdatum}">
+                    <stukdeel ignore-duplicates="yes">
+                        <identificatie>
+                            <xsl:value-of select="$stukdeelId"/>
+                        </identificatie>
+                        <aard>
+                            <xsl:value-of select="Stuk:aard/Typen:waarde"/>
+                        </aard>
+                        <bedragtransactiesomlevering>
+                            <xsl:value-of select="Stuk:bedragTransactiesomLevering/Typen:som"/>
+                        </bedragtransactiesomlevering>
+                        <datumkenbaarheidpb>
+                            <xsl:value-of select="Stuk:datumKenbaarheidPB"/>
+                        </datumkenbaarheidpb>
+                        <deelvan>
+                            <xsl:value-of select="$stukId"/>
+                        </deelvan>
+                    </stukdeel>
+                </comfort>
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
@@ -647,7 +674,7 @@
             <begingeldigheid>
                 <xsl:value-of select="$toestandsdatum"/>
             </begingeldigheid>
-            <eindegeldigheid></eindegeldigheid>
+            <eindegeldigheid/>
             <identificatie>
                 <xsl:value-of select="$ozId"/>
             </identificatie>
@@ -746,7 +773,6 @@
                 </begingeldigheid>
             </onroerendezaakfiliatie>
         </xsl:for-each>
-
     </xsl:template>
 
 
@@ -762,7 +788,11 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <recht column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="einddatumrecht">
+        <recht column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="eindegeldigheid">
+            <begingeldigheid>
+                <xsl:value-of select="$toestandsdatum"/>
+            </begingeldigheid>
+            <eindegeldigheid alleen-archief="true"/>
             <identificatie>
                 <xsl:value-of select="$rechtId"/>
             </identificatie>
@@ -913,11 +943,18 @@
             <omschrijving>
                 <xsl:value-of select="$recht/Recht:omschrijving"/>
             </omschrijving>
-            <einddatumrecht alleen-archief="true">
+            <einddatumrecht>
+                <!-- EinddatumRecht is de datum waarop een recht eindigt. De einddatum van een recht is in de BRK opgenomen
+                als aantekening om de volgende redenen. Einddatum van een tenaamstelling is niet meer dan een aantekening
+                (een verwijzing naar een stuk waarin iets is vermeld over een (mogelijke) einddatum).
+                Het Kadaster acteert niet als dit tijdstip is aangebroken, dwz een tenaamstelling vervalt niet automatisch door tijdsverloop.
+                De tenaamstelling in BRK vervalt enkel nadat er een nieuwe akte van levering is ingeschreven.
+                Ook kan in een later stuk een andere einddatum zijn vermeld.
+                Alle stukken betreffende een einddatum worden als aantekening bij de tenaamstelling vermeld.-->
                 <xsl:value-of select="$recht/Recht:einddatumRecht"/>
             </einddatumrecht>
             <einddatum>
-                <!-- Einddatum is de datum waarop de geldigheid van de aantekening eindigt -->
+                <!-- Einddatum is de datum waarop de geldigheid van de aantekening eindigt. -->
                 <xsl:value-of select="$recht/Recht:einddatum"/>
             </einddatum>
             <betreftgedeeltevanperceel>
@@ -938,18 +975,17 @@
                                             $recht/Recht:betrokkenPersoon/Persoon-ref:NietNatuurlijkPersoonRef"/>
                 </xsl:call-template>
             </betrokkenpersoon>
-            <begingeldigheid>
-                <xsl:value-of select="$toestandsdatum"/>
-            </begingeldigheid>
         </recht>
-
 
         <!-- 1:n relaties van rechten -->
         <xsl:for-each select="$recht/Recht:isBeperktTot/Recht-ref:TenaamstellingRef">
             <!-- (bron Zakelijkrecht) dit kunnen er meer dan 1 (0..∞) zijn;
                  bijv. test bestand "/brk2/stand-appre-2.anon.xml" / NL.IMKAD.KadastraalObject:53850184110001
             -->
-            <isbeperkttot>
+            <recht_isbeperkttot column-dat-beg-geldh="begingeldigheid">
+                <begingeldigheid alleen-archief="true">
+                    <xsl:value-of select="$toestandsdatum"/>
+                </begingeldigheid>
                 <zakelijkrecht>
                     <xsl:value-of select="$rechtId"/>
                 </zakelijkrecht>
@@ -958,12 +994,15 @@
                         <xsl:with-param name="id" select="."/>
                     </xsl:call-template>
                 </tenaamstelling>
-            </isbeperkttot>
+            </recht_isbeperkttot>
         </xsl:for-each>
 
         <xsl:for-each select="$recht/Recht:isBelastMet/Recht-ref:ZakelijkRechtRef">
             <!-- (bron Zakelijkrecht) dit kunnen er meer dan 1 (0..∞) zijn -->
-            <isbelastmet>
+            <recht_isbelastmet column-dat-beg-geldh="begingeldigheid">
+                <begingeldigheid alleen-archief="true">
+                    <xsl:value-of select="$toestandsdatum"/>
+                </begingeldigheid>
                 <zakelijkrecht>
                     <xsl:value-of select="$rechtId"/>
                 </zakelijkrecht>
@@ -972,12 +1011,15 @@
                         <xsl:with-param name="id" select="."/>
                     </xsl:call-template>
                 </isbelastmet>
-            </isbelastmet>
+            </recht_isbelastmet>
         </xsl:for-each>
 
         <xsl:for-each select="$recht/Recht:aantekeningRecht/Recht-ref:TenaamstellingRef">
             <!-- (bron Aantekening) er kunnen er meer dan 1 (0..∞) referenties naar tenaamstellingen zijn -->
-            <aantekeningrecht>
+            <recht_aantekeningrecht column-dat-beg-geldh="begingeldigheid">
+                <begingeldigheid alleen-archief="true">
+                    <xsl:value-of select="$toestandsdatum"/>
+                </begingeldigheid>
                 <aantekening>
                     <xsl:value-of select="$rechtId"/>
                 </aantekening>
@@ -986,7 +1028,7 @@
                         <xsl:with-param name="id" select="."/>
                     </xsl:call-template>
                 </tenaamstelling>
-            </aantekeningrecht>
+            </recht_aantekeningrecht>
         </xsl:for-each>
     </xsl:template>
 
@@ -1039,8 +1081,8 @@
 
 
     <!--
-    Maak een domein identificatie aan.
-    Geprobeerd wordt om een volledige NEN 3610 id te maken, iets wat voor BAG elementen mislukt vanwege ontbrekend domein.
+        Maak een domein identificatie aan.
+        Geprobeerd wordt om een volledige NEN 3610 id te maken.
     -->
     <xsl:template name="domein_identificatie">
         <xsl:param name="id"/>
@@ -1056,9 +1098,4 @@
         </xsl:if>
     </xsl:template>
 
-
-    <!-- converteer datum: jjjj-mm-dd -> jjjjmmdd -->
-    <xsl:template name="numeric-date">
-        <xsl:value-of select="concat(substring(.,1,4),substring(.,6,2),substring(.,9,2))"/>
-    </xsl:template>
 </xsl:stylesheet>
