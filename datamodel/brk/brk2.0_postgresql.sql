@@ -1,5 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS brk;
-
+SET SCHEMA 'brk';
 SET search_path = brk,public;
 
 -- alle verschillende soorten stukken:
@@ -23,7 +23,7 @@ CREATE TABLE stuk
     nummer                VARCHAR(5),
     -- Verwijzing naar de oorspronkelijke (mogelijk tussentijds vervallen) Kadastervestiging waar het stuk oorspronkelijk is ingeschreven.
     -- https://developer.kadaster.nl/schemas/waardelijsten/Reekscode/
-    reeks                 VARCHAR,
+    reeks                 VARCHAR(19),
     -- De registercode is de aanduiding van het het register waarin het stuk is ingeschreven.
     -- Dit kan zijn het register hypotheken 3 voor hypotheken en beslagen en hypotheken 4 voor alle andere stukken.
     -- https://developer.kadaster.nl/schemas/waardelijsten/Registercode/
@@ -155,7 +155,7 @@ CREATE TABLE onroerendezaak
     oudstdigitaalbekend           TIMESTAMP
 );
 
-CREATE TABLE archief_onroerendezaak
+CREATE TABLE onroerendezaak_archief
 (
     identificatie                 VARCHAR(255) NOT NULL,
     begingeldigheid               DATE         NOT NULL,
@@ -219,6 +219,15 @@ CREATE TABLE objectlocatie
     -- https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
     koppelingswijze VARCHAR(29),
     PRIMARY KEY (heeft, betreft)
+);
+
+CREATE TABLE objectlocatie_archief
+(
+    heeft           VARCHAR(255) NOT NULL ,
+    betreft         VARCHAR(255) NOT NULL,
+    koppelingswijze VARCHAR(29),
+    begingeldigheid  DATE         NOT NULL,
+    PRIMARY KEY (heeft, betreft, begingeldigheid)
 );
 
 -- Een persoon is een natuurlijk persoon of een niet-natuurlijk persoon.
@@ -318,19 +327,37 @@ CREATE TABLE publiekrechtelijkebeperking
     datumbeeindiging DATE,
     -- stukdeel ref
     isgebaseerdop    VARCHAR REFERENCES stukdeel (identificatie),
-    -- TODO NNP referentie
-    bevoegdgezag     VARCHAR
+    -- nnp ref
+    bevoegdgezag     VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie)
+);
+
+CREATE TABLE publiekrechtelijkebeperking_archief
+(
+    identificatie    VARCHAR(255) NOT NULL,
+    grondslag        VARCHAR(255),
+    datuminwerking   DATE,
+    datumbeeindiging DATE,
+    isgebaseerdop    VARCHAR REFERENCES stukdeel (identificatie),
+    bevoegdgezag     VARCHAR(255),
+    begingeldigheid  DATE         NOT NULL,
+    PRIMARY KEY (identificatie, begingeldigheid)
 );
 
 CREATE TABLE onroerendezaakbeperking
 (
-    -- geen identificatie?
-    -- identificatie VARCHAR(255) PRIMARY KEY NOT NULL,
-    -- TODO primary key bepalen
     inonderzoek BOOLEAN,
     beperkt     VARCHAR REFERENCES onroerendezaak (identificatie),
     leidttot    VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie),
     PRIMARY KEY (beperkt, leidttot)
+);
+
+CREATE TABLE onroerendezaakbeperking_archief
+(
+    inonderzoek     BOOLEAN,
+    beperkt         VARCHAR(255) NOT NULL,
+    leidttot        VARCHAR(255) NOT NULL,
+    begingeldigheid DATE         NOT NULL,
+    PRIMARY KEY (beperkt, leidttot, begingeldigheid)
 );
 
 -- Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak.
@@ -350,12 +377,13 @@ CREATE TABLE onroerendezaakfiliatie
     PRIMARY KEY (aard, onroerendezaak, betreft)
 );
 
-CREATE TABLE archief_onroerendezaakfiliatie
+CREATE TABLE onroerendezaakfiliatie_archief
 (
     aard            VARCHAR(65)  NOT NULL,
+    onroerendezaak  VARCHAR(255),
     betreft         VARCHAR(255) NOT NULL,
     begingeldigheid DATE         NOT NULL,
-    PRIMARY KEY (aard, betreft, begingeldigheid)
+    PRIMARY KEY (aard, onroerendezaak, betreft, begingeldigheid)
 );
 
 -- In de BRK is een kadastraal perceel een specialisatie van een onroerende zaak.
@@ -367,8 +395,7 @@ CREATE TABLE perceel
     -- Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is.
     -- Het gehele Nederlandse grondgebied is aaneengesloten kadastraal geïdentificeerd.
     -- Perceel is authentiek volgens de BRK voorzover het de attribuutsoorten kadastraleGrootte en KadatraleAanduiding betreft.
-    -- TODO:  NOT NULL toevoegen
-    begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992),
+    begrenzing_perceel     GEOMETRY(MULTIPOLYGON, 28992) NOT NULL,
     -- De grootte van een perceel zoals vermeld in de kadastrale registratie. Het Kadaster bepaalt niet een excacte maar een indicatieve grootte.
     -- Grootte is alleen authentiek als soort groote de waarde "vastgesteld" heeft.
     -- De oppervlakgrootte wordt vastgelegd in vierkante meter.
@@ -400,7 +427,7 @@ CREATE TABLE perceel
     -- begingeldigheid        DATE                          NOT NULL
 );
 
-CREATE TABLE archief_perceel
+CREATE TABLE perceel_archief
 (
     identificatie          VARCHAR(255)                  NOT NULL,
     begingeldigheid        DATE                          NOT NULL,
@@ -558,30 +585,10 @@ CREATE TABLE recht
     betrokkenpersoon                       VARCHAR REFERENCES persoon (identificatie),
     -- metadata tbv archivering
     begingeldigheid                        DATE         NOT NULL
+    -- eindgeldigheid                        DATE
 );
 
--- koppeltabellen voor 1:n (n>1) recht:recht relaties
-CREATE TABLE aantekeningrecht
-(
-    aantekening    VARCHAR REFERENCES recht (identificatie),
-    tenaamstelling VARCHAR REFERENCES recht (identificatie),
-    PRIMARY KEY (aantekening, tenaamstelling)
-);
-CREATE TABLE isbelastmet
-(
-    zakelijkrecht VARCHAR REFERENCES recht (identificatie),
-    isbelastmet   VARCHAR REFERENCES recht (identificatie),
-    PRIMARY KEY (zakelijkrecht, isbelastmet)
-);
-CREATE TABLE isbeperkttot
-(
-    zakelijkrecht  VARCHAR REFERENCES recht (identificatie),
-    -- tenaamstelling VARCHAR REFERENCES recht (identificatie); maar tenaamstelling onbreekt soms in bericht
-    tenaamstelling VARCHAR(255) NOT NULL,
-    PRIMARY KEY (zakelijkrecht, tenaamstelling)
-);
-
-CREATE TABLE archief_recht
+CREATE TABLE recht_archief
 (
     identificatie                          VARCHAR(255) NOT NULL,
     aard                                   VARCHAR(255),
@@ -591,48 +598,116 @@ CREATE TABLE archief_recht
     isgebaseerdop2                         VARCHAR(255) REFERENCES stukdeel (identificatie),
     -- zakelijke recht referentie
     -- relatie Recht:Erfpachtcanon/Recht:betreft/Recht-ref:ZakelijkRechtRef
-    betreft                                VARCHAR(255) REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    betreft                                VARCHAR(255),
     -- OZ referentie
-    rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- REFERENCES onroerendezaak (identificatie)
+    rustop                                 VARCHAR(255),
     -- een splitsing ref
-    isontstaanuit                          VARCHAR REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    isontstaanuit                          VARCHAR(255),
     -- een splitsing ref
-    isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    isbetrokkenbij                         VARCHAR(255),
     -- Mandeligheid ref
-    isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    isbestemdtot                           VARCHAR(255),
     soort                                  VARCHAR(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
     jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
     einddatumafkoop                        DATE,
     indicatieoudeonroerendezaakbetrokken   BOOLEAN,
-    heefthoofdzaak                         VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- REFERENCES onroerendezaak (identificatie)
+    heefthoofdzaak                         VARCHAR(255),
     -- NNP verwijzing
-    heeftverenigingvaneigenaren            VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- REFERENCES nietnatuurlijkpersoon (identificatie)
+    heeftverenigingvaneigenaren            VARCHAR(255),
     aandeel_teller                         DECIMAL(32, 0),
     aandeel_noemer                         DECIMAL(32, 0),
     burgerlijkestaattentijdevanverkrijging VARCHAR(43),
     verkregennamenssamenwerkingsverband    VARCHAR(26),
     -- relatie Recht:Tenaamstelling/Recht:van/Recht-ref:ZakelijkRechtRef
-    van                                    VARCHAR REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    van                                    VARCHAR(255),
     -- NP verwijzing
-    betrokkenpartner                       VARCHAR REFERENCES natuurlijkpersoon (identificatie),
+    -- REFERENCES natuurlijkpersoon (identificatie)
+    betrokkenpartner                       VARCHAR(255),
     -- GezamenlijkAandeelRef
-    geldtvoor                              VARCHAR REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    geldtvoor                              VARCHAR(255),
     -- NNP verwijzing
-    betrokkensamenwerkingsverband          VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- REFERENCES nietnatuurlijkpersoon (identificatie)
+    betrokkensamenwerkingsverband          VARCHAR(255),
     -- NNP verwijzing
-    betrokkengorzenenaanwassen             VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- REFERENCES nietnatuurlijkpersoon (identificatie)
+    betrokkengorzenenaanwassen             VARCHAR(255),
     -- NNP of NP verwijzing
-    tennamevan                             VARCHAR REFERENCES persoon (identificatie),
+    -- REFERENCES persoon (identificatie)
+    tennamevan                             VARCHAR(255),
     omschrijving                           VARCHAR(4000),
     einddatumrecht                         DATE,
     einddatum                              DATE,
     betreftgedeeltevanperceel              BOOLEAN,
-    aantekeningkadastraalobject            VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- REFERENCES onroerendezaak (identificatie)
+    aantekeningkadastraalobject            VARCHAR(255),
     -- NNP of NP verwijzing
-    betrokkenpersoon                       VARCHAR REFERENCES persoon (identificatie),
+    -- REFERENCES persoon (identificatie)
+    betrokkenpersoon                       VARCHAR(255),
     begingeldigheid                        DATE         NOT NULL,
+    eindegeldigheid                        DATE         NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
+);
+
+-- koppeltabellen voor 1:n (n>1) recht:recht relaties
+CREATE TABLE recht_aantekeningrecht
+(
+    aantekening    VARCHAR REFERENCES recht (identificatie),
+    tenaamstelling VARCHAR REFERENCES recht (identificatie),
+    PRIMARY KEY (aantekening, tenaamstelling)
+);
+CREATE TABLE recht_isbelastmet
+(
+    zakelijkrecht VARCHAR REFERENCES recht (identificatie),
+    isbelastmet   VARCHAR REFERENCES recht (identificatie),
+    PRIMARY KEY (zakelijkrecht, isbelastmet)
+);
+CREATE TABLE recht_isbeperkttot
+(
+    zakelijkrecht  VARCHAR REFERENCES recht (identificatie),
+    -- tenaamstelling VARCHAR REFERENCES recht (identificatie); maar tenaamstelling onbreekt soms in bericht
+    tenaamstelling VARCHAR(255) NOT NULL,
+    PRIMARY KEY (zakelijkrecht, tenaamstelling)
+);
+
+CREATE TABLE recht_aantekeningrecht_archief
+(
+    --  REFERENCES recht_archief (identificatie)
+    aantekening     VARCHAR(255) NOT NULL,
+    tenaamstelling  VARCHAR(255) NOT NULL,
+    -- REFERENCES recht_archief (identificatie)
+    -- metadata tbv archivering
+    begingeldigheid DATE         NOT NULL,
+    PRIMARY KEY (aantekening, tenaamstelling, begingeldigheid)
+);
+CREATE TABLE recht_isbelastmet_archief
+(
+    -- REFERENCES recht_archief (identificatie)
+    zakelijkrecht   VARCHAR(255) NOT NULL,
+    -- REFERENCES recht_archief (identificatie)
+    isbelastmet     VARCHAR(255) NOT NULL,
+    -- metadata tbv archivering
+    begingeldigheid DATE         NOT NULL,
+    PRIMARY KEY (zakelijkrecht, isbelastmet, begingeldigheid)
+);
+CREATE TABLE recht_isbeperkttot_archief
+(
+    -- REFERENCES recht_archief (identificatie)
+    zakelijkrecht   VARCHAR(255) NOT NULL,
+    -- tenaamstelling VARCHAR REFERENCES recht (identificatie); maar tenaamstelling onbreekt soms in bericht
+    tenaamstelling  VARCHAR(255) NOT NULL,
+    -- metadata tbv archivering
+    begingeldigheid DATE         NOT NULL,
+    PRIMARY KEY (zakelijkrecht, tenaamstelling, begingeldigheid)
 );
 
 CREATE TABLE appartementsrecht
@@ -649,11 +724,12 @@ CREATE TABLE appartementsrecht
     -- begingeldigheid DATE         NOT NULL
 );
 
-CREATE TABLE archief_appartementsrecht
+CREATE TABLE appartementsrecht_archief
 (
     identificatie   VARCHAR(255) NOT NULL,
     begingeldigheid DATE         NOT NULL,
-    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie),
+    -- REFERENCES recht (identificatie)
+    hoofdsplitsing  VARCHAR(255) NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 
@@ -666,5 +742,9 @@ CREATE TABLE brmo_metadata
 COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
 
 -- brmo versienummer
-INSERT INTO brmo_metadata (naam, waarde)
-VALUES ('brmoversie', '${project.version}');
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie', '${project.version}');
+
+CREATE INDEX perceel_begrenzing_perceel ON perceel USING GIST (begrenzing_perceel);
+CREATE INDEX perceel_plaatscoordinaten ON perceel USING GIST (plaatscoordinaten);
+CREATE INDEX perceel_archief_begrenzing_perceel ON perceel_archief USING GIST (begrenzing_perceel);
+CREATE INDEX perceel_archief_plaatscoordinaten ON perceel_archief USING GIST (plaatscoordinaten);

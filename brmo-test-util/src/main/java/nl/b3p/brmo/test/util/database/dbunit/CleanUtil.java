@@ -24,22 +24,6 @@ public final class CleanUtil {
     private CleanUtil() {
     }
 
-    /**
-     * leegt de BRK tabellen in het RSGB schema. kan worden gebruikt in een
-     * {@code @After} van een test case.
-     *
-     * @param rsgb database welke geleegd moet worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException            als er iets misgaat in de database
-     * @deprecated gebruik {@link #cleanRSGB_BRK(org.dbunit.database.IDatabaseConnection, boolean)
-     * }
-     */
-    @Deprecated
-    public static void cleanRSGB(final IDatabaseConnection rsgb)
-            throws DatabaseUnitException, SQLException {
-
-        cleanRSGB_BRK(rsgb, true);
-    }
 
     /**
      * leegt de BRK tabellen in het RSGB schema. kan worden gebruikt in een
@@ -152,15 +136,21 @@ public final class CleanUtil {
                 new DefaultTable("appartementsrecht"),
                 new DefaultTable("publiekrechtelijkebeperking"),
                 new DefaultTable("onroerendezaakbeperking"),
-                new DefaultTable("archief_appartementsrecht"),
-                new DefaultTable("archief_onroerendezaak"),
-                new DefaultTable("archief_onroerendezaakfiliatie"),
-                new DefaultTable("archief_perceel"),
-                new DefaultTable("archief_recht"),
+                new DefaultTable("appartementsrecht_archief"),
+                new DefaultTable("onroerendezaak_archief"),
+                new DefaultTable("onroerendezaakfiliatie_archief"),
+                new DefaultTable("perceel_archief"),
+                new DefaultTable("recht_archief"),
                 new DefaultTable("objectlocatie"),
-                new DefaultTable("aantekeningrecht"),
-                new DefaultTable("isbelastmet"),
-                new DefaultTable("isbeperkttot"),
+                new DefaultTable("recht_aantekeningrecht"),
+                new DefaultTable("recht_isbelastmet"),
+                new DefaultTable("recht_isbeperkttot"),
+                new DefaultTable("recht_aantekeningrecht_archief"),
+                new DefaultTable("recht_isbelastmet_archief"),
+                new DefaultTable("recht_isbeperkttot_archief"),
+                new DefaultTable("onroerendezaakbeperking_archief"),
+                new DefaultTable("publiekrechtelijkebeperking_archief"),
+                new DefaultTable("objectlocatie_archief"),
         }));
     }
 
@@ -343,20 +333,6 @@ public final class CleanUtil {
         }));
         // WOZ bevat ook vestigingen, NHR leegt ook BRP
         cleanRSGB_NHR(rsgb, deleteBrondocument);
-    }
-
-    /**
-     * leegt de bericht, laadproces en job tabellen in het staging schema. kan
-     * worden gebruikt in een {@code @After} van een test case.
-     *
-     * @param staging database welke geleegd moet worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException            als er iets misgaat in de database
-     * @deprecated gebruik {@link #cleanSTAGING(org.dbunit.database.IDatabaseConnection, boolean)}
-     */
-    @Deprecated
-    public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
-        cleanSTAGING(staging, false);
     }
 
     /**

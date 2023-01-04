@@ -35,6 +35,7 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader">
+        <!-- trace voor sql statements -->
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader.xml">
