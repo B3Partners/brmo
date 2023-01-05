@@ -447,7 +447,6 @@ CREATE TABLE perceel_archief
 --   NL.IMKAD.Erfpachtcanon
 --   NL.IMKAD.Mandeligheid
 --   NL.IMKAD.AppartementsrechtSplitsing
---   TODO sub typen splitsing?:
 --      Hoofdsplitsing
 --      Ondersplitsing
 --      SpiegelsplitsingAfkoopErfpacht
@@ -455,7 +454,6 @@ CREATE TABLE perceel_archief
 --   NL.IMKAD.Tenaamstelling
 --   NL.IMKAD.GezamenlijkAandeel
 --   NL.IMKAD.Aantekening
--- TODO sommige rechten hebben meer dan 1 stukdeel ref... daarvoor zouden we een koppeltabel nodig hebben
 CREATE TABLE recht
 (
     identificatie                          VARCHAR(255) NOT NULL PRIMARY KEY,
@@ -739,7 +737,6 @@ CREATE TABLE brmo_metadata
     naam   VARCHAR(255) NOT NULL PRIMARY KEY,
     waarde VARCHAR(255)
 );
-COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
 
 -- brmo versienummer
 INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie', '${project.version}');
