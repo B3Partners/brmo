@@ -33,3 +33,4 @@ docker exec -i oracle_brmo sqlplus -l jenkins_bag/jenkins_bag@//localhost:1521/X
 
 printf "\nset up BRK 2.0 DB...\n"
 docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/XE < ./datamodel/brk/brk2.0_oracle.sql
+docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/XE < ./datamodel/brk/brk2.0_commentaar.sql
