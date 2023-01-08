@@ -37,7 +37,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     labels:
@@ -48,7 +48,7 @@ updates:
     directory: "/docker/src/main/docker"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -69,7 +69,7 @@ updates:
     directory: "/docker/src/main/docker/pg_conf"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -85,7 +85,7 @@ updates:
     directory: "/bgt-loader"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -106,7 +106,7 @@ updates:
     directory: "/bag2-loader"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:10"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
