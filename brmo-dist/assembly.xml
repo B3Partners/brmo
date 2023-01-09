@@ -86,6 +86,16 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../${project.basedir}/datamodel/brk/</directory>
+            <outputDirectory>db/brk</outputDirectory>
+            <includes>
+                <include>**/README.md</include>
+                <include>**/brk2.0_postgresql.sql</include>
+                <include>**/brk2.0_oracle.sql</include>
+                <include>**/brk2.0_commentaar.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/datamodel/upgrade_scripts/</directory>
             <outputDirectory>db/upgrade_scripts</outputDirectory>
             <includes>
