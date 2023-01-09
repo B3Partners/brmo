@@ -85,5 +85,15 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           retain_days: 60
-          keep_minimum_runs: 1
+          keep_minimum_runs: 0
           delete_workflow_pattern: 'all'
+
+  workflows2:
+    runs-on: "Cleanup old workflow runs 2"
+    steps:
+      - name: Delete workflow runs
+        uses: boredland/action-purge-workflow-runs@main
+        with:
+          days-old: 60
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
