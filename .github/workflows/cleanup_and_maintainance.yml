@@ -88,11 +88,11 @@ jobs:
           keep_minimum_runs: 0
           delete_workflow_pattern: 'all'
 
-  workflows2:
-    runs-on: "Cleanup old workflow runs 2"
+  otherworkflows:
+    runs-on: "other Cleanup old workflow runs"
     steps:
       - name: Delete workflow runs
-        uses: boredland/action-purge-workflow-runs@main
+        uses: boredland/action-purge-workflow-runs@v1.0.0
         with:
           days-old: 60
         env:
