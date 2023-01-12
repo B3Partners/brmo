@@ -88,7 +88,7 @@ class Brk2StandMutatieGedeeldeStukkenVerwerkingIntegrationTest extends AbstractD
                         // stukken NL.IMKAD.TIAStuk:20020924000346 en NL.IMKAD.TIAStuk:20081017002053 worden gedeeld in de stand
                         Stream.of("NL.IMKAD.TIAStuk:20020924000346", "NL.IMKAD.TIAStuk:20081017002053", /*2e*/  "NL.IMKAD.TIAStuk:18011026015603", "NL.IMKAD.TIAStuk:20020924000346", "NL.IMKAD.TIAStuk:20081017002053").collect(Collectors.toCollection(HashSet::new)),
                         // stukdeel NL.IMKAD.Stukdeel:AKR1.10630844 wordt gedeeld in de stand
-                        // stukdeel NL.IMKAD.Stukdeel:1022805638 komt uit 1e bericht
+                        // stukdeel NL.IMKAD.Stukdeel:1022805638 komt uit 1e bericht/53880252670000
                         Stream.of("NL.IMKAD.Stukdeel:1022805638", "NL.IMKAD.Stukdeel:AKR1.10630844",/*2e*/"NL.IMKAD.TIAStuk:20081017002053", "NL.IMKAD.Stukdeel:AKR1.10630844", "NL.IMKAD.Stukdeel:AKR1.10754757").collect(Collectors.toCollection(HashSet::new)),
                         // mutaties
                         Stream.of("NL.IMKAD.ZakelijkRecht:50036403", "NL.IMKAD.Tenaamstelling:1013515840", "NL.IMKAD.Tenaamstelling:1013515841", /*2*/"NL.IMKAD.ZakelijkRecht:50036398", "NL.IMKAD.Tenaamstelling:1013515838", "NL.IMKAD.Tenaamstelling:1013515839", "NL.IMKAD.Aantekening:50007474").collect(Collectors.toCollection(HashSet::new)),
@@ -199,8 +199,9 @@ class Brk2StandMutatieGedeeldeStukkenVerwerkingIntegrationTest extends AbstractD
         // voor stand, maar op volgorde van database
         brmo.setOrderBerichten(false);
         brmo.setEnablePipeline(false);
+        brmo.setTransformPipelineCapacity(2);
         brmo.setBatchCapacity(1);
-        brmo.setTransformPipelineCapacity(1);
+        brmo.setLimitStandBerichtenToTransform(2);
         transformerenEnValideren(bestandNamen.length);
 
         // controle BRK inhoud stand
@@ -365,7 +366,7 @@ class Brk2StandMutatieGedeeldeStukkenVerwerkingIntegrationTest extends AbstractD
 
 
     private void transformerenEnValideren(int expected) throws BrmoException, InterruptedException {
-        LOG.info("Transformeren berichten naar rsgb DB met optie 'orderberichten='" + brmo.isOrderBerichten());
+        LOG.info("Transformeren berichten naar rsgb DB met optie 'orderberichten': " + brmo.isOrderBerichten());
         Thread t = brmo.toRsgb();
         t.join();
 
