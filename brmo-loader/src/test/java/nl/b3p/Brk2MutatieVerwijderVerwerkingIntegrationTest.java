@@ -47,17 +47,17 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Draaien met:
- * {@code mvn -Dit.test=Brk2StandMutatieVerwerkingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl
+ * {@code mvn -Dit.test=Brk2MutatieVerwijderVerwerkingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl
  * brmo-loader > /tmp/postgresql.log} of
- * {@code mvn -Dit.test=Brk2StandMutatieVerwerkingIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader
+ * {@code mvn -Dit.test=Brk2MutatieVerwijderVerwerkingIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader
  * > /tmp/oracle.log}
  * voor Oracle.
  *
  * @author mprins
  */
-class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrationTest {
+class Brk2MutatieVerwijderVerwerkingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
-    private static final Log LOG = LogFactory.getLog(Brk2StandMutatieVerwerkingIntegrationTest.class);
+    private static final Log LOG = LogFactory.getLog(Brk2MutatieVerwijderVerwerkingIntegrationTest.class);
     private final Lock sequential = new ReentrantLock(true);
     private BasicDataSource dsRsgbBrk;
     private BasicDataSource dsStaging;
@@ -67,7 +67,9 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // { "filename-stand", "filenames-mutaties", objectRef,
+                // { "1 bericht-filename",
+                // "filenames-mutaties",
+                // objectRef,
                 // rechtenStand,
                 // stukkenStand,
                 // stukdelenStand,
@@ -77,22 +79,22 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
                 // stukdelenMutaties,
                 // aantalKadObjLocatie, aantalPubliekRBeperking, aantalOnrndZkBeperking, aantalFiliatie},
 
-
                 arguments(
-                        "/brk2/stand-53910084370000.anon.xml",
-                        new String[]{"/brk2/mutatie-53910084370000-1.anon.xml", "/brk2/mutatie-53910084370000-2.anon.xml"},
-                        "NL.IMKAD.KadastraalObject:53910084370000",
-                        // stand
-                        Set.of("NL.IMKAD.ZakelijkRecht:1002007462", "NL.IMKAD.Tenaamstelling:1013176109", "NL.IMKAD.Aantekening:1004329166"),
-                        Set.of("NL.IMKAD.TIAStuk:17990521019676", "NL.IMKAD.TIAStuk:17990528014319", "NL.IMKAD.TIAStuk:17990529000446", "NL.IMKAD.TIAStuk:18011028007671"),
-                        Set.of("NL.IMKAD.Stukdeel:1022719029", "NL.IMKAD.Stukdeel:1022766561", "NL.IMKAD.Stukdeel:1022785542", "NL.IMKAD.Stukdeel:1022791261"),
-                        // mutaties
-                        Set.of(/* 1e mut. */ "NL.IMKAD.ZakelijkRecht:1002007462", "NL.IMKAD.Tenaamstelling:1013569370", "NL.IMKAD.Aantekening:1004329166", "NL.IMKAD.Aantekening:1004450385"),
-                        Set.of( /*2e mut*/"NL.IMKAD.ZakelijkRecht:1002007462", "NL.IMKAD.AppartementsrechtSplitsing:1000025615", "NL.IMKAD.Aantekening:1004450385"),
-                        Stream.of("NL.IMKAD.TIAStuk:20221128000052", "NL.IMKAD.TIAStuk:18011028007671", /*2e mut*/"NL.IMKAD.TIAStuk:20221128000052", "NL.IMKAD.TIAStuk:20221128000053").collect(Collectors.toCollection(HashSet::new)),
-                        Stream.of("NL.IMKAD.Stukdeel:1022719029", "NL.IMKAD.Stukdeel:500006712634", "NL.IMKAD.Stukdeel:500006712635", /*2e mut*/"NL.IMKAD.Stukdeel:500006712634", "NL.IMKAD.Stukdeel:500006720955").collect(Collectors.toCollection(HashSet::new)),
-                        20, 0, 0, 1
+                        "/brk2/mutatie-5230168170000-1.anon.xml",
+                        new String[]{"/brk2/vervallen-5230168170000-2.anon.xml"},
+                        "NL.IMKAD.KadastraalObject:5230168170000",
+                        // 1e bericht
+                        Set.of("NL.IMKAD.ZakelijkRecht:1001274173", "NL.IMKAD.Tenaamstelling:1007585455"),
+                        Set.of("NL.IMKAD.TIAStuk:20040115000632", "NL.IMKAD.TIAStuk:20090402001713"),
+                        Set.of("NL.IMKAD.Stukdeel:1018080241", "NL.IMKAD.Stukdeel:1018231900"),
+                        // laatste bericht
+                        Collections.emptySet(),
+                        Collections.emptySet(),
+                        Collections.emptySet(),
+                        Collections.emptySet(),
+                        0, 0, 0, 0
                 )
+
         );
 
     }
@@ -147,7 +149,7 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
                 fxdb.build(new FileInputStream(
                                 new File(
                                         Objects.requireNonNull(
-                                                Brk2StandMutatieVerwerkingIntegrationTest.class.getResource("/staging-empty-flat.xml")).toURI())
+                                                Brk2MutatieVerwijderVerwerkingIntegrationTest.class.getResource("/staging-empty-flat.xml")).toURI())
                         )
                 );
 
@@ -186,11 +188,11 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
             int aantalKadObjLocatie, int aantalPubliekRBeperking, int aantalOnrndZkBeperking, int aantalFiliatie
     ) throws Exception {
         assumeFalse(
-                null == Brk2StandMutatieVerwerkingIntegrationTest.class.getResource(bestandNaam),
+                null == Brk2MutatieVerwijderVerwerkingIntegrationTest.class.getResource(bestandNaam),
                 () -> "Het test bestand '" + bestandNaam + "' moet er zijn."
         );
 
-        // stand bericht laden
+        // 1e bericht laden
         this.bestandLadenEnValideren(objectRef, 0, bestandNaam);
         this.transformerenEnValideren(1);
 
@@ -212,7 +214,7 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
 
         // BRK inhoud valideren na toepassen mutaties
         onroerendezaak = rsgbBrk.createDataSet().getTable("onroerendezaak");
-        checkIdentificatiesEnAantal(onroerendezaak, Set.of(objectRef), mutatieBestandNamen.length);
+        checkIdentificatiesEnAantal(onroerendezaak, Collections.emptySet(), 0);
 
         ITable onroerendezaak_archief = rsgbBrk.createDataSet().getTable("onroerendezaak_archief");
         checkIdentificatiesEnAantal(onroerendezaak_archief, Set.of(objectRef), mutatieBestandNamen.length);
@@ -227,13 +229,15 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
 
         stuk = rsgbBrk.createDataSet().getTable("stuk");
         // van stuk geen archief tabel, dus stand erbij nemen
-        stukkenMutaties.addAll(stukkenStand);
-        checkIdentificatiesEnAantal(stuk, stukkenMutaties, mutatieBestandNamen.length);
+        all = new ArrayList<>(stukkenStand);
+        all.addAll(stukkenMutaties);
+        checkIdentificatiesEnAantal(stuk, all, mutatieBestandNamen.length);
 
         stukdeel = rsgbBrk.createDataSet().getTable("stukdeel");
         // van stukdeel geen archief tabel, dus stand erbij nemen
-        stukdelenMutaties.addAll(stukdelenStand);
-        checkIdentificatiesEnAantal(stukdeel, stukdelenMutaties, mutatieBestandNamen.length);
+        all = new ArrayList<>(stukdelenStand);
+        all.addAll(stukdelenMutaties);
+        checkIdentificatiesEnAantal(stukdeel, all, mutatieBestandNamen.length);
 
         ITable publiekrechtelijkebeperking = rsgbBrk.createDataSet().getTable("publiekrechtelijkebeperking");
         ITable publiekrechtelijkebeperking_archief = rsgbBrk.createDataSet().getTable(
@@ -272,14 +276,6 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
             assertAll(
                     "perceel geometrie",
                     () -> assertNotNull(
-                            perceelOfAppRe.getValue(0, "begrenzing_perceel"),
-                            "Perceel begrenzing geometrie is 'null'"
-                    ),
-                    () -> assertNotNull(
-                            perceelOfAppRe.getValue(0, "plaatscoordinaten"),
-                            "Plaatscoordinaten geometrie is 'null'"
-                    ),
-                    () -> assertNotNull(
                             perceelOfAppRe_archief.getValue(0, "begrenzing_perceel"),
                             "Perceel begrenzing geometrie is 'null'"
                     ),
@@ -292,22 +288,9 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
             perceelOfAppRe = rsgbBrk.createDataSet().getTable("appartementsrecht");
             perceelOfAppRe_archief = rsgbBrk.createDataSet().getTable("appartementsrecht_archief");
         }
-        checkIdentificatiesEnAantal(perceelOfAppRe, Set.of(objectRef), mutatieBestandNamen.length);
+        checkIdentificatiesEnAantal(perceelOfAppRe, Collections.emptySet(), mutatieBestandNamen.length);
         checkIdentificatiesEnAantal(perceelOfAppRe_archief, Set.of(objectRef), mutatieBestandNamen.length);
 
-//        ITable aantekeningrecht = rsgbBrk.createDataSet().getTable("recht_aantekeningrecht");
-//        ITable isbelastmet = rsgbBrk.createDataSet().getTable("recht_isbelastmet");
-//        ITable isbeperkttot = rsgbBrk.createDataSet().getTable("recht_isbeperkttot");
-
-//        ITable recht_archief = rsgbBrk.createDataSet().getTable("recht_archief");
-//        ITable aantekeningrecht_archief = rsgbBrk.createDataSet().getTable("recht_aantekeningrecht_archief");
-//        ITable isbelastmet_archief = rsgbBrk.createDataSet().getTable("recht_isbelastmet_archief");
-//        ITable isbeperkttot_archief = rsgbBrk.createDataSet().getTable("recht_isbeperkttot_archief");
-
-//        ITable persoon = rsgbBrk.createDataSet().getTable("persoon");
-//        ITable natuurlijkpersoon = rsgbBrk.createDataSet().getTable("natuurlijkpersoon");
-//        ITable nietnatuurlijkpersoon = rsgbBrk.createDataSet().getTable("nietnatuurlijkpersoon");
-//        ITable adres = rsgbBrk.createDataSet().getTable("adres");
         ITable objectlocatie = rsgbBrk.createDataSet().getTable("objectlocatie");
         assertAll("objectlocatie", () -> assertEquals(aantalKadObjLocatie, objectlocatie.getRowCount(),
                         "Het aantal objectlocaties is niet als verwacht."
@@ -383,7 +366,7 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
         for (String bestandsNaam : bestandsNamen) {
             LOG.debug("Laden van " + bestandsNaam + "bericht in staging DB.");
             brmo.loadFromFile(BrmoFramework.BR_BRK2,
-                    Objects.requireNonNull(Brk2StandMutatieVerwerkingIntegrationTest.class.getResource(bestandsNaam)).getFile(), null
+                    Objects.requireNonNull(Brk2MutatieVerwijderVerwerkingIntegrationTest.class.getResource(bestandsNaam)).getFile(), null
             );
         }
 

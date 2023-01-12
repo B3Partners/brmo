@@ -11,6 +11,7 @@ import nl.b3p.brmo.loader.entity.Brk2Bericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -40,8 +41,8 @@ public class Brk2SnapshotXMLReader extends BrmoXMLReader {
     private static final String MUTATIE = "Mutatie";
 
     private static final String VOLGNUMMER = "volgnummerKadastraalObjectDatum";
-    private static final String NS_MUTATIE = "http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20200721";
-    private static final String NS_XLINK = "http://www.w3.org/1999/xlink";
+    private static final String NS_MUTATIE = "http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20211119";
+    private static final String NS_ONRRNDZKREF = "http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702";
     private static final String KENMERKNAAM = "kenmerknaam";
     private static final String KENMERKWAARDE = "kenmerkwaarde";
     private static final String PRODUCTSPECIFICATIE = "productSpecificatie";
@@ -110,18 +111,14 @@ public class Brk2SnapshotXMLReader extends BrmoXMLReader {
                 } else if(inMutatie && streamReader.getLocalName().equals(VOLGNUMMER)) {
                     mutatieGegevens.volgnummerKadastraalObjectDatum = Integer.parseInt(streamReader.getElementText());
                 } else if(inMutatie && streamReader.getLocalName().equals("kadastraalObject") && streamReader.getNamespaceURI().equals(NS_MUTATIE)) {
-                    // Mutatie:AanduidingKadastraalObject -> Mutatie:kadastraalObject -> (AppartementsrechtRef | PerceelRef)
+                    // Mutatie:kadastraalObject -> Mutatie:AanduidingKadastraalObject -> Mutatie:kadastraalObject -> (AppartementsrechtRef | PerceelRef)
                     mutatieGegevens.inMutatieObjectRef = true;
-                } else if(inMutatie && mutatieGegevens.inMutatieObjectRef) {
+                } else if(inMutatie && mutatieGegevens.inMutatieObjectRef && streamReader.getNamespaceURI().equals(NS_ONRRNDZKREF)) {
                     // Haal id op van Appartementsrecht of PerceelRef
-                    mutatieGegevens.mutatieObjectRef = streamReader.getAttributeValue(NS_XLINK, "href");
+                    mutatieGegevens.mutatieObjectRef = streamReader.getAttributeValue(null, "domein")+ ":" + streamReader.getElementText();
                     if(mutatieGegevens.mutatieObjectRef != null) {
-                        int i = mutatieGegevens.mutatieObjectRef.lastIndexOf('.');
-                        if(i != -1) {
-                            mutatieGegevens.mutatieObjectRef = mutatieGegevens.mutatieObjectRef.substring(0,i) + ':' + mutatieGegevens.mutatieObjectRef.substring(i+1);
-                        }
+                        mutatieGegevens.inMutatieObjectRef = false;
                     }
-                    mutatieGegevens.inMutatieObjectRef = false;
                 } else if(inMutatie && streamReader.getLocalName().equals("was")) {
                     // Bij mutatie "was" skippen
                     inWas = true;
