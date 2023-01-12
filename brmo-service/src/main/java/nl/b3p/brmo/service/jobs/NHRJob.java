@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -71,7 +72,12 @@ public class NHRJob implements Job {
     private Dataservice getDataservice() {
         try {
             InitialContext ctx = new InitialContext();
-            Boolean isActive = (Boolean) ctx.lookup("java:comp/env/brmo/nhr/active");
+            Boolean isActive = false;
+            try {
+                isActive = (Boolean) InitialContext.doLookup("java:comp/env/brmo/nhr/active");
+            } catch (NamingException e) {
+            }
+
             if (!isActive) {
                 return null;
             }

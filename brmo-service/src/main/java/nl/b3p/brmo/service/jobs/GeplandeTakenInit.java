@@ -13,6 +13,8 @@ import javax.servlet.ServletResponse;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Properties;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -144,6 +146,16 @@ public class GeplandeTakenInit implements Servlet {
     }
 
     private void createNHRJob() throws SchedulerException {
+        Boolean isActive = false;
+        try {
+            isActive = (Boolean) InitialContext.doLookup("java:comp/env/brmo/nhr/active");
+        } catch (NamingException e) {
+        }
+
+        if (!isActive) {
+            return;
+        }
+
         Properties props = new Properties();
         props.put("org.quartz.scheduler.instanceName", NHR_SCHEDULER_NAME);
         props.put("org.quartz.threadPool.threadCount", "1");
