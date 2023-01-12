@@ -198,10 +198,10 @@ class Brk2StandMutatieGedeeldeStukkenVerwerkingIntegrationTest extends AbstractD
         bestandenLadenEnValideren(objectRefs, 0, bestandNamen);
         // voor stand, maar op volgorde van database
         brmo.setOrderBerichten(false);
-        brmo.setEnablePipeline(false);
-        brmo.setTransformPipelineCapacity(2);
-        brmo.setBatchCapacity(1);
-        brmo.setLimitStandBerichtenToTransform(2);
+//        brmo.setEnablePipeline(true);
+//        brmo.setTransformPipelineCapacity(2);
+//        brmo.setBatchCapacity(1);
+//        brmo.setLimitStandBerichtenToTransform(1);
         transformerenEnValideren(bestandNamen.length);
 
         // controle BRK inhoud stand
