@@ -1,4 +1,20 @@
-# Developer notes
+# Ontwikkelaar notities
+
+## Bouwen
+
+### Vereisten
+
+- Java 11
+- Maven 3.8.4 of hoger
+- Docker 20.10.x met buildx 0.9 of hoger (dit vereiste kan worden overgeslagen als u geen docker images wilt bouwen of release artifacts wilt bouwen)
+
+### Basisprocedure
+
+1. doe je ding, als het mogelijk is gebruik `aosp` styling (voer `mvn com.coveo:fmt-maven-plugin:format` uit om alle opmaak te corrigeren)
+2. voer `mvn clean install` uit om te controleren of alle vereiste opmaak is toegepast en of alle tests slagen
+3. commit en push je branch om een pull request te maken
+4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
+4. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
 
 
 ## release maken
@@ -11,9 +27,11 @@ Tevens wordt er om een naam voor een tag gevraagd. In principe kan alle informat
 commandline worden meegegeven, bijvoorbeeld:
 
 ```
-mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=2.3.1-SNAPSHOT -DreleaseVersion=2.3.0 -Dtag=v2.3.0 -T1
-mvn release:perform -l rel-perform.log
+mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=3.0.1-SNAPSHOT -DreleaseVersion=3.0.0 -Dtag=v3.0.0 -T1
+mvn release:perform -l rel-perform.log -T1
 ```
+_NB_ Voor het maken van de database documentatie is een draaienede database met de betreffende schema's 
+nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`.
 
 Met het commando `mvn release:perform` wordt daarna, op basis van de tag uit de
 stap hierboven, de release gebouwd en gedeployed naar de repository uit de (parent)

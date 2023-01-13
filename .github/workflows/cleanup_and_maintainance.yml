@@ -21,6 +21,7 @@ jobs:
           keep-younger-than: 7
           keep-last: 1
           prune-untagged: true
+
       - name: "brmo-service older than 1 week"
         uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
@@ -31,6 +32,7 @@ jobs:
           keep-younger-than: 7
           keep-last: 1
           prune-untagged: true
+
       - name: "brmo-bag2-loader older than 1 week"
         continue-on-error: true
         uses: vlaurin/action-ghcr-prune@v0.5.0
@@ -42,6 +44,7 @@ jobs:
           keep-younger-than: 7
           keep-last: 1
           prune-untagged: true
+
       - name: "brmo-bgt-loader older than 4 weeks"
         uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
@@ -52,6 +55,7 @@ jobs:
           keep-younger-than: 28
           keep-last: 0
           prune-untagged: true
+
       - name: "brmo-service older than 4 weeks"
         uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
@@ -62,6 +66,7 @@ jobs:
           keep-younger-than: 28
           keep-last: 0
           prune-untagged: true
+
       - name: "brmo-bag2-loader older than 4 weeks"
         continue-on-error: true
         uses: vlaurin/action-ghcr-prune@v0.5.0
@@ -89,7 +94,8 @@ jobs:
           delete_workflow_pattern: 'all'
 
   otherworkflows:
-    runs-on: "other Cleanup old workflow runs"
+    runs-on: ubuntu-latest
+    name: "other Cleanup old workflow runs"
     steps:
       - name: Delete workflow runs
         uses: boredland/action-purge-workflow-runs@v1.0.0

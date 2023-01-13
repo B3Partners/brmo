@@ -1,4 +1,4 @@
-name: Windows
+name: 'Windows'
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3
@@ -25,40 +25,33 @@ jobs:
         with:
           lfs: true
 
-      - name: Cache Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
-
-      - name: Set up JDK
+      - name: 'Set up JDK'
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
+          cache: 'maven'
 
-      - name: Priming build
+      - name: 'Priming build'
         run: |
-          mvn --% clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae
+          mvn --% clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true
 
-      - name: Test
+      - name: 'Test'
         run: |
-          mvn --% -e test -B -pl "!brmo-dist" -Dtest.onlyITs=false
-          mvn --% resources:testResources compiler:testCompile surefire:test -pl datamodel -Dtest="!*UpgradeTest,!P8*"
+          mvn --% -e test -B -pl "!brmo-dist" -Dtest.onlyITs=false -DskipQA=true
+          mvn --% resources:testResources compiler:testCompile surefire:test -pl datamodel -Dtest="!*UpgradeTest,!P8*" -DskipQA=true
 
-      - name: Verify
+      - name: 'Verify'
         # no database integration tests; GH does not support linux containers on windows and
         #   no suitable windows database images are available
-        run: mvn --% -e verify -B -T1 -Dtest.onlyITs=true -pl "!brmo-dist"
+        run: mvn --% -e verify -B -T1 -Dtest.onlyITs=true -pl "!brmo-dist" -DskipQA=true
 
-      - name: Upload coverage to Codecov
+      - name: 'Upload coverage to Codecov'
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
 
-      - name: Cleanup build artifacts en snapshots
+      - name: 'Cleanup build artifacts en snapshots'
         run: |
           mvn --% clean build-helper:remove-project-artifact
           # cmd --% /c for /f %i in ('dir /a:d /s /b %userprofile%\*SNAPSHOT*') do rd /s /q %i
