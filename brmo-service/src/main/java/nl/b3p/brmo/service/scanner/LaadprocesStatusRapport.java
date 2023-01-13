@@ -3,34 +3,32 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Transient;
 import java.util.Calendar;
 import java.util.Date;
 
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import javax.persistence.EntityManager;
+import javax.persistence.Transient;
 
-/**
- *
- * @author mprins
- */
+/** @author mprins */
 public class LaadprocesStatusRapport extends AbstractExecutableProces {
 
     private static final Log LOG = LogFactory.getLog(MailRapportage.class);
     private LaadprocesStatusRapportProces config;
-    @Transient
-    private ProgressUpdateListener listener;
+    @Transient private ProgressUpdateListener listener;
 
     public LaadprocesStatusRapport(LaadprocesStatusRapportProces config) {
         this.config = config;
@@ -38,28 +36,25 @@ public class LaadprocesStatusRapport extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                LOG.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        LOG.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-            }
-        });
+                    @Override
+                    public void addLog(String log) {}
+                });
     }
 
     @Override
@@ -83,7 +78,10 @@ public class LaadprocesStatusRapport extends AbstractExecutableProces {
         }
 
         config.setStatus(PROCESSING);
-        String msg = String.format("De Laadproces Status Rapportage met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
+        String msg =
+                String.format(
+                        "De Laadproces Status Rapportage met ID %d is gestart op %tc.",
+                        config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);
@@ -99,7 +97,9 @@ public class LaadprocesStatusRapport extends AbstractExecutableProces {
             brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null, null);
             for (LaadProces.STATUS status : LaadProces.STATUS.values()) {
                 aantal = brmo.getCountLaadProcessen(null, status.name());
-                msg = String.format("Aantal laadprocessen met status %s: %s.", status.name(), aantal);
+                msg =
+                        String.format(
+                                "Aantal laadprocessen met status %s: %s.", status.name(), aantal);
                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 samenvatting.append(msg).append(AutomatischProces.LOG_NEWLINE);
                 LOG.info(msg);
@@ -114,9 +114,11 @@ public class LaadprocesStatusRapport extends AbstractExecutableProces {
             if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
-
         }
-        msg = String.format("De Laadproces Status Rapportage met ID %d is afgerond op %tc.", config.getId(), Calendar.getInstance());
+        msg =
+                String.format(
+                        "De Laadproces Status Rapportage met ID %d is afgerond op %tc.",
+                        config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);

@@ -21,10 +21,11 @@ public class Utils {
         String days = d.toDaysPart() > 0 ? d.toDaysPart() + "d " : "";
         if (d.toHoursPart() == 0 && d.toMinutesPart() == 0) {
             return days + d.toSecondsPart() + "s";
-        } else if(d.toHoursPart() == 0) {
+        } else if (d.toHoursPart() == 0) {
             return String.format("%s%dm %2ds", days, d.toMinutesPart(), d.toSecondsPart());
         }
-        return String.format("%s%dh %2dm %2ds", days, d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart());
+        return String.format(
+                "%s%dh %2dm %2ds", days, d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart());
     }
 
     public static final String BUNDLE_NAME = "BGTLoader";
@@ -53,13 +54,13 @@ public class Utils {
     }
 
     public static String getUserAgent() {
-        return String.format("%s, %s (%s)/%s, %s/%s",
+        return String.format(
+                "%s, %s (%s)/%s, %s/%s",
                 getBundleString("app.user-agent"),
                 System.getProperty("os.name"),
                 System.getProperty("os.arch"),
                 System.getProperty("os.version"),
                 System.getProperty("java.vm.name"),
-                System.getProperty("java.vm.version")
-        );
+                System.getProperty("java.vm.version"));
     }
 }

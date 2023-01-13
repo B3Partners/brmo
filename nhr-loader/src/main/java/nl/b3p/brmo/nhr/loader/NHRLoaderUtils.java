@@ -17,14 +17,14 @@ public class NHRLoaderUtils {
     static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
 
     public static String getUserAgent() {
-        return String.format("%s, %s (%s)/%s, %s/%s",
+        return String.format(
+                "%s, %s (%s)/%s, %s/%s",
                 getBundleString("app.user-agent"),
                 System.getProperty("os.name"),
                 System.getProperty("os.arch"),
                 System.getProperty("os.version"),
                 System.getProperty("java.vm.name"),
-                System.getProperty("java.vm.version")
-        );
+                System.getProperty("java.vm.version"));
     }
 
     public static ResourceBundle getBundle() {

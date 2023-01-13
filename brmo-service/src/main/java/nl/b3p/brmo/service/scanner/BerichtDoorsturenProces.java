@@ -1,22 +1,22 @@
 package nl.b3p.brmo.service.scanner;
 
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Transient;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Transient;
+
+/** @author Matthijs Laan */
 public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
     private static final Log log = LogFactory.getLog(BerichtDoorsturenProces.class);
@@ -25,8 +25,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
     private final int defaultCommitPageSize = 1000;
 
-    @Transient
-    private ProgressUpdateListener l;
+    @Transient private ProgressUpdateListener l;
 
     BerichtDoorsturenProces(BerichtDoorstuurProces config) {
         this.config = config;
@@ -34,31 +33,30 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            /* doet bijna niks listener */
-            @Override
-            public void total(long total) {
-                log.info("Totaal aantal opgehaalde berichten: " + total);
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    /* doet bijna niks listener */
+                    @Override
+                    public void total(long total) {
+                        log.info("Totaal aantal opgehaalde berichten: " + total);
+                    }
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                log.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        log.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String msg) {
-                log.info(msg);
-            }
-        });
+                    @Override
+                    public void addLog(String msg) {
+                        log.info(msg);
+                    }
+                });
     }
 
     @Override
@@ -71,26 +69,30 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             int commitPageSize = this.getCommitPageSize();
 
             String id = ClobElement.nullSafeGet(config.getConfig().get("gds2_ophaalproces_id"));
-            GDS2OphaalProces proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));
+            GDS2OphaalProces proces =
+                    Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));
 
-            List<Long> berichtIDs = Stripersist.getEntityManager()
-                    .createQuery(
-                            "select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces",
-                            Long.class
-                    )
-                    .setParameter("proces", proces)
-                    .getResultList();
+            List<Long> berichtIDs =
+                    Stripersist.getEntityManager()
+                            .createQuery(
+                                    "select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces",
+                                    Long.class)
+                            .setParameter("proces", proces)
+                            .getResultList();
 
             if (berichtIDs.isEmpty()) {
                 this.config.setSamenvatting("Geen berichten om door te sturen");
             } else {
                 this.l.total(berichtIDs.size());
-                log.info(String.format("Er zijn %s berichten om door te sturen.", berichtIDs.size()));
+                log.info(
+                        String.format(
+                                "Er zijn %s berichten om door te sturen.", berichtIDs.size()));
 
                 String url = ClobElement.nullSafeGet(proces.getConfig().get("delivery_endpoint"));
 
                 if (url == null) {
-                    this.config.setSamenvatting("GDS2 ophaal proces heeft geen afleveringsendpoint");
+                    this.config.setSamenvatting(
+                            "GDS2 ophaal proces heeft geen afleveringsendpoint");
                     log.warn("GDS2 ophaal proces heeft geen afleveringsendpoint.");
                 } else {
                     int doorgestuurd = 0, fouten = 0, verwerkt = 0;
@@ -105,14 +107,17 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
                         Stripersist.getEntityManager().merge(b);
                         verwerkt++;
                         if (verwerkt % commitPageSize == 0) {
-                            log.info(String.format("Tussentijds opslaan van berichten, 'commitPageSize' (%s) is bereikt, totaal aantal verwerkt : %s",
-                                    commitPageSize, verwerkt));
+                            log.info(
+                                    String.format(
+                                            "Tussentijds opslaan van berichten, 'commitPageSize' (%s) is bereikt, totaal aantal verwerkt : %s",
+                                            commitPageSize, verwerkt));
                             Stripersist.getEntityManager().flush();
                             Stripersist.getEntityManager().getTransaction().commit();
                             Stripersist.getEntityManager().clear();
                         }
                     }
-                    this.config.setSamenvatting("Berichten doorgestuurd: " + doorgestuurd + ", fouten: " + fouten);
+                    this.config.setSamenvatting(
+                            "Berichten doorgestuurd: " + doorgestuurd + ", fouten: " + fouten);
                 }
             }
 

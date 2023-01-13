@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
 
-/**
- *
- * @author Matthijs Laan
- */
+/** @author Matthijs Laan */
 public class TableRow {
     private String table;
     private boolean ignoreDuplicates;
@@ -22,7 +18,7 @@ public class TableRow {
     /* Used for archief tables */
     private String columnDatumBeginGeldigheid;
     private String columnDatumEindeGeldigheid;
-    
+
     public String getTable() {
         return table;
     }
@@ -78,22 +74,22 @@ public class TableRow {
     public void setColumnDatumEindeGeldigheid(String columnDatumEindeGeldigheid) {
         this.columnDatumEindeGeldigheid = columnDatumEindeGeldigheid;
     }
- 
+
     public String toString(List<String> displayColumns) {
         StringBuilder s = new StringBuilder();
         s.append(table).append("[");
 
         List<String> keys = new ArrayList<>();
         int i = -1;
-        for (String column: columns) {
+        for (String column : columns) {
             i++;
-            if(!displayColumns.contains(column)) {
+            if (!displayColumns.contains(column)) {
                 continue;
             }
 
             keys.add(column + "=" + values.get(i));
         }
-        s.append(String.join( ", ", keys));
+        s.append(String.join(", ", keys));
         s.append("]");
         return s.toString();
     }
@@ -111,7 +107,7 @@ public class TableRow {
             str.append(column);
             str.append("=");
             str.append(values.get(i));
-            if(isAlleenArchiefColumn(column)) {
+            if (isAlleenArchiefColumn(column)) {
                 str.append(" (alleen archief)");
             }
             str.append("\n");
@@ -123,7 +119,7 @@ public class TableRow {
 
     public String getColumnValue(String column) {
         int i = columns.indexOf(column);
-        if(i == -1) {
+        if (i == -1) {
             return null;
         } else {
             return values.get(i);

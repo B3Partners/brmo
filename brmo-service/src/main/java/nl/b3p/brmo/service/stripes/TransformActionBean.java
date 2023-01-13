@@ -1,24 +1,23 @@
-
 package nl.b3p.brmo.service.stripes;
 
-import java.util.Date;
-import javax.sql.DataSource;
-
 import net.sourceforge.stripes.action.*;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.util.Date;
+
+import javax.sql.DataSource;
+
+/** @author Matthijs Laan */
 public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     private static final Log log = LogFactory.getLog(TransformActionBean.class);
 
@@ -60,18 +59,18 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
 
     public void progress(long progress) {
         this.processed = progress;
-        if(this.total != 0) {
-            this.progress = (100.0/this.total) * this.processed;
+        if (this.total != 0) {
+            this.progress = (100.0 / this.total) * this.processed;
         }
         this.update = new Date();
     }
 
     public void exception(Throwable t) {
-//        StringWriter sw = new StringWriter();
-//        PrintWriter pw = new PrintWriter(sw);
-//        t.printStackTrace(new PrintWriter(sw));
-//        this.exceptionStacktrace = sw.toString();
-        this.exceptionStacktrace=t.getLocalizedMessage();
+        //        StringWriter sw = new StringWriter();
+        //        PrintWriter pw = new PrintWriter(sw);
+        //        t.printStackTrace(new PrintWriter(sw));
+        //        this.exceptionStacktrace = sw.toString();
+        this.exceptionStacktrace = t.getLocalizedMessage();
     }
 
     private Resolution doTransform(RsgbProxy.BerichtSelectMode mode, boolean orderBerichten) {
@@ -82,20 +81,32 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             DataSource dataSourceRsgbBrk = ConfigUtil.getDataSourceRsgbBrk();
             brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
 
-            boolean enableTransformPipeline = "true".equals(getContext().getServletContext().getInitParameter("pipelining.enabled"));
+            boolean enableTransformPipeline =
+                    "true"
+                            .equals(
+                                    getContext()
+                                            .getServletContext()
+                                            .getInitParameter("pipelining.enabled"));
             brmo.setEnablePipeline(enableTransformPipeline);
-            if(enableTransformPipeline) {
-                String capacityString = getContext().getServletContext().getInitParameter("pipelining.capacity");
-                if(capacityString != null) {
+            if (enableTransformPipeline) {
+                String capacityString =
+                        getContext().getServletContext().getInitParameter("pipelining.capacity");
+                if (capacityString != null) {
                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
                 }
             }
-            String batchString = getContext().getServletContext().getInitParameter("batch.capacity");
-            if(batchString != null) {
+            String batchString =
+                    getContext().getServletContext().getInitParameter("batch.capacity");
+            if (batchString != null) {
                 brmo.setBatchCapacity(Integer.parseInt(batchString));
             }
-            
-            boolean renewConnectionAfterCommit = "true".equals(getContext().getServletContext().getInitParameter("renewconnectionaftercommit"));
+
+            boolean renewConnectionAfterCommit =
+                    "true"
+                            .equals(
+                                    getContext()
+                                            .getServletContext()
+                                            .getInitParameter("renewconnectionaftercommit"));
             brmo.setRenewConnectionAfterCommit(renewConnectionAfterCommit);
 
             brmo.setOrderBerichten(orderBerichten);
@@ -104,15 +115,18 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                 brmo.setErrorState(errorState);
             }
 
-            String maxBerichten = getContext().getServletContext().getInitParameter("stand.transform.max");
+            String maxBerichten =
+                    getContext().getServletContext().getInitParameter("stand.transform.max");
             if (maxBerichten != null) {
                 brmo.setLimitStandBerichtenToTransform(Integer.parseInt(maxBerichten));
-                log.info("Maximum aantal stand berichten voor transformatie batch ingesteld op: " + maxBerichten
-                        + ". Mogelijk dient stand transformatie meerdere keren gestart te worden.");
+                log.info(
+                        "Maximum aantal stand berichten voor transformatie batch ingesteld op: "
+                                + maxBerichten
+                                + ". Mogelijk dient stand transformatie meerdere keren gestart te worden.");
                 this.standBerichtenVerwerkingsLimiet = Integer.parseInt(maxBerichten);
             }
             Thread t = null;
-            switch(mode) {
+            switch (mode) {
                 case BY_IDS:
                     t = brmo.toRsgb(BerichtSelectMode.BY_IDS, selectedIds, this);
                     break;
@@ -132,18 +146,23 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
                 t.join();
             }
 
-            if(this.exceptionStacktrace == null) {
-                getContext().getMessages().add(new SimpleMessage("Transformatie afgerond, controleer berichtenstatus."));
+            if (this.exceptionStacktrace == null) {
+                getContext()
+                        .getMessages()
+                        .add(
+                                new SimpleMessage(
+                                        "Transformatie afgerond, controleer berichtenstatus."));
             }
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             log.error("Fout bij transformeren berichten naar RSGB", t);
-            String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
-            if(t.getCause() != null) {
+            String m =
+                    "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
+            if (t.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
             }
             getContext().getMessages().add(new SimpleMessage(m));
         } finally {
-            if (brmo!=null) {
+            if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
         }
@@ -153,7 +172,11 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
 
     @DefaultHandler
     public Resolution transformUnknown() {
-        getContext().getMessages().add(new SimpleMessage("Het proces is onbekend. Mogelijk is deze transformatie al enige tijd geleden afgerond."));
+        getContext()
+                .getMessages()
+                .add(
+                        new SimpleMessage(
+                                "Het proces is onbekend. Mogelijk is deze transformatie al enige tijd geleden afgerond."));
         return new ForwardResolution(JSP);
     }
 
@@ -162,32 +185,32 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);
     }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformAll() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, true);
     }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformAllStand() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);
     }
-    
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformRetry() {
         return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, true);
     }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformRetryStand() {
         return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);
     }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformSelectedLaadprocessen() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);
     }
-    
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
+
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution transformSelectedLaadprocessenStand() {
         return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, false);
     }

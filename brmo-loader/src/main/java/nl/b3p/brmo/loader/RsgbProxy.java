@@ -13,6 +13,7 @@ import nl.b3p.jdbc.util.converter.ColumnMetadata;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.jdbc.util.converter.OracleJdbcConverter;
+
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,12 +23,6 @@ import org.locationtech.jts.io.ParseException;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import javax.sql.DataSource;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -52,10 +47,14 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.sql.DataSource;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
 
-/**
- * @author Boy de Wit
- */
+/** @author Boy de Wit */
 public class RsgbProxy implements Runnable, BerichtenHandler {
 
     private static final Log log = LogFactory.getLog(RsgbProxy.class);
@@ -75,18 +74,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     // in andere thread als lezen van dbxml van berichten om te verwerken
     private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();
     private int processed;
-    /**
-     * De status voor BY_STATUS.
-     */
+    /** De status voor BY_STATUS. */
     private Bericht.STATUS status;
-    /**
-     * De bericht ID's voor BY_IDS.
-     */
+    /** De bericht ID's voor BY_IDS. */
     private long[] berichtIds;
-    /**
-     * Het ID van het laadproces vor BY_LAADPROCES.
-     */
+    /** Het ID van het laadproces vor BY_LAADPROCES. */
     private long[] laadprocesIds;
+
     private PreparedStatement insertMetadataStatement;
     private DatabaseMetaData dbMetadata = null;
     private DatabaseMetaData dbMetadataBrk = null;
@@ -110,7 +104,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private final Map<String, RsgbTransformer> rsgbTransformers = new HashMap<>();
     private String simonNamePrefix = "b3p.rsgb.";
 
-    public RsgbProxy(DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, StagingProxy stagingProxy, Bericht.STATUS status, ProgressUpdateListener listener) {
+    public RsgbProxy(
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            StagingProxy stagingProxy,
+            Bericht.STATUS status,
+            ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
         this.dataSourceRsgbBrk = dataSourceRsgbBrk;
@@ -123,12 +122,18 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     /**
      * @param dataSourceRsgb de te gebruiken RSGB database
-     * @param stagingProxy   de te gebruiken StagingProxy
-     * @param mode           geeft aan wat ids zijn (laadprocessen of berichten)
-     * @param ids            record id's (afhankelijk van de {@code BerichtSelectMode})
-     * @param listener       voortgangs listener
+     * @param stagingProxy de te gebruiken StagingProxy
+     * @param mode geeft aan wat ids zijn (laadprocessen of berichten)
+     * @param ids record id's (afhankelijk van de {@code BerichtSelectMode})
+     * @param listener voortgangs listener
      */
-    public RsgbProxy(DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, StagingProxy stagingProxy, BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener) {
+    public RsgbProxy(
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            StagingProxy stagingProxy,
+            BerichtSelectMode mode,
+            long[] ids,
+            ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
         this.dataSourceRsgbBrk = dataSourceRsgbBrk;
@@ -143,7 +148,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.updateProcess = null;
     }
 
-    public RsgbProxy(DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, StagingProxy stagingProxy, UpdateProcess updateProcess, ProgressUpdateListener listener) {
+    public RsgbProxy(
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            StagingProxy stagingProxy,
+            UpdateProcess updateProcess,
+            ProgressUpdateListener listener) {
         this.stagingProxy = stagingProxy;
         this.dataSourceRsgb = dataSourceRsgb;
         this.dataSourceRsgbBrk = dataSourceRsgbBrk;
@@ -185,9 +195,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
             try {
                 dbMetadata = connRsgb.getMetaData();
-                tablesRs = dbMetadata.getTables(null, geomToJdbc.getSchema(), "%", new String[]{"TABLE"});
+                tablesRs =
+                        dbMetadata.getTables(
+                                null, geomToJdbc.getSchema(), "%", new String[] {"TABLE"});
                 while (tablesRs.next()) {
-                    tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
+                    tables.put(
+                            tablesRs.getString("TABLE_NAME").toLowerCase(),
+                            tablesRs.getString("TABLE_NAME"));
                 }
             } catch (SQLException sqlEx) {
                 throw new SQLException("Fout bij ophalen rsgb tabellen: ", sqlEx);
@@ -202,9 +216,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
             try {
                 dbMetadataBrk = connRsgbBrk.getMetaData();
-                tablesRs = dbMetadataBrk.getTables(null, geomToJdbcBrk.getSchema(), "%", new String[]{"TABLE"});
+                tablesRs =
+                        dbMetadataBrk.getTables(
+                                null, geomToJdbcBrk.getSchema(), "%", new String[] {"TABLE"});
                 while (tablesRs.next()) {
-                    tables.put(tablesRs.getString("TABLE_NAME").toLowerCase(), tablesRs.getString("TABLE_NAME"));
+                    tables.put(
+                            tablesRs.getString("TABLE_NAME").toLowerCase(),
+                            tablesRs.getString("TABLE_NAME"));
                 }
             } catch (SQLException sqlEx) {
                 throw new SQLException("Fout bij ophalen rsgb brk tabellen: ", sqlEx);
@@ -214,7 +232,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    private PreparedStatement checkAndGetPreparedStatement(Map<String, PreparedStatement> m, String name) throws SQLException {
+    private PreparedStatement checkAndGetPreparedStatement(
+            Map<String, PreparedStatement> m, String name) throws SQLException {
         PreparedStatement stm = m.get(name);
         if (stm == null || stm.isClosed()) {
             return null;
@@ -223,7 +242,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return stm;
     }
 
-    public void checkAndAddStatement(Map<String, PreparedStatement> m, String tableName, PreparedStatement stmt) {
+    public void checkAndAddStatement(
+            Map<String, PreparedStatement> m, String tableName, PreparedStatement stmt) {
         m.put(tableName, stmt);
     }
 
@@ -272,7 +292,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             // Do the work by querying all berichten, berichten are passed to
             // handle() method
             if (total > 0) {
-                stagingProxy.handleBerichtenByJob(total, this, enablePipeline, pipelineCapacity, orderBerichten);
+                stagingProxy.handleBerichtenByJob(
+                        total, this, enablePipeline, pipelineCapacity, orderBerichten);
             }
         } catch (Exception e) {
             // user is informed via status in database
@@ -287,13 +308,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private long setWaitingStatus() throws SQLException, BrmoException {
-        //verwijder al verwerkte berichten uit afgebroken job
+        // verwijder al verwerkte berichten uit afgebroken job
         stagingProxy.cleanJob();
-        //zijn er nog berichten over uit de vorige job
+        // zijn er nog berichten over uit de vorige job
         long count = stagingProxy.getCountJob();
         if (count > 0 && !mode.equals(BerichtSelectMode.RETRY_WAITING)) {
-            throw new BrmoException("Vorige transformatie is afgebroken,"
-                    + " verwerk eerst die berichten (zie job-tabel)!");
+            throw new BrmoException(
+                    "Vorige transformatie is afgebroken,"
+                            + " verwerk eerst die berichten (zie job-tabel)!");
         }
 
         switch (mode) {
@@ -304,7 +326,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             case BY_LAADPROCES:
                 return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, orderBerichten);
             case FOR_UPDATE:
-                return stagingProxy.setBerichtenJobForUpdate(updateProcess.getSoort(), orderBerichten);
+                return stagingProxy.setBerichtenJobForUpdate(
+                        updateProcess.getSoort(), orderBerichten);
             case RETRY_WAITING:
                 return count;
             default:
@@ -336,7 +359,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-            loadLog.append(String.format("%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+            loadLog.append(
+                    String.format(
+                            "%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n",
+                            dateTimeFormat.format(new Date()),
+                            ber.getSoort(),
+                            ber.getObjectRef(),
+                            ber.getId(),
+                            dateFormat.format(ber.getDatum())));
 
             RsgbTransformer transformer = getTransformer(ber.getSoort());
 
@@ -348,7 +378,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             List<TableData> data = dbXmlReader.readDataXML(new StreamSource(nReader));
             split.stop();
 
-            loadLog.append(String.format("Transformeren naar RSGB database-xml en lezen resultaat: %4.1fs\n\n", (System.currentTimeMillis() - startTime) / 1000.0));
+            loadLog.append(
+                    String.format(
+                            "Transformeren naar RSGB database-xml en lezen resultaat: %4.1fs\n\n",
+                            (System.currentTimeMillis() - startTime) / 1000.0));
             ber.setOpmerking(loadLog.toString());
             return data;
         } catch (Exception e) {
@@ -369,7 +402,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             try {
                 transformer = new RsgbTransformer(updateProcess.getXsl());
             } catch (Exception e) {
-                throw new BrmoException("Fout bij laden XSL stylesheet: " + updateProcess.getXsl(), e);
+                throw new BrmoException(
+                        "Fout bij laden XSL stylesheet: " + updateProcess.getXsl(), e);
             }
             rsgbTransformers.put(updateProcess.getName(), transformer);
         }
@@ -378,7 +412,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             return dbXmlReader.readDataXML(new DOMSource(dbxml));
         } catch (Exception e) {
             log.error("Fout bij transformeren bericht #" + ber.getId() + " voor update", e);
-            throw new BrmoException("Fout bij transformeren bericht #" + ber.getId() + " voor update: " + e.getClass() + ": " + e.getMessage());
+            throw new BrmoException(
+                    "Fout bij transformeren bericht #"
+                            + ber.getId()
+                            + " voor update: "
+                            + e.getClass()
+                            + ": "
+                            + e.getMessage());
         }
     }
 
@@ -398,7 +438,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         if (orderBerichten) {
             if (isFKCVbag) {
                 // log en ga door met transformatie
-                log.warn(String.format("bag bericht %s, (id: %s) is niet correct verwerkt, controleer de opmerking van het bericht", ber.getObjectRef(), ber.getId()));
+                log.warn(
+                        String.format(
+                                "bag bericht %s, (id: %s) is niet correct verwerkt, controleer de opmerking van het bericht",
+                                ber.getObjectRef(), ber.getId()));
             } else if (errorState != null && errorState.equalsIgnoreCase("ignore")) {
                 // TODO omdat we te vaak moeten stoppen, later soort exception erbij betrekken.
             } else {
@@ -412,13 +455,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     /**
      * verwerk een bericht.
      *
-     * @param ber                     te verwerken bericht
+     * @param ber te verwerken bericht
      * @param pretransformedTableData tabel data uit staging
-     * @param updateResult            {@code true} update verwerkings resultaat in staging
+     * @param updateResult {@code true} update verwerkings resultaat in staging
      * @throws BrmoException if any
      */
     @Override
-    public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult) throws BrmoException {
+    public void handle(Bericht ber, List<TableData> pretransformedTableData, boolean updateResult)
+            throws BrmoException {
         if (updateProcess != null) {
             update(ber, pretransformedTableData);
             return;
@@ -437,14 +481,24 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        log.debug(String.format("RSGB verwerking van %s bericht met id %s, object_ref %s, datum %tc", ber.getSoort(), ber.getId(), ber.getObjectRef(), ber.getDatum()));
+        log.debug(
+                String.format(
+                        "RSGB verwerking van %s bericht met id %s, object_ref %s, datum %tc",
+                        ber.getSoort(), ber.getId(), ber.getObjectRef(), ber.getDatum()));
         StringBuilder loadLog;
         if (pretransformedTableData == null) {
             loadLog = new StringBuilder();
         } else {
             loadLog = new StringBuilder(ber.getOpmerking());
         }
-        loadLog.append(String.format("%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n", dateTimeFormat.format(new Date()), ber.getSoort(), ber.getObjectRef(), ber.getId(), dateFormat.format(ber.getDatum())));
+        loadLog.append(
+                String.format(
+                        "%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n",
+                        dateTimeFormat.format(new Date()),
+                        ber.getSoort(),
+                        ber.getObjectRef(),
+                        ber.getId(),
+                        dateFormat.format(ber.getDatum())));
 
         setHerkomstMetadata(ber.getSoort());
 
@@ -463,7 +517,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 loadLog.append("Transformeren naar RSGB database-xml en lezen resultaat... ");
                 startTime = System.currentTimeMillis();
                 newList = transformToTableData(ber);
-                loadLog.append(String.format("%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
+                loadLog.append(
+                        String.format(
+                                "%4.1fs\n", (System.currentTimeMillis() - startTime) / 1000.0));
             }
             // nieuwe starttijd voor laden in RSGB
             startTime = System.currentTimeMillis();
@@ -473,34 +529,43 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if (orderBerichten) {
                 oud = stagingProxy.getOldBericht(ber, loadLog);
             } else {
-                //als geen orderberichten dan wordt stand ingelezen
-                //en indien volgordenummer >=0 (geen stand) dan afbreken
+                // als geen orderberichten dan wordt stand ingelezen
+                // en indien volgordenummer >=0 (geen stand) dan afbreken
                 if (ber.getVolgordeNummer() >= 0) {
-                    throw new BrmoException("Standverwerking, maar bericht is mutatie: niet verwerken!");
+                    throw new BrmoException(
+                            "Standverwerking, maar bericht is mutatie: niet verwerken!");
                 }
-                loadLog.append("Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");
+                loadLog.append(
+                        "Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n");
             }
 
             // oud bericht
             if (oud != null) {
-                loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
-                        oud.getId(),
-                        dateTimeFormat.format(oud.getDatum()),
-                        oud.getVolgordeNummer(),
-                        oud.getStatus().toString(),
-                        dateTimeFormat.format(oud.getStatusDatum())));
+                loadLog.append(
+                        String.format(
+                                "Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
+                                oud.getId(),
+                                dateTimeFormat.format(oud.getDatum()),
+                                oud.getVolgordeNummer(),
+                                oud.getStatus().toString(),
+                                dateTimeFormat.format(oud.getStatusDatum())));
 
-                if (ber.getDatum().equals(oud.getDatum()) && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
+                if (ber.getDatum().equals(oud.getDatum())
+                        && ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {
                     if (Objects.equals(ber.getId(), oud.getId())) {
-                        //dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline van andere job zat
-                        //niets doen, log overnemen.
+                        // dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline
+                        // van andere job zat
+                        // niets doen, log overnemen.
                         loadLog.append(oud.getOpmerking());
                     } else {
-                        loadLog.append("Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n");
+                        loadLog.append(
+                                "Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n");
                         boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());
                         if (!dbXmlEquals) {
-                            String s = String.format("Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
-                                    ber.getId(), oud.getId(), ber.getObjectRef());
+                            String s =
+                                    String.format(
+                                            "Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s",
+                                            ber.getId(), oud.getId(), ber.getObjectRef());
                             log.warn(s);
                             loadLog.append("Waarschuwing: ").append(s).append("\n");
                         }
@@ -509,17 +574,29 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     // Check of eerder bericht toevallig niet nieuwere datum
                     if (oud.getDatum().after(ber.getDatum())) {
                         newStatus = Bericht.STATUS.RSGB_OUTDATED;
-                        loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
-                        // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde nummer, mantis-6098
-                    } else if (oud.getDatum().equals(ber.getDatum()) && oud.getVolgordeNummer() > ber.getVolgordeNummer()) {
+                        loadLog.append(
+                                "Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n");
+                        // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde
+                        // nummer, mantis-6098
+                    } else if (oud.getDatum().equals(ber.getDatum())
+                            && oud.getVolgordeNummer() > ber.getVolgordeNummer()) {
                         newStatus = Bericht.STATUS.RSGB_OUTDATED;
-                        loadLog.append("Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n");
+                        loadLog.append(
+                                "Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n");
                     } else {
                         StringReader oReader = new StringReader(oud.getDbXml());
-                        List<TableData> oudList = oldDbXmlReader.readDataXML(new StreamSource(oReader));
+                        List<TableData> oudList =
+                                oldDbXmlReader.readDataXML(new StreamSource(oReader));
 
                         parseNewData(oudList, newList, loadLog, jdbcConverter, conn, metaData);
-                        parseOldData(oudList, newList, ber.getDatum(), loadLog, jdbcConverter, conn, metaData);
+                        parseOldData(
+                                oudList,
+                                newList,
+                                ber.getDatum(),
+                                loadLog,
+                                jdbcConverter,
+                                conn,
+                                metaData);
                     }
                 }
             } else {
@@ -537,7 +614,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
         } catch (Throwable ex) {
-            log.error("Fout bij verwerking bericht met id " + ber.getId() + ", melding: " + ex.getLocalizedMessage());
+            log.error(
+                    "Fout bij verwerking bericht met id "
+                            + ber.getId()
+                            + ", melding: "
+                            + ex.getLocalizedMessage());
             log.debug("Fout bij verwerking bericht met id " + ber.getId(), ex);
             try {
                 conn.rollback();
@@ -552,7 +633,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 loadLog = new StringBuilder(ber.getOpmerking());
             }
             loadLog.append("\n\n");
-            loadLog.append(String.format("%s: einde verwerking, duur: %4.1fs", dateTimeFormat.format(new Date()), (System.currentTimeMillis() - startTime) / 1000.0));
+            loadLog.append(
+                    String.format(
+                            "%s: einde verwerking, duur: %4.1fs",
+                            dateTimeFormat.format(new Date()),
+                            (System.currentTimeMillis() - startTime) / 1000.0));
             ber.setOpmerking(loadLog.toString());
 
             if (updateResult) {
@@ -560,14 +645,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             if (recentSavepoint != null) {
-                // Set savepoint to null, as it is automatically released after commit the transaction.
+                // Set savepoint to null, as it is automatically released after commit the
+                // transaction.
                 recentSavepoint = null;
             }
 
             if (renewConnectionAfterCommit) {
                 log.debug("Vernieuwen van verbinding om cursors in Oracle vrij te geven!");
                 if (!(jdbcConverter instanceof OracleJdbcConverter)) {
-                    log.info("Vernieuwen van verbinding is alleen nodig bij sommige Oracle implementeties: lijkt hier overbodig!");
+                    log.info(
+                            "Vernieuwen van verbinding is alleen nodig bij sommige Oracle implementeties: lijkt hier overbodig!");
                 }
                 try {
                     renewConnection();
@@ -578,7 +665,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    public void update(Bericht jobBericht, List<TableData> pretransformedTableData) throws BrmoException {
+    public void update(Bericht jobBericht, List<TableData> pretransformedTableData)
+            throws BrmoException {
         Connection conn = this.connRsgb;
         GeometryJdbcConverter jdbcConverter = this.geomToJdbc;
         DatabaseMetaData metaData = dbMetadata;
@@ -591,7 +679,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         // TODO BRK2 bepalen of dit nog nodig is voor BRK2
         if (updateProcess.isUpdateDbXml() && jobBericht.getSoort().equals(BrmoFramework.BR_BRK)) {
             try {
-                // maak nieuwe DbXml voor het bericht op basis van de br xml en gebruik die in verdere verwerking
+                // maak nieuwe DbXml voor het bericht op basis van de br xml en gebruik die in
+                // verdere verwerking
                 Bericht berichtBericht = stagingProxy.getBerichtById(jobBericht.getId());
                 log.trace("job bericht: " + jobBericht);
                 log.trace("origineel bericht: " + berichtBericht);
@@ -605,14 +694,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 berichtBericht.setOpmerking(
                         String.format(
                                 "%s: Middels update proces '%s' her-verwerkt.\nDe eerdere db_xml van dit bericht is vervangen door nieuwe.\n\nOude verwerkingslog\n\n%s",
-                                dateTimeFormat.format(new Date()), updateProcess.getName(), berichtBericht.getOpmerking()
-                        )
-                );
+                                dateTimeFormat.format(new Date()),
+                                updateProcess.getName(),
+                                berichtBericht.getOpmerking()));
                 log.trace("updated bericht: " + jobBericht);
                 log.trace("job bericht: " + jobBericht);
                 stagingProxy.updateBerichtProcessing(berichtBericht);
-            } catch (SAXException | IOException | TransformerException | ParserConfigurationException |
-                     SQLException e) {
+            } catch (SAXException
+                    | IOException
+                    | TransformerException
+                    | ParserConfigurationException
+                    | SQLException e) {
                 log.error("Bijwerken van db_xml is mislukt voor bericht " + jobBericht.getId(), e);
             }
         }
@@ -633,14 +725,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             for (TableData newData : newList) {
                 for (TableRow row : newData.getRows()) {
 
-                    boolean comfortFound = rowExistsInDb(row, new StringBuilder(), jdbcConverter, conn, metaData);
+                    boolean comfortFound =
+                            rowExistsInDb(row, new StringBuilder(), jdbcConverter, conn, metaData);
 
                     // zoek obv natural key op in rsgb
                     if (comfortFound) {
                         createUpdateSql(row, new StringBuilder(), jdbcConverter, conn, metaData);
                     } else {
                         // insert all comfort records into hoofdtabel
-                        createInsertSql(row, false, new StringBuilder(), jdbcConverter, conn, metaData);
+                        createInsertSql(
+                                row, false, new StringBuilder(), jdbcConverter, conn, metaData);
                     }
                 }
             }
@@ -660,7 +754,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    private RsgbTransformer getTransformer(String brType) throws TransformerConfigurationException, ParserConfigurationException {
+    private RsgbTransformer getTransformer(String brType)
+            throws TransformerConfigurationException, ParserConfigurationException {
         RsgbTransformer t = rsgbTransformers.get(brType);
         if (t == null) {
             switch (brType) {
@@ -693,12 +788,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return t;
     }
 
-    private StringBuilder parseNewData(List<TableData> oldList,
-                                       List<TableData> newList,
-                                       StringBuilder loadLog,
-                                       GeometryJdbcConverter jdbcConverter,
-                                       Connection conn,
-                                       DatabaseMetaData metaData)
+    private StringBuilder parseNewData(
+            List<TableData> oldList,
+            List<TableData> newList,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection conn,
+            DatabaseMetaData metaData)
             throws SQLException, ParseException, BrmoException {
         Split split = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata").start();
 
@@ -706,7 +802,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append("\nVerwerk nieuw bericht");
         if (newList == null || newList.isEmpty()) {
             if (oldList == null || oldList.isEmpty()) {
-                throw new BrmoException("Bericht verwijdert object waarvoor geen eerder bericht gevonden is!");
+                throw new BrmoException(
+                        "Bericht verwijdert object waarvoor geen eerder bericht gevonden is!");
             }
             split.stop();
             return loadLog;
@@ -715,32 +812,47 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         String lastExistingBrondocumentId = null;
         for (TableData newData : newList) {
             if (!newData.isComfortData() && !newData.isDeleteData()) {
-                Split splitAuthentic = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic").start();
+                Split splitAuthentic =
+                        SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic")
+                                .start();
                 // auth data
                 loadLog.append("\n");
                 for (TableRow row : newData.getRows()) {
 
                     // Controleer op al bestaand stukdeel
-                    if (lastExistingBrondocumentId != null && "brondocument".equalsIgnoreCase(row.getTable())
-                            && lastExistingBrondocumentId.equals(row.getColumnValue("tabel_identificatie"))) {
-                        loadLog.append("\nOverslaan stukdeel voor stuk ").append(lastExistingBrondocumentId);
-                        SimonManager.getCounter(simonNamePrefix + "parsenewdata.authentic.skipstukdeel").increase();
+                    if (lastExistingBrondocumentId != null
+                            && "brondocument".equalsIgnoreCase(row.getTable())
+                            && lastExistingBrondocumentId.equals(
+                                    row.getColumnValue("tabel_identificatie"))) {
+                        loadLog.append("\nOverslaan stukdeel voor stuk ")
+                                .append(lastExistingBrondocumentId);
+                        SimonManager.getCounter(
+                                        simonNamePrefix + "parsenewdata.authentic.skipstukdeel")
+                                .increase();
                         continue;
                     } else {
                         lastExistingBrondocumentId = null;
                     }
 
-                    Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.getpk").start();
-                    List<String> pkColumns = getPrimaryKeys(row.getTable(), jdbcConverter, metaData);
+                    Split split2 =
+                            SimonManager.getStopwatch(
+                                            simonNamePrefix + "parsenewdata.authentic.getpk")
+                                    .start();
+                    List<String> pkColumns =
+                            getPrimaryKeys(row.getTable(), jdbcConverter, metaData);
                     split2.stop();
 
                     boolean existsInOldList = doesRowExist(row, pkColumns, oldList);
-                    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.rowexistsindb").start();
+                    split2 =
+                            SimonManager.getStopwatch(
+                                            simonNamePrefix
+                                                    + "parsenewdata.authentic.rowexistsindb")
+                                    .start();
                     // er kan een record bestaan zonder dat er
                     // een oud bericht aan ten grondslag ligt.
                     // dan maar update maar zonder historie vastlegging.
                     // oud record kan niet worden terugherleid.
-                    //TODO: dure check, kan het anders?
+                    // TODO: dure check, kan het anders?
                     boolean doInsert = !rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData);
                     split2.stop();
 
@@ -749,23 +861,37 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         if (existsInOldList) {
                             // insert in hoofdtabel, terwijl er wel oud bericht beschikbaar is
                             // dit lijkt op een fout situatie, wat te doen?
-                            loadLog.append("\nOud bericht bestaat, maar staat niet (meer) in database, daarom toevoeging van object aan tabel: ");
+                            loadLog.append(
+                                    "\nOud bericht bestaat, maar staat niet (meer) in database, daarom toevoeging van object aan tabel: ");
                         } else {
                             // normale insert in hoofdtabel
                             loadLog.append("\nNormale toevoeging van object aan tabel: ");
                         }
                         loadLog.append(row.getTable());
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.insert").start();
+                        split2 =
+                                SimonManager.getStopwatch(
+                                                simonNamePrefix + "parsenewdata.authentic.insert")
+                                        .start();
                         createInsertSql(row, false, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                     } else {
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.isalreadyinmetadata").start();
-                        boolean inMetaDataTable = isAlreadyInMetadata(row, loadLog, jdbcConverter, conn, metaData);
+                        split2 =
+                                SimonManager.getStopwatch(
+                                                simonNamePrefix
+                                                        + "parsenewdata.authentic.isalreadyinmetadata")
+                                        .start();
+                        boolean inMetaDataTable =
+                                isAlreadyInMetadata(row, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                         // wis metadata en update hoofdtabel
                         if (inMetaDataTable) {
-                            loadLog.append("\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.deletefrommetadata").start();
+                            loadLog.append(
+                                    "\nwis uit metadata tabel (upgrade van comfort naar authentiek). ");
+                            split2 =
+                                    SimonManager.getStopwatch(
+                                                    simonNamePrefix
+                                                            + "parsenewdata.authentic.deletefrommetadata")
+                                            .start();
                             deleteFromMetadata(row, loadLog, jdbcConverter, conn, metaData);
                             split2.stop();
                         }
@@ -773,7 +899,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // Nooit stukdeel wat al bestaat updaten, en ook alle
                             // volgende stukdelen niet
                             lastExistingBrondocumentId = row.getColumnValue("tabel_identificatie");
-                            loadLog.append("\nRij voor stukdeel ").append(lastExistingBrondocumentId).append(" bestaat al, geen update");
+                            loadLog.append("\nRij voor stukdeel ")
+                                    .append(lastExistingBrondocumentId)
+                                    .append(" bestaat al, geen update");
                             continue;
                         }
 
@@ -781,23 +909,35 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                             // update end date old record
                             loadLog.append("\nUpdate einddatum in vorige versie object");
                             TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);
-                            String newBeginDate = getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
-                            updateValueInTableRow(oldRow, row.getColumnDatumEindeGeldigheid(), newBeginDate);
+                            String newBeginDate =
+                                    getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());
+                            updateValueInTableRow(
+                                    oldRow, row.getColumnDatumEindeGeldigheid(), newBeginDate);
 
                             // write old to archive table
                             loadLog.append("\nSchrijf vorige versie naar archief tabel");
                             oldRow.setIgnoreDuplicates(true);
 
-                            split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.archive").start();
+                            split2 =
+                                    SimonManager.getStopwatch(
+                                                    simonNamePrefix
+                                                            + "parsenewdata.authentic.archive")
+                                            .start();
                             createInsertSql(oldRow, true, loadLog, jdbcConverter, conn, metaData);
                             split2.stop();
 
                             loadLog.append("\nUpdate object in tabel: ");
                         } else {
-                            loadLog.append("\nUpdate object (zonder vastlegging historie) in tabel: ");
+                            loadLog.append(
+                                    "\nUpdate object (zonder vastlegging historie) in tabel: ");
                         }
                         loadLog.append(row.getTable());
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.authentic.update." + row.getTable()).start();
+                        split2 =
+                                SimonManager.getStopwatch(
+                                                simonNamePrefix
+                                                        + "parsenewdata.authentic.update."
+                                                        + row.getTable())
+                                        .start();
                         createUpdateSql(row, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                     }
@@ -805,11 +945,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 splitAuthentic.stop();
 
             } else if (!newData.isDeleteData()) {
-                Split splitComfort = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
+                Split splitComfort =
+                        SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort").start();
 
                 // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
                 // indien niet bestaat: nieuwe comfort data, alles unconditional insert
-                // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert, negeer
+                // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert,
+                // negeer
                 // indien wel bestaat en herkomst_br/datum anders: update en insert nieuwe herkomst
                 // comfort data
                 String tabel = newData.getComfortSearchTable();
@@ -821,30 +963,45 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
                 for (TableRow row : newData.getRows()) {
                     String subclass = row.getTable();
-                    loadLog.append(String.format("\n\nComfort data voor %s (class: %s, %s=%s), controleer aanwezigheid in tabel",
-                            subclass, tabel, kolom, waarde));
-                    split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.exists").start();
-                    boolean comfortFound = rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData);
+                    loadLog.append(
+                            String.format(
+                                    "\n\nComfort data voor %s (class: %s, %s=%s), controleer aanwezigheid in tabel",
+                                    subclass, tabel, kolom, waarde));
+                    split2 =
+                            SimonManager.getStopwatch(
+                                            simonNamePrefix + "parsenewdata.comfort.exists")
+                                    .start();
+                    boolean comfortFound =
+                            rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData);
                     split2.stop();
 
                     // zoek obv natural key op in rsgb
                     if (comfortFound) {
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.update").start();
+                        split2 =
+                                SimonManager.getStopwatch(
+                                                simonNamePrefix + "parsenewdata.comfort.update")
+                                        .start();
                         createUpdateSql(row, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                     } else {
                         // insert all comfort records into hoofdtabel
-                        split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.insert").start();
+                        split2 =
+                                SimonManager.getStopwatch(
+                                                simonNamePrefix + "parsenewdata.comfort.insert")
+                                        .start();
                         createInsertSql(row, false, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                     }
                 }
 
                 // Voeg herkomst van metadata toe, alleen voor superclass tabel!
-                split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata").start();
+                split2 =
+                        SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.comfort.metadata")
+                                .start();
                 if (metaData != dbMetadataBrk) {
                     // overslaan voor brk 2
-                    createInsertMetadataSql(tabel, kolom, waarde, datum, loadLog, jdbcConverter, conn);
+                    createInsertMetadataSql(
+                            tabel, kolom, waarde, datum, loadLog, jdbcConverter, conn);
                 }
                 split2.stop();
 
@@ -852,13 +1009,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 loadLog.append("\n");
 
             } else if (newData.isDeleteData() && (oldList == null || oldList.isEmpty())) {
-                //only use delete in newData if there is no old record (this is more complete)
-                Split splitDelete = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete").start();
+                // only use delete in newData if there is no old record (this is more complete)
+                Split splitDelete =
+                        SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete").start();
                 loadLog.append("\n\nWissen van object zonder oud record.");
                 for (TableRow row : newData.getRows()) {
                     // zoek obv natural key op in rsgb
                     if (rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData)) {
-                        Split split2 = SimonManager.getStopwatch(simonNamePrefix + "parsenewdata.delete.update").start();
+                        Split split2 =
+                                SimonManager.getStopwatch(
+                                                simonNamePrefix + "parsenewdata.delete.update")
+                                        .start();
                         createDeleteSql(row, loadLog, jdbcConverter, conn, metaData);
                         split2.stop();
                     } else {
@@ -867,16 +1028,21 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
                 splitDelete.stop();
                 loadLog.append("\n");
-
             }
-
-
         }
         split.stop();
         return loadLog;
     }
 
-    private StringBuilder parseOldData(List<TableData> oldList, List<TableData> newList, Date newDate, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData) throws SQLException, ParseException {
+    private StringBuilder parseOldData(
+            List<TableData> oldList,
+            List<TableData> newList,
+            Date newDate,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
 
         List<TableRow> rowsToDelete = new ArrayList<>();
         // als heel object verwijderd moet worden omdat newList een verwijderbericht is
@@ -889,13 +1055,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 // comfort block ? do nothing
             } else {
                 for (TableRow oldRow : oldData.getRows()) {
-                    List<String> pkColumns = getPrimaryKeys(oldRow.getTable(), jdbcConverter, metaData);
+                    List<String> pkColumns =
+                            getPrimaryKeys(oldRow.getTable(), jdbcConverter, metaData);
                     boolean exists = doesRowExist(oldRow, pkColumns, newList);
                     if (deleteAll || !exists) {
-                        loadLog.append("Vervallen record te verwijderen: ").append(oldRow.toString(pkColumns)).append("\n");
+                        loadLog.append("Vervallen record te verwijderen: ")
+                                .append(oldRow.toString(pkColumns))
+                                .append("\n");
                         rowsToDelete.add(oldRow);
                     }
-
                 }
             }
         }
@@ -905,13 +1073,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
             Collections.reverse(rowsToDelete);
             for (TableRow rowToDelete : rowsToDelete) {
-                Split split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.delete").start();
+                Split split =
+                        SimonManager.getStopwatch(simonNamePrefix + "parseolddata.delete").start();
                 createDeleteSql(rowToDelete, loadLog, jdbcConverter, connection, metaData);
                 split.stop();
 
-                String beginDate = getValueFromTableRow(rowToDelete, rowToDelete.getColumnDatumBeginGeldigheid());
+                String beginDate =
+                        getValueFromTableRow(
+                                rowToDelete, rowToDelete.getColumnDatumBeginGeldigheid());
                 String endDate = formatDateLikeOtherDate(newDate, beginDate);
-                updateValueInTableRow(rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), endDate);
+                updateValueInTableRow(
+                        rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), endDate);
 
                 split = SimonManager.getStopwatch(simonNamePrefix + "parseolddata.archive").start();
                 rowToDelete.setIgnoreDuplicates(true);
@@ -924,14 +1096,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     /**
-     * Probeer de datum te formatteren aan de hand van de formatting van de {@code otherDate} formatting.
-     * De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties zijn:
+     * Probeer de datum te formatteren aan de hand van de formatting van de {@code otherDate}
+     * formatting. De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties
+     * zijn:
+     *
      * <ul>
-     * <li>{@code yyyy-MM-dd} (BRK / BRK2)</li>
-     * <li>{@code yyyyMMddHHmmssSSS0} (BAG)</li>
+     *   <li>{@code yyyy-MM-dd} (BRK / BRK2)
+     *   <li>{@code yyyyMMddHHmmssSSS0} (BAG)
      * </ul>
      *
-     * @param newDate   te formatten datum
+     * @param newDate te formatten datum
      * @param otherDate de formatted datum
      * @return formatted datum, indien mogelijk in de vorm van {@code otherDate}
      */
@@ -950,9 +1124,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             f2.parse(otherDate);
             return f2.format(newDate);
         } catch (java.text.ParseException ex) {
-            //ignore
+            // ignore
         }
-        //add other formats
+        // add other formats
         return dfltFmt.format(newDate);
     }
 
@@ -968,7 +1142,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     private void updateValueInTableRow(TableRow row, String column, String newValue) {
-        //TODO, mag later weer weg
+        // TODO, mag later weer weg
         repairOldRowIfRequired(row, newValue);
 
         if (column == null) {
@@ -997,10 +1171,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 row.getValues().add(guessDate);
             }
         }
-
     }
 
-    private TableRow getMatchingRowFromTableData(TableRow row, List<String> pkColumns, List<TableData> testList) {
+    private TableRow getMatchingRowFromTableData(
+            TableRow row, List<String> pkColumns, List<TableData> testList) {
         TableRow newRow = null;
 
         for (TableData data : testList) {
@@ -1060,7 +1234,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return found;
     }
 
-    private void createInsertSql(TableRow row, boolean useArchiveTable, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData) throws SQLException, ParseException {
+    private void createInsertSql(
+            TableRow row,
+            boolean useArchiveTable,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
 
         StringBuilder sql = new StringBuilder("insert into ");
 
@@ -1081,7 +1262,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 // Wanneer archief tabellen niet zijn aangemaakt negeren
                 return;
             } else {
-                throw new IllegalStateException("Kan tabel metadata niet vinden voor tabel " + tableName);
+                throw new IllegalStateException(
+                        "Kan tabel metadata niet vinden voor tabel " + tableName);
             }
         }
 
@@ -1101,16 +1283,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
-            Object param = getValueAsObject(tableName, column, stringValue, cm, jdbcConverter, metaData);
+            Object param =
+                    getValueAsObject(tableName, column, stringValue, cm, jdbcConverter, metaData);
             params.add(param);
 
             sql.append(cm.getName());
 
             String insertValuePlaceholder = "?";
             if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())
-                    // in geval we in een ander dan public schema werken, en postgis zit in public schema
-                    || cm.getTypeName().replace("\"", "").equals("public." + jdbcConverter.getGeomTypeName())) {
-                //waarde altijd als WKT aanbieden en placeholder per db type
+                    // in geval we in een ander dan public schema werken, en postgis zit in public
+                    // schema
+                    || cm.getTypeName()
+                            .replace("\"", "")
+                            .equals("public." + jdbcConverter.getGeomTypeName())) {
+                // waarde altijd als WKT aanbieden en placeholder per db type
                 insertValuePlaceholder = jdbcConverter.createPSGeometryPlaceholder();
             }
             valuesSql.append(insertValuePlaceholder);
@@ -1148,13 +1334,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 sql.append(" = ? ");
 
                 String val = getValueFromTableRow(row, column);
-                Object obj = getValueAsObject(tableName, column, val, null, jdbcConverter, metaData);
+                Object obj =
+                        getValueAsObject(tableName, column, val, null, jdbcConverter, metaData);
                 params.add(obj);
             }
             sql.append(")");
         }
 
-        PreparedStatement stm = checkAndGetPreparedStatement(insertSqlPreparedStatements, sql.toString());
+        PreparedStatement stm =
+                checkAndGetPreparedStatement(insertSqlPreparedStatements, sql.toString());
         if (stm == null) {
             SimonManager.getCounter("b3p.rsgb.insertsql.preparestatement").increase();
             stm = connection.prepareStatement(sql.toString());
@@ -1173,10 +1361,16 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             Object param = params.get(i);
             // voor "null" geom moet hier iets extra gedaan worden voor sommige databases...
             if (null == param
-                    && (findColumnMetadata(tableColumnMetadata, row.getColumns().get(i)).getTypeName().equals(jdbcConverter.getGeomTypeName()) ||
-                    findColumnMetadata(tableColumnMetadata, row.getColumns().get(i)).getTypeName().replace("\"", "").equals("public." + jdbcConverter.getGeomTypeName()))
-                // geeft: java.sql.SQLFeatureNotSupportedException: Unsupported feature: checkValidIndex
-                // && stm.getParameterMetaData().getParameterTypeName(i + 1).equals(geomToJdbc.getGeomTypeName())
+                    && (findColumnMetadata(tableColumnMetadata, row.getColumns().get(i))
+                                    .getTypeName()
+                                    .equals(jdbcConverter.getGeomTypeName())
+                            || findColumnMetadata(tableColumnMetadata, row.getColumns().get(i))
+                                    .getTypeName()
+                                    .replace("\"", "")
+                                    .equals("public." + jdbcConverter.getGeomTypeName()))
+            // geeft: java.sql.SQLFeatureNotSupportedException: Unsupported feature: checkValidIndex
+            // && stm.getParameterMetaData().getParameterTypeName(i +
+            // 1).equals(geomToJdbc.getGeomTypeName())
             ) {
                 if (jdbcConverter instanceof OracleJdbcConverter) {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
@@ -1195,7 +1389,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             String message = e.getMessage();
             if (jdbcConverter.isDuplicateKeyViolationMessage(message) && row.isIgnoreDuplicates()) {
                 if (recentSavepoint != null) {
-                    log.debug("Ignoring duplicate key violation by rolling back to savepoint with id " + recentSavepoint.getSavepointId());
+                    log.debug(
+                            "Ignoring duplicate key violation by rolling back to savepoint with id "
+                                    + recentSavepoint.getSavepointId());
                     connection.rollback(recentSavepoint);
                 }
             } else {
@@ -1206,8 +1402,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append("\nAantal toegevoegde records: ").append(count);
     }
 
-    private void createUpdateSql(TableRow row, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData) throws SQLException, ParseException {
-        //doSavePoint(row);
+    private void createUpdateSql(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+        // doSavePoint(row);
 
         StringBuilder sql = new StringBuilder("update ");
 
@@ -1219,7 +1421,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         tableColumnMetadata = getTableColumnMetadata(tableName, jdbcConverter, metaData);
 
         if (tableColumnMetadata == null) {
-            throw new IllegalStateException("Kan tabel metadata niet vinden voor tabel " + tableName);
+            throw new IllegalStateException(
+                    "Kan tabel metadata niet vinden voor tabel " + tableName);
         }
 
         sql.append(" set ");
@@ -1239,16 +1442,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
             ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);
-            Object param = getValueAsObject(tableName, column, stringValue, cm, jdbcConverter, metaData);
+            Object param =
+                    getValueAsObject(tableName, column, stringValue, cm, jdbcConverter, metaData);
             params.add(param);
 
             sql.append(cm.getName());
             sql.append(" = ");
             String insertValuePlaceholder = "?";
             if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())
-                    // in geval we in een ander dan public schema werken, en postgis zit in public schema
-                    || cm.getTypeName().replace("\"", "").equals("public." + jdbcConverter.getGeomTypeName())) {
-                //waarde altijd als WKT aanbieden en placeholder per db type
+                    // in geval we in een ander dan public schema werken, en postgis zit in public
+                    // schema
+                    || cm.getTypeName()
+                            .replace("\"", "")
+                            .equals("public." + jdbcConverter.getGeomTypeName())) {
+                // waarde altijd als WKT aanbieden en placeholder per db type
                 insertValuePlaceholder = jdbcConverter.createPSGeometryPlaceholder();
             }
             sql.append(insertValuePlaceholder);
@@ -1275,7 +1482,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             params.add(obj);
         }
 
-        PreparedStatement stm = checkAndGetPreparedStatement(updateSqlPreparedStatements, sql.toString());
+        PreparedStatement stm =
+                checkAndGetPreparedStatement(updateSqlPreparedStatements, sql.toString());
         if (stm == null) {
             SimonManager.getCounter("b3p.rsgb.updatesql.preparestatement").increase();
             stm = connection.prepareStatement(sql.toString());
@@ -1294,11 +1502,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             Object param = params.get(i);
             // voor "null" geom moet hier iets extra gedaan worden voor sommige databases...
             if (null == param
-                    && (stm.getParameterMetaData().getParameterTypeName(i + 1).equals(jdbcConverter.getGeomTypeName()) ||
-                    stm.getParameterMetaData().getParameterTypeName(i + 1).replace("\"", "").equals("public." + jdbcConverter.getGeomTypeName()))
-            ) {
-                log.trace("gebruik `setNull` voor kolom: " + i + " " + row.getColumns().get(i) + ", waarde "
-                        + param + "(" + stm.getParameterMetaData().getParameterTypeName(i + 1) + ")");
+                    && (stm.getParameterMetaData()
+                                    .getParameterTypeName(i + 1)
+                                    .equals(jdbcConverter.getGeomTypeName())
+                            || stm.getParameterMetaData()
+                                    .getParameterTypeName(i + 1)
+                                    .replace("\"", "")
+                                    .equals("public." + jdbcConverter.getGeomTypeName()))) {
+                log.trace(
+                        "gebruik `setNull` voor kolom: "
+                                + i
+                                + " "
+                                + row.getColumns().get(i)
+                                + ", waarde "
+                                + param
+                                + "("
+                                + stm.getParameterMetaData().getParameterTypeName(i + 1)
+                                + ")");
                 if (jdbcConverter instanceof OracleJdbcConverter) {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
                 } else {
@@ -1318,15 +1538,24 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
-    private boolean createInsertMetadataSql(String tabel, String kolom, String waarde, String datum, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection) throws SQLException {
+    private boolean createInsertMetadataSql(
+            String tabel,
+            String kolom,
+            String waarde,
+            String datum,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection)
+            throws SQLException {
 
         if (insertMetadataStatement == null || insertMetadataStatement.isClosed()) {
-            String sql = "insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) " +
-                    "select ?, ?, ?, ?, ? " +
-                    (jdbcConverter instanceof OracleJdbcConverter ? "from dual" : "") +
-                    " where not exists (" +
-                    "  select 1 from herkomst_metadata where tabel = ? and kolom = ? and waarde = ? and herkomst_br = ? and datum = ?" +
-                    ")";
+            String sql =
+                    "insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) "
+                            + "select ?, ?, ?, ?, ? "
+                            + (jdbcConverter instanceof OracleJdbcConverter ? "from dual" : "")
+                            + " where not exists ("
+                            + "  select 1 from herkomst_metadata where tabel = ? and kolom = ? and waarde = ? and herkomst_br = ? and datum = ?"
+                            + ")";
 
             insertMetadataStatement = connection.prepareStatement(sql);
         } else {
@@ -1350,15 +1579,23 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         insertMetadataStatement.setString(9, getHerkomstMetadata());
         insertMetadataStatement.setObject(10, date);
 
-        loadLog.append(String.format("\nConditioneel toevoegen herkomst metadata tabel=%s, kolom=%s, waarde=%s, herkomst_br=%s, datum=%s",
-                tabel, kolom, waarde, getHerkomstMetadata(), datum));
+        loadLog.append(
+                String.format(
+                        "\nConditioneel toevoegen herkomst metadata tabel=%s, kolom=%s, waarde=%s, herkomst_br=%s, datum=%s",
+                        tabel, kolom, waarde, getHerkomstMetadata(), datum));
 
         int count = insertMetadataStatement.executeUpdate();
         loadLog.append(": record geinsert: ").append(count > 0 ? "ja" : "nee (rij bestond al)");
         return count > 0;
     }
 
-    private boolean rowExistsInDb(TableRow row, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection conn, DatabaseMetaData metaData) throws SQLException, ParseException {
+    private boolean rowExistsInDb(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection conn,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
 
         String tableName = row.getTable();
         List<String> pkColumns = getPrimaryKeys(tableName, jdbcConverter, metaData);
@@ -1366,17 +1603,20 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         List<Object> params = new ArrayList<>();
         for (String column : pkColumns) {
             String val = getValueFromTableRow(row, column);
-            Object obj = getValueAsObject(row.getTable(), column, val, null, jdbcConverter, metaData);
+            Object obj =
+                    getValueAsObject(row.getTable(), column, val, null, jdbcConverter, metaData);
             params.add(obj);
         }
 
-        loadLog.append("\nControleer ").append(tableName).append(" op primary key: ").append(params);
+        loadLog.append("\nControleer ")
+                .append(tableName)
+                .append(" op primary key: ")
+                .append(params);
 
         PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, tableName);
 
         if (stm == null) {
-            StringBuilder sql = new StringBuilder("select 1 from ")
-                    .append(tableName);
+            StringBuilder sql = new StringBuilder("select 1 from ").append(tableName);
 
             boolean first = true;
             for (String column : pkColumns) {
@@ -1388,7 +1628,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
             }
 
-            stm = conn.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm =
+                    conn.prepareStatement(
+                            sql.toString(),
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_READ_ONLY);
             checkAndAddStatement(checkRowExistsStatements, tableName, stm);
         }
 
@@ -1412,7 +1656,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return exists;
     }
 
-    private boolean isAlreadyInMetadata(TableRow row, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData)
+    private boolean isAlreadyInMetadata(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
             throws SQLException, BrmoException {
 
         if (metaData == this.dbMetadataBrk) {
@@ -1438,19 +1687,24 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         String waarde = getValueFromTableRow(row, column);
         params.add(waarde);
 
+        loadLog.append("\nControleer ")
+                .append(herkomstTableName)
+                .append(" op primary key: ")
+                .append(params);
 
-        loadLog.append("\nControleer ").append(herkomstTableName).append(" op primary key: ").append(params);
-
-        PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, herkomstTableName);
+        PreparedStatement stm =
+                checkAndGetPreparedStatement(checkRowExistsStatements, herkomstTableName);
         if (stm == null) {
-            String sql = "select 1 from " +
-                    herkomstTableName +
-                    " WHERE tabel = ? AND kolom = ? AND kolom = ?";
+            String sql =
+                    "select 1 from "
+                            + herkomstTableName
+                            + " WHERE tabel = ? AND kolom = ? AND kolom = ?";
 
-            stm = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm =
+                    connection.prepareStatement(
+                            sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             checkAndAddStatement(checkRowExistsStatements, herkomstTableName, stm);
         }
-
 
         int i = 1;
         for (Object p : params) {
@@ -1470,10 +1724,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(", rij bestaat: ").append(exists ? "ja" : "nee");
 
         return exists;
-
     }
 
-    private boolean createDeleteSql(TableRow row, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData) throws SQLException, ParseException {
+    private boolean createDeleteSql(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
         doSavePoint(row, jdbcConverter, connection);
 
         String tableName = row.getTable();
@@ -1483,16 +1742,19 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         List<Object> params = new ArrayList<>();
         for (String column : pkColumns) {
             String val = getValueFromTableRow(row, column);
-            Object obj = getValueAsObject(row.getTable(), column, val, null, jdbcConverter, metaData);
+            Object obj =
+                    getValueAsObject(row.getTable(), column, val, null, jdbcConverter, metaData);
             params.add(obj);
         }
-        loadLog.append("\nVerwijderen rij uit ").append(tableName).append(" met primary key: ").append(params);
+        loadLog.append("\nVerwijderen rij uit ")
+                .append(tableName)
+                .append(" met primary key: ")
+                .append(params);
 
         PreparedStatement stm = checkAndGetPreparedStatement(createDeleteSqlStatements, tableName);
 
         if (stm == null) {
-            StringBuilder sql = new StringBuilder("delete from ")
-                    .append(tableName);
+            StringBuilder sql = new StringBuilder("delete from ").append(tableName);
 
             boolean first = true;
             for (String column : pkColumns) {
@@ -1504,7 +1766,11 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 }
             }
 
-            stm = connection.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm =
+                    connection.prepareStatement(
+                            sql.toString(),
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_READ_ONLY);
             checkAndAddStatement(createDeleteSqlStatements, tableName, stm);
         }
 
@@ -1524,10 +1790,15 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         loadLog.append(", aantal rijen verwijderd: ").append(count);
 
         return count > 0;
-
     }
 
-    private boolean deleteFromMetadata(TableRow row, StringBuilder loadLog, GeometryJdbcConverter jdbcConverter, Connection connection, DatabaseMetaData metaData) throws SQLException {
+    private boolean deleteFromMetadata(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException {
 
         List<String> params = new ArrayList<>();
         String herkomstTableName = "herkomst_metadata";
@@ -1542,19 +1813,24 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         String waarde = getValueFromTableRow(row, column);
         params.add(waarde);
 
+        loadLog.append("\nVerwijder rij uit ")
+                .append(herkomstTableName)
+                .append(" met primary key: ")
+                .append(params);
 
-        loadLog.append("\nVerwijder rij uit ").append(herkomstTableName).append(" met primary key: ").append(params);
-
-        PreparedStatement stm = checkAndGetPreparedStatement(createDeleteSqlStatements, herkomstTableName);
+        PreparedStatement stm =
+                checkAndGetPreparedStatement(createDeleteSqlStatements, herkomstTableName);
         if (stm == null) {
-            String sql = "delete from " +
-                    herkomstTableName +
-                    " WHERE tabel = ? AND kolom = ? AND kolom = ?";
+            String sql =
+                    "delete from "
+                            + herkomstTableName
+                            + " WHERE tabel = ? AND kolom = ? AND kolom = ?";
 
-            stm = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm =
+                    connection.prepareStatement(
+                            sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             checkAndAddStatement(createDeleteSqlStatements, herkomstTableName, stm);
         }
-
 
         int i = 1;
         for (Object p : params) {
@@ -1574,7 +1850,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return count > 0;
     }
 
-    private List<String> getPrimaryKeys(String tableName, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData) throws SQLException {
+    private List<String> getPrimaryKeys(
+            String tableName, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData)
+            throws SQLException {
 
         List<String> pks = primaryKeyCache.get(tableName);
         if (pks != null) {
@@ -1601,7 +1879,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return pks;
     }
 
-    private SortedSet<ColumnMetadata> getTableColumnMetadata(String table, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData)
+    private SortedSet<ColumnMetadata> getTableColumnMetadata(
+            String table, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData)
             throws SQLException {
 
         table = table.toLowerCase();
@@ -1615,7 +1894,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             columnMetadata = new TreeSet<>();
             tableColumns.put(table, columnMetadata);
 
-            ResultSet columnsRs = metaData.getColumns(null, jdbcConverter.getSchema(), tables.get(table), "%");
+            ResultSet columnsRs =
+                    metaData.getColumns(null, jdbcConverter.getSchema(), tables.get(table), "%");
             while (columnsRs.next()) {
                 ColumnMetadata cm = new ColumnMetadata(columnsRs);
                 columnMetadata.add(cm);
@@ -1627,8 +1907,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         return columnMetadata;
     }
 
-    private ColumnMetadata findColumnMetadata(SortedSet<ColumnMetadata> tableColumnMetadata,
-                                              String columnName) {
+    private ColumnMetadata findColumnMetadata(
+            SortedSet<ColumnMetadata> tableColumnMetadata, String columnName) {
 
         if (tableColumnMetadata == null || tableColumnMetadata.size() < 1) {
             return null;
@@ -1651,7 +1931,9 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         this.herkomstMetadata = herkomstMetadata;
     }
 
-    private void doSavePoint(TableRow row, GeometryJdbcConverter jdbcConverter, Connection connection) throws SQLException {
+    private void doSavePoint(
+            TableRow row, GeometryJdbcConverter jdbcConverter, Connection connection)
+            throws SQLException {
         if (!alsoExecuteSql) {
             return;
         }
@@ -1661,17 +1943,28 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     recentSavepoint = connection.setSavepoint();
                     log.trace("Created savepoint with id: " + recentSavepoint.getSavepointId());
                 } else {
-                    log.trace("No need for new savepoint, previous insert caused rollback to recent savepoint with id " + recentSavepoint.getSavepointId());
+                    log.trace(
+                            "No need for new savepoint, previous insert caused rollback to recent savepoint with id "
+                                    + recentSavepoint.getSavepointId());
                 }
             } else if (recentSavepoint != null) {
-                log.trace("About to insert non-recoverable row, discarding savepoint with id " + recentSavepoint.getSavepointId());
+                log.trace(
+                        "About to insert non-recoverable row, discarding savepoint with id "
+                                + recentSavepoint.getSavepointId());
                 connection.releaseSavepoint(recentSavepoint);
                 recentSavepoint = null;
             }
         }
     }
 
-    private Object getValueAsObject(String tableName, String column, String value, ColumnMetadata cm, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData) throws SQLException, ParseException {
+    private Object getValueAsObject(
+            String tableName,
+            String column,
+            String value,
+            ColumnMetadata cm,
+            GeometryJdbcConverter jdbcConverter,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
         if (cm == null) {
             SortedSet<ColumnMetadata> tableColumnMetadata;
             tableColumnMetadata = getTableColumnMetadata(tableName, jdbcConverter, metaData);
@@ -1680,10 +1973,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
         Object param = null;
         if (cm == null) {
-            throw new IllegalArgumentException("Column not found: " + column + " in table " + tableName);
+            throw new IllegalArgumentException(
+                    "Column not found: " + column + " in table " + tableName);
         } else if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())
-                // in geval we in een ander dan public schema werken, en postgis zit in public schema
-                || cm.getTypeName().replace("\"", "").equals("public." + jdbcConverter.getGeomTypeName())) {
+                // in geval we in een ander dan public schema werken, en postgis zit in public
+                // schema
+                || cm.getTypeName()
+                        .replace("\"", "")
+                        .equals("public." + jdbcConverter.getGeomTypeName())) {
             param = jdbcConverter.convertToNativeGeometryObject(value);
         } else if (value != null) {
             param = GeometryJdbcConverter.convertToSQLObject(value, cm, tableName, column);
@@ -1693,7 +1990,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     }
 
     public enum BerichtSelectMode {
-
-        BY_STATUS, BY_IDS, BY_LAADPROCES, FOR_UPDATE, RETRY_WAITING
+        BY_STATUS,
+        BY_IDS,
+        BY_LAADPROCES,
+        FOR_UPDATE,
+        RETRY_WAITING
     }
 }

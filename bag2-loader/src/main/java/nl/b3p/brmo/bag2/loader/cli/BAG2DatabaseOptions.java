@@ -10,19 +10,27 @@ package nl.b3p.brmo.bag2.loader.cli;
 import picocli.CommandLine.*;
 
 public class BAG2DatabaseOptions {
-    @Option(names={"-c","--connection"}, paramLabel = "<string>")
+    @Option(
+            names = {"-c", "--connection"},
+            paramLabel = "<string>")
     String connectionString = "jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true";
 
-    @Option(names={"-u","--user"})
+    @Option(names = {"-u", "--user"})
     String user = "bag";
 
-    @Option(names={"-p","--password"}, interactive = true, arity = "0..1")
+    @Option(
+            names = {"-p", "--password"},
+            interactive = true,
+            arity = "0..1")
     String password = "bag";
 
-    @Option(names="--batch-size", paramLabel="number", hidden = true)
+    @Option(names = "--batch-size", paramLabel = "number", hidden = true)
     Integer batchSize;
 
-    @Option(names={"--no-pg-copy"}, negatable = true, hidden = true)
+    @Option(
+            names = {"--no-pg-copy"},
+            negatable = true,
+            hidden = true)
     boolean usePgCopy = true;
 
     public String getConnectionString() {

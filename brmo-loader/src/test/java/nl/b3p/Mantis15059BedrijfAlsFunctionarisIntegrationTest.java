@@ -3,11 +3,20 @@
  */
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,26 +43,20 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * Integratie test om een nhr dataservice soap bericht te laden en te
- * transformeren, bevat een testcase voor mantis15059; een bedrijf dat een ander berijf als functionaris heeft.
- * <br>Draaien met:
- * {@code mvn -Dit.test=Mantis15059BedrijfAlsFunctionarisIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log}
- * voor bijvoorbeeld PostgreSQL.
+ * Integratie test om een nhr dataservice soap bericht te laden en te transformeren, bevat een
+ * testcase voor mantis15059; een bedrijf dat een ander berijf als functionaris heeft. <br>
+ * Draaien met: {@code mvn -Dit.test=Mantis15059BedrijfAlsFunctionarisIntegrationTest
+ * -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log} voor bijvoorbeeld
+ * PostgreSQL.
  *
  * @author Mark Prins
  */
-public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDatabaseIntegrationTest {
+public class Mantis15059BedrijfAlsFunctionarisIntegrationTest
+        extends AbstractDatabaseIntegrationTest {
 
-    private static final Log LOG = LogFactory.getLog(Mantis15059BedrijfAlsFunctionarisIntegrationTest.class);
+    private static final Log LOG =
+            LogFactory.getLog(Mantis15059BedrijfAlsFunctionarisIntegrationTest.class);
     private static final String BESTANDTYPE = "nhr";
     private final Lock sequential = new ReentrantLock(true);
     private BrmoFramework brmo;
@@ -66,14 +69,24 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // {"filename", aantalBerichten, aantalProcessen,
-                arguments("/mantis15059-nhr-bedrijf-als-fuctionaris/2020-05-28-104333-77513010.anon.xml", 3, 1,
+                arguments(
+                        "/mantis15059-nhr-bedrijf-als-fuctionaris/2020-05-28-104333-77513010.anon.xml",
+                        3,
+                        1,
                         // aantalPrs, aantalSubj, aantalNiet_nat_prs, aantalNat_prs,
-                        4, 4 + 1, 4, 0,
-                        // hoofd vestgID, aantalVestg, aantalVestg_activiteit, kvkNummer v MaatschAct, sbiCodes,
-                        "nhr.comVestg.000045210608", 1, 2, 77513010, new String[]{"2825", "7112"},
+                        4,
+                        4 + 1,
+                        4,
+                        0,
+                        // hoofd vestgID, aantalVestg, aantalVestg_activiteit, kvkNummer v
+                        // MaatschAct, sbiCodes,
+                        "nhr.comVestg.000045210608",
+                        1,
+                        2,
+                        77513010,
+                        new String[] {"2825", "7112"},
                         // aantalFunctionarissen},
-                        2)
-        );
+                        2));
     }
 
     @BeforeEach
@@ -97,17 +110,37 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
@@ -115,15 +148,23 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(Mantis15059BedrijfAlsFunctionarisIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet =
+                fxdb.build(
+                        new FileInputStream(
+                                new File(
+                                        Mantis15059BedrijfAlsFunctionarisIntegrationTest.class
+                                                .getResource("/staging-empty-flat.xml")
+                                                .toURI())));
 
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0L == brmo.getCountBerichten(BESTANDTYPE, "STAGING_OK"),
+        assumeTrue(
+                0L == brmo.getCountBerichten(BESTANDTYPE, "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(BESTANDTYPE, "STAGING_OK"),
+        assumeTrue(
+                0L == brmo.getCountLaadProcessen(BESTANDTYPE, "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -142,24 +183,47 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
 
     @ParameterizedTest(name = "{index}: bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testNhrXMLToStagingToRsgb(String bestandNaam, long aantalBerichten, long aantalProcessen,
-                                          long aantalPrs, long aantalSubj, long aantalNiet_nat_prs, long aantalNat_prs,
-                                          String vestgID, long aantalVestg, long aantalVestg_activiteit,
-                                          long kvkNummer, String[] sbiCodes, int aantalFunctionarissen) throws Exception {
-        assumeFalse(null == Mantis15059BedrijfAlsFunctionarisIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
+    public void testNhrXMLToStagingToRsgb(
+            String bestandNaam,
+            long aantalBerichten,
+            long aantalProcessen,
+            long aantalPrs,
+            long aantalSubj,
+            long aantalNiet_nat_prs,
+            long aantalNat_prs,
+            String vestgID,
+            long aantalVestg,
+            long aantalVestg_activiteit,
+            long kvkNummer,
+            String[] sbiCodes,
+            int aantalFunctionarissen)
+            throws Exception {
+        assumeFalse(
+                null
+                        == Mantis15059BedrijfAlsFunctionarisIntegrationTest.class.getResource(
+                                bestandNaam),
+                "Het test bestand moet er zijn.");
 
-        brmo.loadFromFile(BESTANDTYPE, Mantis15059BedrijfAlsFunctionarisIntegrationTest.class.getResource(bestandNaam).getFile(), null);
+        brmo.loadFromFile(
+                BESTANDTYPE,
+                Mantis15059BedrijfAlsFunctionarisIntegrationTest.class
+                        .getResource(bestandNaam)
+                        .getFile(),
+                null);
         LOG.info("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
         assertNotNull(berichten, "De verzameling berichten bestaat niet.");
-        assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertEquals(
+                aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
         assertNotNull(processen, "De verzameling processen bestaat niet.");
-        assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
+        assertEquals(
+                aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
 
         // alleen het eerste bericht heeft br_orgineel_xml, de rest niet
-        ITable bericht = staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0");
+        ITable bericht =
+                staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0");
         assertEquals(1, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
         LOG.debug("\n\n" + bericht.getValue(0, "br_orgineel_xml") + "\n\n");
         assertNotNull(bericht.getValue(0, "br_orgineel_xml"), "BR origineel xml is null");
@@ -170,13 +234,21 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         t.join();
 
         // na de verwerking moet soap payload er ook nog zijn
-        bericht = staging.createQueryTable("bericht", "select * from bericht where br_orgineel_xml is not null");
+        bericht =
+                staging.createQueryTable(
+                        "bericht", "select * from bericht where br_orgineel_xml is not null");
         assertEquals(1, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
-        assertNotNull(bericht.getValue(0, "br_orgineel_xml"), "BR origineel xml is null na transformatie");
-        assertEquals(berichtId, bericht.getValue(0, "id"),
+        assertNotNull(
+                bericht.getValue(0, "br_orgineel_xml"),
+                "BR origineel xml is null na transformatie");
+        assertEquals(
+                berichtId,
+                bericht.getValue(0, "id"),
                 "bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie");
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(BESTANDTYPE, "RSGB_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten(BESTANDTYPE, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
@@ -190,29 +262,43 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         ITable subject = rsgb.createDataSet().getTable("subject");
 
         assertEquals(aantalPrs, prs.getRowCount(), "Het aantal 'prs' records klopt niet");
-        assertEquals(aantalNiet_nat_prs, niet_nat_prs.getRowCount(),
+        assertEquals(
+                aantalNiet_nat_prs,
+                niet_nat_prs.getRowCount(),
                 "Het aantal 'niet_nat_prs' records klopt niet");
-        assertEquals(aantalNat_prs, nat_prs.getRowCount(), "Het aantal 'nat_prs' records klopt niet");
+        assertEquals(
+                aantalNat_prs, nat_prs.getRowCount(), "Het aantal 'nat_prs' records klopt niet");
         assertEquals(aantalSubj, subject.getRowCount(), "het aantal 'subject' records klopt niet");
 
         boolean foundKvk = false;
         for (int i = 0; i < subject.getRowCount(); i++) {
             if (subject.getValue(i, "identif").toString().contains("nhr.maatschAct.kvk")) {
-                assertEquals(kvkNummer + "", subject.getValue(i, "kvk_nummer") + "", "KVK nummer klopt niet");
+                assertEquals(
+                        kvkNummer + "",
+                        subject.getValue(i, "kvk_nummer") + "",
+                        "KVK nummer klopt niet");
                 foundKvk = true;
             }
         }
         if (!foundKvk) {
-            fail("KVK nummer maatschappelijke activiteit klopt niet, verwacht te vinden: " + kvkNummer);
+            fail(
+                    "KVK nummer maatschappelijke activiteit klopt niet, verwacht te vinden: "
+                            + kvkNummer);
         }
 
         if (vestgID != null) {
             ITable vestg = rsgb.createDataSet().getTable("vestg");
-            assertEquals(vestgID, vestg.getValue(0, "sc_identif"),
+            assertEquals(
+                    vestgID,
+                    vestg.getValue(0, "sc_identif"),
                     "De 'sc_identif' van hoofdvestiging klopt niet");
-            assertEquals(sbiCodes[0], vestg.getValue(0, "fk_sa_sbi_activiteit_sbi_code"),
+            assertEquals(
+                    sbiCodes[0],
+                    vestg.getValue(0, "fk_sa_sbi_activiteit_sbi_code"),
                     "De sbi code van (hoofd)vestiging klopt niet");
-            assertEquals("Ja", vestg.getValue(0, "sa_indic_hoofdactiviteit"),
+            assertEquals(
+                    "Ja",
+                    vestg.getValue(0, "sa_indic_hoofdactiviteit"),
                     "De 'sa_indic_hoofdactiviteit' van (hoofd)vestiging klopt niet");
         }
 
@@ -220,7 +306,9 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         assertEquals(aantalVestg, vestg.getRowCount(), "het aantal 'vestg' records klopt niet");
 
         ITable vestg_activiteit = rsgb.createDataSet().getTable("vestg_activiteit");
-        assertEquals(aantalVestg_activiteit, vestg_activiteit.getRowCount(),
+        assertEquals(
+                aantalVestg_activiteit,
+                vestg_activiteit.getRowCount(),
                 "Het aantal 'vestg_activiteit' records klopt niet");
 
         ITable sbi_activiteit = rsgb.createDataSet().getTable("sbi_activiteit");
@@ -251,16 +339,26 @@ public class Mantis15059BedrijfAlsFunctionarisIntegrationTest extends AbstractDa
         }
 
         ITable functionaris = rsgb.createDataSet().getTable("functionaris");
-        assertEquals(aantalFunctionarissen, functionaris.getRowCount(),
+        assertEquals(
+                aantalFunctionarissen,
+                functionaris.getRowCount(),
                 "Het aantal 'functionaris' records klopt niet");
         if (kvkNummer == 77513010) {
-            // gebruik een gesorteerde weergaven van functionaris tabel omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen
+            // gebruik een gesorteerde weergaven van functionaris tabel omdat de volgorde van de
+            // rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen
             // er is een Gevolmachtigde Directeur met beperkte volmacht in de laatste rij
-            functionaris = rsgb.createQueryTable("functionaris", "select * from functionaris order by functie ASC");
+            functionaris =
+                    rsgb.createQueryTable(
+                            "functionaris", "select * from functionaris order by functie ASC");
             assertEquals("Vennoot", functionaris.getValue(aantalFunctionarissen - 1, "functie"));
             assertNull(functionaris.getValue(aantalFunctionarissen - 1, "functionaristypering"));
-            assertNull(functionaris.getValue(aantalFunctionarissen - 1, "volledig_beperkt_volmacht"));
-            assertEquals("10000", functionaris.getValue(aantalFunctionarissen - 1, "beperking_bev_in_euros").toString());
+            assertNull(
+                    functionaris.getValue(aantalFunctionarissen - 1, "volledig_beperkt_volmacht"));
+            assertEquals(
+                    "10000",
+                    functionaris
+                            .getValue(aantalFunctionarissen - 1, "beperking_bev_in_euros")
+                            .toString());
         }
     }
 }

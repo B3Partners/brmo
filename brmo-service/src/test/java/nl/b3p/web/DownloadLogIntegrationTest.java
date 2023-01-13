@@ -16,6 +16,11 @@
  */
 package nl.b3p.web;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
@@ -28,15 +33,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-/**
- *
- * @author Mark Prins
- */
+/** @author Mark Prins */
 public class DownloadLogIntegrationTest extends WebTestUtil {
 
     /**
@@ -51,33 +48,44 @@ public class DownloadLogIntegrationTest extends WebTestUtil {
         HttpResponse response = client.execute(new HttpGet(BASE_TEST_URL));
         EntityUtils.consume(response.getEntity());
 
-        HttpUriRequest login = RequestBuilder.post()
-                .setUri(new URI(BASE_TEST_URL + "j_security_check"))
-                .addParameter("j_username", "brmo")
-                .addParameter("j_password", "brmo")
-                .build();
+        HttpUriRequest login =
+                RequestBuilder.post()
+                        .setUri(new URI(BASE_TEST_URL + "j_security_check"))
+                        .addParameter("j_username", "brmo")
+                        .addParameter("j_password", "brmo")
+                        .build();
         response = client.execute(login);
         EntityUtils.consume(response.getEntity());
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
+        assertThat(
+                "Response status is OK.",
+                response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
 
         // downloadlog
         response = client.execute(new HttpGet(BASE_TEST_URL + "downloadlog.jsp"));
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
+        assertThat(
+                "Response status is OK.",
+                response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
         String body = EntityUtils.toString(response.getEntity());
         assertNotNull(body, "Response body mag niet null zijn.");
         // System.out.println("\n\n=============== BODY:=================\n" + body + "\n\n");
         // test eerste regel uit de logfile
-        assertTrue(body.contains("Quartz scheduler 'BRMOgeplandeTaken' initialized from an externally provided properties instance."));
+        assertTrue(
+                body.contains(
+                        "Quartz scheduler 'BRMOgeplandeTaken' initialized from an externally provided properties instance."));
 
         // logout
         response = client.execute(new HttpGet(BASE_TEST_URL + "logout.jsp"));
         body = EntityUtils.toString(response.getEntity());
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
+        assertThat(
+                "Response status is OK.",
+                response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
         assertNotNull(body, "Response body mag niet null zijn.");
-        assertTrue(body.contains("Opnieuw inloggen"), "Response moet 'Opnieuw inloggen' tekst hebben.");
+        assertTrue(
+                body.contains("Opnieuw inloggen"),
+                "Response moet 'Opnieuw inloggen' tekst hebben.");
     }
 
     @Override

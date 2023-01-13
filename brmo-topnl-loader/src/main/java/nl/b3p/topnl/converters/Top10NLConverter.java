@@ -16,16 +16,6 @@
  */
 package nl.b3p.topnl.converters;
 
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.Polygon;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.bind.JAXBElement;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.TopNLType;
 import nl.b3p.topnl.entities.FunctioneelGebied;
 import nl.b3p.topnl.entities.Gebouw;
@@ -47,33 +37,45 @@ import nl.b3p.topnl.top10nl.CodeType;
 import nl.b3p.topnl.top10nl.FeatureMemberType;
 import nl.b3p.topnl.top10nl.FunctioneelGebiedType;
 import nl.b3p.topnl.top10nl.GebouwType;
-import nl.b3p.topnl.top10nl.HoogteType;
-import nl.b3p.topnl.top10nl.RegistratiefGebiedType;
-import nl.b3p.topnl.top10nl.SpoorbaandeelType;
-import nl.b3p.topnl.top10nl.TerreinType;
 import nl.b3p.topnl.top10nl.GeografischGebiedType;
+import nl.b3p.topnl.top10nl.HoogteType;
 import nl.b3p.topnl.top10nl.InrichtingselementType;
 import nl.b3p.topnl.top10nl.PlaatsType;
 import nl.b3p.topnl.top10nl.PlanTopografieType;
+import nl.b3p.topnl.top10nl.RegistratiefGebiedType;
 import nl.b3p.topnl.top10nl.ReliefType;
+import nl.b3p.topnl.top10nl.SpoorbaandeelType;
+import nl.b3p.topnl.top10nl.TerreinType;
 import nl.b3p.topnl.top10nl.Top10NlObjectType;
 import nl.b3p.topnl.top10nl.Top10NlObjectType.Identificatie;
 import nl.b3p.topnl.top10nl.WaterdeelType;
 import nl.b3p.topnl.top10nl.WegdeelType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-/**
- *
- * @author Meine Toonen
- */
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+/** @author Meine Toonen */
 public class Top10NLConverter extends Converter {
 
-    protected final static Log log = LogFactory.getLog(Top10NLConverter.class);
+    protected static final Log log = LogFactory.getLog(Top10NLConverter.class);
+
     @Override
-    public List<TopNLEntity> convert(List jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public List<TopNLEntity> convert(List jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = null;
         if (jaxbObject instanceof ArrayList) {
             entities = convertFeatureCollection(jaxbObject);
@@ -85,11 +87,12 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public List<TopNLEntity> convertFeatureCollection(List jaxbFeatureCollection) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public List<TopNLEntity> convertFeatureCollection(List jaxbFeatureCollection)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         List<TopNLEntity> entities = new ArrayList<>();
 
         for (Object fm : jaxbFeatureCollection) {
-            FeatureMemberType featureMember = (FeatureMemberType)fm;
+            FeatureMemberType featureMember = (FeatureMemberType) fm;
             JAXBElement jaxbObject = featureMember.getTop10NlObject();
             Object obj = jaxbObject.getValue();
             TopNLEntity entity = convertObject(obj);
@@ -100,14 +103,16 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public TopNLEntity convertObject(Object featureMember) throws IOException, SAXException, ParserConfigurationException, TransformerException,IllegalArgumentException {
+    public TopNLEntity convertObject(Object featureMember)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException,
+                    IllegalArgumentException {
         TopNLEntity entity = null;
 
-         if(featureMember instanceof FeatureMemberType){
-            FeatureMemberType fm = (FeatureMemberType)featureMember;
+        if (featureMember instanceof FeatureMemberType) {
+            FeatureMemberType fm = (FeatureMemberType) featureMember;
             JAXBElement jaxbObject = fm.getTop10NlObject();
             return convertObject(jaxbObject.getValue());
-        }else if (featureMember instanceof HoogteType) {
+        } else if (featureMember instanceof HoogteType) {
             entity = convertHoogte(featureMember);
         } else if (featureMember instanceof FunctioneelGebiedType) {
             entity = convertFunctioneelGebied(featureMember);
@@ -131,19 +136,24 @@ public class Top10NLConverter extends Converter {
             entity = convertWaterdeel(featureMember);
         } else if (featureMember instanceof WegdeelType) {
             entity = convertWegdeel(featureMember);
-        }else if (featureMember instanceof PlanTopografieType) {
+        } else if (featureMember instanceof PlanTopografieType) {
             entity = convertPlanTopografie(featureMember);
         } else {
             throw new IllegalArgumentException("Type not recognized: " + featureMember.getClass());
         }
 
-        log.debug("Converted type " + entity.getClass() + ", identificatie: " + entity.getIdentificatie());
+        log.debug(
+                "Converted type "
+                        + entity.getClass()
+                        + ", identificatie: "
+                        + entity.getIdentificatie());
         entity.setTopnltype(TopNLType.TOP10NL.getType());
         return entity;
     }
 
     @Override
-    public Hoogte convertHoogte(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Hoogte convertHoogte(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         HoogteType h = (HoogteType) jaxbObject;
 
         Hoogte hoogte = new Hoogte();
@@ -152,17 +162,22 @@ public class Top10NLConverter extends Converter {
         hoogte.setTypeHoogte(h.getTypeHoogte().getValue());
 
         hoogte.setHoogte(h.getHoogte());
-        hoogte.setObjectEindTijd(h.getObjectEindTijd() != null ? h.getObjectEindTijd().getTime() : null);
+        hoogte.setObjectEindTijd(
+                h.getObjectEindTijd() != null ? h.getObjectEindTijd().getTime() : null);
 
         Element el = h.getGeometrie();
         Geometry geom = gc.convertGeometry(el);
         hoogte.setGeometrie(geom);
-        hoogte.setReferentieVlak(h.getReferentievlak() != null ? h.getReferentievlak().getValue() : null );
+        hoogte.setReferentieVlak(
+                h.getReferentievlak() != null ? h.getReferentievlak().getValue() : null);
         return hoogte;
     }
 
     public String convertIdentificatie(Identificatie identificatie) {
-        String idString = identificatie.getNEN3610ID().getNamespace().trim() + "." + identificatie.getNEN3610ID().getLokaalID();
+        String idString =
+                identificatie.getNEN3610ID().getNamespace().trim()
+                        + "."
+                        + identificatie.getNEN3610ID().getLokaalID();
         return idString;
     }
 
@@ -173,11 +188,13 @@ public class Top10NLConverter extends Converter {
         entity.setBronbeschrijving(type.getBronbeschrijving());
         entity.setBronnauwkeurigheid(type.getBronnauwkeurigheid());
         entity.setObjectBeginTijd(type.getObjectBeginTijd().getTime());
-        entity.setVisualisatieCode(type.getVisualisatieCode() != null ? type.getVisualisatieCode().longValue() : null);
+        entity.setVisualisatieCode(
+                type.getVisualisatieCode() != null ? type.getVisualisatieCode().longValue() : null);
     }
 
     @Override
-    public FunctioneelGebied convertFunctioneelGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public FunctioneelGebied convertFunctioneelGebied(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         FunctioneelGebiedType f = (FunctioneelGebiedType) jaxbObject;
 
         FunctioneelGebied fg = new FunctioneelGebied();
@@ -191,7 +208,8 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public Gebouw convertGebouw(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Gebouw convertGebouw(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         GebouwType g = (GebouwType) jaxbObject;
 
         Gebouw gb = new Gebouw();
@@ -204,7 +222,8 @@ public class Top10NLConverter extends Converter {
             types += typeGebouwT10Type.getValue();
         }
         gb.setTypeGebouw(types);
-        gb.setFysiekVoorkomen(g.getFysiekVoorkomen() != null ? g.getFysiekVoorkomen().getValue() : null);
+        gb.setFysiekVoorkomen(
+                g.getFysiekVoorkomen() != null ? g.getFysiekVoorkomen().getValue() : null);
         gb.setHoogteklasse(g.getHoogteklasse() != null ? g.getHoogteklasse().getValue() : null);
         gb.setHoogte(g.getHoogte());
         gb.setNaam(String.join(",", g.getNaam()));
@@ -215,7 +234,8 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public GeografischGebied convertGeografischGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public GeografischGebied convertGeografischGebied(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         GeografischGebiedType g = (GeografischGebiedType) jaxbObject;
 
         GeografischGebied gb = new GeografischGebied();
@@ -230,7 +250,8 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public Inrichtingselement convertInrichtingselement(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Inrichtingselement convertInrichtingselement(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         InrichtingselementType i = (InrichtingselementType) jaxbObject;
 
         Inrichtingselement ie = new Inrichtingselement();
@@ -238,14 +259,18 @@ public class Top10NLConverter extends Converter {
 
         ie.setGeometrie(gc.convertGeometry(i.getGeometrie()));
 
-        ie.setTypeInrichtingselement(i.getTypeInrichtingselement() != null ? i.getTypeInrichtingselement().getValue() : null);
+        ie.setTypeInrichtingselement(
+                i.getTypeInrichtingselement() != null
+                        ? i.getTypeInrichtingselement().getValue()
+                        : null);
         ie.setHoogteniveau(i.getHoogteniveau().longValue());
 
         return ie;
     }
 
     @Override
-    public Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Plaats convertPlaats(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         PlaatsType p = (PlaatsType) jaxbObject;
 
         Plaats pl = new Plaats();
@@ -253,7 +278,8 @@ public class Top10NLConverter extends Converter {
 
         pl.setGeometrie(gc.convertGeometry(p.getGeometrie()));
 
-        pl.setAantalInwoners(p.getAantalinwoners() != null ? p.getAantalinwoners().longValue() : null);
+        pl.setAantalInwoners(
+                p.getAantalinwoners() != null ? p.getAantalinwoners().longValue() : null);
         pl.setNaamFries(p.getNaamFries());
         pl.setNaamNL(p.getNaamNL());
         pl.setNaamOfficieel(p.getNaamOfficieel());
@@ -262,7 +288,8 @@ public class Top10NLConverter extends Converter {
     }
 
     @Override
-    public RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public RegistratiefGebied convertRegistratiefGebied(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         RegistratiefGebiedType r = (RegistratiefGebiedType) jaxbObject;
 
         RegistratiefGebied rg = new RegistratiefGebied();
@@ -274,29 +301,33 @@ public class Top10NLConverter extends Converter {
         rg.setNaamNL(String.join(",", r.getNaamNL()));
         rg.setNaamOfficieel(String.join(",", r.getNaamOfficieel()));
         rg.setNummer(String.join(",", r.getNummer()));
-        rg.setTypeRegistratiefGebied(r.getTypeRegistratiefGebied() != null ? r.getTypeRegistratiefGebied().getValue() : null);
+        rg.setTypeRegistratiefGebied(
+                r.getTypeRegistratiefGebied() != null
+                        ? r.getTypeRegistratiefGebied().getValue()
+                        : null);
         return rg;
     }
 
     @Override
-    public Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Relief convertRelief(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         ReliefType r = (ReliefType) jaxbObject;
 
         Relief rg = new Relief();
         convertTop10NlObjectType(r, rg);
-        
-        if(r.getLijnGeometrie() != null){
+
+        if (r.getLijnGeometrie() != null) {
             rg.setGeometrie((LineString) gc.convertGeometry(r.getLijnGeometrie()));
         }
-        
-        if(r.getTaludGeometrie() != null){
+
+        if (r.getTaludGeometrie() != null) {
             BRTHogeEnLageZijdeType hl = r.getTaludGeometrie().getBRTHogeEnLageZijde();
             Element[] els = hl.getHogeZijde();
             for (Element el : els) {
                 LineString g = (LineString) gc.convertGeometry(el);
-                if(el.getLocalName().equals("lageZijde")){
+                if (el.getLocalName().equals("lageZijde")) {
                     rg.setTaludLageZijde(g);
-                }else if(el.getLocalName().equals("hogeZijde")){
+                } else if (el.getLocalName().equals("hogeZijde")) {
                     rg.setTaludHogeZijde(g);
                 }
             }
@@ -305,12 +336,14 @@ public class Top10NLConverter extends Converter {
         rg.setHoogteklasse(r.getHoogteklasse().getValue());
         rg.setTypeRelief(r.getTypeRelief() != null ? r.getTypeRelief().getValue() : null);
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
-        
+
         return rg;
     }
 
     @Override
-    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException, ClassCastException {
+    public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException,
+                    ClassCastException {
         SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
 
         Spoorbaandeel rg = new Spoorbaandeel();
@@ -325,26 +358,32 @@ public class Top10NLConverter extends Converter {
 
         String fysieks = "";
         for (CodeType fk : r.getFysiekVoorkomen()) {
-            if(fysieks.length() != 0){
+            if (fysieks.length() != 0) {
                 fysieks += ",";
             }
             fysieks += fk.getValue();
         }
         rg.setFysiekVoorkomen(fysieks);
-        
+
         rg.setTypeSpoorbaan(r.getTypeSpoorbaan() != null ? r.getTypeSpoorbaan().getValue() : null);
         rg.setAantalSporen(r.getAantalSporen() != null ? r.getAantalSporen().getValue() : null);
         rg.setStatus(r.getStatus().getValue());
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
-        rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
+        rg.setTypeInfrastructuur(
+                r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
         rg.setSpoorbreedte(r.getSpoorbreedte() != null ? r.getSpoorbreedte().getValue() : null);
-        rg.setVervoerfunctie(r.getVervoerfunctie()!= null ? r.getVervoerfunctie().getValue() : null);
-        rg.setElektrificatie(r.getElektrificatie() != null ? r.getElektrificatie().equals(BRTJaNeeWaardeType.JA) : null);
+        rg.setVervoerfunctie(
+                r.getVervoerfunctie() != null ? r.getVervoerfunctie().getValue() : null);
+        rg.setElektrificatie(
+                r.getElektrificatie() != null
+                        ? r.getElektrificatie().equals(BRTJaNeeWaardeType.JA)
+                        : null);
         return rg;
     }
 
     @Override
-    public Terrein convertTerrein(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Terrein convertTerrein(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         TerreinType r = (TerreinType) jaxbObject;
 
         Terrein rg = new Terrein();
@@ -352,27 +391,30 @@ public class Top10NLConverter extends Converter {
 
         rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrieVlak()));
 
-        rg.setTypeLandgebruik(r.getTypeLandgebruik() != null ? r.getTypeLandgebruik().getValue() : null);
+        rg.setTypeLandgebruik(
+                r.getTypeLandgebruik() != null ? r.getTypeLandgebruik().getValue() : null);
 
         return rg;
     }
 
     @Override
-    public PlanTopografie convertPlanTopografie(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public PlanTopografie convertPlanTopografie(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         PlanTopografieType r = (PlanTopografieType) jaxbObject;
 
         PlanTopografie pt = new PlanTopografie();
         convertTop10NlObjectType(r, pt);
 
-        pt.setGeometrie( gc.convertGeometry(r.getGeometrie()));
+        pt.setGeometrie(gc.convertGeometry(r.getGeometrie()));
         pt.setNaam(r.getNaam());
         pt.setTypePlanTopografie(r.getTypeObject().getValue());
-        
+
         return pt;
     }
 
     @Override
-    public Waterdeel convertWaterdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Waterdeel convertWaterdeel(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         WaterdeelType r = (WaterdeelType) jaxbObject;
 
         Waterdeel rg = new Waterdeel();
@@ -380,26 +422,32 @@ public class Top10NLConverter extends Converter {
 
         rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
 
-        
         String fysieks = "";
         for (CodeType fk : r.getFysiekVoorkomen()) {
-            if(fysieks.length() != 0){
+            if (fysieks.length() != 0) {
                 fysieks += ",";
             }
             fysieks += fk.getValue();
         }
         rg.setFysiekVoorkomen(fysieks);
         rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);
-        rg.setBreedteklasse( r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);
+        rg.setBreedteklasse(r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
-        rg.setGetijdeinvloed(r.getGetijdeinvloed() != null ? r.getGetijdeinvloed().equals(BRTJaNeeWaardeType.JA):false);
-        rg.setHoofdAfwatering(r.getHoofdafwatering()!= null ? r.getHoofdafwatering().equals(BRTJaNeeWaardeType.JA):false);
+        rg.setGetijdeinvloed(
+                r.getGetijdeinvloed() != null
+                        ? r.getGetijdeinvloed().equals(BRTJaNeeWaardeType.JA)
+                        : false);
+        rg.setHoofdAfwatering(
+                r.getHoofdafwatering() != null
+                        ? r.getHoofdafwatering().equals(BRTJaNeeWaardeType.JA)
+                        : false);
         rg.setFunctie(r.getFunctie() != null ? r.getFunctie().getValue() : null);
         return rg;
     }
 
     @Override
-    public Wegdeel convertWegdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    public Wegdeel convertWegdeel(Object jaxbObject)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
         WegdeelType r = (WegdeelType) jaxbObject;
 
         Wegdeel rg = new Wegdeel();
@@ -407,13 +455,13 @@ public class Top10NLConverter extends Converter {
 
         String fysieks = "";
         for (CodeType fk : r.getFysiekVoorkomen()) {
-            if(fysieks.length() != 0){
+            if (fysieks.length() != 0) {
                 fysieks += ",";
             }
             fysieks += fk.getValue();
         }
         rg.setFysiekVoorkomen(fysieks);
-        
+
         String typeweg = "";
         for (CodeType codeType : r.getTypeWeg()) {
             if (typeweg.length() != 0) {
@@ -423,8 +471,7 @@ public class Top10NLConverter extends Converter {
         }
 
         rg.setTypeWeg(typeweg);
-        
-        
+
         String hoofdverkeersgebruikt = "";
         for (CodeType codeType : r.getHoofdverkeersgebruik()) {
             if (hoofdverkeersgebruikt.length() != 0) {
@@ -434,32 +481,36 @@ public class Top10NLConverter extends Converter {
         }
 
         rg.setHoofdverkeersgebruik(hoofdverkeersgebruikt);
-        
-        rg.setNaam(String.join(",",r.getNaam()));
-        
-        Element [] els = r.getHartGeometrie();
+
+        rg.setNaam(String.join(",", r.getNaam()));
+
+        Element[] els = r.getHartGeometrie();
         for (Element el : els) {
             String localname = el.getLocalName();
             Geometry g = gc.convertGeometry(el);
-            if(localname.equals("hoofdGeometrie")){
+            if (localname.equals("hoofdGeometrie")) {
                 rg.setGeometrie(g);
-            }else if(localname.equals("hartGeometrie")){
+            } else if (localname.equals("hartGeometrie")) {
                 rg.setHartGeometrie(g);
             }
         }
-        rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
+        rg.setTypeInfrastructuur(
+                r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
         rg.setVerhardingstype(r.getVerhardingstype().getValue());
-        rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse().getValue() : null);
-        rg.setGescheidenRijbaan(r.getGescheidenRijbaan() ==BRTJaNeeWaardeType.JA);
+        rg.setVerhardingsbreedteklasse(
+                r.getVerhardingsbreedteklasse() != null
+                        ? r.getVerhardingsbreedteklasse().getValue()
+                        : null);
+        rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);
         rg.setaWegnummer(String.join(",", r.getAWegnummer()));
         rg.setnWegnummer(String.join(",", r.getNWegnummer()));
         rg.seteWegnummer(String.join(",", r.getEWegnummer()));
         rg.setsWegnummer(String.join(",", r.getSWegnummer()));
         rg.setAfritnummer(r.getAfritnummer());
-        rg.setAfritnaam(String.join(",",r.getAfritnaam()));
-        rg.setKnooppuntnaam(String.join(",",r.getKnooppuntnaam()));
-        rg.setBrugnaam(String.join(",",r.getBrugnaam()));
-        rg.setTunnelnaam(String.join(",",r.getTunnelnaam()));
+        rg.setAfritnaam(String.join(",", r.getAfritnaam()));
+        rg.setKnooppuntnaam(String.join(",", r.getKnooppuntnaam()));
+        rg.setBrugnaam(String.join(",", r.getBrugnaam()));
+        rg.setTunnelnaam(String.join(",", r.getTunnelnaam()));
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
         rg.setStatus(r.getStatus().getValue());
         return rg;

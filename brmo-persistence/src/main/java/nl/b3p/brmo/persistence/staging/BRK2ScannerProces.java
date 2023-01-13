@@ -14,6 +14,4 @@ import javax.persistence.Entity;
  * @author mprins
  */
 @Entity
-public class BRK2ScannerProces extends DirectoryScannerProces {
-
-}
+public class BRK2ScannerProces extends DirectoryScannerProces {}

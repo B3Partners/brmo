@@ -2,10 +2,7 @@ package nl.b3p.brmo.soap.brk;
 
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 @XmlType
 public class KadOnrndZkInfoRequest {
 
@@ -15,8 +12,7 @@ public class KadOnrndZkInfoRequest {
     private String appReVolgnummer;
     private String identificatie;
 
-    public KadOnrndZkInfoRequest() {
-    }
+    public KadOnrndZkInfoRequest() {}
 
     /**
      * Afkorting voor kadastrale gemeente als gebruikt in AKR
@@ -29,7 +25,6 @@ public class KadOnrndZkInfoRequest {
 
     /**
      * Afkorting voor kadastrale gemeente als gebruikt in AKR
-     *
      *
      * @param gemeentecode the gemeentecode to set
      */
@@ -108,5 +103,4 @@ public class KadOnrndZkInfoRequest {
     public void setIdentificatie(String identificatie) {
         this.identificatie = identificatie;
     }
-
 }

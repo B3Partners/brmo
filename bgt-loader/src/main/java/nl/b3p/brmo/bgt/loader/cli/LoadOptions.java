@@ -9,31 +9,38 @@ package nl.b3p.brmo.bgt.loader.cli;
 import picocli.CommandLine.Option;
 
 public class LoadOptions {
-    @Option(names={"--no-create-schema"}, negatable = true)
+    @Option(
+            names = {"--no-create-schema"},
+            negatable = true)
     boolean createSchema = true;
 
-    @Option(names={"--drop-if-exists"}, negatable = true)
+    @Option(
+            names = {"--drop-if-exists"},
+            negatable = true)
     boolean dropIfExists;
 
-    @Option(names={"--include-history"})
+    @Option(names = {"--include-history"})
     boolean includeHistory = false;
 
-    @Option(names="--table-prefix", defaultValue = "", hidden = true)
+    @Option(names = "--table-prefix", defaultValue = "", hidden = true)
     String tablePrefix = "";
 
-    @Option(names="--max-objects", paramLabel= "<number>", hidden = true)
+    @Option(names = "--max-objects", paramLabel = "<number>", hidden = true)
     Integer maxObjects;
 
-    @Option(names={"--linearize-curves"})
+    @Option(names = {"--linearize-curves"})
     boolean linearizeCurves = false;
 
-    @Option(names={"--no-multithreading"}, negatable = true, hidden = true)
+    @Option(
+            names = {"--no-multithreading"},
+            negatable = true,
+            hidden = true)
     boolean multithreading = true;
 
-    @Option(names="--no-http-zip-random-access", negatable = true, hidden = true)
+    @Option(names = "--no-http-zip-random-access", negatable = true, hidden = true)
     boolean httpZipRandomAccess = true;
 
-    @Option(names="--debug-http-seeks", hidden = true)
+    @Option(names = "--debug-http-seeks", hidden = true)
     boolean debugHttpSeeks = false;
 
     public boolean isCreateSchema() {

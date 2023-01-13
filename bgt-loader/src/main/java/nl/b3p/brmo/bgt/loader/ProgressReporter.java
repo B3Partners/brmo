@@ -6,9 +6,14 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+
 import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.schema.ObjectTableWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,10 +21,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
-import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
-import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 public class ProgressReporter implements Consumer<ObjectTableWriter.Progress> {
     private static final Log log = LogFactory.getLog(ProgressReporter.class);
@@ -81,8 +82,9 @@ public class ProgressReporter implements Consumer<ObjectTableWriter.Progress> {
 
     @Override
     public void accept(ObjectTableWriter.Progress genericProgress) {
-        BGTObjectTableWriter.BGTProgress progress = (BGTObjectTableWriter.BGTProgress)genericProgress;
-        switch(progress.getStage()) {
+        BGTObjectTableWriter.BGTProgress progress =
+                (BGTObjectTableWriter.BGTProgress) genericProgress;
+        switch (progress.getStage()) {
             case LOAD_OBJECTS:
                 if (progress.getObjectCount() == 0) {
                     status(getMessageFormattedString("progress.loading", currentFileName));
@@ -92,35 +94,69 @@ public class ProgressReporter implements Consumer<ObjectTableWriter.Progress> {
                 status(getMessageFormattedString("progress.create_primary_key", currentFileName));
                 break;
             case CREATE_GEOMETRY_INDEX:
-                status(getMessageFormattedString("progress.create_geometry_indexes", currentFileName));
+                status(
+                        getMessageFormattedString(
+                                "progress.create_geometry_indexes", currentFileName));
                 break;
             case FINISHED:
-                double loadTimeSeconds = Duration.between(currentFileStart, Instant.now()).toMillis() / 1000.0;
+                double loadTimeSeconds =
+                        Duration.between(currentFileStart, Instant.now()).toMillis() / 1000.0;
 
                 String counts;
-                if (progress.getMutatieInhoud() != null && "delta".equals(progress.getMutatieInhoud().getMutatieType())) {
-                    counts = String.format("%s, %s: %,6d",
-                            progress.getWriter().isCurrentObjectsOnly()
-                                    ? String.format("%s: %,6d", getBundleString("progress.removed"), progress.getObjectRemovedCount())  // updated is always 0 when not keeping history
-                                    : String.format("%s: %,6d", getBundleString("progress.updated"), progress.getObjectUpdatedCount()), // removed is always 0 when keeping history
-                            getBundleString("progress.added"),
-                            progress.getObjectCount());
+                if (progress.getMutatieInhoud() != null
+                        && "delta".equals(progress.getMutatieInhoud().getMutatieType())) {
+                    counts =
+                            String.format(
+                                    "%s, %s: %,6d",
+                                    progress.getWriter().isCurrentObjectsOnly()
+                                            ? String.format(
+                                                    "%s: %,6d",
+                                                    getBundleString("progress.removed"),
+                                                    progress.getObjectRemovedCount()) // updated is
+                                            // always 0
+                                            // when not
+                                            // keeping
+                                            // history
+                                            : String.format(
+                                                    "%s: %,6d",
+                                                    getBundleString("progress.updated"),
+                                                    progress.getObjectUpdatedCount()), // removed is
+                                    // always 0
+                                    // when
+                                    // keeping
+                                    // history
+                                    getBundleString("progress.added"),
+                                    progress.getObjectCount());
                 } else {
                     String historicObjects = "";
                     if (log.isDebugEnabled() && progress.getWriter().isCurrentObjectsOnly()) {
-                        historicObjects = String.format(", %,10d %s", progress.getHistoricObjectsCount(), getBundleString("progress.historic_skipped"));
+                        historicObjects =
+                                String.format(
+                                        ", %,10d %s",
+                                        progress.getHistoricObjectsCount(),
+                                        getBundleString("progress.historic_skipped"));
                     }
-                    counts = String.format("%,10d %s%s", progress.getObjectCount(), getBundleString("progress.objects"), historicObjects);
+                    counts =
+                            String.format(
+                                    "%,10d %s%s",
+                                    progress.getObjectCount(),
+                                    getBundleString("progress.objects"),
+                                    historicObjects);
                 }
 
                 // Align bgt_[max_table_length].gml
-                log(String.format("%-" + (BGTSchemaMapper.getInstance().getMaxTableLength()+8) + "s %10s, %s, %,7.0f %s/s",
-                        currentFileName,
-                        formatTimeSince(currentFileStart),
-                        counts,
-                        loadTimeSeconds > 0 ? progress.getObjectCount() / loadTimeSeconds : 0.0,
-                        getBundleString("progress.objects")
-                ));
+                log(
+                        String.format(
+                                "%-"
+                                        + (BGTSchemaMapper.getInstance().getMaxTableLength() + 8)
+                                        + "s %10s, %s, %,7.0f %s/s",
+                                currentFileName,
+                                formatTimeSince(currentFileStart),
+                                counts,
+                                loadTimeSeconds > 0
+                                        ? progress.getObjectCount() / loadTimeSeconds
+                                        : 0.0,
+                                getBundleString("progress.objects")));
                 break;
         }
     }

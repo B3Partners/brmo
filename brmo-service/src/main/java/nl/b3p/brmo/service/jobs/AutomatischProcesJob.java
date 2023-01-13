@@ -3,18 +3,20 @@
  */
 package nl.b3p.brmo.service.jobs;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.Job;
 import org.stripesstuff.stripersist.Stripersist;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
 
 /**
  * Start door quartz beheerde automatische processen.
@@ -52,10 +54,14 @@ public class AutomatischProcesJob implements Job {
                 StringWriter sw = new StringWriter();
                 ex.printStackTrace(new PrintWriter(sw));
                 p.setStatus(AutomatischProces.ProcessingStatus.ERROR);
-                p.updateSamenvattingEnLogfile(String.format("Fout tijdens starten of uitvoeren van automatische proces met id %s: %s ", id, sw.toString()));
+                p.updateSamenvattingEnLogfile(
+                        String.format(
+                                "Fout tijdens starten of uitvoeren van automatische proces met id %s: %s ",
+                                id, sw.toString()));
                 Stripersist.getEntityManager().merge(p);
             }
-            log.error("Fout tijdens starten of uitvoeren van automatische proces met id: " + id, ex);
+            log.error(
+                    "Fout tijdens starten of uitvoeren van automatische proces met id: " + id, ex);
         } finally {
             if (Stripersist.getEntityManager().getTransaction().isActive()) {
                 Stripersist.getEntityManager().getTransaction().commit();

@@ -1,8 +1,19 @@
 package nl.b3p.brmo.soap.db;
 
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.soap.brk.BrkInfoRequest;
+import nl.b3p.brmo.soap.brk.BrkInfoResponse;
+import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
+import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
+import nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,24 +23,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.naming.Context;
-import javax.naming.InitialContext;
+
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.soap.brk.BrkInfoRequest;
-import nl.b3p.brmo.soap.brk.BrkInfoResponse;
-import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
-import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
-import nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 public class BrkInfo {
 
     private static final Log LOG = LogFactory.getLog(BrkInfo.class);
@@ -67,10 +65,11 @@ public class BrkInfo {
      * @return lijst met onroerende zaak ids.
      * @throws SQLException bij een SQL/database fout
      * @throws ParseException als parsen van de geometrie mislukt
-     * @throws javax.naming.NamingException als er een fout optreedt bij het
-     * opzoeken van de JNDI naam
+     * @throws javax.naming.NamingException als er een fout optreedt bij het opzoeken van de JNDI
+     *     naam
      */
-    public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext) throws SQLException, ParseException, NamingException, BrmoException {
+    public static ArrayList<Long> findKozIDs(Map<String, Object> searchContext)
+            throws SQLException, ParseException, NamingException, BrmoException {
 
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
@@ -104,9 +103,7 @@ public class BrkInfo {
         }
     }
 
-    /**
-     * Gezien de omvang van de datassets moet deze methode maar niet gebruikt worden.
-     */
+    /** Gezien de omvang van de datassets moet deze methode maar niet gebruikt worden. */
     public static Integer countResults(Map<String, Object> searchContext) throws Exception {
 
         DataSource ds = ConfigUtil.getDataSourceRsgb();
@@ -142,8 +139,8 @@ public class BrkInfo {
         }
     }
 
-    private static StringBuilder createSelectSQL(
-            Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static StringBuilder createSelectSQL(Map<String, Object> searchContext, String dbType)
+            throws ParseException {
 
         Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);
         if (maxrows == null) {
@@ -187,8 +184,8 @@ public class BrkInfo {
         return sql;
     }
 
-    private static StringBuilder createCountSQL(
-            Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static StringBuilder createCountSQL(Map<String, Object> searchContext, String dbType)
+            throws ParseException {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ");
@@ -253,7 +250,8 @@ public class BrkInfo {
         sql.append("    verblijfsobj ");
         sql.append("ON ");
         sql.append("    ( ");
-        sql.append("        benoemd_obj_kad_onrrnd_zk.fk_nn_lh_tgo_identif = verblijfsobj.sc_identif) ");
+        sql.append(
+                "        benoemd_obj_kad_onrrnd_zk.fk_nn_lh_tgo_identif = verblijfsobj.sc_identif) ");
         sql.append("LEFT OUTER JOIN ");
         sql.append("    addresseerb_obj_aand ");
         sql.append("ON ");
@@ -263,12 +261,14 @@ public class BrkInfo {
         sql.append("    gem_openb_rmte ");
         sql.append("ON ");
         sql.append("    ( ");
-        sql.append("        addresseerb_obj_aand.fk_7opr_identifcode = gem_openb_rmte.identifcode) ");
+        sql.append(
+                "        addresseerb_obj_aand.fk_7opr_identifcode = gem_openb_rmte.identifcode) ");
         sql.append("LEFT OUTER JOIN ");
         sql.append("    openb_rmte_wnplts ");
         sql.append("ON ");
         sql.append("    ( ");
-        sql.append("        gem_openb_rmte.identifcode = openb_rmte_wnplts.fk_nn_lh_opr_identifcode) ");
+        sql.append(
+                "        gem_openb_rmte.identifcode = openb_rmte_wnplts.fk_nn_lh_opr_identifcode) ");
         sql.append("LEFT OUTER JOIN ");
         sql.append("    wnplts ");
         sql.append("ON ");
@@ -278,47 +278,51 @@ public class BrkInfo {
         return sql;
     }
 
-    private static StringBuilder createWhereSQL(
-            Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static StringBuilder createWhereSQL(Map<String, Object> searchContext, String dbType)
+            throws ParseException {
         StringBuilder sql = new StringBuilder();
 
         boolean first = true;
         String condition;
-        condition = "    kad_onrrnd_zk.kad_identif = ? "; //1 Long
+        condition = "    kad_onrrnd_zk.kad_identif = ? "; // 1 Long
         first = addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);
 
-        condition = "   (    nat_prs.nm_geslachtsnaam like ? "
-                + "    OR niet_nat_prs.naam like ?)"; //2 string
+        condition =
+                "   (    nat_prs.nm_geslachtsnaam like ? "
+                        + "    OR niet_nat_prs.naam like ?)"; // 2 string
         first = addTerm(first, searchContext.get(SUBJECTNAAM), sql, condition);
 
-        //3+4 wkt en bufferlengte
+        // 3+4 wkt en bufferlengte
         first = addGeoTerm(first, sql, searchContext, dbType);
 
-        condition = "app_re.ka_appartementsindex like ? "; //5 string
+        condition = "app_re.ka_appartementsindex like ? "; // 5 string
         first = addTerm(first, searchContext.get(APPREVOLGNUMMER), sql, condition);
 
-        condition = "   (    app_re.ka_kad_gemeentecode like ? "
-                + "    OR kad_perceel.ka_kad_gemeentecode like ?) "; //6 string
+        condition =
+                "   (    app_re.ka_kad_gemeentecode like ? "
+                        + "    OR kad_perceel.ka_kad_gemeentecode like ?) "; // 6 string
         first = addTerm(first, searchContext.get(GEMEENTECODE), sql, condition);
 
-        condition = "   (    app_re.ka_perceelnummer like ? "
-                + "    OR kad_perceel.ka_perceelnummer like ?) "; //7 string
+        condition =
+                "   (    app_re.ka_perceelnummer like ? "
+                        + "    OR kad_perceel.ka_perceelnummer like ?) "; // 7 string
         first = addTerm(first, searchContext.get(PERCEELNUMMER), sql, condition);
 
-        condition = "   (    app_re.ka_sectie like ? "
-                + "    OR kad_perceel.ka_sectie like ?) "; //8 string
+        condition =
+                "   (    app_re.ka_sectie like ? "
+                        + "    OR kad_perceel.ka_sectie like ?) "; // 8 string
         first = addTerm(first, searchContext.get(SECTIE), sql, condition);
 
-        condition = "wnplts.naam like ? "; //9 string
+        condition = "wnplts.naam like ? "; // 9 string
         first = addTerm(first, searchContext.get(WOONPLAATS), sql, condition);
 
-        condition = "gem_openb_rmte.naam_openb_rmte like ? "; //10 string 
+        condition = "gem_openb_rmte.naam_openb_rmte like ? "; // 10 string
         first = addTerm(first, searchContext.get(STRAATNAAM), sql, condition);
 
-        condition = "addresseerb_obj_aand.huinummer = ? "; //11 Integer
+        condition = "addresseerb_obj_aand.huinummer = ? "; // 11 Integer
         first = addTerm(first, searchContext.get(HUISNUMMER), sql, condition);
 
-        condition = "addresseerb_obj_aand.postcode like ? "; //12 string
+        condition = "addresseerb_obj_aand.postcode like ? "; // 12 string
         addTerm(first, searchContext.get(POSTCODE), sql, condition);
 
         return sql;
@@ -335,15 +339,16 @@ public class BrkInfo {
         return first;
     }
 
-    private static boolean addGeoTerm(boolean first, StringBuilder sql,
-            Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static boolean addGeoTerm(
+            boolean first, StringBuilder sql, Map<String, Object> searchContext, String dbType)
+            throws ParseException {
 
         String zg = (String) searchContext.get(ZOEKGEBIED);
         if (zg == null) {
             return first;
         }
         WKTReader r = new WKTReader();
-        //test om injectie te voorkomen, exception indien niet geldig
+        // test om injectie te voorkomen, exception indien niet geldig
         Geometry g = r.read(zg);
         Integer bl = (Integer) searchContext.get(BUFFERLENGTE);
 
@@ -351,32 +356,36 @@ public class BrkInfo {
         switch (dbType) {
             case DB_POSTGRES:
                 if (bl != null) {
-                    condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
-                            + "ST_Buffer(ST_GeomFromEWKT('SRID=28992;"
-                            + zg
-                            + "'), "
-                            + bl
-                            + ") ) ";
+                    condition =
+                            "ST_Intersects(kad_perceel.begrenzing_perceel, "
+                                    + "ST_Buffer(ST_GeomFromEWKT('SRID=28992;"
+                                    + zg
+                                    + "'), "
+                                    + bl
+                                    + ") ) ";
                 } else {
-                    condition = "ST_Intersects(kad_perceel.begrenzing_perceel, "
-                            + "ST_GeomFromEWKT('SRID=28992;"
-                            + zg
-                            + "') ) ";
+                    condition =
+                            "ST_Intersects(kad_perceel.begrenzing_perceel, "
+                                    + "ST_GeomFromEWKT('SRID=28992;"
+                                    + zg
+                                    + "') ) ";
                 }
                 break;
             case DB_ORACLE:
                 if (bl != null) {
-                    condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
-                            + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(('"
-                            + zg
-                            + "'), 28992), 2, "
-                            + bl
-                            + "), 0.005 )  = 'TRUE' ";
+                    condition =
+                            "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
+                                    + "SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(('"
+                                    + zg
+                                    + "'), 28992), 2, "
+                                    + bl
+                                    + "), 0.005 )  = 'TRUE' ";
                 } else {
-                    condition = "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
-                            + "SDO_GEOMETRY(('"
-                            + zg
-                            + "'), 28992), 0.005 ) = 'TRUE' ";
+                    condition =
+                            "SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', "
+                                    + "SDO_GEOMETRY(('"
+                                    + zg
+                                    + "'), 28992), 0.005 ) = 'TRUE' ";
                 }
                 break;
             default:
@@ -390,14 +399,15 @@ public class BrkInfo {
         return first;
     }
 
-    private static PreparedStatement addParamsSQL(PreparedStatement stm,
-            Map<String, Object> searchContext, String dbType) throws SQLException {
+    private static PreparedStatement addParamsSQL(
+            PreparedStatement stm, Map<String, Object> searchContext, String dbType)
+            throws SQLException {
 
         int index = 1;
         index = addParam(index, searchContext.get(IDENTIFICATIE), stm, dbType);
         index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);
         index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);
-        //bufferlengte en zoekgebied direct in de Where!
+        // bufferlengte en zoekgebied direct in de Where!
         index = addParam(index, searchContext.get(APPREVOLGNUMMER), stm, dbType);
         index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);
         index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);
@@ -413,8 +423,8 @@ public class BrkInfo {
         return stm;
     }
 
-    private static int addParam(int index, Object o, PreparedStatement stm,
-            String dbType) throws SQLException {
+    private static int addParam(int index, Object o, PreparedStatement stm, String dbType)
+            throws SQLException {
         if (o != null) {
             if (o instanceof String) {
                 stm.setString(index++, "%" + ((String) o) + "%");
@@ -432,7 +442,8 @@ public class BrkInfo {
         } else if (databaseProductName.contains("Oracle")) {
             return DB_ORACLE;
         } else {
-            throw new UnsupportedOperationException("Unknown database: " + connRsgb.getMetaData().getDatabaseProductName());
+            throw new UnsupportedOperationException(
+                    "Unknown database: " + connRsgb.getMetaData().getDatabaseProductName());
         }
     }
 
@@ -501,8 +512,8 @@ public class BrkInfo {
         return searchContext;
     }
 
-    public static BrkInfoResponse createResponse(List<Long> ids,
-            Map<String, Object> searchContext) throws Exception {
+    public static BrkInfoResponse createResponse(List<Long> ids, Map<String, Object> searchContext)
+            throws Exception {
         BrkInfoResponse result = new BrkInfoResponse();
 
         Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
@@ -515,12 +526,10 @@ public class BrkInfo {
         result.setTimestamp(new Date());
 
         for (Long id : ids) {
-            KadOnrndZkInfoResponse koz
-                    = KadOnrndZkInfoResponse.getRecord(id, searchContext);
+            KadOnrndZkInfoResponse koz = KadOnrndZkInfoResponse.getRecord(id, searchContext);
             result.addKadOnrndZk(koz);
         }
 
         return result;
     }
-
 }

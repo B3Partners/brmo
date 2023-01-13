@@ -7,15 +7,14 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.Source;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Boy de Wit
- */
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
+
+/** @author Boy de Wit */
 public class DataComfortXMLReader {
 
     private static final int LEVEL_ROOT = 0;
@@ -27,7 +26,9 @@ public class DataComfortXMLReader {
 
     public DataComfortXMLReader() {
         xif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
-        xif.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities
+        xif.setProperty(
+                XMLInputFactory.SUPPORT_DTD,
+                Boolean.FALSE); // No XML entity expansions or external entities
     }
 
     public List<TableData> readDataXML(Source dataXML) throws Exception {
@@ -64,7 +65,12 @@ public class DataComfortXMLReader {
                         String comfortSearchColumn = xer.getAttributeValue(null, "search-column");
                         String comfortSearchValue = xer.getAttributeValue(null, "search-value");
                         String snapshotDate = xer.getAttributeValue(null, "snapshot-date");
-                        data = new TableData(comfortSearchTable, comfortSearchColumn, comfortSearchValue, snapshotDate);
+                        data =
+                                new TableData(
+                                        comfortSearchTable,
+                                        comfortSearchColumn,
+                                        comfortSearchValue,
+                                        snapshotDate);
                         level = LEVEL_COMFORT;
                         inComfortData = true;
                         inDeleteData = false;
@@ -76,9 +82,12 @@ public class DataComfortXMLReader {
                     } else {
                         row = new TableRow();
                         row.setTable(tag);
-                        row.setIgnoreDuplicates("yes".equals(xer.getAttributeValue(null, "ignore-duplicates")));
-                        String beginDatumColumn = xer.getAttributeValue(null, "column-dat-beg-geldh");
-                        String eindeDatumColumn = xer.getAttributeValue(null, "column-datum-einde-geldh");
+                        row.setIgnoreDuplicates(
+                                "yes".equals(xer.getAttributeValue(null, "ignore-duplicates")));
+                        String beginDatumColumn =
+                                xer.getAttributeValue(null, "column-dat-beg-geldh");
+                        String eindeDatumColumn =
+                                xer.getAttributeValue(null, "column-datum-einde-geldh");
                         row.setColumnDatumBeginGeldigheid(beginDatumColumn);
                         row.setColumnDatumEindeGeldigheid(eindeDatumColumn);
                         data = new TableData(row);
@@ -134,11 +143,16 @@ public class DataComfortXMLReader {
                             xer.next();
                         }
                         if (xer.isStartElement()) {
-                            Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
+                            Split split2 =
+                                    SimonManager.getStopwatch(
+                                                    "b3p.util.datacomfortxmlreader.parsegml")
+                                            .start();
                             Geometry geom = geometryReader.readGeometry();
                             // TODO/HACK force polygon to multi-polygon
                             if (geom instanceof Polygon) {
-                                geom = new MultiPolygon(new Polygon[]{(Polygon) geom}, geom.getFactory());
+                                geom =
+                                        new MultiPolygon(
+                                                new Polygon[] {(Polygon) geom}, geom.getFactory());
                             }
                             // Note: this linearizes curves, we could use a WKTWriter2 instead!
                             row.getValues().add(geom.toString());

@@ -7,26 +7,13 @@
 
 package nl.b3p.brmo.nhr.loader.cli;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.KeyStore;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.UnsupportedCallbackException;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.ws.BindingProvider;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.nhr.loader.NHRCertificateOptions;
 import nl.b3p.brmo.nhr.loader.NHRDatabaseOptions;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.Dataservice;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.DataserviceService;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.endpoint.Client;
@@ -41,9 +28,25 @@ import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.wss4j.common.ext.WSPasswordCallback;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.KeyStore;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.ws.BindingProvider;
 
 public class NHRLoadUtils {
-    public static BrmoFramework getFramework(NHRDatabaseOptions databaseOptions) throws BrmoException {
+    public static BrmoFramework getFramework(NHRDatabaseOptions databaseOptions)
+            throws BrmoException {
         BasicDataSource dsStaging = new BasicDataSource();
 
         dsStaging.setUrl(databaseOptions.getConnectionString());
@@ -55,19 +58,28 @@ public class NHRLoadUtils {
         return fw;
     }
 
-    private static Properties getCryptoProperties(NHRCertificateOptions certificateOptions, String alias) {
+    private static Properties getCryptoProperties(
+            NHRCertificateOptions certificateOptions, String alias) {
         Properties props = new Properties();
 
-        props.setProperty("org.apache.ws.security.crypto.provider", "org.apache.ws.security.components.crypto.Merlin");
-        props.setProperty("org.apache.ws.security.crypto.merlin.keystore.file", certificateOptions.getKeystore());
-        props.setProperty("org.apache.ws.security.crypto.merlin.keystore.password", certificateOptions.getKeystorePassword());
+        props.setProperty(
+                "org.apache.ws.security.crypto.provider",
+                "org.apache.ws.security.components.crypto.Merlin");
+        props.setProperty(
+                "org.apache.ws.security.crypto.merlin.keystore.file",
+                certificateOptions.getKeystore());
+        props.setProperty(
+                "org.apache.ws.security.crypto.merlin.keystore.password",
+                certificateOptions.getKeystorePassword());
         props.setProperty("org.apache.ws.security.crypto.merlin.keystore.type", "PKCS12");
         props.setProperty("org.apache.ws.security.crypto.merlin.keystore.alias", alias);
 
         return props;
     }
 
-    public static Dataservice getDataservice(String targetLocation, boolean preprod, NHRCertificateOptions certificateOptions) throws Exception {
+    public static Dataservice getDataservice(
+            String targetLocation, boolean preprod, NHRCertificateOptions certificateOptions)
+            throws Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         documentBuilderFactory.setNamespaceAware(true);
 
@@ -81,8 +93,10 @@ public class NHRLoadUtils {
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
         KeyStore trustStore = KeyStore.getInstance("PKCS12");
 
-        try (FileInputStream trustStoreFile = new FileInputStream(certificateOptions.getTruststore())) {
-            trustStore.load(trustStoreFile, certificateOptions.getTruststorePassword().toCharArray());
+        try (FileInputStream trustStoreFile =
+                new FileInputStream(certificateOptions.getTruststore())) {
+            trustStore.load(
+                    trustStoreFile, certificateOptions.getTruststorePassword().toCharArray());
         }
         trustManagerFactory.init(trustStore);
 
@@ -99,7 +113,8 @@ public class NHRLoadUtils {
         keyManagerFactory.init(keyStore, certificateOptions.getKeystorePassword().toCharArray());
 
         SSLContext context = SSLContext.getInstance("TLSv1.2");
-        context.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
+        context.init(
+                keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
 
         TLSClientParameters tlsClientParameters = new TLSClientParameters();
         tlsClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());
@@ -108,7 +123,9 @@ public class NHRLoadUtils {
 
         Map<String, Object> props = new HashMap<String, Object>();
 
-        props.put(WSHandlerConstants.ACTION, WSHandlerConstants.TIMESTAMP + " " + WSHandlerConstants.SIGNATURE);
+        props.put(
+                WSHandlerConstants.ACTION,
+                WSHandlerConstants.TIMESTAMP + " " + WSHandlerConstants.SIGNATURE);
         props.put(WSHandlerConstants.INCLUDE_SIGNATURE_TOKEN, "true");
         props.put(WSHandlerConstants.SIG_KEY_ID, "DirectReference");
         props.put(WSHandlerConstants.USE_SINGLE_CERTIFICATE, "false");
@@ -116,23 +133,28 @@ public class NHRLoadUtils {
         props.put(WSHandlerConstants.SIG_PROP_REF_ID, "signatureProperties");
         props.put("signatureProperties", getCryptoProperties(certificateOptions, alias));
 
-        props.put(WSHandlerConstants.SIGNATURE_PARTS,
-                  "{}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;"
-                  + "{}{http://schemas.xmlsoap.org/soap/envelope/}Body;"
-                  + "{}{http://www.w3.org/2005/08/addressing}To;"
-                  + "{}{http://www.w3.org/2005/08/addressing}ReplyTo;"
-                  + "{}{http://www.w3.org/2005/08/addressing}MessageID;"
-                  + "{}{http://www.w3.org/2005/08/addressing}Action");
+        props.put(
+                WSHandlerConstants.SIGNATURE_PARTS,
+                "{}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;"
+                        + "{}{http://schemas.xmlsoap.org/soap/envelope/}Body;"
+                        + "{}{http://www.w3.org/2005/08/addressing}To;"
+                        + "{}{http://www.w3.org/2005/08/addressing}ReplyTo;"
+                        + "{}{http://www.w3.org/2005/08/addressing}MessageID;"
+                        + "{}{http://www.w3.org/2005/08/addressing}Action");
 
         props.put(WSHandlerConstants.USER, alias);
-        props.put(WSHandlerConstants.PW_CALLBACK_REF, new CallbackHandler() {
-            public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-                for (Callback callback : callbacks) {
-                    ((WSPasswordCallback) callback).setPassword(certificateOptions.getKeystorePassword());
-                    return;
-                }
-            }
-        });
+        props.put(
+                WSHandlerConstants.PW_CALLBACK_REF,
+                new CallbackHandler() {
+                    public void handle(Callback[] callbacks)
+                            throws IOException, UnsupportedCallbackException {
+                        for (Callback callback : callbacks) {
+                            ((WSPasswordCallback) callback)
+                                    .setPassword(certificateOptions.getKeystorePassword());
+                            return;
+                        }
+                    }
+                });
 
         WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(props);
         endpoint.getOutInterceptors().add(wssOut);
@@ -149,12 +171,17 @@ public class NHRLoadUtils {
         // <wsa:To> needs to point at a predefined value.
         EndpointReferenceType toval = new EndpointReferenceType();
         AttributedURIType target = new AttributedURIType();
-        target.setValue(preprod ? "http://es.kvk.nl/kvk-DataservicePP/2015/02" : "http://es.kvk.nl/kvk-Dataservice/2015/02");
+        target.setValue(
+                preprod
+                        ? "http://es.kvk.nl/kvk-DataservicePP/2015/02"
+                        : "http://es.kvk.nl/kvk-Dataservice/2015/02");
         toval.setAddress(target);
         maps.setTo(toval);
 
         BindingProvider bindingProvider = (BindingProvider) dataService;
-        bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, targetLocation);
+        bindingProvider
+                .getRequestContext()
+                .put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, targetLocation);
         bindingProvider.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
 
         return dataService;

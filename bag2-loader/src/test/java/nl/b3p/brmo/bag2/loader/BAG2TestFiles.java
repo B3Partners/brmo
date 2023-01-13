@@ -7,11 +7,11 @@
 
 package nl.b3p.brmo.bag2.loader;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BAG2TestFiles {
     public static InputStream getTestInputStream(String name) {
@@ -25,5 +25,4 @@ public class BAG2TestFiles {
         assertNotNull(url, name);
         return new File(url.getFile());
     }
-
 }

@@ -9,11 +9,13 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
@@ -29,8 +31,10 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
     private String status;
     private StringBuilder log = new StringBuilder();
     private ActionBeanContext context;
+
     @Validate(converter = EntityTypeConverter.class)
     private BGTLoaderProces proces;
+
     private Date start;
     private Date update;
     private boolean complete;
@@ -57,7 +61,10 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
 
         // opnieuw laden van config omdat de waitpage de entity detached
         this.update = new Date();
-        proces = (BGTLoaderProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        proces =
+                (BGTLoaderProces)
+                        Stripersist.getEntityManager()
+                                .find(AutomatischProces.class, proces.getId());
         final ProcesExecutable _proces = AbstractExecutableProces.getProces(proces);
         try {
             _proces.execute(this);
@@ -70,8 +77,7 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
     }
 
     @Override
-    public void total(long total) {
-    }
+    public void total(long total) {}
 
     @Override
     public void progress(long progress) {

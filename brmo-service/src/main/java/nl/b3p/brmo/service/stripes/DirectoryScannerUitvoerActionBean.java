@@ -3,9 +3,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.After;
@@ -16,18 +13,21 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+
+/** @author mprins */
 @StrictBinding
 public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUpdateListener {
 
@@ -233,5 +233,4 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
     public void setExceptionStacktrace(String exceptionStacktrace) {
         this.exceptionStacktrace = exceptionStacktrace;
     }
-
 }

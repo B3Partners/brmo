@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * An InputStream that wraps an InputStream that on a read error can be re-constructed with the current position as
- * start position (using a HTTP Range request for instance) and the read retried.
+ * An InputStream that wraps an InputStream that on a read error can be re-constructed with the
+ * current position as start position (using a HTTP Range request for instance) and the read
+ * retried.
  *
  * @author Matthijs Laan
  */
@@ -19,7 +20,8 @@ public class ResumingInputStream extends InputStream {
 
     @FunctionalInterface
     public interface StreamAtStartPositionProvider {
-        InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException;
+        InputStream get(long position, int totalRetries, Exception causeForRetry)
+                throws IOException;
     }
 
     public static final int DEFAULT_MAX_TRIES = 5;
@@ -39,29 +41,24 @@ public class ResumingInputStream extends InputStream {
         this(streamProvider, startPosition, DEFAULT_MAX_TRIES);
     }
 
-    public ResumingInputStream(StreamAtStartPositionProvider streamProvider, long startPosition, int maxReadTries) {
+    public ResumingInputStream(
+            StreamAtStartPositionProvider streamProvider, long startPosition, int maxReadTries) {
         this.streamProvider = streamProvider;
         this.position = startPosition;
         this.maxReadTries = maxReadTries;
     }
 
-    /**
-     * @return The current position.
-     */
+    /** @return The current position. */
     public long getPosition() {
         return position;
     }
 
-    /**
-     * @return The number of bytes read since start or the last retry, if any.
-     */
+    /** @return The number of bytes read since start or the last retry, if any. */
     public int getCurrentDelegateBytesRead() {
         return currentDelegateBytesRead;
     }
 
-    /**
-     * @return The total number of retries spanning all read() calls.
-     */
+    /** @return The total number of retries spanning all read() calls. */
     public int getTotalRetries() {
         return totalRetries;
     }
@@ -76,7 +73,7 @@ public class ResumingInputStream extends InputStream {
 
     private void ensureDelegateOpen() throws IOException {
         if (delegate == null) {
-            delegate = streamProvider.get(position, totalRetries,null);
+            delegate = streamProvider.get(position, totalRetries, null);
         }
     }
 
@@ -107,12 +104,13 @@ public class ResumingInputStream extends InputStream {
 
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
-        // Opening the delegate is outside the (re)try block. Only read() calls are retried: this allows the input
+        // Opening the delegate is outside the (re)try block. Only read() calls are retried: this
+        // allows the input
         // stream to fail fast without retries on a fatal error (such as a HTTP 404 response code).
         ensureDelegateOpen();
 
         int tries = 0;
-        while(true) {
+        while (true) {
             try {
                 int count = delegate.read(b, off, len);
                 if (count == -1) {
@@ -127,7 +125,7 @@ public class ResumingInputStream extends InputStream {
                 retryingAfterReadException(tries, totalRetries);
                 try {
                     delegate.close();
-                } catch(IOException ignored) {
+                } catch (IOException ignored) {
                 }
                 delegate = streamProvider.get(position, totalRetries, e);
                 currentDelegateBytesRead = 0;
@@ -137,6 +135,7 @@ public class ResumingInputStream extends InputStream {
 
     /**
      * Called when a read() on the delegate threw an exception.
+     *
      * @param tries Number of tries
      * @param cause The read exception
      * @throws IOException When the number of tries exceeds the maximum
@@ -148,9 +147,10 @@ public class ResumingInputStream extends InputStream {
     }
 
     /**
-     * Called when going to retry after a read() call threw an Exception, override to log or wait before retrying.
+     * Called when going to retry after a read() call threw an Exception, override to log or wait
+     * before retrying.
+     *
      * @param tries Number of tries this read() call
      */
-    protected void retryingAfterReadException(int tries, int totalRetries) {
-    }
+    protected void retryingAfterReadException(int tries, int totalRetries) {}
 }

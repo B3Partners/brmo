@@ -5,9 +5,10 @@ package nl.b3p.brmo.persistence.staging;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.*;
 
 /**
  * Beschrijft een (xml) bericht in de staging database.
@@ -18,18 +19,13 @@ import java.util.Date;
 @Table(name = "bericht")
 public class Bericht implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Id @GeneratedValue private Long id;
 
     @OneToOne
     @JoinColumn(
             name = "laadprocesid",
             referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name = "bericht_laadprocesid_fkey"
-            )
-    )
+            foreignKey = @ForeignKey(name = "bericht_laadprocesid_fkey"))
     private LaadProces laadprocesid;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,12 +64,21 @@ public class Bericht implements Serializable {
     private String xsl_version;
 
     public static enum STATUS {
-// bij toevoegen van een status deze ook in nl.b3p.brmo.loader.entity.Bericht en /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
-        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE, RSGB_BAG_NOK
+        // bij toevoegen van een status deze ook in nl.b3p.brmo.loader.entity.Bericht en
+        // /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
+        STAGING_OK,
+        STAGING_NOK,
+        STAGING_FORWARDED,
+        RSGB_WAITING,
+        RSGB_PROCESSING,
+        RSGB_OK,
+        RSGB_OUTDATED,
+        RSGB_NOK,
+        ARCHIVE,
+        RSGB_BAG_NOK
     };
 
-    public Bericht() {
-    }
+    public Bericht() {}
 
     public Bericht(String br_xml) {
         this.br_xml = br_xml;
@@ -194,5 +199,5 @@ public class Bericht implements Serializable {
     public void setXsl_version(String xsl_version) {
         this.xsl_version = xsl_version;
     }
-//</editor-fold>
+    // </editor-fold>
 }

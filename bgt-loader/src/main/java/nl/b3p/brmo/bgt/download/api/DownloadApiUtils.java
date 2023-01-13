@@ -6,6 +6,9 @@
 
 package nl.b3p.brmo.bgt.download.api;
 
+import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+
 import nl.b3p.brmo.bgt.download.client.ApiClient;
 import nl.b3p.brmo.bgt.download.client.ApiException;
 import nl.b3p.brmo.bgt.download.model.Delta;
@@ -17,11 +20,13 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.function.Consumer;
 
-import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
-import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
-
 public class DownloadApiUtils {
-    public static URI getCustomDownloadURL(ApiClient client, Delta delta, ExtractSelectionOptions extractSelectionOptions, Consumer<CustomDownloadProgress> progressConsumer) throws ApiException, InterruptedException {
+    public static URI getCustomDownloadURL(
+            ApiClient client,
+            Delta delta,
+            ExtractSelectionOptions extractSelectionOptions,
+            Consumer<CustomDownloadProgress> progressConsumer)
+            throws ApiException, InterruptedException {
         DeltaCustomApi deltaCustomApi = new DeltaCustomApi(client);
         DeltaCustomDownloadRequest deltaCustomDownloadRequest = new DeltaCustomDownloadRequest();
         deltaCustomDownloadRequest.setDeltaId(delta == null ? null : delta.getId());
@@ -31,7 +36,8 @@ public class DownloadApiUtils {
 
         progressConsumer = progressConsumer == null ? p -> {} : progressConsumer;
 
-        DeltaCustomDownloadResponse downloadResponse = deltaCustomApi.deltaCustomDownload(deltaCustomDownloadRequest);
+        DeltaCustomDownloadResponse downloadResponse =
+                deltaCustomApi.deltaCustomDownload(deltaCustomDownloadRequest);
         String downloadRequestId = downloadResponse.getDownloadRequestId();
         CustomDownloadProgress progress = new CustomDownloadProgress();
         progress.downloadRequestId = downloadRequestId;
@@ -63,7 +69,10 @@ public class DownloadApiUtils {
         } while (true);
 
         if (progress.statusResponse.getStatus() != COMPLETED) {
-            throw new IllegalStateException(String.format("Download status for request id \"%s\" is not COMPLETED but \"%s\"", downloadRequestId, progress.statusResponse.getStatus()));
+            throw new IllegalStateException(
+                    String.format(
+                            "Download status for request id \"%s\" is not COMPLETED but \"%s\"",
+                            downloadRequestId, progress.statusResponse.getStatus()));
         }
 
         String downloadUrl = progress.statusResponse.getLinks().getDownload().getHref();

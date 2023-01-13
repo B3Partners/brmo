@@ -19,19 +19,19 @@
  *  limitations under the License.
  */
 package nl.b3p.topnl;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.sql.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- * Tool to run database scripts
- */
+/** Tool to run database scripts */
 public class ScriptRunner {
     private static final Log log = LogFactory.getLog(ScriptRunner.class);
-    
+
     private static final String DEFAULT_DELIMITER = ";";
     private final Connection connection;
     private final boolean stopOnError;
@@ -46,8 +46,7 @@ public class ScriptRunner {
      * @param autoCommit {@code true} when to autocommit
      * @param stopOnError {@code true} when to stop on error
      */
-    public ScriptRunner(Connection connection, boolean autoCommit,
-            boolean stopOnError) {
+    public ScriptRunner(Connection connection, boolean autoCommit, boolean stopOnError) {
         this.connection = connection;
         this.autoCommit = autoCommit;
         this.stopOnError = stopOnError;
@@ -84,16 +83,14 @@ public class ScriptRunner {
     }
 
     /**
-     * Runs an SQL script (read in using the Reader parameter) using the
-     * connection passed in
+     * Runs an SQL script (read in using the Reader parameter) using the connection passed in
      *
      * @param conn the connection to use for the script
      * @param reader the source of the script
      * @throws SQLException if any SQL errors occur
      * @throws IOException if there is an error reading from the Reader
      */
-    private void runScript(Connection conn, Reader reader) throws IOException,
-            SQLException {
+    private void runScript(Connection conn, Reader reader) throws IOException, SQLException {
         StringBuilder command = null;
         try {
             LineNumberReader lineReader = new LineNumberReader(reader);
@@ -105,18 +102,13 @@ public class ScriptRunner {
                 String trimmedLine = line.trim();
                 if (trimmedLine.startsWith("--")) {
                     log.debug(trimmedLine);
-                } else if (trimmedLine.length() < 1
-                        || trimmedLine.startsWith("//")) {
+                } else if (trimmedLine.length() < 1 || trimmedLine.startsWith("//")) {
                     // Do nothing
-                } else if (trimmedLine.length() < 1
-                        || trimmedLine.startsWith("--")) {
+                } else if (trimmedLine.length() < 1 || trimmedLine.startsWith("--")) {
                     // Do nothing
-                } else if (!fullLineDelimiter
-                        && trimmedLine.endsWith(getDelimiter())
-                        || fullLineDelimiter
-                        && trimmedLine.equals(getDelimiter())) {
-                    command.append(line.substring(0, line
-                            .lastIndexOf(getDelimiter())));
+                } else if (!fullLineDelimiter && trimmedLine.endsWith(getDelimiter())
+                        || fullLineDelimiter && trimmedLine.equals(getDelimiter())) {
+                    command.append(line.substring(0, line.lastIndexOf(getDelimiter())));
                     command.append(" ");
                     Statement statement = conn.createStatement();
 
@@ -130,7 +122,7 @@ public class ScriptRunner {
                             statement.execute(command.toString());
                         } catch (SQLException e) {
                             e.fillInStackTrace();
-                            log.error("Error executing: " + command,e);
+                            log.error("Error executing: " + command, e);
                         }
                     }
 
@@ -171,10 +163,10 @@ public class ScriptRunner {
             }
         } catch (SQLException | IOException e) {
             e.fillInStackTrace();
-            log.error("Error executing: " + command,e);
+            log.error("Error executing: " + command, e);
             throw e;
         } finally {
-            if (!this.autoCommit){
+            if (!this.autoCommit) {
                 conn.rollback();
             }
         }
@@ -183,6 +175,4 @@ public class ScriptRunner {
     private String getDelimiter() {
         return delimiter;
     }
-
-    
 }

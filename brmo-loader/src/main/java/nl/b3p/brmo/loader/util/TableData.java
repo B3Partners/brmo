@@ -3,38 +3,38 @@ package nl.b3p.brmo.loader.util;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Boy de Wit
- */
+/** @author Boy de Wit */
 public class TableData {
-    
+
     private boolean comfortData = false;
     private String comfortSearchTable;
     private String comfortSearchColumn;
     private String comfortSearchValue;
-    
+
     private boolean deleteData = false;
-    
+
     /* Used for comfort metadata tables */
     private String comfortSnapshotDate;
-    
+
     List<TableRow> rows = new ArrayList<TableRow>();
-    
+
     public TableData(TableRow row) {
         this.deleteData = false;
-        this.comfortData = false;  
+        this.comfortData = false;
         this.rows.add(row);
     }
-    
-    public TableData(String comfortSearchTable, String comfortSearchColumn, 
-            String comfortSearchValue, String comfortSnapshotDate) {
-        
+
+    public TableData(
+            String comfortSearchTable,
+            String comfortSearchColumn,
+            String comfortSearchValue,
+            String comfortSnapshotDate) {
+
         this.comfortData = true;
         this.deleteData = false;
         this.comfortSearchTable = comfortSearchTable;
         this.comfortSearchColumn = comfortSearchColumn;
-        this.comfortSearchValue = comfortSearchValue;    
+        this.comfortSearchValue = comfortSearchValue;
         this.comfortSnapshotDate = comfortSnapshotDate;
     }
 
@@ -44,7 +44,7 @@ public class TableData {
     }
 
     public void addRow(TableRow row) {
-        rows.add(row);      
+        rows.add(row);
     }
 
     public boolean isComfortData() {
@@ -54,7 +54,7 @@ public class TableData {
     public void setComfortData(boolean comfortData) {
         this.comfortData = comfortData;
     }
-    
+
     public boolean isDeleteData() {
         return deleteData;
     }
@@ -105,14 +105,25 @@ public class TableData {
 
     @Override
     public String toString() {
-        return "TableData{" +
-                "comfortData=" + comfortData +
-                ", comfortSearchTable='" + comfortSearchTable + '\'' +
-                ", comfortSearchColumn='" + comfortSearchColumn + '\'' +
-                ", comfortSearchValue='" + comfortSearchValue + '\'' +
-                ", deleteData=" + deleteData +
-                ", comfortSnapshotDate='" + comfortSnapshotDate + '\'' +
-                ", rows=" + rows +
-                '}';
+        return "TableData{"
+                + "comfortData="
+                + comfortData
+                + ", comfortSearchTable='"
+                + comfortSearchTable
+                + '\''
+                + ", comfortSearchColumn='"
+                + comfortSearchColumn
+                + '\''
+                + ", comfortSearchValue='"
+                + comfortSearchValue
+                + '\''
+                + ", deleteData="
+                + deleteData
+                + ", comfortSnapshotDate='"
+                + comfortSnapshotDate
+                + '\''
+                + ", rows="
+                + rows
+                + '}';
     }
 }

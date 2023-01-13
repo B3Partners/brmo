@@ -3,11 +3,10 @@
  */
 package nl.b3p.web.jsp;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcase voor {@link TailTag}.
@@ -29,24 +28,24 @@ public class TailTagTest {
         assertEquals(TailTag.DEFAULT_ID, tag.getId());
     }
 
-//    /**
-//     * @throws Exception if any
-//     */
-//    @Test
-//    public void testAbsolutePath() throws Exception {
-//        tag.setCount(10);
-//        tag.setFile("/home/mprins/workspace/brmo/brmo-taglib/src/test/resources/log4j.xml");
-//        tag.setId("S");
-//        tag.doStartTag();
-//        String body = tag.getBodyContent().getString();
-//        System.out.println(body);
-//    }
+    //    /**
+    //     * @throws Exception if any
+    //     */
+    //    @Test
+    //    public void testAbsolutePath() throws Exception {
+    //        tag.setCount(10);
+    //        tag.setFile("/home/mprins/workspace/brmo/brmo-taglib/src/test/resources/log4j.xml");
+    //        tag.setId("S");
+    //        tag.doStartTag();
+    //        String body = tag.getBodyContent().getString();
+    //        System.out.println(body);
+    //    }
 
-//    @Test
-//    public void testRelativePath() {
-//        tag.setCount(10);
-//        tag.setFile("test/resources/log4j.xml");
-//        String body = tag.getBodyContent().getString();
-//        System.out.println(body);
-//    }
+    //    @Test
+    //    public void testRelativePath() {
+    //        tag.setCount(10);
+    //        tag.setFile("test/resources/log4j.xml");
+    //        String body = tag.getBodyContent().getString();
+    //        System.out.println(body);
+    //    }
 }

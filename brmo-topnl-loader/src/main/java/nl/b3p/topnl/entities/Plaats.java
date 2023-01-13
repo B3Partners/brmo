@@ -17,20 +17,16 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.math.BigInteger;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class Plaats extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class Plaats extends TopNLEntity {
+
     private String typeGebied;
     private Long aantalInwoners;
     private String naamOfficieel;
     private String naamNL;
     private String naamFries;
-    
+
     private Geometry geometrie;
 
     public String getTypeGebied() {
@@ -80,6 +76,4 @@ public class Plaats extends TopNLEntity{
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-    
-    
 }

@@ -1,8 +1,14 @@
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,23 +33,18 @@ import java.io.FileInputStream;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-
 /**
  * Testcases voor creeeren van zak_recht_archief tabel
-
- * Draaien met:
- * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > target/oracle.log}
- * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > target/postgresql.log}.
+ *
+ * <p>Draaien met: {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify
+ * -Poracle -pl brmo-loader > target/oracle.log} voor bijvoorbeeld Oracle of {@code mvn
+ * -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader
+ * > target/postgresql.log}.
  *
  * @author meine
  */
 @Tag("skip-windows-java11")
-public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationTest{
+public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(ZakRechtArchiefIntegrationTest.class);
 
@@ -55,6 +56,7 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
     private final Lock sequential = new ReentrantLock();
     private BasicDataSource dsRsgb;
     private BasicDataSource dsStaging;
+
     @Override
     @BeforeEach
     public void setUp() throws Exception {
@@ -74,34 +76,61 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(ZakRechtArchiefIntegrationTest.class.getResource("/zak_recht_archief/staging.xml").toURI())));
+        IDataSet stagingDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        ZakRechtArchiefIntegrationTest.class
+                                                .getResource("/zak_recht_archief/staging.xml")
+                                                .toURI())));
 
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
-        assumeTrue(6l == brmo.getCountBerichten("brk", "STAGING_OK"),
+        assumeTrue(
+                6l == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn geen 6 STAGING_OK berichten");
-        assumeTrue(1l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
+        assumeTrue(
+                1l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn geen 1 STAGING_OK laadproces");
     }
 
-    
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        
+
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
         dsRsgb.close();
@@ -124,22 +153,31 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(0l, brmo.getCountBerichten("brk", "STAGING_OK"),
+        assertEquals(
+                0l,
+                brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(6l, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                6l,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0l, brmo.getCountBerichten("brk", "RSGB_NOK"),
+        assertEquals(
+                0l,
+                brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
         assertTrue(brondocument.getRowCount() > 0, "Er zijn geen brondocumenten");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
+        assertEquals(
+                1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
         assertEquals(1, kad_perceel.getRowCount(), "Aantal actuele percelen is incorrect");
-        assertEquals("20930170970000", kad_perceel.getValue(0, "sc_kad_identif").toString(),
+        assertEquals(
+                "20930170970000",
+                kad_perceel.getValue(0, "sc_kad_identif").toString(),
                 "Perceel identif is incorrect");
 
         // test of de records in de tabellen de juiste clazz hebben en volledig zijn
@@ -153,29 +191,34 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
         // ingeschr_nat_prs
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
         assertEquals(4, ingeschr_nat_prs.getRowCount(), "Aantal ingeschr_nat_prs klopt niet.");
-        for (int row=0;row < 4; row++) {
-            Assertions.assertNull(ingeschr_nat_prs.getValue(row, "clazz"),
-                    "'clazz' is niet null voor rij "+ row + 1 +", tabel ingeschr_nat_prs");
+        for (int row = 0; row < 4; row++) {
+            Assertions.assertNull(
+                    ingeschr_nat_prs.getValue(row, "clazz"),
+                    "'clazz' is niet null voor rij " + row + 1 + ", tabel ingeschr_nat_prs");
         }
         // niet_ingezetene
         ITable niet_ingezetene = rsgb.createDataSet().getTable("niet_ingezetene");
         assertEquals(0, niet_ingezetene.getRowCount(), "Aantal niet_ingezetene klopt niet");
-        
+
         assertEquals(0, niet_ingezetene.getRowCount(), "Aantal niet_ingezetene klopt niet");
         // zak_recht heeft ingangsdatum_recht
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
         assertEquals(4, zak_recht.getRowCount(), "Aantal zakelijk rechten klopt niet");
         for (int i = 0; i < 4; i++) {
-            assertNotNull(zak_recht.getValue(i, "ingangsdatum_recht"), "Ingangsdatum recht is niet gevuld");
+            assertNotNull(
+                    zak_recht.getValue(i, "ingangsdatum_recht"),
+                    "Ingangsdatum recht is niet gevuld");
         }
-        
+
         ITable zak_recht_archief = rsgb.createDataSet().getTable("zak_recht_archief");
         assertEquals(19, zak_recht_archief.getRowCount(), "Aantal zakelijk rechten klopt niet");
-        
+
         for (int i = 0; i < zak_recht_archief.getRowCount(); i++) {
-            assertNotNull(zak_recht_archief.getValue(i, "ingangsdatum_recht"),
+            assertNotNull(
+                    zak_recht_archief.getValue(i, "ingangsdatum_recht"),
                     "Ingangsdatum recht is niet gevuld");
-            assertNotNull(zak_recht_archief.getValue(i, "eindd_recht"), "Eindd_recht is niet gevuld");
+            assertNotNull(
+                    zak_recht_archief.getValue(i, "eindd_recht"), "Eindd_recht is niet gevuld");
         }
     }
 }

@@ -5,16 +5,18 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.util.Date;
-import javax.persistence.EntityManager;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
+
 import org.stripesstuff.stripersist.Stripersist;
+
+import java.util.Date;
 
 /**
  * Toont de samenvatting/log van een automatisch proces.
@@ -53,17 +55,13 @@ public class SamenvattingActionBean implements ActionBean {
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
-    /**
-     * {@inheritDoc }
-     */
+    /** {@inheritDoc } */
     @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }
 
-    /**
-     * {@inheritDoc }
-     */
+    /** {@inheritDoc } */
     @Override
     public ActionBeanContext getContext() {
         return this.context;
@@ -88,6 +86,6 @@ public class SamenvattingActionBean implements ActionBean {
     public String getNewLine() {
         return this.newLine;
     }
-    //</editor-fold>
+    // </editor-fold>
 
 }

@@ -5,53 +5,53 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * <p>
- * Java class for eigendomMutatie complex type.
- *
- */
+/** Java class for eigendomMutatie complex type. */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "eigendomMutatie", propOrder = {
-    "identificatienummer",
-    "gemeentecode",
-    "appartementsindex",
-    "perceelnummer",
-    "sectie",
-    "historischeRelaties",
-    "brondocumenten",
-    "zakelijkeRechten",
-    "benoemdObjecten"
-})
+@XmlType(
+        name = "eigendomMutatie",
+        propOrder = {
+            "identificatienummer",
+            "gemeentecode",
+            "appartementsindex",
+            "perceelnummer",
+            "sectie",
+            "historischeRelaties",
+            "brondocumenten",
+            "zakelijkeRechten",
+            "benoemdObjecten"
+        })
 public class EigendomMutatie {
 
     protected String identificatienummer;
+
     @XmlElement(required = true)
     protected String gemeentecode;
+
     protected String appartementsindex;
+
     @XmlElement(required = true)
     protected String perceelnummer;
+
     @XmlElement(required = true)
     protected String sectie;
+
     @XmlElement(name = "historische_relaties")
     protected HistorischeRelaties historischeRelaties;
+
     protected Brondocumenten brondocumenten;
+
     @XmlElement(name = "zakelijke_rechten")
     protected ZakelijkeRechten zakelijkeRechten;
+
     @XmlElement(name = "benoemd_objecten")
     protected BenoemdObjecten benoemdObjecten;
 
-    /**
-     * Gets the value of the identificatienummer property.
-     *
-     */
+    /** Gets the value of the identificatienummer property. */
     public String getIdentificatienummer() {
         return identificatienummer;
     }
 
-    /**
-     * Sets the value of the identificatienummer property.
-     *
-     */
+    /** Sets the value of the identificatienummer property. */
     public void setIdentificatienummer(String value) {
         this.identificatienummer = value;
     }
@@ -60,7 +60,6 @@ public class EigendomMutatie {
      * Gets the value of the gemeentecode property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getGemeentecode() {
         return gemeentecode;
@@ -70,7 +69,6 @@ public class EigendomMutatie {
      * Sets the value of the gemeentecode property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setGemeentecode(String value) {
         this.gemeentecode = value;
@@ -80,7 +78,6 @@ public class EigendomMutatie {
      * Gets the value of the appartementsindex property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getAppartementsindex() {
         return appartementsindex;
@@ -90,7 +87,6 @@ public class EigendomMutatie {
      * Sets the value of the appartementsindex property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setAppartementsindex(String value) {
         this.appartementsindex = value;
@@ -100,7 +96,6 @@ public class EigendomMutatie {
      * Gets the value of the perceelnummer property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getPerceelnummer() {
         return perceelnummer;
@@ -110,7 +105,6 @@ public class EigendomMutatie {
      * Sets the value of the perceelnummer property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setPerceelnummer(String value) {
         this.perceelnummer = value;
@@ -120,7 +114,6 @@ public class EigendomMutatie {
      * Gets the value of the sectie property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getSectie() {
         return sectie;
@@ -130,7 +123,6 @@ public class EigendomMutatie {
      * Sets the value of the sectie property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setSectie(String value) {
         this.sectie = value;
@@ -140,7 +132,6 @@ public class EigendomMutatie {
      * Gets the value of the historischeRelaties property.
      *
      * @return possible object is {@link HistorischeRelaties }
-     *
      */
     public HistorischeRelaties getHistorischeRelaties() {
         return historischeRelaties;
@@ -150,7 +141,6 @@ public class EigendomMutatie {
      * Sets the value of the historischeRelaties property.
      *
      * @param value allowed object is {@link HistorischeRelaties }
-     *
      */
     public void setHistorischeRelaties(HistorischeRelaties value) {
         this.historischeRelaties = value;
@@ -160,7 +150,6 @@ public class EigendomMutatie {
      * Gets the value of the brondocumenten property.
      *
      * @return possible object is {@link Brondocumenten }
-     *
      */
     public Brondocumenten getBrondocumenten() {
         return brondocumenten;
@@ -170,7 +159,6 @@ public class EigendomMutatie {
      * Sets the value of the brondocumenten property.
      *
      * @param value allowed object is {@link Brondocumenten }
-     *
      */
     public void setBrondocumenten(Brondocumenten value) {
         this.brondocumenten = value;
@@ -180,7 +168,6 @@ public class EigendomMutatie {
      * Gets the value of the zakelijkeRechten property.
      *
      * @return possible object is {@link ZakelijkeRechten }
-     *
      */
     public ZakelijkeRechten getZakelijkeRechten() {
         return zakelijkeRechten;
@@ -190,7 +177,6 @@ public class EigendomMutatie {
      * Sets the value of the zakelijkeRechten property.
      *
      * @param value allowed object is {@link ZakelijkeRechten }
-     *
      */
     public void setZakelijkeRechten(ZakelijkeRechten value) {
         this.zakelijkeRechten = value;
@@ -200,7 +186,6 @@ public class EigendomMutatie {
      * Gets the value of the benoemdObjecten property.
      *
      * @return possible object is {@link BenoemdObjecten }
-     *
      */
     public BenoemdObjecten getBenoemdObjecten() {
         return benoemdObjecten;
@@ -210,7 +195,6 @@ public class EigendomMutatie {
      * Sets the value of the benoemdObjecten property.
      *
      * @param value allowed object is {@link BenoemdObjecten }
-     *
      */
     public void setBenoemdObjecten(BenoemdObjecten value) {
         this.benoemdObjecten = value;
@@ -327,5 +311,4 @@ public class EigendomMutatie {
         em.setZakelijkeRechten(zrn);
         return em;
     }
-
 }

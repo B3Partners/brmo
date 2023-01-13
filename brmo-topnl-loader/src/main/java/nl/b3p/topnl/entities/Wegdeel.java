@@ -17,12 +17,8 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.math.BigInteger;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
+/** @author Meine Toonen meinetoonen@b3partners.nl */
 public class Wegdeel extends TopNLEntity {
 
     private String typeInfrastructuur;
@@ -224,7 +220,7 @@ public class Wegdeel extends TopNLEntity {
 
     public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
-    }    
+    }
 
     public Geometry getHartGeometrie() {
         return hartGeometrie;

@@ -4,12 +4,13 @@
 package nl.b3p.brmo.persistence.staging;
 
 import nl.b3p.brmo.persistence.TestUtil;
+
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Query;
 
 /**
- * Testcase voor {@link  nl.b3p.brmo.persistence.staging.Bericht}.
+ * Testcase voor {@link nl.b3p.brmo.persistence.staging.Bericht}.
  *
  * @author mprins
  */

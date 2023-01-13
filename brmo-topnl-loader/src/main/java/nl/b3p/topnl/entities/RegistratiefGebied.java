@@ -18,12 +18,9 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class RegistratiefGebied extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class RegistratiefGebied extends TopNLEntity {
+
     private String typeRegistratiefGebied;
     private String naamOfficieel;
     private String naamNL;
@@ -78,7 +75,4 @@ public class RegistratiefGebied extends TopNLEntity{
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-    
-    
-    
 }

@@ -17,12 +17,8 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.math.BigInteger;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
+/** @author Meine Toonen meinetoonen@b3partners.nl */
 public class Waterdeel extends TopNLEntity {
 
     private String typeWater;
@@ -40,9 +36,9 @@ public class Waterdeel extends TopNLEntity {
     private Long hoogteniveau;
     private String functie;
     private boolean hoofdAfwatering;
-    
+
     private Geometry geometrie;
-    
+
     public String getTypeWater() {
         return typeWater;
     }
@@ -170,5 +166,4 @@ public class Waterdeel extends TopNLEntity {
     public void setFunctie(String functie) {
         this.functie = functie;
     }
-    
 }

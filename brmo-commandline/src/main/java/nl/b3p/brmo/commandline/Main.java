@@ -3,6 +3,28 @@
  */
 package nl.b3p.brmo.commandline;
 
+import static nl.b3p.brmo.commandline.Main.sysexits.*;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,36 +37,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
 import javax.sql.DataSource;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.entity.LaadProces;
-import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
-import nl.b3p.brmo.loader.util.BrmoException;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionGroup;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import static nl.b3p.brmo.commandline.Main.sysexits.*;
-import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
-import org.apache.commons.io.FileUtils;
 
 /**
- * run:
- * {@code java -jar brmo-commandline.jar -versieinfo -dbprops commandline-example.properties}
+ * run: {@code java -jar brmo-commandline.jar -versieinfo -dbprops commandline-example.properties}
  *
  * @author Boy de Wit
  * @author mprins
@@ -65,57 +67,132 @@ public class Main {
 
     private static Options buildOptions() {
 
-        dbOpts = Arrays.asList(Option.builder("db").desc("database properties file").type(File.class).longOpt("dbprops")
-                .argName("bestand").hasArg().required().numberOfArgs(1).build());
+        dbOpts =
+                Arrays.asList(
+                        Option.builder("db")
+                                .desc("database properties file")
+                                .type(File.class)
+                                .longOpt("dbprops")
+                                .argName("bestand")
+                                .hasArg()
+                                .required()
+                                .numberOfArgs(1)
+                                .build());
 
-        modeOpts = Arrays.asList(
-                // info
-                Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo")
-                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-                Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list")
-                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-                Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus")
-                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-                Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus")
-                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-                // laden
-                Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database")
-                        .longOpt("load").hasArg(true).numberOfArgs(2).argName("bestandsnaam <type-br> <[archief-directory]").build(),
-                Option.builder("ad").desc("Laad stand of mutatie berichten (.zip of .xml) uit directory in database")
-                        .longOpt("loaddir").hasArg(true).numberOfArgs(2).argName("directory> <type-br> <[archief-directory]").build(),
-                // verwijderen
-                Option.builder("d").desc("Verwijder laadprocessen in database (geef id weer met -list)")
-                        .longOpt("delete").hasArg().numberOfArgs(1).type(Integer.class).argName("id").build(),
-                // transformeren
-                Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb")
-                        .optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
-                // export
-                Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
-                        .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
-                //
-                Option.builder("al").desc("Controleer of de berichten in de opgegeven afgiftelijst in de staging staan.")
-                        .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst> <uitvoerbestand").build()
-        );
+        modeOpts =
+                Arrays.asList(
+                        // info
+                        Option.builder("v")
+                                .desc("Versie informatie van de verschillende schema's")
+                                .longOpt("versieinfo")
+                                .optionalArg(true)
+                                .numberOfArgs(1)
+                                .argName("[format]")
+                                .build(),
+                        Option.builder("l")
+                                .desc("Geef overzicht van laadprocessen in staging database")
+                                .longOpt("list")
+                                .optionalArg(true)
+                                .numberOfArgs(1)
+                                .argName("[format]")
+                                .build(),
+                        Option.builder("s")
+                                .desc("Geef aantallen van bericht status in staging database")
+                                .longOpt("berichtstatus")
+                                .optionalArg(true)
+                                .numberOfArgs(1)
+                                .argName("[format]")
+                                .build(),
+                        Option.builder("j")
+                                .desc("Geef aantal berichten in job tabel van staging database")
+                                .longOpt("jobstatus")
+                                .optionalArg(true)
+                                .numberOfArgs(1)
+                                .argName("[format]")
+                                .build(),
+                        // laden
+                        Option.builder("a")
+                                .desc(
+                                        "Laad totaalstand of mutatie uit bestand (.zip of .xml) in database")
+                                .longOpt("load")
+                                .hasArg(true)
+                                .numberOfArgs(2)
+                                .argName("bestandsnaam <type-br> <[archief-directory]")
+                                .build(),
+                        Option.builder("ad")
+                                .desc(
+                                        "Laad stand of mutatie berichten (.zip of .xml) uit directory in database")
+                                .longOpt("loaddir")
+                                .hasArg(true)
+                                .numberOfArgs(2)
+                                .argName("directory> <type-br> <[archief-directory]")
+                                .build(),
+                        // verwijderen
+                        Option.builder("d")
+                                .desc(
+                                        "Verwijder laadprocessen in database (geef id weer met -list)")
+                                .longOpt("delete")
+                                .hasArg()
+                                .numberOfArgs(1)
+                                .type(Integer.class)
+                                .argName("id")
+                                .build(),
+                        // transformeren
+                        Option.builder("t")
+                                .desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.")
+                                .longOpt("torsgb")
+                                .optionalArg(true)
+                                .numberOfArgs(1)
+                                .argName("[error-state]")
+                                .build(),
+                        // export
+                        Option.builder("e")
+                                .desc(
+                                        "Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
+                                .longOpt("exportgds")
+                                .hasArg()
+                                .numberOfArgs(1)
+                                .type(File.class)
+                                .argName("output-directory")
+                                .build(),
+                        //
+                        Option.builder("al")
+                                .desc(
+                                        "Controleer of de berichten in de opgegeven afgiftelijst in de staging staan.")
+                                .longOpt("afgiftelijst")
+                                .hasArg()
+                                .numberOfArgs(2)
+                                .type(File.class)
+                                .argName("afgiftelijst> <uitvoerbestand")
+                                .build());
 
         Options options = new Options();
 
         dbOptions = new Options();
-        dbOpts.stream().map((Option o) -> {
-            options.addOption(o);
-            return o;
-        }).forEach((o) -> {
-            dbOptions.addOption(o);
-        });
+        dbOpts.stream()
+                .map(
+                        (Option o) -> {
+                            options.addOption(o);
+                            return o;
+                        })
+                .forEach(
+                        (o) -> {
+                            dbOptions.addOption(o);
+                        });
 
         OptionGroup g = new OptionGroup();
         g.setRequired(true);
         modeOptions = new Options();
-        modeOpts.stream().map((o) -> {
-            g.addOption(o);
-            return o;
-        }).forEach((o) -> {
-            modeOptions.addOption(o);
-        });
+        modeOpts.stream()
+                .map(
+                        (o) -> {
+                            g.addOption(o);
+                            return o;
+                        })
+                .forEach(
+                        (o) -> {
+                            modeOptions.addOption(o);
+                        });
         options.addOptionGroup(g);
 
         return options;
@@ -123,20 +200,22 @@ public class Main {
 
     private static void printHelp() {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.setOptionComparator((lhs, rhs) -> {
-            List[] lists = new List[]{modeOpts, dbOpts};
-            for (List l : lists) {
-                int lhsIndex = l.indexOf(lhs);
-                if (lhsIndex != -1) {
-                    return Integer.compare(lhsIndex, l.indexOf(rhs));
-                }
-            }
-            return lhs.getArgName().compareTo(rhs.getArgName());
-        });
+        formatter.setOptionComparator(
+                (lhs, rhs) -> {
+                    List[] lists = new List[] {modeOpts, dbOpts};
+                    for (List l : lists) {
+                        int lhsIndex = l.indexOf(lhs);
+                        if (lhsIndex != -1) {
+                            return Integer.compare(lhsIndex, l.indexOf(rhs));
+                        }
+                    }
+                    return lhs.getArgName().compareTo(rhs.getArgName());
+                });
         final int W = 100;
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        formatter.printUsage(pw, 80, "java -jar brmo-commandline.jar --<actie> --dbprops <db-props>");
+        formatter.printUsage(
+                pw, 80, "java -jar brmo-commandline.jar --<actie> --dbprops <db-props>");
         pw.print("\nActies:\n");
         formatter.printOptions(pw, W, modeOptions, 2, 2);
         pw.print("Configuratie:\n");
@@ -172,7 +251,10 @@ public class Main {
                     Class.forName("org.postgresql.Driver");
                     break;
                 default:
-                    throw new IllegalArgumentException("Het database type " + dbProps.getProperty("dbtype") + " wordt niet ondersteund of is niet opgegeven.");
+                    throw new IllegalArgumentException(
+                            "Het database type "
+                                    + dbProps.getProperty("dbtype")
+                                    + " wordt niet ondersteund of is niet opgegeven.");
             }
 
             dsStaging = new BasicDataSource();
@@ -209,28 +291,46 @@ public class Main {
             } else if (cl.hasOption("load")) {
                 // omdat we 2 verplichte argumenten hebben en 1 optionele die als String[]
                 // worden doorgegeven een stream gebruike om eea aan mekaar te plakken
-                exitcode = load(dsStaging, Stream.of(cl.getOptionValues("load"), cl.getArgs())
-                        .flatMap(Stream::of).toArray(String[]::new));
+                exitcode =
+                        load(
+                                dsStaging,
+                                Stream.of(cl.getOptionValues("load"), cl.getArgs())
+                                        .flatMap(Stream::of)
+                                        .toArray(String[]::new));
             } else if (cl.hasOption("loaddir")) {
-                exitcode = loaddir(dsStaging,
-                        Stream.of(cl.getOptionValues("loaddir"), cl.getArgs())
-                        .flatMap(Stream::of).toArray(String[]::new));
+                exitcode =
+                        loaddir(
+                                dsStaging,
+                                Stream.of(cl.getOptionValues("loaddir"), cl.getArgs())
+                                        .flatMap(Stream::of)
+                                        .toArray(String[]::new));
             } else if (cl.hasOption("delete")) {
                 exitcode = delete(dsStaging, cl.getOptionValue("delete"));
             } else if (cl.hasOption("exportgds")) {
                 exitcode = getMutations(dsStaging, cl.getOptionValues("exportgds"));
-            } else if(cl.hasOption("afgiftelijst")){
-                String [] files = cl.getOptionValues("afgiftelijst");//cl.getOptionValue("afgiftelijst")
+            } else if (cl.hasOption("afgiftelijst")) {
+                String[] files =
+                        cl.getOptionValues("afgiftelijst"); // cl.getOptionValue("afgiftelijst")
                 exitcode = checkAfgiftelijst(dsStaging, files[0], files[1]);
             }
             // ----------------
             // rsgb commando's
             else if (cl.hasOption("torsgb")) {
-                exitcode = toRsgb(dsStaging, dsRsgb, dsRsgbBrk, cl.getOptionValue("berichtstatus", "ignore"));
+                exitcode =
+                        toRsgb(
+                                dsStaging,
+                                dsRsgb,
+                                dsRsgbBrk,
+                                cl.getOptionValue("berichtstatus", "ignore"));
             } // ----------------
             // alle schema's / databases
             else if (cl.hasOption("versieinfo")) {
-                exitcode = versieInfo(dsStaging, dsRsgb, dsRsgbBrk, cl.getOptionValue("versieinfo", "text"));
+                exitcode =
+                        versieInfo(
+                                dsStaging,
+                                dsRsgb,
+                                dsRsgbBrk,
+                                cl.getOptionValue("versieinfo", "text"));
             }
         } catch (BrmoException | InterruptedException ex) {
             LOG.error("Fout tijdens uitvoeren met argumenten: " + Arrays.toString(args), ex);
@@ -259,9 +359,15 @@ public class Main {
         System.exit(exitcode);
     }
 
-    private static int toRsgb(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, String errorState) throws BrmoException, InterruptedException {
+    private static int toRsgb(
+            DataSource dataSourceStaging,
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            String errorState)
+            throws BrmoException, InterruptedException {
         LOG.info("Start staging naar rsgb transformatie.");
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
+        BrmoFramework brmo =
+                new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
         brmo.setOrderBerichten(true);
         brmo.setErrorState(errorState);
         Thread t = brmo.toRsgb();
@@ -271,12 +377,22 @@ public class Main {
         return 0;
     }
 
-    private static int versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk, String format) throws BrmoException {
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
+    private static int versieInfo(
+            DataSource dataSourceStaging,
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            String format)
+            throws BrmoException {
+        BrmoFramework brmo =
+                new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
         if (format.equalsIgnoreCase("json")) {
             StringBuilder sb = new StringBuilder("{");
-            sb.append("\"staging_versie\":\"").append(brmo.getStagingVersion()).append("\",")
-                    .append("\"rsgb_versie\":\"").append(brmo.getRsgbVersion()).append("\",");
+            sb.append("\"staging_versie\":\"")
+                    .append(brmo.getStagingVersion())
+                    .append("\",")
+                    .append("\"rsgb_versie\":\"")
+                    .append(brmo.getRsgbVersion())
+                    .append("\",");
             System.out.println(sb);
         } else {
             System.out.println("staging versie: " + brmo.getStagingVersion());
@@ -303,15 +419,29 @@ public class Main {
             sb.append("{\"aantal\":").append(processen.size());
             if (!processen.isEmpty()) {
                 sb.append(",\"laadprocessen\":[");
-                processen.stream().forEach((lp) -> {
-                    sb.append("{")
-                            .append("\"id\":").append(lp.getId()).append(",")
-                            .append("\"bestand_naam\":\"").append(lp.getBestandNaam()).append("\",")
-                            .append("\"bestand_datum\":\"").append(lp.getBestandDatum()).append("\",")
-                            .append("\"soort\":\"").append(lp.getSoort()).append("\",")
-                            .append("\"status\":\"").append(lp.getStatus()).append("\",")
-                            .append("\"contact\":\"").append(lp.getContactEmail()).append("\"},");
-                });
+                processen.stream()
+                        .forEach(
+                                (lp) -> {
+                                    sb.append("{")
+                                            .append("\"id\":")
+                                            .append(lp.getId())
+                                            .append(",")
+                                            .append("\"bestand_naam\":\"")
+                                            .append(lp.getBestandNaam())
+                                            .append("\",")
+                                            .append("\"bestand_datum\":\"")
+                                            .append(lp.getBestandDatum())
+                                            .append("\",")
+                                            .append("\"soort\":\"")
+                                            .append(lp.getSoort())
+                                            .append("\",")
+                                            .append("\"status\":\"")
+                                            .append(lp.getStatus())
+                                            .append("\",")
+                                            .append("\"contact\":\"")
+                                            .append(lp.getContactEmail())
+                                            .append("\"},");
+                                });
                 sb.deleteCharAt(sb.length() - 1);
                 sb.append("]");
             }
@@ -323,33 +453,37 @@ public class Main {
             System.out.println("Aantal laadprocessen: " + processen.size());
             System.out.println("id, bestand_naam, bestand_datum, soort, status, contact");
 
-            processen.stream().forEach((lp) -> {
-                System.out.printf("%s,%s,%s,%s,%s,%s\n",
-                        lp.getId(),
-                        lp.getBestandNaam(),
-                        lp.getBestandDatum(),
-                        lp.getSoort(),
-                        lp.getStatus(),
-                        lp.getContactEmail());
-            });
+            processen.stream()
+                    .forEach(
+                            (lp) -> {
+                                System.out.printf(
+                                        "%s,%s,%s,%s,%s,%s\n",
+                                        lp.getId(),
+                                        lp.getBestandNaam(),
+                                        lp.getBestandDatum(),
+                                        lp.getSoort(),
+                                        lp.getStatus(),
+                                        lp.getContactEmail());
+                            });
         }
         brmo.closeBrmoFramework();
         return 0;
     }
-    
-    private static int checkAfgiftelijst(DataSource ds, String input, String output) throws BrmoException {
+
+    private static int checkAfgiftelijst(DataSource ds, String input, String output)
+            throws BrmoException {
         BrmoFramework brmo = new BrmoFramework(ds, null, null);
         try {
             LOG.info("Afgiftelijst controleren.");
-            File f = new File (input);
+            File f = new File(input);
 
-            if(!f.exists()){
-                throw new IOException ("bestand niet gevonden: " + input);
+            if (!f.exists()) {
+                throw new IOException("bestand niet gevonden: " + input);
             }
-            if(!f.canRead()){
-                throw new IOException ("bestand niet leesbaar: " + input);
-            } 
-           File response = brmo.checkAfgiftelijst(input, output);
+            if (!f.canRead()) {
+                throw new IOException("bestand niet leesbaar: " + input);
+            }
+            File response = brmo.checkAfgiftelijst(input, output);
             System.out.print("Afgifte gecontroleerd:");
             brmo.closeBrmoFramework();
             return 0;
@@ -374,8 +508,13 @@ public class Main {
         if (format.equalsIgnoreCase("json")) {
             System.out.printf(
                     "{\"status\":[{\"STAGING_OK\":%s},{\"STAGING_NOK\":%s},{\"RSGB_OK\":%s},{\"RSGB_NOK\":%s},{\"RSGB_BAG_NOK\":%s},{\"RSGB_OUTDATED\":%s},{\"ARCHIVE\":%s}]}\n",
-                    staging_ok, staging_nok, rsgb_ok, rsgb_nok, rsgb_bag_nok, rsgb_outdated, archive
-            );
+                    staging_ok,
+                    staging_nok,
+                    rsgb_ok,
+                    rsgb_nok,
+                    rsgb_bag_nok,
+                    rsgb_outdated,
+                    archive);
         } else {
             System.out.println("status, aantal");
             System.out.printf("STAGING_OK,%s\n", staging_ok);
@@ -428,18 +567,22 @@ public class Main {
             LOG.info("Ophalen automatisch proces(sen) waarmee GDS2 berichten zijn geladen.");
             con = ds.getConnection();
             Statement stmt = con.createStatement();
-            String autoProcessen = "select id FROM automatisch_proces where dtype = 'GDS2OphaalProces'";
+            String autoProcessen =
+                    "select id FROM automatisch_proces where dtype = 'GDS2OphaalProces'";
             ResultSet rs = stmt.executeQuery(autoProcessen);
             while (rs.next()) {
                 Long id = rs.getLong(1);
                 LOG.info("Ophalen laadprocessen voor automatisch proces: " + id);
-                String processen = "select id,bestand_naam from laadproces where automatisch_proces = " + id;
+                String processen =
+                        "select id,bestand_naam from laadproces where automatisch_proces = " + id;
                 Statement laadprocesStmt = con.createStatement();
                 ResultSet lpRs = laadprocesStmt.executeQuery(processen);
                 while (lpRs.next()) {
                     Long lpId = lpRs.getLong(1);
                     String bestandsNaam = lpRs.getString(2);
-                    String berichten = "select id, br_orgineel_xml, object_ref from bericht where laadprocesid = " + lpId;
+                    String berichten =
+                            "select id, br_orgineel_xml, object_ref from bericht where laadprocesid = "
+                                    + lpId;
                     Statement berichtStmt = con.createStatement();
                     ResultSet berRs = berichtStmt.executeQuery(berichten);
                     while (berRs.next()) {
@@ -468,7 +611,7 @@ public class Main {
         ZipOutputStream out = null;
         try {
             filename = Paths.get(filename + ".zip").normalize().toString();
-            final File f = new File(directory, filename );
+            final File f = new File(directory, filename);
             out = new ZipOutputStream(new FileOutputStream(f));
             ZipEntry e = new ZipEntry(filename);
             out.putNextEntry(e);
@@ -477,7 +620,8 @@ public class Main {
             out.closeEntry();
             out.close();
         } catch (IOException ex) {
-            LOG.error("Schrijven van bestand " + filename + " in " + directory + " is mislukt.", ex);
+            LOG.error(
+                    "Schrijven van bestand " + filename + " in " + directory + " is mislukt.", ex);
         } finally {
             if (out != null) {
                 try {
@@ -493,8 +637,7 @@ public class Main {
      * verwerk xml of zip bestand naar staging db.
      *
      * @param ds datasource
-     * @param opts array met {vollidig pad naar bestand, type BR, optionele
-     * archief directory}
+     * @param opts array met {vollidig pad naar bestand, type BR, optionele archief directory}
      * @return {@code 0} als succesvol
      * @throws BrmoException in geval van niet laadfout
      */
@@ -519,8 +662,7 @@ public class Main {
      *
      * @param ds datasource
      * @param opts array met {directory, type BR, optionele archief directory}
-     * @return {@code 0} als succesvol,{@code EX_DATAERR} in geval van een
-     * waarschuwing
+     * @return {@code 0} als succesvol,{@code EX_DATAERR} in geval van een waarschuwing
      * @throws BrmoException in geval van niet herstalebare laadfout
      */
     private static int loaddir(DataSource ds, String... opts) throws BrmoException {
@@ -537,9 +679,14 @@ public class Main {
         File dir = new File(scanDir);
         if (dir.isDirectory()) {
             boolean withWarnings = false;
-            String[] fNames = dir.list((File f, String name) -> {
-                return (name.endsWith(".xml") || name.endsWith(".XML") || name.endsWith(".zip") || name.endsWith(".ZIP"));
-            });
+            String[] fNames =
+                    dir.list(
+                            (File f, String name) -> {
+                                return (name.endsWith(".xml")
+                                        || name.endsWith(".XML")
+                                        || name.endsWith(".zip")
+                                        || name.endsWith(".ZIP"));
+                            });
             BrmoFramework brmo = new BrmoFramework(ds, null, null);
             brmo.setOrderBerichten(true);
             brmo.setErrorState("ignore");
@@ -548,12 +695,20 @@ public class Main {
                 try {
                     LOG.debug(String.format("Begin laden van bestand: %s, type %s", fName, brType));
                     brmo.loadFromFile(brType, scanDir + fName, null);
-                    LOG.info(String.format("Klaar met laden van bestand: %s, type %s", fName, brType));
+                    LOG.info(
+                            String.format(
+                                    "Klaar met laden van bestand: %s, type %s", fName, brType));
                 } catch (BrmoDuplicaatLaadprocesException dup) {
-                    LOG.warn(String.format("Laden duplicaat bestand %s overgeslagen. Oorzaak: %s", fName, dup.getLocalizedMessage()));
+                    LOG.warn(
+                            String.format(
+                                    "Laden duplicaat bestand %s overgeslagen. Oorzaak: %s",
+                                    fName, dup.getLocalizedMessage()));
                     withWarnings = true;
                 } catch (BrmoLeegBestandException leeg) {
-                    LOG.warn(String.format("Laden 'leeg' bestand %s overgeslagen. Oorzaak: %s", fName, leeg.getLocalizedMessage()));
+                    LOG.warn(
+                            String.format(
+                                    "Laden 'leeg' bestand %s overgeslagen. Oorzaak: %s",
+                                    fName, leeg.getLocalizedMessage()));
                     withWarnings = true;
                 } finally {
                     brmo.closeBrmoFramework();
@@ -574,8 +729,7 @@ public class Main {
      * verplaats bestand naar archief directory.
      *
      * @param fileName te verplaatsen bestandsnaam (volledig pad)
-     * @param archiefDir doel directory (in geval {@code null} dat wordt
-     * verplaatsen overgeslagen)
+     * @param archiefDir doel directory (in geval {@code null} dat wordt verplaatsen overgeslagen)
      */
     private static void archiveerBestand(final String fileName, final String archiefDir) {
         if (archiefDir != null) {
@@ -583,21 +737,31 @@ public class Main {
             LOG.debug(String.format("Archiveren %s naar %s.", fileName, archiefDir));
             try {
                 FileUtils.moveFileToDirectory(new File(fileName), archiefDirectory, true);
-                LOG.debug(String.format("Bestand %s is naar archief %s verplaatst.", fileName, archiefDirectory));
+                LOG.debug(
+                        String.format(
+                                "Bestand %s is naar archief %s verplaatst.",
+                                fileName, archiefDirectory));
             } catch (IOException e) {
-                LOG.error(String.format("Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", fileName, archiefDirectory, e.getLocalizedMessage()));
+                LOG.error(
+                        String.format(
+                                "Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).",
+                                fileName, archiefDirectory, e.getLocalizedMessage()));
             }
         }
     }
 
     enum sysexits {
         // zie: https://man.openbsd.org/man3/sysexits.3
-        EX_USAGE(64), EX_DATAERR(65), EX_NOINPUT(66), EX_UNAVAILABLE(69), EX_CANTCREAT(73), EX_IOERR(74);
+        EX_USAGE(64),
+        EX_DATAERR(65),
+        EX_NOINPUT(66),
+        EX_UNAVAILABLE(69),
+        EX_CANTCREAT(73),
+        EX_IOERR(74);
         int code;
 
         sysexits(final int code) {
             this.code = code;
         }
     }
-
 }

@@ -3,8 +3,13 @@
  */
 package nl.b3p.brmo.soap.db;
 
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+
+import static java.lang.System.getProperty;
+
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
@@ -14,60 +19,53 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import static java.lang.System.getProperty;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-/**
- * @author mprins
- */
+/** @author mprins */
 public abstract class TestUtil {
 
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
     protected static boolean haveSetupJNDI = false;
     /**
-     * properties uit {@code <DB smaak>.properties} en
-     * {@code local.<DB smaak>.properties}.
+     * properties uit {@code <DB smaak>.properties} en {@code local.<DB smaak>.properties}.
      *
      * @see #loadDBprop()
      */
     protected final Properties DBPROPS = new Properties();
-    /**
-     * {@code true} als we met een Oracle database bezig zijn.
-     */
+    /** {@code true} als we met een Oracle database bezig zijn. */
     protected boolean isOracle;
-    /**
-     * {@code true} als we met een Postgis database bezig zijn.
-     */
+    /** {@code true} als we met een Postgis database bezig zijn. */
     protected boolean isPostgis;
+
     protected BasicDataSource dsRsgb;
     protected BasicDataSource dsStaging;
 
     /**
-     * test of de database properties zijn aangegeven, zo niet dan skippen we
-     * alle tests in deze test.
+     * test of de database properties zijn aangegeven, zo niet dan skippen we alle tests in deze
+     * test.
      */
     @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeFalse(getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
+        assumeFalse(
+                getProperty("database.properties.file") == null,
+                "Verwacht database omgeving te zijn aangegeven.");
     }
 
     /**
-     * subklassen dienen zelf een setUp() te hebben; vanwege de overerving gaat
-     * deze methode af na de {@code @Before} methoden van de superklasse, bijv.
-     * {@link #loadDBprop()}.
+     * subklassen dienen zelf een setUp() te hebben; vanwege de overerving gaat deze methode af na
+     * de {@code @Before} methoden van de superklasse, bijv. {@link #loadDBprop()}.
      *
      * @throws Exception if any
      */
     @BeforeEach
-    abstract public void setUp() throws Exception;
+    public abstract void setUp() throws Exception;
 
     /**
      * initialize database props using the environment provided file.
@@ -77,12 +75,17 @@ public abstract class TestUtil {
     @BeforeEach
     public void loadDBprop() throws IOException {
         // the `database.properties.file`  is set in the pom.xml or using the commandline
-        DBPROPS.load(TestUtil.class.getClassLoader()
-                .getResourceAsStream(System.getProperty("database.properties.file")));
+        DBPROPS.load(
+                TestUtil.class
+                        .getClassLoader()
+                        .getResourceAsStream(System.getProperty("database.properties.file")));
         try {
             // see if a local version exists and use that to override
-            DBPROPS.load(TestUtil.class.getClassLoader()
-                    .getResourceAsStream("local." + System.getProperty("database.properties.file")));
+            DBPROPS.load(
+                    TestUtil.class
+                            .getClassLoader()
+                            .getResourceAsStream(
+                                    "local." + System.getProperty("database.properties.file")));
         } catch (IOException | NullPointerException e) {
             // ignore this
         }
@@ -111,29 +114,24 @@ public abstract class TestUtil {
         this.setupJNDI();
     }
 
-    /**
-     * Log de naam van de test als deze begint.
-     */
+    /** Log de naam van de test als deze begint. */
     @BeforeEach
     public void startTest(TestInfo testInfo) {
         LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
-    /**
-     * Log de naam van de test als deze eindigt.
-     */
+    /** Log de naam van de test als deze eindigt. */
     @AfterEach
     public void endTest(TestInfo testInfo) {
         LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
-
-    /**
-     * setup jndi voor testcases, doet 1 poging om jndi context te initialiseren.
-     */
+    /** setup jndi voor testcases, doet 1 poging om jndi context te initialiseren. */
     protected void setupJNDI() {
         if (!haveSetupJNDI) {
-            System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
+            System.setProperty(
+                    Context.INITIAL_CONTEXT_FACTORY,
+                    "org.apache.naming.java.javaURLContextFactory");
             System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
             InitialContext ic;
             try {
@@ -158,17 +156,21 @@ public abstract class TestUtil {
      * refresh de gegeven lijst van materialized views in de database.
      *
      * @param mviews lijst van views
-     * @param ds     database koppeling
+     * @param ds database koppeling
      * @throws SQLException if any
      */
-    protected void refreshMViews(final String[] mviews, final BasicDataSource ds) throws SQLException {
+    protected void refreshMViews(final String[] mviews, final BasicDataSource ds)
+            throws SQLException {
         // refresh materialized views
         try (Connection conn = ds.getConnection()) {
             conn.setAutoCommit(true);
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            final GeometryJdbcConverter geomToJdbc =
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             for (String mview : mviews) {
                 // "update" gebruiken omdat we een oracle stored procedure benaderen
-                Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
+                Object o =
+                        new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                .update(conn, geomToJdbc.getMViewRefreshSQL(mview));
             }
         }
     }

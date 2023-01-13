@@ -1,21 +1,21 @@
 package nl.b3p.brmo.soap.brk;
 
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.soap.db.BrkInfo;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Map;
+
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlType;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.soap.db.BrkInfo;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 @XmlType
 public class KadOnrndZkInfoResponse {
 
@@ -41,8 +41,7 @@ public class KadOnrndZkInfoResponse {
     private RechtenResponse rechten;
     private RelatiesResponse relaties;
 
-    public KadOnrndZkInfoResponse() {
-    }
+    public KadOnrndZkInfoResponse() {}
 
     /**
      * Afkorting voor kadastrale gemeente als gebruikt in AKR
@@ -55,7 +54,6 @@ public class KadOnrndZkInfoResponse {
 
     /**
      * Afkorting voor kadastrale gemeente als gebruikt in AKR
-     *
      *
      * @param gemeentecode the gemeentecode to set
      */
@@ -135,198 +133,142 @@ public class KadOnrndZkInfoResponse {
         this.identificatie = identificatie;
     }
 
-    /**
-     * @return the aandSoortGrootte
-     */
+    /** @return the aandSoortGrootte */
     public String getAandSoortGrootte() {
         return aandSoortGrootte;
     }
 
-    /**
-     * @param aandSoortGrootte the aandSoortGrootte to set
-     */
+    /** @param aandSoortGrootte the aandSoortGrootte to set */
     public void setAandSoortGrootte(String aandSoortGrootte) {
         this.aandSoortGrootte = aandSoortGrootte;
     }
 
-    /**
-     * @return the begrenzingPerceel
-     */
+    /** @return the begrenzingPerceel */
     public String getBegrenzingPerceel() {
         return begrenzingPerceel;
     }
 
-    /**
-     * @param begrenzingPerceel the begrenzingPerceel to set
-     */
+    /** @param begrenzingPerceel the begrenzingPerceel to set */
     public void setBegrenzingPerceel(String begrenzingPerceel) {
         this.begrenzingPerceel = begrenzingPerceel;
     }
 
-    /**
-     * @return the groottePerceel
-     */
+    /** @return the groottePerceel */
     public Float getGroottePerceel() {
         return groottePerceel;
     }
 
-    /**
-     * @param groottePerceel the groottePerceel to set
-     */
+    /** @param groottePerceel the groottePerceel to set */
     public void setGroottePerceel(Float groottePerceel) {
         this.groottePerceel = groottePerceel;
     }
 
-    /**
-     * @return the omschr_deelperceel
-     */
+    /** @return the omschr_deelperceel */
     public String getOmschr_deelperceel() {
         return omschr_deelperceel;
     }
 
-    /**
-     * @param omschr_deelperceel the omschr_deelperceel to set
-     */
+    /** @param omschr_deelperceel the omschr_deelperceel to set */
     public void setOmschr_deelperceel(String omschr_deelperceel) {
         this.omschr_deelperceel = omschr_deelperceel;
     }
 
-    /**
-     * @return the aardCultuurOnbebouwd
-     */
+    /** @return the aardCultuurOnbebouwd */
     public String getAardCultuurOnbebouwd() {
         return aardCultuurOnbebouwd;
     }
 
-    /**
-     * @param aardCultuurOnbebouwd the aardCultuurOnbebouwd to set
-     */
+    /** @param aardCultuurOnbebouwd the aardCultuurOnbebouwd to set */
     public void setAardCultuurOnbebouwd(String aardCultuurOnbebouwd) {
         this.aardCultuurOnbebouwd = aardCultuurOnbebouwd;
     }
 
-    /**
-     * @return the datumBeginGeldigheid
-     */
+    /** @return the datumBeginGeldigheid */
     public Date getDatumBeginGeldigheid() {
         return datumBeginGeldigheid;
     }
 
-    /**
-     * @param datumBeginGeldigheid the datumBeginGeldigheid to set
-     */
+    /** @param datumBeginGeldigheid the datumBeginGeldigheid to set */
     public void setDatumBeginGeldigheid(Date datumBeginGeldigheid) {
         this.datumBeginGeldigheid = datumBeginGeldigheid;
     }
 
-    /**
-     * @return the datumEindeGeldigheid
-     */
+    /** @return the datumEindeGeldigheid */
     public Date getDatumEindeGeldigheid() {
         return datumEindeGeldigheid;
     }
 
-    /**
-     * @param datumEindeGeldigheid the datumEindeGeldigheid to set
-     */
+    /** @param datumEindeGeldigheid the datumEindeGeldigheid to set */
     public void setDatumEindeGeldigheid(Date datumEindeGeldigheid) {
         this.datumEindeGeldigheid = datumEindeGeldigheid;
     }
 
-    /**
-     * @return the bedrag
-     */
+    /** @return the bedrag */
     public Float getBedrag() {
         return bedrag;
     }
 
-    /**
-     * @param bedrag the bedrag to set
-     */
+    /** @param bedrag the bedrag to set */
     public void setBedrag(Float bedrag) {
         this.bedrag = bedrag;
     }
 
-    /**
-     * @return the koopjaar
-     */
+    /** @return the koopjaar */
     public Integer getKoopjaar() {
         return koopjaar;
     }
 
-    /**
-     * @param koopjaar the koopjaar to set
-     */
+    /** @param koopjaar the koopjaar to set */
     public void setKoopjaar(Integer koopjaar) {
         this.koopjaar = koopjaar;
     }
 
-    /**
-     * @return the meerOnroerendgoed
-     */
+    /** @return the meerOnroerendgoed */
     public Boolean isMeerOnroerendgoed() {
         return meerOnroerendgoed;
     }
 
-    /**
-     * @param meerOnroerendgoed the meerOnroerendgoed to set
-     */
+    /** @param meerOnroerendgoed the meerOnroerendgoed to set */
     public void setMeerOnroerendgoed(Boolean meerOnroerendgoed) {
         this.meerOnroerendgoed = meerOnroerendgoed;
     }
 
-    /**
-     * @return the type
-     */
+    /** @return the type */
     public String getType() {
         return type;
     }
 
-    /**
-     * @param type the type to set
-     */
+    /** @param type the type to set */
     public void setType(String type) {
         this.type = type;
     }
 
-    /**
-     * @return the adressen
-     */
+    /** @return the adressen */
     public AdressenResponse getAdressen() {
         return adressen;
     }
 
-    /**
-     * @param adressen the adressen to set
-     */
+    /** @param adressen the adressen to set */
     public void setAdressen(AdressenResponse adressen) {
         this.adressen = adressen;
     }
 
-    /**
-     * @return the rechten
-     */
+    /** @return the rechten */
     public RechtenResponse getRechten() {
         return rechten;
     }
 
-    /**
-     * @param rechten the rechten to set
-     */
+    /** @param rechten the rechten to set */
     public void setRechten(RechtenResponse rechten) {
         this.rechten = rechten;
     }
 
-    /**
-     * @return the relaties
-     */
+    /** @return the relaties */
     public RelatiesResponse getRelaties() {
         return relaties;
     }
 
-    /**
-     * @param relaties the relaties to set
-     */
+    /** @param relaties the relaties to set */
     public void setRelaties(RelatiesResponse relaties) {
         this.relaties = relaties;
     }
@@ -377,8 +319,8 @@ public class KadOnrndZkInfoResponse {
         return sql;
     }
 
-    public static KadOnrndZkInfoResponse getRecord(Long id,
-            Map<String, Object> searchContext) throws Exception {
+    public static KadOnrndZkInfoResponse getRecord(Long id, Map<String, Object> searchContext)
+            throws Exception {
 
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
@@ -409,7 +351,8 @@ public class KadOnrndZkInfoResponse {
                 koz.setDatumEindeGeldigheid(rs.getDate("datum_einde_geldh"));
                 koz.setKoopjaar(rs.getInt("ks_koopjaar"));
                 // ks_meer_onroerendgoed is 'J' of 'N' string, geen boolean
-                koz.setMeerOnroerendgoed(rs.getString("ks_meer_onroerendgoed").equalsIgnoreCase("J"));
+                koz.setMeerOnroerendgoed(
+                        rs.getString("ks_meer_onroerendgoed").equalsIgnoreCase("J"));
                 String type = "perceel";
                 if (rs.getString("ka_appartementsindex") != null) {
                     type = "appartement";
@@ -424,7 +367,7 @@ public class KadOnrndZkInfoResponse {
                     koz.setGemeentecode(rs.getString("ka_kad_gemeentecode"));
                     koz.setPerceelnummer(rs.getString("ka_perceelnummer"));
                     koz.setSectie(rs.getString("ka_sectie"));
-//                koz.setBegrenzingPerceel(rs.getString("begrenzing_perceel"));
+                    //                koz.setBegrenzingPerceel(rs.getString("begrenzing_perceel"));
                     koz.setGroottePerceel(rs.getFloat("grootte_perceel"));
                     koz.setOmschr_deelperceel(rs.getString("omschr_deelperceel"));
                 }
@@ -434,7 +377,7 @@ public class KadOnrndZkInfoResponse {
                 if (at != null && at) {
                     koz.setAdressen(AdressenResponse.getAdressenByKoz(id));
                 }
-//            koz.setRelaties(null);
+                //            koz.setRelaties(null);
 
             } else {
                 return null;
@@ -453,5 +396,4 @@ public class KadOnrndZkInfoResponse {
             }
         }
     }
-
 }

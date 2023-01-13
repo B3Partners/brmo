@@ -3,21 +3,22 @@
  */
 package nl.b3p.brmo.soap.util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
+
 import javax.xml.namespace.QName;
 import javax.xml.soap.MimeHeader;
 import javax.xml.soap.SOAPException;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 'TRACE' level logging van de soap berichten.
@@ -37,7 +38,8 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
     public boolean handleMessage(SOAPMessageContext context) {
         if (LOG.isTraceEnabled()) {
             try {
-                Boolean outboundProperty = (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+                Boolean outboundProperty =
+                        (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
                 String prefix = "<<< ";
                 if (outboundProperty) {
                     prefix = ">>> ";
@@ -68,6 +70,5 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     @Override
-    public void close(MessageContext context) {
-    }
+    public void close(MessageContext context) {}
 }

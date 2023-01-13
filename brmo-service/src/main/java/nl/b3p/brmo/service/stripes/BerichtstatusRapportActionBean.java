@@ -3,9 +3,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -13,18 +10,19 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
-import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.BerichtstatusRapport;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+/** @author mprins */
 public class BerichtstatusRapportActionBean implements ActionBean, ProgressUpdateListener {
 
     private static final String JSP = "/WEB-INF/jsp/beheer/berichtstatusrapportuitvoeren.jsp";
@@ -44,7 +42,8 @@ public class BerichtstatusRapportActionBean implements ActionBean, ProgressUpdat
             getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
             return new ForwardResolution(JSP);
         }
-        BerichtstatusRapport _proces = (BerichtstatusRapport) AbstractExecutableProces.getProces(proces);
+        BerichtstatusRapport _proces =
+                (BerichtstatusRapport) AbstractExecutableProces.getProces(proces);
         try {
             _proces.execute(this);
         } finally {
@@ -55,12 +54,10 @@ public class BerichtstatusRapportActionBean implements ActionBean, ProgressUpdat
     }
 
     @Override
-    public void total(long total) {
-    }
+    public void total(long total) {}
 
     @Override
-    public void progress(long progress) {
-    }
+    public void progress(long progress) {}
 
     @Override
     public void exception(Throwable t) {

@@ -16,11 +16,12 @@
  */
 package nl.b3p.web.jsp;
 
-import java.io.File;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.File;
+import java.util.List;
 
 /**
  * testcases voor {@link LogfileUtil}.
@@ -43,7 +44,7 @@ public class LogfileUtilTest {
         assertFalse(l.isEmpty());
         assertEquals(getTestFileName(), l.get(0));
     }
-    
+
     private String getTestFileName() {
         String s = System.getProperty("java.io.tmpdir");
         if (s.endsWith(File.separator)) {

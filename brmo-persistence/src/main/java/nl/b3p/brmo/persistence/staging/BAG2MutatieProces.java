@@ -9,9 +9,6 @@ package nl.b3p.brmo.persistence.staging;
 
 import javax.persistence.Entity;
 
-/**
- * Proces configuratie voor BAG2 mutaties.
- */
+/** Proces configuratie voor BAG2 mutaties. */
 @Entity
-public class BAG2MutatieProces extends AutomatischProces {
-}
+public class BAG2MutatieProces extends AutomatischProces {}

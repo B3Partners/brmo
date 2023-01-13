@@ -1,36 +1,32 @@
 package nl.b3p.brmo.soap.brk;
 
+import nl.b3p.brmo.service.util.ConfigUtil;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 public class AdressenResponse {
     private static final Log LOG = LogFactory.getLog(AdressenResponse.class);
 
     private List<AdresResponse> BAGAdres = null;
 
-    /**
-     * @return the BAGAdres
-     */
+    /** @return the BAGAdres */
     @XmlElement
     public List<AdresResponse> getBAGAdres() {
         return BAGAdres;
     }
 
-    /**
-     * @param BAGAdres the BAGAdres to set
-     */
+    /** @param BAGAdres the BAGAdres to set */
     public void setBAGAdres(List<AdresResponse> BAGAdres) {
         this.BAGAdres = BAGAdres;
     }
@@ -53,7 +49,8 @@ public class AdressenResponse {
         sql.append("    verblijfsobj ");
         sql.append("ON ");
         sql.append("    ( ");
-        sql.append("        benoemd_obj_kad_onrrnd_zk.fk_nn_lh_tgo_identif = verblijfsobj.sc_identif) ");
+        sql.append(
+                "        benoemd_obj_kad_onrrnd_zk.fk_nn_lh_tgo_identif = verblijfsobj.sc_identif) ");
         sql.append("LEFT OUTER JOIN ");
         sql.append("    addresseerb_obj_aand ");
         sql.append("ON ");
@@ -63,12 +60,14 @@ public class AdressenResponse {
         sql.append("    gem_openb_rmte ");
         sql.append("ON ");
         sql.append("    ( ");
-        sql.append("        addresseerb_obj_aand.fk_7opr_identifcode = gem_openb_rmte.identifcode) ");
+        sql.append(
+                "        addresseerb_obj_aand.fk_7opr_identifcode = gem_openb_rmte.identifcode) ");
         sql.append("LEFT OUTER JOIN ");
         sql.append("    openb_rmte_wnplts ");
         sql.append("ON ");
         sql.append("    ( ");
-        sql.append("        gem_openb_rmte.identifcode = openb_rmte_wnplts.fk_nn_lh_opr_identifcode) ");
+        sql.append(
+                "        gem_openb_rmte.identifcode = openb_rmte_wnplts.fk_nn_lh_opr_identifcode) ");
         sql.append("LEFT OUTER JOIN ");
         sql.append("    wnplts ");
         sql.append("ON ");
@@ -125,7 +124,7 @@ public class AdressenResponse {
 
                 arl.add(bagAdres);
             }
- 
+
             return ar;
         } finally {
             if (rs != null) {
@@ -138,6 +137,5 @@ public class AdressenResponse {
                 connRsgb.close();
             }
         }
-   }
-
+    }
 }

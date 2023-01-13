@@ -16,22 +16,29 @@ public class SimpleDateFormatAttributeColumnMapping extends AttributeColumnMappi
 
     private final SimpleDateFormat dateFormat;
 
-    public SimpleDateFormatAttributeColumnMapping(String name, String type, boolean notNull, boolean primaryKey, String dateFormatPattern) {
+    public SimpleDateFormatAttributeColumnMapping(
+            String name,
+            String type,
+            boolean notNull,
+            boolean primaryKey,
+            String dateFormatPattern) {
         super(name, type, notNull, primaryKey);
         dateFormat = new SimpleDateFormat(dateFormatPattern);
     }
 
-    public SimpleDateFormatAttributeColumnMapping(String name, String type, boolean notNull, String dateFormatPattern) {
+    public SimpleDateFormatAttributeColumnMapping(
+            String name, String type, boolean notNull, String dateFormatPattern) {
         this(name, type, notNull, false, dateFormatPattern);
     }
 
-    public SimpleDateFormatAttributeColumnMapping(String name, String type, String dateFormatPattern) {
+    public SimpleDateFormatAttributeColumnMapping(
+            String name, String type, String dateFormatPattern) {
         this(name, type, true, false, dateFormatPattern);
     }
 
     @Override
     public Object toQueryParameter(Object value) throws ParseException {
-        if(value == null) {
+        if (value == null) {
             return null;
         } else {
             Date date = dateFormat.parse(value.toString());

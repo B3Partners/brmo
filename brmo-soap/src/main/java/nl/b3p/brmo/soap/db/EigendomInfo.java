@@ -1,18 +1,5 @@
 package nl.b3p.brmo.soap.db;
 
-import org.locationtech.jts.io.ParseException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-import javax.sql.DataSource;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.soap.eigendom.BenoemdObject;
 import nl.b3p.brmo.soap.eigendom.BenoemdObjecten;
@@ -29,14 +16,29 @@ import nl.b3p.brmo.soap.eigendom.MutatieListRequest;
 import nl.b3p.brmo.soap.eigendom.MutatieListResponse;
 import nl.b3p.brmo.soap.eigendom.ZakelijkRecht;
 import nl.b3p.brmo.soap.eigendom.ZakelijkeRechten;
+
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.locationtech.jts.io.ParseException;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- * Utility class voor het afhandelen van de database calls ten bate van de
- * EigendomMutatieService.
- * 
+ * Utility class voor het afhandelen van de database calls ten bate van de EigendomMutatieService.
+ *
  * @author Chris
  */
 public class EigendomInfo {
@@ -64,7 +66,8 @@ public class EigendomInfo {
      * @return berekende antwoord op vraag in map met parameters
      * @throws EigendomMutatieException if any
      */
-    public static EigendomMutatieResponse createEigendomMutatieResponse(Map<String, Object> eigendomMutatieContext) throws EigendomMutatieException {
+    public static EigendomMutatieResponse createEigendomMutatieResponse(
+            Map<String, Object> eigendomMutatieContext) throws EigendomMutatieException {
 
         EigendomMutatieResponse eir = new EigendomMutatieResponse();
 
@@ -78,8 +81,8 @@ public class EigendomInfo {
             LOG.error("EigendomMutatie opzoeken is mislukt.", ex);
         }
 
-//        EigendomMutatie em = EigendomMutatie.createDummy();
-//        eir.getEigendomMutatie().add(em);
+        //        EigendomMutatie em = EigendomMutatie.createDummy();
+        //        eir.getEigendomMutatie().add(em);
         try {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
@@ -99,7 +102,8 @@ public class EigendomInfo {
      * @return berekende antwoord op vraag in map met parameters
      * @throws EigendomMutatieException if any
      */
-    public static MutatieListResponse createMutatieListResponse(Map<String, Object> mutatieListContext) throws EigendomMutatieException {
+    public static MutatieListResponse createMutatieListResponse(
+            Map<String, Object> mutatieListContext) throws EigendomMutatieException {
 
         MutatieListResponse mlr = new MutatieListResponse();
 
@@ -127,24 +131,25 @@ public class EigendomInfo {
     }
 
     /**
-     * Omzetten van Soap request naar map met parameters met enige error
-     * checking.
+     * Omzetten van Soap request naar map met parameters met enige error checking.
      *
      * @param request binnenkomend request met vraagstelling
      * @return map met parameters
      * @throws EigendomMutatieException if any
      */
-    public static Map<String, Object> createMutatieListContext(MutatieListRequest request) throws EigendomMutatieException {
+    public static Map<String, Object> createMutatieListContext(MutatieListRequest request)
+            throws EigendomMutatieException {
         Map<String, Object> searchContext = new HashMap<>();
         if (request == null) {
             return searchContext;
         }
-        
+
         if (request.getFromDate() != null) {
             java.sql.Timestamp fromDate = null;
             XMLGregorianCalendar xmlFromDate = request.getFromDate();
             if (xmlFromDate != null) {
-                fromDate = new java.sql.Timestamp(xmlFromDate.toGregorianCalendar().getTimeInMillis());
+                fromDate =
+                        new java.sql.Timestamp(xmlFromDate.toGregorianCalendar().getTimeInMillis());
             }
             searchContext.put(EigendomInfo.FROMDATE, fromDate);
         }
@@ -157,24 +162,26 @@ public class EigendomInfo {
             searchContext.put(EigendomInfo.TODATE, toDate);
         }
 
-//        Elk BAG-object heeft een unieke identificatie.
-//            * Woonplaats – NNNN
-//            Woonplaatsen hebben een unieke woonplaatscode van vier cijfers.
-//                    
-//            * Overige BAG-objecten – GGGGTTNNNNNNNNNN
-//            Alle overige objecten hebben een unieke identificatie van dit formaat:
-//            * GGGG = gemeentecode
-//            De gemeentecode van de gemeente die het object als eerste heeft opgevoerd. Bij een
-//            gemeentelijke herindeling blijft de identificatie van de objecten binnen die gemeente ongewijzigd.
-//            * TT = objecttypecode
-//                01 verblijfsobject
-//                02 ligplaats
-//                03 standplaats
-//                10 pand
-//                20 nummeraanduiding
-//                30 openbare ruimte
-//                40 woonplaats
-//            * NNNNNNNNNN = binnen een gemeente uniek tiencijferig nummer
+        //        Elk BAG-object heeft een unieke identificatie.
+        //            * Woonplaats – NNNN
+        //            Woonplaatsen hebben een unieke woonplaatscode van vier cijfers.
+        //
+        //            * Overige BAG-objecten – GGGGTTNNNNNNNNNN
+        //            Alle overige objecten hebben een unieke identificatie van dit formaat:
+        //            * GGGG = gemeentecode
+        //            De gemeentecode van de gemeente die het object als eerste heeft opgevoerd. Bij
+        // een
+        //            gemeentelijke herindeling blijft de identificatie van de objecten binnen die
+        // gemeente ongewijzigd.
+        //            * TT = objecttypecode
+        //                01 verblijfsobject
+        //                02 ligplaats
+        //                03 standplaats
+        //                10 pand
+        //                20 nummeraanduiding
+        //                30 openbare ruimte
+        //                40 woonplaats
+        //            * NNNNNNNNNN = binnen een gemeente uniek tiencijferig nummer
         if (request.getObjectprefix() != null) {
             String objectprefix = request.getObjectprefix();
             searchContext.put(EigendomInfo.OBJECT_PREFIX, objectprefix);
@@ -184,14 +191,14 @@ public class EigendomInfo {
     }
 
     /**
-     * Omzetten van Soap request naar map met parameters met enige error
-     * checking.
+     * Omzetten van Soap request naar map met parameters met enige error checking.
      *
      * @param request binnenkomend request met vraagstelling
      * @return map met parameters
      * @throws EigendomMutatieException if any
      */
-    public static Map<String, Object> createEigendomMutatieContext(EigendomMutatieRequest request) throws EigendomMutatieException {
+    public static Map<String, Object> createEigendomMutatieContext(EigendomMutatieRequest request)
+            throws EigendomMutatieException {
         Map<String, Object> searchContext = new HashMap<>();
         if (request == null) {
             return searchContext;
@@ -200,29 +207,36 @@ public class EigendomInfo {
         if (request.getIdentificatie() != null) {
             String[] sa = request.getIdentificatie().split(":");
             if (sa.length != 2) {
-                throw new EigendomMutatieException("Ongeldige invoer", "De identificatie moet bestaan uit een getal met een namespace gescheiden door ':', zoals VBO:0000001!");
+                throw new EigendomMutatieException(
+                        "Ongeldige invoer",
+                        "De identificatie moet bestaan uit een getal met een namespace gescheiden door ':', zoals VBO:0000001!");
             }
             if (sa[0].equalsIgnoreCase("VBO") || sa[0].equalsIgnoreCase("NL.KAD.OnroerendeZaak")) {
                 searchContext.put(EigendomInfo.NAMESPACE, sa[0]);
             } else {
-                throw new EigendomMutatieException("Ongeldige invoer", "Geldige namespaces zijn: VBO en NL.KAD.OnroerendeZaak");
+                throw new EigendomMutatieException(
+                        "Ongeldige invoer",
+                        "Geldige namespaces zijn: VBO en NL.KAD.OnroerendeZaak");
             }
             searchContext.put(EigendomInfo.IDENTIFICATIE, sa[1]);
         } else {
-            throw new EigendomMutatieException("Ongeldige invoer", "Voor het opvragen is een identificatie vereist!");
+            throw new EigendomMutatieException(
+                    "Ongeldige invoer", "Voor het opvragen is een identificatie vereist!");
         }
 
         if (request.getMaxAantalResultaten() != null) {
             Integer maxNum = request.getMaxAantalResultaten();
             if (maxNum > 100) {
-                throw new EigendomMutatieException("Ongeldige invoer", "Er kunnen maximaal 100 objecten opgevraagd worden");
+                throw new EigendomMutatieException(
+                        "Ongeldige invoer", "Er kunnen maximaal 100 objecten opgevraagd worden");
             }
             searchContext.put(EigendomInfo.MAXAANTALRESULTATEN, maxNum);
         }
         return searchContext;
     }
 
-    private static ArrayList<MutatieEntry> findMutatieEntries(Map<String, Object> searchContext) throws Exception {
+    private static ArrayList<MutatieEntry> findMutatieEntries(Map<String, Object> searchContext)
+            throws Exception {
         DataSource ds = ConfigUtil.getDataSourceStaging();
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -242,7 +256,8 @@ public class EigendomInfo {
                 entry.setObjectRef(rs.getString("object_ref"));
                 GregorianCalendar gcalendar = new GregorianCalendar();
                 gcalendar.setTime(rs.getTimestamp("datum"));
-                XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcalendar);
+                XMLGregorianCalendar xmlDate =
+                        DatatypeFactory.newInstance().newXMLGregorianCalendar(gcalendar);
                 entry.setDatum(xmlDate);
                 entry.setVolgnummer(rs.getString("volgordenummer"));
                 gcalendar.setTime(rs.getTimestamp("status_datum"));
@@ -258,7 +273,8 @@ public class EigendomInfo {
         }
     }
 
-    private static ArrayList<EigendomMutatie> findEigendomMutatie(Map<String, Object> searchContext) throws Exception {
+    private static ArrayList<EigendomMutatie> findEigendomMutatie(Map<String, Object> searchContext)
+            throws Exception {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -328,15 +344,14 @@ public class EigendomInfo {
     }
 
     /**
-     * SELECT identificatie, datum FROM brondocument where tabel = 'APP_RE' or
-     * tabel = 'KAD_PERCEEL' and tabel_identificatie = ?; 
-     * 
-     * SELECT identificatie, datum FROM brondocument where tabel = 'verblijfsobject' or tabel =
-     * 'standplaats' or tabel = 'ligplaats' and tabel_identificatie = ?; 
-     * 
-     * overige tabel waarden brondocument: openbareruimte KAD_ONRRND_ZAAK_AANTEK
-     * nummeraanduiding ZAK_RECHT woonplaats BRONDOCUMENT pand
+     * SELECT identificatie, datum FROM brondocument where tabel = 'APP_RE' or tabel = 'KAD_PERCEEL'
+     * and tabel_identificatie = ?;
      *
+     * <p>SELECT identificatie, datum FROM brondocument where tabel = 'verblijfsobject' or tabel =
+     * 'standplaats' or tabel = 'ligplaats' and tabel_identificatie = ?;
+     *
+     * <p>overige tabel waarden brondocument: openbareruimte KAD_ONRRND_ZAAK_AANTEK nummeraanduiding
+     * ZAK_RECHT woonplaats BRONDOCUMENT pand
      */
     private static Brondocumenten findBrondocumenten(String value) throws Exception {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
@@ -350,7 +365,8 @@ public class EigendomInfo {
             resultNames.append(" bd.datum as datum ");
             StringBuilder fromSQL = new StringBuilder(" brondocument bd ");
             StringBuilder whereSQL = new StringBuilder();
-            whereSQL.append(" (bd.tabel = 'APP_RE' or bd.tabel = 'KAD_PERCEEL' or bd.tabel = 'verblijfsobject') ");
+            whereSQL.append(
+                    " (bd.tabel = 'APP_RE' or bd.tabel = 'KAD_PERCEEL' or bd.tabel = 'verblijfsobject') ");
             whereSQL.append(" and bd.tabel_identificatie = ? ");
 
             StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
@@ -383,7 +399,7 @@ public class EigendomInfo {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         ResultSet rs = null;
-        try (Connection conn = ds.getConnection();) {
+        try (Connection conn = ds.getConnection(); ) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
@@ -464,18 +480,17 @@ public class EigendomInfo {
             DbUtils.closeQuietly(stm);
         }
     }
-    
+
     /**
-     * Naast de rechten van het kadastrale objecten moeten bij appartementsrechten
-     * ook nog de rechten van het grondperceel worden opgevraagd. Het bijbehorende
-     * grondperceel wordt verkregen via de view: v_bd_app_re_all_kad_perceel.
-     * 
+     * Naast de rechten van het kadastrale objecten moeten bij appartementsrechten ook nog de
+     * rechten van het grondperceel worden opgevraagd. Het bijbehorende grondperceel wordt verkregen
+     * via de view: v_bd_app_re_all_kad_perceel.
      */
     private static ZakelijkeRechten findZakelijkeRechten(long kad_id) throws Exception {
 
         ZakelijkeRechten zrn = new ZakelijkeRechten();
         addZakelijkeRechten(zrn, kad_id, null);
-        
+
         // zoek grondperceel grondperceel_kad_id
         long grondperceel_kad_id = 0l;
         DataSource ds = ConfigUtil.getDataSourceRsgb();
@@ -509,13 +524,14 @@ public class EigendomInfo {
         }
         return zrn;
     }
-    
-    private static ZakelijkeRechten addZakelijkeRechten(ZakelijkeRechten zrn, long kad_id, String type) throws Exception {
+
+    private static ZakelijkeRechten addZakelijkeRechten(
+            ZakelijkeRechten zrn, long kad_id, String type) throws Exception {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-        try (Connection conn = ds.getConnection();) {
+        try (Connection conn = ds.getConnection(); ) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
@@ -544,18 +560,20 @@ public class EigendomInfo {
             fromSQL.append(" ON (su.identif = innp.sc_identif)  ");
 
             StringBuilder whereSQL = new StringBuilder();
-//            if (type!=null && type.equals("grondperceel")) {
-//                //van grondperceel bij app_re is alleen erfpacht interessant
-//                //onderscheid tussen tenaamstelling en ander zakelijk recht onduidelijk
-//                whereSQL.append(" zr.fk_3avr_aand = '3' ");
-//            } else {
-//                whereSQL.append(" zr.kadaster_identif like 'NL.KAD.Tenaamstelling%' ");
-//            }
-//            whereSQL.append(" and ");
-            //zra.aard_aantek_recht <> 'Raadpleeg brondocument' ;            
+            //            if (type!=null && type.equals("grondperceel")) {
+            //                //van grondperceel bij app_re is alleen erfpacht interessant
+            //                //onderscheid tussen tenaamstelling en ander zakelijk recht
+            // onduidelijk
+            //                whereSQL.append(" zr.fk_3avr_aand = '3' ");
+            //            } else {
+            //                whereSQL.append(" zr.kadaster_identif like 'NL.KAD.Tenaamstelling%'
+            // ");
+            //            }
+            //            whereSQL.append(" and ");
+            // zra.aard_aantek_recht <> 'Raadpleeg brondocument' ;
 
             whereSQL.append(" zr.fk_7koz_kad_identif = ? ");
-            
+
             sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
             LOG.trace(sql);
             LOG.trace(kad_id);
@@ -574,13 +592,13 @@ public class EigendomInfo {
                 if (rs.getString("subject_id") != null) {
                     entry.setBSN("Kad-ID: " + rs.getString("subject_id"));
                 }
-                if (rs.getString("kvk")!=null) {
+                if (rs.getString("kvk") != null) {
                     entry.setBSN("KvK: " + rs.getString("kvk"));
                 }
-                if (rs.getString("rsin")!=null) {
+                if (rs.getString("rsin") != null) {
                     entry.setBSN("RSIN: " + rs.getString("rsin"));
                 }
-                if (rs.getString("bsn")!=null) {
+                if (rs.getString("bsn") != null) {
                     entry.setBSN(rs.getString("bsn"));
                 }
                 if (rs.getString("teller") != null) {
@@ -591,22 +609,18 @@ public class EigendomInfo {
                 }
 
                 if (rs.getString("aard") != null) {
-                    entry.setAardRecht(entry.getAardRecht() + 
-                            " - " + rs.getString("aard"));
+                    entry.setAardRecht(entry.getAardRecht() + " - " + rs.getString("aard"));
                 }
                 if (rs.getString("beschrijving") != null) {
-                    entry.setAardRecht(entry.getAardRecht() + 
-                            " - " + rs.getString("beschrijving"));
+                    entry.setAardRecht(entry.getAardRecht() + " - " + rs.getString("beschrijving"));
                 }
                 if (rs.getString("einddatum") != null) {
-                    entry.setAardRecht(entry.getAardRecht() + 
-                            " - " + rs.getString("einddatum"));
+                    entry.setAardRecht(entry.getAardRecht() + " - " + rs.getString("einddatum"));
                 }
-                if (type!=null && type.equals("grondperceel")) {
-                    entry.setAardRecht(entry.getAardRecht() + 
-                            " [" + type + "]");
+                if (type != null && type.equals("grondperceel")) {
+                    entry.setAardRecht(entry.getAardRecht() + " [" + type + "]");
                 }
-                
+
                 zrn.getZakelijkRecht().add(entry);
             }
 
@@ -617,7 +631,8 @@ public class EigendomInfo {
         }
     }
 
-    private static StringBuilder createSelectRsgbSQL(Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static StringBuilder createSelectRsgbSQL(
+            Map<String, Object> searchContext, String dbType) throws ParseException {
 
         Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);
         if (maxrows == null) {
@@ -680,13 +695,16 @@ public class EigendomInfo {
 
         StringBuilder whereSQL = createWhereStagingSQL(searchContext);
 
-        return createSelectSQL(resultNames, fromSQL,
-                whereSQL, searchContext, dbType);
-
+        return createSelectSQL(resultNames, fromSQL, whereSQL, searchContext, dbType);
     }
 
-    private static StringBuilder createSelectSQL(StringBuilder resultNames, StringBuilder fromSQL,
-            StringBuilder whereSQL, Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static StringBuilder createSelectSQL(
+            StringBuilder resultNames,
+            StringBuilder fromSQL,
+            StringBuilder whereSQL,
+            Map<String, Object> searchContext,
+            String dbType)
+            throws ParseException {
 
         Integer maxrows = DBMAXRESULTS;
         if (searchContext != null) {
@@ -732,8 +750,8 @@ public class EigendomInfo {
         }
     }
 
-    private static StringBuilder createWhereRsgbSQL(
-            Map<String, Object> searchContext) throws ParseException {
+    private static StringBuilder createWhereRsgbSQL(Map<String, Object> searchContext)
+            throws ParseException {
         StringBuilder sql = new StringBuilder();
 
         boolean first = true;
@@ -742,7 +760,7 @@ public class EigendomInfo {
             condition = "    vo.sc_identif = ? ";
         } else if (searchContext.get(EigendomInfo.NAMESPACE).equals("NL.KAD.OnroerendeZaak")) {
             condition = "    koz.kad_identif = ? ";
-            //hack: waarom hier numeric en hierboven string?
+            // hack: waarom hier numeric en hierboven string?
             Long i = null;
             if (searchContext.get(IDENTIFICATIE) instanceof String) {
                 String id = (String) searchContext.get(IDENTIFICATIE);
@@ -759,7 +777,8 @@ public class EigendomInfo {
         return sql;
     }
 
-    private static StringBuilder createWhereStagingSQL(Map<String, Object> searchContext) throws ParseException {
+    private static StringBuilder createWhereStagingSQL(Map<String, Object> searchContext)
+            throws ParseException {
         StringBuilder sql = new StringBuilder();
 
         boolean first = true;
@@ -789,7 +808,8 @@ public class EigendomInfo {
         return first;
     }
 
-    private static PreparedStatement addParamsSQL(PreparedStatement stm, Map<String, Object> searchContext) throws SQLException {
+    private static PreparedStatement addParamsSQL(
+            PreparedStatement stm, Map<String, Object> searchContext) throws SQLException {
         int index = 1;
         index = addParam(index, searchContext.get(OBJECT_PREFIX), stm);
         index = addParam(index, searchContext.get(FROMDATE), stm);
@@ -821,8 +841,8 @@ public class EigendomInfo {
         } else if (databaseProductName.contains("Oracle")) {
             return DB_ORACLE;
         } else {
-            throw new UnsupportedOperationException("Unknown database: " + conn.getMetaData().getDatabaseProductName());
+            throw new UnsupportedOperationException(
+                    "Unknown database: " + conn.getMetaData().getDatabaseProductName());
         }
     }
-
 }

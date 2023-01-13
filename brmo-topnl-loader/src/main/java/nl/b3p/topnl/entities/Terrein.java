@@ -18,15 +18,12 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Polygon;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class Terrein extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class Terrein extends TopNLEntity {
+
     private String typeLandgebruik;
     private String naam;
-    
+
     private Polygon geometrie;
 
     public String getTypeLandgebruik() {
@@ -52,5 +49,4 @@ public class Terrein extends TopNLEntity{
     public void setGeometrie(Polygon geometrie) {
         this.geometrie = geometrie;
     }
-    
 }

@@ -5,73 +5,67 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import javax.persistence.Transient;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.persistence.Transient;
+
+/** @author mprins */
 public class BAGDirectoryScanner extends AbstractExecutableProces {
 
     private static final Log LOG = LogFactory.getLog(BAGDirectoryScanner.class);
 
     private final BAGScannerProces config;
 
-    @Transient
-    private ProgressUpdateListener listener;
+    @Transient private ProgressUpdateListener listener;
 
     public BAGDirectoryScanner(BAGScannerProces config) {
         this.config = config;
     }
 
-    /**
-     *
-     * @throws BrmoException als de directory niet lees/blader/schrijfbaar is
-     */
+    /** @throws BrmoException als de directory niet lees/blader/schrijfbaar is */
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                LOG.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        LOG.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-            }
-        });
+                    @Override
+                    public void addLog(String log) {}
+                });
     }
 
     @Override
@@ -93,7 +87,10 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
         }
 
         config.setStatus(PROCESSING);
-        String msg = String.format("De BAG scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
+        String msg =
+                String.format(
+                        "De BAG scanner met ID %d is gestart op %tc.",
+                        config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);
@@ -106,7 +103,9 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
             config.setStatus(ERROR);
             config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
             this.active = false;
-            msg = String.format("De scan directory '%s' is geen executable directory", scanDirectory);
+            msg =
+                    String.format(
+                            "De scan directory '%s' is geen executable directory", scanDirectory);
             LOG.info(msg);
             listener.updateStatus(msg);
             listener.addLog(msg);
@@ -123,7 +122,10 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(ERROR);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 this.active = false;
-                msg = String.format("De archief directory '%s' is geen beschrijfbare directory", archiefDirectory);
+                msg =
+                        String.format(
+                                "De archief directory '%s' is geen beschrijfbare directory",
+                                archiefDirectory);
                 LOG.error(msg);
                 listener.updateStatus(msg);
                 listener.addLog(msg);
@@ -134,7 +136,11 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 config.setStatus(ERROR);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 this.active = false;
-                msg = String.format(String.format("De scan directory '%s' is geen beschrijfbare directory", scanDirectory));
+                msg =
+                        String.format(
+                                String.format(
+                                        "De scan directory '%s' is geen beschrijfbare directory",
+                                        scanDirectory));
                 LOG.error(msg);
                 listener.updateStatus(msg);
                 listener.addLog(msg);
@@ -192,7 +198,8 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                 sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
                 filterAlVerwerkt++;
             } catch (BrmoLeegBestandException leegEx) {
-                // log message maar ga door met verwerking, om een "leeg" bestand bericht/laadproces over te slaan
+                // log message maar ga door met verwerking, om een "leeg" bestand bericht/laadproces
+                // over te slaan
                 LOG.warn(leegEx.getLocalizedMessage());
                 sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
             } catch (BrmoException ex) {
@@ -210,12 +217,21 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
                     FileUtils.copyFileToDirectory(f, archiefDirectory);
                     boolean succes = FileUtils.deleteQuietly(f);
                     if (succes) {
-                        msg = String.format("  Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                        msg =
+                                String.format(
+                                        "  Bestand %s is naar archief %s verplaatst.",
+                                        f, archiefDirectory);
                     } else {
-                        msg = String.format("  Bestand %s is naar archief %s verplaatst, maar origineel kon niet worden verwijderd.", f, archiefDirectory);
+                        msg =
+                                String.format(
+                                        "  Bestand %s is naar archief %s verplaatst, maar origineel kon niet worden verwijderd.",
+                                        f, archiefDirectory);
                     }
                 } catch (IOException e) {
-                    msg = String.format("  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", f, archiefDirectory, e.getLocalizedMessage());
+                    msg =
+                            String.format(
+                                    "  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).",
+                                    f, archiefDirectory, e.getLocalizedMessage());
                     LOG.error(msg);
                     listener.updateStatus(msg);
                     listener.addLog(msg);
@@ -232,12 +248,19 @@ public class BAGDirectoryScanner extends AbstractExecutableProces {
         listener.addLog("Aantal bestanden die al waren geladen: " + filterAlVerwerkt);
         listener.addLog("Aantal bestanden geladen: " + aantalGeladen + "\n");
 
-        msg = "Aantal bestanden die al waren verwerkt: " + filterAlVerwerkt + ", aantal bestanden geladen: " + aantalGeladen;
+        msg =
+                "Aantal bestanden die al waren verwerkt: "
+                        + filterAlVerwerkt
+                        + ", aantal bestanden geladen: "
+                        + aantalGeladen;
         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
         LOG.info(msg);
         config.setSamenvatting(msg);
 
-        msg = String.format("De BAG scanner met ID %d is afgerond op %tc.", config.getId(), Calendar.getInstance());
+        msg =
+                String.format(
+                        "De BAG scanner met ID %d is afgerond op %tc.",
+                        config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);

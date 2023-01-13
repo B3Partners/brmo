@@ -13,13 +13,15 @@ import org.apache.commons.dbutils.StatementConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 /**
- * Wrapper for QueryRunner that logs the SQL to commons-logging. Enable TRACE logging to also log parameters.
+ * Wrapper for QueryRunner that logs the SQL to commons-logging. Enable TRACE logging to also log
+ * parameters.
  */
 public class LoggingQueryRunner extends QueryRunner {
     private static final Log LOG = LogFactory.getLog(LoggingQueryRunner.class);
@@ -31,19 +33,25 @@ public class LoggingQueryRunner extends QueryRunner {
     public LoggingQueryRunner(boolean pmdKnownBroken) {
         super(pmdKnownBroken);
     }
+
     public LoggingQueryRunner(DataSource ds) {
         super(ds);
     }
+
     public LoggingQueryRunner(StatementConfiguration stmtConfig) {
         super(stmtConfig);
     }
+
     public LoggingQueryRunner(DataSource ds, boolean pmdKnownBroken) {
         super(ds, pmdKnownBroken);
     }
+
     public LoggingQueryRunner(DataSource ds, StatementConfiguration stmtConfig) {
         super(ds, stmtConfig);
     }
-    public LoggingQueryRunner(DataSource ds, boolean pmdKnownBroken, StatementConfiguration stmtConfig) {
+
+    public LoggingQueryRunner(
+            DataSource ds, boolean pmdKnownBroken, StatementConfiguration stmtConfig) {
         super(ds, pmdKnownBroken, stmtConfig);
     }
 
@@ -69,20 +77,23 @@ public class LoggingQueryRunner extends QueryRunner {
 
     @Override
     @Deprecated
-    public <T> T query(Connection conn, String sql, Object param, ResultSetHandler<T> rsh) throws SQLException {
+    public <T> T query(Connection conn, String sql, Object param, ResultSetHandler<T> rsh)
+            throws SQLException {
         log("query", sql, param);
         return super.query(conn, sql, param, rsh);
     }
 
     @Override
     @Deprecated
-    public <T> T query(Connection conn, String sql, Object[] params, ResultSetHandler<T> rsh) throws SQLException {
+    public <T> T query(Connection conn, String sql, Object[] params, ResultSetHandler<T> rsh)
+            throws SQLException {
         log("query", sql, params);
         return super.query(conn, sql, params, rsh);
     }
 
     @Override
-    public <T> T query(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params) throws SQLException {
+    public <T> T query(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params)
+            throws SQLException {
         log("query", sql, params);
         return super.query(conn, sql, rsh, params);
     }
@@ -124,7 +135,6 @@ public class LoggingQueryRunner extends QueryRunner {
         log("update", sql, null);
         return super.update(conn, sql);
     }
-
 
     @Override
     public int update(Connection conn, String sql, Object param) throws SQLException {
@@ -175,19 +185,23 @@ public class LoggingQueryRunner extends QueryRunner {
     }
 
     @Override
-    public <T> T insert(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params) throws SQLException {
+    public <T> T insert(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params)
+            throws SQLException {
         log("insert", sql, params);
         return super.insert(conn, sql, rsh, params);
     }
 
     @Override
-    public <T> T insertBatch(String sql, ResultSetHandler<T> rsh, Object[][] params) throws SQLException {
+    public <T> T insertBatch(String sql, ResultSetHandler<T> rsh, Object[][] params)
+            throws SQLException {
         log("insertBatch", sql, params);
         return super.insertBatch(sql, rsh, params);
     }
 
     @Override
-    public <T> T insertBatch(Connection conn, String sql, ResultSetHandler<T> rsh, Object[][] params) throws SQLException {
+    public <T> T insertBatch(
+            Connection conn, String sql, ResultSetHandler<T> rsh, Object[][] params)
+            throws SQLException {
         log("insertBatch", sql, params);
         return super.insertBatch(conn, sql, rsh, params);
     }
@@ -205,13 +219,16 @@ public class LoggingQueryRunner extends QueryRunner {
     }
 
     @Override
-    public <T> List<T> execute(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params) throws SQLException {
+    public <T> List<T> execute(
+            Connection conn, String sql, ResultSetHandler<T> rsh, Object... params)
+            throws SQLException {
         log("execute", sql, params);
         return super.execute(conn, sql, rsh, params);
     }
 
     @Override
-    public <T> List<T> execute(String sql, ResultSetHandler<T> rsh, Object... params) throws SQLException {
+    public <T> List<T> execute(String sql, ResultSetHandler<T> rsh, Object... params)
+            throws SQLException {
         log("execute", sql, params);
         return super.execute(sql, rsh, params);
     }

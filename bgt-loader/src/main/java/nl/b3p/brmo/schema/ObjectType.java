@@ -34,16 +34,24 @@ public class ObjectType {
         this.name = name;
         this.attributes = attributes;
 
-        this.primaryKeys = attributes.stream()
-                .filter(AttributeColumnMapping::isPrimaryKey)
-                .collect(Collectors.toList());
-        this.directNonDefaultInsertAttributes = attributes.stream()
-                .filter(AttributeColumnMapping::isDirectNonDefaultAttribute)
-                .collect(Collectors.toList());
-        this.geometryAttributes = attributes.stream()
-                .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
-                .map(attributeColumnMapping -> (GeometryAttributeColumnMapping) attributeColumnMapping)
-                .collect(Collectors.toList());
+        this.primaryKeys =
+                attributes.stream()
+                        .filter(AttributeColumnMapping::isPrimaryKey)
+                        .collect(Collectors.toList());
+        this.directNonDefaultInsertAttributes =
+                attributes.stream()
+                        .filter(AttributeColumnMapping::isDirectNonDefaultAttribute)
+                        .collect(Collectors.toList());
+        this.geometryAttributes =
+                attributes.stream()
+                        .filter(
+                                attributeColumnMapping ->
+                                        (attributeColumnMapping
+                                                instanceof GeometryAttributeColumnMapping))
+                        .map(
+                                attributeColumnMapping ->
+                                        (GeometryAttributeColumnMapping) attributeColumnMapping)
+                        .collect(Collectors.toList());
     }
 
     public ObjectType addExtraDataDefinitionSQL(List<String> extraDataDefinitionSQL) {
@@ -84,20 +92,28 @@ public class ObjectType {
     public List<ObjectType> getOneToManyAttributeObjectTypes() {
         // Create on-demand because objectTypes map must be completely filled
         if (oneToManyAttributeObjectTypes == null) {
-            oneToManyAttributeObjectTypes = attributes.stream()
-                    .filter(attributeColumnMapping -> (attributeColumnMapping instanceof OneToManyColumnMapping))
-                    .map(attributeColumnMapping -> schema.getObjectTypes().get(attributeColumnMapping.getName()))
-                    .collect(Collectors.toList());
+            oneToManyAttributeObjectTypes =
+                    attributes.stream()
+                            .filter(
+                                    attributeColumnMapping ->
+                                            (attributeColumnMapping
+                                                    instanceof OneToManyColumnMapping))
+                            .map(
+                                    attributeColumnMapping ->
+                                            schema.getObjectTypes()
+                                                    .get(attributeColumnMapping.getName()))
+                            .collect(Collectors.toList());
         }
         return oneToManyAttributeObjectTypes;
     }
 
     public List<ArrayAttributeMapping> getArrayAttributes() {
         if (arrayAttributes == null) {
-            arrayAttributes = attributes.stream()
-                    .filter(attribute -> attribute instanceof ArrayAttributeMapping)
-                    .map(attribute -> (ArrayAttributeMapping) attribute)
-                    .collect(Collectors.toList());
+            arrayAttributes =
+                    attributes.stream()
+                            .filter(attribute -> attribute instanceof ArrayAttributeMapping)
+                            .map(attribute -> (ArrayAttributeMapping) attribute)
+                            .collect(Collectors.toList());
         }
         return arrayAttributes;
     }

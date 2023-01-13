@@ -10,7 +10,7 @@ package nl.b3p.brmo.nhr.loader.cli;
 import picocli.CommandLine;
 
 public class NHRLoadOptions {
-    @CommandLine.Option(names="--location", description = "Location of the NHR service")
+    @CommandLine.Option(names = "--location", description = "Location of the NHR service")
     private String location;
 
     public String getLocation() {
@@ -21,7 +21,9 @@ public class NHRLoadOptions {
         this.location = location;
     }
 
-    @CommandLine.Option(names = "--preprod", description = "Set to true if targeting preproduction.")
+    @CommandLine.Option(
+            names = "--preprod",
+            description = "Set to true if targeting preproduction.")
     private boolean preprod;
 
     public boolean getPreprod() {

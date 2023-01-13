@@ -27,7 +27,8 @@ public class PreparedStatementQueryBatch implements QueryBatch {
     protected PreparedStatement ps;
     private int[] parameterTypes;
 
-    public PreparedStatementQueryBatch(Connection c, String sql, int batchSize) throws SQLException {
+    public PreparedStatementQueryBatch(Connection c, String sql, int batchSize)
+            throws SQLException {
         this.c = c;
         this.sql = sql;
         this.batchSize = batchSize;
@@ -45,13 +46,14 @@ public class PreparedStatementQueryBatch implements QueryBatch {
                     parameterTypes[i] = pmd.getParameterType(i + 1);
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             // May fail, for example if Oracle table is in NOLOGGING mode. Ignore.
         }
     }
 
     /**
      * Add a batch and execute if batch size reached.
+     *
      * @param params The parameters for the row to insert
      * @return Whether the batch was executed
      */
@@ -63,7 +65,11 @@ public class PreparedStatementQueryBatch implements QueryBatch {
                 int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;
                 setPreparedStatementParameter(parameterIndex, pmdType, params[i]);
             } catch (Exception e) {
-                throw new Exception(String.format("Exception setting parameter %s to value %s for insert SQL \"%s\"", i, params[i], sql), e);
+                throw new Exception(
+                        String.format(
+                                "Exception setting parameter %s to value %s for insert SQL \"%s\"",
+                                i, params[i], sql),
+                        e);
             }
         }
         ps.addBatch();
@@ -92,7 +98,9 @@ public class PreparedStatementQueryBatch implements QueryBatch {
         ps.close();
     }
 
-    protected void setPreparedStatementParameter(int oneBasedParameterIndex, int parameterMetadataType, Object parameter) throws SQLException {
+    protected void setPreparedStatementParameter(
+            int oneBasedParameterIndex, int parameterMetadataType, Object parameter)
+            throws SQLException {
         if (parameter != null) {
             ps.setObject(oneBasedParameterIndex, parameter);
         } else {

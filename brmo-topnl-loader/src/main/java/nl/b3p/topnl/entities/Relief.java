@@ -17,13 +17,9 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.LineString;
-import java.math.BigInteger;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class Relief extends TopNLEntity{
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class Relief extends TopNLEntity {
     private String typeRelief;
     private String hoogteklasse;
     private Long hoogteniveau;
@@ -78,6 +74,4 @@ public class Relief extends TopNLEntity{
     public void setTaludHogeZijde(LineString taludHogeZijde) {
         this.taludHogeZijde = taludHogeZijde;
     }
-    
-    
 }

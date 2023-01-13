@@ -3,6 +3,51 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
+import static nl.b3p.gds2.GDS2Util.*;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Brk2Bericht;
+import nl.b3p.brmo.loader.entity.BrkBericht;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
+import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.Bericht;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import nl.b3p.brmo.persistence.staging.LaadProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.service.util.TrustManagerDelegate;
+import nl.b3p.brmo.soap.util.LogMessageHandler;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.AfgifteType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.AfgifteSelectieCriteriaType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.BestandKenmerkenType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.FilterDatumTijdType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.KlantAfgiftenummerReeksType;
+import nl.kadaster.schemas.gds2.imgds.baseurl.v20170401.BaseURLType;
+import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401;
+import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401Service;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenRequest;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenResponse;
+import nl.logius.digikoppeling.gb._2010._10.DataReference;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.stripesstuff.stripersist.Stripersist;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,6 +79,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -43,64 +89,17 @@ import javax.net.ssl.X509TrustManager;
 import javax.persistence.*;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.Brk2Bericht;
-import nl.b3p.brmo.loader.entity.BrkBericht;
-import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
-import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
-import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
-import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
-import nl.b3p.brmo.persistence.staging.Bericht;
-import nl.b3p.brmo.persistence.staging.ClobElement;
-import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
-import nl.b3p.brmo.persistence.staging.LaadProces;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.service.util.TrustManagerDelegate;
-import static nl.b3p.gds2.GDS2Util.*;
-import nl.b3p.brmo.soap.util.LogMessageHandler;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenType;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.AfgifteType;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.AfgifteSelectieCriteriaType;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.BestandKenmerkenType;
-import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.FilterDatumTijdType;
-import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.KlantAfgiftenummerReeksType;
-import nl.kadaster.schemas.gds2.imgds.baseurl.v20170401.BaseURLType;
-import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401;
-import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401Service;
-import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenRequest;
-import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenResponse;
-import nl.logius.digikoppeling.gb._2010._10.DataReference;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.input.CloseShieldInputStream;
-import org.apache.commons.io.input.TeeInputStream;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.stripesstuff.stripersist.Stripersist;
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
 
-/**
- *
- * @author Matthijs Laan
- */
+/** @author Matthijs Laan */
 public class GDS2OphalenProces extends AbstractExecutableProces {
 
     private static final Log log = LogFactory.getLog(GDS2OphalenProces.class);
 
     private final GDS2OphaalProces config;
 
-    @Transient
-    private ProgressUpdateListener l;
+    @Transient private ProgressUpdateListener l;
 
-    @Transient
-    private SSLContext context;
+    @Transient private SSLContext context;
 
     private static final int BESTANDENLIJST_ATTEMPTS = 5;
     private static final int BESTANDENLIJST_RETRY_WAIT = 10000;
@@ -118,29 +117,27 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                log.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        log.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-                GDS2OphalenProces.log.info(log);
-            }
-        });
+                    @Override
+                    public void addLog(String log) {
+                        GDS2OphalenProces.log.info(log);
+                    }
+                });
     }
 
     @Override
@@ -150,8 +147,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         try {
             l.updateStatus("Initialiseren...");
             final Date startDate = new Date();
-            l.addLog(String.format("Initialiseren GDS2 ophalen proces %d... %tc", config.getId(), startDate));
-            this.config.updateSamenvattingEnLogfile(String.format("Het GDS2 ophalen proces is gestart op %tc.", startDate));
+            l.addLog(
+                    String.format(
+                            "Initialiseren GDS2 ophalen proces %d... %tc",
+                            config.getId(), startDate));
+            this.config.updateSamenvattingEnLogfile(
+                    String.format("Het GDS2 ophalen proces is gestart op %tc.", startDate));
             this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
             this.config.setLastrun(startDate);
             Stripersist.getEntityManager().merge(this.config);
@@ -164,29 +165,37 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             verzoek.setAfgifteSelectieCriteria(criteria);
             criteria.setBestandKenmerken(new BestandKenmerkenType());
 
-            String contractnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_contractnummer"));
+            String contractnummer =
+                    ClobElement.nullSafeGet(this.config.getConfig().get("gds2_contractnummer"));
             if (contractnummer != null) {
                 log.debug("GDS2 contractnummer is: " + contractnummer);
                 criteria.getBestandKenmerken().setContractnummer(contractnummer);
             }
-            String artikelnummer = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_artikelnummer"));
+            String artikelnummer =
+                    ClobElement.nullSafeGet(this.config.getConfig().get("gds2_artikelnummer"));
             if (artikelnummer != null) {
                 log.debug("GDS2 artikelnummer is: " + artikelnummer);
                 l.addLog("GDS2 artikelnummer is: " + artikelnummer);
                 criteria.getBestandKenmerken().setArtikelnummer(artikelnummer);
             }
 
-            String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
+            String alGerapporteerd =
+                    ClobElement.nullSafeGet(
+                            this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
             if (!"true".equals(alGerapporteerd)) {
                 criteria.setNogNietGerapporteerd(true);
             }
 
             // datum tijd parsen/instellen
             GregorianCalendar vanaf;
-            GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
+            GregorianCalendar tot =
+                    getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
             String sVanaf = ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum"));
             if (tot != null && ("-1".equals(sVanaf) | "-2".equals(sVanaf) | "-3".equals(sVanaf))) {
-                vanaf = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")), Integer.parseInt(sVanaf));
+                vanaf =
+                        getDatumTijd(
+                                ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")),
+                                Integer.parseInt(sVanaf));
             } else {
                 vanaf = getDatumTijd(sVanaf);
             }
@@ -200,16 +209,21 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             boolean afgifteNummerGebaseerdOphalen = false;
             if (vanaf == null && tot == null) {
-                //  instellen laagste en hoogste afgiftenummer voor dit verzoek, mag alleen als er geen periode is gedefinieerd
+                //  instellen laagste en hoogste afgiftenummer voor dit verzoek, mag alleen als er
+                // geen periode is gedefinieerd
                 KlantAfgiftenummerReeksType afgiftenummers = new KlantAfgiftenummerReeksType();
-                String nr = ClobElement.nullSafeGet(this.config.getConfig().get("klantafgiftenummer_vanaf"));
+                String nr =
+                        ClobElement.nullSafeGet(
+                                this.config.getConfig().get("klantafgiftenummer_vanaf"));
                 if (StringUtils.isNotBlank(nr)) {
                     BigInteger afgifteNrVanaf = new BigInteger(nr);
                     afgiftenummers.setKlantAfgiftenummerVanaf(afgifteNrVanaf);
                     log.info("Ophalen vanaf klant afgifte nummer: " + afgifteNrVanaf);
                     l.addLog("Ophalen vanaf klant afgifte nummer: " + afgifteNrVanaf);
 
-                    nr = ClobElement.nullSafeGet(this.config.getConfig().get("klantafgiftenummer_totenmet"));
+                    nr =
+                            ClobElement.nullSafeGet(
+                                    this.config.getConfig().get("klantafgiftenummer_totenmet"));
                     if (StringUtils.isNotBlank(nr)) {
                         BigInteger afgifteNrTM = new BigInteger(nr);
                         afgiftenummers.setKlantAfgiftenummerTotmet(afgifteNrTM);
@@ -223,9 +237,17 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             if (afgifteNummerGebaseerdOphalen) {
                 // <editor-fold> afgiftenummer-based ophalen
-                l.addLog("GDS2 verzoek voor afgiftenummers vanaf: " + criteria.getKlantAfgiftenummerReeks().getKlantAfgiftenummerVanaf());
-                l.addLog("GDS2 verzoek voor afgiftenummers tot-en-met: " + criteria.getKlantAfgiftenummerReeks().getKlantAfgiftenummerTotmet());
-                response = retryBestandenLijstOpvragen(gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
+                l.addLog(
+                        "GDS2 verzoek voor afgiftenummers vanaf: "
+                                + criteria.getKlantAfgiftenummerReeks()
+                                        .getKlantAfgiftenummerVanaf());
+                l.addLog(
+                        "GDS2 verzoek voor afgiftenummers tot-en-met: "
+                                + criteria.getKlantAfgiftenummerReeks()
+                                        .getKlantAfgiftenummerTotmet());
+                response =
+                        retryBestandenLijstOpvragen(
+                                gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
                 hoogsteKlantAfgifteNummer = response.getAntwoord().getKlantAfgiftenummerMax();
                 boolean hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
                 int aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
@@ -236,13 +258,26 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 l.addLog("Meer afgiftes beschikbaar: " + hasMore);
 
                 while (hasMore) {
-                    criteria.getKlantAfgiftenummerReeks().setKlantAfgiftenummerVanaf(
-                            // vanaf ophogen met aantal opgehaald
-                            criteria.getKlantAfgiftenummerReeks().getKlantAfgiftenummerVanaf().add(BigInteger.valueOf(aantalInAntwoord))
-                    );
-                    l.addLog("GDS2 verzoek voor afgiftenummers vanaf: " + criteria.getKlantAfgiftenummerReeks().getKlantAfgiftenummerVanaf());
-                    l.addLog("GDS2 verzoek voor afgiftenummers tot-en-met: " + criteria.getKlantAfgiftenummerReeks().getKlantAfgiftenummerTotmet());
-                    response = retryBestandenLijstOpvragen(gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
+                    criteria.getKlantAfgiftenummerReeks()
+                            .setKlantAfgiftenummerVanaf(
+                                    // vanaf ophogen met aantal opgehaald
+                                    criteria.getKlantAfgiftenummerReeks()
+                                            .getKlantAfgiftenummerVanaf()
+                                            .add(BigInteger.valueOf(aantalInAntwoord)));
+                    l.addLog(
+                            "GDS2 verzoek voor afgiftenummers vanaf: "
+                                    + criteria.getKlantAfgiftenummerReeks()
+                                            .getKlantAfgiftenummerVanaf());
+                    l.addLog(
+                            "GDS2 verzoek voor afgiftenummers tot-en-met: "
+                                    + criteria.getKlantAfgiftenummerReeks()
+                                            .getKlantAfgiftenummerTotmet());
+                    response =
+                            retryBestandenLijstOpvragen(
+                                    gds2,
+                                    request,
+                                    BESTANDENLIJST_ATTEMPTS,
+                                    BESTANDENLIJST_RETRY_WAIT);
                     hoogsteKlantAfgifteNummer = response.getAntwoord().getKlantAfgiftenummerMax();
                     aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
                     hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
@@ -272,9 +307,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 boolean morePeriods2Process = false;
                 do /* while morePeriods2Process is true */ {
                     l.addLog("\n*** start periode ***");
-                    //zet periode in criteria indien gewenst
+                    // zet periode in criteria indien gewenst
                     if (parseblePeriod) {
-                        //check of de periodeduur verkleind moet worden
+                        // check of de periodeduur verkleind moet worden
                         if (reducePeriod) {
                             switch (loopType) {
                                 case Calendar.DAY_OF_MONTH:
@@ -300,7 +335,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                             reducePeriod = false;
                         }
 
-                        //check of de periodeduur vergroot moet worden
+                        // check of de periodeduur vergroot moet worden
                         if (increasePeriod) {
                             switch (loopType) {
                                 case Calendar.HOUR_OF_DAY:
@@ -313,7 +348,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                                     break;
                                 case Calendar.DAY_OF_MONTH:
                                 default:
-                                //not possible
+                                    // not possible
                             }
                             increasePeriod = false;
                         }
@@ -328,34 +363,40 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
                         switch (loopType) {
                             case Calendar.HOUR_OF_DAY:
-                                //0-23
+                                // 0-23
                                 if (currentMoment.get(loopType) == 0) {
                                     increasePeriod = true;
                                 }
                                 break;
                             case Calendar.MINUTE:
-                                //0-59
+                                // 0-59
                                 if (currentMoment.get(loopType) == 0) {
                                     increasePeriod = true;
                                 }
                                 break;
                             case Calendar.DAY_OF_MONTH:
                             default:
-                                //alleen dagen tellen, uur en minuut altijd helemaal
+                                // alleen dagen tellen, uur en minuut altijd helemaal
                                 loopNum++;
                         }
 
-                        //bereken of einde van periode bereikt is
+                        // bereken of einde van periode bereikt is
                         morePeriods2Process = currentMoment.before(tot) && loopNum < loopMax;
                     }
 
                     verzoek.setAfgifteSelectieCriteria(criteria);
-                    response = retryBestandenLijstOpvragen(gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
+                    response =
+                            retryBestandenLijstOpvragen(
+                                    gds2,
+                                    request,
+                                    BESTANDENLIJST_ATTEMPTS,
+                                    BESTANDENLIJST_RETRY_WAIT);
                     hoogsteKlantAfgifteNummer = response.getAntwoord().getKlantAfgiftenummerMax();
 
                     int aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
                     l.addLog("Aantal in antwoord: " + aantalInAntwoord);
-                    // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+                    // opletten; in de xsd staat een default value van 'J' voor
+                    // meerAfgiftesbeschikbaar
                     boolean hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
                     l.addLog("Meer afgiftes beschikbaar: " + hasMore);
 
@@ -396,21 +437,42 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                      * systeem van GDS.
                      */
                     int moreCount = 0;
-                    String dontGetMoreConfig = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
+                    String dontGetMoreConfig =
+                            ClobElement.nullSafeGet(
+                                    this.config
+                                            .getConfig()
+                                            .get("gds2_niet_gerapporteerde_afgiftes_niet_ophalen"));
 
                     while (hasMore && !"true".equals(dontGetMoreConfig)) {
-                        l.updateStatus("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+                        l.updateStatus(
+                                "Uitvoeren SOAP request naar Kadaster voor meer afgiftes..."
+                                        + moreCount++);
                         criteria.setNogNietGerapporteerd(true);
-                        response = retryBestandenLijstOpvragen(gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
-                        hoogsteKlantAfgifteNummer = response.getAntwoord().getKlantAfgiftenummerMax();
+                        response =
+                                retryBestandenLijstOpvragen(
+                                        gds2,
+                                        request,
+                                        BESTANDENLIJST_ATTEMPTS,
+                                        BESTANDENLIJST_RETRY_WAIT);
+                        hoogsteKlantAfgifteNummer =
+                                response.getAntwoord().getKlantAfgiftenummerMax();
 
-                        List<AfgifteType> afgifteLijst = response.getAntwoord().getBestandenLijst().getAfgifte();
+                        List<AfgifteType> afgifteLijst =
+                                response.getAntwoord().getBestandenLijst().getAfgifte();
                         for (AfgifteType t : afgiftes) {
                             // lijst urls naar aparte logfile loggen
                             if (t.getDigikoppelingExternalDatareferences() != null
-                                    && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                                for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
-                                    log.info("GDS2url te downloaden: " + dr.getTransport().getLocation().getSenderUrl().getValue());
+                                    && t.getDigikoppelingExternalDatareferences().getDataReference()
+                                            != null) {
+                                for (DataReference dr :
+                                        t.getDigikoppelingExternalDatareferences()
+                                                .getDataReference()) {
+                                    log.info(
+                                            "GDS2url te downloaden: "
+                                                    + dr.getTransport()
+                                                            .getLocation()
+                                                            .getSenderUrl()
+                                                            .getValue());
                                     break;
                                 }
                             }
@@ -429,9 +491,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.addLog("Totaal aantal op te halen berichten: " + afgiftes.size());
             l.addLog("Hoogste klant afgifte nummer: " + hoogsteKlantAfgifteNummer);
 
-            this.config.getConfig().put("hoogste_afgiftenummer", new ClobElement("" + hoogsteKlantAfgifteNummer));
+            this.config
+                    .getConfig()
+                    .put("hoogste_afgiftenummer", new ClobElement("" + hoogsteKlantAfgifteNummer));
 
-            final String soort = this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
+            final String soort =
+                    this.config
+                            .getConfig()
+                            .getOrDefault("gds2_br_soort", new ClobElement("brk"))
+                            .getValue();
             switch (soort) {
                 case "brk2":
                     verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
@@ -477,7 +545,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
     private boolean isAfgifteAlGeladen(AfgifteType a) {
         try {
-            Stripersist.getEntityManager().createQuery("select 1 from LaadProces lp where lp.bestand_naam = :n")
+            Stripersist.getEntityManager()
+                    .createQuery("select 1 from LaadProces lp where lp.bestand_naam = :n")
                     .setParameter("n", getLaadprocesBestandsnaam(a))
                     .getSingleResult();
             return true;
@@ -487,9 +556,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     /**
-     * Ophalen en verwerken van BAG mutaties van GDS2. Deze zijn anders dan BRK
-     * mutaties omdat de data in een geneste zip zit en er een paar andere
-     * bestanden inzitten waar we (nog) niks mee doen.
+     * Ophalen en verwerken van BAG mutaties van GDS2. Deze zijn anders dan BRK mutaties omdat de
+     * data in een geneste zip zit en er een paar andere bestanden inzitten waar we (nog) niks mee
+     * doen.
      *
      * @param a de afgifte uit het soap verzoek
      * @param url te downloaden bestand
@@ -509,12 +578,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             try {
                 URLConnection connection = new URL(url).openConnection();
                 if (connection instanceof HttpsURLConnection) {
-                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
+                    ((HttpsURLConnection) connection)
+                            .setSSLSocketFactory(context.getSocketFactory());
                 }
                 input = (InputStream) connection.getContent();
                 if (log.isDebugEnabled()) {
                     // dump zip bestand naar /tmp/ voordat de xml wordt geparsed
-                    File dump = File.createTempFile(a.getBestand().getBestandsnaam() + "_id-" + a.getAfgifteID(), ".zip");
+                    File dump =
+                            File.createTempFile(
+                                    a.getBestand().getBestandsnaam() + "_id-" + a.getAfgifteID(),
+                                    ".zip");
                     log.debug("Dump BAG mutaties zip naar: " + dump.getAbsolutePath());
                     FileOutputStream archiveFile = new FileOutputStream(dump);
                     input = new TeeInputStream(input, archiveFile, true);
@@ -523,12 +596,27 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             } catch (Exception e) {
                 attempt++;
                 if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {
-                    l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
+                    l.addLog(
+                            "Fout bij laatste poging downloaden afgifte: "
+                                    + e.getClass().getName()
+                                    + ": "
+                                    + e.getMessage());
                     throw e;
                 } else {
-                    l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
+                    l.addLog(
+                            "Fout bij poging "
+                                    + attempt
+                                    + " om afgifte te downloaden: "
+                                    + e.getClass().getName()
+                                    + ": "
+                                    + e.getMessage());
                     Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
-                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
+                    l.addLog(
+                            "Uitvoeren poging "
+                                    + (attempt + 1)
+                                    + " om afgifte "
+                                    + url
+                                    + " te downloaden...");
                 }
             }
         }
@@ -546,19 +634,30 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                     ZipInputStream innerzip = new ZipInputStream(zip);
                     ZipEntry innerentry = innerzip.getNextEntry();
                     String localLpName = "";
-                    while (innerentry != null && innerentry.getName().toLowerCase().endsWith(".xml")) {
-                        msg = "Verwerken " + entry.getName() + "/" + innerentry.getName() + " uit " + getLaadprocesBestandsnaam(a);
+                    while (innerentry != null
+                            && innerentry.getName().toLowerCase().endsWith(".xml")) {
+                        msg =
+                                "Verwerken "
+                                        + entry.getName()
+                                        + "/"
+                                        + innerentry.getName()
+                                        + " uit "
+                                        + getLaadprocesBestandsnaam(a);
                         l.updateStatus(msg);
                         l.addLog(msg);
                         log.debug(msg);
                         try {
-                            localLpName = getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName();
+                            localLpName =
+                                    getLaadprocesBestandsnaam(a)
+                                            + "/"
+                                            + entry.getName()
+                                            + "/"
+                                            + innerentry.getName();
                             brmo.loadFromStream(
                                     BrmoFramework.BR_BAG,
                                     CloseShieldInputStream.wrap(innerzip),
                                     localLpName,
-                                    config.getId()
-                            );
+                                    config.getId());
                         } catch (BrmoDuplicaatLaadprocesException d) {
                             msg = "Duplicaat laadproces. " + d.getLocalizedMessage();
                             l.updateStatus(msg);
@@ -579,8 +678,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                                     a.getAfgifteID(),
                                     a.getAfgiftereferentie(),
                                     a.getBestand().getBestandsreferentie(),
-                                    a.getBeschikbaarTot().toGregorianCalendar().getTime()
-                            );
+                                    a.getBeschikbaarTot().toGregorianCalendar().getTime());
                         }
                         innerentry = innerzip.getNextEntry();
                     }
@@ -607,7 +705,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             try {
                 URLConnection connection = new URL(url).openConnection();
                 if (connection instanceof HttpsURLConnection) {
-                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
+                    ((HttpsURLConnection) connection)
+                            .setSSLSocketFactory(context.getSocketFactory());
                 }
                 InputStream input = (InputStream) connection.getContent();
                 IOUtils.copy(input, bos);
@@ -615,12 +714,27 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             } catch (Exception e) {
                 attempt++;
                 if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {
-                    l.addLog("Fout bij laatste poging downloaden afgifte: " + e.getClass().getName() + ": " + e.getMessage());
+                    l.addLog(
+                            "Fout bij laatste poging downloaden afgifte: "
+                                    + e.getClass().getName()
+                                    + ": "
+                                    + e.getMessage());
                     throw e;
                 } else {
-                    l.addLog("Fout bij poging " + attempt + " om afgifte te downloaden: " + e.getClass().getName() + ": " + e.getMessage());
+                    l.addLog(
+                            "Fout bij poging "
+                                    + attempt
+                                    + " om afgifte te downloaden: "
+                                    + e.getClass().getName()
+                                    + ": "
+                                    + e.getMessage());
                     Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
-                    l.addLog("Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
+                    l.addLog(
+                            "Uitvoeren poging "
+                                    + (attempt + 1)
+                                    + " om afgifte "
+                                    + url
+                                    + " te downloaden...");
                 }
             }
         }
@@ -640,7 +754,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         if (a.getDigikoppelingExternalDatareferences() != null
                 && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
             for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-                lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());
+                lp.setBestand_datum(
+                        dr.getLifetime()
+                                .getCreationTime()
+                                .getValue()
+                                .toGregorianCalendar()
+                                .getTime());
                 break;
             }
         }
@@ -683,14 +802,20 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             Integer brVolgordeNummer;
             String brObjectRef;
             if (BrmoFramework.BR_BRK.equals(brkSoort)) {
-                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
+                BrkSnapshotXMLReader reader =
+                        new BrkSnapshotXMLReader(
+                                new ByteArrayInputStream(
+                                        b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
                 BrkBericht parsedBericht = reader.next();
                 brXML = parsedBericht.getBrXml();
                 brDatum = parsedBericht.getDatum();
                 brVolgordeNummer = parsedBericht.getVolgordeNummer();
                 brObjectRef = parsedBericht.getObjectRef();
             } else {
-                Brk2SnapshotXMLReader reader2 = new Brk2SnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
+                Brk2SnapshotXMLReader reader2 =
+                        new Brk2SnapshotXMLReader(
+                                new ByteArrayInputStream(
+                                        b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
                 Brk2Bericht parsedBericht = reader2.next();
                 brXML = parsedBericht.getBrXml();
                 brDatum = parsedBericht.getDatum();
@@ -704,15 +829,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             b.setBr_xml(brXML);
             b.setVolgordenummer(brVolgordeNummer);
 
-            //Als objectRef niet opgehaald kan worden,dan kan het
-            //bericht niet verwerkt worden.
+            // Als objectRef niet opgehaald kan worden,dan kan het
+            // bericht niet verwerkt worden.
             if (null != brObjectRef && !brObjectRef.isBlank()) {
                 b.setObject_ref(brObjectRef);
                 b.setStatus(Bericht.STATUS.STAGING_OK);
                 b.setOpmerking("Klaar voor verwerking.");
             } else {
                 b.setStatus(Bericht.STATUS.STAGING_NOK);
-                b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
+                b.setOpmerking(
+                        "Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
             }
         } catch (Exception e) {
             b.setStatus(Bericht.STATUS.STAGING_NOK);
@@ -734,9 +860,21 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             em.getTransaction().rollback();
             em.getTransaction().begin();
             lp.setId(null);
-            log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt.", pe);
-            log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml() + "(" + b.getBr_xml() + ")");
-            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Berichtinhoud: \n\n" + b.getBr_xml());
+            log.warn(
+                    "Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt.",
+                    pe);
+            log.warn(
+                    "Duplicaat bericht: "
+                            + b.getObject_ref()
+                            + ":"
+                            + b.getBr_orgineel_xml()
+                            + "("
+                            + b.getBr_xml()
+                            + ")");
+            lp.setOpmerking(
+                    lp.getOpmerking()
+                            + ": Fout, duplicaat bericht. Berichtinhoud: \n\n"
+                            + b.getBr_xml());
             b = null;
             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
             lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));
@@ -758,7 +896,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param endpoint url waarnaartoe wordt gepost
      * @return {@code true} als succesvol doorgestuurd
      */
-    public static boolean doorsturenBericht(AutomatischProces proces, ProgressUpdateListener l, Bericht b, String endpoint) {
+    public static boolean doorsturenBericht(
+            AutomatischProces proces, ProgressUpdateListener l, Bericht b, String endpoint) {
         String msg;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
@@ -771,17 +910,29 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Length", "" + b.getBr_orgineel_xml().length());
             conn.setRequestProperty("Content-Type", "application/octet-stream");
-            IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), StandardCharsets.UTF_8), conn.getOutputStream());
+            IOUtils.copy(
+                    IOUtils.toInputStream(b.getBr_orgineel_xml(), StandardCharsets.UTF_8),
+                    conn.getOutputStream());
             conn.disconnect();
             if ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)
                     || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)
                     || (conn.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED)) {
-                msg = "Bericht " + b.getObject_ref() + " op " + sdf.format(new Date()) + " doorgestuurd naar " + endpoint;
+                msg =
+                        "Bericht "
+                                + b.getObject_ref()
+                                + " op "
+                                + sdf.format(new Date())
+                                + " doorgestuurd naar "
+                                + endpoint;
                 b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
             } else {
-                msg = String.format("HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s",
-                        b.getObject_ref(),
-                        sdf.format(new Date()), endpoint, conn.getResponseCode() + ": " + conn.getResponseMessage());
+                msg =
+                        String.format(
+                                "HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s",
+                                b.getObject_ref(),
+                                sdf.format(new Date()),
+                                endpoint,
+                                conn.getResponseCode() + ": " + conn.getResponseMessage());
                 b.setStatus(Bericht.STATUS.STAGING_NOK);
             }
             b.setOpmerking(msg);
@@ -789,8 +940,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             return b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;
         } catch (Exception e) {
-            msg = String.format("Fout bij doorsturen bericht op %s naar endpoint %s: %s",
-                    sdf.format(new Date()), endpoint, e.getClass() + ": " + e.getMessage());
+            msg =
+                    String.format(
+                            "Fout bij doorsturen bericht op %s naar endpoint %s: %s",
+                            sdf.format(new Date()), endpoint, e.getClass() + ": " + e.getMessage());
             b.setOpmerking(msg);
             b.setStatus(Bericht.STATUS.STAGING_NOK);
             l.addLog(msg);
@@ -805,13 +958,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param afgiftes lijst afgiftes
      * @throws Exception if any
      */
-    private void verwerkAfgiftes(List<AfgifteType> afgiftes, BaseURLType baseUrl, final String soort) throws Exception {
+    private void verwerkAfgiftes(
+            List<AfgifteType> afgiftes, BaseURLType baseUrl, final String soort) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int aantalDoorgestuurd = 0;
         int progress = 0;
         List<Long> geladenBerichtIds = new ArrayList<>();
-        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
+        String doorsturenUrl =
+                ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
 
         for (AfgifteType a : afgiftes) {
             String url = getAfgifteURL(a, baseUrl);
@@ -835,7 +990,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         Bericht b;
         if (doorsturenUrl != null && !geladenBerichtIds.isEmpty()) {
-            l.addLog("Doorsturen van de opgehaalde berichten, in totaal " + geladenBerichtIds.size());
+            l.addLog(
+                    "Doorsturen van de opgehaalde berichten, in totaal "
+                            + geladenBerichtIds.size());
             l.total(geladenBerichtIds.size());
             progress = 0;
 
@@ -858,16 +1015,28 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.addLog("\nAantal afgiftes geladen: " + aantalGeladen);
         l.addLog("\nAantal afgiftes doorgestuurd: " + aantalDoorgestuurd + "\n");
 
-        l.addLog(String.format("Het GDS2 ophalen proces met ID %d is afgerond op %tc", config.getId(), Calendar.getInstance()));
+        l.addLog(
+                String.format(
+                        "Het GDS2 ophalen proces met ID %d is afgerond op %tc",
+                        config.getId(), Calendar.getInstance()));
         this.config.updateSamenvattingEnLogfile(
-                String.format("Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. " + LOG_NEWLINE
-                        + "Aantal afgiftes die al waren verwerkt: %d" + LOG_NEWLINE
-                        + "Aantal afgiftes geladen: %d" + LOG_NEWLINE
-                        + "Aantal afgiftes doorgestuurd: %d" + LOG_NEWLINE
-                        + "Hoogste klantafgiftenummer: %s",
-                        this.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd,
-                        ClobElement.nullSafeGet(this.config.getConfig().get("hoogste_afgiftenummer")))
-        );
+                String.format(
+                        "Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. "
+                                + LOG_NEWLINE
+                                + "Aantal afgiftes die al waren verwerkt: %d"
+                                + LOG_NEWLINE
+                                + "Aantal afgiftes geladen: %d"
+                                + LOG_NEWLINE
+                                + "Aantal afgiftes doorgestuurd: %d"
+                                + LOG_NEWLINE
+                                + "Hoogste klantafgiftenummer: %s",
+                        this.config.getLastrun(),
+                        Calendar.getInstance(),
+                        filterAlVerwerkt,
+                        aantalGeladen,
+                        aantalDoorgestuurd,
+                        ClobElement.nullSafeGet(
+                                this.config.getConfig().get("hoogste_afgiftenummer"))));
 
         this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
         this.config.setLastrun(new Date());
@@ -880,7 +1049,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     }
 
     private Gds2AfgifteServiceV20170401 initGDS2() throws Exception {
-        Gds2AfgifteServiceV20170401 gds2 = new Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();
+        Gds2AfgifteServiceV20170401 gds2 =
+                new Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
 
@@ -894,13 +1064,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.updateStatus("Laden keys...");
 
         l.addLog("Initializing KeyManagerFactory");
-        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        KeyManagerFactory kmf =
+                KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
         KeyStore ks = KeyStore.getInstance("jks");
         final char[] thePassword = "changeit".toCharArray();
-        PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
-        Certificate certificate = getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
+        PrivateKey privateKey =
+                getPrivateKeyFromPEM(this.config.getConfig().get("gds2_privkey").getValue());
+        Certificate certificate =
+                getCertificateFromPEM(this.config.getConfig().get("gds2_pubkey").getValue());
         ks.load(null);
-        ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[]{certificate});
+        ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[] {certificate});
         kmf.init(ks, thePassword);
 
         l.updateStatus("Opzetten SSL context...");
@@ -916,15 +1089,20 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         return gds2;
     }
 
-    private SSLContext createSslContext(KeyManagerFactory kmf) throws KeyStoreException, IOException, CertificateException, NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException {
+    private SSLContext createSslContext(KeyManagerFactory kmf)
+            throws KeyStoreException, IOException, CertificateException, NoSuchProviderException,
+                    NoSuchAlgorithmException, KeyManagementException {
         final SSLContext sslContext = SSLContext.getInstance("TLS", "SunJSSE");
 
         l.addLog("Loading PKIX Overheid keystore");
         KeyStore ks = KeyStore.getInstance("jks");
-        ks.load(nl.b3p.gds2.GDS2Util.class.getResourceAsStream("/pkioverheid.jks"), "changeit".toCharArray());
+        ks.load(
+                nl.b3p.gds2.GDS2Util.class.getResourceAsStream("/pkioverheid.jks"),
+                "changeit".toCharArray());
 
         l.addLog("Initializing default TrustManagerFactory");
-        final TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        final TrustManagerFactory javaDefaultTrustManager =
+                TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         javaDefaultTrustManager.init((KeyStore) null);
         X509TrustManager defaultX509TrustManager = null;
         for (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {
@@ -940,15 +1118,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         l.addLog("Initializing SSLContext");
         sslContext.init(
                 kmf.getKeyManagers(),
-                new TrustManager[]{
+                new TrustManager[] {
                     new TrustManagerDelegate(
                             // customCaTrustManager is PKIX dus altijd X.509 (RFC3280)
                             (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
-                            defaultX509TrustManager
-                    )
+                            defaultX509TrustManager)
                 },
-                null
-        );
+                null);
         return sslContext;
     }
 }

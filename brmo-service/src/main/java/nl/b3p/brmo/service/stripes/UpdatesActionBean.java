@@ -1,27 +1,28 @@
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import javax.sql.DataSource;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+/** @author Matthijs Laan */
 @StrictBinding
 public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
     private static final Log log = LogFactory.getLog(UpdatesActionBean.class);
@@ -33,7 +34,7 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
 
     private List<UpdateProcess> updateProcesses;
 
-    @Validate(required=true, on="update")
+    @Validate(required = true, on = "update")
     private String updateProcessName;
 
     private double progress;
@@ -119,8 +120,8 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
     @Override
     public void progress(long progress) {
         this.processed = progress;
-        if(this.total != 0) {
-            this.progress = (100.0/this.total) * this.processed;
+        if (this.total != 0) {
+            this.progress = (100.0 / this.total) * this.processed;
         }
         this.update = new Date();
     }
@@ -149,26 +150,62 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
     }
     // </editor-fold>
 
-
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void populateUpdateProcesses() {
 
         // XXX move to configuration file
 
-        updateProcesses = Arrays.asList(new UpdateProcess[]{
-            // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Snelle-updates
-            new UpdateProcess("Toevoegen BSN aan ingeschreven natuurlijk persoon", BrmoFramework.BR_BRK, "/xsl/update-bsn.xsl"),
-            new UpdateProcess("Toevoegen RSIN aan ingeschreven niet-natuurlijk persoon", BrmoFramework.BR_BRK, "/xsl/update-rsin.xsl"),
-            new UpdateProcess("Bijwerken van omschrijving, datum en ref_id in brondocument", BrmoFramework.BR_BRK, "/xsl/update-brondocument.xsl"),
-            new UpdateProcess("Bijwerken van onvolledig adres", BrmoFramework.BR_BRK, "/xsl/update-incompleetadres.xsl"),
-            new UpdateProcess("Bijwerken van rechthebbende VVE op zakelijk recht", BrmoFramework.BR_BRK, "/xsl/update-zak_recht-vve.xsl"),
-            new UpdateProcess("Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen", BrmoFramework.BR_BRK, "/xsl/update-niet_ingezetene-clazz.xsl"),
-            new UpdateProcess("Bijwerken subject adres comfort data", BrmoFramework.BR_BRK, "/xsl/update-comfort-adres.xsl"),
-            new UpdateProcess("Bijwerken ingangsdatum_recht zakelijk recht", BrmoFramework.BR_BRK, "/xsl/update-zak_recht-begindatum.xsl", true),
-            new UpdateProcess("Bijwerken vestiging activiteit", BrmoFramework.BR_NHR, "/xsl/update-vestg-activiteit.xsl"),
-            new UpdateProcess("Bijwerken non-mailing attribuut maatschappelijke activiteit", BrmoFramework.BR_NHR, "/xsl/update-nonmailing.xsl"),
-            new UpdateProcess("Bijwerking fk_4pes_sc_identif op maatschappelijke activiteit", BrmoFramework.BR_NHR, "/xsl/update-kvk-koppeling.xsl")
-        });
+        updateProcesses =
+                Arrays.asList(
+                        new UpdateProcess[] {
+                            // bij een nieuw proces ook de wiki bijwerken:
+                            // https://github.com/B3Partners/brmo/wiki/Snelle-updates
+                            new UpdateProcess(
+                                    "Toevoegen BSN aan ingeschreven natuurlijk persoon",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-bsn.xsl"),
+                            new UpdateProcess(
+                                    "Toevoegen RSIN aan ingeschreven niet-natuurlijk persoon",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-rsin.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken van omschrijving, datum en ref_id in brondocument",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-brondocument.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken van onvolledig adres",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-incompleetadres.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken van rechthebbende VVE op zakelijk recht",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-zak_recht-vve.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-niet_ingezetene-clazz.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken subject adres comfort data",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-comfort-adres.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken ingangsdatum_recht zakelijk recht",
+                                    BrmoFramework.BR_BRK,
+                                    "/xsl/update-zak_recht-begindatum.xsl",
+                                    true),
+                            new UpdateProcess(
+                                    "Bijwerken vestiging activiteit",
+                                    BrmoFramework.BR_NHR,
+                                    "/xsl/update-vestg-activiteit.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerken non-mailing attribuut maatschappelijke activiteit",
+                                    BrmoFramework.BR_NHR,
+                                    "/xsl/update-nonmailing.xsl"),
+                            new UpdateProcess(
+                                    "Bijwerking fk_4pes_sc_identif op maatschappelijke activiteit",
+                                    BrmoFramework.BR_NHR,
+                                    "/xsl/update-kvk-koppeling.xsl")
+                        });
     }
 
     @DefaultHandler
@@ -176,17 +213,17 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
         return new ForwardResolution(complete ? JSP_PROGRESS : JSP);
     }
 
-    @WaitPage(path=JSP_PROGRESS, delay=1000, refresh=1000)
+    @WaitPage(path = JSP_PROGRESS, delay = 1000, refresh = 1000)
     public Resolution update() {
         UpdateProcess process = null;
 
-        for(UpdateProcess p: updateProcesses) {
-            if(p.getName().equals(updateProcessName)) {
+        for (UpdateProcess p : updateProcesses) {
+            if (p.getName().equals(updateProcessName)) {
                 process = p;
                 break;
             }
         }
-        if(process == null) {
+        if (process == null) {
             getContext().getMessages().add(new SimpleMessage("Ongeldig proces"));
             return new ForwardResolution(JSP);
         }
@@ -202,16 +239,23 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
             DataSource dataSourceRsgbBrk = ConfigUtil.getDataSourceRsgbBrk();
             brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
 
-            boolean enableTransformPipeline = "true".equals(getContext().getServletContext().getInitParameter("pipelining.enabled"));
+            boolean enableTransformPipeline =
+                    "true"
+                            .equals(
+                                    getContext()
+                                            .getServletContext()
+                                            .getInitParameter("pipelining.enabled"));
             brmo.setEnablePipeline(enableTransformPipeline);
-            if(enableTransformPipeline) {
-                String capacityString = getContext().getServletContext().getInitParameter("pipelining.capacity");
-                if(capacityString != null) {
+            if (enableTransformPipeline) {
+                String capacityString =
+                        getContext().getServletContext().getInitParameter("pipelining.capacity");
+                if (capacityString != null) {
                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
                 }
             }
-            String batchString = getContext().getServletContext().getInitParameter("batch.capacity");
-            if(batchString != null) {
+            String batchString =
+                    getContext().getServletContext().getInitParameter("batch.capacity");
+            if (batchString != null) {
                 brmo.setBatchCapacity(Integer.parseInt(batchString));
             }
             String errorState = getContext().getServletContext().getInitParameter("error.state");
@@ -222,18 +266,22 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
             Thread t = brmo.toRsgb(process, this);
             t.join();
 
-            if(this.exceptionStacktrace == null) {
-                getContext().getMessages().add(new SimpleMessage("Transformatie afgerond, controleer berichtenstatus."));
+            if (this.exceptionStacktrace == null) {
+                getContext()
+                        .getMessages()
+                        .add(
+                                new SimpleMessage(
+                                        "Transformatie afgerond, controleer berichtenstatus."));
             }
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             log.error("Fout bij updaten", t);
             String m = "Fout bij updaten: " + ExceptionUtils.getMessage(t);
-            if(t.getCause() != null) {
+            if (t.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
             }
             getContext().getMessages().add(new SimpleMessage(m));
         } finally {
-            if (brmo!=null) {
+            if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
             complete = true;

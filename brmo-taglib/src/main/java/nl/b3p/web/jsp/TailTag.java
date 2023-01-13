@@ -16,21 +16,20 @@
  */
 package nl.b3p.web.jsp;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.text.StringEscapeUtils;
 
-/**
- *
- * @author mprins
- */
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+
+/** @author mprins */
 public class TailTag extends BodyTagSupport {
 
     private static final Log LOG = LogFactory.getLog(TailTag.class);
@@ -59,9 +58,15 @@ public class TailTag extends BodyTagSupport {
             }
 
             File f = new File(this.file);
-            f = f.isAbsolute() ? f : new File(this.pageContext.getServletContext().getRealPath("/"), this.file);
+            f =
+                    f.isAbsolute()
+                            ? f
+                            : new File(
+                                    this.pageContext.getServletContext().getRealPath("/"),
+                                    this.file);
 
-            try (InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(f))) {
+            try (InputStreamReader inputStreamReader =
+                    new InputStreamReader(new FileInputStream(f))) {
                 String line;
                 for (BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                         (line = bufferedReader.readLine()) != null;
@@ -116,9 +121,7 @@ public class TailTag extends BodyTagSupport {
         this.reset();
     }
 
-    /**
-     * cleanup en reset.
-     */
+    /** cleanup en reset. */
     private void reset() {
         this.count = DEFAULT_COUNT;
         this.file = null;

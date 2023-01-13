@@ -3,10 +3,12 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import org.hibernate.annotations.Type;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.*;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "nhr_laadproces")
@@ -80,5 +82,5 @@ public class NHRInschrijving implements Serializable {
         this.exception = exception;
     }
 
-//</editor-fold>
+    // </editor-fold>
 }

@@ -1,13 +1,15 @@
 package nl.b3p.brmo.loader.util;
 
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.LaadProces;
+
+import org.apache.commons.dbutils.BasicRowProcessor;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.entity.LaadProces;
-import org.apache.commons.dbutils.BasicRowProcessor;
 
 /**
  * creates laadproces or bericht bean from database row.
@@ -31,8 +33,8 @@ public class StagingRowHandler extends BasicRowProcessor {
 
     @Override
     public Object toBean(ResultSet rs, Class type) throws SQLException {
-        
-        //vind beschikbare kolomnamen
+
+        // vind beschikbare kolomnamen
         ResultSetMetaData rsm = rs.getMetaData();
         IgnoreCaseStringList namesList = new IgnoreCaseStringList();
         for (int i = 1; i <= rsm.getColumnCount(); i++) {
@@ -69,11 +71,14 @@ public class StagingRowHandler extends BasicRowProcessor {
             if (namesList.contains("contact_email")) {
                 lp.setContactEmail(rs.getString("contact_email"));
             }
-            if (namesList.contains("klantafgiftenummer") && rs.getBigDecimal("klantafgiftenummer") != null) {
+            if (namesList.contains("klantafgiftenummer")
+                    && rs.getBigDecimal("klantafgiftenummer") != null) {
                 lp.setKlantafgiftenummer((rs.getBigDecimal("klantafgiftenummer").toBigInteger()));
             }
-            if (namesList.contains("contractafgiftenummer") && rs.getBigDecimal("contractafgiftenummer") != null) {
-                lp.setContractafgiftenummer((rs.getBigDecimal("contractafgiftenummer").toBigInteger()));
+            if (namesList.contains("contractafgiftenummer")
+                    && rs.getBigDecimal("contractafgiftenummer") != null) {
+                lp.setContractafgiftenummer(
+                        (rs.getBigDecimal("contractafgiftenummer").toBigInteger()));
             }
             if (namesList.contains("artikelnummer")) {
                 lp.setArtikelnummer(rs.getString("artikelnummer"));
@@ -118,7 +123,8 @@ public class StagingRowHandler extends BasicRowProcessor {
             }
             if (namesList.contains("datum")) {
                 // gebruik getTimestamp() (en niet getDate()) om tijdinfo ook op te halen.
-                // zie ook: https://stackoverflow.com/questions/3266530/jdbc-resultset-getdate-losing-precision
+                // zie ook:
+                // https://stackoverflow.com/questions/3266530/jdbc-resultset-getdate-losing-precision
                 b.setDatum(rs.getTimestamp("datum"));
             }
             if (namesList.contains("volgordenummer")) {
@@ -154,7 +160,7 @@ public class StagingRowHandler extends BasicRowProcessor {
 
         return null;
     }
-    
+
     class IgnoreCaseStringList extends ArrayList<String> {
 
         @Override
@@ -168,5 +174,4 @@ public class StagingRowHandler extends BasicRowProcessor {
             return false;
         }
     }
-
 }

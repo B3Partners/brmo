@@ -3,10 +3,13 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import org.hibernate.annotations.Type;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
@@ -22,29 +25,25 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.Type;
 
 /**
  * Generieke beschrijving van een automatisch proces.
  *
  * @author mprins
- *
  * @note Tabel "automatisch_proces" in de database.
- *
  */
 @MappedSuperclass
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 255)
 public abstract class AutomatischProces implements Serializable {
 
-    /**
-     * newline string ({@value LOG_NEWLINE}) voor de logberichten en
-     * samenvatting.
-     */
+    /** newline string ({@value LOG_NEWLINE}) voor de logberichten en samenvatting. */
     public static final String LOG_NEWLINE = "\n";
 
     public enum ProcessingStatus {
-
-        PROCESSING("PROCESSING"), WAITING("WAITING"), ONBEKEND("ONBEKEND"), ERROR("ERROR");
+        PROCESSING("PROCESSING"),
+        WAITING("WAITING"),
+        ONBEKEND("ONBEKEND"),
+        ERROR("ERROR");
 
         private final String status;
 
@@ -53,60 +52,45 @@ public abstract class AutomatischProces implements Serializable {
         }
     }
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Id @GeneratedValue private Long id;
 
-    /**
-     * @note Tabel "automatisch_proces_config" in de database.
-     */
-    @ElementCollection(fetch= FetchType.EAGER)
+    /** @note Tabel "automatisch_proces_config" in de database. */
+    @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
     @MapKeyJoinColumn
     // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
     private Map<String, ClobElement> config = new HashMap<>();
 
-    /**
-     * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
-     */
+    /** laatste run tijdtip vasthouden ten behoeve van logging en rapportage. */
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastrun;
 
-    /**
-     * status van de laatste run.
-     */
+    /** status van de laatste run. */
     @Enumerated(EnumType.STRING)
     private ProcessingStatus status = ProcessingStatus.WAITING;
 
-    /**
-     * samenvatting van de laatste run.
-     */
+    /** samenvatting van de laatste run. */
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String samenvatting;
 
-    /**
-     * logfile
-     */
+    /** logfile */
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String logfile;
 
-    /**
-     * cron expressie voor planning.
-     */
+    /** cron expressie voor planning. */
     private String cronExpressie;
 
     /**
-     * update samenvatting en logfile in één keer, waarbij de logfile aangevuld
-     * wordt met de samenvatting.
+     * update samenvatting en logfile in één keer, waarbij de logfile aangevuld wordt met de
+     * samenvatting.
      *
      * @param samenvatting de nieuwe samenvatting
-     * @todo auto-truncate van de clob? oracle CLOB is maximaal 4 GB - 1) *
-     * DB_BLOCK_SIZE
-     * (http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm#i287903)
-     * ,posgres CLOB (text type) is maximaal limitless
-     * (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
+     * @todo auto-truncate van de clob? oracle CLOB is maximaal 4 GB - 1) * DB_BLOCK_SIZE
+     *     (http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm#i287903) ,posgres
+     *     CLOB (text type) is maximaal limitless
+     *     (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
      */
     public void updateSamenvattingEnLogfile(String samenvatting) {
         if (samenvatting == null) {
@@ -116,11 +100,12 @@ public abstract class AutomatischProces implements Serializable {
         if (this.logfile == null) {
             this.setLogfile(samenvatting);
         } else {
-            this.setLogfile(this.logfile + LOG_NEWLINE
-                    // +"----------------"+ LOG_NEWLINE
-                    + samenvatting);
+            this.setLogfile(
+                    this.logfile
+                            + LOG_NEWLINE
+                            // +"----------------"+ LOG_NEWLINE
+                            + samenvatting);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
@@ -180,5 +165,5 @@ public abstract class AutomatischProces implements Serializable {
         this.cronExpressie = cronExpressie;
     }
 
-    //</editor-fold>
+    // </editor-fold>
 }

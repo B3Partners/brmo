@@ -3,9 +3,15 @@
  */
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,18 +40,12 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * testcases voor mantis 10547; datumwaardes in archieftabellen hebben
- * verschillende formatting (wat niet moet). Draaien met:
- * {@code mvn -Dit.test=Mantis10547IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
- * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=Mantis10547IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > /tmp/postgresql.log}
- * voor postgresql.
+ * testcases voor mantis 10547; datumwaardes in archieftabellen hebben verschillende formatting (wat
+ * niet moet). Draaien met: {@code mvn -Dit.test=Mantis10547IntegrationTest -Dtest.onlyITs=true
+ * verify -Poracle > target/oracle.log} voor bijvoorbeeld Oracle of {@code mvn
+ * -Dit.test=Mantis10547IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader >
+ * /tmp/postgresql.log} voor postgresql.
  *
  * @author mprins
  */
@@ -58,8 +58,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         return Stream.of(
                 // {"bestandsNaam", aantalProcessen, aantalBerichten },
                 arguments("/mantis6166/staging-69660669770000.xml", 4, 4),
-                arguments("/mantis6166/staging-66860489870000.xml", 4, 4)
-        );
+                arguments("/mantis6166/staging-66860489870000.xml", 4, 4));
     }
 
     private BrmoFramework brmo;
@@ -68,6 +67,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
     private final Lock sequential = new ReentrantLock();
     private BasicDataSource dsRsgb;
     private BasicDataSource dsStaging;
+
     @Override
     @BeforeEach
     public void setUp() throws Exception {
@@ -87,15 +87,35 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         } else {
             Assertions.fail("Geen ondersteunde database aangegegeven.");
         }
@@ -119,7 +139,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         staging.close();
         dsStaging.close();
         try {
-          sequential.unlock();
+            sequential.unlock();
         } catch (IllegalMonitorStateException e) {
             // in geval van niet waar gemaakte assumptions
             LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed");
@@ -133,23 +153,37 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
      */
     @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testAll(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten) throws Exception {
-        assumeTrue(Mantis10547IntegrationTest.class.getResource(bestandsNaam) != null,
+    public void testAll(
+            final String bestandsNaam, final long aantalProcessen, final long aantalBerichten)
+            throws Exception {
+        assumeTrue(
+                Mantis10547IntegrationTest.class.getResource(bestandsNaam) != null,
                 "Het bestand met testdata zou moeten bestaan.");
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis10547IntegrationTest.class.getResource(bestandsNaam).toURI())));
+        IDataSet stagingDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        Mantis10547IntegrationTest.class
+                                                .getResource(bestandsNaam)
+                                                .toURI())));
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         assumeTrue(aantalBerichten > 0, "Er zijn meer dan 0 berichten in het bestand om te laden");
-        assumeTrue(aantalProcessen > 0, "Er zijn meer dan 0 laadprocessen in het bestand om te laden");
-        assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
+        assumeTrue(
+                aantalProcessen > 0, "Er zijn meer dan 0 laadprocessen in het bestand om te laden");
+        assumeTrue(
+                aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK berichten om te verwerken");
-        assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
+        assumeTrue(
+                aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen in de database");
 
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Alle berichten zijn OK getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -162,21 +196,33 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         assertEquals(0, brondocument.getRowCount(), "Er zijn geen brondocumenten");
 
         ITable kad_perceel_archief = rsgb.createDataSet().getTable("kad_perceel_archief");
-        assertEquals(aantalBerichten - 1, kad_perceel_archief.getRowCount(),
+        assertEquals(
+                aantalBerichten - 1,
+                kad_perceel_archief.getRowCount(),
                 "Alle percelen zijn  gearchiveerd");
 
         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable("kad_onrrnd_zk_archief");
-        assertEquals(aantalBerichten - 1, kad_onrrnd_zk_archief.getRowCount(),
+        assertEquals(
+                aantalBerichten - 1,
+                kad_onrrnd_zk_archief.getRowCount(),
                 "Alle onroerende zaken zijn gearchiveerd");
 
         final Pattern pattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
         for (int i = 0; i < aantalBerichten - 1; i++) {
-            LOG.debug("dat_beg_geldh/datum_einde_geldh voor rij: " + 1 + ": "
-                    + kad_onrrnd_zk_archief.getValue(i, "dat_beg_geldh") + "/"
-                    + kad_onrrnd_zk_archief.getValue(i, "datum_einde_geldh"));
-            assertTrue((pattern.matcher("" + kad_onrrnd_zk_archief.getValue(i, "dat_beg_geldh"))).find(),
+            LOG.debug(
+                    "dat_beg_geldh/datum_einde_geldh voor rij: "
+                            + 1
+                            + ": "
+                            + kad_onrrnd_zk_archief.getValue(i, "dat_beg_geldh")
+                            + "/"
+                            + kad_onrrnd_zk_archief.getValue(i, "datum_einde_geldh"));
+            assertTrue(
+                    (pattern.matcher("" + kad_onrrnd_zk_archief.getValue(i, "dat_beg_geldh")))
+                            .find(),
                     "'dat_beg_geldh' patroon klopt niet");
-            assertTrue((pattern.matcher("" + kad_onrrnd_zk_archief.getValue(i, "datum_einde_geldh"))).find(),
+            assertTrue(
+                    (pattern.matcher("" + kad_onrrnd_zk_archief.getValue(i, "datum_einde_geldh")))
+                            .find(),
                     "'datum_einde_geldh' patroon klopt niet");
         }
     }

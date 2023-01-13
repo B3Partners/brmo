@@ -18,15 +18,17 @@ package nl.b3p.brmo.test.util.database;
 
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 public final class ViewUtils {
     private static final Log LOG = LogFactory.getLog(ViewUtils.class);
@@ -41,19 +43,23 @@ public final class ViewUtils {
     public static List<String> listAllMaterializedViews(final DataSource ds) throws SQLException {
         List<String> mviews;
         try (Connection conn = ds.getConnection()) {
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-            mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<>());
+            final GeometryJdbcConverter geomToJdbc =
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            mviews =
+                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                            .query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<>());
             LOG.debug("Gevonden materialized views: " + mviews);
         }
         return mviews;
     }
 
     /**
-     * refresh alle materialized views in de database.
-     * <i>NB</i> niet duidelijk of de database de views in de juiste volgorde teruggeeft...
+     * refresh alle materialized views in de database. <i>NB</i> niet duidelijk of de database de
+     * views in de juiste volgorde teruggeeft...
      *
      * @param ds (rsgb) database koppeling
-     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor reden wordt dat alleen gelogd)
+     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor
+     *     reden wordt dat alleen gelogd)
      */
     public static void refreshAllMaterializedViews(final DataSource ds) throws SQLException {
         List<String> mviews = listAllMaterializedViews(ds);
@@ -66,18 +72,23 @@ public final class ViewUtils {
      * refresh de gegeven lijst van materialized views in de database.
      *
      * @param mviews lijst van namen van views
-     * @param ds     database koppeling
-     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor reden wordt dat alleen gelogd)
+     * @param ds database koppeling
+     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor
+     *     reden wordt dat alleen gelogd)
      */
-    public static void refreshMViews(final String[] mviews, final DataSource ds) throws SQLException {
+    public static void refreshMViews(final String[] mviews, final DataSource ds)
+            throws SQLException {
         try (Connection conn = ds.getConnection()) {
             conn.setAutoCommit(true);
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            final GeometryJdbcConverter geomToJdbc =
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             for (String mview : mviews) {
                 try {
                     LOG.debug("Start verversen van materialized view: " + mview);
                     // "update" gebruiken omdat we bij oracle stored procedure benaderen
-                    Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
+                    Object o =
+                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                    .update(conn, geomToJdbc.getMViewRefreshSQL(mview));
                     LOG.trace("Klaar met verversen van materialized view: " + mview);
                 } catch (SQLException sqle) {
                     LOG.error("Bijwerken van materialized view `" + mview + "` is mislukt. ", sqle);
@@ -86,6 +97,5 @@ public final class ViewUtils {
         }
     }
 
-    private ViewUtils() {
-    }
+    private ViewUtils() {}
 }

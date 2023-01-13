@@ -1,23 +1,20 @@
 package nl.b3p.brmo.persistence.staging;
 
-import java.io.Serializable;
-import javax.persistence.Embeddable;
-import javax.persistence.Lob;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Lob;
+
+/** @author Matthijs Laan */
 @Embeddable
 public class ClobElement implements Serializable {
     @Lob
-    @org.hibernate.annotations.Type(type="org.hibernate.type.TextType")
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.TextType")
     private String value;
 
-    public ClobElement() {
-    }
+    public ClobElement() {}
 
     public ClobElement(String value) {
         this.value = value;

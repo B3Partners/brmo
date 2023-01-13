@@ -7,8 +7,6 @@
 
 package nl.b3p.brmo.schema;
 
-import nl.b3p.brmo.bgt.schema.BGTObjectType;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -18,8 +16,7 @@ public class Schema {
 
     private final Map<String, ObjectType> objectTypes = new HashMap<>();
 
-    protected Schema() {
-    }
+    protected Schema() {}
 
     protected void addObjectType(ObjectType objectType) {
         objectTypes.put(objectType.getName(), objectType);
@@ -38,6 +35,5 @@ public class Schema {
             throw new IllegalArgumentException("Object type \"" + name + "\" not found");
         }
         return objectTypes.get(name);
-
     }
 }

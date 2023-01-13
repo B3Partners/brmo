@@ -13,7 +13,8 @@ public class AttributeColumnMapping {
     private final boolean primaryKey;
     private final boolean useDefault;
 
-    public AttributeColumnMapping(String name, String type, boolean notNull, boolean primaryKey, boolean useDefault) {
+    public AttributeColumnMapping(
+            String name, String type, boolean notNull, boolean primaryKey, boolean useDefault) {
         this.name = name;
         this.type = type;
         this.notNull = notNull;

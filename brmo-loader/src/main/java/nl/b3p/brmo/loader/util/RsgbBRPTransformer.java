@@ -1,9 +1,22 @@
 package nl.b3p.brmo.loader.util;
 
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.Bericht;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.SQLException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,33 +32,22 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
-import nl.b3p.brmo.loader.StagingProxy;
-import nl.b3p.brmo.loader.entity.Bericht;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-/**
- *
- * @author meine
- */
+/** @author meine */
 public class RsgbBRPTransformer extends RsgbTransformer {
 
     private static final Log log = LogFactory.getLog(RsgbBRPTransformer.class);
     private StagingProxy staging;
 
-    public RsgbBRPTransformer(String pathToXsl, StagingProxy staging) throws TransformerConfigurationException, ParserConfigurationException {
+    public RsgbBRPTransformer(String pathToXsl, StagingProxy staging)
+            throws TransformerConfigurationException, ParserConfigurationException {
         super(pathToXsl);
         this.staging = staging;
     }
 
     @Override
-    public String transformToDbXml(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
+    public String transformToDbXml(Bericht bericht)
+            throws SAXException, IOException, TransformerConfigurationException,
+                    TransformerException {
         String current = super.transformToDbXml(bericht);
         StringBuilder loadLog = new StringBuilder();
 
@@ -71,7 +73,9 @@ public class RsgbBRPTransformer extends RsgbTransformer {
     }
 
     @Override
-    public Node transformToDbXmlNode(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
+    public Node transformToDbXmlNode(Bericht bericht)
+            throws SAXException, IOException, TransformerConfigurationException,
+                    TransformerException {
         Node n = super.transformToDbXmlNode(bericht);
 
         // retrieve old bericht
@@ -99,23 +103,24 @@ public class RsgbBRPTransformer extends RsgbTransformer {
         Node newNode = (Node) expression.evaluate(merge, XPathConstants.NODE);
 
         /*
-            (1)Voor elke node in merge, kijk of hij bestaat in base
-                zo nee, importeer
-                zo ja, kijk of dit het een na diepste niveau is
-                    zo ja,
-                        ga voor elk childnode na of deze bestaat
-                            zo nee, importeer
-                            zo ja, overschrijf waarde
-                    zo nee, recurse in (1)
-         */
-        merge(base, newNode, old, true/*, merge*/);
+           (1)Voor elke node in merge, kijk of hij bestaat in base
+               zo nee, importeer
+               zo ja, kijk of dit het een na diepste niveau is
+                   zo ja,
+                       ga voor elk childnode na of deze bestaat
+                           zo nee, importeer
+                           zo ja, overschrijf waarde
+                   zo nee, recurse in (1)
+        */
+        merge(base, newNode, old, true /*, merge*/);
 
         return base;
     }
 
     private static final String GEEN_WAARDE = "geenWaarde";
-    
-    private static void merge(Document base, Node newNode, Element old, boolean first/*, Node merge*/) {
+
+    private static void merge(
+            Document base, Node newNode, Element old, boolean first /*, Node merge*/) {
         while (newNode.hasChildNodes()) {
             Node newChild = newNode.getFirstChild();
             newNode.removeChild(newChild);
@@ -133,22 +138,22 @@ public class RsgbBRPTransformer extends RsgbTransformer {
                     String content = newChild.getTextContent();
                     if (content.equals(GEEN_WAARDE)) {
                         oldItem.setTextContent("");
-                    } else if(content.equals("")){
-                        //keep old content
-                    }else {
+                    } else if (content.equals("")) {
+                        // keep old content
+                    } else {
                         oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));
                     }
                 }
             }
         }
     }
-    
-    private static String sanitizeValue(String val){
-        if(val.contains(GEEN_WAARDE)){
+
+    private static String sanitizeValue(String val) {
+        if (val.contains(GEEN_WAARDE)) {
             String newValue = val.replaceAll(GEEN_WAARDE + " ", "");
             newValue = newValue.replaceAll(GEEN_WAARDE, "");
             return newValue;
-        }else{
+        } else {
             return val;
         }
     }

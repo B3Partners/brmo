@@ -12,10 +12,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SeekableByteChannel;
 
 /**
- * Analogous to a CountingInputStream, this wraps a channel and records the number of bytes read and written in addition
- * to the number of non-consecutive reads or writes.
- * <p>
- * Optionally the bytes read can be printed to System.out (requires commons-codec).
+ * Analogous to a CountingInputStream, this wraps a channel and records the number of bytes read and
+ * written in addition to the number of non-consecutive reads or writes.
+ *
+ * <p>Optionally the bytes read can be printed to System.out (requires commons-codec).
  *
  * @author Matthijs Laan
  */
@@ -62,15 +62,22 @@ public class CountingSeekableByteChannel implements SeekableByteChannel {
             seeked = false;
             nonConsecutiveIops++;
             if (loggingEnabled) {
-                System.out.printf("new position %15d: read into buffer %s", channel.position(), byteBuffer);
+                System.out.printf(
+                        "new position %15d: read into buffer %s", channel.position(), byteBuffer);
             }
         } else if (loggingEnabled) {
-            System.out.printf("consecutive  %15d: read into buffer %s", channel.position(), byteBuffer);
+            System.out.printf(
+                    "consecutive  %15d: read into buffer %s", channel.position(), byteBuffer);
         }
         int startOffset = byteBuffer.arrayOffset();
         int read = channel.read(byteBuffer);
         if (loggingEnabled) {
-            System.out.printf(" read %s, contents: %s\n", read, new String(org.apache.commons.codec.binary.Hex.encodeHex(byteBuffer.array(), startOffset, read, true)));
+            System.out.printf(
+                    " read %s, contents: %s\n",
+                    read,
+                    new String(
+                            org.apache.commons.codec.binary.Hex.encodeHex(
+                                    byteBuffer.array(), startOffset, read, true)));
         }
         bytesRead += read;
         return read;
@@ -123,7 +130,8 @@ public class CountingSeekableByteChannel implements SeekableByteChannel {
         if (channel.isOpen()) {
             channel.close();
             if (loggingEnabled) {
-                System.out.printf("Total non-consecutive iops: %d, bytes read: %d, written: %d\n",
+                System.out.printf(
+                        "Total non-consecutive iops: %d, bytes read: %d, written: %d\n",
                         nonConsecutiveIops, bytesRead, bytesWritten);
             }
         }

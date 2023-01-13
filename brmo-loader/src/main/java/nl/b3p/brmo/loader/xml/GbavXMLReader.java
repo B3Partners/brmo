@@ -16,11 +16,18 @@
  */
 package nl.b3p.brmo.loader.xml;
 
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.GbavBericht;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -30,15 +37,8 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.GbavBericht;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Mark Prins
- */
+/** @author Mark Prins */
 public class GbavXMLReader extends BrmoXMLReader {
 
     private static final Log log = LogFactory.getLog(GbavXMLReader.class);
@@ -51,7 +51,8 @@ public class GbavXMLReader extends BrmoXMLReader {
     private GbavBericht nextBericht = null;
     private int volgordeNummer = 0;
 
-    public GbavXMLReader(InputStream in) throws XMLStreamException, TransformerConfigurationException {
+    public GbavXMLReader(InputStream in)
+            throws XMLStreamException, TransformerConfigurationException {
         streamReader = factory.createXMLStreamReader(in);
         TransformerFactory tf = TransformerFactory.newInstance();
         transformer = tf.newTransformer();
@@ -91,7 +92,9 @@ public class GbavXMLReader extends BrmoXMLReader {
             while (streamReader.hasNext()) {
                 if (streamReader.isStartElement() && streamReader.getLocalName().equals(PERSOON)) {
                     StringWriter sw = new StringWriter();
-                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
+                    transformer.transform(
+                            new StAXSource(streamReader),
+                            new StAXResult(xmlof.createXMLStreamWriter(sw)));
                     nextBericht = new GbavBericht(sw.toString());
                     nextBericht.setDatum(nextBericht.parseDatum());
                     if (nextBericht.getDatum() == null) {
@@ -104,10 +107,17 @@ public class GbavXMLReader extends BrmoXMLReader {
                     nextBericht.setObjectRef(PREFIX + bsnHash);
 
                     Map<String, String> bsns = new HashMap<>();
-                    nextBericht.getBsnList().forEach((_bsn) -> {
-                        log.debug("toevoegen bsn en hash: " + _bsn + ":" + this.getHash(_bsn));
-                        bsns.put(_bsn, this.getHash(_bsn));
-                    });
+                    nextBericht
+                            .getBsnList()
+                            .forEach(
+                                    (_bsn) -> {
+                                        log.debug(
+                                                "toevoegen bsn en hash: "
+                                                        + _bsn
+                                                        + ":"
+                                                        + this.getHash(_bsn));
+                                        bsns.put(_bsn, this.getHash(_bsn));
+                                    });
                     log.debug("aantal BSN in bericht:" + bsns.size());
                     nextBericht.setBsnMap(bsns);
                     return true;
@@ -122,9 +132,8 @@ public class GbavXMLReader extends BrmoXMLReader {
     }
 
     /**
-     * geeft het volgende bericht uit de stream, mits
-     * {@link #hasNext() } {@code true} geeft. Gebruik dus eerst
-     * {@link #hasNext()}.
+     * geeft het volgende bericht uit de stream, mits {@link #hasNext() } {@code true} geeft.
+     * Gebruik dus eerst {@link #hasNext()}.
      *
      * @return volgend bericht
      * @throws Exception soms
@@ -136,5 +145,4 @@ public class GbavXMLReader extends BrmoXMLReader {
         volgordeNummer++;
         return b;
     }
-
 }

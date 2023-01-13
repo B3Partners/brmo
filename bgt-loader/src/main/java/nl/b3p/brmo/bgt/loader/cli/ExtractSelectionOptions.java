@@ -9,7 +9,9 @@ package nl.b3p.brmo.bgt.loader.cli;
 import picocli.CommandLine.Option;
 
 public class ExtractSelectionOptions extends FeatureTypeSelectionOptions {
-    @Option(names={"--geo-filter"}, paramLabel="\"<wkt>\"")
+    @Option(
+            names = {"--geo-filter"},
+            paramLabel = "\"<wkt>\"")
     String geoFilterWkt;
 
     public String getGeoFilterWkt() {

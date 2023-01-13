@@ -10,16 +10,21 @@ package nl.b3p.brmo.bag2.loader.cli;
 import picocli.CommandLine;
 
 public class BAG2LoadOptions {
-    @CommandLine.Option(names="--no-create-schema", negatable = true)
+    @CommandLine.Option(names = "--no-create-schema", negatable = true)
     boolean noCreateSchema;
 
-    @CommandLine.Option(names={"--drop-if-exists"}, negatable = true)
+    @CommandLine.Option(
+            names = {"--drop-if-exists"},
+            negatable = true)
     boolean dropIfExists;
 
-    @CommandLine.Option(names="--max-objects", paramLabel= "<number>", hidden = true)
+    @CommandLine.Option(names = "--max-objects", paramLabel = "<number>", hidden = true)
     Integer maxObjects;
 
-    @CommandLine.Option(names={"--no-multithreading"}, negatable = true, hidden = true)
+    @CommandLine.Option(
+            names = {"--no-multithreading"},
+            negatable = true,
+            hidden = true)
     boolean multithreading = true;
 
     boolean ignoreDuplicates = false;

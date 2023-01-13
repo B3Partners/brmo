@@ -3,15 +3,13 @@
  */
 package nl.b3p.brmo.web.geotools;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import org.geotools.util.factory.GeoTools;
 import org.geotools.util.logging.Logging;
 
-/**
- *
- * @author mprins
- */
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+/** @author mprins */
 public class GeotoolsContextListener implements ServletContextListener {
 
     @Override
@@ -28,5 +26,4 @@ public class GeotoolsContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         org.geotools.util.WeakCollectionCleaner.DEFAULT.exit();
     }
-
 }

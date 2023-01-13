@@ -3,11 +3,15 @@
  */
 package nl.b3p.brmo.service.stripes;
 
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
@@ -20,7 +24,6 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,33 +35,27 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * testcases voor GH issue 287; opschonen en archiveren van berichten ouder dan
- * 3 maanden. Draaien met:
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl
- * brmo-service > /tmp/postgresql.log}
- * voor bijvoorbeeld PostgreSQL en
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Poracle  -pl
- * brmo-service > /tmp/oracle.log}
- * voor Oracle.
+ * testcases voor GH issue 287; opschonen en archiveren van berichten ouder dan 3 maanden. Draaien
+ * met: {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true
+ * verify -Ppostgresql -pl brmo-service > /tmp/postgresql.log} voor bijvoorbeeld PostgreSQL en
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify
+ * -Poracle -pl brmo-service > /tmp/oracle.log} voor Oracle.
  *
  * @author Mark Prins
  */
 public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil {
 
-    private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanCleanupIntegrationTest.class);
+    private static final Log LOG =
+            LogFactory.getLog(AdvancedFunctionsActionBeanCleanupIntegrationTest.class);
     private final Lock sequential = new ReentrantLock();
     private AdvancedFunctionsActionBean bean;
     private BrmoFramework brmo;
     private IDatabaseConnection staging;
 
     /**
-     * @return test data met daarin
-     * {@code {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive,
-     * aantalBerichtenRsgbNok}}
+     * @return test data met daarin {@code {"sBestandsNaam", aantalBerichtenRsgbOk,
+     *     aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok}}
      */
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
@@ -68,8 +65,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
                 arguments("/GH-287/gh-292-staging-flat.xml", 2043, 2043, 0, 0),
                 /* onderstaande staat op de ignore lijst omdat het op de build servers voor een OOM error zorgt, er
                 zitten teveel berichten in.*/
-                arguments("/GH-287/gh-292-staging-flat-4242.xml", 4242, 4242, 0, 0)
-        );
+                arguments("/GH-287/gh-292-staging-flat-4242.xml", 4242, 4242, 0, 0));
     }
 
     @BeforeEach
@@ -77,13 +73,22 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         bean = new AdvancedFunctionsActionBean();
         if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    DBPROPS.getProperty("staging.username").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            DBPROPS.getProperty("staging.username").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (isPostgis) {
             staging = new DatabaseConnection(dsStaging.getConnection());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         } else {
             Assertions.fail("Geen ondersteunde database aangegegeven");
         }
@@ -91,31 +96,31 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         sequential.lock();
     }
 
-    private void loadData(String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenArchive)
+    private void loadData(
+            String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenArchive)
             throws Exception {
         assumeTrue(
-                AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam) != null,
-                "Het bestand met staging testdata zou moeten bestaan."
-        );
+                AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam)
+                        != null,
+                "Het bestand met staging testdata zou moeten bestaan.");
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(
-                new FileInputStream(
-                        new File(AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(
-                                sBestandsNaam).toURI())
-                )
-        );
+        IDataSet stagingDataSet =
+                fxdb.build(
+                        new FileInputStream(
+                                new File(
+                                        AdvancedFunctionsActionBeanCleanupIntegrationTest.class
+                                                .getResource(sBestandsNaam)
+                                                .toURI())));
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         assumeTrue(
                 aantalBerichtenRsgbOk == brmo.getCountBerichten(BrmoFramework.BR_BAG, "RSGB_OK"),
-                "Er zijn anders dan verwacht aantal RSGB_OK berichten"
-        );
+                "Er zijn anders dan verwacht aantal RSGB_OK berichten");
         assumeTrue(
                 aantalBerichtenArchive == brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
-                "Er zijn anders dan verwacht aantal ARCHIVE berichten"
-        );
+                "Er zijn anders dan verwacht aantal ARCHIVE berichten");
     }
 
     @AfterEach
@@ -135,49 +140,63 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {
             // in geval van niet waar gemaakte assumptions
-            LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen.");
+            LOG.debug(
+                    "unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen.");
         }
     }
 
     @ParameterizedTest(name = "Cleanup Berichten {index}: bestand: {0}, aantal berichten {1}")
     @MethodSource("argumentsProvider")
-    public void testCleanupBerichten(String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenToArchive,
-                                     long aantalBerichtenArchive, long aantalBerichtenRsgbNok) throws Exception {
+    public void testCleanupBerichten(
+            String sBestandsNaam,
+            long aantalBerichtenRsgbOk,
+            long aantalBerichtenToArchive,
+            long aantalBerichtenArchive,
+            long aantalBerichtenRsgbNok)
+            throws Exception {
 
         loadData(sBestandsNaam, aantalBerichtenRsgbOk, aantalBerichtenArchive);
         bean.cleanupBerichten(Bericht.STATUS.RSGB_OK.toString(), BrmoFramework.BR_BAG);
         Assertions.assertEquals(
                 aantalBerichtenRsgbOk - aantalBerichtenToArchive,
                 brmo.getCountBerichten(BrmoFramework.BR_BAG, "RSGB_OK"),
-                "Er zijn anders dan verwacht aantal RSGB_OK berichten"
-        );
+                "Er zijn anders dan verwacht aantal RSGB_OK berichten");
         Assertions.assertEquals(
                 aantalBerichtenArchive + aantalBerichtenToArchive,
                 brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
-                "Er zijn anders dan verwacht aantal ARCHIVE berichten"
-        );
+                "Er zijn anders dan verwacht aantal ARCHIVE berichten");
     }
 
     @ParameterizedTest(name = "Delete Berichten{index}: bestand: {0}, aantal berichten {1}")
     @MethodSource("argumentsProvider")
-    public void testDeleteBerichten(String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenToArchive,
-                                    long aantalBerichtenArchive, long aantalBerichtenRsgbNok) throws Exception {
+    public void testDeleteBerichten(
+            String sBestandsNaam,
+            long aantalBerichtenRsgbOk,
+            long aantalBerichtenToArchive,
+            long aantalBerichtenArchive,
+            long aantalBerichtenRsgbNok)
+            throws Exception {
 
         loadData(sBestandsNaam, aantalBerichtenRsgbOk, aantalBerichtenArchive);
         bean.deleteBerichten(Bericht.STATUS.ARCHIVE.toString(), BrmoFramework.BR_BAG);
         Assertions.assertEquals(
                 0,
                 brmo.getCountBerichten(BrmoFramework.BR_BAG, "ARCHIVE"),
-                "Er zijn nog ARCHIVE berichten"
-        );
+                "Er zijn nog ARCHIVE berichten");
     }
 
-    @ParameterizedTest(name = "Cleanup en Delete Berichten {index}: bestand: {0}, aantal berichten {1}")
+    @ParameterizedTest(
+            name = "Cleanup en Delete Berichten {index}: bestand: {0}, aantal berichten {1}")
     @MethodSource("argumentsProvider")
-    //@Disabled("Deze programma flow komt normaal niet voor; de GUI staat slechts 1 keuze per run toe.")
-    public void testCleanupAndDeleteBerichten(String sBestandsNaam, long aantalBerichtenRsgbOk,
-                                              long aantalBerichtenToArchive, long aantalBerichtenArchive,
-                                              long aantalBerichtenRsgbNok) throws Exception {
+    // @Disabled("Deze programma flow komt normaal niet voor; de GUI staat slechts 1 keuze per run
+    // toe.")
+    public void testCleanupAndDeleteBerichten(
+            String sBestandsNaam,
+            long aantalBerichtenRsgbOk,
+            long aantalBerichtenToArchive,
+            long aantalBerichtenArchive,
+            long aantalBerichtenRsgbNok)
+            throws Exception {
 
         loadData(sBestandsNaam, aantalBerichtenRsgbOk, aantalBerichtenArchive);
         LOG.debug("Archiveren 'ok' berichten");

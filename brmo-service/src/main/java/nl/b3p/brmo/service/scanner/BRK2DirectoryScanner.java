@@ -6,6 +6,10 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Brk2Bericht;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -14,17 +18,13 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BRK2ScannerProces;
 import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.LaadProces;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.persistence.Transient;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +36,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.persistence.Transient;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.TransformerException;
 
 /**
  * Directory scanner for BRK 2 berichten in xml formaat.
@@ -51,43 +53,39 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
 
     private final BRK2ScannerProces config;
 
-    @Transient
-    private ProgressUpdateListener listener;
+    @Transient private ProgressUpdateListener listener;
 
     public BRK2DirectoryScanner(BRK2ScannerProces config) {
         this.config = config;
     }
 
     /**
-     * Leest de xml berichten uit de directory in in de database, indien
-     * geconfigureerd worden bestanden gearchiveerd.
+     * Leest de xml berichten uit de directory in in de database, indien geconfigureerd worden
+     * bestanden gearchiveerd.
      *
      * @throws BrmoException als de directory niet lees/blader/schrijfbaar is
      */
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                log.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        log.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-            }
-        });
+                    @Override
+                    public void addLog(String log) {}
+                });
     }
 
     @Override
@@ -105,7 +103,10 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
             }
         }
 
-        String msg = String.format("De BRK 2 scanner met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
+        String msg =
+                String.format(
+                        "De BRK 2 scanner met ID %d is gestart op %tc.",
+                        config.getId(), Calendar.getInstance());
         log.info(msg);
         listener.addLog(msg);
         sb.append(msg);
@@ -114,7 +115,9 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
         final File scanDirectory = new File(this.config.getScanDirectory());
         if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {
             config.setStatus(ERROR);
-            msg = String.format("De scan directory '%s' is geen executable directory", scanDirectory);
+            msg =
+                    String.format(
+                            "De scan directory '%s' is geen executable directory", scanDirectory);
             config.setLogfile(msg);
             config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
             this.listener.exception(new BrmoException(msg));
@@ -128,8 +131,10 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
             archiefDirectory.mkdirs();
             if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
                 config.setStatus(ERROR);
-                msg = String.format("De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
-                        archiefDirectory);
+                msg =
+                        String.format(
+                                "De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
+                                archiefDirectory);
                 sb.append(msg);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 log.error(msg);
@@ -138,8 +143,10 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
             }
             if (!scanDirectory.canWrite()) {
                 config.setStatus(ERROR);
-                msg = String.format("De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
-                        scanDirectory);
+                msg =
+                        String.format(
+                                "De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
+                                scanDirectory);
                 sb.append(msg);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 log.error(msg);
@@ -149,7 +156,9 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
         }
         config.setLogfile(sb.toString());
 
-        File[] files = scanDirectory.listFiles((File dir, String name) -> name.toLowerCase().endsWith(".xml"));
+        File[] files =
+                scanDirectory.listFiles(
+                        (File dir, String name) -> name.toLowerCase().endsWith(".xml"));
         Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);
 
         processXMLFiles(files, scanDirectory, archiefDirectory, em);
@@ -158,13 +167,14 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
     /**
      * verwerk een bestandenlijst.
      *
-     * @param files            array met xml bestanden
-     * @param scanDirectory    te scannen directory
-     * @param archiefDirectory waar de gescande files worden neergezet als de
-     *                         archief optie actief is
-     * @param em               de te gebruiken EntityManager
+     * @param files array met xml bestanden
+     * @param scanDirectory te scannen directory
+     * @param archiefDirectory waar de gescande files worden neergezet als de archief optie actief
+     *     is
+     * @param em de te gebruiken EntityManager
      */
-    private void processXMLFiles(File[] files, File scanDirectory, File archiefDirectory, EntityManager em) {
+    private void processXMLFiles(
+            File[] files, File scanDirectory, File archiefDirectory, EntityManager em) {
         StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());
         String msg;
         int filterAlVerwerkt = 0;
@@ -180,7 +190,9 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
             msg = String.format("Bestand %s is gevonden in %s.", f, scanDirectory);
             log.info(msg);
             listener.addLog(msg);
-            sb.append(AutomatischProces.LOG_NEWLINE).append(msg).append(AutomatischProces.LOG_NEWLINE);
+            sb.append(AutomatischProces.LOG_NEWLINE)
+                    .append(msg)
+                    .append(AutomatischProces.LOG_NEWLINE);
             if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BRK2)) {
                 msg = String.format("  Bestand %s is een duplicaat en wordt overgeslagen.", f);
                 listener.addLog(msg);
@@ -194,8 +206,13 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
                     lp.setBestand_datum(getBestandsDatum(f));
                     lp.setSoort(BrmoFramework.BR_BRK2);
                     lp.setStatus(LaadProces.STATUS.STAGING_OK);
-                    lp.setOpmerking(String.format("Bestand geladen van %s op %s", f.getAbsolutePath(), sdf.format(new Date())));
-                    lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));
+                    lp.setOpmerking(
+                            String.format(
+                                    "Bestand geladen van %s op %s",
+                                    f.getAbsolutePath(), sdf.format(new Date())));
+                    lp.setAutomatischProces(
+                            Stripersist.getEntityManager()
+                                    .find(AutomatischProces.class, config.getId()));
 
                     Bericht b = new Bericht();
                     b.setLaadprocesid(lp);
@@ -207,8 +224,11 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
                     b.setBr_orgineel_xml(fileContent);
 
                     try {
-                        Brk2SnapshotXMLReader reader = new Brk2SnapshotXMLReader(
-                                new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
+                        Brk2SnapshotXMLReader reader =
+                                new Brk2SnapshotXMLReader(
+                                        new ByteArrayInputStream(
+                                                b.getBr_orgineel_xml()
+                                                        .getBytes(StandardCharsets.UTF_8)));
                         Brk2Bericht bericht = reader.next();
 
                         if (bericht.getDatum() != null) {
@@ -216,9 +236,11 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
                         }
                         b.setBr_xml(bericht.getBrXml());
                         b.setVolgordenummer(bericht.getVolgordeNummer());
-                        lp.setBestand_naam_hersteld(bericht.getRestoredFileName(lp.getBestand_datum(), bericht.getVolgordeNummer()));
+                        lp.setBestand_naam_hersteld(
+                                bericht.getRestoredFileName(
+                                        lp.getBestand_datum(), bericht.getVolgordeNummer()));
 
-                        //Als objectRef niet opgehaald kan worden,dan kan het
+                        // Als objectRef niet opgehaald kan worden,dan kan het
                         //  bericht niet verwerkt worden.
                         String objectRef = bericht.getObjectRef();
                         if (objectRef != null && !objectRef.isEmpty()) {
@@ -227,13 +249,16 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
                             b.setOpmerking("Klaar voor verwerking.");
                         } else {
                             b.setStatus(Bericht.STATUS.STAGING_NOK);
-                            b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
+                            b.setOpmerking(
+                                    "Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
                         }
                     } catch (XMLStreamException | TransformerException e) {
                         b.setStatus(Bericht.STATUS.STAGING_NOK);
                         StringWriter sw = new StringWriter();
                         e.printStackTrace(new PrintWriter(sw));
-                        msg = String.format("Fout bij parsen BRK 2 bericht (bestand %s): %s ", f, sw);
+                        msg =
+                                String.format(
+                                        "Fout bij parsen BRK 2 bericht (bestand %s): %s ", f, sw);
                         b.setOpmerking(msg);
                         log.warn(msg);
                     }
@@ -245,22 +270,39 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
                         em.getTransaction().commit();
                         em.clear();
                         aantalGeladen++;
-                        msg = String.format("  Bestand %s is geladen en heeft status: %s. (Leverde bericht id: %s, met status: %s.)", f, lp.getStatus(), b.getId(), b.getStatus());
+                        msg =
+                                String.format(
+                                        "  Bestand %s is geladen en heeft status: %s. (Leverde bericht id: %s, met status: %s.)",
+                                        f, lp.getStatus(), b.getId(), b.getStatus());
                     } catch (PersistenceException pe) {
                         // insert van bericht of lp is mislukt, waarschijnlijk duplicaat bericht
-                        // een laadproces maken met duplicaat status en de xml van het bericht in de opmerking stoppen
+                        // een laadproces maken met duplicaat status en de xml van het bericht in de
+                        // opmerking stoppen
                         if (!em.getTransaction().isActive()) {
                             em.getTransaction().begin();
                         }
                         em.getTransaction().rollback();
                         em.getTransaction().begin();
                         lp.setId(null);
-                        log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt. Object referentie is: " + b.getObject_ref(), pe);
-                        log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
-                        lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Berichtinhoud: \n\n" + b.getBr_xml());
+                        log.warn(
+                                "Opslaan van bericht uit laadproces "
+                                        + lp.getBestand_naam()
+                                        + " is mislukt. Object referentie is: "
+                                        + b.getObject_ref(),
+                                pe);
+                        log.warn(
+                                "Duplicaat bericht: "
+                                        + b.getObject_ref()
+                                        + ":"
+                                        + b.getBr_orgineel_xml());
+                        lp.setOpmerking(
+                                lp.getOpmerking()
+                                        + ": Fout, duplicaat bericht. Berichtinhoud: \n\n"
+                                        + b.getBr_xml());
                         b = null;
                         lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-                        lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));
+                        lp.setAutomatischProces(
+                                em.find(AutomatischProces.class, this.config.getId()));
                         em.merge(this.config);
                         em.persist(lp);
                         em.flush();
@@ -286,12 +328,21 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
                     FileUtils.copyFileToDirectory(f, archiefDirectory);
                     boolean succes = FileUtils.deleteQuietly(f);
                     if (succes) {
-                        msg = String.format("  Bestand %s is naar archief %s verplaatst.", f, archiefDirectory);
+                        msg =
+                                String.format(
+                                        "  Bestand %s is naar archief %s verplaatst.",
+                                        f, archiefDirectory);
                     } else {
-                        msg = String.format("  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.", f, archiefDirectory);
+                        msg =
+                                String.format(
+                                        "  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.",
+                                        f, archiefDirectory);
                     }
                 } catch (IOException e) {
-                    msg = String.format("  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).", f, archiefDirectory, e.getLocalizedMessage());
+                    msg =
+                            String.format(
+                                    "  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).",
+                                    f, archiefDirectory, e.getLocalizedMessage());
                     log.error(msg);
                 }
             }
@@ -312,9 +363,13 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
         config.setStatus(WAITING);
         config.setLogfile(sb.toString());
         config.setLastrun(new Date());
-        config.updateSamenvattingEnLogfile("Aantal bestanden die al waren verwerkt: "
-                + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
-                + "Aantal bestanden geladen: " + aantalGeladen + AutomatischProces.LOG_NEWLINE);
+        config.updateSamenvattingEnLogfile(
+                "Aantal bestanden die al waren verwerkt: "
+                        + filterAlVerwerkt
+                        + AutomatischProces.LOG_NEWLINE
+                        + "Aantal bestanden geladen: "
+                        + aantalGeladen
+                        + AutomatischProces.LOG_NEWLINE);
         em.merge(config);
     }
 }

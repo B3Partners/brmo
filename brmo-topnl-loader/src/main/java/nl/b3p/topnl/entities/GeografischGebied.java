@@ -18,16 +18,13 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class GeografischGebied extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class GeografischGebied extends TopNLEntity {
+
     private String typeGeografischGebied;
     private String naamNL;
     private String naamFries;
-    
+
     private Geometry geometrie;
 
     public Geometry getGeometrie() {
@@ -61,7 +58,4 @@ public class GeografischGebied extends TopNLEntity{
     public void setNaamFries(String naamFries) {
         this.naamFries = naamFries;
     }
-    
-    
-    
 }

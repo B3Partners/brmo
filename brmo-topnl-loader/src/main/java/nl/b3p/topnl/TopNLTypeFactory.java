@@ -16,23 +16,25 @@
  */
 package nl.b3p.topnl;
 
-import java.io.IOException;
-import java.net.URL;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
+import java.io.IOException;
+import java.net.URL;
+
+/** @author Meine Toonen meinetoonen@b3partners.nl */
 public class TopNLTypeFactory {
 
-    private static final String TOP250NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1";
-    private static final String TOP100NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
-    private static final String TOP50NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1";
-    private static final String TOP10NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0";
+    private static final String TOP250NLNAMESPACE =
+            "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1";
+    private static final String TOP100NLNAMESPACE =
+            "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
+    private static final String TOP50NLNAMESPACE =
+            "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1";
+    private static final String TOP10NLNAMESPACE =
+            "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0";
 
     public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -40,9 +42,9 @@ public class TopNLTypeFactory {
         saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
         saxBuilder.setExpandEntities(false);
         Document inputXml = saxBuilder.build(is);
-        return getTopNLType(inputXml);       
+        return getTopNLType(inputXml);
     }
-    
+
     public static TopNLType getTopNLType(String is) throws JDOMException, IOException {
         SAXBuilder saxBuilder = new SAXBuilder();
         saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
@@ -52,8 +54,8 @@ public class TopNLTypeFactory {
         return getTopNLType(inputXml);
     }
 
-    private static TopNLType getTopNLType(Document inputXml){
-         if (!inputXml.hasRootElement()) {
+    private static TopNLType getTopNLType(Document inputXml) {
+        if (!inputXml.hasRootElement()) {
             throw new IllegalArgumentException("Document contains no root element");
         }
         Element rootElem = inputXml.getRootElement();

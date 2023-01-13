@@ -7,10 +7,11 @@
 
 package nl.b3p.brmo.bgt.loader;
 
-import java.time.Duration;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.Duration;
 
 class FormatTimeTest {
     @Test
@@ -30,14 +31,21 @@ class FormatTimeTest {
     void hours() {
         assertEquals("5h  0m  0s", Utils.formatDuration(Duration.ofHours(5)));
         assertEquals("5h 32m  0s", Utils.formatDuration(Duration.ofHours(5).plusMinutes(32)));
-        assertEquals("5h 32m  4s", Utils.formatDuration(Duration.ofHours(5).plusMinutes(32).plusSeconds(4)));
+        assertEquals(
+                "5h 32m  4s",
+                Utils.formatDuration(Duration.ofHours(5).plusMinutes(32).plusSeconds(4)));
     }
 
     @Test
     void days() {
         assertEquals("5d 0s", Utils.formatDuration(Duration.ofDays(5)));
         assertEquals("5d 12s", Utils.formatDuration(Duration.ofDays(5).plusSeconds(12)));
-        assertEquals("5d 2m 12s", Utils.formatDuration(Duration.ofDays(5).plusMinutes(2).plusSeconds(12)));
-        assertEquals("5d 3h  2m 12s", Utils.formatDuration(Duration.ofDays(5).plusHours(3).plusMinutes(2).plusSeconds(12)));
+        assertEquals(
+                "5d 2m 12s",
+                Utils.formatDuration(Duration.ofDays(5).plusMinutes(2).plusSeconds(12)));
+        assertEquals(
+                "5d 3h  2m 12s",
+                Utils.formatDuration(
+                        Duration.ofDays(5).plusHours(3).plusMinutes(2).plusSeconds(12)));
     }
 }

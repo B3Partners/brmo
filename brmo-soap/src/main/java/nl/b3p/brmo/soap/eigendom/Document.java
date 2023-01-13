@@ -6,18 +6,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-/**
- * <p>
- * Java class for anonymous complex type.
- */
+/** Java class for anonymous complex type. */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "value"
-})
+@XmlType(
+        name = "",
+        propOrder = {"value"})
 public class Document {
 
-    @XmlValue
-    protected String value;
+    @XmlValue protected String value;
+
     @XmlAttribute(name = "datum")
     protected String datum;
 
@@ -25,7 +22,6 @@ public class Document {
      * Gets the value of the value property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getValue() {
         return value;
@@ -35,7 +31,6 @@ public class Document {
      * Sets the value of the value property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setValue(String value) {
         this.value = value;
@@ -45,7 +40,6 @@ public class Document {
      * Gets the value of the datum property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getDatum() {
         return datum;
@@ -55,10 +49,8 @@ public class Document {
      * Sets the value of the datum property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setDatum(String value) {
         this.datum = value;
     }
-
 }

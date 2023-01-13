@@ -16,12 +16,6 @@
  */
 package nl.b3p.brmo.stufbg204;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Map;
 import nl.egem.stuf.sector.bg._0204.ACDTabel;
 import nl.egem.stuf.sector.bg._0204.ADLTabel;
 import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
@@ -63,22 +57,25 @@ import nl.egem.stuf.stuf0204.ExtraElement;
 import nl.egem.stuf.stuf0204.ExtraElementen;
 import nl.egem.stuf.stuf0204.NoValue;
 import nl.egem.stuf.stuf0204.Verwerkingssoort;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Meine Toonen
- */
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+
+/** @author Meine Toonen */
 public class AntwoordBodyFactory {
 
     private static final Log LOG = LogFactory.getLog(AntwoordBodyFactory.class);
-    
+
     private static final ObjectFactory objFac = new ObjectFactory();
 
-    public AntwoordBodyFactory() {
-
-    }
+    public AntwoordBodyFactory() {}
 
     // <editor-fold defaultstate="collapsed" desc="Answermessage creators">
     public static VBTTabel createVerblijfstitel(String omschrijving, BigInteger code) {
@@ -120,7 +117,7 @@ public class AntwoordBodyFactory {
         BsnNummerE bsn = new BsnNummerE();
         bsn.setValue(bsnInt);
         calculateNoValue(bsn);
-        
+
         p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));
 
         if (prs.getVoornamen() != null) {
@@ -193,7 +190,8 @@ public class AntwoordBodyFactory {
             DatumVerkrijgingVerblijfstitel dav = new DatumVerkrijgingVerblijfstitel();
             dav.setValue(nullIfEmptyBD(values.get("datum_verkr_nation")));
             calculateNoValue(dav);
-            p.setDatumVerkrijgingVerblijfstitel(objFac.createPRSFundDatumVerkrijgingVerblijfstitel(dav));
+            p.setDatumVerkrijgingVerblijfstitel(
+                    objFac.createPRSFundDatumVerkrijgingVerblijfstitel(dav));
         }
         if (prs.getDatumVerliesVerblijfstitel() != null) {
             DatumVerliesVerblijfstitel dvt = new DatumVerliesVerblijfstitel();
@@ -256,22 +254,27 @@ public class AntwoordBodyFactory {
             p.setDatumOpschortingBijhouding(objFac.createPRSFundDatumOpschortingBijhouding(da));
         }
         if (prs.getOmschrijvingRedenOpschortingBijhouding() != null) {
-            OmschrijvingRedenOpschortingBijhouding om = new OmschrijvingRedenOpschortingBijhouding();
+            OmschrijvingRedenOpschortingBijhouding om =
+                    new OmschrijvingRedenOpschortingBijhouding();
             om.setValue(nullIfEmpty(values.get("reden_opschorting_bijhouding")));
             calculateNoValue(om);
-            p.setOmschrijvingRedenOpschortingBijhouding(objFac.createPRSFundOmschrijvingRedenOpschortingBijhouding(om));
+            p.setOmschrijvingRedenOpschortingBijhouding(
+                    objFac.createPRSFundOmschrijvingRedenOpschortingBijhouding(om));
         }
 
         if (prs.getAanduidingNaamgebruik() != null && values.get("aand_naamgebruik") != null) {
             AanduidingNaamgebruik an = new AanduidingNaamgebruik();
-            an.setValue(nl.egem.stuf.sector.bg._0204.AanduidingNaamgebruik.fromValue(nullIfEmpty(values.get("aand_naamgebruik"))));
+            an.setValue(
+                    nl.egem.stuf.sector.bg._0204.AanduidingNaamgebruik.fromValue(
+                            nullIfEmpty(values.get("aand_naamgebruik"))));
             calculateNoValue(an);
             p.setAanduidingNaamgebruik(objFac.createPRSFundAanduidingNaamgebruik(an));
         }
 
         if (prs.getGeslachtsaanduiding() != null && values.get("geslachtsaand") != null) {
             GeslachtsaanduidingE ga = new GeslachtsaanduidingE();
-            Geslachtsaanduiding ge = Geslachtsaanduiding.fromValue(nullIfEmpty(values.get("geslachtsaand")));
+            Geslachtsaanduiding ge =
+                    Geslachtsaanduiding.fromValue(nullIfEmpty(values.get("geslachtsaand")));
             ga.setValue(ge);
             calculateNoValue(ga);
             p.setGeslachtsaanduiding(objFac.createPRSFundGeslachtsaanduiding(ga));
@@ -279,7 +282,14 @@ public class AntwoordBodyFactory {
 
         if (prs.getPRSADRCOR() != null) {
             List<ADRRelFund> adrcor = p.getPRSADRCOR();
-            ADRRelFund a = createAdres("teststraat", new BigInteger("16"), "d", "1212", new BigInteger("0556"), prs.getPRSADRCOR().getValue().getADR());
+            ADRRelFund a =
+                    createAdres(
+                            "teststraat",
+                            new BigInteger("16"),
+                            "d",
+                            "1212",
+                            new BigInteger("0556"),
+                            prs.getPRSADRCOR().getValue().getADR());
             a.setSoortEntiteit("R");
             a.setVerwerkingssoort(Verwerkingssoort.I);
             adrcor.add(a);
@@ -287,7 +297,14 @@ public class AntwoordBodyFactory {
 
         if (prs.getPRSADRVBL() != null) {
             List<ADRRelFund> adrcor = p.getPRSADRVBL();
-            ADRRelFund a = createAdres("teststraat", new BigInteger("16"), "d", "1212", new BigInteger("0556"), prs.getPRSADRVBL().getValue().getADR());
+            ADRRelFund a =
+                    createAdres(
+                            "teststraat",
+                            new BigInteger("16"),
+                            "d",
+                            "1212",
+                            new BigInteger("0556"),
+                            prs.getPRSADRVBL().getValue().getADR());
             adrcor.add(a);
         }
 
@@ -302,21 +319,29 @@ public class AntwoordBodyFactory {
 
         return p;
     }
-    
-    private static void calculateNoValue(Object element){
+
+    private static void calculateNoValue(Object element) {
         Class c = element.getClass();
         Object val = null;
         try {
             Method method = element.getClass().getDeclaredMethod("getValue");
             val = method.invoke(element);
-        } catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (SecurityException
+                | NoSuchMethodException
+                | IllegalAccessException
+                | IllegalArgumentException
+                | InvocationTargetException e) {
             LOG.error("Cannot get value for element " + c.toString(), e);
         }
         if (val == null) {
             try {
                 Method method = element.getClass().getDeclaredMethod("setNoValue", NoValue.class);
                 val = method.invoke(element, NoValue.GEEN_WAARDE);
-            } catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            } catch (SecurityException
+                    | NoSuchMethodException
+                    | IllegalAccessException
+                    | IllegalArgumentException
+                    | InvocationTargetException e) {
                 LOG.error("Cannot set NoValue for element " + c.toString(), e);
             }
         }
@@ -382,7 +407,8 @@ public class AntwoordBodyFactory {
         o.setExact(Boolean.FALSE);
 
         ACDTabel.PositieTovNaam p = new ACDTabel.PositieTovNaam();
-        p.setValue(posVoorNaam ? AcademischeTitelPositieTovNaam.V : AcademischeTitelPositieTovNaam.N);
+        p.setValue(
+                posVoorNaam ? AcademischeTitelPositieTovNaam.V : AcademischeTitelPositieTovNaam.N);
 
         ExtraElementen e = new ExtraElementen();
         ExtraElement ex = new ExtraElement();
@@ -418,7 +444,13 @@ public class AntwoordBodyFactory {
         return t;
     }
 
-    public static ADRRelFund createAdres(String straat, BigInteger huisnummer, String huisletter, String postcode, BigInteger gemeentecode, ADRFund vraag) {
+    public static ADRRelFund createAdres(
+            String straat,
+            BigInteger huisnummer,
+            String huisletter,
+            String postcode,
+            BigInteger gemeentecode,
+            ADRFund vraag) {
         ADRRelFund aa = new ADRRelFund();
 
         ADRAntwoord a = new ADRAntwoord();
@@ -434,21 +466,21 @@ public class AntwoordBodyFactory {
         h.setValue(huisnummer);
         h.setGegevengroep("ADR1");
         calculateNoValue(h);
-        
+
         ADRFund.Gemeentecode g = new ADRFund.Gemeentecode();
         g.setValue(gemeentecode);
         calculateNoValue(g);
-        
+
         ADRFund.Huisletter hl = new ADRFund.Huisletter();
         hl.setValue(huisletter);
         hl.setGegevengroep("ADR1");
         calculateNoValue(hl);
-        
+
         ADRFund.Postcode p = new ADRFund.Postcode();
         p.setValue(postcode);
         p.setGegevengroep("ADR1");
         calculateNoValue(p);
-        
+
         ADRFund.Woonplaatsnaam w = new ADRFund.Woonplaatsnaam();
         w.setValue("Maassluis");
         calculateNoValue(w);

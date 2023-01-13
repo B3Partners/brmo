@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>docker</artifactId>
-    <packaging>docker</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>docker</artifactId>
+    <packaging>docker</packaging>
     <name>BRMO Dockerfile</name>
     <description>Maak een docker image van de brmo-service</description>
-    <properties>
-    </properties>
+    <properties/>
     <dependencies>
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -36,10 +36,10 @@
                 <executions>
                     <execution>
                         <id>unpack-dist</id>
-                        <phase>prepare-package</phase>
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <includeGroupIds>nl.b3p</includeGroupIds>
                             <includeArtifactIds>brmo-dist</includeArtifactIds>
@@ -72,19 +72,19 @@
                 <executions>
                     <execution>
                         <id>docker-build</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>build</goal>
                         </goals>
+                        <phase>package</phase>
                     </execution>
                     <execution>
                         <id>docker-push</id>
-                        <!-- NB voor deploy/push is het nodig dat je bent ingelogd op de ghcr.io repository met docker.
-                        zie: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
-                        <phase>deploy</phase>
                         <goals>
                             <goal>push</goal>
                         </goals>
+                        <!-- NB voor deploy/push is het nodig dat je bent ingelogd op de ghcr.io repository met docker.
+                        zie: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
+                        <phase>deploy</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -119,10 +119,10 @@
                         <executions>
                             <execution>
                                 <id>docker-tag</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>tag</goal>
                                 </goals>
+                                <phase>verify</phase>
                                 <configuration>
                                     <tagName>latest</tagName>
                                     <repo>ghcr.io/b3partners</repo>
@@ -130,10 +130,10 @@
                             </execution>
                             <execution>
                                 <id>docker-push-latest</id>
-                                <phase>deploy</phase>
                                 <goals>
                                     <goal>push</goal>
                                 </goals>
+                                <phase>deploy</phase>
                                 <configuration>
                                     <verbose>true</verbose>
                                     <images>

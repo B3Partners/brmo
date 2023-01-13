@@ -8,6 +8,7 @@ import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
+
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
@@ -32,15 +33,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Draaien met:
- * {@code mvn -Dit.test=BrkInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor bijvoorbeeld PostgreSQL.
+ * Draaien met: {@code mvn -Dit.test=BrkInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql
+ * > target/postgresql.log} voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins
  */
-
 public class BrkInfoIntegrationTest extends TestUtil {
-
 
     private final Lock sequential = new ReentrantLock(true);
     /*
@@ -61,16 +59,39 @@ public class BrkInfoIntegrationTest extends TestUtil {
     @Override
     public void setUp() throws Exception {
         rsgb = new DatabaseDataSourceConnection(this.dsRsgb, DBPROPS.getProperty("rsgb.schema"));
-        IDataSet rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet rsgbDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        BrkInfoIntegrationTest.class
+                                                .getResource(sBestandsNaam)
+                                                .toURI())));
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.schema").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class),
+                            DBPROPS.getProperty("rsgb.schema").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource("/oracle-" + sBestandsNaam.substring(1)).toURI())));
+            rsgbDataSet =
+                    new XmlDataSet(
+                            new FileInputStream(
+                                    new File(
+                                            BrkInfoIntegrationTest.class
+                                                    .getResource(
+                                                            "/oracle-" + sBestandsNaam.substring(1))
+                                                    .toURI())));
         } else if (this.isPostgis) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
 
         sequential.lock();
@@ -94,8 +115,12 @@ public class BrkInfoIntegrationTest extends TestUtil {
      */
     @Test
     public void testGetDbType() throws Exception {
-        Assertions.assertEquals(this.isPostgis, BrkInfo.DB_POSTGRES.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
-        Assertions.assertEquals(this.isOracle, BrkInfo.DB_ORACLE.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
+        Assertions.assertEquals(
+                this.isPostgis,
+                BrkInfo.DB_POSTGRES.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
+        Assertions.assertEquals(
+                this.isOracle,
+                BrkInfo.DB_ORACLE.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
     }
 
     /**
@@ -185,8 +210,7 @@ public class BrkInfoIntegrationTest extends TestUtil {
     }
 
     /**
-     * testcase voor
-     * {@link BrkInfo#createResponse(java.util.List, java.util.Map)}.
+     * testcase voor {@link BrkInfo#createResponse(java.util.List, java.util.Map)}.
      *
      * @throws Exception if any
      * @see BrkInfo#createResponse(java.util.List, java.util.Map)

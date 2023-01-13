@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- *
- * @author Meine Toonen
- */
+/** @author Meine Toonen */
 public enum TopNLType {
     TOP10NL("Top10NL"),
     TOP50NL("Top50NL"),
@@ -60,5 +57,4 @@ public enum TopNLType {
         }
         return false;
     }
-
 }

@@ -17,7 +17,7 @@ public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
 
     @Override
     public Object toQueryParameter(Object value) {
-        if(value == null) {
+        if (value == null) {
             return null;
         } else {
             return Boolean.parseBoolean(value.toString());

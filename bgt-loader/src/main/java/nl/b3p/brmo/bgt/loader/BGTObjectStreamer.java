@@ -6,9 +6,12 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
+
 import nl.b3p.brmo.bgt.schema.BGTObject;
 import nl.b3p.brmo.bgt.schema.BGTObjectType;
 import nl.b3p.brmo.bgt.schema.BGTSchema;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
@@ -18,11 +21,6 @@ import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.locationtech.jts.geom.Geometry;
 import org.opengis.referencing.FactoryException;
 
-import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +34,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
+import javax.xml.namespace.QName;
+import javax.xml.stream.Location;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
 
 public class BGTObjectStreamer implements Iterable<BGTObject> {
     private static final Log log = LogFactory.getLog(BGTObjectStreamer.class);
@@ -44,10 +46,13 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
     private static final String NS_IMGEO = "http://www.geostandaarden.nl/imgeo/2.1";
     private static final String NS_CITYGML = "http://www.opengis.net/citygml/2.0";
     private static final String NS_GML = "http://www.opengis.net/gml";
-    private static final String NS_MUTATIELEVERING = "http://www.kadaster.nl/schemas/mutatielevering-generiek/2.0";
-    private static final String NS_MUTATIELEVERING_BGT = "http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0";
+    private static final String NS_MUTATIELEVERING =
+            "http://www.kadaster.nl/schemas/mutatielevering-generiek/2.0";
+    private static final String NS_MUTATIELEVERING_BGT =
+            "http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0";
 
-    private static final QName CITYGML_CITY_OBJECT_MEMBER = new QName(NS_CITYGML, "cityObjectMember");
+    private static final QName CITYGML_CITY_OBJECT_MEMBER =
+            new QName(NS_CITYGML, "cityObjectMember");
     private static final QName CITYGML_CITY_MODEL = new QName(NS_CITYGML, "CityModel");
 
     private static final QName MUTATIE_BERICHT = new QName(NS_MUTATIELEVERING, "mutatieBericht");
@@ -118,14 +123,20 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         } else if (root.equals(BGT_MUTATIES)) {
             isMutaties = true;
         } else {
-            throw new IllegalArgumentException("XML root element moet CityModel of bgtMutaties zijn");
+            throw new IllegalArgumentException(
+                    "XML root element moet CityModel of bgtMutaties zijn");
         }
 
-        // Note: when using StaxMate childElementCursor() or similar, only an local name string element does not work
+        // Note: when using StaxMate childElementCursor() or similar, only an local name string
+        // element does not work
         // when using Aalto. Always use a QName parameter!
 
-        if(isMutaties) {
-            cursor = cursor.childElementCursor(MUTATIE_BERICHT).advance().childElementCursor().advance();
+        if (isMutaties) {
+            cursor =
+                    cursor.childElementCursor(MUTATIE_BERICHT)
+                            .advance()
+                            .childElementCursor()
+                            .advance();
             label:
             do {
                 switch (cursor.getLocalName()) {
@@ -140,9 +151,10 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                         hasMutatieGroep = true;
                         break label;
                     default:
-                        throw new IllegalStateException("Verwacht mutatieGroep element, gevonden " + cursor.getQName());
+                        throw new IllegalStateException(
+                                "Verwacht mutatieGroep element, gevonden " + cursor.getQName());
                 }
-            } while(cursor.getNext() != null);
+            } while (cursor.getNext() != null);
 
         } else {
             cursor = cursor.childElementCursor(CITYGML_CITY_OBJECT_MEMBER).advance();
@@ -154,8 +166,8 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
     private static MutatieInhoud parseInhoud(SMInputCursor inhoudCursor) throws XMLStreamException {
         SMInputCursor cursor = inhoudCursor.childElementCursor();
         MutatieInhoud mutatieInhoud = new MutatieInhoud();
-        while(cursor.getNext() != null) {
-            switch(cursor.getLocalName()) {
+        while (cursor.getNext() != null) {
+            switch (cursor.getLocalName()) {
                 case "mutatieType":
                     mutatieInhoud.mutatieType = cursor.collectDescendantText().trim();
                     break;
@@ -184,11 +196,16 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         // Using alternative StAX parsers explicitly:
         // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
         // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
-        final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or javax.xml.stream.XMLInputFactory property, can be SJSXP
+        final XMLInputFactory xmlInputFactory =
+                XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or
+        // javax.xml.stream.XMLInputFactory property, can be SJSXP
         log.trace("StAX XMLInputFactory: " + xmlInputFactory.getClass().getName());
 
-        xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
-        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities
+        xmlInputFactory.setProperty(
+                XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
+        xmlInputFactory.setProperty(
+                XMLInputFactory.SUPPORT_DTD,
+                Boolean.FALSE); // No XML entity expansions or external entities
 
         return new SMInputFactory(xmlInputFactory);
     }
@@ -199,7 +216,8 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
             SMEvent event = cursor.getCurrEvent();
 
             /**
-             * A parse action may return multiple objects. Buffer the future objects to be returned in a next() call.
+             * A parse action may return multiple objects. Buffer the future objects to be returned
+             * in a next() call.
              */
             private final Queue<BGTObject> buffer = new LinkedList<>();
 
@@ -217,7 +235,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                 try {
                     event = cursor.getNext();
                     return event != null;
-                } catch(XMLStreamException e) {
+                } catch (XMLStreamException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -232,11 +250,12 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                         throw new IllegalStateException("No items");
                     }
                     if (event == null) {
-                        if(!hasNext()) {
+                        if (!hasNext()) {
                             throw new IllegalStateException("No more items");
                         }
                     }
-                    // Make sure cityObjectMembers.getNext() is called with next Iterator.getNext() call
+                    // Make sure cityObjectMembers.getNext() is called with next Iterator.getNext()
+                    // call
                     event = null;
 
                     Map<String, Object> attributes = new HashMap<>();
@@ -247,14 +266,16 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                     BGTObject.MutatieStatus mutatieStatus = BGTObject.MutatieStatus.WORDT;
 
                     if (isMutaties) {
-                        // Assume single child per <mutatieGroep>, cursor is currently at <mutatieGroep>
+                        // Assume single child per <mutatieGroep>, cursor is currently at
+                        // <mutatieGroep>
 
                         SMInputCursor mutatie = cursor.childElementCursor().advance();
                         String mutatieNaam = mutatie.getLocalName();
                         if (mutatieNaam.equals("wijziging") || mutatieNaam.equals("toevoeging")) {
                             mutatie = mutatie.childElementCursor().advance();
                         } else {
-                            throw new IllegalStateException("Ongeldig mutatieGroep child element: " + mutatie.getQName());
+                            throw new IllegalStateException(
+                                    "Ongeldig mutatieGroep child element: " + mutatie.getQName());
                         }
 
                         if (mutatieNaam.equals("wijziging")) {
@@ -262,47 +283,58 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                             gmlIdPreviousVersion = fixUUID(mutatie.getAttrValue("id"));
 
                             if (mutatie.getNext() == null) {
-                                // To support deletes, we would need to parse the <cityObjectMember> child element name
+                                // To support deletes, we would need to parse the <cityObjectMember>
+                                // child element name
                                 // at least, but deletes do not occur for bgt
-                                throw new IllegalStateException("Mutaties 'was' zonder 'wordt' worden niet ondersteund voor BGT");
+                                throw new IllegalStateException(
+                                        "Mutaties 'was' zonder 'wordt' worden niet ondersteund voor BGT");
                             }
                             assert mutatie.getLocalName().equals("wordt");
                             mutatieStatus = BGTObject.MutatieStatus.WAS_WORDT;
-                        } else if(mutatieNaam.equals("toevoeging")) {
+                        } else if (mutatieNaam.equals("toevoeging")) {
                             assert mutatie.getLocalName().equals("wordt");
                             // mutatieStatus is already IMGeoObject.MutatieStatus.WORDT
                         } else {
-                            throw new IllegalStateException("Ongeldig mutatie element: " + mutatie.getLocalName());
+                            throw new IllegalStateException(
+                                    "Ongeldig mutatie element: " + mutatie.getLocalName());
                         }
 
                         // Move cursor from <wordt> to <cityObjectMember> child
-                        cityObjectMemberChild = mutatie.childElementCursor(BGT_OBJECT).advance()
-                                .childElementCursor(CITYGML_CITY_OBJECT_MEMBER).advance()
-                                .childElementCursor().advance();
+                        cityObjectMemberChild =
+                                mutatie.childElementCursor(BGT_OBJECT)
+                                        .advance()
+                                        .childElementCursor(CITYGML_CITY_OBJECT_MEMBER)
+                                        .advance()
+                                        .childElementCursor()
+                                        .advance();
                     } else {
                         cityObjectMemberChild = cursor.childElementCursor().advance();
                     }
 
                     final String name = cityObjectMemberChild.getLocalName();
-                    final BGTObjectType bgtObjectType = BGTSchema.getInstance().getObjectTypeByName(name);
+                    final BGTObjectType bgtObjectType =
+                            BGTSchema.getInstance().getObjectTypeByName(name);
                     if (bgtObjectType == null) {
                         throw new IllegalArgumentException("Onbekend object type: " + name);
                     }
                     final Location location = cityObjectMemberChild.getCursorLocation();
-                    attributes.put("gmlId", fixUUID(cityObjectMemberChild.getAttrValue(NS_GML, "id")));
+                    attributes.put(
+                            "gmlId", fixUUID(cityObjectMemberChild.getAttrValue(NS_GML, "id")));
 
                     SMInputCursor attributesCursor = cityObjectMemberChild.childElementCursor();
 
-                    // Only a single collection attribute is supported (no matrix of multiple collection attributes)
+                    // Only a single collection attribute is supported (no matrix of multiple
+                    // collection attributes)
                     // An IMGeoObject will be returned for each collection item
-                    Collection<Map<String,Object>> collectionAttribute = null;
+                    Collection<Map<String, Object>> collectionAttribute = null;
 
                     while (attributesCursor.getNext() != null) {
                         String attributeName = attributesCursor.getLocalName();
                         Object parsedAttribute = parseIMGeoAttribute(attributesCursor);
 
                         if (parsedAttribute instanceof BGTObject) {
-                            List<BGTObject> oneToMany = (List<BGTObject>)attributes.get(attributeName);
+                            List<BGTObject> oneToMany =
+                                    (List<BGTObject>) attributes.get(attributeName);
                             if (oneToMany == null) {
                                 oneToMany = new ArrayList<>();
                                 attributes.put(attributeName, oneToMany);
@@ -310,7 +342,8 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                             oneToMany.add((BGTObject) parsedAttribute);
                         } else if (parsedAttribute instanceof Collection) {
                             if (collectionAttribute != null) {
-                                throw new IllegalStateException("Only a single collection attribute is supported");
+                                throw new IllegalStateException(
+                                        "Only a single collection attribute is supported");
                             }
                             collectionAttribute = (Collection<Map<String, Object>>) parsedAttribute;
                         } else {
@@ -320,25 +353,37 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
 
                     if (collectionAttribute != null && !collectionAttribute.isEmpty()) {
                         int index = 0;
-                        for(Map<String,Object> collectionItem: collectionAttribute) {
-                             Map<String,Object> attributesForCollectionItem = new HashMap<>(attributes);
-                             attributesForCollectionItem.putAll(collectionItem);
-                             attributesForCollectionItem.put(BGTSchema.INDEX, index++);
-                             buffer.add(new BGTObject(bgtObjectType, attributesForCollectionItem, location));
+                        for (Map<String, Object> collectionItem : collectionAttribute) {
+                            Map<String, Object> attributesForCollectionItem =
+                                    new HashMap<>(attributes);
+                            attributesForCollectionItem.putAll(collectionItem);
+                            attributesForCollectionItem.put(BGTSchema.INDEX, index++);
+                            buffer.add(
+                                    new BGTObject(
+                                            bgtObjectType, attributesForCollectionItem, location));
                         }
                         return buffer.remove();
                     } else {
-                        return new BGTObject(bgtObjectType, attributes, location, mutatieStatus, gmlIdPreviousVersion);
+                        return new BGTObject(
+                                bgtObjectType,
+                                attributes,
+                                location,
+                                mutatieStatus,
+                                gmlIdPreviousVersion);
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         };
     }
 
-    private Object parseIMGeoAttribute(SMInputCursor attribute) throws XMLStreamException, FactoryException, IOException {
-        if("true".equals(attribute.getAttrValue("http://www.w3.org/2001/XMLSchema-instance", "nil"))) {
+    private Object parseIMGeoAttribute(SMInputCursor attribute)
+            throws XMLStreamException, FactoryException, IOException {
+        if ("true"
+                .equals(
+                        attribute.getAttrValue(
+                                "http://www.w3.org/2001/XMLSchema-instance", "nil"))) {
             return null;
         }
 
@@ -352,7 +397,12 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
             </imgeo:identificatie>
              */
             // Just get the UUID
-            String id = attribute.descendantElementCursor(LOKAAL_ID).advance().collectDescendantText().trim();
+            String id =
+                    attribute
+                            .descendantElementCursor(LOKAAL_ID)
+                            .advance()
+                            .collectDescendantText()
+                            .trim();
             // UUID is allowed to have '-' characters, normalize it to UUID without
             return id.replaceAll("-", "");
         }
@@ -368,11 +418,14 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
 
         if (attribute.hasLocalName("nummeraanduidingreeks")) {
             Location location = attribute.getCursorLocation();
-            Map<String,Object> nummeraanduidingreeks = parseNummeraanduidingreeks(attribute);
-            return new BGTObject(BGTSchema.getInstance().getObjectTypeByName("nummeraanduidingreeks"), nummeraanduidingreeks, location);
+            Map<String, Object> nummeraanduidingreeks = parseNummeraanduidingreeks(attribute);
+            return new BGTObject(
+                    BGTSchema.getInstance().getObjectTypeByName("nummeraanduidingreeks"),
+                    nummeraanduidingreeks,
+                    location);
         }
 
-        if(attribute.hasLocalName("openbareRuimteNaam")) {
+        if (attribute.hasLocalName("openbareRuimteNaam")) {
             return parseOpenbareRuimteNaam(attribute);
         }
 
@@ -384,30 +437,40 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         return localName.startsWith("geometrie") || localName.startsWith("kruinlijn");
     }
 
-    private static final QName CAPITALIZED_NUMMERAANDUIDINGREEKS = new QName(NS_IMGEO, "Nummeraanduidingreeks");
-    private static final QName LOWERCASE_NUMMERAANDUIDINGREEKS = new QName(NS_IMGEO, "nummeraanduidingreeks");
+    private static final QName CAPITALIZED_NUMMERAANDUIDINGREEKS =
+            new QName(NS_IMGEO, "Nummeraanduidingreeks");
+    private static final QName LOWERCASE_NUMMERAANDUIDINGREEKS =
+            new QName(NS_IMGEO, "nummeraanduidingreeks");
     private static final QName LABEL = new QName(NS_IMGEO, "Label");
     private static final QName LABELPOSITIE = new QName(NS_IMGEO, "Labelpositie");
 
-    private Map<String,Object> parseNummeraanduidingreeks(SMInputCursor cursor) throws XMLStreamException, FactoryException, IOException {
-        Map<String,Object> label = new HashMap<>();
+    private Map<String, Object> parseNummeraanduidingreeks(SMInputCursor cursor)
+            throws XMLStreamException, FactoryException, IOException {
+        Map<String, Object> label = new HashMap<>();
 
-        cursor = cursor.childElementCursor(CAPITALIZED_NUMMERAANDUIDINGREEKS).advance().childElementCursor();
+        cursor =
+                cursor.childElementCursor(CAPITALIZED_NUMMERAANDUIDINGREEKS)
+                        .advance()
+                        .childElementCursor();
         while (cursor.getNext() != null) {
             if (cursor.getQName().equals(LOWERCASE_NUMMERAANDUIDINGREEKS)) {
-                SMInputCursor labelChilds = cursor.childElementCursor(LABEL).advance().childElementCursor();
-                while(labelChilds.getNext() != null) {
+                SMInputCursor labelChilds =
+                        cursor.childElementCursor(LABEL).advance().childElementCursor();
+                while (labelChilds.getNext() != null) {
                     if (labelChilds.hasLocalName("tekst")) {
                         label.put("tekst", labelChilds.collectDescendantText().trim());
                     } else if (labelChilds.hasLocalName("positie")) {
-                        SMInputCursor labelPositie = labelChilds.childElementCursor(LABELPOSITIE).advance();
+                        SMInputCursor labelPositie =
+                                labelChilds.childElementCursor(LABELPOSITIE).advance();
 
                         SMInputCursor labelPositieChilds = labelPositie.childElementCursor();
-                        while(labelPositieChilds.getNext() != null) {
+                        while (labelPositieChilds.getNext() != null) {
                             if (labelPositieChilds.hasLocalName("plaatsingspunt")) {
                                 // Positioneer op <gml:Point/>
                                 labelPositieChilds.childElementCursor().advance();
-                                labelPositieChilds.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_GML, "Point");
+                                labelPositieChilds
+                                        .getStreamReader()
+                                        .require(XMLStreamConstants.START_ELEMENT, NS_GML, "Point");
                                 Geometry geom = geometryReader.readGeometry();
                                 geom.setSRID(SRID);
                                 label.put("plaatsingspunt", geom);
@@ -418,7 +481,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                         }
                     }
                 }
-            } else  {
+            } else {
                 label.put(cursor.getLocalName(), cursor.collectDescendantText().trim());
             }
         }
@@ -426,21 +489,23 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         return label;
     }
 
-    private List<Map<String,Object>> parseOpenbareRuimteNaam(SMInputCursor cursor) throws XMLStreamException, FactoryException, IOException {
+    private List<Map<String, Object>> parseOpenbareRuimteNaam(SMInputCursor cursor)
+            throws XMLStreamException, FactoryException, IOException {
 
         cursor = cursor.childElementCursor(LABEL).advance().childElementCursor();
 
-        List<Map<String,Object>> posities = new ArrayList<>();
+        List<Map<String, Object>> posities = new ArrayList<>();
         String tekst = null;
 
         while (cursor.getNext() != null) {
             if (cursor.getLocalName().equals("tekst")) {
                 tekst = cursor.collectDescendantText().trim();
-            } else if(cursor.getLocalName().equals("positie")) {
-                Map<String,Object> positie = new HashMap<>();
+            } else if (cursor.getLocalName().equals("positie")) {
+                Map<String, Object> positie = new HashMap<>();
                 positie.put("tekst", tekst);
                 posities.add(positie);
-                SMInputCursor positieCursor = cursor.childElementCursor().advance().childElementCursor();
+                SMInputCursor positieCursor =
+                        cursor.childElementCursor().advance().childElementCursor();
                 while (positieCursor.getNext() != null) {
                     if (positieCursor.getLocalName().equals("plaatsingspunt")) {
                         positieCursor.childElementCursor().advance();
@@ -448,7 +513,9 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                         geom.setSRID(SRID);
                         positie.put("plaatsingspunt", geom);
                     } else {
-                        positie.put(positieCursor.getLocalName(), positieCursor.collectDescendantText().trim());
+                        positie.put(
+                                positieCursor.getLocalName(),
+                                positieCursor.collectDescendantText().trim());
                     }
                 }
             }

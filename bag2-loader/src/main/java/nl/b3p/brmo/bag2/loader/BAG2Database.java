@@ -7,6 +7,10 @@
 
 package nl.b3p.brmo.bag2.loader;
 
+import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getBundleString;
+import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getMessageFormattedString;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
+
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
@@ -15,6 +19,7 @@ import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
@@ -29,10 +34,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getBundleString;
-import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getMessageFormattedString;
-import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
 
 /* TODO: reduce redundancy with BGTDatabase, remove dependency on dialect CLI enum */
 public class BAG2Database implements AutoCloseable {
@@ -66,7 +67,7 @@ public class BAG2Database implements AutoCloseable {
         return dialect;
     }
 
-    public void setDialect(SQLDialect dialect){
+    public void setDialect(SQLDialect dialect) {
         this.dialect = dialect;
     }
 
@@ -85,7 +86,6 @@ public class BAG2Database implements AutoCloseable {
         this.connection = connection;
     }
 
-
     @Override
     public void close() throws SQLException {
         if (this.connection != null && !this.connection.isClosed()) {
@@ -95,22 +95,33 @@ public class BAG2Database implements AutoCloseable {
 
     private Connection createConnection() {
         if (!allowConnectionCreation) {
-            throw new RuntimeException("New connection required but supplied connection is null or closed");
+            throw new RuntimeException(
+                    "New connection required but supplied connection is null or closed");
         }
         try {
-            return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
+            return DriverManager.getConnection(
+                    dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {
-            throw new RuntimeException(getMessageFormattedString("db.connection_error", dbOptions.getConnectionString()), e);
+            throw new RuntimeException(
+                    getMessageFormattedString(
+                            "db.connection_error", dbOptions.getConnectionString()),
+                    e);
         }
     }
 
-    public BAG2ObjectTableWriter createObjectTableWriter(BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions) throws SQLException {
-        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(getConnection(), this.getDialect(), BAG2SchemaMapper.getInstance());
+    public BAG2ObjectTableWriter createObjectTableWriter(
+            BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions) throws SQLException {
+        BAG2ObjectTableWriter writer =
+                new BAG2ObjectTableWriter(
+                        getConnection(), this.getDialect(), BAG2SchemaMapper.getInstance());
 
         if (loadOptions == null) {
             loadOptions = new BAG2LoadOptions();
         }
-        writer.setBatchSize(dbOptions.getBatchSize() != null ? dbOptions.getBatchSize() : this.getDialect().getDefaultOptimalBatchSize());
+        writer.setBatchSize(
+                dbOptions.getBatchSize() != null
+                        ? dbOptions.getBatchSize()
+                        : this.getDialect().getDefaultOptimalBatchSize());
         writer.setMultithreading(loadOptions.isMultithreading());
         writer.setUsePgCopy(dbOptions.isUsePgCopy());
         writer.setObjectLimit(loadOptions.getMaxObjects());
@@ -127,46 +138,76 @@ public class BAG2Database implements AutoCloseable {
         } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
             sqlDialectEnum = BAG2Database.SQLDialectEnum.oracle;
         } else {
-            throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
+            throw new IllegalArgumentException(
+                    getMessageFormattedString(
+                            "db.unknown_connection_string_dialect", connectionString));
         }
         return createDialect(sqlDialectEnum);
     }
 
     public static SQLDialect createDialect(BAG2Database.SQLDialectEnum dialectEnum) {
-        switch(dialectEnum) {
-            case postgis: return new PostGISDialect();
-            case oracle: return new OracleDialect();
+        switch (dialectEnum) {
+            case postgis:
+                return new PostGISDialect();
+            case oracle:
+                return new OracleDialect();
         }
-        throw new IllegalArgumentException(getMessageFormattedString("db.dialect_invalid", dialectEnum));
+        throw new IllegalArgumentException(
+                getMessageFormattedString("db.dialect_invalid", dialectEnum));
     }
 
     public void createMetadataTable(BAG2LoadOptions loadOptions) throws SQLException {
         LOG.info(getBundleString("db.create_metadata"));
-        for(String sql: BAG2SchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), "", loadOptions.isDropIfExists())) {
+        for (String sql :
+                BAG2SchemaMapper.getInstance()
+                        .getCreateMetadataTableStatements(
+                                getDialect(), "", loadOptions.isDropIfExists())) {
             new LoggingQueryRunner().update(getConnection(), sql);
         }
     }
 
     public String getMetadata(BAG2SchemaMapper.Metadata key) throws SQLException {
-        Object value = new LoggingQueryRunner().query(getConnection(), "select waarde from " + METADATA_TABLE_NAME + " where naam = ?", new ScalarHandler<>(), key.getDbKey());
+        Object value =
+                new LoggingQueryRunner()
+                        .query(
+                                getConnection(),
+                                "select waarde from " + METADATA_TABLE_NAME + " where naam = ?",
+                                new ScalarHandler<>(),
+                                key.getDbKey());
         if (value == null) {
             return null;
         }
         if (value instanceof Clob) {
-            Clob clob = (Clob)value;
-            return clob.getSubString(1, (int)clob.length());
+            Clob clob = (Clob) value;
+            return clob.getSubString(1, (int) clob.length());
         }
         return value.toString();
     }
 
     public void setMetadataValue(BAG2SchemaMapper.Metadata key, String value) throws Exception {
         try {
-            int updated = new LoggingQueryRunner().update(getConnection(), "update " + METADATA_TABLE_NAME + " set waarde = ? where naam = ?", value, key.getDbKey());
+            int updated =
+                    new LoggingQueryRunner()
+                            .update(
+                                    getConnection(),
+                                    "update "
+                                            + METADATA_TABLE_NAME
+                                            + " set waarde = ? where naam = ?",
+                                    value,
+                                    key.getDbKey());
             if (updated == 0) {
-                new LoggingQueryRunner().update(getConnection(), "insert into " + METADATA_TABLE_NAME + "(naam, waarde) values(?,?)", key.getDbKey(), value);
+                new LoggingQueryRunner()
+                        .update(
+                                getConnection(),
+                                "insert into " + METADATA_TABLE_NAME + "(naam, waarde) values(?,?)",
+                                key.getDbKey(),
+                                value);
             }
         } catch (SQLException e) {
-            throw new Exception(getMessageFormattedString("db.metadata_error", key.getDbKey(), value, e.getMessage()), e);
+            throw new Exception(
+                    getMessageFormattedString(
+                            "db.metadata_error", key.getDbKey(), value, e.getMessage()),
+                    e);
         }
     }
 

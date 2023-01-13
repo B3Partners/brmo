@@ -3,21 +3,8 @@
  */
 package nl.b3p.brmo.service.jobs;
 
-import java.io.IOException;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
-import java.text.ParseException;
-import java.util.List;
-import java.util.Properties;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.CronExpression;
@@ -33,11 +20,25 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.Properties;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 /**
- * Initialiseer de Quartz scheduler. Vanwege gebruik van de Stripersist entity
- * manager kan dat pas na initialisatie van de Stripes stack en dat gebeurt in
- * een ServletFilter, dus deze servlet moet een auto-start optie krijgen in
- * web.xml waardoor dat na het Filter gebeurt.
+ * Initialiseer de Quartz scheduler. Vanwege gebruik van de Stripersist entity manager kan dat pas
+ * na initialisatie van de Stripes stack en dat gebeurt in een ServletFilter, dus deze servlet moet
+ * een auto-start optie krijgen in web.xml waardoor dat na het Filter gebeurt.
  *
  * @author mprins
  */
@@ -77,7 +78,8 @@ public class GeplandeTakenInit implements Servlet {
     }
 
     @Override
-    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+    public void service(ServletRequest req, ServletResponse res)
+            throws ServletException, IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -108,10 +110,13 @@ public class GeplandeTakenInit implements Servlet {
     private void setupQuartz() throws SchedulerException {
         Properties props = new Properties();
         props.put("org.quartz.scheduler.instanceName", SCHEDULER_NAME);
-        String threadCount = this.getServletConfig().getServletContext().getInitParameter("quartz.threadCount");
+        String threadCount =
+                this.getServletConfig().getServletContext().getInitParameter("quartz.threadCount");
         if (threadCount != null && (Integer.parseInt(threadCount) > 1)) {
-            log.warn("Instellen van quartz threadcount op niet-default waarde van " + threadCount
-                    + " Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.");
+            log.warn(
+                    "Instellen van quartz threadcount op niet-default waarde van "
+                            + threadCount
+                            + " Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.");
             props.put("org.quartz.threadPool.threadCount", threadCount);
         } else {
             props.put("org.quartz.threadPool.threadCount", "1");
@@ -155,29 +160,27 @@ public class GeplandeTakenInit implements Servlet {
         nhrScheduler = factory.getScheduler();
         nhrScheduler.start();
 
-        JobDetail job = JobBuilder.newJob(NHRJob.class)
-          .withIdentity("NHR")
-          .build();
+        JobDetail job = JobBuilder.newJob(NHRJob.class).withIdentity("NHR").build();
 
-        SimpleTrigger trigger = TriggerBuilder.newTrigger()
-          .startNow()
-          .forJob(job)
-          .withIdentity("NHR")
-          .withSchedule(SimpleScheduleBuilder.repeatMinutelyForever(10))
-          .build();
+        SimpleTrigger trigger =
+                TriggerBuilder.newTrigger()
+                        .startNow()
+                        .forJob(job)
+                        .withIdentity("NHR")
+                        .withSchedule(SimpleScheduleBuilder.repeatMinutelyForever(10))
+                        .build();
 
         nhrScheduler.scheduleJob(job, trigger);
 
-        JobDetail emailJob = JobBuilder.newJob(NHREmailJob.class)
-          .withIdentity("NHR-email")
-          .build();
+        JobDetail emailJob = JobBuilder.newJob(NHREmailJob.class).withIdentity("NHR-email").build();
 
-        CronTrigger emailTrigger = TriggerBuilder.newTrigger()
-          .startNow()
-          .forJob(emailJob)
-          .withIdentity("NHR-email")
-          .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(0, 0))
-          .build();
+        CronTrigger emailTrigger =
+                TriggerBuilder.newTrigger()
+                        .startNow()
+                        .forJob(emailJob)
+                        .withIdentity("NHR-email")
+                        .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(0, 0))
+                        .build();
 
         nhrScheduler.scheduleJob(emailJob, emailTrigger);
 
@@ -193,29 +196,36 @@ public class GeplandeTakenInit implements Servlet {
      * @param p het te bewerken automatisch proces
      * @throws SchedulerException als de bewerking mislukt
      */
-    public static void addJobDetails(Scheduler scheduler, AutomatischProces p) throws SchedulerException {
+    public static void addJobDetails(Scheduler scheduler, AutomatischProces p)
+            throws SchedulerException {
         try {
             CronExpression cron = new CronExpression(p.getCronExpressie());
 
-            JobDetail job = JobBuilder.newJob(AutomatischProcesJob.class)
-                    .usingJobData("id", p.getId())
-                    .withIdentity(JOBKEY_PREFIX + p.getId())
-                    .build();
+            JobDetail job =
+                    JobBuilder.newJob(AutomatischProcesJob.class)
+                            .usingJobData("id", p.getId())
+                            .withIdentity(JOBKEY_PREFIX + p.getId())
+                            .build();
 
-            CronTrigger trigger = TriggerBuilder.newTrigger()
-                    .startNow()
-                    .forJob(job)
-                    .withIdentity(TRIGGERKEY_PREFIX + p.getId())
-                    .withSchedule(CronScheduleBuilder.cronSchedule(cron))
-                    .build();
+            CronTrigger trigger =
+                    TriggerBuilder.newTrigger()
+                            .startNow()
+                            .forJob(job)
+                            .withIdentity(TRIGGERKEY_PREFIX + p.getId())
+                            .withSchedule(CronScheduleBuilder.cronSchedule(cron))
+                            .build();
             scheduler.scheduleJob(job, trigger);
 
-            log.info(String.format("%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt).",
-                    p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));
+            log.info(
+                    String.format(
+                            "%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt).",
+                            p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));
         } catch (ParseException ex) {
-            log.warn(String.format("Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland.",
-                    p.getClass().getSimpleName(), p.getId()), ex);
+            log.warn(
+                    String.format(
+                            "Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland.",
+                            p.getClass().getSimpleName(), p.getId()),
+                    ex);
         }
     }
-
 }

@@ -1,9 +1,5 @@
-
 package nl.b3p.brmo.service.stripes;
 
-import java.io.File;
-import java.util.Date;
-import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -13,30 +9,34 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.io.File;
+import java.util.Date;
+
+import javax.sql.DataSource;
+
+/** @author Matthijs Laan */
 @StrictBinding
 public class BasisregistratieBigFileLoadActionBean implements ActionBean, ProgressUpdateListener {
     private static final Log log = LogFactory.getLog(BasisregistratieBigFileLoadActionBean.class);
 
     private ActionBeanContext context;
 
-    @Validate(required=true)
+    @Validate(required = true)
     private String basisregistratie;
 
-    @Validate(required=true)
+    @Validate(required = true)
     private String filename;
 
     private long totalBytes;
@@ -65,22 +65,25 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
 
     public void progress(long bytes) {
         this.processedBytes = bytes;
-        this.progress = (100.0/totalBytes) * this.processedBytes;
+        this.progress = (100.0 / totalBytes) * this.processedBytes;
         this.progressDisplay = FileUtils.byteCountToDisplaySize(this.processedBytes);
         update = new Date();
     }
 
-    public void exception(Throwable t) {
-    }
+    public void exception(Throwable t) {}
 
-    @WaitPage(path="/WEB-INF/jsp/bestand/bigfile.jsp", delay=1000, refresh=1000)
+    @WaitPage(path = "/WEB-INF/jsp/bestand/bigfile.jsp", delay = 1000, refresh = 1000)
     public Resolution load() throws BrmoException {
         start = new Date();
 
         try {
             File f = new File(filename);
-            if(!f.exists() || !f.canRead() || f.length() == 0) {
-                getContext().getMessages().add(new SimpleMessage("Bestand bestaat niet, is leeg of kan niet worden gelezen"));
+            if (!f.exists() || !f.canRead() || f.length() == 0) {
+                getContext()
+                        .getMessages()
+                        .add(
+                                new SimpleMessage(
+                                        "Bestand bestaat niet, is leeg of kan niet worden gelezen"));
                 return new ForwardResolution("/WEB-INF/jsp/bestand/bigfile.jsp");
             }
 
@@ -89,10 +92,10 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
             brmo.loadFromFile(basisregistratie, filename, this, null);
 
             getContext().getMessages().add(new SimpleMessage("Klaar met inladen"));
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             log.error("Fout bij inladen bestand van server", t);
             String m = "Fout bij inladen bestand: " + ExceptionUtils.getMessage(t);
-            if(t.getCause() != null) {
+            if (t.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
             }
             getContext().getMessages().add(new SimpleMessage(m));

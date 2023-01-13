@@ -1,10 +1,16 @@
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -25,13 +31,7 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-
 /**
- *
  * @author Boy de Wit
  * @author mprins
  */
@@ -50,6 +50,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     private final Lock sequential = new ReentrantLock();
     private BrmoFramework brmo;
     private BasicDataSource dsStaging;
+
     @BeforeEach
     @Override
     public void setUp() throws Exception {
@@ -63,26 +64,46 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BerichtenFilterSqlIntegrationTest.class.getResource("/staging-6_laadprocessen_met_elk_10_bag_berichten-flat.xml").toURI())));
+        IDataSet stagingDataSet =
+                fxdb.build(
+                        new FileInputStream(
+                                new File(
+                                        BerichtenFilterSqlIntegrationTest.class
+                                                .getResource(
+                                                        "/staging-6_laadprocessen_met_elk_10_bag_berichten-flat.xml")
+                                                .toURI())));
 
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(60l == brmo.getCountBerichten("brk,bag,nhr", "STAGING_OK"),
+        assumeTrue(
+                60l == brmo.getCountBerichten("brk,bag,nhr", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(6l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
+        assumeTrue(
+                6l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn BAG geen STAGING_OK laadprocessen");
-        assumeTrue(0l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
+        assumeTrue(
+                0l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn BRK STAGING_OK laadprocessen");
     }
 
@@ -99,9 +120,11 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     public void emptyStagingDb() throws BrmoException {
         brmo.emptyStagingDb();
 
-        assertTrue(0l == brmo.getCountBerichten("brk,bag,nhr", "STAGING_OK"),
+        assertTrue(
+                0l == brmo.getCountBerichten("brk,bag,nhr", "STAGING_OK"),
                 "Er zijn STAGING_OK berichten");
-        assertTrue(0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
+        assertTrue(
+                0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn STAGING_OK laadprocessen");
     }
 
@@ -110,7 +133,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         filterStatus = "STAGING_OK";
         sort = "status";
 
-        List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
+        List<Bericht> berichten =
+                brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
 
         assertNotNull(berichten, "Er moet een aantal bag berichten zijn.");
         assertTrue(berichten.size() > 0, "Het aantal bag berichten is groter dan 0");
@@ -121,7 +145,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         filterSoort = "bag";
         sort = "soort";
 
-        List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
+        List<Bericht> berichten =
+                brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
         assertNotNull(berichten, "Er moet een aantal bag berichten zijn.");
     }
 
@@ -130,7 +155,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         sort = "id";
         dir = "DESC";
 
-        List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
+        List<Bericht> berichten =
+                brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
         long id1 = berichten.get(0).getId();
         long id2 = berichten.get(1).getId();
 
@@ -143,7 +169,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         sort = "id";
         dir = "ASC";
 
-        List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
+        List<Bericht> berichten =
+                brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
         long id1 = berichten.get(0).getId();
         long id2 = berichten.get(1).getId();
 
@@ -157,7 +184,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         start = 0;
         limit = 3;
 
-        List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
+        List<Bericht> berichten =
+                brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
         assertNotNull(berichten, "Er moet een aantal berichten zijn.");
         assertEquals(limit, berichten.size(), "Het aantal in de selectie");
     }

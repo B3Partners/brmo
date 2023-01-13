@@ -16,24 +16,22 @@
  */
 package nl.b3p.web.jsp;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-/**
- *
- * @author mprins
- */
+/** @author mprins */
 public class DownloadTag extends BodyTagSupport {
 
     private static final Log LOG = LogFactory.getLog(TailTag.class);
@@ -45,12 +43,20 @@ public class DownloadTag extends BodyTagSupport {
             this.file = LogfileUtil.getLogfile();
         }
         File f = new File(this.file);
-        f = f.isAbsolute() ? f : new File(this.pageContext.getServletContext().getRealPath("/"), this.file);
-        sendFile(f, (HttpServletResponse) this.pageContext.getResponse(), (HttpServletRequest) this.pageContext.getRequest());
+        f =
+                f.isAbsolute()
+                        ? f
+                        : new File(
+                                this.pageContext.getServletContext().getRealPath("/"), this.file);
+        sendFile(
+                f,
+                (HttpServletResponse) this.pageContext.getResponse(),
+                (HttpServletRequest) this.pageContext.getRequest());
         return EVAL_PAGE;
     }
 
-    private void sendFile(File f, HttpServletResponse response, HttpServletRequest request) throws JspException {
+    private void sendFile(File f, HttpServletResponse response, HttpServletRequest request)
+            throws JspException {
         final String filename = FilenameUtils.getName(f.getAbsolutePath());
         final boolean compress = request.getHeader("Accept-Encoding").contains("gzip");
         OutputStream outputStream;
@@ -65,7 +71,7 @@ public class DownloadTag extends BodyTagSupport {
         response.setHeader("Content-Disposition", "attachment;filename=\"" + filename + "\"");
         if (compress) {
             response.setHeader("Content-Encoding", "gzip");
-        } else{
+        } else {
             response.setContentLength((int) f.length());
         }
 
@@ -88,7 +94,6 @@ public class DownloadTag extends BodyTagSupport {
             } catch (IOException ignore) {
                 LOG.trace(ignore);
             }
-
         }
     }
 

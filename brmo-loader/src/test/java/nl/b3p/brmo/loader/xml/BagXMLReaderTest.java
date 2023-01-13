@@ -1,6 +1,9 @@
 package nl.b3p.brmo.loader.xml;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import nl.b3p.brmo.loader.entity.BagBericht;
+
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +13,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testcases voor {@link nl.b3p.brmo.loader.xml.BagXMLReader}.
@@ -25,17 +26,13 @@ public class BagXMLReaderTest {
     private static final int mutSmallXmlNieuwCount = 2 / 2;
 
     private static final String mutLargeXML = "9999MUT07022015-08022015-000001.xml";
-    private static final String mutLargeXMLReformatted = "9999MUT07022015-08022015-000001-reformatted.xml";
+    private static final String mutLargeXMLReformatted =
+            "9999MUT07022015-08022015-000001-reformatted.xml";
     private static final int mutLargeXmlNieuwCount = 26 / 2;
 
     private static final String mutZipName = "9999MUT02012015-03012015.zip";
-    private static final int mutZipNameNieuwCount
-            = 8998 / 2
-            + 8680 / 2
-            + 8676 / 2
-            + 8672 / 2
-            + 8668 / 2
-            + 7742 / 2;
+    private static final int mutZipNameNieuwCount =
+            8998 / 2 + 8680 / 2 + 8676 / 2 + 8672 / 2 + 8668 / 2 + 7742 / 2;
     private static final String[] mutXmlsInZip = {
         "9999MUT02012015-03012015-000001.xml",
         "9999MUT02012015-03012015-000002.xml",
@@ -63,25 +60,27 @@ public class BagXMLReaderTest {
         while (bReader.hasNext()) {
             bag = bReader.next();
             System.out.println(
-                    "datum: " + bag.getDatum()
-                    + "\tobj ref: " + bag.getObjectRef()
-                    + "\tvolgordenummer: " + bag.getVolgordeNummer()
-            );
+                    "datum: "
+                            + bag.getDatum()
+                            + "\tobj ref: "
+                            + bag.getObjectRef()
+                            + "\tvolgordenummer: "
+                            + bag.getVolgordeNummer());
             total++;
         }
         assertEquals(mutSmallXmlNieuwCount, total);
         assertNotNull(bag);
         assertEquals("PND:1901100000021963", bag.getObjectRef());
-        
+
         LocalDateTime d = LocalDateTime.parse("2015-01-01T07:30:51.843495");
         Date d2 = Date.from(d.atZone(ZoneId.systemDefault()).toInstant());
         assertEquals(d2, bag.getDatum());
-        assertEquals((Integer)0, bag.getVolgordeNummer());
+        assertEquals((Integer) 0, bag.getVolgordeNummer());
     }
 
     /**
-     * Test next() methode met groter mutatie bestand en vergelijk parsen van file met
-     * en zonder extra regeleinden.
+     * Test next() methode met groter mutatie bestand en vergelijk parsen van file met en zonder
+     * extra regeleinden.
      *
      * @throws Exception if any
      */
@@ -101,7 +100,9 @@ public class BagXMLReaderTest {
         assertEquals(mutLargeXmlNieuwCount, total);
         assertNotNull(bag);
         total = 0;
-        bReader = new BagXMLReader(BagXMLReaderTest.class.getResourceAsStream(mutLargeXMLReformatted));
+        bReader =
+                new BagXMLReader(
+                        BagXMLReaderTest.class.getResourceAsStream(mutLargeXMLReformatted));
         assertTrue(bReader.hasNext());
         while (bReader.hasNext()) {
             bagReformatted = bReader.next();
@@ -111,13 +112,16 @@ public class BagXMLReaderTest {
         assertNotNull(bagReformatted);
         // vergelijk resultaat van de twee readers
         assertEquals(
-                bag.getObjectRef(), bagReformatted.getObjectRef(),
+                bag.getObjectRef(),
+                bagReformatted.getObjectRef(),
                 "van beide laatste mutaties moet ObjectRef hetzelfde zijn");
         assertEquals(
-                bag.getDatum(), bagReformatted.getDatum(),
+                bag.getDatum(),
+                bagReformatted.getDatum(),
                 "van beide laatste mutaties moet datum van laatste hetzelfde zijn");
         assertEquals(
-                bag.getVolgordeNummer(), bagReformatted.getVolgordeNummer(),
+                bag.getVolgordeNummer(),
+                bagReformatted.getVolgordeNummer(),
                 "van beide laatste mutaties moet VolgordeNummer hetzelfde zijn");
     }
 
@@ -128,8 +132,8 @@ public class BagXMLReaderTest {
      */
     @Test
     public void mutTestZipFile() throws Exception {
-        ZipInputStream zis = new ZipInputStream(
-                BagXMLReaderTest.class.getResourceAsStream(mutZipName));
+        ZipInputStream zis =
+                new ZipInputStream(BagXMLReaderTest.class.getResourceAsStream(mutZipName));
         int total = 0;
         try {
             ZipEntry entry = zis.getNextEntry();
@@ -146,7 +150,8 @@ public class BagXMLReaderTest {
             zis.close();
         }
 
-        assertEquals(mutZipNameNieuwCount, total, "Verwacht dat het aantal 'Nieuw' mutaties gelijk is.");
+        assertEquals(
+                mutZipNameNieuwCount, total, "Verwacht dat het aantal 'Nieuw' mutaties gelijk is.");
     }
 
     /**
@@ -173,12 +178,10 @@ public class BagXMLReaderTest {
         assertTrue(bReader.hasNext());
         BagBericht bag = bReader.next();
         assertEquals("STA:0197030000035441", bag.getObjectRef());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
-                bag.getDatum());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"), bag.getDatum());
         assertTrue(bReader.hasNext());
         bag = bReader.next();
         assertEquals("STA:0197030000035442", bag.getObjectRef());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"),
-                bag.getDatum());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2014-07-01"), bag.getDatum());
     }
 }

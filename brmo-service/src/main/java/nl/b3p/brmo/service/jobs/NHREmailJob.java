@@ -3,26 +3,8 @@
  */
 package nl.b3p.brmo.service.jobs;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.Date;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import javax.mail.BodyPart;
-import javax.mail.FetchProfile;
-import javax.mail.Flags;
-import javax.mail.Folder;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.persistence.EntityManager;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.DisallowConcurrentExecution;
@@ -30,6 +12,27 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.stripesstuff.stripersist.Stripersist;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Date;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
+import javax.mail.BodyPart;
+import javax.mail.FetchProfile;
+import javax.mail.Flags;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.internet.MimeMultipart;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.EntityManager;
 
 @DisallowConcurrentExecution
 public class NHREmailJob implements Job {
@@ -49,7 +52,7 @@ public class NHREmailJob implements Job {
                     return processCsv(zip);
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
 
@@ -79,7 +82,7 @@ public class NHREmailJob implements Job {
                 proces.setKvkNummer(line);
                 entityManager.merge(proces);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
 

@@ -10,7 +10,7 @@ import picocli.CommandLine.Option;
 
 public class CLIOptions {
 
-    @Option(names="--progress", hidden = true)
+    @Option(names = "--progress", hidden = true)
     boolean progress;
 
     public boolean isConsoleProgressEnabled() {

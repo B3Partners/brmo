@@ -7,11 +7,10 @@
 package nl.b3p.brmo.nhr.loader;
 
 import nl.b3p.brmo.loader.util.BrmoException;
+
 import java.util.Map;
 
-/**
- * Specifieke exception voor NHR foutmeldingen.
- */
+/** Specifieke exception voor NHR foutmeldingen. */
 public class NHRException extends BrmoException {
     private Map<String, String> errors;
     private String message;
@@ -41,4 +40,3 @@ public class NHRException extends BrmoException {
         return this.errors;
     }
 }
-

@@ -11,8 +11,8 @@ import org.locationtech.jts.io.WKTConstants;
 import org.locationtech.jts.io.WKTWriter;
 
 /**
- * Write a geometry to WKT, linearizing curves. Uses the JTS WKT writer but replaces LINEARRING with the standard
- * LINESTRING.
+ * Write a geometry to WKT, linearizing curves. Uses the JTS WKT writer but replaces LINEARRING with
+ * the standard LINESTRING.
  */
 public class StandardLinearizedWKTWriter {
 

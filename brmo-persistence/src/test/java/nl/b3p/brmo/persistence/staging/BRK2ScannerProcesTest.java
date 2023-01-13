@@ -3,11 +3,13 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import nl.b3p.brmo.persistence.TestUtil;
-import org.junit.jupiter.api.Test;
-
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import nl.b3p.brmo.persistence.TestUtil;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BRKScannerProces}.
@@ -16,9 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class BRK2ScannerProcesTest extends TestUtil {
 
-    /**
-     * round trip test van maken, opslaan en uitlezen van een BRKScannerProces.
-     */
+    /** round trip test van maken, opslaan en uitlezen van een BRKScannerProces. */
     @Test
     public void roundtrip() {
         BRK2ScannerProces p = new BRK2ScannerProces();
@@ -30,14 +30,18 @@ public class BRK2ScannerProcesTest extends TestUtil {
 
         BRK2ScannerProces c = entityManager.find(BRK2ScannerProces.class, id);
         assertEquals(DIR, c.getScanDirectory(), "De directory is zoals geconfigureerd.");
-        assertEquals("true", c.getConfig().get("isActive").getValue(), "Verwacht dat de parameter is zoals geconfigureerd.");
+        assertEquals(
+                "true",
+                c.getConfig().get("isActive").getValue(),
+                "Verwacht dat de parameter is zoals geconfigureerd.");
 
         entityManager.remove(c);
         entityManager.getTransaction().commit();
     }
 
     /**
-     * testcase voor {@link nl.b3p.brmo.persistence.staging.AutomatischProces#updateSamenvattingEnLogfile(java.lang.String)}
+     * testcase voor {@link
+     * nl.b3p.brmo.persistence.staging.AutomatischProces#updateSamenvattingEnLogfile(java.lang.String)}
      */
     @Test
     public void testUpdateSamenvattingEnLogfile() {
@@ -47,7 +51,10 @@ public class BRK2ScannerProcesTest extends TestUtil {
         final long id = p.getId();
 
         BRK2ScannerProces c = entityManager.find(BRK2ScannerProces.class, id);
-        assertEquals(c.getLogfile(), c.getSamenvatting(), "Verwacht dat de logfile en de samenvatting hetzelfde zijn.");
+        assertEquals(
+                c.getLogfile(),
+                c.getSamenvatting(),
+                "Verwacht dat de logfile en de samenvatting hetzelfde zijn.");
 
         c.updateSamenvattingEnLogfile(NAAM);
 
@@ -55,7 +62,9 @@ public class BRK2ScannerProcesTest extends TestUtil {
 
         c.updateSamenvattingEnLogfile(TWEEDE + NAAM_BESCHIJVING);
 
-        assertEquals(NAAM_BESCHIJVING + LOG_NEWLINE + NAAM + LOG_NEWLINE + TWEEDE + NAAM_BESCHIJVING, c.getLogfile());
+        assertEquals(
+                NAAM_BESCHIJVING + LOG_NEWLINE + NAAM + LOG_NEWLINE + TWEEDE + NAAM_BESCHIJVING,
+                c.getLogfile());
         entityManager.merge(c);
 
         String[] s = p.getLogfile().split(NAAM);

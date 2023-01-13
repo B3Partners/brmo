@@ -16,15 +16,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.activation.MimetypesFileTypeMap;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -34,17 +25,27 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author meine
- */
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+/** @author meine */
 public class ControleActionBean implements ActionBean {
 
     private ActionBeanContext context;
@@ -53,8 +54,7 @@ public class ControleActionBean implements ActionBean {
 
     private static final Log LOG = LogFactory.getLog(ControleActionBean.class);
 
-    @Validate
-    private FileBean file;
+    @Validate private FileBean file;
 
     // <editor-fold desc="Getters en setters" defaultstate="collapsed">
     @Override
@@ -97,18 +97,21 @@ public class ControleActionBean implements ActionBean {
 
             final FileInputStream fis = new FileInputStream(response);
             try {
-                StreamingResolution res = new StreamingResolution(MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(response)) {
-                    @Override
-                    public void stream(HttpServletResponse response) throws Exception {
-                        OutputStream out = response.getOutputStream();
-                        IOUtils.copy(fis, out);
-                        fis.close();
-                    }
-                };
+                StreamingResolution res =
+                        new StreamingResolution(
+                                MimetypesFileTypeMap.getDefaultFileTypeMap()
+                                        .getContentType(response)) {
+                            @Override
+                            public void stream(HttpServletResponse response) throws Exception {
+                                OutputStream out = response.getOutputStream();
+                                IOUtils.copy(fis, out);
+                                fis.close();
+                            }
+                        };
                 String extension = "pdf";
-                
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMMdddHHmmss");
-                String newName = "Afgiftelijst_rapport_"+sdf.format(new Date()) + extension;
+                String newName = "Afgiftelijst_rapport_" + sdf.format(new Date()) + extension;
                 res.setFilename(newName);
                 res.setAttachment(true);
                 return res;
@@ -117,8 +120,12 @@ public class ControleActionBean implements ActionBean {
             }
         } catch (IOException | BrmoException ex) {
             LOG.error("Fout tijdens lezen afgiftelijst: " + ex.getLocalizedMessage(), ex);
-            context.getValidationErrors().addGlobalError(new SimpleError("Kan afgiftelijst niet verwerken: " + ex.getLocalizedMessage()));
-        }finally{
+            context.getValidationErrors()
+                    .addGlobalError(
+                            new SimpleError(
+                                    "Kan afgiftelijst niet verwerken: "
+                                            + ex.getLocalizedMessage()));
+        } finally {
             if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
@@ -126,5 +133,4 @@ public class ControleActionBean implements ActionBean {
 
         return new ForwardResolution(JSP);
     }
-
 }

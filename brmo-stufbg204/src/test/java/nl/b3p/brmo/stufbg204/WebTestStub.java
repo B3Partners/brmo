@@ -14,29 +14,24 @@ import org.junit.jupiter.api.BeforeAll;
 import java.io.IOException;
 
 /**
- * Integratie test utility klasse om online integratie tests te bouwen welke
- * tegen een brmo-stufbg204 kunnen worden uitgevoerd.
+ * Integratie test utility klasse om online integratie tests te bouwen welke tegen een
+ * brmo-stufbg204 kunnen worden uitgevoerd.
  *
  * @author Mark Prins
  */
 public abstract class WebTestStub extends TestStub {
 
     public static final int HTTP_PORT = 9091;
-    /**
-     * the server root url. {@value}
-     */
+    /** the server root url. {@value} */
     public static final String BASE_TEST_URL = "http://localhost:" + HTTP_PORT + "/brmo-stufbg204/";
 
-    /**
-     * onze test client.
-     */
+    /** onze test client. */
     protected static CloseableHttpClient client;
+
     protected static HttpHost target;
     protected static HttpClientContext localContext;
 
-    /**
-     * initialize http client.
-     */
+    /** initialize http client. */
     @BeforeAll
     public static void setUpClass() {
         target = new HttpHost("localhost", HTTP_PORT, "http");
@@ -51,13 +46,14 @@ public abstract class WebTestStub extends TestStub {
                 new AuthScope(target.getHostName(), target.getPort()),
                 new UsernamePasswordCredentials("brmo", "brmo"));
 
-        client = HttpClients.custom()
-                .useSystemProperties()
-                .setUserAgent("brmo integration test")
-                .setRedirectStrategy(new LaxRedirectStrategy())
-                .setDefaultCookieStore(new BasicCookieStore())
-                .setDefaultCredentialsProvider(credsProvider)
-                .build();
+        client =
+                HttpClients.custom()
+                        .useSystemProperties()
+                        .setUserAgent("brmo integration test")
+                        .setRedirectStrategy(new LaxRedirectStrategy())
+                        .setDefaultCookieStore(new BasicCookieStore())
+                        .setDefaultCredentialsProvider(credsProvider)
+                        .build();
     }
 
     /**

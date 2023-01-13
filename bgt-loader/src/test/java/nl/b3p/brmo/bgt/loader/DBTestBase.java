@@ -7,12 +7,15 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
 import nl.b3p.brmo.bgt.schema.BGTSchema;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
@@ -42,8 +45,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class DBTestBase {
     private static final Log LOG = LogFactory.getLog(DBTestBase.class);
 
@@ -55,21 +56,26 @@ public class DBTestBase {
 
     private static void setDefaultDatabaseProperties() {
         DatabaseOptions defaultDbOptions = new DatabaseOptions();
-        Stream.of(new String[][] {
-                {"db.connectionString", defaultDbOptions.getConnectionString()},
-                {"db.user", defaultDbOptions.getUser()},
-                {"db.password", defaultDbOptions.getPassword()},
-        }).forEach(property -> {
-            String value = System.getProperty(property[0]);
-            if (value == null) {
-                System.setProperty(property[0], property[1]);
-            }
-        });
+        Stream.of(
+                        new String[][] {
+                            {"db.connectionString", defaultDbOptions.getConnectionString()},
+                            {"db.user", defaultDbOptions.getUser()},
+                            {"db.password", defaultDbOptions.getPassword()},
+                        })
+                .forEach(
+                        property -> {
+                            String value = System.getProperty(property[0]);
+                            if (value == null) {
+                                System.setProperty(property[0], property[1]);
+                            }
+                        });
     }
 
     protected static DatabaseOptions getTestDatabaseOptions() {
-        // Get database connection options from test profile, but set defaults if no Maven profile specified
-        // With the defaults also set as properties these can be used for enabling/disabling tests for certain databases
+        // Get database connection options from test profile, but set defaults if no Maven profile
+        // specified
+        // With the defaults also set as properties these can be used for enabling/disabling tests
+        // for certain databases
         setDefaultDatabaseProperties();
         DatabaseOptions dbOptions = new DatabaseOptions();
         dbOptions.setConnectionString(System.getProperty("db.connectionString"));
@@ -78,14 +84,21 @@ public class DBTestBase {
         return dbOptions;
     }
 
-    private static IDatabaseTester getDatabaseTester(DatabaseOptions dbOptions, String schema) throws ClassNotFoundException {
+    private static IDatabaseTester getDatabaseTester(DatabaseOptions dbOptions, String schema)
+            throws ClassNotFoundException {
         BGTDatabase db = new BGTDatabase(dbOptions);
-        return new JdbcDatabaseTester(db.getDialect().getDriverClass(), dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword(), schema);
+        return new JdbcDatabaseTester(
+                db.getDialect().getDriverClass(),
+                dbOptions.getConnectionString(),
+                dbOptions.getUser(),
+                dbOptions.getPassword(),
+                schema);
     }
 
     public static String getSchema(BGTDatabase db, DatabaseOptions dbOptions) {
         if (db.getDialect() instanceof OracleDialect) {
-            // If we don't set the schema to the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
+            // If we don't set the schema to the user the DatabaseMetaData.getTables() call without
+            // a schema filter will take 5 minutes
             return dbOptions.getUser().toUpperCase();
         }
         return null;
@@ -109,13 +122,18 @@ public class DBTestBase {
             throw new IllegalArgumentException();
         }
         dbTestConnection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, dtf);
-        dbTestConnection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+        dbTestConnection
+                .getConfig()
+                .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
         if (info.getTestMethod().isPresent()) {
-            if(info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
+            if (info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
                 try {
-                    dropTables(dbTestConnection.getConnection(), getSchema(db, dbOptions), db.getDialect() instanceof OracleDialect);
-                } catch(Exception e) {
+                    dropTables(
+                            dbTestConnection.getConnection(),
+                            getSchema(db, dbOptions),
+                            db.getDialect() instanceof OracleDialect);
+                } catch (Exception e) {
                     LOG.error("Exception dropping tables before test", e);
                 }
             }
@@ -126,34 +144,40 @@ public class DBTestBase {
     static void dropTablesAfterAllTests() throws SQLException, ClassNotFoundException {
         DatabaseOptions dbOptions = getTestDatabaseOptions();
         try (BGTDatabase db = new BGTDatabase(dbOptions)) {
-            dropTables(db.getConnection(), getSchema(db, dbOptions), db.getDialect() instanceof OracleDialect);
+            dropTables(
+                    db.getConnection(),
+                    getSchema(db, dbOptions),
+                    db.getDialect() instanceof OracleDialect);
         }
     }
 
-    protected void assertDataSetEquals(String tables, String dataSetXmlFiles) throws DatabaseUnitException, SQLException, IOException {
+    protected void assertDataSetEquals(String tables, String dataSetXmlFiles)
+            throws DatabaseUnitException, SQLException, IOException {
         IDataSet actualDataSet = dbTestConnection.createDataSet(tables.split(","));
         if (System.getProperty("db.writeActualDataSet") != null) {
             write(actualDataSet);
         }
         List<IDataSet> dataSets = new ArrayList<>();
-        for(String dataSetXmlFile: dataSetXmlFiles.split(",")) {
-            dataSets.add(new XmlDataSet(BGTTestFiles.getTestInputStream("expected/" + dataSetXmlFile + datasetFileSuffix)));
+        for (String dataSetXmlFile : dataSetXmlFiles.split(",")) {
+            dataSets.add(
+                    new XmlDataSet(
+                            BGTTestFiles.getTestInputStream(
+                                    "expected/" + dataSetXmlFile + datasetFileSuffix)));
         }
-        IDataSet expectedDataSet = new CompositeDataSet(dataSets.toArray(new IDataSet[]{}));
+        IDataSet expectedDataSet = new CompositeDataSet(dataSets.toArray(new IDataSet[] {}));
         Assertion.assertEquals(expectedDataSet, actualDataSet);
     }
 
     protected void assertMinRowCounts(Object[][] featureTypesMinRowCounts) throws SQLException {
-        for(Object[] featureType: featureTypesMinRowCounts) {
+        for (Object[] featureType : featureTypesMinRowCounts) {
             String table = (String) featureType[0];
             int minRowCount = (int) featureType[1];
             int actualRowCount = dbTestConnection.getRowCount(table);
-            assertTrue(actualRowCount >= minRowCount,
-                    String.format("Expected a minimum row count of %d for table %s, actual %d",
-                            minRowCount,
-                            table,
-                            actualRowCount)
-            );
+            assertTrue(
+                    actualRowCount >= minRowCount,
+                    String.format(
+                            "Expected a minimum row count of %d for table %s, actual %d",
+                            minRowCount, table, actualRowCount));
         }
     }
 
@@ -166,24 +190,38 @@ public class DBTestBase {
         dbTestConnection.close();
     }
 
-    private static void dropTables(Connection connection, String schema, boolean isOracle) throws SQLException {
-        for (String tableName: Stream.concat(
-                BGTSchema.getInstance().getAllObjectTypes().map(objectType -> BGTSchemaMapper.getInstance().getTableNameForObjectType(objectType, "")),
-                Stream.of(BGTSchemaMapper.METADATA_TABLE_NAME)).collect(Collectors.toList())) {
+    private static void dropTables(Connection connection, String schema, boolean isOracle)
+            throws SQLException {
+        for (String tableName :
+                Stream.concat(
+                                BGTSchema.getInstance()
+                                        .getAllObjectTypes()
+                                        .map(
+                                                objectType ->
+                                                        BGTSchemaMapper.getInstance()
+                                                                .getTableNameForObjectType(
+                                                                        objectType, "")),
+                                Stream.of(BGTSchemaMapper.METADATA_TABLE_NAME))
+                        .collect(Collectors.toList())) {
             if (isOracle) {
                 tableName = tableName.toUpperCase();
             }
-            if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
+            if (new DefaultMetadataHandler()
+                    .tableExists(connection.getMetaData(), schema, tableName)) {
                 try {
                     LOG.trace("Drop table: " + tableName);
-                    new LoggingQueryRunner().update(connection,"drop table " + tableName);
+                    new LoggingQueryRunner().update(connection, "drop table " + tableName);
                 } catch (SQLException se) {
-                    LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
+                    LOG.warn(
+                            "Exception dropping table "
+                                    + tableName
+                                    + ": "
+                                    + se.getLocalizedMessage());
                 }
             }
         }
         if (isOracle) {
-            new LoggingQueryRunner().update(connection,"delete from user_sdo_geom_metadata");
+            new LoggingQueryRunner().update(connection, "delete from user_sdo_geom_metadata");
         }
     }
 }

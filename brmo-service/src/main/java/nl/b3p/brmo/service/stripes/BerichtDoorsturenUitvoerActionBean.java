@@ -3,9 +3,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.After;
@@ -15,19 +12,22 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
-import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+
+/** @author Matthijs Laan */
 public class BerichtDoorsturenUitvoerActionBean implements ActionBean, ProgressUpdateListener {
 
     private static final String JSP = "/WEB-INF/jsp/beheer/berichtdoorsturenuitvoeren.jsp";
@@ -108,7 +108,10 @@ public class BerichtDoorsturenUitvoerActionBean implements ActionBean, ProgressU
             return new ForwardResolution(JSP);
         }
         // opnieuw laden van config omdat de waitpage de entity detached
-        proces = (BerichtDoorstuurProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        proces =
+                (BerichtDoorstuurProces)
+                        Stripersist.getEntityManager()
+                                .find(AutomatischProces.class, proces.getId());
         ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);
 
         try {
