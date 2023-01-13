@@ -98,7 +98,7 @@ jobs:
     name: "other Cleanup old workflow runs"
     steps:
       - name: Delete workflow runs
-        uses: boredland/action-purge-workflow-runs@v1.0.0
+        uses: boredland/action-purge-workflow-runs@1.0.0
         with:
           days-old: 60
         env:
