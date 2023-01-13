@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>FunctievervullingType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">FunctievervullingType.java</span></div><h1>FunctievervullingType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for FunctievervullingType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;FunctievervullingType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}BasisType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;functietitel&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}FunctietitelType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;schorsing&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}SchorsingType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;choice&amp;gt;
+ *           &amp;lt;element name=&quot;door&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}PersoonRelatieType&quot;/&amp;gt;
+ *           &amp;lt;element name=&quot;voor&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}PersoonRelatieType&quot;/&amp;gt;
+ *         &amp;lt;/choice&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;FunctievervullingType&quot;, propOrder = {
+    &quot;functietitel&quot;,
+    &quot;schorsing&quot;,
+    &quot;door&quot;,
+    &quot;voor&quot;
+})
+@XmlSeeAlso({
+    AansprakelijkeType.class,
+    BestuursfunctieType.class,
+    FunctionarisBijzondereRechtstoestandType.class,
+    GemachtigdeType.class,
+    OverigeFunctionarisType.class,
+    PubliekrechtelijkeFunctionarisType.class
+})
+<span class="nc" id="L49">public abstract class FunctievervullingType</span>
+    extends BasisType
+{
+
+    protected FunctietitelType functietitel;
+    protected SchorsingType schorsing;
+    protected PersoonRelatieType door;
+    protected PersoonRelatieType voor;
+
+    /**
+     * Gets the value of the functietitel property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link FunctietitelType }
+     *     
+     */
+    public FunctietitelType getFunctietitel() {
+<span class="nc" id="L67">        return functietitel;</span>
+    }
+
+    /**
+     * Sets the value of the functietitel property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link FunctietitelType }
+     *     
+     */
+    public void setFunctietitel(FunctietitelType value) {
+<span class="nc" id="L79">        this.functietitel = value;</span>
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Gets the value of the schorsing property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SchorsingType }
+     *     
+     */
+    public SchorsingType getSchorsing() {
+<span class="nc" id="L91">        return schorsing;</span>
+    }
+
+    /**
+     * Sets the value of the schorsing property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SchorsingType }
+     *     
+     */
+    public void setSchorsing(SchorsingType value) {
+<span class="nc" id="L103">        this.schorsing = value;</span>
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Gets the value of the door property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link PersoonRelatieType }
+     *     
+     */
+    public PersoonRelatieType getDoor() {
+<span class="nc" id="L115">        return door;</span>
+    }
+
+    /**
+     * Sets the value of the door property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link PersoonRelatieType }
+     *     
+     */
+    public void setDoor(PersoonRelatieType value) {
+<span class="nc" id="L127">        this.door = value;</span>
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Gets the value of the voor property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link PersoonRelatieType }
+     *     
+     */
+    public PersoonRelatieType getVoor() {
+<span class="nc" id="L139">        return voor;</span>
+    }
+
+    /**
+     * Sets the value of the voor property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link PersoonRelatieType }
+     *     
+     */
+    public void setVoor(PersoonRelatieType value) {
+<span class="nc" id="L151">        this.voor = value;</span>
+<span class="nc" id="L152">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

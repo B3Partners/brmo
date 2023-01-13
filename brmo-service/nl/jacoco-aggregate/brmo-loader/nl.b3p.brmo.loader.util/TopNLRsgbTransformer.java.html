@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>TopNLRsgbTransformer.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">TopNLRsgbTransformer.java</span></div><h1>TopNLRsgbTransformer.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ */
+package nl.b3p.brmo.loader.util;
+
+import static nl.b3p.brmo.loader.entity.LaadProces.STATUS;
+
+import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.topnl.Processor;
+import nl.b3p.topnl.TopNLType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jdom2.JDOMException;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+import javax.xml.bind.JAXBException;
+
+/** @author Meine Toonen */
+public class TopNLRsgbTransformer implements Runnable {
+
+<span class="nc" id="L28">    private static final Log LOG = LogFactory.getLog(TopNLRsgbTransformer.class);</span>
+    private final StagingProxy stagingProxy;
+    private final DataSource dataSourceTopNL;
+    private final ProgressUpdateListener listener;
+    private final long[] lpIDs;
+<span class="nc" id="L33">    private Processor processor = null;</span>
+
+    public TopNLRsgbTransformer(
+            DataSource dataSourceTopNL,
+            StagingProxy stagingProxy,
+            long[] lpIDs,
+            ProgressUpdateListener listener)
+<span class="nc" id="L40">            throws JAXBException, SQLException {</span>
+<span class="nc" id="L41">        this.stagingProxy = stagingProxy;</span>
+<span class="nc" id="L42">        this.dataSourceTopNL = dataSourceTopNL;</span>
+<span class="nc" id="L43">        this.lpIDs = lpIDs;</span>
+<span class="nc" id="L44">        this.listener = listener;</span>
+<span class="nc" id="L45">        this.processor = new Processor(this.dataSourceTopNL);</span>
+<span class="nc" id="L46">    }</span>
+
+    private void transform(long lpID) throws SQLException {
+        STATUS status;
+        String opmerkingen;
+<span class="nc" id="L51">        LaadProces lp = stagingProxy.getLaadProcesById(lpID);</span>
+
+<span class="nc bnc" id="L53" title="All 4 branches missed.">        if (TopNLType.isTopNLType(lp.getSoort()) &amp;&amp; lp.getStatus() == STATUS.STAGING_OK) {</span>
+<span class="nc" id="L54">            stagingProxy.updateLaadProcesStatus(</span>
+                    lp, STATUS.RSGB_TOPNL_WAITING, &quot;Transformatie loopt...&quot;);
+<span class="nc" id="L56">            File gml = new File(lp.getBestandNaam());</span>
+            try {
+<span class="nc" id="L58">                processor.importIntoDb(</span>
+<span class="nc" id="L59">                        gml.toURI().toURL(), TopNLType.valueOf(lp.getSoort().toUpperCase()));</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                switch (processor.getStatus()) {</span>
+                    case OK:
+<span class="nc" id="L62">                        status = STATUS.RSGB_TOPNL_OK;</span>
+<span class="nc" id="L63">                        opmerkingen = &quot;Geen fouten bij inladen.&quot;;</span>
+<span class="nc" id="L64">                        break;</span>
+                    case NOK:
+                    default:
+<span class="nc" id="L67">                        status = STATUS.RSGB_TOPNL_NOK;</span>
+<span class="nc" id="L68">                        opmerkingen =</span>
+                                &quot;Er zijn herstelbare fouten bij inladen opgetreden. Waarschijnlijk is niet alle data geladen van bestand &quot;
+                                        + gml;
+                }
+<span class="nc" id="L72">                stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);</span>
+<span class="nc" id="L73">            } catch (JDOMException | MalformedURLException ex) {</span>
+<span class="nc" id="L74">                LOG.debug(&quot;Error loading gml file&quot;, ex);</span>
+<span class="nc" id="L75">                opmerkingen =</span>
+<span class="nc" id="L76">                        &quot;Laden van bestand &quot; + gml + &quot; is mislukt: &quot; + ex.getLocalizedMessage();</span>
+<span class="nc" id="L77">                status = STATUS.RSGB_TOPNL_NOK;</span>
+<span class="nc" id="L78">                stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);</span>
+<span class="nc" id="L79">            }</span>
+<span class="nc" id="L80">        } else {</span>
+<span class="nc" id="L81">            LOG.warn(</span>
+                    &quot;LaadProces &quot;
+<span class="nc" id="L83">                            + lp.getId()</span>
+                            + &quot; van soort &quot;
+<span class="nc" id="L85">                            + lp.getSoort()</span>
+                            + &quot; met status: &quot;
+<span class="nc" id="L87">                            + lp.getStatus()</span>
+                            + &quot; is overgeslagen.&quot;);
+        }
+<span class="nc" id="L90">    }</span>
+
+    public void init() throws SQLException {
+        /* geomjdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSourceTopNL.getConnection());
+
+        params.put(&quot;jndiReferenceName&quot;, &quot;java:comp/env/jdbc/brmo/topnl&quot;);
+        params.put(&quot;dbtype&quot;, geomjdbc.getGeotoolsDBTypeName());
+        params.put(&quot;schema&quot;, geomjdbc.getSchema());
+
+        gmlLoader.setDbConnProps(params);
+        gmlLoader.setBijwerkDatum(new Date());
+        gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains(&quot;oracle&quot;));*/
+<span class="nc" id="L102">    }</span>
+
+    @Override
+    public void run() {
+        try {
+<span class="nc" id="L107">            init();</span>
+<span class="nc" id="L108">            int count = 0;</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L110">                listener.total(lpIDs.length);</span>
+<span class="nc" id="L111">                listener.progress(count);</span>
+            }
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            for (long id : lpIDs) {</span>
+<span class="nc" id="L114">                this.transform(id);</span>
+<span class="nc" id="L115">                count++;</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                if (listener != null) {</span>
+<span class="nc" id="L117">                    listener.progress(count);</span>
+                }
+            }
+<span class="nc" id="L120">        } catch (Exception e) {</span>
+<span class="nc" id="L121">            LOG.error(&quot;Fout tijdens verwerken TOPNL laadprocessen&quot;, e);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L123">                listener.exception(e);</span>
+            }
+<span class="nc" id="L125">        }</span>
+<span class="nc" id="L126">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

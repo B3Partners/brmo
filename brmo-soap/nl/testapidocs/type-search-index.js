@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.soap.db","l":"BrkInfoIntegrationTest"},{"p":"nl.b3p.brmo.soap.db","l":"EigendomInfoIntegrationTest"},{"p":"nl.b3p.brmo.soap.db","l":"TestUtil"},{"p":"nl.b3p.brmo.soap","l":"WebXmlTest"}]

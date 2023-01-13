@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CronFormatterTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO taglibrary</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.web.jsp</a> &gt; <span class="el_source">CronFormatterTag.java</span></div><h1>CronFormatterTag.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CronFormatterTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO taglibrary</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.web.jsp</a> &gt; <span class="el_source">CronFormatterTag.java</span></div><h1>CronFormatterTag.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2016 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,20 +16,20 @@
  */
 package nl.b3p.web.jsp;
 
+import static com.cronutils.model.CronType.QUARTZ;
+
 import com.cronutils.descriptor.CronDescriptor;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.parser.CronParser;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.Locale;
 
-import static com.cronutils.model.CronType.QUARTZ;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * Formatter voor cron expressies. The default locale for this tag is
- * {@code nl}.
+ * Formatter voor cron expressies. The default locale for this tag is {@code nl}.
  *
  * @author mprins
  */
@@ -63,18 +63,22 @@ public class CronFormatterTag extends SimpleTagSupport {
 <span class="fc" id="L63">        String formatted = &quot;&quot;;</span>
 <span class="pc bpc" id="L64" title="2 of 4 branches missed.">        if (cronExpression != null &amp;&amp; !cronExpression.isEmpty()) {</span>
             try {
-<span class="fc" id="L66">                CronParser cronParser = new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));</span>
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                if (locale != null) {</span>
-<span class="fc" id="L68">                    formatted = CronDescriptor.instance(locale).describe(cronParser.parse(cronExpression));</span>
+<span class="fc" id="L66">                CronParser cronParser =</span>
+<span class="fc" id="L67">                        new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">                if (locale != null) {</span>
+<span class="fc" id="L69">                    formatted =</span>
+<span class="fc" id="L70">                            CronDescriptor.instance(locale)</span>
+<span class="fc" id="L71">                                    .describe(cronParser.parse(cronExpression));</span>
                 } else {
-<span class="nc" id="L70">                    formatted = CronDescriptor.instance(Locale.getDefault()).describe(cronParser.parse(cronExpression));</span>
+                    formatted =
+<span class="nc" id="L74">                            CronDescriptor.instance(Locale.getDefault())</span>
+<span class="nc" id="L75">                                    .describe(cronParser.parse(cronExpression));</span>
                 }
-<span class="nc" id="L72">            } catch (Exception e) {</span>
-<span class="nc" id="L73">                formatted = e.getLocalizedMessage();</span>
-<span class="fc" id="L74">            }</span>
+<span class="nc" id="L77">            } catch (Exception e) {</span>
+<span class="nc" id="L78">                formatted = e.getLocalizedMessage();</span>
+<span class="fc" id="L79">            }</span>
         }
-<span class="fc" id="L76">        return formatted;</span>
+<span class="fc" id="L81">        return formatted;</span>
     }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

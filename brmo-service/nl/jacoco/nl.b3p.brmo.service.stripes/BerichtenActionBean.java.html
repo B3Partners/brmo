@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerichtenActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">BerichtenActionBean.java</span></div><h1>BerichtenActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
+
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.validation.Validate;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.stripesstuff.stripersist.Stripersist;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+/** @author Boy de Wit */
+<span class="nc" id="L29">public class BerichtenActionBean implements ActionBean {</span>
+
+<span class="nc" id="L31">    private static final Log log = LogFactory.getLog(BerichtenActionBean.class);</span>
+
+    private ActionBeanContext context;
+    private List&lt;Bericht&gt; berichten;
+
+    private long[] selectedIds;
+
+    @Validate private int page;
+    @Validate private int start;
+    @Validate private int limit;
+    @Validate private String sort;
+    @Validate private String dir;
+    @Validate private JSONArray filter;
+    @Validate private JSONObject changedItem;
+
+    //    private String result;
+
+    @DefaultHandler
+    public Resolution list() {
+<span class="nc" id="L50">        return new ForwardResolution(&quot;/WEB-INF/jsp/bericht/list.jsp&quot;);</span>
+    }
+
+    public Resolution getGridData() throws BrmoException {
+
+        // ophalen filters
+<span class="nc" id="L56">        String filterSoort = &quot;&quot;;</span>
+<span class="nc" id="L57">        String filterStatus = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (this.getFilter() != null) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            for (int k = 0; k &lt; this.getFilter().length(); k++) {</span>
+<span class="nc" id="L61">                JSONObject j = this.getFilter().getJSONObject(k);</span>
+<span class="nc" id="L62">                String property = j.getString(&quot;property&quot;);</span>
+<span class="nc" id="L63">                Object value =</span>
+<span class="nc" id="L64">                        j.opt(&quot;value&quot;); // JSONARRAY [&quot;STAGING_OK&quot;,&quot;RSGB_OK&quot;,&quot;RSGB_NOK&quot;] of string</span>
+<span class="nc" id="L65">                String stringValue = &quot;&quot;;</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                if (value instanceof String) {</span>
+<span class="nc" id="L67">                    stringValue = (String) value;</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                } else if (value instanceof JSONArray) {</span>
+<span class="nc" id="L69">                    JSONArray jaValue = (JSONArray) value;</span>
+<span class="nc" id="L70">                    stringValue = jaValue.join(&quot;,&quot;); // lelijk</span>
+<span class="nc" id="L71">                    stringValue = stringValue.replaceAll(&quot;\&quot;&quot;, &quot;&quot;);</span>
+                }
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                if (property.equals(&quot;soort&quot;)) {</span>
+<span class="nc" id="L74">                    filterSoort = stringValue;</span>
+                }
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                if (property.equals(&quot;status&quot;)) {</span>
+<span class="nc" id="L77">                    filterStatus = stringValue;</span>
+                }
+            }
+        }
+
+<span class="nc" id="L82">        DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L83">        long count = 0l;</span>
+<span class="nc" id="L84">        JSONArray jsoNBerichten = new JSONArray();</span>
+<span class="nc" id="L85">        BrmoFramework brmo = null;</span>
+        try {
+<span class="nc" id="L87">            brmo = new BrmoFramework(dataSourceStaging, null, null);</span>
+
+<span class="nc" id="L89">            count = brmo.getCountBerichten(filterSoort, filterStatus);</span>
+
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            if (start &lt; 0) {</span>
+<span class="nc" id="L92">                start = 0;</span>
+            }
+<span class="nc" id="L94">            berichten =</span>
+<span class="nc" id="L95">                    brmo.getBerichten(</span>
+                            page,
+                            start,
+                            limit,
+<span class="nc bnc" id="L99" title="All 4 branches missed.">                            (sort == null || sort.trim().isEmpty()) ? &quot;id&quot; : sort,</span>
+<span class="nc bnc" id="L100" title="All 4 branches missed.">                            (dir == null || dir.trim().isEmpty()) ? &quot;asc&quot; : dir,</span>
+                            filterSoort,
+                            filterStatus);
+
+        } finally {
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if (brmo != null) {</span>
+<span class="nc" id="L106">                brmo.closeBrmoFramework();</span>
+            }
+        }
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        for (Bericht b : berichten) {</span>
+<span class="nc" id="L110">            JSONObject jsonObject = bericht2Json(b);</span>
+<span class="nc" id="L111">            jsoNBerichten.put(jsonObject);</span>
+<span class="nc" id="L112">        }</span>
+
+<span class="nc" id="L114">        final JSONObject grid = new JSONObject();</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (count &lt; 0) {</span>
+<span class="nc" id="L116">            grid.put(&quot;virtualtotal&quot;, true);</span>
+<span class="nc" id="L117">            count = 0l;</span>
+        }
+<span class="nc" id="L119">        grid.put(&quot;total&quot;, count);</span>
+<span class="nc" id="L120">        grid.put(&quot;items&quot;, jsoNBerichten);</span>
+
+<span class="nc" id="L122">        return new StreamingResolution(&quot;application/json&quot;) {</span>
+            @Override
+            public void stream(HttpServletResponse response) throws Exception {
+<span class="nc" id="L125">                response.getWriter().print(grid.toString());</span>
+<span class="nc" id="L126">            }</span>
+        };
+    }
+
+    private JSONObject bericht2Json(Bericht ber) {
+<span class="nc" id="L131">        JSONObject json = new JSONObject();</span>
+
+<span class="nc" id="L133">        json.put(&quot;id&quot;, ber.getId());</span>
+<span class="nc" id="L134">        json.put(&quot;object_ref&quot;, ber.getObjectRef());</span>
+<span class="nc" id="L135">        json.put(&quot;datum&quot;, ber.getDatum());</span>
+<span class="nc" id="L136">        json.put(&quot;soort&quot;, ber.getSoort());</span>
+<span class="nc" id="L137">        json.put(&quot;status&quot;, ber.getStatus());</span>
+<span class="nc" id="L138">        json.put(&quot;volgordenummer&quot;, ber.getVolgordeNummer());</span>
+
+<span class="nc" id="L140">        return json;</span>
+    }
+
+    public Resolution saveRecord() {
+<span class="nc" id="L144">        JSONObject item = this.getChangedItem();</span>
+
+<span class="nc" id="L146">        final EntityManager em = Stripersist.getEntityManager();</span>
+<span class="nc" id="L147">        nl.b3p.brmo.persistence.staging.Bericht bericht =</span>
+<span class="nc" id="L148">                em.find(nl.b3p.brmo.persistence.staging.Bericht.class, item.getLong(&quot;id&quot;));</span>
+<span class="nc" id="L149">        bericht.setStatus(</span>
+<span class="nc" id="L150">                nl.b3p.brmo.persistence.staging.Bericht.STATUS.valueOf(item.getString(&quot;status&quot;)));</span>
+        // TODO / VRAAG moeten we ook iets aan de log/opmerking van het bericht doen?
+        // bericht.setOpmerking(&quot;&quot;);
+<span class="nc" id="L153">        em.merge(bericht);</span>
+<span class="nc" id="L154">        em.getTransaction().commit();</span>
+
+<span class="nc" id="L156">        final JSONObject jsonResponse = new JSONObject();</span>
+<span class="nc" id="L157">        jsonResponse.put(&quot;success&quot;, true);</span>
+<span class="nc" id="L158">        return new StreamingResolution(&quot;application/json&quot;) {</span>
+            @Override
+            public void stream(HttpServletResponse response) throws Exception {
+<span class="nc" id="L161">                response.getWriter().print(jsonResponse.toString());</span>
+<span class="nc" id="L162">            }</span>
+        };
+    }
+
+    public Resolution log() throws BrmoException {
+<span class="nc" id="L167">        DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L168">        JSONObject jsonObj = new JSONObject();</span>
+<span class="nc" id="L169">        jsonObj.put(&quot;success&quot;, Boolean.FALSE);</span>
+<span class="nc" id="L170">        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, null, null);</span>
+        try {
+<span class="nc" id="L172">            Bericht bericht = brmo.getBerichtById(selectedIds[0]);</span>
+<span class="nc" id="L173">            jsonObj = bericht2Json(bericht);</span>
+<span class="nc" id="L174">            jsonObj.put(&quot;opmerking&quot;, bericht.getOpmerking());</span>
+<span class="nc" id="L175">            jsonObj.put(&quot;success&quot;, Boolean.TRUE);</span>
+        } finally {
+<span class="nc" id="L177">            brmo.closeBrmoFramework();</span>
+        }
+<span class="nc" id="L179">        final String returnValue = jsonObj.toString();</span>
+<span class="nc" id="L180">        return new StreamingResolution(&quot;application/json&quot;) {</span>
+            @Override
+            public void stream(HttpServletResponse response) throws Exception {
+<span class="nc" id="L183">                response.getWriter().print(returnValue);</span>
+<span class="nc" id="L184">            }</span>
+        };
+    }
+
+    public ActionBeanContext getContext() {
+<span class="nc" id="L189">        return context;</span>
+    }
+
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L193">        this.context = context;</span>
+<span class="nc" id="L194">    }</span>
+
+    public List&lt;Bericht&gt; getBerichten() {
+<span class="nc" id="L197">        return berichten;</span>
+    }
+
+    public void setBerichten(List&lt;Bericht&gt; berichten) {
+<span class="nc" id="L201">        this.berichten = berichten;</span>
+<span class="nc" id="L202">    }</span>
+
+    public long[] getSelectedIds() {
+<span class="nc" id="L205">        return selectedIds;</span>
+    }
+
+    public void setSelectedIds(long[] selectedIds) {
+<span class="nc" id="L209">        this.selectedIds = selectedIds;</span>
+<span class="nc" id="L210">    }</span>
+
+    public int getPage() {
+<span class="nc" id="L213">        return page;</span>
+    }
+
+    public void setPage(int page) {
+<span class="nc" id="L217">        this.page = page;</span>
+<span class="nc" id="L218">    }</span>
+
+    public int getStart() {
+<span class="nc" id="L221">        return start;</span>
+    }
+
+    public void setStart(int start) {
+<span class="nc" id="L225">        this.start = start;</span>
+<span class="nc" id="L226">    }</span>
+
+    public int getLimit() {
+<span class="nc" id="L229">        return limit;</span>
+    }
+
+    public void setLimit(int limit) {
+<span class="nc" id="L233">        this.limit = limit;</span>
+<span class="nc" id="L234">    }</span>
+
+    public String getSort() {
+<span class="nc" id="L237">        return sort;</span>
+    }
+
+    public void setSort(String sort) {
+<span class="nc" id="L241">        this.sort = sort;</span>
+<span class="nc" id="L242">    }</span>
+
+    public String getDir() {
+<span class="nc" id="L245">        return dir;</span>
+    }
+
+    public void setDir(String dir) {
+<span class="nc" id="L249">        this.dir = dir;</span>
+<span class="nc" id="L250">    }</span>
+
+    public JSONArray getFilter() {
+<span class="nc" id="L253">        return filter;</span>
+    }
+
+    public void setFilter(JSONArray filter) {
+<span class="nc" id="L257">        this.filter = filter;</span>
+<span class="nc" id="L258">    }</span>
+
+    //    public String getResult() {
+    //        return result;
+    //    }
+    //
+    //    public void setResult(String result) {
+    //        this.result = result;
+    //    }
+
+    public JSONObject getChangedItem() {
+<span class="nc" id="L269">        return changedItem;</span>
+    }
+
+    public void setChangedItem(JSONObject changedItem) {
+<span class="nc" id="L273">        this.changedItem = changedItem;</span>
+<span class="nc" id="L274">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

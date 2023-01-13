@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BuitenlandseVennootschapType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">BuitenlandseVennootschapType.java</span></div><h1>BuitenlandseVennootschapType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for BuitenlandseVennootschapType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BuitenlandseVennootschapType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}NietNatuurlijkPersoonType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;buitenlandseRegistratieGegevens&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}BuitenlandseRegistratieGegevensType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;landVanOprichting&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;landVanVestiging&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;geplaatstKapitaal&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}KapitaalType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;buitenlandseVennootschapGegevens&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}BuitenlandseVennootschapGegevensType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;bezoekLocatie&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}LocatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;postLocatie&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}LocatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BuitenlandseVennootschapType&quot;, propOrder = {
+    &quot;buitenlandseRegistratieGegevens&quot;,
+    &quot;landVanOprichting&quot;,
+    &quot;landVanVestiging&quot;,
+    &quot;geplaatstKapitaal&quot;,
+    &quot;buitenlandseVennootschapGegevens&quot;,
+    &quot;bezoekLocatie&quot;,
+    &quot;postLocatie&quot;
+})
+<span class="nc" id="L44">public class BuitenlandseVennootschapType</span>
+    extends NietNatuurlijkPersoonType
+{
+
+    protected BuitenlandseRegistratieGegevensType buitenlandseRegistratieGegevens;
+    protected EnumeratieType landVanOprichting;
+    protected EnumeratieType landVanVestiging;
+    protected KapitaalType geplaatstKapitaal;
+    protected BuitenlandseVennootschapGegevensType buitenlandseVennootschapGegevens;
+    protected LocatieType bezoekLocatie;
+    protected LocatieType postLocatie;
+
+    /**
+     * Gets the value of the buitenlandseRegistratieGegevens property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BuitenlandseRegistratieGegevensType }
+     *     
+     */
+    public BuitenlandseRegistratieGegevensType getBuitenlandseRegistratieGegevens() {
+<span class="nc" id="L65">        return buitenlandseRegistratieGegevens;</span>
+    }
+
+    /**
+     * Sets the value of the buitenlandseRegistratieGegevens property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BuitenlandseRegistratieGegevensType }
+     *     
+     */
+    public void setBuitenlandseRegistratieGegevens(BuitenlandseRegistratieGegevensType value) {
+<span class="nc" id="L77">        this.buitenlandseRegistratieGegevens = value;</span>
+<span class="nc" id="L78">    }</span>
+
+    /**
+     * Gets the value of the landVanOprichting property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getLandVanOprichting() {
+<span class="nc" id="L89">        return landVanOprichting;</span>
+    }
+
+    /**
+     * Sets the value of the landVanOprichting property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setLandVanOprichting(EnumeratieType value) {
+<span class="nc" id="L101">        this.landVanOprichting = value;</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Gets the value of the landVanVestiging property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getLandVanVestiging() {
+<span class="nc" id="L113">        return landVanVestiging;</span>
+    }
+
+    /**
+     * Sets the value of the landVanVestiging property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setLandVanVestiging(EnumeratieType value) {
+<span class="nc" id="L125">        this.landVanVestiging = value;</span>
+<span class="nc" id="L126">    }</span>
+
+    /**
+     * Gets the value of the geplaatstKapitaal property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link KapitaalType }
+     *     
+     */
+    public KapitaalType getGeplaatstKapitaal() {
+<span class="nc" id="L137">        return geplaatstKapitaal;</span>
+    }
+
+    /**
+     * Sets the value of the geplaatstKapitaal property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link KapitaalType }
+     *     
+     */
+    public void setGeplaatstKapitaal(KapitaalType value) {
+<span class="nc" id="L149">        this.geplaatstKapitaal = value;</span>
+<span class="nc" id="L150">    }</span>
+
+    /**
+     * Gets the value of the buitenlandseVennootschapGegevens property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BuitenlandseVennootschapGegevensType }
+     *     
+     */
+    public BuitenlandseVennootschapGegevensType getBuitenlandseVennootschapGegevens() {
+<span class="nc" id="L161">        return buitenlandseVennootschapGegevens;</span>
+    }
+
+    /**
+     * Sets the value of the buitenlandseVennootschapGegevens property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BuitenlandseVennootschapGegevensType }
+     *     
+     */
+    public void setBuitenlandseVennootschapGegevens(BuitenlandseVennootschapGegevensType value) {
+<span class="nc" id="L173">        this.buitenlandseVennootschapGegevens = value;</span>
+<span class="nc" id="L174">    }</span>
+
+    /**
+     * Gets the value of the bezoekLocatie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LocatieType }
+     *     
+     */
+    public LocatieType getBezoekLocatie() {
+<span class="nc" id="L185">        return bezoekLocatie;</span>
+    }
+
+    /**
+     * Sets the value of the bezoekLocatie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LocatieType }
+     *     
+     */
+    public void setBezoekLocatie(LocatieType value) {
+<span class="nc" id="L197">        this.bezoekLocatie = value;</span>
+<span class="nc" id="L198">    }</span>
+
+    /**
+     * Gets the value of the postLocatie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LocatieType }
+     *     
+     */
+    public LocatieType getPostLocatie() {
+<span class="nc" id="L209">        return postLocatie;</span>
+    }
+
+    /**
+     * Sets the value of the postLocatie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LocatieType }
+     *     
+     */
+    public void setPostLocatie(LocatieType value) {
+<span class="nc" id="L221">        this.postLocatie = value;</span>
+<span class="nc" id="L222">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

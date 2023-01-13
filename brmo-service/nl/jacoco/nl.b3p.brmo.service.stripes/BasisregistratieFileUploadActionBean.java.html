@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BasisregistratieFileUploadActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">BasisregistratieFileUploadActionBean.java</span></div><h1>BasisregistratieFileUploadActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
+
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.DontValidate;
+import net.sourceforge.stripes.action.FileBean;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.StrictBinding;
+import net.sourceforge.stripes.validation.Validate;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.service.util.ConfigUtil;
+
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.mutable.MutableLong;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
+import javax.sql.DataSource;
+
+/**
+ * Action voor het handmatig uploaden van bestanden met basisregistratiegegevens via een formulier.
+ */
+@StrictBinding
+<span class="nc" id="L42">public class BasisregistratieFileUploadActionBean implements ActionBean {</span>
+    private static final int ZIP_HEADER = 0x504b0304;
+
+<span class="nc" id="L45">    private static final Log log = LogFactory.getLog(BasisregistratieFileUploadActionBean.class);</span>
+
+    private ActionBeanContext context;
+
+    @Validate(required = true)
+    private String basisregistratie;
+
+    @Validate(required = true)
+    private FileBean bestand;
+
+    @DefaultHandler
+    @DontValidate
+    public Resolution form() {
+<span class="nc" id="L58">        return new ForwardResolution(&quot;/WEB-INF/jsp/bestand/form.jsp&quot;);</span>
+    }
+
+    public Resolution upload() throws BrmoException {
+<span class="nc" id="L62">        DataSource ds = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L63">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L64">        ZipInputStream zip = null;</span>
+<span class="nc" id="L65">        ZipEntry entry = null;</span>
+<span class="nc" id="L66">        int errors = 0;</span>
+<span class="nc" id="L67">        int empty = 0;</span>
+<span class="nc" id="L68">        int duplicate = 0;</span>
+<span class="nc" id="L69">        final int ERROR_LIMIT = 5;</span>
+        try {
+<span class="nc" id="L71">            final MutableLong theTotal = new MutableLong(0);</span>
+<span class="nc" id="L72">            int extractedFiles = 0;</span>
+<span class="nc" id="L73">            final ProgressUpdateListener totalAdder =</span>
+<span class="nc" id="L74">                    new ProgressUpdateListener() {</span>
+
+                        @Override
+                        public void total(long total) {
+<span class="nc" id="L78">                            theTotal.setValue(theTotal.getValue() + total);</span>
+<span class="nc" id="L79">                        }</span>
+
+                        @Override
+<span class="nc" id="L82">                        public void progress(long progress) {}</span>
+
+                        @Override
+<span class="nc" id="L85">                        public void exception(Throwable t) {}</span>
+                    };
+
+            // Check of bestand begint met ZIP header
+<span class="nc" id="L89">            InputStream in = new BufferedInputStream(bestand.getInputStream());</span>
+<span class="nc" id="L90">            in.mark(4);</span>
+<span class="nc" id="L91">            int header = new DataInputStream(in).readInt();</span>
+<span class="nc" id="L92">            in.reset();</span>
+
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (header == ZIP_HEADER) {</span>
+                // Pak .xml bestanden in ZIP uit en verwerk deze
+
+<span class="nc" id="L97">                zip = new ZipInputStream(in);</span>
+                try {
+<span class="nc" id="L99">                    entry = zip.getNextEntry();</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                    while (entry != null) {</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">                        if (!entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
+<span class="nc" id="L102">                            log.warn(&quot;Overslaan zip entry geen XML: &quot; + entry.getName());</span>
+                        } else {
+<span class="nc" id="L104">                            log.debug(&quot;Lezen XML bestand uit zip: &quot; + entry.getName());</span>
+                            try {
+<span class="nc" id="L106">                                brmo.loadFromStream(</span>
+                                        basisregistratie,
+<span class="nc" id="L108">                                        CloseShieldInputStream.wrap(zip),</span>
+<span class="nc" id="L109">                                        bestand.getFileName() + &quot;/&quot; + entry.getName(),</span>
+                                        totalAdder,
+                                        null);
+<span class="nc" id="L112">                            } catch (BrmoLeegBestandException e) {</span>
+<span class="nc" id="L113">                                log.info(</span>
+                                        &quot;Negeer ZIP entry &quot;
+<span class="nc" id="L115">                                                + entry.getName()</span>
+                                                + &quot;: &quot;
+<span class="nc" id="L117">                                                + e.getMessage());</span>
+<span class="nc" id="L118">                                empty++;</span>
+<span class="nc" id="L119">                            } catch (BrmoDuplicaatLaadprocesException e) {</span>
+<span class="nc" id="L120">                                log.info(</span>
+                                        &quot;Negeer ZIP entry &quot;
+<span class="nc" id="L122">                                                + entry.getName()</span>
+                                                + &quot;: duplicaat laadproces&quot;);
+<span class="nc" id="L124">                                duplicate++;</span>
+<span class="nc" id="L125">                            } catch (BrmoException e) {</span>
+<span class="nc" id="L126">                                errors++;</span>
+<span class="nc" id="L127">                                log.error(</span>
+                                        &quot;BrmoException bij laden ZIP entry &quot;
+<span class="nc" id="L129">                                                + entry.getName()</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                                                + (errors &gt; ERROR_LIMIT</span>
+<span class="nc" id="L131">                                                        ? &quot;; afbreken&quot;</span>
+<span class="nc" id="L132">                                                        : &quot;; doorgaan met volgende&quot;),</span>
+                                        e);
+<span class="nc bnc" id="L134" title="All 2 branches missed.">                                if (errors &gt; ERROR_LIMIT) {</span>
+<span class="nc" id="L135">                                    throw new BrmoException(</span>
+                                            &quot;Maximum aantal fouten (&quot;
+                                                    + ERROR_LIMIT
+                                                    + &quot;) bereikt bij inladen ZIP bestanden, inladen afgebroken. Controleer brmo-service.log&quot;,
+                                            e);
+                                }
+<span class="nc" id="L141">                            }</span>
+<span class="nc" id="L142">                            extractedFiles++;</span>
+                        }
+<span class="nc" id="L144">                        entry = zip.getNextEntry();</span>
+                    }
+                } finally {
+<span class="nc" id="L147">                    zip.close();</span>
+<span class="nc" id="L148">                }</span>
+            } else {
+                // Geen ZIP, direct BR XML laden
+<span class="nc" id="L151">                brmo.loadFromStream(basisregistratie, in, bestand.getFileName(), totalAdder, null);</span>
+            }
+
+<span class="nc" id="L154">            List&lt;String&gt; warnings = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (errors &gt; 0) {</span>
+<span class="nc" id="L156">                warnings.add(</span>
+                        &quot;let op: &quot;
+                                + errors
+                                + &quot; bericht&quot;
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                                + (errors &gt; 1 ? &quot;en&quot; : &quot;&quot;)</span>
+                                + &quot; niet ingeladen wegens fouten&quot;);
+            }
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (empty &gt; 0) {</span>
+<span class="nc" id="L164">                warnings.add(</span>
+                        &quot;let op: &quot;
+                                + empty
+<span class="nc bnc" id="L167" title="All 2 branches missed.">                                + (empty &gt; 1 ? &quot; lege berichten&quot; : &quot; leeg bericht&quot;)</span>
+                                + &quot; overgeslagen&quot;);
+            }
+<span class="nc bnc" id="L170" title="All 2 branches missed.">            if (duplicate &gt; 0) {</span>
+<span class="nc" id="L171">                warnings.add(</span>
+                        &quot;let op: &quot;
+                                + duplicate
+<span class="nc bnc" id="L174" title="All 2 branches missed.">                                + (duplicate &gt; 1 ? &quot; duplicate berichten&quot; : &quot; duplicaat bericht&quot;)</span>
+                                + &quot; overgeslagen&quot;);
+            }
+
+            String warning =
+<span class="nc bnc" id="L179" title="All 2 branches missed.">                    warnings.isEmpty()</span>
+<span class="nc" id="L180">                            ? &quot;&quot;</span>
+                            : &quot;, &quot;
+<span class="nc" id="L182">                                    + String.join(&quot;, &quot;, warnings.toArray(new String[] {}))</span>
+<span class="nc" id="L183">                                    + &quot;, zie log voor bestandsnamen uit ZIP en details!&quot;;</span>
+
+<span class="nc" id="L185">            getContext()</span>
+<span class="nc" id="L186">                    .getMessages()</span>
+<span class="nc" id="L187">                    .add(</span>
+                            new SimpleMessage(
+                                    &quot;Bestand &quot;
+<span class="nc" id="L190">                                            + bestand.getFileName()</span>
+                                            + &quot; is ingelezen, &quot;
+<span class="nc" id="L192">                                            + theTotal.getValue()</span>
+                                            + &quot; berichten&quot;
+<span class="nc bnc" id="L194" title="All 2 branches missed.">                                            + (extractedFiles &gt; 0</span>
+                                                    ? &quot; (uit &quot;
+                                                            + extractedFiles
+<span class="nc" id="L197">                                                            + &quot; uitgepakte XML bestanden)&quot;</span>
+<span class="nc" id="L198">                                                    : &quot;&quot;)</span>
+                                            + warning));
+<span class="nc" id="L200">            log.info(</span>
+<span class="nc" id="L201">                    String.format(</span>
+                            &quot;Stored %s data from file \&quot;%s\&quot; uploaded via form&quot;,
+<span class="nc" id="L203">                            basisregistratie, bestand.getFileName()));</span>
+<span class="nc" id="L204">        } catch (Exception ex) {</span>
+            String msg =
+                    &quot;Fout bij inlezen bestand &quot;
+<span class="nc bnc" id="L207" title="All 4 branches missed.">                            + (zip != null &amp;&amp; entry != null</span>
+<span class="nc" id="L208">                                    ? entry.getName() + &quot; uit ZIP bestand &quot; + bestand.getFileName()</span>
+<span class="nc" id="L209">                                    : bestand.getFileName());</span>
+<span class="nc" id="L210">            log.error(msg, ex);</span>
+
+<span class="nc" id="L212">            getContext()</span>
+<span class="nc" id="L213">                    .getMessages()</span>
+<span class="nc" id="L214">                    .add(new SimpleMessage(msg + &quot;: &quot; + ExceptionUtils.getRootCauseMessage(ex)));</span>
+        } finally {
+            try {
+<span class="nc" id="L217">                bestand.delete();</span>
+<span class="nc" id="L218">            } catch (IOException e) {</span>
+                // ignore
+<span class="nc" id="L220">            }</span>
+<span class="nc" id="L221">            brmo.closeBrmoFramework();</span>
+        }
+
+<span class="nc" id="L224">        return new ForwardResolution(&quot;/WEB-INF/jsp/bestand/form.jsp&quot;);</span>
+    }
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
+    public ActionBeanContext getContext() {
+<span class="nc" id="L229">        return context;</span>
+    }
+
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L233">        this.context = context;</span>
+<span class="nc" id="L234">    }</span>
+
+    public String getBasisregistratie() {
+<span class="nc" id="L237">        return basisregistratie;</span>
+    }
+
+    public void setBasisregistratie(String basisregistratie) {
+<span class="nc" id="L241">        this.basisregistratie = basisregistratie;</span>
+<span class="nc" id="L242">    }</span>
+
+    public FileBean getBestand() {
+<span class="nc" id="L245">        return bestand;</span>
+    }
+
+    public void setBestand(FileBean bestand) {
+<span class="nc" id="L249">        this.bestand = bestand;</span>
+<span class="nc" id="L250">    }</span>
+    // &lt;/editor-fold&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

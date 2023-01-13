@@ -1,0 +1,2000 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>RsgbProxy.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader</a> &gt; <span class="el_source">RsgbProxy.java</span></div><h1>RsgbProxy.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader;
+
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.updates.UpdateProcess;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.DataComfortXMLReader;
+import nl.b3p.brmo.loader.util.RsgbBRPTransformer;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
+import nl.b3p.brmo.loader.util.RsgbWOZTransformer;
+import nl.b3p.brmo.loader.util.TableData;
+import nl.b3p.brmo.loader.util.TableRow;
+import nl.b3p.jdbc.util.converter.ColumnMetadata;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+import nl.b3p.jdbc.util.converter.OracleJdbcConverter;
+
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
+import org.locationtech.jts.io.ParseException;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.sql.DataSource;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+
+/** @author Boy de Wit */
+public class RsgbProxy implements Runnable, BerichtenHandler {
+
+<span class="nc" id="L60">    private static final Log log = LogFactory.getLog(RsgbProxy.class);</span>
+
+<span class="nc" id="L62">    private final boolean alsoExecuteSql = true;</span>
+
+    private final ProgressUpdateListener listener;
+    private final BerichtSelectMode mode;
+    private final UpdateProcess updateProcess;
+<span class="nc" id="L67">    private final Map&lt;String, PreparedStatement&gt; checkRowExistsStatements = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L68">    private final Map&lt;String, PreparedStatement&gt; insertSqlPreparedStatements = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L69">    private final Map&lt;String, PreparedStatement&gt; updateSqlPreparedStatements = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L70">    private final Map&lt;String, PreparedStatement&gt; createDeleteSqlStatements = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L71">    private final Map&lt;String, List&lt;String&gt;&gt; primaryKeyCache = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L72">    private final DataComfortXMLReader dbXmlReader = new DataComfortXMLReader();</span>
+    // Gebruik andere instantie voor lezen oude berichten, gebeurt gelijktijdig
+    // in andere thread als lezen van dbxml van berichten om te verwerken
+<span class="nc" id="L75">    private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();</span>
+    private int processed;
+    /** De status voor BY_STATUS. */
+    private Bericht.STATUS status;
+    /** De bericht ID's voor BY_IDS. */
+    private long[] berichtIds;
+    /** Het ID van het laadproces vor BY_LAADPROCES. */
+    private long[] laadprocesIds;
+
+    private PreparedStatement insertMetadataStatement;
+<span class="nc" id="L85">    private DatabaseMetaData dbMetadata = null;</span>
+<span class="nc" id="L86">    private DatabaseMetaData dbMetadataBrk = null;</span>
+    /* Map van lowercase tabelnaam naar originele case tabelnaam */
+<span class="nc" id="L88">    private final Map&lt;String, String&gt; tables = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L89">    private final Map&lt;String, SortedSet&lt;ColumnMetadata&gt;&gt; tableColumns = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L90">    private Connection connRsgb = null;</span>
+<span class="nc" id="L91">    private Connection connRsgbBrk = null;</span>
+<span class="nc" id="L92">    private GeometryJdbcConverter geomToJdbc = null;</span>
+<span class="nc" id="L93">    private GeometryJdbcConverter geomToJdbcBrk = null;</span>
+<span class="nc" id="L94">    private Savepoint recentSavepoint = null;</span>
+<span class="nc" id="L95">    private String herkomstMetadata = null;</span>
+    private final DataSource dataSourceRsgb;
+    private final DataSource dataSourceRsgbBrk;
+    private final StagingProxy stagingProxy;
+<span class="nc" id="L99">    private boolean enablePipeline = false;</span>
+<span class="nc" id="L100">    private int pipelineCapacity = 25;</span>
+<span class="nc" id="L101">    private boolean renewConnectionAfterCommit = false;</span>
+<span class="nc" id="L102">    private boolean orderBerichten = true;</span>
+<span class="nc" id="L103">    private String errorState = null;</span>
+<span class="nc" id="L104">    private final Map&lt;String, RsgbTransformer&gt; rsgbTransformers = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L105">    private String simonNamePrefix = &quot;b3p.rsgb.&quot;;</span>
+
+    public RsgbProxy(
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            StagingProxy stagingProxy,
+            Bericht.STATUS status,
+<span class="nc" id="L112">            ProgressUpdateListener listener) {</span>
+<span class="nc" id="L113">        this.stagingProxy = stagingProxy;</span>
+<span class="nc" id="L114">        this.dataSourceRsgb = dataSourceRsgb;</span>
+<span class="nc" id="L115">        this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
+
+<span class="nc" id="L117">        mode = BerichtSelectMode.BY_STATUS;</span>
+<span class="nc" id="L118">        this.status = status;</span>
+<span class="nc" id="L119">        this.listener = listener;</span>
+<span class="nc" id="L120">        this.updateProcess = null;</span>
+<span class="nc" id="L121">    }</span>
+
+    /**
+     * @param dataSourceRsgb de te gebruiken RSGB database
+     * @param stagingProxy de te gebruiken StagingProxy
+     * @param mode geeft aan wat ids zijn (laadprocessen of berichten)
+     * @param ids record id's (afhankelijk van de {@code BerichtSelectMode})
+     * @param listener voortgangs listener
+     */
+    public RsgbProxy(
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            StagingProxy stagingProxy,
+            BerichtSelectMode mode,
+            long[] ids,
+<span class="nc" id="L136">            ProgressUpdateListener listener) {</span>
+<span class="nc" id="L137">        this.stagingProxy = stagingProxy;</span>
+<span class="nc" id="L138">        this.dataSourceRsgb = dataSourceRsgb;</span>
+<span class="nc" id="L139">        this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
+
+<span class="nc" id="L141">        this.mode = mode;</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (mode == BerichtSelectMode.BY_LAADPROCES) {</span>
+<span class="nc" id="L143">            this.laadprocesIds = ids;</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        } else if (mode == BerichtSelectMode.BY_IDS) {</span>
+<span class="nc" id="L145">            this.berichtIds = ids;</span>
+        }
+<span class="nc" id="L147">        this.listener = listener;</span>
+<span class="nc" id="L148">        this.updateProcess = null;</span>
+<span class="nc" id="L149">    }</span>
+
+    public RsgbProxy(
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            StagingProxy stagingProxy,
+            UpdateProcess updateProcess,
+<span class="nc" id="L156">            ProgressUpdateListener listener) {</span>
+<span class="nc" id="L157">        this.stagingProxy = stagingProxy;</span>
+<span class="nc" id="L158">        this.dataSourceRsgb = dataSourceRsgb;</span>
+<span class="nc" id="L159">        this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
+
+<span class="nc" id="L161">        this.mode = BerichtSelectMode.FOR_UPDATE;</span>
+<span class="nc" id="L162">        this.updateProcess = updateProcess;</span>
+<span class="nc" id="L163">        this.listener = listener;</span>
+<span class="nc" id="L164">    }</span>
+
+    public void setSimonNamePrefix(String prefix) {
+<span class="nc" id="L167">        this.simonNamePrefix = prefix;</span>
+<span class="nc" id="L168">    }</span>
+
+    public void setEnablePipeline(boolean enablePipeline) {
+<span class="nc" id="L171">        this.enablePipeline = enablePipeline;</span>
+<span class="nc" id="L172">    }</span>
+
+    public void setPipelineCapacity(int pipelineCapacity) {
+<span class="nc" id="L175">        this.pipelineCapacity = pipelineCapacity;</span>
+<span class="nc" id="L176">    }</span>
+
+    public void setRenewConnectionAfterCommit(boolean renewConnectionAfterCommit) {
+<span class="nc" id="L179">        this.renewConnectionAfterCommit = renewConnectionAfterCommit;</span>
+<span class="nc" id="L180">    }</span>
+
+    public void setOrderBerichten(boolean orderBerichten) {
+<span class="nc" id="L183">        this.orderBerichten = orderBerichten;</span>
+<span class="nc" id="L184">    }</span>
+
+    public void setErrorState(String errorState) {
+<span class="nc" id="L187">        this.errorState = errorState;</span>
+<span class="nc" id="L188">    }</span>
+
+    public void init() throws SQLException {
+<span class="nc" id="L191">        ResultSet tablesRs = null;</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (null != this.dataSourceRsgb) {</span>
+<span class="nc" id="L193">            connRsgb = dataSourceRsgb.getConnection();</span>
+<span class="nc" id="L194">            geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgb);</span>
+
+            try {
+<span class="nc" id="L197">                dbMetadata = connRsgb.getMetaData();</span>
+<span class="nc" id="L198">                tablesRs =</span>
+<span class="nc" id="L199">                        dbMetadata.getTables(</span>
+<span class="nc" id="L200">                                null, geomToJdbc.getSchema(), &quot;%&quot;, new String[] {&quot;TABLE&quot;});</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">                while (tablesRs.next()) {</span>
+<span class="nc" id="L202">                    tables.put(</span>
+<span class="nc" id="L203">                            tablesRs.getString(&quot;TABLE_NAME&quot;).toLowerCase(),</span>
+<span class="nc" id="L204">                            tablesRs.getString(&quot;TABLE_NAME&quot;));</span>
+                }
+<span class="nc" id="L206">            } catch (SQLException sqlEx) {</span>
+<span class="nc" id="L207">                throw new SQLException(&quot;Fout bij ophalen rsgb tabellen: &quot;, sqlEx);</span>
+            } finally {
+<span class="nc" id="L209">                DbUtils.closeQuietly(tablesRs);</span>
+            }
+        }
+
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        if (null != dataSourceRsgbBrk) {</span>
+<span class="nc" id="L214">            connRsgbBrk = dataSourceRsgbBrk.getConnection();</span>
+<span class="nc" id="L215">            geomToJdbcBrk = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connRsgbBrk);</span>
+
+            try {
+<span class="nc" id="L218">                dbMetadataBrk = connRsgbBrk.getMetaData();</span>
+<span class="nc" id="L219">                tablesRs =</span>
+<span class="nc" id="L220">                        dbMetadataBrk.getTables(</span>
+<span class="nc" id="L221">                                null, geomToJdbcBrk.getSchema(), &quot;%&quot;, new String[] {&quot;TABLE&quot;});</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">                while (tablesRs.next()) {</span>
+<span class="nc" id="L223">                    tables.put(</span>
+<span class="nc" id="L224">                            tablesRs.getString(&quot;TABLE_NAME&quot;).toLowerCase(),</span>
+<span class="nc" id="L225">                            tablesRs.getString(&quot;TABLE_NAME&quot;));</span>
+                }
+<span class="nc" id="L227">            } catch (SQLException sqlEx) {</span>
+<span class="nc" id="L228">                throw new SQLException(&quot;Fout bij ophalen rsgb brk tabellen: &quot;, sqlEx);</span>
+            } finally {
+<span class="nc" id="L230">                DbUtils.closeQuietly(tablesRs);</span>
+            }
+        }
+<span class="nc" id="L233">    }</span>
+
+    private PreparedStatement checkAndGetPreparedStatement(
+            Map&lt;String, PreparedStatement&gt; m, String name) throws SQLException {
+<span class="nc" id="L237">        PreparedStatement stm = m.get(name);</span>
+<span class="nc bnc" id="L238" title="All 4 branches missed.">        if (stm == null || stm.isClosed()) {</span>
+<span class="nc" id="L239">            return null;</span>
+        }
+<span class="nc" id="L241">        stm.clearParameters();</span>
+<span class="nc" id="L242">        return stm;</span>
+    }
+
+    public void checkAndAddStatement(
+            Map&lt;String, PreparedStatement&gt; m, String tableName, PreparedStatement stmt) {
+<span class="nc" id="L247">        m.put(tableName, stmt);</span>
+<span class="nc" id="L248">    }</span>
+
+    public void close() {
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        for (PreparedStatement stmt : checkRowExistsStatements.values()) {</span>
+<span class="nc" id="L252">            DbUtils.closeQuietly(stmt);</span>
+<span class="nc" id="L253">        }</span>
+<span class="nc" id="L254">        checkRowExistsStatements.clear();</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        for (PreparedStatement stmt : insertSqlPreparedStatements.values()) {</span>
+<span class="nc" id="L256">            DbUtils.closeQuietly(stmt);</span>
+<span class="nc" id="L257">        }</span>
+<span class="nc" id="L258">        insertSqlPreparedStatements.clear();</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">        for (PreparedStatement stmt : updateSqlPreparedStatements.values()) {</span>
+<span class="nc" id="L260">            DbUtils.closeQuietly(stmt);</span>
+<span class="nc" id="L261">        }</span>
+<span class="nc" id="L262">        updateSqlPreparedStatements.clear();</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">        for (PreparedStatement stmt : createDeleteSqlStatements.values()) {</span>
+<span class="nc" id="L264">            DbUtils.closeQuietly(stmt);</span>
+<span class="nc" id="L265">        }</span>
+<span class="nc" id="L266">        createDeleteSqlStatements.clear();</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (insertMetadataStatement != null) {</span>
+<span class="nc" id="L268">            DbUtils.closeQuietly(insertMetadataStatement);</span>
+        }
+<span class="nc" id="L270">        insertMetadataStatement = null;</span>
+<span class="nc" id="L271">        DbUtils.closeQuietly(this.connRsgb);</span>
+<span class="nc" id="L272">        this.connRsgb = null;</span>
+<span class="nc" id="L273">        DbUtils.closeQuietly(this.connRsgbBrk);</span>
+<span class="nc" id="L274">        this.connRsgbBrk = null;</span>
+<span class="nc" id="L275">    }</span>
+
+    @Override
+    public void renewConnection() throws SQLException {
+<span class="nc" id="L279">        close();</span>
+<span class="nc" id="L280">        init();</span>
+<span class="nc" id="L281">    }</span>
+
+    @Override
+    public void run() {
+        try {
+<span class="nc" id="L286">            init();</span>
+            // Set all berichten to waiting
+<span class="nc" id="L288">            long total = setWaitingStatus();</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L290">                listener.total(total);</span>
+            }
+            // Do the work by querying all berichten, berichten are passed to
+            // handle() method
+<span class="nc bnc" id="L294" title="All 2 branches missed.">            if (total &gt; 0) {</span>
+<span class="nc" id="L295">                stagingProxy.handleBerichtenByJob(</span>
+                        total, this, enablePipeline, pipelineCapacity, orderBerichten);
+            }
+<span class="nc" id="L298">        } catch (Exception e) {</span>
+            // user is informed via status in database
+<span class="nc" id="L300">            log.error(&quot;Fout tijdens verwerken berichten&quot;, e);</span>
+
+<span class="nc bnc" id="L302" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L303">                listener.exception(e);</span>
+            }
+<span class="nc" id="L305">        }</span>
+
+<span class="nc" id="L307">        close();</span>
+<span class="nc" id="L308">    }</span>
+
+    private long setWaitingStatus() throws SQLException, BrmoException {
+        // verwijder al verwerkte berichten uit afgebroken job
+<span class="nc" id="L312">        stagingProxy.cleanJob();</span>
+        // zijn er nog berichten over uit de vorige job
+<span class="nc" id="L314">        long count = stagingProxy.getCountJob();</span>
+<span class="nc bnc" id="L315" title="All 4 branches missed.">        if (count &gt; 0 &amp;&amp; !mode.equals(BerichtSelectMode.RETRY_WAITING)) {</span>
+<span class="nc" id="L316">            throw new BrmoException(</span>
+                    &quot;Vorige transformatie is afgebroken,&quot;
+                            + &quot; verwerk eerst die berichten (zie job-tabel)!&quot;);
+        }
+
+<span class="nc bnc" id="L321" title="All 6 branches missed.">        switch (mode) {</span>
+            case BY_STATUS:
+<span class="nc" id="L323">                return stagingProxy.setBerichtenJobByStatus(status, orderBerichten);</span>
+            case BY_IDS:
+<span class="nc" id="L325">                return stagingProxy.setBerichtenJobByIds(berichtIds, orderBerichten);</span>
+            case BY_LAADPROCES:
+<span class="nc" id="L327">                return stagingProxy.setBerichtenJobByLaadprocessen(laadprocesIds, orderBerichten);</span>
+            case FOR_UPDATE:
+<span class="nc" id="L329">                return stagingProxy.setBerichtenJobForUpdate(</span>
+<span class="nc" id="L330">                        updateProcess.getSoort(), orderBerichten);</span>
+            case RETRY_WAITING:
+<span class="nc" id="L332">                return count;</span>
+            default:
+<span class="nc" id="L334">                return 0L;</span>
+        }
+    }
+
+    @Override
+    public void updateProcessingResult(Bericht ber) {
+<span class="nc bnc" id="L340" title="All 2 branches missed.">        if (updateProcess != null) {</span>
+<span class="nc" id="L341">            return;</span>
+        }
+<span class="nc" id="L343">        ber.setStatusDatum(new Date());</span>
+        try {
+<span class="nc" id="L345">            stagingProxy.updateBerichtProcessing(ber);</span>
+<span class="nc" id="L346">        } catch (SQLException ex) {</span>
+<span class="nc" id="L347">            log.error(&quot;Kan status niet updaten&quot;, ex);</span>
+<span class="nc" id="L348">        }</span>
+<span class="nc" id="L349">    }</span>
+
+    @Override
+    public List&lt;TableData&gt; transformToTableData(Bericht ber) throws BrmoException {
+<span class="nc bnc" id="L353" title="All 2 branches missed.">        if (updateProcess != null) {</span>
+<span class="nc" id="L354">            return transformUpdateTableData(ber);</span>
+        }
+
+<span class="nc" id="L357">        StringBuilder loadLog = new StringBuilder();</span>
+<span class="nc" id="L358">        SimpleDateFormat dateTimeFormat = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L359">        SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);</span>
+
+        try {
+<span class="nc" id="L362">            loadLog.append(</span>
+<span class="nc" id="L363">                    String.format(</span>
+                            &quot;%s: transformeren %s bericht object ref %s, met id %s, berichtdatum %s\n&quot;,
+<span class="nc" id="L365">                            dateTimeFormat.format(new Date()),</span>
+<span class="nc" id="L366">                            ber.getSoort(),</span>
+<span class="nc" id="L367">                            ber.getObjectRef(),</span>
+<span class="nc" id="L368">                            ber.getId(),</span>
+<span class="nc" id="L369">                            dateFormat.format(ber.getDatum())));</span>
+
+<span class="nc" id="L371">            RsgbTransformer transformer = getTransformer(ber.getSoort());</span>
+
+<span class="nc" id="L373">            long startTime = System.currentTimeMillis();</span>
+<span class="nc" id="L374">            stagingProxy.updateBerichtenDbXml(Collections.singletonList(ber), transformer);</span>
+
+<span class="nc" id="L376">            Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.dbxml.read&quot;).start();</span>
+<span class="nc" id="L377">            StringReader nReader = new StringReader(ber.getDbXml());</span>
+<span class="nc" id="L378">            List&lt;TableData&gt; data = dbXmlReader.readDataXML(new StreamSource(nReader));</span>
+<span class="nc" id="L379">            split.stop();</span>
+
+<span class="nc" id="L381">            loadLog.append(</span>
+<span class="nc" id="L382">                    String.format(</span>
+                            &quot;Transformeren naar RSGB database-xml en lezen resultaat: %4.1fs\n\n&quot;,
+<span class="nc" id="L384">                            (System.currentTimeMillis() - startTime) / 1000.0));</span>
+<span class="nc" id="L385">            ber.setOpmerking(loadLog.toString());</span>
+<span class="nc" id="L386">            return data;</span>
+<span class="nc" id="L387">        } catch (Exception e) {</span>
+            try {
+<span class="nc" id="L389">                updateBerichtException(ber, e);</span>
+            } finally {
+<span class="nc" id="L391">                updateProcessingResult(ber);</span>
+            }
+<span class="nc" id="L393">            return null;</span>
+        }
+    }
+
+    public List&lt;TableData&gt; transformUpdateTableData(Bericht ber) throws BrmoException {
+
+<span class="nc" id="L399">        RsgbTransformer transformer = rsgbTransformers.get(updateProcess.getName());</span>
+
+<span class="nc bnc" id="L401" title="All 2 branches missed.">        if (transformer == null) {</span>
+            try {
+<span class="nc" id="L403">                transformer = new RsgbTransformer(updateProcess.getXsl());</span>
+<span class="nc" id="L404">            } catch (Exception e) {</span>
+<span class="nc" id="L405">                throw new BrmoException(</span>
+<span class="nc" id="L406">                        &quot;Fout bij laden XSL stylesheet: &quot; + updateProcess.getXsl(), e);</span>
+<span class="nc" id="L407">            }</span>
+<span class="nc" id="L408">            rsgbTransformers.put(updateProcess.getName(), transformer);</span>
+        }
+        try {
+<span class="nc" id="L411">            Node dbxml = transformer.transformToDbXmlNode(ber);</span>
+<span class="nc" id="L412">            return dbXmlReader.readDataXML(new DOMSource(dbxml));</span>
+<span class="nc" id="L413">        } catch (Exception e) {</span>
+<span class="nc" id="L414">            log.error(&quot;Fout bij transformeren bericht #&quot; + ber.getId() + &quot; voor update&quot;, e);</span>
+<span class="nc" id="L415">            throw new BrmoException(</span>
+                    &quot;Fout bij transformeren bericht #&quot;
+<span class="nc" id="L417">                            + ber.getId()</span>
+                            + &quot; voor update: &quot;
+<span class="nc" id="L419">                            + e.getClass()</span>
+                            + &quot;: &quot;
+<span class="nc" id="L421">                            + e.getMessage());</span>
+        }
+    }
+
+    public void updateBerichtException(Bericht ber, Throwable e) throws BrmoException {
+<span class="nc" id="L426">        boolean isFKCVbag = false;</span>
+<span class="nc bnc" id="L427" title="All 2 branches missed.">        if (ber.getSoort().equalsIgnoreCase(BrmoFramework.BR_BAG)) {</span>
+<span class="nc" id="L428">            isFKCVbag = geomToJdbc.isFKConstraintViolationMessage(e.getLocalizedMessage());</span>
+<span class="nc bnc" id="L429" title="All 2 branches missed.">            if (isFKCVbag) {</span>
+<span class="nc" id="L430">                ber.setStatus(Bericht.STATUS.RSGB_BAG_NOK);</span>
+            }
+        } else {
+<span class="nc" id="L433">            ber.setStatus(Bericht.STATUS.RSGB_NOK);</span>
+        }
+<span class="nc" id="L435">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L436">        e.printStackTrace(new PrintWriter(sw, true));</span>
+<span class="nc" id="L437">        ber.setOpmerking(ber.getOpmerking() + &quot;\nFout: &quot; + sw);</span>
+<span class="nc bnc" id="L438" title="All 2 branches missed.">        if (orderBerichten) {</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">            if (isFKCVbag) {</span>
+                // log en ga door met transformatie
+<span class="nc" id="L441">                log.warn(</span>
+<span class="nc" id="L442">                        String.format(</span>
+                                &quot;bag bericht %s, (id: %s) is niet correct verwerkt, controleer de opmerking van het bericht&quot;,
+<span class="nc" id="L444">                                ber.getObjectRef(), ber.getId()));</span>
+<span class="nc bnc" id="L445" title="All 4 branches missed.">            } else if (errorState != null &amp;&amp; errorState.equalsIgnoreCase(&quot;ignore&quot;)) {</span>
+                // TODO omdat we te vaak moeten stoppen, later soort exception erbij betrekken.
+            } else {
+                // volgorde belangrijk dus stoppen
+<span class="nc" id="L449">                log.fatal(&quot;Mutatieverwerking en foutief bericht, dus stoppen!&quot;, e);</span>
+<span class="nc" id="L450">                throw new BrmoException(&quot;Mutatieverwerking en foutief bericht, dus stoppen!&quot;);</span>
+            }
+        }
+<span class="nc" id="L453">    }</span>
+
+    /**
+     * verwerk een bericht.
+     *
+     * @param ber te verwerken bericht
+     * @param pretransformedTableData tabel data uit staging
+     * @param updateResult {@code true} update verwerkings resultaat in staging
+     * @throws BrmoException if any
+     */
+    @Override
+    public void handle(Bericht ber, List&lt;TableData&gt; pretransformedTableData, boolean updateResult)
+            throws BrmoException {
+<span class="nc bnc" id="L466" title="All 2 branches missed.">        if (updateProcess != null) {</span>
+<span class="nc" id="L467">            update(ber, pretransformedTableData);</span>
+<span class="nc" id="L468">            return;</span>
+        }
+<span class="nc" id="L470">        Connection conn = this.connRsgb;</span>
+<span class="nc" id="L471">        GeometryJdbcConverter jdbcConverter = this.geomToJdbc;</span>
+<span class="nc" id="L472">        DatabaseMetaData metaData = this.dbMetadata;</span>
+<span class="nc bnc" id="L473" title="All 2 branches missed.">        if (ber.getSoort().equalsIgnoreCase(BrmoFramework.BR_BRK2)) {</span>
+<span class="nc" id="L474">            conn = this.connRsgbBrk;</span>
+<span class="nc" id="L475">            jdbcConverter = this.geomToJdbcBrk;</span>
+<span class="nc" id="L476">            metaData = this.dbMetadataBrk;</span>
+        }
+
+<span class="nc" id="L479">        Bericht.STATUS newStatus = Bericht.STATUS.RSGB_OK;</span>
+
+<span class="nc" id="L481">        SimpleDateFormat dateTimeFormat = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss:SSS&quot;);</span>
+<span class="nc" id="L482">        SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);</span>
+
+<span class="nc" id="L484">        log.debug(</span>
+<span class="nc" id="L485">                String.format(</span>
+                        &quot;RSGB verwerking van %s bericht met id %s, object_ref %s, datum %tc&quot;,
+<span class="nc" id="L487">                        ber.getSoort(), ber.getId(), ber.getObjectRef(), ber.getDatum()));</span>
+        StringBuilder loadLog;
+<span class="nc bnc" id="L489" title="All 2 branches missed.">        if (pretransformedTableData == null) {</span>
+<span class="nc" id="L490">            loadLog = new StringBuilder();</span>
+        } else {
+<span class="nc" id="L492">            loadLog = new StringBuilder(ber.getOpmerking());</span>
+        }
+<span class="nc" id="L494">        loadLog.append(</span>
+<span class="nc" id="L495">                String.format(</span>
+                        &quot;%s: start verwerking %s bericht object ref %s, met id %s, berichtdatum %s\n&quot;,
+<span class="nc" id="L497">                        dateTimeFormat.format(new Date()),</span>
+<span class="nc" id="L498">                        ber.getSoort(),</span>
+<span class="nc" id="L499">                        ber.getObjectRef(),</span>
+<span class="nc" id="L500">                        ber.getId(),</span>
+<span class="nc" id="L501">                        dateFormat.format(ber.getDatum())));</span>
+
+<span class="nc" id="L503">        setHerkomstMetadata(ber.getSoort());</span>
+
+<span class="nc" id="L505">        long startTime = 0;</span>
+        try {
+
+<span class="nc bnc" id="L508" title="All 2 branches missed.">            if (conn.getAutoCommit()) {</span>
+<span class="nc" id="L509">                conn.setAutoCommit(false);</span>
+            }
+
+            List&lt;TableData&gt; newList;
+<span class="nc bnc" id="L513" title="All 2 branches missed.">            if (pretransformedTableData != null) {</span>
+<span class="nc" id="L514">                loadLog.append(&quot;Bericht was al getransformeerd in pipeline\n&quot;);</span>
+<span class="nc" id="L515">                newList = pretransformedTableData;</span>
+            } else {
+<span class="nc" id="L517">                loadLog.append(&quot;Transformeren naar RSGB database-xml en lezen resultaat... &quot;);</span>
+<span class="nc" id="L518">                startTime = System.currentTimeMillis();</span>
+<span class="nc" id="L519">                newList = transformToTableData(ber);</span>
+<span class="nc" id="L520">                loadLog.append(</span>
+<span class="nc" id="L521">                        String.format(</span>
+<span class="nc" id="L522">                                &quot;%4.1fs\n&quot;, (System.currentTimeMillis() - startTime) / 1000.0));</span>
+            }
+            // nieuwe starttijd voor laden in RSGB
+<span class="nc" id="L525">            startTime = System.currentTimeMillis();</span>
+
+            // per bericht kijken of er een oud bericht is
+<span class="nc" id="L528">            Bericht oud = null;</span>
+<span class="nc bnc" id="L529" title="All 2 branches missed.">            if (orderBerichten) {</span>
+<span class="nc" id="L530">                oud = stagingProxy.getOldBericht(ber, loadLog);</span>
+            } else {
+                // als geen orderberichten dan wordt stand ingelezen
+                // en indien volgordenummer &gt;=0 (geen stand) dan afbreken
+<span class="nc bnc" id="L534" title="All 2 branches missed.">                if (ber.getVolgordeNummer() &gt;= 0) {</span>
+<span class="nc" id="L535">                    throw new BrmoException(</span>
+                            &quot;Standverwerking, maar bericht is mutatie: niet verwerken!&quot;);
+                }
+<span class="nc" id="L538">                loadLog.append(</span>
+                        &quot;Standverwerking, gegevens worden alleen toegevoegd als ze nog niet bestaan!\n&quot;);
+            }
+
+            // oud bericht
+<span class="nc bnc" id="L543" title="All 2 branches missed.">            if (oud != null) {</span>
+<span class="nc" id="L544">                loadLog.append(</span>
+<span class="nc" id="L545">                        String.format(</span>
+                                &quot;Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n&quot;,
+<span class="nc" id="L547">                                oud.getId(),</span>
+<span class="nc" id="L548">                                dateTimeFormat.format(oud.getDatum()),</span>
+<span class="nc" id="L549">                                oud.getVolgordeNummer(),</span>
+<span class="nc" id="L550">                                oud.getStatus().toString(),</span>
+<span class="nc" id="L551">                                dateTimeFormat.format(oud.getStatusDatum())));</span>
+
+<span class="nc bnc" id="L553" title="All 2 branches missed.">                if (ber.getDatum().equals(oud.getDatum())</span>
+<span class="nc bnc" id="L554" title="All 2 branches missed.">                        &amp;&amp; ber.getVolgordeNummer().equals(oud.getVolgordeNummer())) {</span>
+<span class="nc bnc" id="L555" title="All 2 branches missed.">                    if (Objects.equals(ber.getId(), oud.getId())) {</span>
+                        // dit kan voorkomen bij herstart van job terwijl bericht nog in pipeline
+                        // van andere job zat
+                        // niets doen, log overnemen.
+<span class="nc" id="L559">                        loadLog.append(oud.getOpmerking());</span>
+                    } else {
+<span class="nc" id="L561">                        loadLog.append(</span>
+                                &quot;Datum en volgordenummer van nieuw bericht hetzelfde als de oude, negeer dit bericht!\n&quot;);
+<span class="nc" id="L563">                        boolean dbXmlEquals = ber.getDbXml().equals(oud.getDbXml());</span>
+<span class="nc bnc" id="L564" title="All 2 branches missed.">                        if (!dbXmlEquals) {</span>
+<span class="nc" id="L565">                            String s =</span>
+<span class="nc" id="L566">                                    String.format(</span>
+                                            &quot;Bericht %d met zelfde datum en volgnummer als eerder verwerkt bericht %d heeft andere db xml! Object ref %s&quot;,
+<span class="nc" id="L568">                                            ber.getId(), oud.getId(), ber.getObjectRef());</span>
+<span class="nc" id="L569">                            log.warn(s);</span>
+<span class="nc" id="L570">                            loadLog.append(&quot;Waarschuwing: &quot;).append(s).append(&quot;\n&quot;);</span>
+                        }
+<span class="nc" id="L572">                    }</span>
+                } else {
+                    // Check of eerder bericht toevallig niet nieuwere datum
+<span class="nc bnc" id="L575" title="All 2 branches missed.">                    if (oud.getDatum().after(ber.getDatum())) {</span>
+<span class="nc" id="L576">                        newStatus = Bericht.STATUS.RSGB_OUTDATED;</span>
+<span class="nc" id="L577">                        loadLog.append(</span>
+                                &quot;Bericht bevat oudere data dan eerder verwerkt bericht, status RSGB_OUTDATED\n&quot;);
+                        // Check of eerder bericht toevallig niet zelfde datum met hoger volgorde
+                        // nummer, mantis-6098
+<span class="nc bnc" id="L581" title="All 2 branches missed.">                    } else if (oud.getDatum().equals(ber.getDatum())</span>
+<span class="nc bnc" id="L582" title="All 2 branches missed.">                            &amp;&amp; oud.getVolgordeNummer() &gt; ber.getVolgordeNummer()) {</span>
+<span class="nc" id="L583">                        newStatus = Bericht.STATUS.RSGB_OUTDATED;</span>
+<span class="nc" id="L584">                        loadLog.append(</span>
+                                &quot;Bericht bevat oudere data dan eerder verwerkt bericht met hoger volgnummer, status RSGB_OUTDATED\n&quot;);
+                    } else {
+<span class="nc" id="L587">                        StringReader oReader = new StringReader(oud.getDbXml());</span>
+<span class="nc" id="L588">                        List&lt;TableData&gt; oudList =</span>
+<span class="nc" id="L589">                                oldDbXmlReader.readDataXML(new StreamSource(oReader));</span>
+
+<span class="nc" id="L591">                        parseNewData(oudList, newList, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L592">                        parseOldData(</span>
+                                oudList,
+                                newList,
+<span class="nc" id="L595">                                ber.getDatum(),</span>
+                                loadLog,
+                                jdbcConverter,
+                                conn,
+                                metaData);
+<span class="nc" id="L600">                    }</span>
+                }
+            } else {
+<span class="nc" id="L603">                parseNewData(null, newList, loadLog, jdbcConverter, conn, metaData);</span>
+            }
+
+<span class="nc" id="L606">            Split commit = SimonManager.getStopwatch(simonNamePrefix + &quot;commit&quot;).start();</span>
+<span class="nc" id="L607">            conn.commit();</span>
+<span class="nc" id="L608">            commit.stop();</span>
+<span class="nc" id="L609">            ber.setStatus(newStatus);</span>
+
+<span class="nc" id="L611">            this.processed++;</span>
+<span class="nc bnc" id="L612" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L613">                listener.progress(this.processed);</span>
+            }
+
+<span class="nc" id="L616">        } catch (Throwable ex) {</span>
+<span class="nc" id="L617">            log.error(</span>
+                    &quot;Fout bij verwerking bericht met id &quot;
+<span class="nc" id="L619">                            + ber.getId()</span>
+                            + &quot;, melding: &quot;
+<span class="nc" id="L621">                            + ex.getLocalizedMessage());</span>
+<span class="nc" id="L622">            log.debug(&quot;Fout bij verwerking bericht met id &quot; + ber.getId(), ex);</span>
+            try {
+<span class="nc" id="L624">                conn.rollback();</span>
+<span class="nc" id="L625">            } catch (SQLException e) {</span>
+<span class="nc" id="L626">                log.debug(&quot;Rollback exception&quot;, e);</span>
+<span class="nc" id="L627">            }</span>
+<span class="nc" id="L628">            ber.setOpmerking(loadLog.toString());</span>
+<span class="nc" id="L629">            loadLog = null;</span>
+<span class="nc" id="L630">            updateBerichtException(ber, ex);</span>
+        } finally {
+<span class="nc bnc" id="L632" title="All 2 branches missed.">            if (loadLog == null) {</span>
+<span class="nc" id="L633">                loadLog = new StringBuilder(ber.getOpmerking());</span>
+            }
+<span class="nc" id="L635">            loadLog.append(&quot;\n\n&quot;);</span>
+<span class="nc" id="L636">            loadLog.append(</span>
+<span class="nc" id="L637">                    String.format(</span>
+                            &quot;%s: einde verwerking, duur: %4.1fs&quot;,
+<span class="nc" id="L639">                            dateTimeFormat.format(new Date()),</span>
+<span class="nc" id="L640">                            (System.currentTimeMillis() - startTime) / 1000.0));</span>
+<span class="nc" id="L641">            ber.setOpmerking(loadLog.toString());</span>
+
+<span class="nc bnc" id="L643" title="All 2 branches missed.">            if (updateResult) {</span>
+<span class="nc" id="L644">                updateProcessingResult(ber);</span>
+            }
+
+<span class="nc bnc" id="L647" title="All 2 branches missed.">            if (recentSavepoint != null) {</span>
+                // Set savepoint to null, as it is automatically released after commit the
+                // transaction.
+<span class="nc" id="L650">                recentSavepoint = null;</span>
+            }
+
+<span class="nc bnc" id="L653" title="All 2 branches missed.">            if (renewConnectionAfterCommit) {</span>
+<span class="nc" id="L654">                log.debug(&quot;Vernieuwen van verbinding om cursors in Oracle vrij te geven!&quot;);</span>
+<span class="nc bnc" id="L655" title="All 2 branches missed.">                if (!(jdbcConverter instanceof OracleJdbcConverter)) {</span>
+<span class="nc" id="L656">                    log.info(</span>
+                            &quot;Vernieuwen van verbinding is alleen nodig bij sommige Oracle implementeties: lijkt hier overbodig!&quot;);
+                }
+                try {
+<span class="nc" id="L660">                    renewConnection();</span>
+<span class="nc" id="L661">                } catch (SQLException ex) {</span>
+<span class="nc" id="L662">                    throw new BrmoException(&quot;Error renewing connection&quot;, ex);</span>
+<span class="nc" id="L663">                }</span>
+            }
+        }
+<span class="nc" id="L666">    }</span>
+
+    public void update(Bericht jobBericht, List&lt;TableData&gt; pretransformedTableData)
+            throws BrmoException {
+<span class="nc" id="L670">        Connection conn = this.connRsgb;</span>
+<span class="nc" id="L671">        GeometryJdbcConverter jdbcConverter = this.geomToJdbc;</span>
+<span class="nc" id="L672">        DatabaseMetaData metaData = dbMetadata;</span>
+<span class="nc bnc" id="L673" title="All 2 branches missed.">        if (jobBericht.getSoort().equalsIgnoreCase(BrmoFramework.BR_BRK2)) {</span>
+<span class="nc" id="L674">            conn = this.connRsgbBrk;</span>
+<span class="nc" id="L675">            jdbcConverter = this.geomToJdbcBrk;</span>
+<span class="nc" id="L676">            metaData = this.dbMetadataBrk;</span>
+        }
+
+        // TODO BRK2 bepalen of dit nog nodig is voor BRK2
+<span class="nc bnc" id="L680" title="All 4 branches missed.">        if (updateProcess.isUpdateDbXml() &amp;&amp; jobBericht.getSoort().equals(BrmoFramework.BR_BRK)) {</span>
+            try {
+                // maak nieuwe DbXml voor het bericht op basis van de br xml en gebruik die in
+                // verdere verwerking
+<span class="nc" id="L684">                Bericht berichtBericht = stagingProxy.getBerichtById(jobBericht.getId());</span>
+<span class="nc" id="L685">                log.trace(&quot;job bericht: &quot; + jobBericht);</span>
+<span class="nc" id="L686">                log.trace(&quot;origineel bericht: &quot; + berichtBericht);</span>
+<span class="nc" id="L687">                RsgbTransformer t = new RsgbTransformer(BrmoFramework.XSL_BRK);</span>
+<span class="nc" id="L688">                final String newDbXml = t.transformToDbXml(berichtBericht);</span>
+<span class="nc" id="L689">                berichtBericht.setDbXml(newDbXml);</span>
+<span class="nc" id="L690">                jobBericht.setDbXml(newDbXml);</span>
+<span class="nc" id="L691">                berichtBericht.setStatus(Bericht.STATUS.RSGB_OK);</span>
+<span class="nc" id="L692">                berichtBericht.setStatusDatum(new Date());</span>
+<span class="nc" id="L693">                SimpleDateFormat dateTimeFormat = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L694">                berichtBericht.setOpmerking(</span>
+<span class="nc" id="L695">                        String.format(</span>
+                                &quot;%s: Middels update proces '%s' her-verwerkt.\nDe eerdere db_xml van dit bericht is vervangen door nieuwe.\n\nOude verwerkingslog\n\n%s&quot;,
+<span class="nc" id="L697">                                dateTimeFormat.format(new Date()),</span>
+<span class="nc" id="L698">                                updateProcess.getName(),</span>
+<span class="nc" id="L699">                                berichtBericht.getOpmerking()));</span>
+<span class="nc" id="L700">                log.trace(&quot;updated bericht: &quot; + jobBericht);</span>
+<span class="nc" id="L701">                log.trace(&quot;job bericht: &quot; + jobBericht);</span>
+<span class="nc" id="L702">                stagingProxy.updateBerichtProcessing(berichtBericht);</span>
+<span class="nc" id="L703">            } catch (SAXException</span>
+                    | IOException
+                    | TransformerException
+                    | ParserConfigurationException
+                    | SQLException e) {
+<span class="nc" id="L708">                log.error(&quot;Bijwerken van db_xml is mislukt voor bericht &quot; + jobBericht.getId(), e);</span>
+<span class="nc" id="L709">            }</span>
+        }
+
+        try {
+<span class="nc bnc" id="L713" title="All 2 branches missed.">            if (conn.getAutoCommit()) {</span>
+<span class="nc" id="L714">                conn.setAutoCommit(false);</span>
+            }
+
+            List&lt;TableData&gt; newList;
+<span class="nc bnc" id="L718" title="All 2 branches missed.">            if (pretransformedTableData != null) {</span>
+<span class="nc" id="L719">                newList = pretransformedTableData;</span>
+            } else {
+<span class="nc" id="L721">                newList = transformUpdateTableData(jobBericht);</span>
+            }
+
+<span class="nc" id="L724">            log.trace(&quot;data voor update: &quot; + newList);</span>
+<span class="nc bnc" id="L725" title="All 2 branches missed.">            for (TableData newData : newList) {</span>
+<span class="nc bnc" id="L726" title="All 2 branches missed.">                for (TableRow row : newData.getRows()) {</span>
+
+<span class="nc" id="L728">                    boolean comfortFound =</span>
+<span class="nc" id="L729">                            rowExistsInDb(row, new StringBuilder(), jdbcConverter, conn, metaData);</span>
+
+                    // zoek obv natural key op in rsgb
+<span class="nc bnc" id="L732" title="All 2 branches missed.">                    if (comfortFound) {</span>
+<span class="nc" id="L733">                        createUpdateSql(row, new StringBuilder(), jdbcConverter, conn, metaData);</span>
+                    } else {
+                        // insert all comfort records into hoofdtabel
+<span class="nc" id="L736">                        createInsertSql(</span>
+                                row, false, new StringBuilder(), jdbcConverter, conn, metaData);
+                    }
+<span class="nc" id="L739">                }</span>
+<span class="nc" id="L740">            }</span>
+<span class="nc" id="L741">            conn.commit();</span>
+
+<span class="nc" id="L743">            this.processed++;</span>
+<span class="nc bnc" id="L744" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L745">                listener.progress(this.processed);</span>
+            }
+<span class="nc" id="L747">        } catch (Throwable ex) {</span>
+<span class="nc" id="L748">            log.error(&quot;Fout bij updaten bericht met id &quot; + jobBericht.getId(), ex);</span>
+            try {
+<span class="nc" id="L750">                conn.rollback();</span>
+<span class="nc" id="L751">            } catch (SQLException e) {</span>
+<span class="nc" id="L752">                log.debug(&quot;Rollback exception&quot;, e);</span>
+<span class="nc" id="L753">            }</span>
+<span class="nc" id="L754">        }</span>
+<span class="nc" id="L755">    }</span>
+
+    private RsgbTransformer getTransformer(String brType)
+            throws TransformerConfigurationException, ParserConfigurationException {
+<span class="nc" id="L759">        RsgbTransformer t = rsgbTransformers.get(brType);</span>
+<span class="nc bnc" id="L760" title="All 2 branches missed.">        if (t == null) {</span>
+<span class="nc bnc" id="L761" title="All 8 branches missed.">            switch (brType) {</span>
+                case BrmoFramework.BR_BRK:
+<span class="nc" id="L763">                    t = new RsgbTransformer(BrmoFramework.XSL_BRK);</span>
+<span class="nc" id="L764">                    break;</span>
+                case BrmoFramework.BR_BRK2:
+<span class="nc" id="L766">                    t = new RsgbTransformer(BrmoFramework.XSL_BRK2);</span>
+<span class="nc" id="L767">                    break;</span>
+                case BrmoFramework.BR_BAG:
+<span class="nc" id="L769">                    t = new RsgbTransformer(BrmoFramework.XSL_BAG);</span>
+<span class="nc" id="L770">                    break;</span>
+                case BrmoFramework.BR_BRP:
+<span class="nc" id="L772">                    t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);</span>
+<span class="nc" id="L773">                    break;</span>
+                case BrmoFramework.BR_NHR:
+<span class="nc" id="L775">                    t = new RsgbTransformer(BrmoFramework.XSL_NHR);</span>
+<span class="nc" id="L776">                    break;</span>
+                case BrmoFramework.BR_GBAV:
+<span class="nc" id="L778">                    t = new RsgbTransformer(BrmoFramework.XSL_GBAV);</span>
+<span class="nc" id="L779">                    break;</span>
+                case BrmoFramework.BR_WOZ:
+<span class="nc" id="L781">                    t = new RsgbWOZTransformer(BrmoFramework.XSL_WOZ, this.stagingProxy);</span>
+<span class="nc" id="L782">                    break;</span>
+                default:
+<span class="nc" id="L784">                    throw new IllegalArgumentException(&quot;Onbekende basisregistratie: &quot; + brType);</span>
+            }
+<span class="nc" id="L786">            rsgbTransformers.put(brType, t);</span>
+        }
+<span class="nc" id="L788">        return t;</span>
+    }
+
+    private StringBuilder parseNewData(
+            List&lt;TableData&gt; oldList,
+            List&lt;TableData&gt; newList,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection conn,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException, BrmoException {
+<span class="nc" id="L799">        Split split = SimonManager.getStopwatch(simonNamePrefix + &quot;parsenewdata&quot;).start();</span>
+
+        // parse new db xml
+<span class="nc" id="L802">        loadLog.append(&quot;\nVerwerk nieuw bericht&quot;);</span>
+<span class="nc bnc" id="L803" title="All 4 branches missed.">        if (newList == null || newList.isEmpty()) {</span>
+<span class="nc bnc" id="L804" title="All 4 branches missed.">            if (oldList == null || oldList.isEmpty()) {</span>
+<span class="nc" id="L805">                throw new BrmoException(</span>
+                        &quot;Bericht verwijdert object waarvoor geen eerder bericht gevonden is!&quot;);
+            }
+<span class="nc" id="L808">            split.stop();</span>
+<span class="nc" id="L809">            return loadLog;</span>
+        }
+
+<span class="nc" id="L812">        String lastExistingBrondocumentId = null;</span>
+<span class="nc bnc" id="L813" title="All 2 branches missed.">        for (TableData newData : newList) {</span>
+<span class="nc bnc" id="L814" title="All 4 branches missed.">            if (!newData.isComfortData() &amp;&amp; !newData.isDeleteData()) {</span>
+<span class="nc" id="L815">                Split splitAuthentic =</span>
+<span class="nc" id="L816">                        SimonManager.getStopwatch(simonNamePrefix + &quot;parsenewdata.authentic&quot;)</span>
+<span class="nc" id="L817">                                .start();</span>
+                // auth data
+<span class="nc" id="L819">                loadLog.append(&quot;\n&quot;);</span>
+<span class="nc bnc" id="L820" title="All 2 branches missed.">                for (TableRow row : newData.getRows()) {</span>
+
+                    // Controleer op al bestaand stukdeel
+<span class="nc bnc" id="L823" title="All 2 branches missed.">                    if (lastExistingBrondocumentId != null</span>
+<span class="nc bnc" id="L824" title="All 2 branches missed.">                            &amp;&amp; &quot;brondocument&quot;.equalsIgnoreCase(row.getTable())</span>
+<span class="nc bnc" id="L825" title="All 2 branches missed.">                            &amp;&amp; lastExistingBrondocumentId.equals(</span>
+<span class="nc" id="L826">                                    row.getColumnValue(&quot;tabel_identificatie&quot;))) {</span>
+<span class="nc" id="L827">                        loadLog.append(&quot;\nOverslaan stukdeel voor stuk &quot;)</span>
+<span class="nc" id="L828">                                .append(lastExistingBrondocumentId);</span>
+<span class="nc" id="L829">                        SimonManager.getCounter(</span>
+                                        simonNamePrefix + &quot;parsenewdata.authentic.skipstukdeel&quot;)
+<span class="nc" id="L831">                                .increase();</span>
+<span class="nc" id="L832">                        continue;</span>
+                    } else {
+<span class="nc" id="L834">                        lastExistingBrondocumentId = null;</span>
+                    }
+
+<span class="nc" id="L837">                    Split split2 =</span>
+<span class="nc" id="L838">                            SimonManager.getStopwatch(</span>
+                                            simonNamePrefix + &quot;parsenewdata.authentic.getpk&quot;)
+<span class="nc" id="L840">                                    .start();</span>
+<span class="nc" id="L841">                    List&lt;String&gt; pkColumns =</span>
+<span class="nc" id="L842">                            getPrimaryKeys(row.getTable(), jdbcConverter, metaData);</span>
+<span class="nc" id="L843">                    split2.stop();</span>
+
+<span class="nc" id="L845">                    boolean existsInOldList = doesRowExist(row, pkColumns, oldList);</span>
+<span class="nc" id="L846">                    split2 =</span>
+<span class="nc" id="L847">                            SimonManager.getStopwatch(</span>
+                                            simonNamePrefix
+                                                    + &quot;parsenewdata.authentic.rowexistsindb&quot;)
+<span class="nc" id="L850">                                    .start();</span>
+                    // er kan een record bestaan zonder dat er
+                    // een oud bericht aan ten grondslag ligt.
+                    // dan maar update maar zonder historie vastlegging.
+                    // oud record kan niet worden terugherleid.
+                    // TODO: dure check, kan het anders?
+<span class="nc bnc" id="L856" title="All 2 branches missed.">                    boolean doInsert = !rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L857">                    split2.stop();</span>
+
+                    // insert hoofdtabel
+<span class="nc bnc" id="L860" title="All 2 branches missed.">                    if (doInsert) {</span>
+<span class="nc bnc" id="L861" title="All 2 branches missed.">                        if (existsInOldList) {</span>
+                            // insert in hoofdtabel, terwijl er wel oud bericht beschikbaar is
+                            // dit lijkt op een fout situatie, wat te doen?
+<span class="nc" id="L864">                            loadLog.append(</span>
+                                    &quot;\nOud bericht bestaat, maar staat niet (meer) in database, daarom toevoeging van object aan tabel: &quot;);
+                        } else {
+                            // normale insert in hoofdtabel
+<span class="nc" id="L868">                            loadLog.append(&quot;\nNormale toevoeging van object aan tabel: &quot;);</span>
+                        }
+<span class="nc" id="L870">                        loadLog.append(row.getTable());</span>
+<span class="nc" id="L871">                        split2 =</span>
+<span class="nc" id="L872">                                SimonManager.getStopwatch(</span>
+                                                simonNamePrefix + &quot;parsenewdata.authentic.insert&quot;)
+<span class="nc" id="L874">                                        .start();</span>
+<span class="nc" id="L875">                        createInsertSql(row, false, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L876">                        split2.stop();</span>
+                    } else {
+<span class="nc" id="L878">                        split2 =</span>
+<span class="nc" id="L879">                                SimonManager.getStopwatch(</span>
+                                                simonNamePrefix
+                                                        + &quot;parsenewdata.authentic.isalreadyinmetadata&quot;)
+<span class="nc" id="L882">                                        .start();</span>
+<span class="nc" id="L883">                        boolean inMetaDataTable =</span>
+<span class="nc" id="L884">                                isAlreadyInMetadata(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L885">                        split2.stop();</span>
+                        // wis metadata en update hoofdtabel
+<span class="nc bnc" id="L887" title="All 2 branches missed.">                        if (inMetaDataTable) {</span>
+<span class="nc" id="L888">                            loadLog.append(</span>
+                                    &quot;\nwis uit metadata tabel (upgrade van comfort naar authentiek). &quot;);
+<span class="nc" id="L890">                            split2 =</span>
+<span class="nc" id="L891">                                    SimonManager.getStopwatch(</span>
+                                                    simonNamePrefix
+                                                            + &quot;parsenewdata.authentic.deletefrommetadata&quot;)
+<span class="nc" id="L894">                                            .start();</span>
+<span class="nc" id="L895">                            deleteFromMetadata(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L896">                            split2.stop();</span>
+                        }
+<span class="nc bnc" id="L898" title="All 2 branches missed.">                        if (&quot;brondocument&quot;.equalsIgnoreCase(row.getTable())) {</span>
+                            // Nooit stukdeel wat al bestaat updaten, en ook alle
+                            // volgende stukdelen niet
+<span class="nc" id="L901">                            lastExistingBrondocumentId = row.getColumnValue(&quot;tabel_identificatie&quot;);</span>
+<span class="nc" id="L902">                            loadLog.append(&quot;\nRij voor stukdeel &quot;)</span>
+<span class="nc" id="L903">                                    .append(lastExistingBrondocumentId)</span>
+<span class="nc" id="L904">                                    .append(&quot; bestaat al, geen update&quot;);</span>
+<span class="nc" id="L905">                            continue;</span>
+                        }
+
+<span class="nc bnc" id="L908" title="All 2 branches missed.">                        if (existsInOldList) {</span>
+                            // update end date old record
+<span class="nc" id="L910">                            loadLog.append(&quot;\nUpdate einddatum in vorige versie object&quot;);</span>
+<span class="nc" id="L911">                            TableRow oldRow = getMatchingRowFromTableData(row, pkColumns, oldList);</span>
+<span class="nc" id="L912">                            String newBeginDate =</span>
+<span class="nc" id="L913">                                    getValueFromTableRow(row, row.getColumnDatumBeginGeldigheid());</span>
+<span class="nc" id="L914">                            updateValueInTableRow(</span>
+<span class="nc" id="L915">                                    oldRow, row.getColumnDatumEindeGeldigheid(), newBeginDate);</span>
+
+                            // write old to archive table
+<span class="nc" id="L918">                            loadLog.append(&quot;\nSchrijf vorige versie naar archief tabel&quot;);</span>
+<span class="nc" id="L919">                            oldRow.setIgnoreDuplicates(true);</span>
+
+<span class="nc" id="L921">                            split2 =</span>
+<span class="nc" id="L922">                                    SimonManager.getStopwatch(</span>
+                                                    simonNamePrefix
+                                                            + &quot;parsenewdata.authentic.archive&quot;)
+<span class="nc" id="L925">                                            .start();</span>
+<span class="nc" id="L926">                            createInsertSql(oldRow, true, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L927">                            split2.stop();</span>
+
+<span class="nc" id="L929">                            loadLog.append(&quot;\nUpdate object in tabel: &quot;);</span>
+<span class="nc" id="L930">                        } else {</span>
+<span class="nc" id="L931">                            loadLog.append(</span>
+                                    &quot;\nUpdate object (zonder vastlegging historie) in tabel: &quot;);
+                        }
+<span class="nc" id="L934">                        loadLog.append(row.getTable());</span>
+<span class="nc" id="L935">                        split2 =</span>
+<span class="nc" id="L936">                                SimonManager.getStopwatch(</span>
+                                                simonNamePrefix
+                                                        + &quot;parsenewdata.authentic.update.&quot;
+<span class="nc" id="L939">                                                        + row.getTable())</span>
+<span class="nc" id="L940">                                        .start();</span>
+<span class="nc" id="L941">                        createUpdateSql(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L942">                        split2.stop();</span>
+                    }
+<span class="nc" id="L944">                }</span>
+<span class="nc" id="L945">                splitAuthentic.stop();</span>
+
+<span class="nc bnc" id="L947" title="All 2 branches missed.">            } else if (!newData.isDeleteData()) {</span>
+<span class="nc" id="L948">                Split splitComfort =</span>
+<span class="nc" id="L949">                        SimonManager.getStopwatch(simonNamePrefix + &quot;parsenewdata.comfort&quot;).start();</span>
+
+                // TODO: select herkomst_br/datum uit herkomst_metadata voor tabel,kolom,waarde
+                // indien niet bestaat: nieuwe comfort data, alles unconditional insert
+                // indien wel bestaat en herkomst_br/datum identiek: gegevens uit stand al geinsert,
+                // negeer
+                // indien wel bestaat en herkomst_br/datum anders: update en insert nieuwe herkomst
+                // comfort data
+<span class="nc" id="L957">                String tabel = newData.getComfortSearchTable();</span>
+<span class="nc" id="L958">                String kolom = newData.getComfortSearchColumn();</span>
+<span class="nc" id="L959">                String waarde = newData.getComfortSearchValue();</span>
+<span class="nc" id="L960">                String datum = newData.getComfortSnapshotDate();</span>
+
+                Split split2;
+
+<span class="nc bnc" id="L964" title="All 2 branches missed.">                for (TableRow row : newData.getRows()) {</span>
+<span class="nc" id="L965">                    String subclass = row.getTable();</span>
+<span class="nc" id="L966">                    loadLog.append(</span>
+<span class="nc" id="L967">                            String.format(</span>
+                                    &quot;\n\nComfort data voor %s (class: %s, %s=%s), controleer aanwezigheid in tabel&quot;,
+                                    subclass, tabel, kolom, waarde));
+<span class="nc" id="L970">                    split2 =</span>
+<span class="nc" id="L971">                            SimonManager.getStopwatch(</span>
+                                            simonNamePrefix + &quot;parsenewdata.comfort.exists&quot;)
+<span class="nc" id="L973">                                    .start();</span>
+<span class="nc" id="L974">                    boolean comfortFound =</span>
+<span class="nc" id="L975">                            rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L976">                    split2.stop();</span>
+
+                    // zoek obv natural key op in rsgb
+<span class="nc bnc" id="L979" title="All 2 branches missed.">                    if (comfortFound) {</span>
+<span class="nc" id="L980">                        split2 =</span>
+<span class="nc" id="L981">                                SimonManager.getStopwatch(</span>
+                                                simonNamePrefix + &quot;parsenewdata.comfort.update&quot;)
+<span class="nc" id="L983">                                        .start();</span>
+<span class="nc" id="L984">                        createUpdateSql(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L985">                        split2.stop();</span>
+                    } else {
+                        // insert all comfort records into hoofdtabel
+<span class="nc" id="L988">                        split2 =</span>
+<span class="nc" id="L989">                                SimonManager.getStopwatch(</span>
+                                                simonNamePrefix + &quot;parsenewdata.comfort.insert&quot;)
+<span class="nc" id="L991">                                        .start();</span>
+<span class="nc" id="L992">                        createInsertSql(row, false, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L993">                        split2.stop();</span>
+                    }
+<span class="nc" id="L995">                }</span>
+
+                // Voeg herkomst van metadata toe, alleen voor superclass tabel!
+<span class="nc" id="L998">                split2 =</span>
+<span class="nc" id="L999">                        SimonManager.getStopwatch(simonNamePrefix + &quot;parsenewdata.comfort.metadata&quot;)</span>
+<span class="nc" id="L1000">                                .start();</span>
+<span class="nc bnc" id="L1001" title="All 2 branches missed.">                if (metaData != dbMetadataBrk) {</span>
+                    // overslaan voor brk 2
+<span class="nc" id="L1003">                    createInsertMetadataSql(</span>
+                            tabel, kolom, waarde, datum, loadLog, jdbcConverter, conn);
+                }
+<span class="nc" id="L1006">                split2.stop();</span>
+
+<span class="nc" id="L1008">                splitComfort.stop();</span>
+<span class="nc" id="L1009">                loadLog.append(&quot;\n&quot;);</span>
+
+<span class="nc bnc" id="L1011" title="All 6 branches missed.">            } else if (newData.isDeleteData() &amp;&amp; (oldList == null || oldList.isEmpty())) {</span>
+                // only use delete in newData if there is no old record (this is more complete)
+<span class="nc" id="L1013">                Split splitDelete =</span>
+<span class="nc" id="L1014">                        SimonManager.getStopwatch(simonNamePrefix + &quot;parsenewdata.delete&quot;).start();</span>
+<span class="nc" id="L1015">                loadLog.append(&quot;\n\nWissen van object zonder oud record.&quot;);</span>
+<span class="nc bnc" id="L1016" title="All 2 branches missed.">                for (TableRow row : newData.getRows()) {</span>
+                    // zoek obv natural key op in rsgb
+<span class="nc bnc" id="L1018" title="All 2 branches missed.">                    if (rowExistsInDb(row, loadLog, jdbcConverter, conn, metaData)) {</span>
+<span class="nc" id="L1019">                        Split split2 =</span>
+<span class="nc" id="L1020">                                SimonManager.getStopwatch(</span>
+                                                simonNamePrefix + &quot;parsenewdata.delete.update&quot;)
+<span class="nc" id="L1022">                                        .start();</span>
+<span class="nc" id="L1023">                        createDeleteSql(row, loadLog, jdbcConverter, conn, metaData);</span>
+<span class="nc" id="L1024">                        split2.stop();</span>
+<span class="nc" id="L1025">                    } else {</span>
+<span class="nc" id="L1026">                        loadLog.append(&quot;\nTe wissen record niet in database.&quot;);</span>
+                    }
+<span class="nc" id="L1028">                }</span>
+<span class="nc" id="L1029">                splitDelete.stop();</span>
+<span class="nc" id="L1030">                loadLog.append(&quot;\n&quot;);</span>
+            }
+<span class="nc" id="L1032">        }</span>
+<span class="nc" id="L1033">        split.stop();</span>
+<span class="nc" id="L1034">        return loadLog;</span>
+    }
+
+    private StringBuilder parseOldData(
+            List&lt;TableData&gt; oldList,
+            List&lt;TableData&gt; newList,
+            Date newDate,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+
+<span class="nc" id="L1047">        List&lt;TableRow&gt; rowsToDelete = new ArrayList&lt;&gt;();</span>
+        // als heel object verwijderd moet worden omdat newList een verwijderbericht is
+<span class="nc bnc" id="L1049" title="All 4 branches missed.">        boolean deleteAll = !newList.isEmpty() &amp;&amp; newList.get(0).isDeleteData();</span>
+
+        // parse old db xml
+<span class="nc" id="L1052">        loadLog.append(&quot;\nControleren te verwijderen gegevens vorig bericht...\n&quot;);</span>
+<span class="nc bnc" id="L1053" title="All 2 branches missed.">        for (TableData oldData : oldList) {</span>
+<span class="nc bnc" id="L1054" title="All 2 branches missed.">            if (oldData.isComfortData()) {</span>
+                // comfort block ? do nothing
+            } else {
+<span class="nc bnc" id="L1057" title="All 2 branches missed.">                for (TableRow oldRow : oldData.getRows()) {</span>
+<span class="nc" id="L1058">                    List&lt;String&gt; pkColumns =</span>
+<span class="nc" id="L1059">                            getPrimaryKeys(oldRow.getTable(), jdbcConverter, metaData);</span>
+<span class="nc" id="L1060">                    boolean exists = doesRowExist(oldRow, pkColumns, newList);</span>
+<span class="nc bnc" id="L1061" title="All 4 branches missed.">                    if (deleteAll || !exists) {</span>
+<span class="nc" id="L1062">                        loadLog.append(&quot;Vervallen record te verwijderen: &quot;)</span>
+<span class="nc" id="L1063">                                .append(oldRow.toString(pkColumns))</span>
+<span class="nc" id="L1064">                                .append(&quot;\n&quot;);</span>
+<span class="nc" id="L1065">                        rowsToDelete.add(oldRow);</span>
+                    }
+<span class="nc" id="L1067">                }</span>
+            }
+<span class="nc" id="L1069">        }</span>
+
+<span class="nc bnc" id="L1071" title="All 2 branches missed.">        if (!rowsToDelete.isEmpty()) {</span>
+<span class="nc" id="L1072">            loadLog.append(&quot;Verwijder rijen in omgekeerde volgorde...\n&quot;);</span>
+
+<span class="nc" id="L1074">            Collections.reverse(rowsToDelete);</span>
+<span class="nc bnc" id="L1075" title="All 2 branches missed.">            for (TableRow rowToDelete : rowsToDelete) {</span>
+<span class="nc" id="L1076">                Split split =</span>
+<span class="nc" id="L1077">                        SimonManager.getStopwatch(simonNamePrefix + &quot;parseolddata.delete&quot;).start();</span>
+<span class="nc" id="L1078">                createDeleteSql(rowToDelete, loadLog, jdbcConverter, connection, metaData);</span>
+<span class="nc" id="L1079">                split.stop();</span>
+
+<span class="nc" id="L1081">                String beginDate =</span>
+<span class="nc" id="L1082">                        getValueFromTableRow(</span>
+<span class="nc" id="L1083">                                rowToDelete, rowToDelete.getColumnDatumBeginGeldigheid());</span>
+<span class="nc" id="L1084">                String endDate = formatDateLikeOtherDate(newDate, beginDate);</span>
+<span class="nc" id="L1085">                updateValueInTableRow(</span>
+<span class="nc" id="L1086">                        rowToDelete, rowToDelete.getColumnDatumEindeGeldigheid(), endDate);</span>
+
+<span class="nc" id="L1088">                split = SimonManager.getStopwatch(simonNamePrefix + &quot;parseolddata.archive&quot;).start();</span>
+<span class="nc" id="L1089">                rowToDelete.setIgnoreDuplicates(true);</span>
+<span class="nc" id="L1090">                createInsertSql(rowToDelete, true, loadLog, jdbcConverter, connection, metaData);</span>
+<span class="nc" id="L1091">                split.stop();</span>
+<span class="nc" id="L1092">            }</span>
+        }
+
+<span class="nc" id="L1095">        return loadLog;</span>
+    }
+
+    /**
+     * Probeer de datum te formatteren aan de hand van de formatting van de {@code otherDate}
+     * formatting. De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties
+     * zijn:
+     *
+     * &lt;ul&gt;
+     *   &lt;li&gt;{@code yyyy-MM-dd} (BRK / BRK2)
+     *   &lt;li&gt;{@code yyyyMMddHHmmssSSS0} (BAG)
+     * &lt;/ul&gt;
+     *
+     * @param newDate te formatten datum
+     * @param otherDate de formatted datum
+     * @return formatted datum, indien mogelijk in de vorm van {@code otherDate}
+     */
+    private String formatDateLikeOtherDate(Date newDate, String otherDate) {
+        // 2010-06-29 (BRK/BRK2)
+<span class="nc" id="L1114">        SimpleDateFormat dfltFmt = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+        // 201006291200000000 (BAG)
+<span class="nc" id="L1116">        SimpleDateFormat f2 = new SimpleDateFormat(&quot;yyyyMMddHHmmssSSS0&quot;);</span>
+
+<span class="nc bnc" id="L1118" title="All 4 branches missed.">        if (otherDate == null || otherDate.isEmpty()) {</span>
+            // fallback op f1, er zijn gevallen waar otherDate null is, bijv. zak_recht
+<span class="nc" id="L1120">            return dfltFmt.format(newDate);</span>
+        }
+
+        try {
+<span class="nc" id="L1124">            f2.parse(otherDate);</span>
+<span class="nc" id="L1125">            return f2.format(newDate);</span>
+<span class="nc" id="L1126">        } catch (java.text.ParseException ex) {</span>
+            // ignore
+        }
+        // add other formats
+<span class="nc" id="L1130">        return dfltFmt.format(newDate);</span>
+    }
+
+    private String getValueFromTableRow(TableRow row, String column) {
+<span class="nc" id="L1134">        int i = 0;</span>
+<span class="nc bnc" id="L1135" title="All 2 branches missed.">        for (String c : row.getColumns()) {</span>
+<span class="nc bnc" id="L1136" title="All 2 branches missed.">            if (c.equalsIgnoreCase(column)) {</span>
+<span class="nc" id="L1137">                return row.getValues().get(i);</span>
+            }
+<span class="nc" id="L1139">            i++;</span>
+<span class="nc" id="L1140">        }</span>
+<span class="nc" id="L1141">        return null;</span>
+    }
+
+    private void updateValueInTableRow(TableRow row, String column, String newValue) {
+        // TODO, mag later weer weg
+<span class="nc" id="L1146">        repairOldRowIfRequired(row, newValue);</span>
+
+<span class="nc bnc" id="L1148" title="All 2 branches missed.">        if (column == null) {</span>
+<span class="nc" id="L1149">            return;</span>
+        }
+<span class="nc" id="L1151">        int i = 0;</span>
+<span class="nc bnc" id="L1152" title="All 2 branches missed.">        for (String c : row.getColumns()) {</span>
+<span class="nc bnc" id="L1153" title="All 2 branches missed.">            if (c.equalsIgnoreCase(column)) {</span>
+<span class="nc" id="L1154">                row.getValues().set(i, newValue);</span>
+<span class="nc" id="L1155">                return;</span>
+            }
+<span class="nc" id="L1157">            i++;</span>
+<span class="nc" id="L1158">        }</span>
+<span class="nc" id="L1159">    }</span>
+
+    private void repairOldRowIfRequired(TableRow row, String guessDate) {
+
+<span class="nc bnc" id="L1163" title="All 2 branches missed.">        if (row.getTable().equals(&quot;kad_perceel&quot;)</span>
+<span class="nc bnc" id="L1164" title="All 2 branches missed.">                || row.getTable().equals(&quot;app_re&quot;)</span>
+<span class="nc bnc" id="L1165" title="All 2 branches missed.">                || row.getTable().equals(&quot;nummeraand&quot;)</span>
+<span class="nc bnc" id="L1166" title="All 2 branches missed.">                || row.getTable().equals(&quot;ligplaats&quot;)</span>
+<span class="nc bnc" id="L1167" title="All 2 branches missed.">                || row.getTable().equals(&quot;standplaats&quot;)</span>
+<span class="nc bnc" id="L1168" title="All 2 branches missed.">                || row.getTable().equals(&quot;verblijfsobj&quot;)) {</span>
+<span class="nc bnc" id="L1169" title="All 2 branches missed.">            if (!row.getColumns().contains(&quot;sc_dat_beg_geldh&quot;)) {</span>
+<span class="nc" id="L1170">                row.getColumns().add(&quot;sc_dat_beg_geldh&quot;);</span>
+<span class="nc" id="L1171">                row.getValues().add(guessDate);</span>
+            }
+        }
+<span class="nc" id="L1174">    }</span>
+
+    private TableRow getMatchingRowFromTableData(
+            TableRow row, List&lt;String&gt; pkColumns, List&lt;TableData&gt; testList) {
+<span class="nc" id="L1178">        TableRow newRow = null;</span>
+
+<span class="nc bnc" id="L1180" title="All 2 branches missed.">        for (TableData data : testList) {</span>
+<span class="nc bnc" id="L1181" title="All 2 branches missed.">            for (TableRow testRow : data.getRows()) {</span>
+<span class="nc bnc" id="L1182" title="All 2 branches missed.">                if (row.getTable().equals(testRow.getTable())) {</span>
+<span class="nc" id="L1183">                    int matches = 0;</span>
+<span class="nc bnc" id="L1184" title="All 2 branches missed.">                    for (String pkColumn : pkColumns) {</span>
+<span class="nc" id="L1185">                        int rowIdx = row.getColumns().indexOf(pkColumn);</span>
+<span class="nc" id="L1186">                        int testIdx = testRow.getColumns().indexOf(pkColumn);</span>
+
+<span class="nc" id="L1188">                        String val = row.getValues().get(rowIdx);</span>
+<span class="nc" id="L1189">                        String testVal = testRow.getValues().get(testIdx);</span>
+
+<span class="nc bnc" id="L1191" title="All 2 branches missed.">                        if (val.equals(testVal)) {</span>
+<span class="nc" id="L1192">                            matches++;</span>
+                        }
+<span class="nc" id="L1194">                    }</span>
+
+<span class="nc bnc" id="L1196" title="All 2 branches missed.">                    if (matches == pkColumns.size()) {</span>
+<span class="nc" id="L1197">                        newRow = testRow;</span>
+                    }
+                }
+<span class="nc" id="L1200">            }</span>
+<span class="nc" id="L1201">        }</span>
+
+<span class="nc" id="L1203">        return newRow;</span>
+    }
+
+    private boolean doesRowExist(TableRow row, List&lt;String&gt; pkColumns, List&lt;TableData&gt; testList) {
+<span class="nc" id="L1207">        boolean found = false;</span>
+
+<span class="nc bnc" id="L1209" title="All 4 branches missed.">        if (testList != null &amp;&amp; testList.size() &gt; 0) {</span>
+<span class="nc bnc" id="L1210" title="All 2 branches missed.">            for (TableData data : testList) {</span>
+<span class="nc bnc" id="L1211" title="All 2 branches missed.">                for (TableRow testRow : data.getRows()) {</span>
+<span class="nc bnc" id="L1212" title="All 2 branches missed.">                    if (row.getTable().equals(testRow.getTable())) {</span>
+<span class="nc" id="L1213">                        int matches = 0;</span>
+<span class="nc bnc" id="L1214" title="All 2 branches missed.">                        for (String pkColumn : pkColumns) {</span>
+<span class="nc" id="L1215">                            int rowIdx = row.getColumns().indexOf(pkColumn);</span>
+<span class="nc" id="L1216">                            int testIdx = testRow.getColumns().indexOf(pkColumn);</span>
+
+<span class="nc" id="L1218">                            String val = row.getValues().get(rowIdx);</span>
+<span class="nc" id="L1219">                            String testVal = testRow.getValues().get(testIdx);</span>
+
+<span class="nc bnc" id="L1221" title="All 2 branches missed.">                            if (val.equals(testVal)) {</span>
+<span class="nc" id="L1222">                                matches++;</span>
+                            }
+<span class="nc" id="L1224">                        }</span>
+
+<span class="nc bnc" id="L1226" title="All 2 branches missed.">                        if (matches == pkColumns.size()) {</span>
+<span class="nc" id="L1227">                            found = true;</span>
+                        }
+                    }
+<span class="nc" id="L1230">                }</span>
+<span class="nc" id="L1231">            }</span>
+        }
+
+<span class="nc" id="L1234">        return found;</span>
+    }
+
+    private void createInsertSql(
+            TableRow row,
+            boolean useArchiveTable,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+
+<span class="nc" id="L1246">        StringBuilder sql = new StringBuilder(&quot;insert into &quot;);</span>
+
+        String tableName;
+<span class="nc bnc" id="L1249" title="All 2 branches missed.">        if (!useArchiveTable) {</span>
+<span class="nc" id="L1250">            tableName = row.getTable();</span>
+        } else {
+<span class="nc" id="L1252">            tableName = row.getTable() + &quot;_archief&quot;;</span>
+        }
+
+<span class="nc" id="L1255">        sql.append(tableName);</span>
+
+        SortedSet&lt;ColumnMetadata&gt; tableColumnMetadata;
+<span class="nc" id="L1258">        tableColumnMetadata = getTableColumnMetadata(tableName, jdbcConverter, metaData);</span>
+
+<span class="nc bnc" id="L1260" title="All 2 branches missed.">        if (tableColumnMetadata == null) {</span>
+<span class="nc bnc" id="L1261" title="All 2 branches missed.">            if (useArchiveTable) {</span>
+                // Wanneer archief tabellen niet zijn aangemaakt negeren
+<span class="nc" id="L1263">                return;</span>
+            } else {
+<span class="nc" id="L1265">                throw new IllegalStateException(</span>
+                        &quot;Kan tabel metadata niet vinden voor tabel &quot; + tableName);
+            }
+        }
+
+<span class="nc" id="L1270">        sql.append(&quot; (&quot;);</span>
+<span class="nc" id="L1271">        StringBuilder valuesSql = new StringBuilder();</span>
+<span class="nc" id="L1272">        List&lt;Object&gt; params = new ArrayList&lt;&gt;();</span>
+
+        // TODO maak sql op basis van alle columns en gebruik null values
+        // zodat insert voor elke tabel hetzelfde, reuse preparedstatement
+<span class="nc" id="L1276">        Iterator&lt;String&gt; valuesIt = row.getValues().iterator();</span>
+<span class="nc bnc" id="L1277" title="All 2 branches missed.">        for (Iterator&lt;String&gt; it = row.getColumns().iterator(); it.hasNext(); ) {</span>
+<span class="nc" id="L1278">            String column = it.next();</span>
+<span class="nc" id="L1279">            String stringValue = valuesIt.next();</span>
+
+<span class="nc bnc" id="L1281" title="All 4 branches missed.">            if (row.isAlleenArchiefColumn(column) &amp;&amp; !useArchiveTable) {</span>
+<span class="nc" id="L1282">                continue;</span>
+            }
+
+<span class="nc" id="L1285">            ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);</span>
+<span class="nc" id="L1286">            Object param =</span>
+<span class="nc" id="L1287">                    getValueAsObject(tableName, column, stringValue, cm, jdbcConverter, metaData);</span>
+<span class="nc" id="L1288">            params.add(param);</span>
+
+<span class="nc" id="L1290">            sql.append(cm.getName());</span>
+
+<span class="nc" id="L1292">            String insertValuePlaceholder = &quot;?&quot;;</span>
+<span class="nc bnc" id="L1293" title="All 2 branches missed.">            if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())</span>
+                    // in geval we in een ander dan public schema werken, en postgis zit in public
+                    // schema
+<span class="nc" id="L1296">                    || cm.getTypeName()</span>
+<span class="nc" id="L1297">                            .replace(&quot;\&quot;&quot;, &quot;&quot;)</span>
+<span class="nc bnc" id="L1298" title="All 2 branches missed.">                            .equals(&quot;public.&quot; + jdbcConverter.getGeomTypeName())) {</span>
+                // waarde altijd als WKT aanbieden en placeholder per db type
+<span class="nc" id="L1300">                insertValuePlaceholder = jdbcConverter.createPSGeometryPlaceholder();</span>
+            }
+<span class="nc" id="L1302">            valuesSql.append(insertValuePlaceholder);</span>
+
+<span class="nc bnc" id="L1304" title="All 2 branches missed.">            if (it.hasNext()) {</span>
+<span class="nc" id="L1305">                sql.append(&quot;, &quot;);</span>
+<span class="nc" id="L1306">                valuesSql.append(&quot;, &quot;);</span>
+            }
+<span class="nc" id="L1308">        }</span>
+
+<span class="nc" id="L1310">        boolean conditionalInsert = row.isIgnoreDuplicates();</span>
+
+<span class="nc bnc" id="L1312" title="All 2 branches missed.">        if (!conditionalInsert) {</span>
+<span class="nc" id="L1313">            sql.append(&quot;) values (&quot;);</span>
+<span class="nc" id="L1314">            sql.append(valuesSql);</span>
+<span class="nc" id="L1315">            sql.append(&quot;)&quot;);</span>
+        } else {
+<span class="nc" id="L1317">            sql.append(&quot;) select &quot;);</span>
+<span class="nc" id="L1318">            sql.append(valuesSql);</span>
+<span class="nc bnc" id="L1319" title="All 2 branches missed.">            if (jdbcConverter instanceof OracleJdbcConverter) {</span>
+<span class="nc" id="L1320">                sql.append(&quot; from dual&quot;);</span>
+            }
+<span class="nc" id="L1322">            sql.append(&quot; where not exists (select 1 from &quot;);</span>
+<span class="nc" id="L1323">            sql.append(tableName);</span>
+<span class="nc" id="L1324">            sql.append(&quot; where &quot;);</span>
+
+<span class="nc" id="L1326">            boolean first = true;</span>
+<span class="nc bnc" id="L1327" title="All 2 branches missed.">            for (String column : getPrimaryKeys(tableName, jdbcConverter, metaData)) {</span>
+<span class="nc bnc" id="L1328" title="All 2 branches missed.">                if (first) {</span>
+<span class="nc" id="L1329">                    first = false;</span>
+                } else {
+<span class="nc" id="L1331">                    sql.append(&quot; and &quot;);</span>
+                }
+<span class="nc" id="L1333">                sql.append(column);</span>
+<span class="nc" id="L1334">                sql.append(&quot; = ? &quot;);</span>
+
+<span class="nc" id="L1336">                String val = getValueFromTableRow(row, column);</span>
+<span class="nc" id="L1337">                Object obj =</span>
+<span class="nc" id="L1338">                        getValueAsObject(tableName, column, val, null, jdbcConverter, metaData);</span>
+<span class="nc" id="L1339">                params.add(obj);</span>
+<span class="nc" id="L1340">            }</span>
+<span class="nc" id="L1341">            sql.append(&quot;)&quot;);</span>
+        }
+
+<span class="nc" id="L1344">        PreparedStatement stm =</span>
+<span class="nc" id="L1345">                checkAndGetPreparedStatement(insertSqlPreparedStatements, sql.toString());</span>
+<span class="nc bnc" id="L1346" title="All 2 branches missed.">        if (stm == null) {</span>
+<span class="nc" id="L1347">            SimonManager.getCounter(&quot;b3p.rsgb.insertsql.preparestatement&quot;).increase();</span>
+<span class="nc" id="L1348">            stm = connection.prepareStatement(sql.toString());</span>
+<span class="nc" id="L1349">            checkAndAddStatement(insertSqlPreparedStatements, sql.toString(), stm);</span>
+        } else {
+<span class="nc" id="L1351">            SimonManager.getCounter(&quot;b3p.rsgb.insertsql.reusestatement&quot;).increase();</span>
+        }
+<span class="nc" id="L1353">        loadLog.append(&quot;\nSQL: &quot;);</span>
+<span class="nc" id="L1354">        loadLog.append(sql);</span>
+<span class="nc" id="L1355">        loadLog.append(&quot;, params (&quot;);</span>
+<span class="nc" id="L1356">        loadLog.append(params);</span>
+<span class="nc" id="L1357">        loadLog.append(&quot;)&quot;);</span>
+<span class="nc" id="L1358">        log.trace(&quot;insert SQL: &quot; + sql + &quot;, params: &quot; + params);</span>
+
+<span class="nc bnc" id="L1360" title="All 2 branches missed.">        for (int i = 0; i &lt; params.size(); i++) {</span>
+<span class="nc" id="L1361">            Object param = params.get(i);</span>
+            // voor &quot;null&quot; geom moet hier iets extra gedaan worden voor sommige databases...
+<span class="nc bnc" id="L1363" title="All 2 branches missed.">            if (null == param</span>
+<span class="nc" id="L1364">                    &amp;&amp; (findColumnMetadata(tableColumnMetadata, row.getColumns().get(i))</span>
+<span class="nc" id="L1365">                                    .getTypeName()</span>
+<span class="nc bnc" id="L1366" title="All 2 branches missed.">                                    .equals(jdbcConverter.getGeomTypeName())</span>
+<span class="nc" id="L1367">                            || findColumnMetadata(tableColumnMetadata, row.getColumns().get(i))</span>
+<span class="nc" id="L1368">                                    .getTypeName()</span>
+<span class="nc" id="L1369">                                    .replace(&quot;\&quot;&quot;, &quot;&quot;)</span>
+<span class="nc bnc" id="L1370" title="All 2 branches missed.">                                    .equals(&quot;public.&quot; + jdbcConverter.getGeomTypeName()))</span>
+            // geeft: java.sql.SQLFeatureNotSupportedException: Unsupported feature: checkValidIndex
+            // &amp;&amp; stm.getParameterMetaData().getParameterTypeName(i +
+            // 1).equals(geomToJdbc.getGeomTypeName())
+            ) {
+<span class="nc bnc" id="L1375" title="All 2 branches missed.">                if (jdbcConverter instanceof OracleJdbcConverter) {</span>
+<span class="nc" id="L1376">                    stm.setNull(i + 1, Types.STRUCT, &quot;MDSYS.SDO_GEOMETRY&quot;);</span>
+                } else {
+<span class="nc" id="L1378">                    stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));</span>
+                }
+            } else {
+<span class="nc" id="L1381">                stm.setObject(i + 1, param);</span>
+            }
+        }
+
+<span class="nc" id="L1385">        int count = -1;</span>
+        try {
+<span class="nc" id="L1387">            count = stm.executeUpdate();</span>
+<span class="nc" id="L1388">        } catch (SQLException e) {</span>
+<span class="nc" id="L1389">            String message = e.getMessage();</span>
+<span class="nc bnc" id="L1390" title="All 4 branches missed.">            if (jdbcConverter.isDuplicateKeyViolationMessage(message) &amp;&amp; row.isIgnoreDuplicates()) {</span>
+<span class="nc bnc" id="L1391" title="All 2 branches missed.">                if (recentSavepoint != null) {</span>
+<span class="nc" id="L1392">                    log.debug(</span>
+                            &quot;Ignoring duplicate key violation by rolling back to savepoint with id &quot;
+<span class="nc" id="L1394">                                    + recentSavepoint.getSavepointId());</span>
+<span class="nc" id="L1395">                    connection.rollback(recentSavepoint);</span>
+                }
+            } else {
+<span class="nc" id="L1398">                throw e;</span>
+            }
+<span class="nc" id="L1400">        }</span>
+
+<span class="nc" id="L1402">        loadLog.append(&quot;\nAantal toegevoegde records: &quot;).append(count);</span>
+<span class="nc" id="L1403">    }</span>
+
+    private void createUpdateSql(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+        // doSavePoint(row);
+
+<span class="nc" id="L1414">        StringBuilder sql = new StringBuilder(&quot;update &quot;);</span>
+
+<span class="nc" id="L1416">        String tableName = row.getTable();</span>
+
+<span class="nc" id="L1418">        sql.append(tableName);</span>
+
+        SortedSet&lt;ColumnMetadata&gt; tableColumnMetadata;
+<span class="nc" id="L1421">        tableColumnMetadata = getTableColumnMetadata(tableName, jdbcConverter, metaData);</span>
+
+<span class="nc bnc" id="L1423" title="All 2 branches missed.">        if (tableColumnMetadata == null) {</span>
+<span class="nc" id="L1424">            throw new IllegalStateException(</span>
+                    &quot;Kan tabel metadata niet vinden voor tabel &quot; + tableName);
+        }
+
+<span class="nc" id="L1428">        sql.append(&quot; set &quot;);</span>
+
+<span class="nc" id="L1430">        List&lt;Object&gt; params = new ArrayList&lt;&gt;();</span>
+
+        // XXX does set previously set columns to NULL!
+        // need statement for all columns from column metadata, not only
+        // columns in TableRow
+<span class="nc" id="L1435">        Iterator&lt;String&gt; valuesIt = row.getValues().iterator();</span>
+<span class="nc bnc" id="L1436" title="All 2 branches missed.">        for (Iterator&lt;String&gt; it = row.getColumns().iterator(); it.hasNext(); ) {</span>
+<span class="nc" id="L1437">            String column = it.next();</span>
+<span class="nc" id="L1438">            String stringValue = valuesIt.next();</span>
+
+<span class="nc bnc" id="L1440" title="All 2 branches missed.">            if (row.isAlleenArchiefColumn(column)) {</span>
+<span class="nc" id="L1441">                continue;</span>
+            }
+
+<span class="nc" id="L1444">            ColumnMetadata cm = findColumnMetadata(tableColumnMetadata, column);</span>
+<span class="nc" id="L1445">            Object param =</span>
+<span class="nc" id="L1446">                    getValueAsObject(tableName, column, stringValue, cm, jdbcConverter, metaData);</span>
+<span class="nc" id="L1447">            params.add(param);</span>
+
+<span class="nc" id="L1449">            sql.append(cm.getName());</span>
+<span class="nc" id="L1450">            sql.append(&quot; = &quot;);</span>
+<span class="nc" id="L1451">            String insertValuePlaceholder = &quot;?&quot;;</span>
+<span class="nc bnc" id="L1452" title="All 2 branches missed.">            if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())</span>
+                    // in geval we in een ander dan public schema werken, en postgis zit in public
+                    // schema
+<span class="nc" id="L1455">                    || cm.getTypeName()</span>
+<span class="nc" id="L1456">                            .replace(&quot;\&quot;&quot;, &quot;&quot;)</span>
+<span class="nc bnc" id="L1457" title="All 2 branches missed.">                            .equals(&quot;public.&quot; + jdbcConverter.getGeomTypeName())) {</span>
+                // waarde altijd als WKT aanbieden en placeholder per db type
+<span class="nc" id="L1459">                insertValuePlaceholder = jdbcConverter.createPSGeometryPlaceholder();</span>
+            }
+<span class="nc" id="L1461">            sql.append(insertValuePlaceholder);</span>
+
+<span class="nc bnc" id="L1463" title="All 2 branches missed.">            if (it.hasNext()) {</span>
+<span class="nc" id="L1464">                sql.append(&quot;, &quot;);</span>
+            }
+<span class="nc" id="L1466">        }</span>
+
+        // Where clause using pk columns
+<span class="nc" id="L1469">        sql.append(&quot; where &quot;);</span>
+<span class="nc" id="L1470">        boolean first = true;</span>
+<span class="nc bnc" id="L1471" title="All 2 branches missed.">        for (String column : getPrimaryKeys(tableName, jdbcConverter, metaData)) {</span>
+<span class="nc bnc" id="L1472" title="All 2 branches missed.">            if (first) {</span>
+<span class="nc" id="L1473">                first = false;</span>
+            } else {
+<span class="nc" id="L1475">                sql.append(&quot; and &quot;);</span>
+            }
+<span class="nc" id="L1477">            sql.append(column);</span>
+<span class="nc" id="L1478">            sql.append(&quot; = ? &quot;);</span>
+
+<span class="nc" id="L1480">            String val = getValueFromTableRow(row, column);</span>
+<span class="nc" id="L1481">            Object obj = getValueAsObject(tableName, column, val, null, jdbcConverter, metaData);</span>
+<span class="nc" id="L1482">            params.add(obj);</span>
+<span class="nc" id="L1483">        }</span>
+
+<span class="nc" id="L1485">        PreparedStatement stm =</span>
+<span class="nc" id="L1486">                checkAndGetPreparedStatement(updateSqlPreparedStatements, sql.toString());</span>
+<span class="nc bnc" id="L1487" title="All 2 branches missed.">        if (stm == null) {</span>
+<span class="nc" id="L1488">            SimonManager.getCounter(&quot;b3p.rsgb.updatesql.preparestatement&quot;).increase();</span>
+<span class="nc" id="L1489">            stm = connection.prepareStatement(sql.toString());</span>
+<span class="nc" id="L1490">            checkAndAddStatement(updateSqlPreparedStatements, sql.toString(), stm);</span>
+        } else {
+<span class="nc" id="L1492">            SimonManager.getCounter(&quot;b3p.rsgb.updatesql.reusestatement&quot;).increase();</span>
+        }
+<span class="nc" id="L1494">        loadLog.append(&quot;\nSQL: &quot;);</span>
+<span class="nc" id="L1495">        loadLog.append(sql);</span>
+<span class="nc" id="L1496">        loadLog.append(&quot;, params (&quot;);</span>
+<span class="nc" id="L1497">        loadLog.append(params);</span>
+<span class="nc" id="L1498">        loadLog.append(&quot;)&quot;);</span>
+<span class="nc" id="L1499">        log.debug(&quot;update SQL: &quot; + sql + &quot;, params: &quot; + params);</span>
+
+<span class="nc bnc" id="L1501" title="All 2 branches missed.">        for (int i = 0; i &lt; params.size(); i++) {</span>
+<span class="nc" id="L1502">            Object param = params.get(i);</span>
+            // voor &quot;null&quot; geom moet hier iets extra gedaan worden voor sommige databases...
+<span class="nc bnc" id="L1504" title="All 2 branches missed.">            if (null == param</span>
+<span class="nc" id="L1505">                    &amp;&amp; (stm.getParameterMetaData()</span>
+<span class="nc" id="L1506">                                    .getParameterTypeName(i + 1)</span>
+<span class="nc bnc" id="L1507" title="All 2 branches missed.">                                    .equals(jdbcConverter.getGeomTypeName())</span>
+<span class="nc" id="L1508">                            || stm.getParameterMetaData()</span>
+<span class="nc" id="L1509">                                    .getParameterTypeName(i + 1)</span>
+<span class="nc" id="L1510">                                    .replace(&quot;\&quot;&quot;, &quot;&quot;)</span>
+<span class="nc bnc" id="L1511" title="All 2 branches missed.">                                    .equals(&quot;public.&quot; + jdbcConverter.getGeomTypeName()))) {</span>
+<span class="nc" id="L1512">                log.trace(</span>
+                        &quot;gebruik `setNull` voor kolom: &quot;
+                                + i
+                                + &quot; &quot;
+<span class="nc" id="L1516">                                + row.getColumns().get(i)</span>
+                                + &quot;, waarde &quot;
+                                + param
+                                + &quot;(&quot;
+<span class="nc" id="L1520">                                + stm.getParameterMetaData().getParameterTypeName(i + 1)</span>
+                                + &quot;)&quot;);
+<span class="nc bnc" id="L1522" title="All 2 branches missed.">                if (jdbcConverter instanceof OracleJdbcConverter) {</span>
+<span class="nc" id="L1523">                    stm.setNull(i + 1, Types.STRUCT, &quot;MDSYS.SDO_GEOMETRY&quot;);</span>
+                } else {
+<span class="nc" id="L1525">                    stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));</span>
+                }
+            } else {
+<span class="nc" id="L1528">                stm.setObject(i + 1, param, stm.getParameterMetaData().getParameterType(i + 1));</span>
+            }
+        }
+
+<span class="nc" id="L1532">        int count = -1;</span>
+        try {
+<span class="nc" id="L1534">            count = stm.executeUpdate();</span>
+        } finally {
+<span class="nc" id="L1536">            loadLog.append(&quot;\nAantal record updates: &quot;).append(count);</span>
+        }
+<span class="nc" id="L1538">    }</span>
+
+    /* Columns id, tabel, kolom, waarde, herkomst_br, datum (toestandsdatum) */
+    private boolean createInsertMetadataSql(
+            String tabel,
+            String kolom,
+            String waarde,
+            String datum,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection)
+            throws SQLException {
+
+<span class="nc bnc" id="L1551" title="All 4 branches missed.">        if (insertMetadataStatement == null || insertMetadataStatement.isClosed()) {</span>
+            String sql =
+                    &quot;insert into herkomst_metadata (tabel, kolom, waarde, herkomst_br, datum) &quot;
+                            + &quot;select ?, ?, ?, ?, ? &quot;
+<span class="nc bnc" id="L1555" title="All 2 branches missed.">                            + (jdbcConverter instanceof OracleJdbcConverter ? &quot;from dual&quot; : &quot;&quot;)</span>
+                            + &quot; where not exists (&quot;
+                            + &quot;  select 1 from herkomst_metadata where tabel = ? and kolom = ? and waarde = ? and herkomst_br = ? and datum = ?&quot;
+                            + &quot;)&quot;;
+
+<span class="nc" id="L1560">            insertMetadataStatement = connection.prepareStatement(sql);</span>
+<span class="nc" id="L1561">        } else {</span>
+<span class="nc" id="L1562">            insertMetadataStatement.clearParameters();</span>
+        }
+
+<span class="nc" id="L1565">        Date date = null;</span>
+<span class="nc" id="L1566">        Calendar calendar = javax.xml.bind.DatatypeConverter.parseDateTime(datum);</span>
+<span class="nc bnc" id="L1567" title="All 2 branches missed.">        if (calendar != null) {</span>
+<span class="nc" id="L1568">            date = new java.sql.Date(calendar.getTimeInMillis());</span>
+        }
+
+<span class="nc" id="L1571">        insertMetadataStatement.setString(1, tabel);</span>
+<span class="nc" id="L1572">        insertMetadataStatement.setString(2, kolom);</span>
+<span class="nc" id="L1573">        insertMetadataStatement.setString(3, waarde);</span>
+<span class="nc" id="L1574">        insertMetadataStatement.setString(4, getHerkomstMetadata());</span>
+<span class="nc" id="L1575">        insertMetadataStatement.setObject(5, date);</span>
+<span class="nc" id="L1576">        insertMetadataStatement.setString(6, tabel);</span>
+<span class="nc" id="L1577">        insertMetadataStatement.setString(7, kolom);</span>
+<span class="nc" id="L1578">        insertMetadataStatement.setString(8, waarde);</span>
+<span class="nc" id="L1579">        insertMetadataStatement.setString(9, getHerkomstMetadata());</span>
+<span class="nc" id="L1580">        insertMetadataStatement.setObject(10, date);</span>
+
+<span class="nc" id="L1582">        loadLog.append(</span>
+<span class="nc" id="L1583">                String.format(</span>
+                        &quot;\nConditioneel toevoegen herkomst metadata tabel=%s, kolom=%s, waarde=%s, herkomst_br=%s, datum=%s&quot;,
+<span class="nc" id="L1585">                        tabel, kolom, waarde, getHerkomstMetadata(), datum));</span>
+
+<span class="nc" id="L1587">        int count = insertMetadataStatement.executeUpdate();</span>
+<span class="nc bnc" id="L1588" title="All 2 branches missed.">        loadLog.append(&quot;: record geinsert: &quot;).append(count &gt; 0 ? &quot;ja&quot; : &quot;nee (rij bestond al)&quot;);</span>
+<span class="nc bnc" id="L1589" title="All 2 branches missed.">        return count &gt; 0;</span>
+    }
+
+    private boolean rowExistsInDb(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection conn,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+
+<span class="nc" id="L1600">        String tableName = row.getTable();</span>
+<span class="nc" id="L1601">        List&lt;String&gt; pkColumns = getPrimaryKeys(tableName, jdbcConverter, metaData);</span>
+
+<span class="nc" id="L1603">        List&lt;Object&gt; params = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L1604" title="All 2 branches missed.">        for (String column : pkColumns) {</span>
+<span class="nc" id="L1605">            String val = getValueFromTableRow(row, column);</span>
+<span class="nc" id="L1606">            Object obj =</span>
+<span class="nc" id="L1607">                    getValueAsObject(row.getTable(), column, val, null, jdbcConverter, metaData);</span>
+<span class="nc" id="L1608">            params.add(obj);</span>
+<span class="nc" id="L1609">        }</span>
+
+<span class="nc" id="L1611">        loadLog.append(&quot;\nControleer &quot;)</span>
+<span class="nc" id="L1612">                .append(tableName)</span>
+<span class="nc" id="L1613">                .append(&quot; op primary key: &quot;)</span>
+<span class="nc" id="L1614">                .append(params);</span>
+
+<span class="nc" id="L1616">        PreparedStatement stm = checkAndGetPreparedStatement(checkRowExistsStatements, tableName);</span>
+
+<span class="nc bnc" id="L1618" title="All 2 branches missed.">        if (stm == null) {</span>
+<span class="nc" id="L1619">            StringBuilder sql = new StringBuilder(&quot;select 1 from &quot;).append(tableName);</span>
+
+<span class="nc" id="L1621">            boolean first = true;</span>
+<span class="nc bnc" id="L1622" title="All 2 branches missed.">            for (String column : pkColumns) {</span>
+<span class="nc bnc" id="L1623" title="All 2 branches missed.">                if (first) {</span>
+<span class="nc" id="L1624">                    sql.append(&quot; where &quot;).append(column).append(&quot; = ?&quot;);</span>
+<span class="nc" id="L1625">                    first = false;</span>
+                } else {
+<span class="nc" id="L1627">                    sql.append(&quot; and &quot;).append(column).append(&quot; = ?&quot;);</span>
+                }
+<span class="nc" id="L1629">            }</span>
+
+<span class="nc" id="L1631">            stm =</span>
+<span class="nc" id="L1632">                    conn.prepareStatement(</span>
+<span class="nc" id="L1633">                            sql.toString(),</span>
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_READ_ONLY);
+<span class="nc" id="L1636">            checkAndAddStatement(checkRowExistsStatements, tableName, stm);</span>
+        }
+
+<span class="nc" id="L1639">        int i = 1;</span>
+<span class="nc bnc" id="L1640" title="All 2 branches missed.">        for (Object p : params) {</span>
+<span class="nc" id="L1641">            stm.setObject(i++, p);</span>
+<span class="nc" id="L1642">        }</span>
+
+<span class="nc" id="L1644">        ResultSet rs = null;</span>
+<span class="nc" id="L1645">        boolean exists = false;</span>
+        try {
+<span class="nc" id="L1647">            rs = stm.executeQuery();</span>
+<span class="nc" id="L1648">            exists = rs.next();</span>
+        } finally {
+<span class="nc bnc" id="L1650" title="All 2 branches missed.">            if (rs != null) {</span>
+<span class="nc" id="L1651">                rs.close();</span>
+            }
+        }
+<span class="nc bnc" id="L1654" title="All 2 branches missed.">        loadLog.append(&quot;, rij bestaat: &quot;).append(exists ? &quot;ja&quot; : &quot;nee&quot;);</span>
+
+<span class="nc" id="L1656">        return exists;</span>
+    }
+
+    private boolean isAlreadyInMetadata(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, BrmoException {
+
+<span class="nc bnc" id="L1667" title="All 2 branches missed.">        if (metaData == this.dbMetadataBrk) {</span>
+            // geen metadata voor brk 2
+<span class="nc" id="L1669">            return false;</span>
+        }
+
+<span class="nc bnc" id="L1672" title="All 4 branches missed.">        if (connection == null || connection.isClosed()) {</span>
+            // if used not-threaded, init() required
+<span class="nc" id="L1674">            throw new BrmoException(&quot;No connection found&quot;);</span>
+        }
+
+<span class="nc" id="L1677">        List&lt;String&gt; params = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L1678">        String herkomstTableName = &quot;herkomst_metadata&quot;;</span>
+<span class="nc" id="L1679">        String tableName = row.getTable();</span>
+<span class="nc" id="L1680">        params.add(tableName);</span>
+<span class="nc" id="L1681">        List&lt;String&gt; pkColumns = getPrimaryKeys(tableName, jdbcConverter, metaData);</span>
+<span class="nc" id="L1682">        String column = null;</span>
+<span class="nc bnc" id="L1683" title="All 2 branches missed.">        if (pkColumns.size() == 1) {</span>
+<span class="nc" id="L1684">            column = pkColumns.get(0);</span>
+        }
+<span class="nc" id="L1686">        params.add(column);</span>
+<span class="nc" id="L1687">        String waarde = getValueFromTableRow(row, column);</span>
+<span class="nc" id="L1688">        params.add(waarde);</span>
+
+<span class="nc" id="L1690">        loadLog.append(&quot;\nControleer &quot;)</span>
+<span class="nc" id="L1691">                .append(herkomstTableName)</span>
+<span class="nc" id="L1692">                .append(&quot; op primary key: &quot;)</span>
+<span class="nc" id="L1693">                .append(params);</span>
+
+<span class="nc" id="L1695">        PreparedStatement stm =</span>
+<span class="nc" id="L1696">                checkAndGetPreparedStatement(checkRowExistsStatements, herkomstTableName);</span>
+<span class="nc bnc" id="L1697" title="All 2 branches missed.">        if (stm == null) {</span>
+<span class="nc" id="L1698">            String sql =</span>
+                    &quot;select 1 from &quot;
+                            + herkomstTableName
+                            + &quot; WHERE tabel = ? AND kolom = ? AND kolom = ?&quot;;
+
+<span class="nc" id="L1703">            stm =</span>
+<span class="nc" id="L1704">                    connection.prepareStatement(</span>
+                            sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+<span class="nc" id="L1706">            checkAndAddStatement(checkRowExistsStatements, herkomstTableName, stm);</span>
+        }
+
+<span class="nc" id="L1709">        int i = 1;</span>
+<span class="nc bnc" id="L1710" title="All 2 branches missed.">        for (Object p : params) {</span>
+<span class="nc" id="L1711">            stm.setObject(i++, p);</span>
+<span class="nc" id="L1712">        }</span>
+
+<span class="nc" id="L1714">        ResultSet rs = null;</span>
+<span class="nc" id="L1715">        boolean exists = false;</span>
+        try {
+<span class="nc" id="L1717">            rs = stm.executeQuery();</span>
+<span class="nc" id="L1718">            exists = rs.next();</span>
+        } finally {
+<span class="nc bnc" id="L1720" title="All 2 branches missed.">            if (rs != null) {</span>
+<span class="nc" id="L1721">                rs.close();</span>
+            }
+        }
+<span class="nc bnc" id="L1724" title="All 2 branches missed.">        loadLog.append(&quot;, rij bestaat: &quot;).append(exists ? &quot;ja&quot; : &quot;nee&quot;);</span>
+
+<span class="nc" id="L1726">        return exists;</span>
+    }
+
+    private boolean createDeleteSql(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+<span class="nc" id="L1736">        doSavePoint(row, jdbcConverter, connection);</span>
+
+<span class="nc" id="L1738">        String tableName = row.getTable();</span>
+        // Where clause using pk columns
+<span class="nc" id="L1740">        List&lt;String&gt; pkColumns = getPrimaryKeys(tableName, jdbcConverter, metaData);</span>
+
+<span class="nc" id="L1742">        List&lt;Object&gt; params = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L1743" title="All 2 branches missed.">        for (String column : pkColumns) {</span>
+<span class="nc" id="L1744">            String val = getValueFromTableRow(row, column);</span>
+<span class="nc" id="L1745">            Object obj =</span>
+<span class="nc" id="L1746">                    getValueAsObject(row.getTable(), column, val, null, jdbcConverter, metaData);</span>
+<span class="nc" id="L1747">            params.add(obj);</span>
+<span class="nc" id="L1748">        }</span>
+<span class="nc" id="L1749">        loadLog.append(&quot;\nVerwijderen rij uit &quot;)</span>
+<span class="nc" id="L1750">                .append(tableName)</span>
+<span class="nc" id="L1751">                .append(&quot; met primary key: &quot;)</span>
+<span class="nc" id="L1752">                .append(params);</span>
+
+<span class="nc" id="L1754">        PreparedStatement stm = checkAndGetPreparedStatement(createDeleteSqlStatements, tableName);</span>
+
+<span class="nc bnc" id="L1756" title="All 2 branches missed.">        if (stm == null) {</span>
+<span class="nc" id="L1757">            StringBuilder sql = new StringBuilder(&quot;delete from &quot;).append(tableName);</span>
+
+<span class="nc" id="L1759">            boolean first = true;</span>
+<span class="nc bnc" id="L1760" title="All 2 branches missed.">            for (String column : pkColumns) {</span>
+<span class="nc bnc" id="L1761" title="All 2 branches missed.">                if (first) {</span>
+<span class="nc" id="L1762">                    sql.append(&quot; where &quot;).append(column).append(&quot; = ?&quot;);</span>
+<span class="nc" id="L1763">                    first = false;</span>
+                } else {
+<span class="nc" id="L1765">                    sql.append(&quot; and &quot;).append(column).append(&quot; = ?&quot;);</span>
+                }
+<span class="nc" id="L1767">            }</span>
+
+<span class="nc" id="L1769">            stm =</span>
+<span class="nc" id="L1770">                    connection.prepareStatement(</span>
+<span class="nc" id="L1771">                            sql.toString(),</span>
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_READ_ONLY);
+<span class="nc" id="L1774">            checkAndAddStatement(createDeleteSqlStatements, tableName, stm);</span>
+        }
+
+<span class="nc" id="L1777">        int i = 1;</span>
+<span class="nc bnc" id="L1778" title="All 2 branches missed.">        for (Object p : params) {</span>
+<span class="nc" id="L1779">            stm.setObject(i++, p);</span>
+<span class="nc" id="L1780">        }</span>
+
+<span class="nc" id="L1782">        int count = 1; // all ok</span>
+        try {
+            if (alsoExecuteSql) {
+<span class="nc" id="L1785">                count = stm.executeUpdate();</span>
+            }
+<span class="nc" id="L1787">        } catch (SQLException e) {</span>
+<span class="nc" id="L1788">            log.error(&quot;Error executing delete statement&quot;, e);</span>
+<span class="nc" id="L1789">        }</span>
+<span class="nc" id="L1790">        loadLog.append(&quot;, aantal rijen verwijderd: &quot;).append(count);</span>
+
+<span class="nc bnc" id="L1792" title="All 2 branches missed.">        return count &gt; 0;</span>
+    }
+
+    private boolean deleteFromMetadata(
+            TableRow row,
+            StringBuilder loadLog,
+            GeometryJdbcConverter jdbcConverter,
+            Connection connection,
+            DatabaseMetaData metaData)
+            throws SQLException {
+
+<span class="nc" id="L1803">        List&lt;String&gt; params = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L1804">        String herkomstTableName = &quot;herkomst_metadata&quot;;</span>
+<span class="nc" id="L1805">        String tableName = row.getTable();</span>
+<span class="nc" id="L1806">        params.add(tableName);</span>
+<span class="nc" id="L1807">        List&lt;String&gt; pkColumns = getPrimaryKeys(tableName, jdbcConverter, metaData);</span>
+<span class="nc" id="L1808">        String column = null;</span>
+<span class="nc bnc" id="L1809" title="All 2 branches missed.">        if (pkColumns.size() == 1) {</span>
+<span class="nc" id="L1810">            column = pkColumns.get(0);</span>
+        }
+<span class="nc" id="L1812">        params.add(column);</span>
+<span class="nc" id="L1813">        String waarde = getValueFromTableRow(row, column);</span>
+<span class="nc" id="L1814">        params.add(waarde);</span>
+
+<span class="nc" id="L1816">        loadLog.append(&quot;\nVerwijder rij uit &quot;)</span>
+<span class="nc" id="L1817">                .append(herkomstTableName)</span>
+<span class="nc" id="L1818">                .append(&quot; met primary key: &quot;)</span>
+<span class="nc" id="L1819">                .append(params);</span>
+
+<span class="nc" id="L1821">        PreparedStatement stm =</span>
+<span class="nc" id="L1822">                checkAndGetPreparedStatement(createDeleteSqlStatements, herkomstTableName);</span>
+<span class="nc bnc" id="L1823" title="All 2 branches missed.">        if (stm == null) {</span>
+<span class="nc" id="L1824">            String sql =</span>
+                    &quot;delete from &quot;
+                            + herkomstTableName
+                            + &quot; WHERE tabel = ? AND kolom = ? AND kolom = ?&quot;;
+
+<span class="nc" id="L1829">            stm =</span>
+<span class="nc" id="L1830">                    connection.prepareStatement(</span>
+                            sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+<span class="nc" id="L1832">            checkAndAddStatement(createDeleteSqlStatements, herkomstTableName, stm);</span>
+        }
+
+<span class="nc" id="L1835">        int i = 1;</span>
+<span class="nc bnc" id="L1836" title="All 2 branches missed.">        for (Object p : params) {</span>
+<span class="nc" id="L1837">            stm.setObject(i++, p);</span>
+<span class="nc" id="L1838">        }</span>
+
+<span class="nc" id="L1840">        int count = 1; // all ok</span>
+        try {
+            if (alsoExecuteSql) {
+<span class="nc" id="L1843">                count = stm.executeUpdate();</span>
+            }
+<span class="nc" id="L1845">        } catch (SQLException e) {</span>
+<span class="nc" id="L1846">            log.error(&quot;Error executing delete statement&quot;, e);</span>
+<span class="nc" id="L1847">        }</span>
+<span class="nc" id="L1848">        loadLog.append(&quot;, aantal rijen verwijderd: &quot;).append(count);</span>
+
+<span class="nc bnc" id="L1850" title="All 2 branches missed.">        return count &gt; 0;</span>
+    }
+
+    private List&lt;String&gt; getPrimaryKeys(
+            String tableName, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData)
+            throws SQLException {
+
+<span class="nc" id="L1857">        List&lt;String&gt; pks = primaryKeyCache.get(tableName);</span>
+<span class="nc bnc" id="L1858" title="All 2 branches missed.">        if (pks != null) {</span>
+<span class="nc" id="L1859">            return pks;</span>
+        }
+
+<span class="nc" id="L1862">        pks = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L1864">        String origName = tables.get(tableName);</span>
+
+<span class="nc bnc" id="L1866" title="All 2 branches missed.">        if (origName == null) {</span>
+<span class="nc" id="L1867">            throw new IllegalArgumentException(&quot;Tabel bestaat niet: &quot; + tableName);</span>
+        }
+
+<span class="nc" id="L1870">        ResultSet set = metaData.getPrimaryKeys(null, jdbcConverter.getSchema(), origName);</span>
+<span class="nc bnc" id="L1871" title="All 2 branches missed.">        while (set.next()) {</span>
+<span class="nc" id="L1872">            String column = set.getString(&quot;COLUMN_NAME&quot;);</span>
+<span class="nc" id="L1873">            pks.add(column.toLowerCase());</span>
+<span class="nc" id="L1874">        }</span>
+
+<span class="nc" id="L1876">        set.close();</span>
+<span class="nc" id="L1877">        primaryKeyCache.put(tableName, pks);</span>
+
+<span class="nc" id="L1879">        return pks;</span>
+    }
+
+    private SortedSet&lt;ColumnMetadata&gt; getTableColumnMetadata(
+            String table, GeometryJdbcConverter jdbcConverter, DatabaseMetaData metaData)
+            throws SQLException {
+
+<span class="nc" id="L1886">        table = table.toLowerCase();</span>
+
+<span class="nc bnc" id="L1888" title="All 2 branches missed.">        if (!tables.containsKey(table)) {</span>
+<span class="nc" id="L1889">            return null;</span>
+        }
+
+<span class="nc" id="L1892">        SortedSet&lt;ColumnMetadata&gt; columnMetadata = tableColumns.get(table);</span>
+<span class="nc bnc" id="L1893" title="All 2 branches missed.">        if (columnMetadata == null) {</span>
+<span class="nc" id="L1894">            columnMetadata = new TreeSet&lt;&gt;();</span>
+<span class="nc" id="L1895">            tableColumns.put(table, columnMetadata);</span>
+
+<span class="nc" id="L1897">            ResultSet columnsRs =</span>
+<span class="nc" id="L1898">                    metaData.getColumns(null, jdbcConverter.getSchema(), tables.get(table), &quot;%&quot;);</span>
+<span class="nc bnc" id="L1899" title="All 2 branches missed.">            while (columnsRs.next()) {</span>
+<span class="nc" id="L1900">                ColumnMetadata cm = new ColumnMetadata(columnsRs);</span>
+<span class="nc" id="L1901">                columnMetadata.add(cm);</span>
+<span class="nc" id="L1902">            }</span>
+
+<span class="nc" id="L1904">            columnsRs.close();</span>
+        }
+
+<span class="nc" id="L1907">        return columnMetadata;</span>
+    }
+
+    private ColumnMetadata findColumnMetadata(
+            SortedSet&lt;ColumnMetadata&gt; tableColumnMetadata, String columnName) {
+
+<span class="nc bnc" id="L1913" title="All 4 branches missed.">        if (tableColumnMetadata == null || tableColumnMetadata.size() &lt; 1) {</span>
+<span class="nc" id="L1914">            return null;</span>
+        }
+
+<span class="nc bnc" id="L1917" title="All 2 branches missed.">        for (ColumnMetadata cm : tableColumnMetadata) {</span>
+<span class="nc bnc" id="L1918" title="All 2 branches missed.">            if (cm.getName().equalsIgnoreCase(columnName)) {</span>
+<span class="nc" id="L1919">                return cm;</span>
+            }
+<span class="nc" id="L1921">        }</span>
+
+<span class="nc" id="L1923">        return null;</span>
+    }
+
+    public String getHerkomstMetadata() {
+<span class="nc" id="L1927">        return herkomstMetadata;</span>
+    }
+
+    public void setHerkomstMetadata(String herkomstMetadata) {
+<span class="nc" id="L1931">        this.herkomstMetadata = herkomstMetadata;</span>
+<span class="nc" id="L1932">    }</span>
+
+    private void doSavePoint(
+            TableRow row, GeometryJdbcConverter jdbcConverter, Connection connection)
+            throws SQLException {
+        if (!alsoExecuteSql) {
+            return;
+        }
+<span class="nc bnc" id="L1940" title="All 2 branches missed.">        if (jdbcConverter.useSavepoints()) {</span>
+<span class="nc bnc" id="L1941" title="All 2 branches missed.">            if (row.isIgnoreDuplicates()) {</span>
+<span class="nc bnc" id="L1942" title="All 2 branches missed.">                if (recentSavepoint == null) {</span>
+<span class="nc" id="L1943">                    recentSavepoint = connection.setSavepoint();</span>
+<span class="nc" id="L1944">                    log.trace(&quot;Created savepoint with id: &quot; + recentSavepoint.getSavepointId());</span>
+                } else {
+<span class="nc" id="L1946">                    log.trace(</span>
+                            &quot;No need for new savepoint, previous insert caused rollback to recent savepoint with id &quot;
+<span class="nc" id="L1948">                                    + recentSavepoint.getSavepointId());</span>
+                }
+<span class="nc bnc" id="L1950" title="All 2 branches missed.">            } else if (recentSavepoint != null) {</span>
+<span class="nc" id="L1951">                log.trace(</span>
+                        &quot;About to insert non-recoverable row, discarding savepoint with id &quot;
+<span class="nc" id="L1953">                                + recentSavepoint.getSavepointId());</span>
+<span class="nc" id="L1954">                connection.releaseSavepoint(recentSavepoint);</span>
+<span class="nc" id="L1955">                recentSavepoint = null;</span>
+            }
+        }
+<span class="nc" id="L1958">    }</span>
+
+    private Object getValueAsObject(
+            String tableName,
+            String column,
+            String value,
+            ColumnMetadata cm,
+            GeometryJdbcConverter jdbcConverter,
+            DatabaseMetaData metaData)
+            throws SQLException, ParseException {
+<span class="nc bnc" id="L1968" title="All 2 branches missed.">        if (cm == null) {</span>
+            SortedSet&lt;ColumnMetadata&gt; tableColumnMetadata;
+<span class="nc" id="L1970">            tableColumnMetadata = getTableColumnMetadata(tableName, jdbcConverter, metaData);</span>
+<span class="nc" id="L1971">            cm = findColumnMetadata(tableColumnMetadata, column);</span>
+        }
+
+<span class="nc" id="L1974">        Object param = null;</span>
+<span class="nc bnc" id="L1975" title="All 2 branches missed.">        if (cm == null) {</span>
+<span class="nc" id="L1976">            throw new IllegalArgumentException(</span>
+                    &quot;Column not found: &quot; + column + &quot; in table &quot; + tableName);
+<span class="nc bnc" id="L1978" title="All 2 branches missed.">        } else if (cm.getTypeName().equals(jdbcConverter.getGeomTypeName())</span>
+                // in geval we in een ander dan public schema werken, en postgis zit in public
+                // schema
+<span class="nc" id="L1981">                || cm.getTypeName()</span>
+<span class="nc" id="L1982">                        .replace(&quot;\&quot;&quot;, &quot;&quot;)</span>
+<span class="nc bnc" id="L1983" title="All 2 branches missed.">                        .equals(&quot;public.&quot; + jdbcConverter.getGeomTypeName())) {</span>
+<span class="nc" id="L1984">            param = jdbcConverter.convertToNativeGeometryObject(value);</span>
+<span class="nc bnc" id="L1985" title="All 2 branches missed.">        } else if (value != null) {</span>
+<span class="nc" id="L1986">            param = GeometryJdbcConverter.convertToSQLObject(value, cm, tableName, column);</span>
+        }
+
+<span class="nc" id="L1989">        return param;</span>
+    }
+
+<span class="nc" id="L1992">    public enum BerichtSelectMode {</span>
+<span class="nc" id="L1993">        BY_STATUS,</span>
+<span class="nc" id="L1994">        BY_IDS,</span>
+<span class="nc" id="L1995">        BY_LAADPROCES,</span>
+<span class="nc" id="L1996">        FOR_UPDATE,</span>
+<span class="nc" id="L1997">        RETRY_WAITING</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

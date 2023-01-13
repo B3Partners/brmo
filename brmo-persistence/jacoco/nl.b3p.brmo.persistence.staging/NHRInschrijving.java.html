@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NHRInschrijving.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">NHRInschrijving.java</span></div><h1>NHRInschrijving.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NHRInschrijving.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">NHRInschrijving.java</span></div><h1>NHRInschrijving.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2022 B3Partners B.V.
  */
 package nl.b3p.brmo.persistence.staging;
 
+import org.hibernate.annotations.Type;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.*;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = &quot;nhr_laadproces&quot;)
-<span class="nc" id="L13">public class NHRInschrijving implements Serializable {</span>
+<span class="nc" id="L15">public class NHRInschrijving implements Serializable {</span>
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;
@@ -33,53 +35,53 @@ import org.hibernate.annotations.Type;
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
     public Date getDatum() {
-<span class="nc" id="L36">        return datum;</span>
+<span class="nc" id="L38">        return datum;</span>
     }
 
     public void setDatum(Date datum) {
-<span class="nc" id="L40">        this.datum = datum;</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L42">        this.datum = datum;</span>
+<span class="nc" id="L43">    }</span>
 
     public Date getLaatstGeprobeerd() {
-<span class="nc" id="L44">        return laatstGeprobeerd;</span>
+<span class="nc" id="L46">        return laatstGeprobeerd;</span>
     }
 
     public void setLaatstGeprobeerd(Date laatstGeprobeerd) {
-<span class="nc" id="L48">        this.laatstGeprobeerd = laatstGeprobeerd;</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L50">        this.laatstGeprobeerd = laatstGeprobeerd;</span>
+<span class="nc" id="L51">    }</span>
 
     public Date getVolgendProberen() {
-<span class="nc" id="L52">        return volgendProberen;</span>
+<span class="nc" id="L54">        return volgendProberen;</span>
     }
 
     public void setVolgendProberen(Date volgendProberen) {
-<span class="nc" id="L56">        this.volgendProberen = volgendProberen;</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L58">        this.volgendProberen = volgendProberen;</span>
+<span class="nc" id="L59">    }</span>
 
     public Integer getProbeerAantal() {
-<span class="nc" id="L60">        return probeerAantal;</span>
+<span class="nc" id="L62">        return probeerAantal;</span>
     }
 
     public void setProbeerAantal(Integer probeerAantal) {
-<span class="nc" id="L64">        this.probeerAantal = probeerAantal;</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L66">        this.probeerAantal = probeerAantal;</span>
+<span class="nc" id="L67">    }</span>
 
     public String getKvkNummer() {
-<span class="nc" id="L68">        return kvkNummer;</span>
+<span class="nc" id="L70">        return kvkNummer;</span>
     }
 
     public void setKvkNummer(String kvkNummer) {
-<span class="nc" id="L72">        this.kvkNummer = kvkNummer;</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L74">        this.kvkNummer = kvkNummer;</span>
+<span class="nc" id="L75">    }</span>
 
     public String getException() {
-<span class="nc" id="L76">        return exception;</span>
+<span class="nc" id="L78">        return exception;</span>
     }
 
     public void setException(String exception) {
-<span class="nc" id="L80">        this.exception = exception;</span>
-<span class="nc" id="L81">    }</span>
+<span class="nc" id="L82">        this.exception = exception;</span>
+<span class="nc" id="L83">    }</span>
 
-//&lt;/editor-fold&gt;
+    // &lt;/editor-fold&gt;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

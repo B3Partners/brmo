@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-41-generic
+// dot 2.43.0 on Linux 5.15.0-57-generic
 // SchemaSpy rev Unknown
 digraph "oneDegreeRelationshipsDiagram" {
   graph [
@@ -20,7 +20,6 @@ digraph "oneDegreeRelationshipsDiagram" {
     arrowsize="0.8"
   ];
   "addresseerb_obj_aand":"fk_7opr_identifcode":w -> "openb_rmte":"identifcode.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "locaand_openb_rmte":"fk_sc_lh_opr_identifcode":w -> "openb_rmte":"identifcode.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "openb_rmte_gem_openb_rmte":"fk_nn_lh_opr_identifcode":w -> "openb_rmte":"identifcode.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "openb_rmte_wnplts":"fk_nn_lh_opr_identifcode":w -> "openb_rmte":"identifcode.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "overig_gebouwd_obj":"fk_6opr_identifcode":w -> "openb_rmte":"identifcode.type":e [arrowhead=none dir=back arrowtail=crowodot];
@@ -43,18 +42,6 @@ digraph "oneDegreeRelationshipsDiagram" {
     URL="addresseerb_obj_aand.html"
     tooltip="addresseerb_obj_aand"
   ];
-  "locaand_openb_rmte" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">locaand_openb_rmte</TD></TR>
-      <TR><TD PORT="fk_sc_lh_opr_identifcode" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">fk_sc_lh_opr_identifcode</TD></TR>
-      <TR><TD PORT="fk_sc_rh_woz_nummer" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">fk_sc_rh_woz_nummer</TD></TR>
-      <TR><TD PORT="locomschr" COLSPAN="3" ALIGN="LEFT">locomschr</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
-    </TABLE>>
-    URL="locaand_openb_rmte.html"
-    tooltip="locaand_openb_rmte"
-  ];
   "openb_rmte" [
     label=<
     <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -64,7 +51,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="huisnrrange_even_nummers" COLSPAN="2" ALIGN="LEFT">huisnrrange_even_nummers</TD><TD PORT="huisnrrange_even_nummers.type" ALIGN="LEFT">varchar[11]</TD></TR>
       <TR><TD PORT="huisnrrange_oneven_nummers" COLSPAN="2" ALIGN="LEFT">huisnrrange_oneven_nummers</TD><TD PORT="huisnrrange_oneven_nummers.type" ALIGN="LEFT">varchar[11]</TD></TR>
       <TR><TD PORT="identif_bgtopr" COLSPAN="2" ALIGN="LEFT">identif_bgtopr</TD><TD PORT="identif_bgtopr.type" ALIGN="LEFT">varchar[255]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
     </TABLE>>
     URL="openb_rmte.html"
     tooltip="openb_rmte"

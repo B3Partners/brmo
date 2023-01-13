@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BijzondereRechtstoestandType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">BijzondereRechtstoestandType.java</span></div><h1>BijzondereRechtstoestandType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for BijzondereRechtstoestandType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BijzondereRechtstoestandType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}BasisType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;soort&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;choice minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;element name=&quot;uitspraakAanvang&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}RechterlijkeUitspraakType&quot;/&amp;gt;
+ *           &amp;lt;element name=&quot;uitspraakEinde&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}RechterlijkeUitspraakType&quot;/&amp;gt;
+ *         &amp;lt;/choice&amp;gt;
+ *         &amp;lt;element name=&quot;redenEindeInsolventie&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;status&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;duur&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;isVerlengd&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BijzondereRechtstoestandType&quot;, propOrder = {
+    &quot;soort&quot;,
+    &quot;uitspraakAanvang&quot;,
+    &quot;uitspraakEinde&quot;,
+    &quot;redenEindeInsolventie&quot;,
+    &quot;status&quot;,
+    &quot;duur&quot;,
+    &quot;isVerlengd&quot;
+})
+<span class="nc" id="L46">public class BijzondereRechtstoestandType</span>
+    extends BasisType
+{
+
+    protected EnumeratieType soort;
+    protected RechterlijkeUitspraakType uitspraakAanvang;
+    protected RechterlijkeUitspraakType uitspraakEinde;
+    protected EnumeratieType redenEindeInsolventie;
+    protected EnumeratieType status;
+    protected String duur;
+    protected EnumeratieType isVerlengd;
+
+    /**
+     * Gets the value of the soort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getSoort() {
+<span class="nc" id="L67">        return soort;</span>
+    }
+
+    /**
+     * Sets the value of the soort property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setSoort(EnumeratieType value) {
+<span class="nc" id="L79">        this.soort = value;</span>
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Gets the value of the uitspraakAanvang property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RechterlijkeUitspraakType }
+     *     
+     */
+    public RechterlijkeUitspraakType getUitspraakAanvang() {
+<span class="nc" id="L91">        return uitspraakAanvang;</span>
+    }
+
+    /**
+     * Sets the value of the uitspraakAanvang property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RechterlijkeUitspraakType }
+     *     
+     */
+    public void setUitspraakAanvang(RechterlijkeUitspraakType value) {
+<span class="nc" id="L103">        this.uitspraakAanvang = value;</span>
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Gets the value of the uitspraakEinde property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RechterlijkeUitspraakType }
+     *     
+     */
+    public RechterlijkeUitspraakType getUitspraakEinde() {
+<span class="nc" id="L115">        return uitspraakEinde;</span>
+    }
+
+    /**
+     * Sets the value of the uitspraakEinde property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RechterlijkeUitspraakType }
+     *     
+     */
+    public void setUitspraakEinde(RechterlijkeUitspraakType value) {
+<span class="nc" id="L127">        this.uitspraakEinde = value;</span>
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Gets the value of the redenEindeInsolventie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getRedenEindeInsolventie() {
+<span class="nc" id="L139">        return redenEindeInsolventie;</span>
+    }
+
+    /**
+     * Sets the value of the redenEindeInsolventie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setRedenEindeInsolventie(EnumeratieType value) {
+<span class="nc" id="L151">        this.redenEindeInsolventie = value;</span>
+<span class="nc" id="L152">    }</span>
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getStatus() {
+<span class="nc" id="L163">        return status;</span>
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setStatus(EnumeratieType value) {
+<span class="nc" id="L175">        this.status = value;</span>
+<span class="nc" id="L176">    }</span>
+
+    /**
+     * Gets the value of the duur property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDuur() {
+<span class="nc" id="L187">        return duur;</span>
+    }
+
+    /**
+     * Sets the value of the duur property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDuur(String value) {
+<span class="nc" id="L199">        this.duur = value;</span>
+<span class="nc" id="L200">    }</span>
+
+    /**
+     * Gets the value of the isVerlengd property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getIsVerlengd() {
+<span class="nc" id="L211">        return isVerlengd;</span>
+    }
+
+    /**
+     * Sets the value of the isVerlengd property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setIsVerlengd(EnumeratieType value) {
+<span class="nc" id="L223">        this.isVerlengd = value;</span>
+<span class="nc" id="L224">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

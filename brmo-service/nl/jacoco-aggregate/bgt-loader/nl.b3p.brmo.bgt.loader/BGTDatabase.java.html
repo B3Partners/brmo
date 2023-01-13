@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTDatabase.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader</a> &gt; <span class="el_source">BGTDatabase.java</span></div><h1>BGTDatabase.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader;
+
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.METADATA_TABLE_NAME;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
+
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
+import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
+import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class BGTDatabase implements AutoCloseable {
+<span class="nc" id="L37">    private static final Log log = LogFactory.getLog(BGTDatabase.class);</span>
+
+<span class="nc" id="L39">    public enum SQLDialectEnum {</span>
+<span class="nc" id="L40">        postgis,</span>
+<span class="nc" id="L41">        oracle</span>
+    }
+
+    private SQLDialect dialect;
+    private final DatabaseOptions dbOptions;
+    private Connection connection;
+    private final boolean allowConnectionCreation;
+
+    /**
+     * Create a BGTDatabase that will load the driver and create a database connection.
+     *
+     * @param dbOptions Database connection options.
+     * @throws ClassNotFoundException If the JDBC driver could not be loaded.
+     */
+<span class="nc" id="L55">    public BGTDatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {</span>
+<span class="nc" id="L56">        this.dbOptions = dbOptions;</span>
+<span class="nc" id="L57">        dialect = createDialect(dbOptions.getConnectionString());</span>
+<span class="nc" id="L58">        dialect.loadDriver();</span>
+<span class="nc" id="L59">        this.allowConnectionCreation = true;</span>
+<span class="nc" id="L60">    }</span>
+
+    /**
+     * Create a BGTDatabase with a supplied Connection without loading the driver and making
+     * connections here. The connection string in DatabaseOptions is not used, it is retrieved from
+     * the supplied Connection to determine the dialect.
+     *
+     * @param dbOptions Database options - not used for making connections
+     * @param connection Connection to use, must not be closed. Connection will be closed by CLI
+     *     classes after processing, override the close() method to avoid that.
+     */
+<span class="nc" id="L71">    public BGTDatabase(DatabaseOptions dbOptions, Connection connection) throws SQLException {</span>
+<span class="nc" id="L72">        this.dbOptions = dbOptions;</span>
+<span class="nc" id="L73">        this.dialect = createDialect(connection.getMetaData().getURL());</span>
+<span class="nc" id="L74">        this.connection = connection;</span>
+<span class="nc" id="L75">        this.allowConnectionCreation = false;</span>
+<span class="nc" id="L76">    }</span>
+
+    public SQLDialect getDialect() {
+<span class="nc" id="L79">        return dialect;</span>
+    }
+
+    public Connection getConnection() throws SQLException {
+<span class="nc bnc" id="L83" title="All 4 branches missed.">        if (this.connection == null || this.connection.isClosed()) {</span>
+<span class="nc" id="L84">            this.connection = createConnection();</span>
+        }
+<span class="nc" id="L86">        return this.connection;</span>
+    }
+
+    public void setConnection(Connection connection) {
+<span class="nc" id="L90">        this.connection = connection;</span>
+<span class="nc" id="L91">    }</span>
+
+    public void setDialect(SQLDialect dialect) {
+<span class="nc" id="L94">        this.dialect = dialect;</span>
+<span class="nc" id="L95">    }</span>
+
+    @Override
+    public void close() throws SQLException {
+<span class="nc bnc" id="L99" title="All 4 branches missed.">        if (this.connection != null &amp;&amp; !this.connection.isClosed()) {</span>
+<span class="nc" id="L100">            this.connection.close();</span>
+        }
+<span class="nc" id="L102">    }</span>
+
+    private Connection createConnection() {
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (!allowConnectionCreation) {</span>
+<span class="nc" id="L106">            throw new RuntimeException(</span>
+                    &quot;New connection required but supplied connection is null or closed&quot;);
+        }
+        try {
+<span class="nc" id="L110">            return DriverManager.getConnection(</span>
+<span class="nc" id="L111">                    dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());</span>
+<span class="nc" id="L112">        } catch (SQLException e) {</span>
+<span class="nc" id="L113">            throw new RuntimeException(</span>
+<span class="nc" id="L114">                    getMessageFormattedString(</span>
+<span class="nc" id="L115">                            &quot;db.connection_error&quot;, dbOptions.getConnectionString()),</span>
+                    e);
+        }
+    }
+
+    public BGTObjectTableWriter createObjectTableWriter(
+            LoadOptions loadOptions, DatabaseOptions dbOptions) throws SQLException {
+<span class="nc" id="L122">        BGTObjectTableWriter writer =</span>
+                new BGTObjectTableWriter(
+<span class="nc" id="L124">                        getConnection(), this.getDialect(), BGTSchemaMapper.getInstance());</span>
+
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (loadOptions == null) {</span>
+<span class="nc" id="L127">            loadOptions = new LoadOptions();</span>
+        }
+<span class="nc" id="L129">        writer.setBatchSize(</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                dbOptions.getBatchSize() != null</span>
+<span class="nc" id="L131">                        ? dbOptions.getBatchSize()</span>
+<span class="nc" id="L132">                        : this.getDialect().getDefaultOptimalBatchSize());</span>
+<span class="nc" id="L133">        writer.setMultithreading(loadOptions.isMultithreading());</span>
+<span class="nc" id="L134">        writer.setUsePgCopy(dbOptions.isUsePgCopy());</span>
+<span class="nc" id="L135">        writer.setObjectLimit(loadOptions.getMaxObjects());</span>
+<span class="nc" id="L136">        writer.setLinearizeCurves(loadOptions.isLinearizeCurves());</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        writer.setCurrentObjectsOnly(!loadOptions.isIncludeHistory());</span>
+<span class="nc" id="L138">        writer.setCreateSchema(loadOptions.isCreateSchema());</span>
+<span class="nc" id="L139">        writer.setDropIfExists(loadOptions.isDropIfExists());</span>
+<span class="nc" id="L140">        writer.setTablePrefix(loadOptions.getTablePrefix());</span>
+<span class="nc" id="L141">        return writer;</span>
+    }
+
+    public static SQLDialect createDialect(String connectionString) {
+        SQLDialectEnum sqlDialectEnum;
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (connectionString.startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
+<span class="nc" id="L147">            sqlDialectEnum = SQLDialectEnum.postgis;</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        } else if (connectionString.startsWith(&quot;jdbc:oracle:thin:&quot;)) {</span>
+<span class="nc" id="L149">            sqlDialectEnum = SQLDialectEnum.oracle;</span>
+        } else {
+<span class="nc" id="L151">            throw new IllegalArgumentException(</span>
+<span class="nc" id="L152">                    getMessageFormattedString(</span>
+                            &quot;db.unknown_connection_string_dialect&quot;, connectionString));
+        }
+<span class="nc" id="L155">        return createDialect(sqlDialectEnum);</span>
+    }
+
+    public static SQLDialect createDialect(SQLDialectEnum dialectEnum) {
+<span class="nc bnc" id="L159" title="All 3 branches missed.">        switch (dialectEnum) {</span>
+            case postgis:
+<span class="nc" id="L161">                return new PostGISDialect();</span>
+            case oracle:
+<span class="nc" id="L163">                return new OracleDialect();</span>
+        }
+<span class="nc" id="L165">        throw new IllegalArgumentException(</span>
+<span class="nc" id="L166">                getMessageFormattedString(&quot;db.dialect_invalid&quot;, dialectEnum));</span>
+    }
+
+    public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
+<span class="nc" id="L170">        log.info(getBundleString(&quot;db.create_metadata&quot;));</span>
+        for (String sql :
+<span class="nc bnc" id="L172" title="All 2 branches missed.">                BGTSchemaMapper.getInstance()</span>
+<span class="nc" id="L173">                        .getCreateMetadataTableStatements(</span>
+<span class="nc" id="L174">                                getDialect(),</span>
+<span class="nc" id="L175">                                loadOptions.getTablePrefix(),</span>
+<span class="nc" id="L176">                                loadOptions.isDropIfExists())) {</span>
+<span class="nc" id="L177">            new LoggingQueryRunner().update(getConnection(), sql);</span>
+<span class="nc" id="L178">        }</span>
+<span class="nc" id="L179">    }</span>
+
+    public String getMetadata(Metadata key) throws SQLException {
+<span class="nc" id="L182">        Object value =</span>
+                new LoggingQueryRunner()
+<span class="nc" id="L184">                        .query(</span>
+<span class="nc" id="L185">                                getConnection(),</span>
+                                &quot;select waarde from &quot; + METADATA_TABLE_NAME + &quot; where naam = ?&quot;,
+                                new ScalarHandler&lt;&gt;(),
+<span class="nc" id="L188">                                key.getDbKey());</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L190">            return null;</span>
+        }
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (value instanceof Clob) {</span>
+<span class="nc" id="L193">            Clob clob = (Clob) value;</span>
+<span class="nc" id="L194">            return clob.getSubString(1, (int) clob.length());</span>
+        }
+<span class="nc" id="L196">        return value.toString();</span>
+    }
+
+    public void setMetadataValue(Metadata key, String value) throws Exception {
+        try {
+<span class="nc" id="L201">            int updated =</span>
+                    new LoggingQueryRunner()
+<span class="nc" id="L203">                            .update(</span>
+<span class="nc" id="L204">                                    getConnection(),</span>
+                                    &quot;update &quot;
+                                            + METADATA_TABLE_NAME
+                                            + &quot; set waarde = ? where naam = ?&quot;,
+                                    value,
+<span class="nc" id="L209">                                    key.getDbKey());</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            if (updated == 0) {</span>
+<span class="nc" id="L211">                new LoggingQueryRunner()</span>
+<span class="nc" id="L212">                        .update(</span>
+<span class="nc" id="L213">                                getConnection(),</span>
+                                &quot;insert into &quot; + METADATA_TABLE_NAME + &quot;(naam, waarde) values(?,?)&quot;,
+<span class="nc" id="L215">                                key.getDbKey(),</span>
+                                value);
+            }
+<span class="nc" id="L218">        } catch (SQLException e) {</span>
+<span class="nc" id="L219">            throw new Exception(</span>
+<span class="nc" id="L220">                    getMessageFormattedString(</span>
+<span class="nc" id="L221">                            &quot;db.metadata_error&quot;, key.getDbKey(), value, e.getMessage()),</span>
+                    e);
+<span class="nc" id="L223">        }</span>
+<span class="nc" id="L224">    }</span>
+
+    public void setMetadataForMutaties(BGTObjectStreamer.MutatieInhoud mutatieInhoud)
+            throws Exception {
+<span class="nc" id="L228">        setMetadataValue(Metadata.DELTA_TIME_TO, null);</span>
+<span class="nc bnc" id="L229" title="All 4 branches missed.">        if (mutatieInhoud == null || mutatieInhoud.getLeveringsId() == null) {</span>
+<span class="nc" id="L230">            setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, null);</span>
+<span class="nc" id="L231">            setMetadataValue(Metadata.INITIAL_LOAD_TIME, null);</span>
+<span class="nc" id="L232">            setMetadataValue(Metadata.DELTA_ID, null);</span>
+        } else {
+<span class="nc" id="L234">            String deltaId = mutatieInhoud.getLeveringsId();</span>
+
+<span class="nc bnc" id="L236" title="All 2 branches missed.">            if (&quot;initial&quot;.equals(mutatieInhoud.getMutatieType())) {</span>
+<span class="nc" id="L237">                setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, deltaId);</span>
+<span class="nc" id="L238">                setMetadataValue(Metadata.INITIAL_LOAD_TIME, Instant.now().toString());</span>
+            }
+<span class="nc" id="L240">            setMetadataValue(Metadata.DELTA_ID, deltaId);</span>
+        }
+<span class="nc" id="L242">    }</span>
+
+    public void setFeatureTypesEnumMetadata(
+            Set&lt;DeltaCustomDownloadRequest.FeaturetypesEnum&gt; featureTypes) throws Exception {
+<span class="nc" id="L246">        setMetadataValue(</span>
+                Metadata.FEATURE_TYPES,
+<span class="nc" id="L248">                featureTypes.stream()</span>
+<span class="nc" id="L249">                        .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)</span>
+<span class="nc" id="L250">                        .collect(Collectors.joining(&quot;,&quot;)));</span>
+<span class="nc" id="L251">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

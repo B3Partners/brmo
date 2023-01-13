@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ViewUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO test-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.test.util.database</a> &gt; <span class="el_source">ViewUtils.java</span></div><h1>ViewUtils.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ViewUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO test-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.test.util.database</a> &gt; <span class="el_source">ViewUtils.java</span></div><h1>ViewUtils.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2019 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,18 +18,20 @@ package nl.b3p.brmo.test.util.database;
 
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 public final class ViewUtils {
-<span class="nc" id="L32">    private static final Log LOG = LogFactory.getLog(ViewUtils.class);</span>
+<span class="nc" id="L34">    private static final Log LOG = LogFactory.getLog(ViewUtils.class);</span>
 
     /**
      * maak een lijst van de materialized views.
@@ -40,53 +42,61 @@ public final class ViewUtils {
      */
     public static List&lt;String&gt; listAllMaterializedViews(final DataSource ds) throws SQLException {
         List&lt;String&gt; mviews;
-<span class="nc" id="L43">        try (Connection conn = ds.getConnection()) {</span>
-<span class="nc" id="L44">            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
-<span class="nc" id="L45">            mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler&lt;&gt;());</span>
-<span class="nc" id="L46">            LOG.debug(&quot;Gevonden materialized views: &quot; + mviews);</span>
+<span class="nc" id="L45">        try (Connection conn = ds.getConnection()) {</span>
+<span class="nc" id="L46">            final GeometryJdbcConverter geomToJdbc =</span>
+<span class="nc" id="L47">                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L48">            mviews =</span>
+<span class="nc" id="L49">                    new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L50">                            .query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler&lt;&gt;());</span>
+<span class="nc" id="L51">            LOG.debug(&quot;Gevonden materialized views: &quot; + mviews);</span>
         }
-<span class="nc" id="L48">        return mviews;</span>
+<span class="nc" id="L53">        return mviews;</span>
     }
 
     /**
-     * refresh alle materialized views in de database.
-     * &lt;i&gt;NB&lt;/i&gt; niet duidelijk of de database de views in de juiste volgorde teruggeeft...
+     * refresh alle materialized views in de database. &lt;i&gt;NB&lt;/i&gt; niet duidelijk of de database de
+     * views in de juiste volgorde teruggeeft...
      *
      * @param ds (rsgb) database koppeling
-     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor reden wordt dat alleen gelogd)
+     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor
+     *     reden wordt dat alleen gelogd)
      */
     public static void refreshAllMaterializedViews(final DataSource ds) throws SQLException {
-<span class="nc" id="L59">        List&lt;String&gt; mviews = listAllMaterializedViews(ds);</span>
-<span class="nc bnc" id="L60" title="All 4 branches missed.">        if (mviews != null &amp;&amp; mviews.size() &gt; 1) {</span>
-<span class="nc" id="L61">            refreshMViews(mviews.toArray(new String[mviews.size()]), ds);</span>
+<span class="nc" id="L65">        List&lt;String&gt; mviews = listAllMaterializedViews(ds);</span>
+<span class="nc bnc" id="L66" title="All 4 branches missed.">        if (mviews != null &amp;&amp; mviews.size() &gt; 1) {</span>
+<span class="nc" id="L67">            refreshMViews(mviews.toArray(new String[mviews.size()]), ds);</span>
         }
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L69">    }</span>
 
     /**
      * refresh de gegeven lijst van materialized views in de database.
      *
      * @param mviews lijst van namen van views
-     * @param ds     database koppeling
-     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor reden wordt dat alleen gelogd)
+     * @param ds database koppeling
+     * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor
+     *     reden wordt dat alleen gelogd)
      */
-    public static void refreshMViews(final String[] mviews, final DataSource ds) throws SQLException {
-<span class="nc" id="L73">        try (Connection conn = ds.getConnection()) {</span>
-<span class="nc" id="L74">            conn.setAutoCommit(true);</span>
-<span class="nc" id="L75">            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">            for (String mview : mviews) {</span>
+    public static void refreshMViews(final String[] mviews, final DataSource ds)
+            throws SQLException {
+<span class="nc" id="L81">        try (Connection conn = ds.getConnection()) {</span>
+<span class="nc" id="L82">            conn.setAutoCommit(true);</span>
+<span class="nc" id="L83">            final GeometryJdbcConverter geomToJdbc =</span>
+<span class="nc" id="L84">                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            for (String mview : mviews) {</span>
                 try {
-<span class="nc" id="L78">                    LOG.debug(&quot;Start verversen van materialized view: &quot; + mview);</span>
+<span class="nc" id="L87">                    LOG.debug(&quot;Start verversen van materialized view: &quot; + mview);</span>
                     // &quot;update&quot; gebruiken omdat we bij oracle stored procedure benaderen
-<span class="nc" id="L80">                    Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));</span>
-<span class="nc" id="L81">                    LOG.trace(&quot;Klaar met verversen van materialized view: &quot; + mview);</span>
-<span class="nc" id="L82">                } catch (SQLException sqle) {</span>
-<span class="nc" id="L83">                    LOG.error(&quot;Bijwerken van materialized view `&quot; + mview + &quot;` is mislukt. &quot;, sqle);</span>
-<span class="nc" id="L84">                }</span>
+<span class="nc" id="L89">                    Object o =</span>
+<span class="nc" id="L90">                            new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L91">                                    .update(conn, geomToJdbc.getMViewRefreshSQL(mview));</span>
+<span class="nc" id="L92">                    LOG.trace(&quot;Klaar met verversen van materialized view: &quot; + mview);</span>
+<span class="nc" id="L93">                } catch (SQLException sqle) {</span>
+<span class="nc" id="L94">                    LOG.error(&quot;Bijwerken van materialized view `&quot; + mview + &quot;` is mislukt. &quot;, sqle);</span>
+<span class="nc" id="L95">                }</span>
             }
         }
-<span class="nc" id="L87">    }</span>
+<span class="nc" id="L98">    }</span>
 
-    private ViewUtils() {
-    }
+    private ViewUtils() {}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

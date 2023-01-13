@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BAG2MutatiesCommand.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader.cli</a> &gt; <span class="el_source">BAG2MutatiesCommand.java</span></div><h1>BAG2MutatiesCommand.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BAG2MutatiesCommand.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader.cli</a> &gt; <span class="el_source">BAG2MutatiesCommand.java</span></div><h1>BAG2MutatiesCommand.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2021 B3Partners B.V.
  *
  * SPDX-License-Identifier: MIT
@@ -7,17 +7,23 @@
 
 package nl.b3p.brmo.bag2.loader.cli;
 
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+
+import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
+
 import nl.b3p.brmo.bag2.loader.BAG2Database;
 import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
 import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Mixin;
@@ -48,214 +54,269 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
-import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
-
 @Command(name = &quot;mutaties&quot;, mixinStandardHelpOptions = true)
-<span class="nc" id="L55">public class BAG2MutatiesCommand {</span>
-<span class="nc" id="L56">    private static final Log log = LogFactory.getLog(BAG2MutatiesCommand.class);</span>
+<span class="nc" id="L58">public class BAG2MutatiesCommand {</span>
+<span class="nc" id="L59">    private static final Log log = LogFactory.getLog(BAG2MutatiesCommand.class);</span>
 
-    @ParentCommand
-    private BAG2LoaderMain parent;
+    @ParentCommand private BAG2LoaderMain parent;
 
     public void setParent(BAG2LoaderMain parent) {
-<span class="nc" id="L62">        this.parent = parent;</span>
-<span class="nc" id="L63">    }</span>
+<span class="nc" id="L64">        this.parent = parent;</span>
+<span class="nc" id="L65">    }</span>
 
     private static final String KADASTER_LOGIN_URL = &quot;https://mijn.kadaster.nl/security/login.do&quot;;
 
-    // Artikelnummer 2529 is dagmutaties (https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract)
-    public static final String LVBAG_BESTANDEN_API_URL = &quot;https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden&quot;;
+    // Artikelnummer 2529 is dagmutaties
+    // (https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract)
+    public static final String LVBAG_BESTANDEN_API_URL =
+            &quot;https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden&quot;;
 
-    @Command(name=&quot;download&quot;, sortOptions = false)
+    @Command(name = &quot;download&quot;, sortOptions = false)
     public int download(
-            @Option(names=&quot;--no-delete&quot;, negatable = true) boolean noDelete,
-            @Option(names=&quot;--kadaster-user&quot;) String kadasterUser,
-            @Option(names=&quot;--kadaster-password&quot;) String kadasterPassword,
-            @Option(names=&quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
-            @Option(names=&quot;--query-params&quot;, defaultValue = &quot;artikelnummers=2529&quot;) String queryParams,
-            @Option(names=&quot;--path&quot;, defaultValue = &quot;&quot;) String downloadPath,
-            @Option(names=&quot;--mirror-base-url&quot;) String mirrorBaseUrl,
-            @Option(names={&quot;-h&quot;,&quot;--help&quot;}, usageHelp = true) boolean showHelp
-            ) throws Exception {
+            @Option(names = &quot;--no-delete&quot;, negatable = true) boolean noDelete,
+            @Option(names = &quot;--kadaster-user&quot;) String kadasterUser,
+            @Option(names = &quot;--kadaster-password&quot;) String kadasterPassword,
+            @Option(names = &quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
+            @Option(names = &quot;--query-params&quot;, defaultValue = &quot;artikelnummers=2529&quot;)
+                    String queryParams,
+            @Option(names = &quot;--path&quot;, defaultValue = &quot;&quot;) String downloadPath,
+            @Option(names = &quot;--mirror-base-url&quot;) String mirrorBaseUrl,
+            @Option(
+                            names = {&quot;-h&quot;, &quot;--help&quot;},
+                            usageHelp = true)
+                    boolean showHelp)
+            throws Exception {
 
-<span class="nc" id="L82">        log.info(BAG2LoaderUtils.getUserAgent());</span>
-<span class="nc" id="L83">        Instant start = Instant.now();</span>
+<span class="nc" id="L90">        log.info(BAG2LoaderUtils.getUserAgent());</span>
+<span class="nc" id="L91">        Instant start = Instant.now();</span>
 
-<span class="nc" id="L85">        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
-<span class="nc" id="L86">        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
+<span class="nc" id="L93">        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
+<span class="nc" id="L94">        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
 
-<span class="nc" id="L88">        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
+<span class="nc" id="L96">        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
 
-<span class="nc" id="L90">        log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
+<span class="nc" id="L98">        log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
 
-<span class="nc" id="L92">        List&lt;JSONObject&gt; toDownload = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">        for(int i = 0; i &lt; bestanden.length(); i++) {</span>
-<span class="nc" id="L94">            JSONObject bestand = bestanden.getJSONObject(i);</span>
+<span class="nc" id="L100">        List&lt;JSONObject&gt; toDownload = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L102">            JSONObject bestand = bestanden.getJSONObject(i);</span>
 
-<span class="nc" id="L96">            File f = Path.of(downloadPath, bestand.getString(&quot;naam&quot;)).toFile();</span>
-<span class="nc bnc" id="L97" title="All 4 branches missed.">            if (!f.exists() || f.length() != bestand.getLong(&quot;grootte&quot;)) {</span>
-<span class="nc" id="L98">                toDownload.add(bestand);</span>
+<span class="nc" id="L104">            File f = Path.of(downloadPath, bestand.getString(&quot;naam&quot;)).toFile();</span>
+<span class="nc bnc" id="L105" title="All 4 branches missed.">            if (!f.exists() || f.length() != bestand.getLong(&quot;grootte&quot;)) {</span>
+<span class="nc" id="L106">                toDownload.add(bestand);</span>
             }
         }
 
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (!noDelete) {</span>
-<span class="nc" id="L103">            deleteZipFilesNotInBestanden(downloadPath, bestanden);</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (!noDelete) {</span>
+<span class="nc" id="L111">            deleteZipFilesNotInBestanden(downloadPath, bestanden);</span>
         }
 
-<span class="nc" id="L106">        long totalBytes = toDownload.stream().map(bestand -&gt; bestand.getLong(&quot;grootte&quot;)).reduce(Long::sum).orElse(0L);</span>
-<span class="nc" id="L107">        log.info(String.format(&quot;Aantal te downloaden naar directory \&quot;%s\&quot;: %d bestanden (%s)&quot;,</span>
-<span class="nc" id="L108">                Path.of(downloadPath).toAbsolutePath(),</span>
-<span class="nc" id="L109">                toDownload.size(),</span>
-<span class="nc" id="L110">                byteCountToDisplaySize(totalBytes)));</span>
+<span class="nc" id="L114">        long totalBytes =</span>
+<span class="nc" id="L115">                toDownload.stream()</span>
+<span class="nc" id="L116">                        .map(bestand -&gt; bestand.getLong(&quot;grootte&quot;))</span>
+<span class="nc" id="L117">                        .reduce(Long::sum)</span>
+<span class="nc" id="L118">                        .orElse(0L);</span>
+<span class="nc" id="L119">        log.info(</span>
+<span class="nc" id="L120">                String.format(</span>
+                        &quot;Aantal te downloaden naar directory \&quot;%s\&quot;: %d bestanden (%s)&quot;,
+<span class="nc" id="L122">                        Path.of(downloadPath).toAbsolutePath(),</span>
+<span class="nc" id="L123">                        toDownload.size(),</span>
+<span class="nc" id="L124">                        byteCountToDisplaySize(totalBytes)));</span>
 
-<span class="nc" id="L112">        int count = 0;</span>
-<span class="nc" id="L113">        long bytesRead = 0;</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">        for(JSONObject bestand: toDownload) {</span>
-<span class="nc" id="L115">            url = bestand.getString(&quot;url&quot;);</span>
-<span class="nc" id="L116">            String name = bestand.getString(&quot;naam&quot;);</span>
+<span class="nc" id="L126">        int count = 0;</span>
+<span class="nc" id="L127">        long bytesRead = 0;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        for (JSONObject bestand : toDownload) {</span>
+<span class="nc" id="L129">            url = bestand.getString(&quot;url&quot;);</span>
+<span class="nc" id="L130">            String name = bestand.getString(&quot;naam&quot;);</span>
 
-<span class="nc" id="L118">            try(ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),</span>
-<span class="nc" id="L119">                    new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));</span>
-<span class="nc" id="L120">                OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {</span>
+<span class="nc" id="L132">            try (ResumingInputStream input =</span>
+                            new ResumingInputStream(
+                                    new HttpStartRangeInputStreamProvider(
+<span class="nc" id="L135">                                            URI.create(url),</span>
+                                            new Java11HttpClientWrapper(
+<span class="nc" id="L137">                                                    HttpClient.newBuilder()</span>
+<span class="nc" id="L138">                                                            .cookieHandler(</span>
+                                                                    kadasterCookieManager))));
+<span class="nc" id="L140">                    OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {</span>
 
-<span class="nc" id="L122">                log.info(String.format(&quot;Bestand %2d/%d (%.1f%%): downloaden %s...&quot;,</span>
-<span class="nc" id="L123">                        ++count,</span>
-<span class="nc" id="L124">                        toDownload.size(),</span>
-<span class="nc" id="L125">                        (100.0 / totalBytes) * bytesRead,</span>
-                        name));
-<span class="nc" id="L127">                IOUtils.copyLarge(input, out);</span>
+<span class="nc" id="L142">                log.info(</span>
+<span class="nc" id="L143">                        String.format(</span>
+                                &quot;Bestand %2d/%d (%.1f%%): downloaden %s...&quot;,
+<span class="nc" id="L145">                                ++count,</span>
+<span class="nc" id="L146">                                toDownload.size(),</span>
+<span class="nc" id="L147">                                (100.0 / totalBytes) * bytesRead,</span>
+                                name));
+<span class="nc" id="L149">                IOUtils.copyLarge(input, out);</span>
             }
-<span class="nc" id="L129">            bytesRead += bestand.getLong(&quot;grootte&quot;);</span>
-<span class="nc" id="L130">        }</span>
-<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (!toDownload.isEmpty()) {</span>
-<span class="nc" id="L132">            String msg = &quot;&quot;;</span>
-<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (mirrorBaseUrl != null) {</span>
-<span class="nc bnc" id="L134" title="All 2 branches missed.">                for (int i = 0; i &lt; bestanden.length(); i++) {</span>
-<span class="nc" id="L135">                    JSONObject bestand = bestanden.getJSONObject(i);</span>
-<span class="nc" id="L136">                    String name = bestand.getString(&quot;naam&quot;);</span>
-<span class="nc" id="L137">                    bestand.put(&quot;url&quot;, URI.create(mirrorBaseUrl).resolve(name));</span>
+<span class="nc" id="L151">            bytesRead += bestand.getLong(&quot;grootte&quot;);</span>
+<span class="nc" id="L152">        }</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (!toDownload.isEmpty()) {</span>
+<span class="nc" id="L154">            String msg = &quot;&quot;;</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (mirrorBaseUrl != null) {</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L157">                    JSONObject bestand = bestanden.getJSONObject(i);</span>
+<span class="nc" id="L158">                    String name = bestand.getString(&quot;naam&quot;);</span>
+<span class="nc" id="L159">                    bestand.put(&quot;url&quot;, URI.create(mirrorBaseUrl).resolve(name));</span>
                 }
-<span class="nc" id="L139">                File bestandenJSONMirror = Path.of(downloadPath, &quot;bestanden.json&quot;).toFile();</span>
-<span class="nc" id="L140">                try(OutputStream out = new FileOutputStream(bestandenJSONMirror)) {</span>
-<span class="nc" id="L141">                    IOUtils.write(bestanden.toString(2), out, StandardCharsets.UTF_8);</span>
-<span class="nc" id="L142">                    msg = String.format(&quot;, JSON voor mirror \&quot;%s\&quot; geschreven naar \&quot;%s\&quot;&quot;, mirrorBaseUrl, bestandenJSONMirror);</span>
+<span class="nc" id="L161">                File bestandenJSONMirror = Path.of(downloadPath, &quot;bestanden.json&quot;).toFile();</span>
+<span class="nc" id="L162">                try (OutputStream out = new FileOutputStream(bestandenJSONMirror)) {</span>
+<span class="nc" id="L163">                    IOUtils.write(bestanden.toString(2), out, StandardCharsets.UTF_8);</span>
+<span class="nc" id="L164">                    msg =</span>
+<span class="nc" id="L165">                            String.format(</span>
+                                    &quot;, JSON voor mirror \&quot;%s\&quot; geschreven naar \&quot;%s\&quot;&quot;,
+                                    mirrorBaseUrl, bestandenJSONMirror);
                 }
             }
-<span class="nc" id="L145">            log.info(&quot;Alle bestanden gedownload in &quot; + formatTimeSince(start) + msg);</span>
+<span class="nc" id="L170">            log.info(&quot;Alle bestanden gedownload in &quot; + formatTimeSince(start) + msg);</span>
         }
 
-<span class="nc" id="L148">        return ExitCode.OK;</span>
+<span class="nc" id="L173">        return ExitCode.OK;</span>
     }
 
-    @Command(name=&quot;apply&quot;, sortOptions = false)
+    @Command(name = &quot;apply&quot;, sortOptions = false)
     public int apply(
             @Mixin BAG2DatabaseOptions dbOptions,
             @Mixin BAG2ProgressOptions progressOptions,
-            @Option(names=&quot;--kadaster-user&quot;) String kadasterUser,
-            @Option(names=&quot;--kadaster-password&quot;) String kadasterPassword,
-            @Option(names=&quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
-            @Option(names=&quot;--query-params&quot;, defaultValue = &quot;artikelnummers=2529&quot;) String queryParams,
-            @Option(names={&quot;-h&quot;,&quot;--help&quot;}, usageHelp = true) boolean showHelp
-    ) throws Exception {
+            @Option(names = &quot;--kadaster-user&quot;) String kadasterUser,
+            @Option(names = &quot;--kadaster-password&quot;) String kadasterPassword,
+            @Option(names = &quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
+            @Option(names = &quot;--query-params&quot;, defaultValue = &quot;artikelnummers=2529&quot;)
+                    String queryParams,
+            @Option(
+                            names = {&quot;-h&quot;, &quot;--help&quot;},
+                            usageHelp = true)
+                    boolean showHelp)
+            throws Exception {
 
-<span class="nc" id="L162">        log.info(BAG2LoaderUtils.getUserAgent());</span>
-<span class="nc" id="L163">        Instant start = Instant.now();</span>
+<span class="nc" id="L191">        log.info(BAG2LoaderUtils.getUserAgent());</span>
+<span class="nc" id="L192">        Instant start = Instant.now();</span>
 
-<span class="nc" id="L165">        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
-<span class="nc" id="L166">        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
+<span class="nc" id="L194">        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
+<span class="nc" id="L195">        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
 
-<span class="nc" id="L168">        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
+<span class="nc" id="L197">        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
 
-<span class="nc" id="L170">        log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
+<span class="nc" id="L199">        log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
 
-<span class="nc" id="L172">        List&lt;String&gt; urls = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        for(int i = 0; i &lt; bestanden.length(); i++) {</span>
-<span class="nc" id="L174">            JSONObject bestand = bestanden.getJSONObject(i);</span>
-<span class="nc" id="L175">            urls.add(bestand.getString(&quot;url&quot;));</span>
+<span class="nc" id="L201">        List&lt;String&gt; urls = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L203">            JSONObject bestand = bestanden.getJSONObject(i);</span>
+<span class="nc" id="L204">            urls.add(bestand.getString(&quot;url&quot;));</span>
         }
 
-<span class="nc" id="L178">        try(BAG2Database db = parent.getBAG2Database(dbOptions)) {</span>
-<span class="nc bnc" id="L179" title="All 2 branches missed.">            BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()</span>
-<span class="nc" id="L180">                    ? new BAG2ConsoleProgressReporter()</span>
-<span class="nc" id="L181">                    : new BAG2ProgressReporter();</span>
+<span class="nc" id="L207">        try (BAG2Database db = parent.getBAG2Database(dbOptions)) {</span>
+            BAG2ProgressReporter progressReporter =
+<span class="nc bnc" id="L209" title="All 2 branches missed.">                    progressOptions.isConsoleProgressEnabled()</span>
+<span class="nc" id="L210">                            ? new BAG2ConsoleProgressReporter()</span>
+<span class="nc" id="L211">                            : new BAG2ProgressReporter();</span>
 
-<span class="nc" id="L183">            parent.applyMutaties(db, dbOptions, new BAG2LoadOptions(), progressReporter, urls.toArray(String[]::new), kadasterCookieManager);</span>
-<span class="nc" id="L184">            log.info(&quot;Alle mutatiebestanden verwerkt in &quot; + formatTimeSince(start));</span>
-<span class="nc" id="L185">            return ExitCode.OK;</span>
+<span class="nc" id="L213">            parent.applyMutaties(</span>
+                    db,
+                    dbOptions,
+                    new BAG2LoadOptions(),
+                    progressReporter,
+<span class="nc" id="L218">                    urls.toArray(String[]::new),</span>
+                    kadasterCookieManager);
+<span class="nc" id="L220">            log.info(&quot;Alle mutatiebestanden verwerkt in &quot; + formatTimeSince(start));</span>
+<span class="nc" id="L221">            return ExitCode.OK;</span>
         }
     }
 
-    private static void mijnKadasterLogin(URI forUri, String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
-<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (!forUri.getHost().endsWith(&quot;kadaster.nl&quot;)) {</span>
-<span class="nc" id="L191">            return;</span>
+    private static void mijnKadasterLogin(
+            URI forUri, String username, String password, CookieManager cookieManager)
+            throws IOException, InterruptedException {
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (!forUri.getHost().endsWith(&quot;kadaster.nl&quot;)) {</span>
+<span class="nc" id="L229">            return;</span>
         }
-<span class="nc bnc" id="L193" title="All 4 branches missed.">        if (username == null || password == null) {</span>
-<span class="nc" id="L194">            throw new IllegalArgumentException(&quot;Gebruikersnaam en wachtwoord zijn verplicht&quot;);</span>
-        }
-
-<span class="nc" id="L197">        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(KADASTER_LOGIN_URL))</span>
-<span class="nc" id="L198">                .header(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</span>
-<span class="nc" id="L199">                .POST(HttpRequest.BodyPublishers.ofString(String.format(</span>
-                        &quot;user=%s&amp;password=%s&quot;,
-<span class="nc" id="L201">                        URLEncoder.encode(username, StandardCharsets.UTF_8),</span>
-<span class="nc" id="L202">                        URLEncoder.encode(password, StandardCharsets.UTF_8))))</span>
-<span class="nc" id="L203">                .build();</span>
-
-<span class="nc" id="L205">        HttpClient httpClient = HttpClient.newBuilder()</span>
-<span class="nc" id="L206">                .cookieHandler(cookieManager)</span>
-<span class="nc" id="L207">                .build();</span>
-
-<span class="nc" id="L209">        HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
-
-<span class="nc bnc" id="L211" title="All 2 branches missed.">        if (response.statusCode() != 302) {</span>
-<span class="nc" id="L212">            throw new IllegalArgumentException(String.format(&quot;Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;&quot;, username));</span>
+<span class="nc bnc" id="L231" title="All 4 branches missed.">        if (username == null || password == null) {</span>
+<span class="nc" id="L232">            throw new IllegalArgumentException(&quot;Gebruikersnaam en wachtwoord zijn verplicht&quot;);</span>
         }
 
-<span class="nc" id="L215">        Map&lt;String,List&lt;String&gt;&gt; cookies = cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap&lt;&gt;());</span>
+        HttpRequest request =
+<span class="nc" id="L236">                HttpRequest.newBuilder()</span>
+<span class="nc" id="L237">                        .uri(URI.create(KADASTER_LOGIN_URL))</span>
+<span class="nc" id="L238">                        .header(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</span>
+<span class="nc" id="L239">                        .POST(</span>
+<span class="nc" id="L240">                                HttpRequest.BodyPublishers.ofString(</span>
+<span class="nc" id="L241">                                        String.format(</span>
+                                                &quot;user=%s&amp;password=%s&quot;,
+<span class="nc" id="L243">                                                URLEncoder.encode(username, StandardCharsets.UTF_8),</span>
+<span class="nc" id="L244">                                                URLEncoder.encode(</span>
+                                                        password, StandardCharsets.UTF_8))))
+<span class="nc" id="L246">                        .build();</span>
 
-<span class="nc" id="L217">        Optional&lt;String&gt; kadasterTicketIdCookie = cookies.getOrDefault(&quot;Cookie&quot;, List.of())</span>
-<span class="nc" id="L218">                .stream().filter(c -&gt; c.startsWith(&quot;KadasterTicketId=&quot;)).findFirst();</span>
+<span class="nc" id="L248">        HttpClient httpClient = HttpClient.newBuilder().cookieHandler(cookieManager).build();</span>
 
-<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (kadasterTicketIdCookie.isEmpty()) {</span>
-<span class="nc" id="L221">            throw new IllegalArgumentException(&quot;Geen KadasterTicketId cookie ontvangen na inloggen&quot;);</span>
+<span class="nc" id="L250">        HttpResponse&lt;String&gt; response =</span>
+<span class="nc" id="L251">                httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
+
+<span class="nc bnc" id="L253" title="All 2 branches missed.">        if (response.statusCode() != 302) {</span>
+<span class="nc" id="L254">            throw new IllegalArgumentException(</span>
+<span class="nc" id="L255">                    String.format(</span>
+                            &quot;Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;&quot;,
+                            username));
         }
-<span class="nc" id="L223">    }</span>
 
-    private static JSONArray getBagBestanden(String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
-<span class="nc" id="L226">        url = url + &quot;?&quot; + queryParams;</span>
-<span class="nc" id="L227">        log.info(&quot;Opvragen bestanden JSON vanaf URL &quot; + url);</span>
-<span class="nc" id="L228">        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();</span>
-<span class="nc" id="L229">        HttpClient httpClient = HttpClient.newBuilder()</span>
-<span class="nc" id="L230">                .cookieHandler(kadasterCookieManager)</span>
-<span class="nc" id="L231">                .build();</span>
-<span class="nc" id="L232">        HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
+<span class="nc" id="L260">        Map&lt;String, List&lt;String&gt;&gt; cookies =</span>
+<span class="nc" id="L261">                cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap&lt;&gt;());</span>
+
+<span class="nc" id="L263">        Optional&lt;String&gt; kadasterTicketIdCookie =</span>
+<span class="nc" id="L264">                cookies.getOrDefault(&quot;Cookie&quot;, List.of()).stream()</span>
+<span class="nc" id="L265">                        .filter(c -&gt; c.startsWith(&quot;KadasterTicketId=&quot;))</span>
+<span class="nc" id="L266">                        .findFirst();</span>
+
+<span class="nc bnc" id="L268" title="All 2 branches missed.">        if (kadasterTicketIdCookie.isEmpty()) {</span>
+<span class="nc" id="L269">            throw new IllegalArgumentException(</span>
+                    &quot;Geen KadasterTicketId cookie ontvangen na inloggen&quot;);
+        }
+<span class="nc" id="L272">    }</span>
+
+    private static JSONArray getBagBestanden(
+            String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
+<span class="nc" id="L276">        url = url + &quot;?&quot; + queryParams;</span>
+<span class="nc" id="L277">        log.info(&quot;Opvragen bestanden JSON vanaf URL &quot; + url);</span>
+<span class="nc" id="L278">        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();</span>
+        HttpClient httpClient =
+<span class="nc" id="L280">                HttpClient.newBuilder().cookieHandler(kadasterCookieManager).build();</span>
+<span class="nc" id="L281">        HttpResponse&lt;String&gt; response =</span>
+<span class="nc" id="L282">                httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
 
         JSONArray bestanden;
         try {
-<span class="nc" id="L236">            bestanden = new JSONArray(response.body());</span>
-<span class="nc" id="L237">        } catch(Exception e) {</span>
-<span class="nc" id="L238">            throw new Exception(&quot;Fout bij parsen BAG bestanden JSON, body: &quot; + response.body(), e);</span>
-<span class="nc" id="L239">        }</span>
-<span class="nc" id="L240">        return bestanden;</span>
+<span class="nc" id="L286">            bestanden = new JSONArray(response.body());</span>
+<span class="nc" id="L287">        } catch (Exception e) {</span>
+<span class="nc" id="L288">            throw new Exception(&quot;Fout bij parsen BAG bestanden JSON, body: &quot; + response.body(), e);</span>
+<span class="nc" id="L289">        }</span>
+<span class="nc" id="L290">        return bestanden;</span>
     }
 
-    private static void deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden) throws IOException {
-<span class="nc" id="L244">        final Set&lt;String&gt; names = new HashSet&lt;&gt;();</span>
-<span class="nc bnc" id="L245" title="All 2 branches missed.">        for(int i = 0; i &lt; bestanden.length(); i++) {</span>
-<span class="nc" id="L246">            names.add(bestanden.getJSONObject(i).getString(&quot;naam&quot;));</span>
+    private static void deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden)
+            throws IOException {
+<span class="nc" id="L295">        final Set&lt;String&gt; names = new HashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L296" title="All 2 branches missed.">        for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L297">            names.add(bestanden.getJSONObject(i).getString(&quot;naam&quot;));</span>
         }
-<span class="nc" id="L248">        try(Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {</span>
-<span class="nc bnc" id="L249" title="All 6 branches missed.">            stream.filter(p -&gt; !Files.isDirectory(p) &amp;&amp; p.getFileName().toString().endsWith(&quot;.zip&quot;) &amp;&amp; !names.contains(p.getFileName().toString()))</span>
-<span class="nc" id="L250">                    .forEach(p -&gt; {</span>
-<span class="nc" id="L251">                        log.info(&quot;Verwijderen ZIP bestand niet in bestandenlijst: &quot; + p.getFileName());</span>
-                        try {
-<span class="nc" id="L253">                            Files.delete(p);</span>
-<span class="nc" id="L254">                        } catch(Exception e) {</span>
-<span class="nc" id="L255">                            log.error(String.format(&quot;Fout bij verwijderen ZIP bestand %s: %s&quot;, p.getFileName(), e));</span>
-<span class="nc" id="L256">                        }</span>
-<span class="nc" id="L257">                    });</span>
+<span class="nc" id="L299">        try (Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {</span>
+<span class="nc" id="L300">            stream.filter(</span>
+                            p -&gt;
+<span class="nc bnc" id="L302" title="All 2 branches missed.">                                    !Files.isDirectory(p)</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                                            &amp;&amp; p.getFileName().toString().endsWith(&quot;.zip&quot;)</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">                                            &amp;&amp; !names.contains(p.getFileName().toString()))</span>
+<span class="nc" id="L305">                    .forEach(</span>
+                            p -&gt; {
+<span class="nc" id="L307">                                log.info(</span>
+                                        &quot;Verwijderen ZIP bestand niet in bestandenlijst: &quot;
+<span class="nc" id="L309">                                                + p.getFileName());</span>
+                                try {
+<span class="nc" id="L311">                                    Files.delete(p);</span>
+<span class="nc" id="L312">                                } catch (Exception e) {</span>
+<span class="nc" id="L313">                                    log.error(</span>
+<span class="nc" id="L314">                                            String.format(</span>
+                                                    &quot;Fout bij verwijderen ZIP bestand %s: %s&quot;,
+<span class="nc" id="L316">                                                    p.getFileName(), e));</span>
+<span class="nc" id="L317">                                }</span>
+<span class="nc" id="L318">                            });</span>
         }
-<span class="nc" id="L259">    }</span>
+<span class="nc" id="L320">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

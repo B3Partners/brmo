@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-commandline</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.commandline</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ */
+package nl.b3p.brmo.commandline;
+
+import static nl.b3p.brmo.commandline.Main.sysexits.*;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.sql.DataSource;
+
+/**
+ * run: {@code java -jar brmo-commandline.jar -versieinfo -dbprops commandline-example.properties}
+ *
+ * @author Boy de Wit
+ * @author mprins
+ */
+<span class="nc" id="L54">public class Main {</span>
+
+<span class="nc" id="L56">    private static final Log LOG = LogFactory.getLog(Main.class);</span>
+
+    private static List&lt;Option&gt; modeOpts;
+
+    private static List&lt;Option&gt; dbOpts;
+
+    private static Options modeOptions;
+
+    private static Options dbOptions;
+
+<span class="nc" id="L66">    private static final Properties dbProps = new Properties();</span>
+
+    private static Options buildOptions() {
+
+<span class="nc" id="L70">        dbOpts =</span>
+<span class="nc" id="L71">                Arrays.asList(</span>
+<span class="nc" id="L72">                        Option.builder(&quot;db&quot;)</span>
+<span class="nc" id="L73">                                .desc(&quot;database properties file&quot;)</span>
+<span class="nc" id="L74">                                .type(File.class)</span>
+<span class="nc" id="L75">                                .longOpt(&quot;dbprops&quot;)</span>
+<span class="nc" id="L76">                                .argName(&quot;bestand&quot;)</span>
+<span class="nc" id="L77">                                .hasArg()</span>
+<span class="nc" id="L78">                                .required()</span>
+<span class="nc" id="L79">                                .numberOfArgs(1)</span>
+<span class="nc" id="L80">                                .build());</span>
+
+<span class="nc" id="L82">        modeOpts =</span>
+<span class="nc" id="L83">                Arrays.asList(</span>
+                        // info
+<span class="nc" id="L85">                        Option.builder(&quot;v&quot;)</span>
+<span class="nc" id="L86">                                .desc(&quot;Versie informatie van de verschillende schema's&quot;)</span>
+<span class="nc" id="L87">                                .longOpt(&quot;versieinfo&quot;)</span>
+<span class="nc" id="L88">                                .optionalArg(true)</span>
+<span class="nc" id="L89">                                .numberOfArgs(1)</span>
+<span class="nc" id="L90">                                .argName(&quot;[format]&quot;)</span>
+<span class="nc" id="L91">                                .build(),</span>
+<span class="nc" id="L92">                        Option.builder(&quot;l&quot;)</span>
+<span class="nc" id="L93">                                .desc(&quot;Geef overzicht van laadprocessen in staging database&quot;)</span>
+<span class="nc" id="L94">                                .longOpt(&quot;list&quot;)</span>
+<span class="nc" id="L95">                                .optionalArg(true)</span>
+<span class="nc" id="L96">                                .numberOfArgs(1)</span>
+<span class="nc" id="L97">                                .argName(&quot;[format]&quot;)</span>
+<span class="nc" id="L98">                                .build(),</span>
+<span class="nc" id="L99">                        Option.builder(&quot;s&quot;)</span>
+<span class="nc" id="L100">                                .desc(&quot;Geef aantallen van bericht status in staging database&quot;)</span>
+<span class="nc" id="L101">                                .longOpt(&quot;berichtstatus&quot;)</span>
+<span class="nc" id="L102">                                .optionalArg(true)</span>
+<span class="nc" id="L103">                                .numberOfArgs(1)</span>
+<span class="nc" id="L104">                                .argName(&quot;[format]&quot;)</span>
+<span class="nc" id="L105">                                .build(),</span>
+<span class="nc" id="L106">                        Option.builder(&quot;j&quot;)</span>
+<span class="nc" id="L107">                                .desc(&quot;Geef aantal berichten in job tabel van staging database&quot;)</span>
+<span class="nc" id="L108">                                .longOpt(&quot;jobstatus&quot;)</span>
+<span class="nc" id="L109">                                .optionalArg(true)</span>
+<span class="nc" id="L110">                                .numberOfArgs(1)</span>
+<span class="nc" id="L111">                                .argName(&quot;[format]&quot;)</span>
+<span class="nc" id="L112">                                .build(),</span>
+                        // laden
+<span class="nc" id="L114">                        Option.builder(&quot;a&quot;)</span>
+<span class="nc" id="L115">                                .desc(</span>
+                                        &quot;Laad totaalstand of mutatie uit bestand (.zip of .xml) in database&quot;)
+<span class="nc" id="L117">                                .longOpt(&quot;load&quot;)</span>
+<span class="nc" id="L118">                                .hasArg(true)</span>
+<span class="nc" id="L119">                                .numberOfArgs(2)</span>
+<span class="nc" id="L120">                                .argName(&quot;bestandsnaam &lt;type-br&gt; &lt;[archief-directory]&quot;)</span>
+<span class="nc" id="L121">                                .build(),</span>
+<span class="nc" id="L122">                        Option.builder(&quot;ad&quot;)</span>
+<span class="nc" id="L123">                                .desc(</span>
+                                        &quot;Laad stand of mutatie berichten (.zip of .xml) uit directory in database&quot;)
+<span class="nc" id="L125">                                .longOpt(&quot;loaddir&quot;)</span>
+<span class="nc" id="L126">                                .hasArg(true)</span>
+<span class="nc" id="L127">                                .numberOfArgs(2)</span>
+<span class="nc" id="L128">                                .argName(&quot;directory&gt; &lt;type-br&gt; &lt;[archief-directory]&quot;)</span>
+<span class="nc" id="L129">                                .build(),</span>
+                        // verwijderen
+<span class="nc" id="L131">                        Option.builder(&quot;d&quot;)</span>
+<span class="nc" id="L132">                                .desc(</span>
+                                        &quot;Verwijder laadprocessen in database (geef id weer met -list)&quot;)
+<span class="nc" id="L134">                                .longOpt(&quot;delete&quot;)</span>
+<span class="nc" id="L135">                                .hasArg()</span>
+<span class="nc" id="L136">                                .numberOfArgs(1)</span>
+<span class="nc" id="L137">                                .type(Integer.class)</span>
+<span class="nc" id="L138">                                .argName(&quot;id&quot;)</span>
+<span class="nc" id="L139">                                .build(),</span>
+                        // transformeren
+<span class="nc" id="L141">                        Option.builder(&quot;t&quot;)</span>
+<span class="nc" id="L142">                                .desc(&quot;Transformeer alle 'STAGING_OK' berichten naar rsgb.&quot;)</span>
+<span class="nc" id="L143">                                .longOpt(&quot;torsgb&quot;)</span>
+<span class="nc" id="L144">                                .optionalArg(true)</span>
+<span class="nc" id="L145">                                .numberOfArgs(1)</span>
+<span class="nc" id="L146">                                .argName(&quot;[error-state]&quot;)</span>
+<span class="nc" id="L147">                                .build(),</span>
+                        // export
+<span class="nc" id="L149">                        Option.builder(&quot;e&quot;)</span>
+<span class="nc" id="L150">                                .desc(</span>
+                                        &quot;Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.&quot;)
+<span class="nc" id="L152">                                .longOpt(&quot;exportgds&quot;)</span>
+<span class="nc" id="L153">                                .hasArg()</span>
+<span class="nc" id="L154">                                .numberOfArgs(1)</span>
+<span class="nc" id="L155">                                .type(File.class)</span>
+<span class="nc" id="L156">                                .argName(&quot;output-directory&quot;)</span>
+<span class="nc" id="L157">                                .build(),</span>
+                        //
+<span class="nc" id="L159">                        Option.builder(&quot;al&quot;)</span>
+<span class="nc" id="L160">                                .desc(</span>
+                                        &quot;Controleer of de berichten in de opgegeven afgiftelijst in de staging staan.&quot;)
+<span class="nc" id="L162">                                .longOpt(&quot;afgiftelijst&quot;)</span>
+<span class="nc" id="L163">                                .hasArg()</span>
+<span class="nc" id="L164">                                .numberOfArgs(2)</span>
+<span class="nc" id="L165">                                .type(File.class)</span>
+<span class="nc" id="L166">                                .argName(&quot;afgiftelijst&gt; &lt;uitvoerbestand&quot;)</span>
+<span class="nc" id="L167">                                .build());</span>
+
+<span class="nc" id="L169">        Options options = new Options();</span>
+
+<span class="nc" id="L171">        dbOptions = new Options();</span>
+<span class="nc" id="L172">        dbOpts.stream()</span>
+<span class="nc" id="L173">                .map(</span>
+                        (Option o) -&gt; {
+<span class="nc" id="L175">                            options.addOption(o);</span>
+<span class="nc" id="L176">                            return o;</span>
+                        })
+<span class="nc" id="L178">                .forEach(</span>
+                        (o) -&gt; {
+<span class="nc" id="L180">                            dbOptions.addOption(o);</span>
+<span class="nc" id="L181">                        });</span>
+
+<span class="nc" id="L183">        OptionGroup g = new OptionGroup();</span>
+<span class="nc" id="L184">        g.setRequired(true);</span>
+<span class="nc" id="L185">        modeOptions = new Options();</span>
+<span class="nc" id="L186">        modeOpts.stream()</span>
+<span class="nc" id="L187">                .map(</span>
+                        (o) -&gt; {
+<span class="nc" id="L189">                            g.addOption(o);</span>
+<span class="nc" id="L190">                            return o;</span>
+                        })
+<span class="nc" id="L192">                .forEach(</span>
+                        (o) -&gt; {
+<span class="nc" id="L194">                            modeOptions.addOption(o);</span>
+<span class="nc" id="L195">                        });</span>
+<span class="nc" id="L196">        options.addOptionGroup(g);</span>
+
+<span class="nc" id="L198">        return options;</span>
+    }
+
+    private static void printHelp() {
+<span class="nc" id="L202">        HelpFormatter formatter = new HelpFormatter();</span>
+<span class="nc" id="L203">        formatter.setOptionComparator(</span>
+                (lhs, rhs) -&gt; {
+<span class="nc" id="L205">                    List[] lists = new List[] {modeOpts, dbOpts};</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">                    for (List l : lists) {</span>
+<span class="nc" id="L207">                        int lhsIndex = l.indexOf(lhs);</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                        if (lhsIndex != -1) {</span>
+<span class="nc" id="L209">                            return Integer.compare(lhsIndex, l.indexOf(rhs));</span>
+                        }
+                    }
+<span class="nc" id="L212">                    return lhs.getArgName().compareTo(rhs.getArgName());</span>
+                });
+<span class="nc" id="L214">        final int W = 100;</span>
+<span class="nc" id="L215">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L216">        PrintWriter pw = new PrintWriter(sw);</span>
+<span class="nc" id="L217">        formatter.printUsage(</span>
+                pw, 80, &quot;java -jar brmo-commandline.jar --&lt;actie&gt; --dbprops &lt;db-props&gt;&quot;);
+<span class="nc" id="L219">        pw.print(&quot;\nActies:\n&quot;);</span>
+<span class="nc" id="L220">        formatter.printOptions(pw, W, modeOptions, 2, 2);</span>
+<span class="nc" id="L221">        pw.print(&quot;Configuratie:\n&quot;);</span>
+<span class="nc" id="L222">        formatter.printOptions(pw, W, dbOptions, 2, 2);</span>
+
+<span class="nc" id="L224">        System.err.println(sw.toString());</span>
+<span class="nc" id="L225">    }</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L228">        Options options = buildOptions();</span>
+<span class="nc" id="L229">        CommandLine cl = null;</span>
+        try {
+<span class="nc" id="L231">            CommandLineParser parser = new DefaultParser();</span>
+<span class="nc" id="L232">            cl = parser.parse(options, args);</span>
+<span class="nc" id="L233">        } catch (ParseException e) {</span>
+<span class="nc" id="L234">            LOG.fatal(e);</span>
+<span class="nc" id="L235">            printHelp();</span>
+<span class="nc" id="L236">            System.exit(EX_USAGE.code);</span>
+<span class="nc" id="L237">        }</span>
+
+<span class="nc" id="L239">        int exitcode = 0;</span>
+<span class="nc" id="L240">        BasicDataSource dsStaging = null;</span>
+<span class="nc" id="L241">        BasicDataSource dsRsgb = null;</span>
+<span class="nc" id="L242">        BasicDataSource dsRsgbBrk = null;</span>
+
+        try {
+<span class="nc" id="L245">            dbProps.load(new FileInputStream(cl.getOptionValue(&quot;dbprops&quot;)));</span>
+<span class="nc bnc" id="L246" title="All 3 branches missed.">            switch (dbProps.getProperty(&quot;dbtype&quot;)) {</span>
+                case &quot;oracle&quot;:
+<span class="nc" id="L248">                    Class.forName(&quot;oracle.jdbc.OracleDriver&quot;);</span>
+<span class="nc" id="L249">                    break;</span>
+                case &quot;postgis&quot;:
+<span class="nc" id="L251">                    Class.forName(&quot;org.postgresql.Driver&quot;);</span>
+<span class="nc" id="L252">                    break;</span>
+                default:
+<span class="nc" id="L254">                    throw new IllegalArgumentException(</span>
+                            &quot;Het database type &quot;
+<span class="nc" id="L256">                                    + dbProps.getProperty(&quot;dbtype&quot;)</span>
+                                    + &quot; wordt niet ondersteund of is niet opgegeven.&quot;);
+            }
+
+<span class="nc" id="L260">            dsStaging = new BasicDataSource();</span>
+<span class="nc" id="L261">            LOG.info(&quot;Verbinding maken met Staging database... &quot;);</span>
+<span class="nc" id="L262">            dsStaging.setUrl(dbProps.getProperty(&quot;staging.url&quot;));</span>
+<span class="nc" id="L263">            dsStaging.setUsername(dbProps.getProperty(&quot;staging.user&quot;));</span>
+<span class="nc" id="L264">            dsStaging.setPassword(dbProps.getProperty(&quot;staging.password&quot;));</span>
+<span class="nc" id="L265">            dsStaging.setConnectionProperties(dbProps.getProperty(&quot;staging.options&quot;, &quot;&quot;));</span>
+
+            // alleen rsgb verbinding maken als nodig
+<span class="nc bnc" id="L268" title="All 4 branches missed.">            if (cl.hasOption(&quot;torsgb&quot;) || cl.hasOption(&quot;versieinfo&quot;)) {</span>
+<span class="nc" id="L269">                LOG.info(&quot;Verbinding maken met RSGB database... &quot;);</span>
+<span class="nc" id="L270">                dsRsgb = new BasicDataSource();</span>
+<span class="nc" id="L271">                dsRsgb.setUrl(dbProps.getProperty(&quot;rsgb.url&quot;));</span>
+<span class="nc" id="L272">                dsRsgb.setUsername(dbProps.getProperty(&quot;rsgb.user&quot;));</span>
+<span class="nc" id="L273">                dsRsgb.setPassword(dbProps.getProperty(&quot;rsgb.password&quot;));</span>
+<span class="nc" id="L274">                dsRsgb.setConnectionProperties(dbProps.getProperty(&quot;rsgb.options&quot;, &quot;&quot;));</span>
+
+<span class="nc" id="L276">                LOG.info(&quot;Verbinding maken met RSGB BRK database... &quot;);</span>
+<span class="nc" id="L277">                dsRsgbBrk = new BasicDataSource();</span>
+<span class="nc" id="L278">                dsRsgbBrk.setUrl(dbProps.getProperty(&quot;rsgbbrk.url&quot;));</span>
+<span class="nc" id="L279">                dsRsgbBrk.setUsername(dbProps.getProperty(&quot;rsgbbrk.user&quot;));</span>
+<span class="nc" id="L280">                dsRsgbBrk.setPassword(dbProps.getProperty(&quot;rsgbbrk.password&quot;));</span>
+<span class="nc" id="L281">                dsRsgbBrk.setConnectionProperties(dbProps.getProperty(&quot;rsgbbrk.options&quot;, &quot;&quot;));</span>
+            }
+
+            // staging-only commando's
+<span class="nc bnc" id="L285" title="All 2 branches missed.">            if (cl.hasOption(&quot;list&quot;)) {</span>
+<span class="nc" id="L286">                exitcode = list(dsStaging, cl.getOptionValue(&quot;l&quot;, &quot;text&quot;));</span>
+<span class="nc bnc" id="L287" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;berichtstatus&quot;)) {</span>
+<span class="nc" id="L288">                exitcode = berichtStatus(dsStaging, cl.getOptionValue(&quot;berichtstatus&quot;, &quot;text&quot;));</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;jobstatus&quot;)) {</span>
+<span class="nc" id="L290">                exitcode = jobStatus(dsStaging, cl.getOptionValue(&quot;jobstatus&quot;, &quot;text&quot;));</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;load&quot;)) {</span>
+                // omdat we 2 verplichte argumenten hebben en 1 optionele die als String[]
+                // worden doorgegeven een stream gebruike om eea aan mekaar te plakken
+<span class="nc" id="L294">                exitcode =</span>
+<span class="nc" id="L295">                        load(</span>
+                                dsStaging,
+<span class="nc" id="L297">                                Stream.of(cl.getOptionValues(&quot;load&quot;), cl.getArgs())</span>
+<span class="nc" id="L298">                                        .flatMap(Stream::of)</span>
+<span class="nc" id="L299">                                        .toArray(String[]::new));</span>
+<span class="nc bnc" id="L300" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;loaddir&quot;)) {</span>
+<span class="nc" id="L301">                exitcode =</span>
+<span class="nc" id="L302">                        loaddir(</span>
+                                dsStaging,
+<span class="nc" id="L304">                                Stream.of(cl.getOptionValues(&quot;loaddir&quot;), cl.getArgs())</span>
+<span class="nc" id="L305">                                        .flatMap(Stream::of)</span>
+<span class="nc" id="L306">                                        .toArray(String[]::new));</span>
+<span class="nc bnc" id="L307" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;delete&quot;)) {</span>
+<span class="nc" id="L308">                exitcode = delete(dsStaging, cl.getOptionValue(&quot;delete&quot;));</span>
+<span class="nc bnc" id="L309" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;exportgds&quot;)) {</span>
+<span class="nc" id="L310">                exitcode = getMutations(dsStaging, cl.getOptionValues(&quot;exportgds&quot;));</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">            } else if (cl.hasOption(&quot;afgiftelijst&quot;)) {</span>
+<span class="nc" id="L312">                String[] files =</span>
+<span class="nc" id="L313">                        cl.getOptionValues(&quot;afgiftelijst&quot;); // cl.getOptionValue(&quot;afgiftelijst&quot;)</span>
+<span class="nc" id="L314">                exitcode = checkAfgiftelijst(dsStaging, files[0], files[1]);</span>
+<span class="nc" id="L315">            }</span>
+            // ----------------
+            // rsgb commando's
+<span class="nc bnc" id="L318" title="All 2 branches missed.">            else if (cl.hasOption(&quot;torsgb&quot;)) {</span>
+<span class="nc" id="L319">                exitcode =</span>
+<span class="nc" id="L320">                        toRsgb(</span>
+                                dsStaging,
+                                dsRsgb,
+                                dsRsgbBrk,
+<span class="nc" id="L324">                                cl.getOptionValue(&quot;berichtstatus&quot;, &quot;ignore&quot;));</span>
+            } // ----------------
+            // alle schema's / databases
+<span class="nc bnc" id="L327" title="All 2 branches missed.">            else if (cl.hasOption(&quot;versieinfo&quot;)) {</span>
+<span class="nc" id="L328">                exitcode =</span>
+<span class="nc" id="L329">                        versieInfo(</span>
+                                dsStaging,
+                                dsRsgb,
+                                dsRsgbBrk,
+<span class="nc" id="L333">                                cl.getOptionValue(&quot;versieinfo&quot;, &quot;text&quot;));</span>
+            }
+<span class="nc" id="L335">        } catch (BrmoException | InterruptedException ex) {</span>
+<span class="nc" id="L336">            LOG.error(&quot;Fout tijdens uitvoeren met argumenten: &quot; + Arrays.toString(args), ex);</span>
+<span class="nc" id="L337">            System.err.println(ex.getLocalizedMessage());</span>
+<span class="nc" id="L338">            exitcode = 1;</span>
+<span class="nc" id="L339">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L340">            LOG.error(&quot;Database driver is niet gevonden.&quot;, ex);</span>
+<span class="nc" id="L341">            System.err.println(ex.getLocalizedMessage());</span>
+<span class="nc" id="L342">            exitcode = EX_DATAERR.code;</span>
+<span class="nc" id="L343">        } catch (IOException ex) {</span>
+<span class="nc" id="L344">            LOG.error(&quot;Het laden van het configuratie bestand is mislukt.&quot;, ex);</span>
+<span class="nc" id="L345">            System.err.println(ex.getLocalizedMessage());</span>
+<span class="nc" id="L346">            exitcode = EX_NOINPUT.code;</span>
+<span class="nc" id="L347">        }</span>
+        try {
+<span class="nc bnc" id="L349" title="All 2 branches missed.">            if (dsStaging != null) {</span>
+<span class="nc" id="L350">                dsStaging.close();</span>
+            }
+<span class="nc bnc" id="L352" title="All 2 branches missed.">            if (dsRsgb != null) {</span>
+<span class="nc" id="L353">                dsRsgb.close();</span>
+            }
+<span class="nc" id="L355">        } catch (SQLException ex) {</span>
+<span class="nc" id="L356">            LOG.debug(&quot;Mogelijke fout tijdens afsluiten database verbindingen.&quot;, ex);</span>
+<span class="nc" id="L357">        }</span>
+
+<span class="nc" id="L359">        System.exit(exitcode);</span>
+<span class="nc" id="L360">    }</span>
+
+    private static int toRsgb(
+            DataSource dataSourceStaging,
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            String errorState)
+            throws BrmoException, InterruptedException {
+<span class="nc" id="L368">        LOG.info(&quot;Start staging naar rsgb transformatie.&quot;);</span>
+<span class="nc" id="L369">        BrmoFramework brmo =</span>
+                new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
+<span class="nc" id="L371">        brmo.setOrderBerichten(true);</span>
+<span class="nc" id="L372">        brmo.setErrorState(errorState);</span>
+<span class="nc" id="L373">        Thread t = brmo.toRsgb();</span>
+<span class="nc" id="L374">        t.join();</span>
+<span class="nc" id="L375">        LOG.info(&quot;Klaar met staging naar rsgb transformatie.&quot;);</span>
+<span class="nc" id="L376">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L377">        return 0;</span>
+    }
+
+    private static int versieInfo(
+            DataSource dataSourceStaging,
+            DataSource dataSourceRsgb,
+            DataSource dataSourceRsgbBrk,
+            String format)
+            throws BrmoException {
+<span class="nc" id="L386">        BrmoFramework brmo =</span>
+                new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
+<span class="nc bnc" id="L388" title="All 2 branches missed.">        if (format.equalsIgnoreCase(&quot;json&quot;)) {</span>
+<span class="nc" id="L389">            StringBuilder sb = new StringBuilder(&quot;{&quot;);</span>
+<span class="nc" id="L390">            sb.append(&quot;\&quot;staging_versie\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L391">                    .append(brmo.getStagingVersion())</span>
+<span class="nc" id="L392">                    .append(&quot;\&quot;,&quot;)</span>
+<span class="nc" id="L393">                    .append(&quot;\&quot;rsgb_versie\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L394">                    .append(brmo.getRsgbVersion())</span>
+<span class="nc" id="L395">                    .append(&quot;\&quot;,&quot;);</span>
+<span class="nc" id="L396">            System.out.println(sb);</span>
+<span class="nc" id="L397">        } else {</span>
+<span class="nc" id="L398">            System.out.println(&quot;staging versie: &quot; + brmo.getStagingVersion());</span>
+<span class="nc" id="L399">            System.out.println(&quot;rsgb    versie: &quot; + brmo.getRsgbVersion());</span>
+        }
+<span class="nc" id="L401">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L402">        return 0;</span>
+    }
+
+    /**
+     * Geef een lijst van alle laadprocessen.
+     *
+     * @param ds staging datasource
+     * @return exitcode {@code 0} als succesvol
+     * @throws BrmoException als er iets mis gaat in benaderen data
+     */
+    private static int list(DataSource ds, String format) throws BrmoException {
+<span class="nc" id="L413">        LOG.info(&quot;Ophalen laadproces informatie.&quot;);</span>
+<span class="nc" id="L414">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L415">        List&lt;LaadProces&gt; processen = brmo.listLaadProcessen();</span>
+
+<span class="nc bnc" id="L417" title="All 2 branches missed.">        if (format.equalsIgnoreCase(&quot;json&quot;)) {</span>
+<span class="nc" id="L418">            StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L419">            sb.append(&quot;{\&quot;aantal\&quot;:&quot;).append(processen.size());</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">            if (!processen.isEmpty()) {</span>
+<span class="nc" id="L421">                sb.append(&quot;,\&quot;laadprocessen\&quot;:[&quot;);</span>
+<span class="nc" id="L422">                processen.stream()</span>
+<span class="nc" id="L423">                        .forEach(</span>
+                                (lp) -&gt; {
+<span class="nc" id="L425">                                    sb.append(&quot;{&quot;)</span>
+<span class="nc" id="L426">                                            .append(&quot;\&quot;id\&quot;:&quot;)</span>
+<span class="nc" id="L427">                                            .append(lp.getId())</span>
+<span class="nc" id="L428">                                            .append(&quot;,&quot;)</span>
+<span class="nc" id="L429">                                            .append(&quot;\&quot;bestand_naam\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L430">                                            .append(lp.getBestandNaam())</span>
+<span class="nc" id="L431">                                            .append(&quot;\&quot;,&quot;)</span>
+<span class="nc" id="L432">                                            .append(&quot;\&quot;bestand_datum\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L433">                                            .append(lp.getBestandDatum())</span>
+<span class="nc" id="L434">                                            .append(&quot;\&quot;,&quot;)</span>
+<span class="nc" id="L435">                                            .append(&quot;\&quot;soort\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L436">                                            .append(lp.getSoort())</span>
+<span class="nc" id="L437">                                            .append(&quot;\&quot;,&quot;)</span>
+<span class="nc" id="L438">                                            .append(&quot;\&quot;status\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L439">                                            .append(lp.getStatus())</span>
+<span class="nc" id="L440">                                            .append(&quot;\&quot;,&quot;)</span>
+<span class="nc" id="L441">                                            .append(&quot;\&quot;contact\&quot;:\&quot;&quot;)</span>
+<span class="nc" id="L442">                                            .append(lp.getContactEmail())</span>
+<span class="nc" id="L443">                                            .append(&quot;\&quot;},&quot;);</span>
+<span class="nc" id="L444">                                });</span>
+<span class="nc" id="L445">                sb.deleteCharAt(sb.length() - 1);</span>
+<span class="nc" id="L446">                sb.append(&quot;]&quot;);</span>
+            }
+<span class="nc" id="L448">            sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L449">            System.out.println(sb);</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">        } else if (processen.isEmpty()) {</span>
+<span class="nc" id="L451">            System.out.println(&quot;Geen laadprocessen gevonden.&quot;);</span>
+        } else {
+<span class="nc" id="L453">            System.out.println(&quot;Aantal laadprocessen: &quot; + processen.size());</span>
+<span class="nc" id="L454">            System.out.println(&quot;id, bestand_naam, bestand_datum, soort, status, contact&quot;);</span>
+
+<span class="nc" id="L456">            processen.stream()</span>
+<span class="nc" id="L457">                    .forEach(</span>
+                            (lp) -&gt; {
+<span class="nc" id="L459">                                System.out.printf(</span>
+                                        &quot;%s,%s,%s,%s,%s,%s\n&quot;,
+<span class="nc" id="L461">                                        lp.getId(),</span>
+<span class="nc" id="L462">                                        lp.getBestandNaam(),</span>
+<span class="nc" id="L463">                                        lp.getBestandDatum(),</span>
+<span class="nc" id="L464">                                        lp.getSoort(),</span>
+<span class="nc" id="L465">                                        lp.getStatus(),</span>
+<span class="nc" id="L466">                                        lp.getContactEmail());</span>
+<span class="nc" id="L467">                            });</span>
+        }
+<span class="nc" id="L469">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L470">        return 0;</span>
+    }
+
+    private static int checkAfgiftelijst(DataSource ds, String input, String output)
+            throws BrmoException {
+<span class="nc" id="L475">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+        try {
+<span class="nc" id="L477">            LOG.info(&quot;Afgiftelijst controleren.&quot;);</span>
+<span class="nc" id="L478">            File f = new File(input);</span>
+
+<span class="nc bnc" id="L480" title="All 2 branches missed.">            if (!f.exists()) {</span>
+<span class="nc" id="L481">                throw new IOException(&quot;bestand niet gevonden: &quot; + input);</span>
+            }
+<span class="nc bnc" id="L483" title="All 2 branches missed.">            if (!f.canRead()) {</span>
+<span class="nc" id="L484">                throw new IOException(&quot;bestand niet leesbaar: &quot; + input);</span>
+            }
+<span class="nc" id="L486">            File response = brmo.checkAfgiftelijst(input, output);</span>
+<span class="nc" id="L487">            System.out.print(&quot;Afgifte gecontroleerd:&quot;);</span>
+<span class="nc" id="L488">            brmo.closeBrmoFramework();</span>
+<span class="nc" id="L489">            return 0;</span>
+<span class="nc" id="L490">        } catch (Exception ex) {</span>
+<span class="nc" id="L491">            System.err.println(&quot;Error reading afgiftelijst: &quot; + ex.getLocalizedMessage());</span>
+<span class="nc" id="L492">            brmo.closeBrmoFramework();</span>
+<span class="nc" id="L493">            return 1;</span>
+        }
+    }
+
+    private static int berichtStatus(DataSource ds, String format) throws BrmoException {
+<span class="nc" id="L498">        LOG.info(&quot;Ophalen bericht status informatie.&quot;);</span>
+<span class="nc" id="L499">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L500">        long staging_ok = brmo.getCountBerichten(null, Bericht.STATUS.STAGING_OK.name());</span>
+<span class="nc" id="L501">        long staging_nok = brmo.getCountBerichten(null, Bericht.STATUS.STAGING_NOK.name());</span>
+<span class="nc" id="L502">        long rsgb_ok = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_OK.name());</span>
+<span class="nc" id="L503">        long rsgb_nok = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_NOK.name());</span>
+<span class="nc" id="L504">        long rsgb_bag_nok = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_BAG_NOK.name());</span>
+<span class="nc" id="L505">        long rsgb_outdated = brmo.getCountBerichten(null, Bericht.STATUS.RSGB_OUTDATED.name());</span>
+<span class="nc" id="L506">        long archive = brmo.getCountBerichten(null, Bericht.STATUS.ARCHIVE.name());</span>
+
+<span class="nc bnc" id="L508" title="All 2 branches missed.">        if (format.equalsIgnoreCase(&quot;json&quot;)) {</span>
+<span class="nc" id="L509">            System.out.printf(</span>
+                    &quot;{\&quot;status\&quot;:[{\&quot;STAGING_OK\&quot;:%s},{\&quot;STAGING_NOK\&quot;:%s},{\&quot;RSGB_OK\&quot;:%s},{\&quot;RSGB_NOK\&quot;:%s},{\&quot;RSGB_BAG_NOK\&quot;:%s},{\&quot;RSGB_OUTDATED\&quot;:%s},{\&quot;ARCHIVE\&quot;:%s}]}\n&quot;,
+<span class="nc" id="L511">                    staging_ok,</span>
+<span class="nc" id="L512">                    staging_nok,</span>
+<span class="nc" id="L513">                    rsgb_ok,</span>
+<span class="nc" id="L514">                    rsgb_nok,</span>
+<span class="nc" id="L515">                    rsgb_bag_nok,</span>
+<span class="nc" id="L516">                    rsgb_outdated,</span>
+<span class="nc" id="L517">                    archive);</span>
+        } else {
+<span class="nc" id="L519">            System.out.println(&quot;status, aantal&quot;);</span>
+<span class="nc" id="L520">            System.out.printf(&quot;STAGING_OK,%s\n&quot;, staging_ok);</span>
+<span class="nc" id="L521">            System.out.printf(&quot;STAGING_NOK,%s\n&quot;, staging_nok);</span>
+<span class="nc" id="L522">            System.out.printf(&quot;RSGB_OK,%s\n&quot;, rsgb_ok);</span>
+<span class="nc" id="L523">            System.out.printf(&quot;RSGB_NOK,%s\n&quot;, rsgb_nok);</span>
+<span class="nc" id="L524">            System.out.printf(&quot;RSGB_BAG_NOK,%s\n&quot;, rsgb_bag_nok);</span>
+<span class="nc" id="L525">            System.out.printf(&quot;RSGB_OUTDATED,%s\n&quot;, rsgb_outdated);</span>
+<span class="nc" id="L526">            System.out.printf(&quot;ARCHIVE,%s\n&quot;, archive);</span>
+        }
+
+<span class="nc" id="L529">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L530">        return 0;</span>
+    }
+
+    private static int jobStatus(DataSource ds, String format) throws BrmoException {
+<span class="nc" id="L534">        LOG.info(&quot;Ophalen staging job informatie.&quot;);</span>
+<span class="nc" id="L535">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L536">        long count = brmo.getCountJob();</span>
+
+<span class="nc bnc" id="L538" title="All 2 branches missed.">        if (format.equalsIgnoreCase(&quot;json&quot;)) {</span>
+<span class="nc" id="L539">            System.out.printf(&quot;{\&quot;jobs\&quot;:%s}\n&quot;, count);</span>
+        } else {
+<span class="nc" id="L541">            System.out.println(&quot;aantal&quot;);</span>
+<span class="nc" id="L542">            System.out.println(count);</span>
+        }
+<span class="nc" id="L544">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L545">        return 0;</span>
+    }
+
+    private static int delete(DataSource ds, String id) throws BrmoException {
+<span class="nc" id="L549">        LOG.info(&quot;Verwijderen laadproces &quot; + id + &quot; met aanhangende berichten uit staging.&quot;);</span>
+<span class="nc" id="L550">        long laadProcesId = 0;</span>
+<span class="nc bnc" id="L551" title="All 4 branches missed.">        if (id != null &amp;&amp; !id.isEmpty()) {</span>
+<span class="nc" id="L552">            laadProcesId = Long.valueOf(id);</span>
+        }
+
+<span class="nc" id="L555">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L556">        brmo.delete(laadProcesId);</span>
+<span class="nc" id="L557">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L558">        return 0;</span>
+    }
+
+    private static int getMutations(DataSource ds, String... opts) {
+<span class="nc" id="L562">        LOG.info(&quot;Start export GDS2 berichten naar &quot; + opts[0]);</span>
+<span class="nc" id="L563">        Connection con = null;</span>
+<span class="nc" id="L564">        String dir = opts[0];</span>
+<span class="nc" id="L565">        int exitcode = 0;</span>
+        try {
+<span class="nc" id="L567">            LOG.info(&quot;Ophalen automatisch proces(sen) waarmee GDS2 berichten zijn geladen.&quot;);</span>
+<span class="nc" id="L568">            con = ds.getConnection();</span>
+<span class="nc" id="L569">            Statement stmt = con.createStatement();</span>
+<span class="nc" id="L570">            String autoProcessen =</span>
+                    &quot;select id FROM automatisch_proces where dtype = 'GDS2OphaalProces'&quot;;
+<span class="nc" id="L572">            ResultSet rs = stmt.executeQuery(autoProcessen);</span>
+<span class="nc bnc" id="L573" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L574">                Long id = rs.getLong(1);</span>
+<span class="nc" id="L575">                LOG.info(&quot;Ophalen laadprocessen voor automatisch proces: &quot; + id);</span>
+<span class="nc" id="L576">                String processen =</span>
+                        &quot;select id,bestand_naam from laadproces where automatisch_proces = &quot; + id;
+<span class="nc" id="L578">                Statement laadprocesStmt = con.createStatement();</span>
+<span class="nc" id="L579">                ResultSet lpRs = laadprocesStmt.executeQuery(processen);</span>
+<span class="nc bnc" id="L580" title="All 2 branches missed.">                while (lpRs.next()) {</span>
+<span class="nc" id="L581">                    Long lpId = lpRs.getLong(1);</span>
+<span class="nc" id="L582">                    String bestandsNaam = lpRs.getString(2);</span>
+<span class="nc" id="L583">                    String berichten =</span>
+                            &quot;select id, br_orgineel_xml, object_ref from bericht where laadprocesid = &quot;
+                                    + lpId;
+<span class="nc" id="L586">                    Statement berichtStmt = con.createStatement();</span>
+<span class="nc" id="L587">                    ResultSet berRs = berichtStmt.executeQuery(berichten);</span>
+<span class="nc bnc" id="L588" title="All 2 branches missed.">                    while (berRs.next()) {</span>
+<span class="nc" id="L589">                        LOG.info(&quot;Bericht &quot; + id + &quot; - &quot; + bestandsNaam);</span>
+<span class="nc" id="L590">                        String xml = berRs.getString(&quot;br_orgineel_xml&quot;);</span>
+<span class="nc" id="L591">                        writeXML(xml, bestandsNaam, dir);</span>
+<span class="nc" id="L592">                    }</span>
+<span class="nc" id="L593">                }</span>
+<span class="nc" id="L594">            }</span>
+<span class="nc" id="L595">        } catch (SQLException ex) {</span>
+<span class="nc" id="L596">            LOG.error(&quot;Fout bij ophalen berichten/laadprocessen/automatische processen.&quot;, ex);</span>
+<span class="nc" id="L597">            exitcode = EX_UNAVAILABLE.code;</span>
+        } finally {
+<span class="nc bnc" id="L599" title="All 2 branches missed.">            if (con != null) {</span>
+                try {
+<span class="nc" id="L601">                    con.close();</span>
+<span class="nc" id="L602">                } catch (SQLException ex) {</span>
+<span class="nc" id="L603">                    LOG.warn(&quot;Database verbinding sluiten is mislukt.&quot;, ex);</span>
+<span class="nc" id="L604">                }</span>
+            }
+        }
+<span class="nc" id="L607">        return exitcode;</span>
+    }
+
+    private static void writeXML(String xml, String filename, String directory) {
+<span class="nc" id="L611">        ZipOutputStream out = null;</span>
+        try {
+<span class="nc" id="L613">            filename = Paths.get(filename + &quot;.zip&quot;).normalize().toString();</span>
+<span class="nc" id="L614">            final File f = new File(directory, filename);</span>
+<span class="nc" id="L615">            out = new ZipOutputStream(new FileOutputStream(f));</span>
+<span class="nc" id="L616">            ZipEntry e = new ZipEntry(filename);</span>
+<span class="nc" id="L617">            out.putNextEntry(e);</span>
+<span class="nc" id="L618">            byte[] data = xml.getBytes();</span>
+<span class="nc" id="L619">            out.write(data, 0, data.length);</span>
+<span class="nc" id="L620">            out.closeEntry();</span>
+<span class="nc" id="L621">            out.close();</span>
+<span class="nc" id="L622">        } catch (IOException ex) {</span>
+<span class="nc" id="L623">            LOG.error(</span>
+                    &quot;Schrijven van bestand &quot; + filename + &quot; in &quot; + directory + &quot; is mislukt.&quot;, ex);
+        } finally {
+<span class="nc bnc" id="L626" title="All 2 branches missed.">            if (out != null) {</span>
+                try {
+<span class="nc" id="L628">                    out.close();</span>
+<span class="nc" id="L629">                } catch (IOException ex) {</span>
+<span class="nc" id="L630">                    LOG.warn(&quot;Sluiten .zip file is mislukt.&quot;, ex);</span>
+<span class="nc" id="L631">                }</span>
+            }
+        }
+<span class="nc" id="L634">    }</span>
+
+    /**
+     * verwerk xml of zip bestand naar staging db.
+     *
+     * @param ds datasource
+     * @param opts array met {vollidig pad naar bestand, type BR, optionele archief directory}
+     * @return {@code 0} als succesvol
+     * @throws BrmoException in geval van niet laadfout
+     */
+    private static int load(DataSource ds, String... opts) throws BrmoException {
+<span class="nc" id="L645">        String fileName = opts[0];</span>
+<span class="nc" id="L646">        String brType = opts[1];</span>
+<span class="nc bnc" id="L647" title="All 2 branches missed.">        String archiefDir = opts.length == 3 ? opts[2] : null;</span>
+
+<span class="nc" id="L649">        LOG.debug(String.format(&quot;Begin laden van bestand: %s, type %s&quot;, fileName, brType));</span>
+<span class="nc" id="L650">        BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L651">        brmo.setOrderBerichten(true);</span>
+<span class="nc" id="L652">        brmo.setErrorState(&quot;ignore&quot;);</span>
+<span class="nc" id="L653">        brmo.loadFromFile(brType, fileName, null);</span>
+<span class="nc" id="L654">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L655">        LOG.info(String.format(&quot;Klaar met laden van bestand: %s, type %s&quot;, fileName, brType));</span>
+<span class="nc" id="L656">        archiveerBestand(fileName, archiefDir);</span>
+<span class="nc" id="L657">        return 0;</span>
+    }
+
+    /**
+     * verwerk xml en zip bestanden uit directory naar staging db.
+     *
+     * @param ds datasource
+     * @param opts array met {directory, type BR, optionele archief directory}
+     * @return {@code 0} als succesvol,{@code EX_DATAERR} in geval van een waarschuwing
+     * @throws BrmoException in geval van niet herstalebare laadfout
+     */
+    private static int loaddir(DataSource ds, String... opts) throws BrmoException {
+<span class="nc" id="L669">        String scanDir = opts[0];</span>
+<span class="nc" id="L670">        String brType = opts[1];</span>
+<span class="nc bnc" id="L671" title="All 2 branches missed.">        String archiefDir = opts.length == 3 ? opts[2] : null;</span>
+
+<span class="nc" id="L673">        int exitcode = 0;</span>
+<span class="nc bnc" id="L674" title="All 2 branches missed.">        if (!scanDir.endsWith(File.separator)) {</span>
+<span class="nc" id="L675">            scanDir += File.separator;</span>
+        }
+<span class="nc" id="L677">        LOG.info(String.format(&quot;Begin laden van directory: %s, type %s&quot;, scanDir, brType));</span>
+
+<span class="nc" id="L679">        File dir = new File(scanDir);</span>
+<span class="nc bnc" id="L680" title="All 2 branches missed.">        if (dir.isDirectory()) {</span>
+<span class="nc" id="L681">            boolean withWarnings = false;</span>
+<span class="nc" id="L682">            String[] fNames =</span>
+<span class="nc" id="L683">                    dir.list(</span>
+                            (File f, String name) -&gt; {
+<span class="nc bnc" id="L685" title="All 2 branches missed.">                                return (name.endsWith(&quot;.xml&quot;)</span>
+<span class="nc bnc" id="L686" title="All 2 branches missed.">                                        || name.endsWith(&quot;.XML&quot;)</span>
+<span class="nc bnc" id="L687" title="All 2 branches missed.">                                        || name.endsWith(&quot;.zip&quot;)</span>
+<span class="nc bnc" id="L688" title="All 2 branches missed.">                                        || name.endsWith(&quot;.ZIP&quot;));</span>
+                            });
+<span class="nc" id="L690">            BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L691">            brmo.setOrderBerichten(true);</span>
+<span class="nc" id="L692">            brmo.setErrorState(&quot;ignore&quot;);</span>
+
+<span class="nc bnc" id="L694" title="All 2 branches missed.">            for (String fName : fNames) {</span>
+                try {
+<span class="nc" id="L696">                    LOG.debug(String.format(&quot;Begin laden van bestand: %s, type %s&quot;, fName, brType));</span>
+<span class="nc" id="L697">                    brmo.loadFromFile(brType, scanDir + fName, null);</span>
+<span class="nc" id="L698">                    LOG.info(</span>
+<span class="nc" id="L699">                            String.format(</span>
+                                    &quot;Klaar met laden van bestand: %s, type %s&quot;, fName, brType));
+<span class="nc" id="L701">                } catch (BrmoDuplicaatLaadprocesException dup) {</span>
+<span class="nc" id="L702">                    LOG.warn(</span>
+<span class="nc" id="L703">                            String.format(</span>
+                                    &quot;Laden duplicaat bestand %s overgeslagen. Oorzaak: %s&quot;,
+<span class="nc" id="L705">                                    fName, dup.getLocalizedMessage()));</span>
+<span class="nc" id="L706">                    withWarnings = true;</span>
+<span class="nc" id="L707">                } catch (BrmoLeegBestandException leeg) {</span>
+<span class="nc" id="L708">                    LOG.warn(</span>
+<span class="nc" id="L709">                            String.format(</span>
+                                    &quot;Laden 'leeg' bestand %s overgeslagen. Oorzaak: %s&quot;,
+<span class="nc" id="L711">                                    fName, leeg.getLocalizedMessage()));</span>
+<span class="nc" id="L712">                    withWarnings = true;</span>
+                } finally {
+<span class="nc" id="L714">                    brmo.closeBrmoFramework();</span>
+                }
+<span class="nc" id="L716">                archiveerBestand(scanDir + fName, archiefDir);</span>
+            }
+<span class="nc bnc" id="L718" title="All 2 branches missed.">            if (withWarnings) {</span>
+<span class="nc" id="L719">                exitcode = EX_DATAERR.code;</span>
+            }
+<span class="nc" id="L721">        } else {</span>
+<span class="nc" id="L722">            throw new BrmoException(&quot;Opgegeven directory &quot; + scanDir + &quot; is geen directory.&quot;);</span>
+        }
+<span class="nc" id="L724">        LOG.info(String.format(&quot;Klaar met laden van directory: %s, type %s&quot;, scanDir, brType));</span>
+<span class="nc" id="L725">        return exitcode;</span>
+    }
+
+    /**
+     * verplaats bestand naar archief directory.
+     *
+     * @param fileName te verplaatsen bestandsnaam (volledig pad)
+     * @param archiefDir doel directory (in geval {@code null} dat wordt verplaatsen overgeslagen)
+     */
+    private static void archiveerBestand(final String fileName, final String archiefDir) {
+<span class="nc bnc" id="L735" title="All 2 branches missed.">        if (archiefDir != null) {</span>
+<span class="nc" id="L736">            File archiefDirectory = new File(archiefDir);</span>
+<span class="nc" id="L737">            LOG.debug(String.format(&quot;Archiveren %s naar %s.&quot;, fileName, archiefDir));</span>
+            try {
+<span class="nc" id="L739">                FileUtils.moveFileToDirectory(new File(fileName), archiefDirectory, true);</span>
+<span class="nc" id="L740">                LOG.debug(</span>
+<span class="nc" id="L741">                        String.format(</span>
+                                &quot;Bestand %s is naar archief %s verplaatst.&quot;,
+                                fileName, archiefDirectory));
+<span class="nc" id="L744">            } catch (IOException e) {</span>
+<span class="nc" id="L745">                LOG.error(</span>
+<span class="nc" id="L746">                        String.format(</span>
+                                &quot;Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).&quot;,
+<span class="nc" id="L748">                                fileName, archiefDirectory, e.getLocalizedMessage()));</span>
+<span class="nc" id="L749">            }</span>
+        }
+<span class="nc" id="L751">    }</span>
+
+<span class="nc" id="L753">    enum sysexits {</span>
+        // zie: https://man.openbsd.org/man3/sysexits.3
+<span class="nc" id="L755">        EX_USAGE(64),</span>
+<span class="nc" id="L756">        EX_DATAERR(65),</span>
+<span class="nc" id="L757">        EX_NOINPUT(66),</span>
+<span class="nc" id="L758">        EX_UNAVAILABLE(69),</span>
+<span class="nc" id="L759">        EX_CANTCREAT(73),</span>
+<span class="nc" id="L760">        EX_IOERR(74);</span>
+        int code;
+
+<span class="nc" id="L763">        sysexits(final int code) {</span>
+<span class="nc" id="L764">            this.code = code;</span>
+<span class="nc" id="L765">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

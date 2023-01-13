@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaadprocesStatusRapportActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">LaadprocesStatusRapportActionBean.java</span></div><h1>LaadprocesStatusRapportActionBean.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaadprocesStatusRapportActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">LaadprocesStatusRapportActionBean.java</span></div><h1>LaadprocesStatusRapportActionBean.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2017 B3Partners B.V.
  */
 package nl.b3p.brmo.service.stripes;
 
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.LaadprocesStatusRapport;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-/**
- * @author mprins
- */
-<span class="nc" id="L20">public class LaadprocesStatusRapportActionBean implements ActionBean, ProgressUpdateListener {</span>
+/** @author mprins */
+<span class="nc" id="L21">public class LaadprocesStatusRapportActionBean implements ActionBean, ProgressUpdateListener {</span>
 
     private static final String JSP = &quot;/WEB-INF/jsp/beheer/laadprocesstatusrapportuitvoeren.jsp&quot;;
 
@@ -28,31 +29,30 @@ import java.io.StringWriter;
 
     private String exceptionStacktrace;
     private String status;
-<span class="nc" id="L31">    private StringBuilder log = new StringBuilder();</span>
+<span class="nc" id="L32">    private StringBuilder log = new StringBuilder();</span>
 
     @DefaultHandler
     public Resolution execute() {
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (proces == null) {</span>
-<span class="nc" id="L36">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
-<span class="nc" id="L37">            return new ForwardResolution(JSP);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L37">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
+<span class="nc" id="L38">            return new ForwardResolution(JSP);</span>
         }
-<span class="nc" id="L39">        LaadprocesStatusRapport _proces = (LaadprocesStatusRapport) AbstractExecutableProces.getProces(proces);</span>
+<span class="nc" id="L40">        LaadprocesStatusRapport _proces =</span>
+<span class="nc" id="L41">                (LaadprocesStatusRapport) AbstractExecutableProces.getProces(proces);</span>
         try {
-<span class="nc" id="L41">            _proces.execute(this);</span>
+<span class="nc" id="L43">            _proces.execute(this);</span>
         } finally {
-<span class="nc" id="L43">            Stripersist.getEntityManager().merge(proces);</span>
-<span class="nc" id="L44">            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L45">            Stripersist.getEntityManager().merge(proces);</span>
+<span class="nc" id="L46">            Stripersist.getEntityManager().getTransaction().commit();</span>
         }
-<span class="nc" id="L46">        return new ForwardResolution(JSP);</span>
+<span class="nc" id="L48">        return new ForwardResolution(JSP);</span>
     }
 
     @Override
-    public void total(long total) {
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L52">    public void total(long total) {}</span>
 
     @Override
-    public void progress(long progress) {
-<span class="nc" id="L55">    }</span>
+<span class="nc" id="L55">    public void progress(long progress) {}</span>
 
     @Override
     public void exception(Throwable t) {

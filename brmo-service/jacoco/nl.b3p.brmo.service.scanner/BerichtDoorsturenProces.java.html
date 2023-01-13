@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerichtDoorsturenProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BerichtDoorsturenProces.java</span></div><h1>BerichtDoorsturenProces.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.scanner;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerichtDoorsturenProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BerichtDoorsturenProces.java</span></div><h1>BerichtDoorsturenProces.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.scanner;
 
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Transient;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Transient;
+
+/** @author Matthijs Laan */
 public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
 <span class="nc" id="L22">    private static final Log log = LogFactory.getLog(BerichtDoorsturenProces.class);</span>
@@ -25,128 +25,137 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
 <span class="nc" id="L26">    private final int defaultCommitPageSize = 1000;</span>
 
-    @Transient
-    private ProgressUpdateListener l;
+    @Transient private ProgressUpdateListener l;
 
-<span class="nc" id="L31">    BerichtDoorsturenProces(BerichtDoorstuurProces config) {</span>
-<span class="nc" id="L32">        this.config = config;</span>
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L30">    BerichtDoorsturenProces(BerichtDoorstuurProces config) {</span>
+<span class="nc" id="L31">        this.config = config;</span>
+<span class="nc" id="L32">    }</span>
 
     @Override
     public void execute() throws BrmoException {
-<span class="nc" id="L37">        this.execute(new ProgressUpdateListener() {</span>
-            /* doet bijna niks listener */
-            @Override
-            public void total(long total) {
-<span class="nc" id="L41">                log.info(&quot;Totaal aantal opgehaalde berichten: &quot; + total);</span>
-<span class="nc" id="L42">            }</span>
+<span class="nc" id="L36">        this.execute(</span>
+<span class="nc" id="L37">                new ProgressUpdateListener() {</span>
+                    /* doet bijna niks listener */
+                    @Override
+                    public void total(long total) {
+<span class="nc" id="L41">                        log.info(&quot;Totaal aantal opgehaalde berichten: &quot; + total);</span>
+<span class="nc" id="L42">                    }</span>
 
-            @Override
-            public void progress(long progress) {
-<span class="nc" id="L46">            }</span>
+                    @Override
+<span class="nc" id="L45">                    public void progress(long progress) {}</span>
 
-            @Override
-            public void exception(Throwable t) {
-<span class="nc" id="L50">                log.error(t);</span>
-<span class="nc" id="L51">            }</span>
+                    @Override
+                    public void exception(Throwable t) {
+<span class="nc" id="L49">                        log.error(t);</span>
+<span class="nc" id="L50">                    }</span>
 
-            @Override
-            public void updateStatus(String status) {
-<span class="nc" id="L55">            }</span>
+                    @Override
+<span class="nc" id="L53">                    public void updateStatus(String status) {}</span>
 
-            @Override
-            public void addLog(String msg) {
-<span class="nc" id="L59">                log.info(msg);</span>
-<span class="nc" id="L60">            }</span>
-        });
-<span class="nc" id="L62">    }</span>
+                    @Override
+                    public void addLog(String msg) {
+<span class="nc" id="L57">                        log.info(msg);</span>
+<span class="nc" id="L58">                    }</span>
+                });
+<span class="nc" id="L60">    }</span>
 
     @Override
     public void execute(ProgressUpdateListener listener) {
-<span class="nc" id="L66">        this.l = listener;</span>
+<span class="nc" id="L64">        this.l = listener;</span>
         try {
-<span class="nc" id="L68">            l.updateStatus(&quot;Laden berichten...&quot;);</span>
-<span class="nc" id="L69">            this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);</span>
+<span class="nc" id="L66">            l.updateStatus(&quot;Laden berichten...&quot;);</span>
+<span class="nc" id="L67">            this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);</span>
 
-<span class="nc" id="L71">            int commitPageSize = this.getCommitPageSize();</span>
+<span class="nc" id="L69">            int commitPageSize = this.getCommitPageSize();</span>
 
-<span class="nc" id="L73">            String id = ClobElement.nullSafeGet(config.getConfig().get(&quot;gds2_ophaalproces_id&quot;));</span>
-<span class="nc" id="L74">            GDS2OphaalProces proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));</span>
+<span class="nc" id="L71">            String id = ClobElement.nullSafeGet(config.getConfig().get(&quot;gds2_ophaalproces_id&quot;));</span>
+            GDS2OphaalProces proces =
+<span class="nc" id="L73">                    Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));</span>
 
-<span class="nc" id="L76">            List&lt;Long&gt; berichtIDs = Stripersist.getEntityManager().createQuery(&quot;select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces&quot;)</span>
-<span class="nc" id="L77">                    .setParameter(&quot;proces&quot;, proces)</span>
-<span class="nc" id="L78">                    .getResultList();</span>
+            List&lt;Long&gt; berichtIDs =
+<span class="nc" id="L76">                    Stripersist.getEntityManager()</span>
+<span class="nc" id="L77">                            .createQuery(</span>
+                                    &quot;select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces&quot;,
+                                    Long.class)
+<span class="nc" id="L80">                            .setParameter(&quot;proces&quot;, proces)</span>
+<span class="nc" id="L81">                            .getResultList();</span>
 
-<span class="nc bnc" id="L80" title="All 2 branches missed.">            if (berichtIDs.isEmpty()) {</span>
-<span class="nc" id="L81">                this.config.setSamenvatting(&quot;Geen berichten om door te sturen&quot;);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">            if (berichtIDs.isEmpty()) {</span>
+<span class="nc" id="L84">                this.config.setSamenvatting(&quot;Geen berichten om door te sturen&quot;);</span>
             } else {
-<span class="nc" id="L83">                this.l.total(berichtIDs.size());</span>
-<span class="nc" id="L84">                log.info(String.format(&quot;Er zijn %s berichten om door te sturen.&quot;, berichtIDs.size()));</span>
+<span class="nc" id="L86">                this.l.total(berichtIDs.size());</span>
+<span class="nc" id="L87">                log.info(</span>
+<span class="nc" id="L88">                        String.format(</span>
+<span class="nc" id="L89">                                &quot;Er zijn %s berichten om door te sturen.&quot;, berichtIDs.size()));</span>
 
-<span class="nc" id="L86">                String url = ClobElement.nullSafeGet(proces.getConfig().get(&quot;delivery_endpoint&quot;));</span>
+<span class="nc" id="L91">                String url = ClobElement.nullSafeGet(proces.getConfig().get(&quot;delivery_endpoint&quot;));</span>
 
-<span class="nc bnc" id="L88" title="All 2 branches missed.">                if (url == null) {</span>
-<span class="nc" id="L89">                    this.config.setSamenvatting(&quot;GDS2 ophaal proces heeft geen afleveringsendpoint&quot;);</span>
-<span class="nc" id="L90">                    log.warn(&quot;GDS2 ophaal proces heeft geen afleveringsendpoint.&quot;);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">                if (url == null) {</span>
+<span class="nc" id="L94">                    this.config.setSamenvatting(</span>
+                            &quot;GDS2 ophaal proces heeft geen afleveringsendpoint&quot;);
+<span class="nc" id="L96">                    log.warn(&quot;GDS2 ophaal proces heeft geen afleveringsendpoint.&quot;);</span>
                 } else {
-<span class="nc" id="L92">                    int doorgestuurd = 0, fouten = 0, verwerkt = 0;</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">                    for (Long pkid : berichtIDs) {</span>
-<span class="nc" id="L94">                        Bericht b = Stripersist.getEntityManager().find(Bericht.class, pkid);</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">                        if (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {</span>
-<span class="nc" id="L96">                            doorgestuurd++;</span>
-<span class="nc" id="L97">                            this.l.progress(doorgestuurd);</span>
+<span class="nc" id="L98">                    int doorgestuurd = 0, fouten = 0, verwerkt = 0;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">                    for (Long pkid : berichtIDs) {</span>
+<span class="nc" id="L100">                        Bericht b = Stripersist.getEntityManager().find(Bericht.class, pkid);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">                        if (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {</span>
+<span class="nc" id="L102">                            doorgestuurd++;</span>
+<span class="nc" id="L103">                            this.l.progress(doorgestuurd);</span>
                         } else {
-<span class="nc" id="L99">                            fouten++;</span>
+<span class="nc" id="L105">                            fouten++;</span>
                         }
-<span class="nc" id="L101">                        Stripersist.getEntityManager().merge(b);</span>
-<span class="nc" id="L102">                        verwerkt++;</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">                        if (verwerkt % commitPageSize == 0) {</span>
-<span class="nc" id="L104">                            log.info(String.format(&quot;Tussentijds opslaan van berichten, 'commitPageSize' (%s) is bereikt, totaal aantal verwerkt : %s&quot;,</span>
-<span class="nc" id="L105">                                    commitPageSize, verwerkt));</span>
-<span class="nc" id="L106">                            Stripersist.getEntityManager().flush();</span>
-<span class="nc" id="L107">                            Stripersist.getEntityManager().getTransaction().commit();</span>
-<span class="nc" id="L108">                            Stripersist.getEntityManager().clear();</span>
+<span class="nc" id="L107">                        Stripersist.getEntityManager().merge(b);</span>
+<span class="nc" id="L108">                        verwerkt++;</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">                        if (verwerkt % commitPageSize == 0) {</span>
+<span class="nc" id="L110">                            log.info(</span>
+<span class="nc" id="L111">                                    String.format(</span>
+                                            &quot;Tussentijds opslaan van berichten, 'commitPageSize' (%s) is bereikt, totaal aantal verwerkt : %s&quot;,
+<span class="nc" id="L113">                                            commitPageSize, verwerkt));</span>
+<span class="nc" id="L114">                            Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L115">                            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L116">                            Stripersist.getEntityManager().clear();</span>
                         }
-<span class="nc" id="L110">                    }</span>
-<span class="nc" id="L111">                    this.config.setSamenvatting(&quot;Berichten doorgestuurd: &quot; + doorgestuurd + &quot;, fouten: &quot; + fouten);</span>
+<span class="nc" id="L118">                    }</span>
+<span class="nc" id="L119">                    this.config.setSamenvatting(</span>
+                            &quot;Berichten doorgestuurd: &quot; + doorgestuurd + &quot;, fouten: &quot; + fouten);
                 }
             }
 
-<span class="nc" id="L115">            l.updateStatus(this.config.getSamenvatting());</span>
+<span class="nc" id="L124">            l.updateStatus(this.config.getSamenvatting());</span>
 
-<span class="nc" id="L117">            this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);</span>
-<span class="nc" id="L118">            this.config.setLastrun(new Date());</span>
-<span class="nc" id="L119">        } catch (Exception e) {</span>
-<span class="nc" id="L120">            this.config.setLastrun(new Date());</span>
-<span class="nc" id="L121">            this.config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
-<span class="nc" id="L122">            this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
-<span class="nc" id="L123">            l.exception(e);</span>
+<span class="nc" id="L126">            this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);</span>
+<span class="nc" id="L127">            this.config.setLastrun(new Date());</span>
+<span class="nc" id="L128">        } catch (Exception e) {</span>
+<span class="nc" id="L129">            this.config.setLastrun(new Date());</span>
+<span class="nc" id="L130">            this.config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L131">            this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
+<span class="nc" id="L132">            l.exception(e);</span>
         } finally {
-<span class="nc bnc" id="L125" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {</span>
                 // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
                 // rollback, zou in aparte transactie moeten
-<span class="nc" id="L128">                Stripersist.getEntityManager().getTransaction().rollback();</span>
+<span class="nc" id="L137">                Stripersist.getEntityManager().getTransaction().rollback();</span>
             } else {
-<span class="nc" id="L130">                Stripersist.getEntityManager().merge(this.config);</span>
-<span class="nc" id="L131">                Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L139">                Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L140">                Stripersist.getEntityManager().getTransaction().commit();</span>
             }
         }
-<span class="nc" id="L134">    }</span>
+<span class="nc" id="L143">    }</span>
 
     private int getCommitPageSize() {
         int commitPageSize;
         try {
-<span class="nc" id="L139">            String s = ClobElement.nullSafeGet(config.getConfig().get(&quot;commitPageSize&quot;));</span>
-<span class="nc" id="L140">            commitPageSize = Integer.parseInt(s);</span>
-<span class="nc bnc" id="L141" title="All 4 branches missed.">            if (commitPageSize &lt; 1 || commitPageSize &gt; defaultCommitPageSize) {</span>
-<span class="nc" id="L142">                commitPageSize = defaultCommitPageSize;</span>
+<span class="nc" id="L148">            String s = ClobElement.nullSafeGet(config.getConfig().get(&quot;commitPageSize&quot;));</span>
+<span class="nc" id="L149">            commitPageSize = Integer.parseInt(s);</span>
+<span class="nc bnc" id="L150" title="All 4 branches missed.">            if (commitPageSize &lt; 1 || commitPageSize &gt; defaultCommitPageSize) {</span>
+<span class="nc" id="L151">                commitPageSize = defaultCommitPageSize;</span>
             }
-<span class="nc" id="L144">        } catch (NumberFormatException nfe) {</span>
-<span class="nc" id="L145">            commitPageSize = defaultCommitPageSize;</span>
-<span class="nc" id="L146">        }</span>
+<span class="nc" id="L153">        } catch (NumberFormatException nfe) {</span>
+<span class="nc" id="L154">            commitPageSize = defaultCommitPageSize;</span>
+<span class="nc" id="L155">        }</span>
 
-<span class="nc" id="L148">        log.debug(&quot;Instellen van commit page size op: &quot; + commitPageSize);</span>
-<span class="nc" id="L149">        return commitPageSize;</span>
+<span class="nc" id="L157">        log.debug(&quot;Instellen van commit page size op: &quot; + commitPageSize);</span>
+<span class="nc" id="L158">        return commitPageSize;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

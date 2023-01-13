@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaadProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">LaadProces.java</span></div><h1>LaadProces.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaadProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">LaadProces.java</span></div><h1>LaadProces.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.persistence.staging;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+
+import javax.persistence.*;
 
 /**
  * Beschrijft een laad proces van een bericht of bestand.
@@ -19,12 +20,10 @@ import java.util.Date;
 @Table(name = &quot;laadproces&quot;)
 public class LaadProces implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Id @GeneratedValue private Long id;
 
     private String bestand_naam;
-    
+
     private String bestand_naam_hersteld;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,7 +47,7 @@ public class LaadProces implements Serializable {
     private String contact_email;
 
     @ManyToOne
-    @JoinColumn(name=&quot;automatisch_proces&quot;)
+    @JoinColumn(name = &quot;automatisch_proces&quot;)
     private AutomatischProces automatischProces;
 
     private BigInteger klantafgiftenummer;
@@ -68,199 +67,233 @@ public class LaadProces implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date beschikbaar_tot;
 
-    /**
-     * see nl.b3p.brmo.loader.entity.LaadProces
-     */
-<span class="fc" id="L74">    public static enum STATUS {</span>
+    /** see nl.b3p.brmo.loader.entity.LaadProces */
+<span class="fc" id="L71">    public static enum STATUS {</span>
         // als je er bij maakt ook in de andere LaadProces klasse toevoegen
-<span class="fc" id="L76">        STAGING_OK, STAGING_NOK, STAGING_MISSING, STAGING_DUPLICAAT, ARCHIVE, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK</span>
+<span class="fc" id="L73">        STAGING_OK,</span>
+<span class="fc" id="L74">        STAGING_NOK,</span>
+<span class="fc" id="L75">        STAGING_MISSING,</span>
+<span class="fc" id="L76">        STAGING_DUPLICAAT,</span>
+<span class="fc" id="L77">        ARCHIVE,</span>
+<span class="fc" id="L78">        RSGB_TOPNL_WAITING,</span>
+<span class="fc" id="L79">        RSGB_TOPNL_OK,</span>
+<span class="fc" id="L80">        RSGB_TOPNL_NOK</span>
     };
 
-<span class="fc" id="L79">        public LaadProces() {</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L83">    public LaadProces() {}</span>
 
-<span class="nc" id="L82">    public LaadProces(String bestand_naam, String soort) {</span>
-<span class="nc" id="L83">        this.bestand_naam = bestand_naam;</span>
-<span class="nc" id="L84">        this.soort = soort;</span>
-<span class="nc" id="L85">    }</span>
+<span class="nc" id="L85">    public LaadProces(String bestand_naam, String soort) {</span>
+<span class="nc" id="L86">        this.bestand_naam = bestand_naam;</span>
+<span class="nc" id="L87">        this.soort = soort;</span>
+<span class="nc" id="L88">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
     public Long getId() {
-<span class="nc" id="L89">        return id;</span>
+<span class="nc" id="L92">        return id;</span>
     }
 
     public void setId(Long id) {
-<span class="nc" id="L93">        this.id = id;</span>
-<span class="nc" id="L94">    }</span>
+<span class="nc" id="L96">        this.id = id;</span>
+<span class="nc" id="L97">    }</span>
 
     public String getBestand_naam() {
-<span class="nc" id="L97">        return bestand_naam;</span>
+<span class="nc" id="L100">        return bestand_naam;</span>
     }
 
     public void setBestand_naam(String bestand_naam) {
-<span class="nc" id="L101">        this.bestand_naam = bestand_naam;</span>
-<span class="nc" id="L102">    }</span>
+<span class="nc" id="L104">        this.bestand_naam = bestand_naam;</span>
+<span class="nc" id="L105">    }</span>
 
     public Date getBestand_datum() {
-<span class="nc" id="L105">        return bestand_datum;</span>
+<span class="nc" id="L108">        return bestand_datum;</span>
     }
 
     public void setBestand_datum(Date bestand_datum) {
-<span class="nc" id="L109">        this.bestand_datum = bestand_datum;</span>
-<span class="nc" id="L110">    }</span>
+<span class="nc" id="L112">        this.bestand_datum = bestand_datum;</span>
+<span class="nc" id="L113">    }</span>
 
     public String getSoort() {
-<span class="nc" id="L113">        return soort;</span>
+<span class="nc" id="L116">        return soort;</span>
     }
 
     public void setSoort(String soort) {
-<span class="nc" id="L117">        this.soort = soort;</span>
-<span class="nc" id="L118">    }</span>
+<span class="nc" id="L120">        this.soort = soort;</span>
+<span class="nc" id="L121">    }</span>
 
     public String getGebied() {
-<span class="nc" id="L121">        return gebied;</span>
+<span class="nc" id="L124">        return gebied;</span>
     }
 
     public void setGebied(String gebied) {
-<span class="nc" id="L125">        this.gebied = gebied;</span>
-<span class="nc" id="L126">    }</span>
+<span class="nc" id="L128">        this.gebied = gebied;</span>
+<span class="nc" id="L129">    }</span>
 
     public String getOpmerking() {
-<span class="nc" id="L129">        return opmerking;</span>
+<span class="nc" id="L132">        return opmerking;</span>
     }
 
     public void setOpmerking(String opmerking) {
-<span class="nc" id="L133">        this.opmerking = opmerking;</span>
-<span class="nc" id="L134">    }</span>
+<span class="nc" id="L136">        this.opmerking = opmerking;</span>
+<span class="nc" id="L137">    }</span>
 
     public STATUS getStatus() {
-<span class="nc" id="L137">        return status;</span>
+<span class="nc" id="L140">        return status;</span>
     }
 
     public void setStatus(STATUS status) {
-<span class="fc" id="L141">        this.status = status;</span>
-<span class="fc" id="L142">    }</span>
+<span class="fc" id="L144">        this.status = status;</span>
+<span class="fc" id="L145">    }</span>
 
     public Date getStatus_datum() {
-<span class="nc" id="L145">        return status_datum;</span>
+<span class="nc" id="L148">        return status_datum;</span>
     }
 
     public void setStatus_datum(Date status_datum) {
-<span class="nc" id="L149">        this.status_datum = status_datum;</span>
-<span class="nc" id="L150">    }</span>
+<span class="nc" id="L152">        this.status_datum = status_datum;</span>
+<span class="nc" id="L153">    }</span>
 
     public String getContact_email() {
-<span class="nc" id="L153">        return contact_email;</span>
+<span class="nc" id="L156">        return contact_email;</span>
     }
 
     public void setContact_email(String contact_email) {
-<span class="nc" id="L157">        this.contact_email = contact_email;</span>
-<span class="nc" id="L158">    }</span>
+<span class="nc" id="L160">        this.contact_email = contact_email;</span>
+<span class="nc" id="L161">    }</span>
 
     public AutomatischProces getAutomatischProces() {
-<span class="nc" id="L161">        return automatischProces;</span>
+<span class="nc" id="L164">        return automatischProces;</span>
     }
 
     public void setAutomatischProces(AutomatischProces automatischProces) {
-<span class="nc" id="L165">        this.automatischProces = automatischProces;</span>
-<span class="nc" id="L166">    }</span>
+<span class="nc" id="L168">        this.automatischProces = automatischProces;</span>
+<span class="nc" id="L169">    }</span>
 
     public BigInteger getKlantafgiftenummer() {
-<span class="nc" id="L169">        return klantafgiftenummer;</span>
+<span class="nc" id="L172">        return klantafgiftenummer;</span>
     }
 
     public void setKlantafgiftenummer(BigInteger klantafgiftenummer) {
-<span class="nc" id="L173">        this.klantafgiftenummer = klantafgiftenummer;</span>
-<span class="nc" id="L174">    }</span>
+<span class="nc" id="L176">        this.klantafgiftenummer = klantafgiftenummer;</span>
+<span class="nc" id="L177">    }</span>
 
     public BigInteger getContractafgiftenummer() {
-<span class="nc" id="L177">        return contractafgiftenummer;</span>
+<span class="nc" id="L180">        return contractafgiftenummer;</span>
     }
 
     public void setContractafgiftenummer(BigInteger contractafgiftenummer) {
-<span class="nc" id="L181">        this.contractafgiftenummer = contractafgiftenummer;</span>
-<span class="nc" id="L182">    }</span>
+<span class="nc" id="L184">        this.contractafgiftenummer = contractafgiftenummer;</span>
+<span class="nc" id="L185">    }</span>
 
     public String getArtikelnummer() {
-<span class="nc" id="L185">        return artikelnummer;</span>
+<span class="nc" id="L188">        return artikelnummer;</span>
     }
 
     public void setArtikelnummer(String artikelnummer) {
-<span class="nc" id="L189">        this.artikelnummer = artikelnummer;</span>
-<span class="nc" id="L190">    }</span>
+<span class="nc" id="L192">        this.artikelnummer = artikelnummer;</span>
+<span class="nc" id="L193">    }</span>
 
     public String getContractnummer() {
-<span class="nc" id="L193">        return contractnummer;</span>
+<span class="nc" id="L196">        return contractnummer;</span>
     }
 
     public void setContractnummer(String contractnummer) {
-<span class="nc" id="L197">        this.contractnummer = contractnummer;</span>
-<span class="nc" id="L198">    }</span>
+<span class="nc" id="L200">        this.contractnummer = contractnummer;</span>
+<span class="nc" id="L201">    }</span>
 
     public String getAfgifteid() {
-<span class="nc" id="L201">        return afgifteid;</span>
+<span class="nc" id="L204">        return afgifteid;</span>
     }
 
     public void setAfgifteid(String afgifteid) {
-<span class="nc" id="L205">        this.afgifteid = afgifteid;</span>
-<span class="nc" id="L206">    }</span>
+<span class="nc" id="L208">        this.afgifteid = afgifteid;</span>
+<span class="nc" id="L209">    }</span>
 
     public String getAfgiftereferentie() {
-<span class="nc" id="L209">        return afgiftereferentie;</span>
+<span class="nc" id="L212">        return afgiftereferentie;</span>
     }
 
     public void setAfgiftereferentie(String afgiftereferentie) {
-<span class="nc" id="L213">        this.afgiftereferentie = afgiftereferentie;</span>
-<span class="nc" id="L214">    }</span>
+<span class="nc" id="L216">        this.afgiftereferentie = afgiftereferentie;</span>
+<span class="nc" id="L217">    }</span>
 
     public String getBestandsreferentie() {
-<span class="nc" id="L217">        return bestandsreferentie;</span>
+<span class="nc" id="L220">        return bestandsreferentie;</span>
     }
 
     public void setBestandsreferentie(String bestandsreferentie) {
-<span class="nc" id="L221">        this.bestandsreferentie = bestandsreferentie;</span>
-<span class="nc" id="L222">    }</span>
+<span class="nc" id="L224">        this.bestandsreferentie = bestandsreferentie;</span>
+<span class="nc" id="L225">    }</span>
 
     public Date getBeschikbaar_tot() {
-<span class="nc" id="L225">        return beschikbaar_tot;</span>
+<span class="nc" id="L228">        return beschikbaar_tot;</span>
     }
 
     public void setBeschikbaar_tot(Date beschikbaar_tot) {
-<span class="nc" id="L229">        this.beschikbaar_tot = beschikbaar_tot;</span>
-<span class="nc" id="L230">    }</span>
+<span class="nc" id="L232">        this.beschikbaar_tot = beschikbaar_tot;</span>
+<span class="nc" id="L233">    }</span>
 
     public String getBestand_naam_hersteld() {
-<span class="nc" id="L233">        return bestand_naam_hersteld;</span>
+<span class="nc" id="L236">        return bestand_naam_hersteld;</span>
     }
 
     public void setBestand_naam_hersteld(String bestand_naam_hersteld) {
-<span class="nc" id="L237">        this.bestand_naam_hersteld = bestand_naam_hersteld;</span>
-<span class="nc" id="L238">    }</span>
+<span class="nc" id="L240">        this.bestand_naam_hersteld = bestand_naam_hersteld;</span>
+<span class="nc" id="L241">    }</span>
     // &lt;/editor-fold&gt;
 
     @Override
     public String toString() {
-<span class="nc" id="L243">        return &quot;LaadProces{&quot; +</span>
-                &quot;id=&quot; + id +
-                &quot;, bestandNaam='&quot; + bestand_naam + '\'' +
-                &quot;, bestandNaamHersteld='&quot; + bestand_naam_hersteld + '\'' +
-                &quot;, bestandDatum=&quot; + bestand_datum +
-                &quot;, soort='&quot; + soort + '\'' +
-                &quot;, gebied='&quot; + gebied + '\'' +
-                &quot;, opmerking='&quot; + opmerking + '\'' +
-                &quot;, status=&quot; + status +
-                &quot;, statusDatum=&quot; + status_datum +
-                &quot;, contactEmail='&quot; + contact_email + '\'' +
-                &quot;, automatischProces=&quot; + automatischProces +
-                &quot;, klantafgiftenummer=&quot; + klantafgiftenummer +
-                &quot;, contractafgiftenummer=&quot; + contractafgiftenummer +
-                &quot;, artikelnummer='&quot; + artikelnummer + '\'' +
-                &quot;, contractnummer='&quot; + contractnummer + '\'' +
-                &quot;, afgifteid='&quot; + afgifteid + '\'' +
-                &quot;, afgiftereferentie='&quot; + afgiftereferentie + '\'' +
-                &quot;, bestandsreferentie='&quot; + bestandsreferentie + '\'' +
-                &quot;, beschikbaar_tot=&quot; + beschikbaar_tot +
-                '}';
+<span class="nc" id="L246">        return &quot;LaadProces{&quot;</span>
+                + &quot;id=&quot;
+                + id
+                + &quot;, bestandNaam='&quot;
+                + bestand_naam
+                + '\''
+                + &quot;, bestandNaamHersteld='&quot;
+                + bestand_naam_hersteld
+                + '\''
+                + &quot;, bestandDatum=&quot;
+                + bestand_datum
+                + &quot;, soort='&quot;
+                + soort
+                + '\''
+                + &quot;, gebied='&quot;
+                + gebied
+                + '\''
+                + &quot;, opmerking='&quot;
+                + opmerking
+                + '\''
+                + &quot;, status=&quot;
+                + status
+                + &quot;, statusDatum=&quot;
+                + status_datum
+                + &quot;, contactEmail='&quot;
+                + contact_email
+                + '\''
+                + &quot;, automatischProces=&quot;
+                + automatischProces
+                + &quot;, klantafgiftenummer=&quot;
+                + klantafgiftenummer
+                + &quot;, contractafgiftenummer=&quot;
+                + contractafgiftenummer
+                + &quot;, artikelnummer='&quot;
+                + artikelnummer
+                + '\''
+                + &quot;, contractnummer='&quot;
+                + contractnummer
+                + '\''
+                + &quot;, afgifteid='&quot;
+                + afgifteid
+                + '\''
+                + &quot;, afgiftereferentie='&quot;
+                + afgiftereferentie
+                + '\''
+                + &quot;, bestandsreferentie='&quot;
+                + bestandsreferentie
+                + '\''
+                + &quot;, beschikbaar_tot=&quot;
+                + beschikbaar_tot
+                + '}';
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

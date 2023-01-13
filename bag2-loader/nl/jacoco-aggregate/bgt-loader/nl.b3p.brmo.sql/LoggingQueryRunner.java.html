@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>LoggingQueryRunner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.sql</a> &gt; <span class="el_source">LoggingQueryRunner.java</span></div><h1>LoggingQueryRunner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.sql;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.StatementConfiguration;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+/**
+ * Wrapper for QueryRunner that logs the SQL to commons-logging. Enable TRACE logging to also log
+ * parameters.
+ */
+public class LoggingQueryRunner extends QueryRunner {
+<span class="nc" id="L27">    private static final Log LOG = LogFactory.getLog(LoggingQueryRunner.class);</span>
+
+    public LoggingQueryRunner() {
+<span class="nc" id="L30">        super();</span>
+<span class="nc" id="L31">    }</span>
+
+    public LoggingQueryRunner(boolean pmdKnownBroken) {
+<span class="nc" id="L34">        super(pmdKnownBroken);</span>
+<span class="nc" id="L35">    }</span>
+
+    public LoggingQueryRunner(DataSource ds) {
+<span class="nc" id="L38">        super(ds);</span>
+<span class="nc" id="L39">    }</span>
+
+    public LoggingQueryRunner(StatementConfiguration stmtConfig) {
+<span class="nc" id="L42">        super(stmtConfig);</span>
+<span class="nc" id="L43">    }</span>
+
+    public LoggingQueryRunner(DataSource ds, boolean pmdKnownBroken) {
+<span class="nc" id="L46">        super(ds, pmdKnownBroken);</span>
+<span class="nc" id="L47">    }</span>
+
+    public LoggingQueryRunner(DataSource ds, StatementConfiguration stmtConfig) {
+<span class="nc" id="L50">        super(ds, stmtConfig);</span>
+<span class="nc" id="L51">    }</span>
+
+    public LoggingQueryRunner(
+            DataSource ds, boolean pmdKnownBroken, StatementConfiguration stmtConfig) {
+<span class="nc" id="L55">        super(ds, pmdKnownBroken, stmtConfig);</span>
+<span class="nc" id="L56">    }</span>
+
+    private void log(String type, String sql, Object params) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (LOG.isTraceEnabled()) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            LOG.trace(type + &quot;: &quot; + sql + (params != null ? &quot;, params: &quot; + params : &quot;&quot;));</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        } else if (LOG.isDebugEnabled()) {</span>
+<span class="nc" id="L62">            LOG.debug(type + &quot;: &quot; + sql);</span>
+        }
+<span class="nc" id="L64">    }</span>
+
+    @Override
+    public int[] batch(Connection conn, String sql, Object[][] params) throws SQLException {
+<span class="nc" id="L68">        log(&quot;batch&quot;, sql, params);</span>
+<span class="nc" id="L69">        return super.batch(conn, sql, params);</span>
+    }
+
+    @Override
+    public int[] batch(String sql, Object[][] params) throws SQLException {
+<span class="nc" id="L74">        log(&quot;batch&quot;, sql, params);</span>
+<span class="nc" id="L75">        return super.batch(sql, params);</span>
+    }
+
+    @Override
+    @Deprecated
+    public &lt;T&gt; T query(Connection conn, String sql, Object param, ResultSetHandler&lt;T&gt; rsh)
+            throws SQLException {
+<span class="nc" id="L82">        log(&quot;query&quot;, sql, param);</span>
+<span class="nc" id="L83">        return super.query(conn, sql, param, rsh);</span>
+    }
+
+    @Override
+    @Deprecated
+    public &lt;T&gt; T query(Connection conn, String sql, Object[] params, ResultSetHandler&lt;T&gt; rsh)
+            throws SQLException {
+<span class="nc" id="L90">        log(&quot;query&quot;, sql, params);</span>
+<span class="nc" id="L91">        return super.query(conn, sql, params, rsh);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T query(Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh, Object... params)
+            throws SQLException {
+<span class="nc" id="L97">        log(&quot;query&quot;, sql, params);</span>
+<span class="nc" id="L98">        return super.query(conn, sql, rsh, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T query(Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh) throws SQLException {
+<span class="nc" id="L103">        log(&quot;query&quot;, sql, null);</span>
+<span class="nc" id="L104">        return super.query(conn, sql, rsh);</span>
+    }
+
+    @Override
+    @Deprecated
+    public &lt;T&gt; T query(String sql, Object param, ResultSetHandler&lt;T&gt; rsh) throws SQLException {
+<span class="nc" id="L110">        log(&quot;query&quot;, sql, param);</span>
+<span class="nc" id="L111">        return super.query(sql, param, rsh);</span>
+    }
+
+    @Override
+    @Deprecated
+    public &lt;T&gt; T query(String sql, Object[] params, ResultSetHandler&lt;T&gt; rsh) throws SQLException {
+<span class="nc" id="L117">        log(&quot;query&quot;, sql, params);</span>
+<span class="nc" id="L118">        return super.query(sql, params, rsh);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T query(String sql, ResultSetHandler&lt;T&gt; rsh, Object... params) throws SQLException {
+<span class="nc" id="L123">        log(&quot;query&quot;, sql, params);</span>
+<span class="nc" id="L124">        return super.query(sql, rsh, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T query(String sql, ResultSetHandler&lt;T&gt; rsh) throws SQLException {
+<span class="nc" id="L129">        log(&quot;query&quot;, sql, null);</span>
+<span class="nc" id="L130">        return super.query(sql, rsh);</span>
+    }
+
+    @Override
+    public int update(Connection conn, String sql) throws SQLException {
+<span class="nc" id="L135">        log(&quot;update&quot;, sql, null);</span>
+<span class="nc" id="L136">        return super.update(conn, sql);</span>
+    }
+
+    @Override
+    public int update(Connection conn, String sql, Object param) throws SQLException {
+<span class="nc" id="L141">        log(&quot;update&quot;, sql, param);</span>
+<span class="nc" id="L142">        return super.update(conn, sql, param);</span>
+    }
+
+    @Override
+    public int update(Connection conn, String sql, Object... params) throws SQLException {
+<span class="nc" id="L147">        log(&quot;update&quot;, sql, params);</span>
+<span class="nc" id="L148">        return super.update(conn, sql, params);</span>
+    }
+
+    @Override
+    public int update(String sql) throws SQLException {
+<span class="nc" id="L153">        log(&quot;update&quot;, sql, null);</span>
+<span class="nc" id="L154">        return super.update(sql);</span>
+    }
+
+    @Override
+    public int update(String sql, Object param) throws SQLException {
+<span class="nc" id="L159">        log(&quot;update&quot;, sql, param);</span>
+<span class="nc" id="L160">        return super.update(sql, param);</span>
+    }
+
+    @Override
+    public int update(String sql, Object... params) throws SQLException {
+<span class="nc" id="L165">        log(&quot;update&quot;, sql, params);</span>
+<span class="nc" id="L166">        return super.update(sql, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T insert(String sql, ResultSetHandler&lt;T&gt; rsh) throws SQLException {
+<span class="nc" id="L171">        log(&quot;insert&quot;, sql, null);</span>
+<span class="nc" id="L172">        return super.insert(sql, rsh);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T insert(String sql, ResultSetHandler&lt;T&gt; rsh, Object... params) throws SQLException {
+<span class="nc" id="L177">        log(&quot;insert&quot;, sql, params);</span>
+<span class="nc" id="L178">        return super.insert(sql, rsh, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T insert(Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh) throws SQLException {
+<span class="nc" id="L183">        log(&quot;insert&quot;, sql, null);</span>
+<span class="nc" id="L184">        return super.insert(conn, sql, rsh);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T insert(Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh, Object... params)
+            throws SQLException {
+<span class="nc" id="L190">        log(&quot;insert&quot;, sql, params);</span>
+<span class="nc" id="L191">        return super.insert(conn, sql, rsh, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T insertBatch(String sql, ResultSetHandler&lt;T&gt; rsh, Object[][] params)
+            throws SQLException {
+<span class="nc" id="L197">        log(&quot;insertBatch&quot;, sql, params);</span>
+<span class="nc" id="L198">        return super.insertBatch(sql, rsh, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T insertBatch(
+            Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh, Object[][] params)
+            throws SQLException {
+<span class="nc" id="L205">        log(&quot;insertBatch&quot;, sql, params);</span>
+<span class="nc" id="L206">        return super.insertBatch(conn, sql, rsh, params);</span>
+    }
+
+    @Override
+    public int execute(Connection conn, String sql, Object... params) throws SQLException {
+<span class="nc" id="L211">        log(&quot;execute&quot;, sql, params);</span>
+<span class="nc" id="L212">        return super.execute(conn, sql, params);</span>
+    }
+
+    @Override
+    public int execute(String sql, Object... params) throws SQLException {
+<span class="nc" id="L217">        log(&quot;execute&quot;, sql, params);</span>
+<span class="nc" id="L218">        return super.execute(sql, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; List&lt;T&gt; execute(
+            Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh, Object... params)
+            throws SQLException {
+<span class="nc" id="L225">        log(&quot;execute&quot;, sql, params);</span>
+<span class="nc" id="L226">        return super.execute(conn, sql, rsh, params);</span>
+    }
+
+    @Override
+    public &lt;T&gt; List&lt;T&gt; execute(String sql, ResultSetHandler&lt;T&gt; rsh, Object... params)
+            throws SQLException {
+<span class="nc" id="L232">        log(&quot;execute&quot;, sql, params);</span>
+<span class="nc" id="L233">        return super.execute(sql, rsh, params);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

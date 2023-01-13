@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Brk2Bericht.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO NHR loader</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.entity</a> &gt; <span class="el_source">Brk2Bericht.java</span></div><h1>Brk2Bericht.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2022 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+package nl.b3p.brmo.loader.entity;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+/** @author mprins */
+public class Brk2Bericht extends Bericht {
+
+<span class="fc" id="L35">    private static final Log log = LogFactory.getLog(Brk2Bericht.class);</span>
+    // private final String soort = BrmoFramework.BR_BRK2;
+<span class="fc" id="L37">    private boolean xpathEvaluated = false;</span>
+
+    public Brk2Bericht(String brXml) {
+<span class="fc" id="L40">        super(brXml);</span>
+
+<span class="fc" id="L42">        setSoort(BrmoFramework.BR_BRK2);</span>
+<span class="fc" id="L43">    }</span>
+
+    public void setVervallenInfo(String objectRef, Date datum) {
+<span class="fc" id="L46">        this.objectRef = objectRef;</span>
+<span class="fc" id="L47">        this.datum = datum;</span>
+
+<span class="fc" id="L49">        xpathEvaluated = true;</span>
+<span class="fc" id="L50">    }</span>
+
+    private void evaluateXPath() {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (xpathEvaluated) {</span>
+<span class="fc" id="L54">            return;</span>
+        }
+
+<span class="fc" id="L57">        xpathEvaluated = true;</span>
+
+<span class="pc bpc" id="L59" title="1 of 4 branches missed.">        if (objectRef != null &amp;&amp; datum != null) {</span>
+            // al uit de header gehaald
+<span class="fc" id="L61">            return;</span>
+        }
+
+        // dit moet dus een standbericht zijn
+        try {
+<span class="fc" id="L66">            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L67">            DocumentBuilder builder = factory.newDocumentBuilder();</span>
+
+<span class="fc" id="L69">            Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));</span>
+
+<span class="fc" id="L71">            XPathFactory xPathfactory = XPathFactory.newInstance();</span>
+<span class="fc" id="L72">            XPath xpath = xPathfactory.newXPath();</span>
+
+<span class="fc" id="L74">            XPathExpression expr =</span>
+<span class="fc" id="L75">                    xpath.compile(</span>
+                            &quot;/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/@domein&quot;);
+<span class="fc" id="L77">            objectRef = expr.evaluate(doc);</span>
+
+<span class="fc" id="L79">            expr =</span>
+<span class="fc" id="L80">                    xpath.compile(</span>
+                            &quot;/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/text()&quot;);
+<span class="fc" id="L82">            objectRef += &quot;:&quot; + expr.evaluate(doc);</span>
+
+<span class="fc" id="L84">            expr =</span>
+<span class="fc" id="L85">                    xpath.compile(</span>
+                            &quot;/KadastraalObjectSnapshot/*[local-name()= 'toestandsdatum' or local-name()='toestandsdatum']/text()&quot;);
+<span class="fc" id="L87">            setDatumAsString(expr.evaluate(doc));</span>
+<span class="nc" id="L88">        } catch (Exception e) {</span>
+<span class="nc" id="L89">            log.error(&quot;Probleem met uitlezen van BRK 2 referentie&quot;, e);</span>
+<span class="fc" id="L90">        }</span>
+<span class="fc" id="L91">    }</span>
+
+    public void setDatumAsString(String d) {
+<span class="pc bpc" id="L94" title="2 of 4 branches missed.">        if (d == null || d.isEmpty()) {</span>
+<span class="nc" id="L95">            return;</span>
+        }
+
+<span class="fc" id="L98">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+        try {
+<span class="fc" id="L100">            datum = sdf.parse(d);</span>
+<span class="nc" id="L101">        } catch (ParseException pe) {</span>
+<span class="nc" id="L102">            log.error(&quot;Probleem tijdens parsen van de datum: &quot; + datum, pe);</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">    }</span>
+
+    @Override
+    public String getObjectRef() {
+<span class="fc" id="L108">        evaluateXPath();</span>
+
+<span class="fc" id="L110">        return objectRef;</span>
+    }
+
+    @Override
+    public Date getDatum() {
+<span class="fc" id="L115">        evaluateXPath();</span>
+
+<span class="fc" id="L117">        return datum;</span>
+    }
+
+    public String getRestoredFileName(Date bestanddatum, Integer volgordenummer) {
+<span class="fc" id="L121">        final String brkdatum = new SimpleDateFormat(&quot;yyyyMMdd&quot;).format(bestanddatum);</span>
+<span class="fc" id="L122">        final String prefix = &quot;MUTKX02&quot;;</span>
+
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (volgordenummer &lt;= 0) {</span>
+<span class="fc" id="L125">            return &quot;stand levering &quot; + brkdatum;</span>
+        }
+
+        try {
+
+            String kadGemCode;
+            String perceelnummer;
+            String sectie;
+            String appartementsrechtVolgnummer;
+
+<span class="fc" id="L135">            String basePath =</span>
+                    &quot;/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/&quot;;
+<span class="fc" id="L137">            XPathFactory xPathfactory = XPathFactory.newInstance();</span>
+<span class="fc" id="L138">            XPath xpath = xPathfactory.newXPath();</span>
+<span class="fc" id="L139">            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L140">            DocumentBuilder builder = factory.newDocumentBuilder();</span>
+<span class="fc" id="L141">            Document doc = builder.parse(new InputSource(new StringReader(this.getBrXml())));</span>
+
+            // in geval van een verwijderbericht is de &quot;wordt&quot; leeg, db_xml &lt;empty/&gt;
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">            if (this.getBrXml().contains(&quot;&lt;empty/&gt;&quot;)</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">                    &amp;&amp; StringUtils.isNotBlank(this.getBrOrgineelXml())) {</span>
+                // dan proberen om de db_origineel_xml te gebruiken.
+<span class="nc" id="L147">                basePath =</span>
+                        &quot;/Mutatie/kadastraalObject/AanduidingKadastraalObject/kadastraleAanduiding/&quot;;
+<span class="nc" id="L149">                doc = builder.parse(new InputSource(new StringReader(this.getBrOrgineelXml())));</span>
+            }
+
+<span class="fc" id="L152">            XPathExpression expr =</span>
+<span class="fc" id="L153">                    xpath.compile(basePath + &quot;akrKadastraleGemeenteCode/waarde/text()&quot;);</span>
+<span class="fc" id="L154">            kadGemCode = expr.evaluate(doc);</span>
+
+<span class="fc" id="L156">            expr = xpath.compile(basePath + &quot;sectie/text()&quot;);</span>
+<span class="fc" id="L157">            sectie = expr.evaluate(doc);</span>
+
+<span class="fc" id="L159">            expr = xpath.compile(basePath + &quot;perceelnummer/text()&quot;);</span>
+<span class="fc" id="L160">            perceelnummer = expr.evaluate(doc);</span>
+
+<span class="fc" id="L162">            expr = xpath.compile(basePath + &quot;appartementsrechtVolgnummer/text()&quot;);</span>
+<span class="fc" id="L163">            appartementsrechtVolgnummer = expr.evaluate(doc);</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">            if (StringUtils.isNotBlank(appartementsrechtVolgnummer)) {</span>
+<span class="nc" id="L165">                appartementsrechtVolgnummer = &quot;A&quot; + appartementsrechtVolgnummer;</span>
+            }
+
+<span class="fc" id="L168">            String aanduiding = kadGemCode + sectie + perceelnummer + appartementsrechtVolgnummer;</span>
+<span class="fc" id="L169">            log.debug(&quot;gevonden aanduiding voor herstelde bestandsnaam: &quot; + aanduiding);</span>
+<span class="fc" id="L170">            String filename = &quot;bestandsnaam kon niet worden hersteld&quot;;</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">            if (StringUtils.isNotBlank(aanduiding)) {</span>
+<span class="fc" id="L172">                filename =</span>
+                        prefix
+                                + &quot;-&quot;
+                                + aanduiding
+                                + &quot;-&quot;
+                                + brkdatum
+                                + &quot;-&quot;
+<span class="fc" id="L179">                                + volgordenummer.toString()</span>
+                                + &quot;.zip&quot;;
+            }
+<span class="fc" id="L182">            return filename;</span>
+<span class="nc" id="L183">        } catch (ParserConfigurationException</span>
+                | XPathExpressionException
+                | SAXException
+                | IOException ex) {
+<span class="nc" id="L187">            log.error(&quot;Kan geen bestandsnaam maken van xml: &quot;, ex);</span>
+<span class="nc" id="L188">            return &quot;&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

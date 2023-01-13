@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DataComfortXMLReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">DataComfortXMLReader.java</span></div><h1>DataComfortXMLReader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.util;
+
+import org.geotools.gml.stream.XmlStreamGeometryReader;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Polygon;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
+
+/** @author Boy de Wit */
+<span class="fc" id="L18">public class DataComfortXMLReader {</span>
+
+    private static final int LEVEL_ROOT = 0;
+    private static final int LEVEL_DATA = 1;
+    private static final int LEVEL_COMFORT = 2;
+    private static final int LEVEL_TABLE = 3;
+    private static final int LEVEL_DELETE = 4;
+<span class="fc" id="L25">    private final XMLInputFactory xif = XMLInputFactory.newInstance();</span>
+
+<span class="fc" id="L27">    public DataComfortXMLReader() {</span>
+<span class="fc" id="L28">        xif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters</span>
+<span class="fc" id="L29">        xif.setProperty(</span>
+                XMLInputFactory.SUPPORT_DTD,
+                Boolean.FALSE); // No XML entity expansions or external entities
+<span class="fc" id="L32">    }</span>
+
+    public List&lt;TableData&gt; readDataXML(Source dataXML) throws Exception {
+<span class="fc" id="L35">        Split split = SimonManager.getStopwatch(&quot;b3p.util.datacomfortxmlreader&quot;).start();</span>
+
+<span class="fc" id="L37">        XMLStreamReader xer = xif.createXMLStreamReader(dataXML);</span>
+<span class="fc" id="L38">        XmlStreamGeometryReader geometryReader = new XmlStreamGeometryReader(xer);</span>
+
+<span class="fc" id="L40">        int level = LEVEL_ROOT;</span>
+<span class="fc" id="L41">        List&lt;TableData&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L42">        TableData data = null;</span>
+<span class="fc" id="L43">        TableRow row = null;</span>
+<span class="fc" id="L44">        boolean inComfortData = false;</span>
+<span class="fc" id="L45">        boolean inDeleteData = false;</span>
+
+        root:
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        while (xer.hasNext()) {</span>
+<span class="fc" id="L49">            xer.nextTag();</span>
+<span class="fc" id="L50">            String tag = xer.getLocalName();</span>
+<span class="pc bpc" id="L51" title="2 of 6 branches missed.">            switch (level) {</span>
+                case LEVEL_ROOT:
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                    if (&quot;data&quot;.equals(tag)) {</span>
+<span class="fc" id="L54">                        level = LEVEL_DATA;</span>
+                    }
+                    break;
+
+                case LEVEL_DATA:
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                    if (xer.isEndElement()) {</span>
+<span class="fc" id="L60">                        break root;</span>
+                    }
+
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                    if (&quot;comfort&quot;.equals(tag)) {</span>
+<span class="fc" id="L64">                        String comfortSearchTable = xer.getAttributeValue(null, &quot;search-table&quot;);</span>
+<span class="fc" id="L65">                        String comfortSearchColumn = xer.getAttributeValue(null, &quot;search-column&quot;);</span>
+<span class="fc" id="L66">                        String comfortSearchValue = xer.getAttributeValue(null, &quot;search-value&quot;);</span>
+<span class="fc" id="L67">                        String snapshotDate = xer.getAttributeValue(null, &quot;snapshot-date&quot;);</span>
+<span class="fc" id="L68">                        data =</span>
+                                new TableData(
+                                        comfortSearchTable,
+                                        comfortSearchColumn,
+                                        comfortSearchValue,
+                                        snapshotDate);
+<span class="fc" id="L74">                        level = LEVEL_COMFORT;</span>
+<span class="fc" id="L75">                        inComfortData = true;</span>
+<span class="fc" id="L76">                        inDeleteData = false;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">                    } else if (&quot;delete&quot;.equals(tag)) {</span>
+<span class="nc" id="L78">                        data = new TableData();</span>
+<span class="nc" id="L79">                        level = LEVEL_DELETE;</span>
+<span class="nc" id="L80">                        inComfortData = false;</span>
+<span class="nc" id="L81">                        inDeleteData = true;</span>
+                    } else {
+<span class="fc" id="L83">                        row = new TableRow();</span>
+<span class="fc" id="L84">                        row.setTable(tag);</span>
+<span class="fc" id="L85">                        row.setIgnoreDuplicates(</span>
+<span class="fc" id="L86">                                &quot;yes&quot;.equals(xer.getAttributeValue(null, &quot;ignore-duplicates&quot;)));</span>
+<span class="fc" id="L87">                        String beginDatumColumn =</span>
+<span class="fc" id="L88">                                xer.getAttributeValue(null, &quot;column-dat-beg-geldh&quot;);</span>
+<span class="fc" id="L89">                        String eindeDatumColumn =</span>
+<span class="fc" id="L90">                                xer.getAttributeValue(null, &quot;column-datum-einde-geldh&quot;);</span>
+<span class="fc" id="L91">                        row.setColumnDatumBeginGeldigheid(beginDatumColumn);</span>
+<span class="fc" id="L92">                        row.setColumnDatumEindeGeldigheid(eindeDatumColumn);</span>
+<span class="fc" id="L93">                        data = new TableData(row);</span>
+<span class="fc" id="L94">                        level = LEVEL_TABLE;</span>
+<span class="fc" id="L95">                        inComfortData = false;</span>
+<span class="fc" id="L96">                        inDeleteData = false;</span>
+                    }
+<span class="fc" id="L98">                    list.add(data);</span>
+<span class="fc" id="L99">                    break;</span>
+
+                case LEVEL_COMFORT:
+<span class="pc bpc" id="L102" title="1 of 4 branches missed.">                    if (xer.isEndElement() &amp;&amp; &quot;comfort&quot;.equals(tag)) {</span>
+<span class="fc" id="L103">                        level = LEVEL_DATA;</span>
+                    } else {
+<span class="fc" id="L105">                        row = new TableRow();</span>
+<span class="fc" id="L106">                        row.setTable(tag);</span>
+
+<span class="fc" id="L108">                        data.addRow(row);</span>
+
+<span class="fc" id="L110">                        level = LEVEL_TABLE;</span>
+                    }
+<span class="fc" id="L112">                    break;</span>
+                case LEVEL_DELETE:
+<span class="nc bnc" id="L114" title="All 4 branches missed.">                    if (xer.isEndElement() &amp;&amp; &quot;delete&quot;.equals(tag)) {</span>
+<span class="nc" id="L115">                        level = LEVEL_DATA;</span>
+                    } else {
+<span class="nc" id="L117">                        row = new TableRow();</span>
+<span class="nc" id="L118">                        row.setTable(tag);</span>
+<span class="nc" id="L119">                        data.addRow(row);</span>
+<span class="nc" id="L120">                        level = LEVEL_TABLE;</span>
+                    }
+<span class="nc" id="L122">                    break;</span>
+                case LEVEL_TABLE:
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                    if (xer.isEndElement()) {</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">                        if (inComfortData) {</span>
+<span class="fc" id="L126">                            level = LEVEL_COMFORT;</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">                        } else if (inDeleteData) {</span>
+<span class="nc" id="L128">                            level = LEVEL_DELETE;</span>
+                        } else {
+<span class="fc" id="L130">                            level = LEVEL_DATA;</span>
+                        }
+                    } else {
+<span class="fc" id="L133">                        data = list.get(list.size() - 1);</span>
+<span class="fc" id="L134">                        row.getColumns().add(tag);</span>
+<span class="fc" id="L135">                        String alleenArchief = xer.getAttributeValue(null, &quot;alleen-archief&quot;);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                        if (&quot;true&quot;.equals(alleenArchief)) {</span>
+<span class="fc" id="L137">                            row.setAlleenArchiefColumn(tag);</span>
+                        }
+                        // Detecteer XML elementen of text
+<span class="fc" id="L140">                        xer.next();</span>
+                        // Skip whitespace before a possible element
+<span class="fc bfc" id="L142" title="All 2 branches covered.">                        while (xer.isWhiteSpace()) {</span>
+<span class="fc" id="L143">                            xer.next();</span>
+                        }
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                        if (xer.isStartElement()) {</span>
+<span class="fc" id="L146">                            Split split2 =</span>
+<span class="fc" id="L147">                                    SimonManager.getStopwatch(</span>
+                                                    &quot;b3p.util.datacomfortxmlreader.parsegml&quot;)
+<span class="fc" id="L149">                                            .start();</span>
+<span class="fc" id="L150">                            Geometry geom = geometryReader.readGeometry();</span>
+                            // TODO/HACK force polygon to multi-polygon
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">                            if (geom instanceof Polygon) {</span>
+<span class="nc" id="L153">                                geom =</span>
+                                        new MultiPolygon(
+<span class="nc" id="L155">                                                new Polygon[] {(Polygon) geom}, geom.getFactory());</span>
+                            }
+                            // Note: this linearizes curves, we could use a WKTWriter2 instead!
+<span class="fc" id="L158">                            row.getValues().add(geom.toString());</span>
+<span class="fc" id="L159">                            split2.stop();</span>
+                            // After parsing geometry, move to end of enclosing tag
+<span class="pc bpc" id="L161" title="1 of 4 branches missed.">                            while (!(tag.equals(xer.getLocalName()) &amp;&amp; xer.isEndElement())) {</span>
+<span class="fc" id="L162">                                xer.nextTag();</span>
+                            }
+<span class="fc bfc" id="L164" title="All 2 branches covered.">                        } else if (xer.isCharacters()) {</span>
+<span class="fc" id="L165">                            StringBuilder t = new StringBuilder();</span>
+                            do {
+<span class="fc" id="L167">                                t.append(xer.getText());</span>
+<span class="fc" id="L168">                                xer.next();</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">                            } while (xer.isCharacters());</span>
+<span class="fc" id="L170">                            row.getValues().add(t.toString());</span>
+<span class="fc" id="L171">                        } else {</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                            assert (xer.isEndElement());</span>
+<span class="fc" id="L173">                            row.getValues().add(null);</span>
+                        }
+                    }
+                    break;
+            }
+<span class="fc" id="L178">        }</span>
+<span class="fc" id="L179">        split.stop();</span>
+<span class="fc" id="L180">        return list;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

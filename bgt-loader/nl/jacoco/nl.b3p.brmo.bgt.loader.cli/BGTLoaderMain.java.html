@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTLoaderMain.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader.cli</a> &gt; <span class="el_source">BGTLoaderMain.java</span></div><h1>BGTLoaderMain.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader.cli;
+
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
+
+import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
+
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
+import nl.b3p.brmo.bgt.loader.BGTDatabase;
+import nl.b3p.brmo.bgt.loader.ProgressReporter;
+import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
+import nl.b3p.brmo.bgt.loader.Utils;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+import nl.b3p.brmo.util.CountingSeekableByteChannel;
+import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
+
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.PropertyConfigurator;
+import org.geotools.util.logging.Logging;
+
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.IVersionProvider;
+import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URI;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+
+@Command(
+        name = &quot;bgt-loader&quot;,
+        mixinStandardHelpOptions = true,
+        versionProvider = BGTLoaderMain.class,
+        resourceBundle = Utils.BUNDLE_NAME,
+        subcommands = {DownloadCommand.class})
+<span class="nc" id="L68">public class BGTLoaderMain implements IVersionProvider {</span>
+    private static Log log;
+
+    /**
+     * init logging.
+     *
+     * @param standAlone set to {@code false} when using in a preconfigured environment, eg. calling
+     *     methods from a servlet, use {@code true} for commandline usage.
+     */
+    public static void configureLogging(boolean standAlone) {
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (standAlone) {</span>
+<span class="nc" id="L79">            PropertyConfigurator.configure(</span>
+<span class="nc" id="L80">                    BGTLoaderMain.class.getResourceAsStream(&quot;/bgt-loader-cli-log4.properties&quot;));</span>
+<span class="nc" id="L81">            log = LogFactory.getLog(BGTLoaderMain.class);</span>
+            try {
+<span class="nc" id="L83">                Logging.ALL.setLoggerFactory(&quot;org.geotools.util.logging.Log4JLoggerFactory&quot;);</span>
+<span class="nc" id="L84">            } catch (ClassNotFoundException ignored) {</span>
+<span class="nc" id="L85">            }</span>
+        } else {
+<span class="nc" id="L87">            log = LogFactory.getLog(BGTLoaderMain.class);</span>
+        }
+<span class="nc" id="L89">    }</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L92">        configureLogging(true);</span>
+<span class="nc" id="L93">        CommandLine cmd = new CommandLine(new BGTLoaderMain()).setUsageHelpAutoWidth(true);</span>
+<span class="nc" id="L94">        System.exit(cmd.execute(args));</span>
+<span class="nc" id="L95">    }</span>
+
+    @Command(name = &quot;schema&quot;, sortOptions = false)
+    public int schema(
+            @Option(names = &quot;--dialect&quot;, paramLabel = &quot;&lt;dialect&gt;&quot;, defaultValue = &quot;postgis&quot;)
+                    BGTDatabase.SQLDialectEnum dialectEnum,
+            @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            @Option(names = &quot;--table-prefix&quot;, defaultValue = &quot;&quot;, hidden = true) String tablePrefix,
+            @Option(
+                            names = {&quot;-h&quot;, &quot;--help&quot;},
+                            usageHelp = true)
+                    boolean showHelp)
+            throws SQLException {
+<span class="nc" id="L108">        SQLDialect dialect = BGTDatabase.createDialect(dialectEnum);</span>
+        // For schema generation include plaatsbepalingspunt with 'all' and 'bgt'
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (featureTypeSelectionOptions.featureTypes.contains(&quot;all&quot;)</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                || featureTypeSelectionOptions.featureTypes.contains(&quot;bgt&quot;)) {</span>
+<span class="nc" id="L112">            featureTypeSelectionOptions</span>
+<span class="nc" id="L113">                    .getFeatureTypes()</span>
+<span class="nc" id="L114">                    .add(</span>
+                            DeltaCustomDownloadRequest.FeaturetypesEnum.PLAATSBEPALINGSPUNT
+<span class="nc" id="L116">                                    .getValue());</span>
+        }
+<span class="nc" id="L118">        Set&lt;String&gt; tableNames =</span>
+<span class="nc" id="L119">                featureTypeSelectionOptions.getFeatureTypesList().stream()</span>
+<span class="nc" id="L120">                        .map(DeltaCustomDownloadRequest.FeaturetypesEnum::getValue)</span>
+<span class="nc" id="L121">                        .collect(Collectors.toSet());</span>
+<span class="nc" id="L122">        BGTSchemaMapper bgtSchemaMapper = BGTSchemaMapper.getInstance();</span>
+<span class="nc" id="L123">        bgtSchemaMapper.printSchema(</span>
+                dialect,
+                tablePrefix,
+                objectType -&gt;
+<span class="nc" id="L127">                        tableNames.contains(</span>
+<span class="nc" id="L128">                                bgtSchemaMapper.getTableNameForObjectType(objectType, &quot;&quot;)));</span>
+<span class="nc" id="L129">        return ExitCode.OK;</span>
+    }
+
+    @Command(name = &quot;load&quot;, sortOptions = false)
+    public int load(
+            @Mixin DatabaseOptions dbOptions,
+            @Mixin LoadOptions loadOptions,
+            @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            @Parameters(paramLabel = &quot;&lt;file&gt;&quot;) String file,
+            @Mixin CLIOptions cliOptions,
+            @Option(
+                            names = {&quot;-h&quot;, &quot;--help&quot;},
+                            usageHelp = true)
+                    boolean showHelp)
+            throws Exception {
+
+<span class="nc" id="L145">        log.info(getUserAgent());</span>
+
+<span class="nc" id="L147">        try (BGTDatabase db = new BGTDatabase(dbOptions)) {</span>
+<span class="nc" id="L148">            BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);</span>
+
+            ProgressReporter progressReporter =
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                    cliOptions.isConsoleProgressEnabled()</span>
+<span class="nc" id="L152">                            ? new ConsoleProgressReporter()</span>
+<span class="nc" id="L153">                            : new ProgressReporter();</span>
+<span class="nc" id="L154">            writer.setProgressUpdater(progressReporter);</span>
+
+<span class="nc bnc" id="L156" title="All 2 branches missed.">            if (loadOptions.createSchema) {</span>
+<span class="nc" id="L157">                db.createMetadataTable(loadOptions);</span>
+            }
+
+<span class="nc bnc" id="L160" title="All 2 branches missed.">            if (file.endsWith(&quot;.zip&quot;)</span>
+<span class="nc bnc" id="L161" title="All 4 branches missed.">                    &amp;&amp; (file.startsWith(&quot;http://&quot;) || file.startsWith(&quot;https://&quot;))) {</span>
+<span class="nc" id="L162">                loadZipFromURI(</span>
+                        new URI(file), writer, featureTypeSelectionOptions, loadOptions, true);
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            } else if (file.endsWith(&quot;.zip&quot;)) {</span>
+<span class="nc" id="L165">                loadZip(new File(file), writer, featureTypeSelectionOptions);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">            } else if (file.matches(&quot;.*\\.[xg]ml&quot;)) {</span>
+<span class="nc" id="L167">                loadXml(new File(file), writer);</span>
+            } else {
+<span class="nc" id="L169">                log.error(getMessageFormattedString(&quot;load.invalid_extension&quot;, file));</span>
+<span class="nc" id="L170">                return ExitCode.USAGE;</span>
+            }
+
+<span class="nc bnc" id="L173" title="All 2 branches missed.">            if (writer.getProgress() == null) {</span>
+<span class="nc" id="L174">                log.error(getBundleString(&quot;error.no_feature_types&quot;));</span>
+<span class="nc" id="L175">                return ExitCode.SOFTWARE;</span>
+            }
+<span class="nc" id="L177">            db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());</span>
+            // Set feature types list from options, not MutatieInhoud (if input has it)...
+            // FIXME if downloaded initial extract has less object types, update will fail -- should
+            // set to only encountered
+            // feature types
+<span class="nc" id="L182">            db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());</span>
+<span class="nc" id="L183">            db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + &quot;&quot;);</span>
+<span class="nc" id="L184">            db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + &quot;&quot;);</span>
+<span class="nc" id="L185">            db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);</span>
+<span class="nc" id="L186">            BGTObjectTableWriter.BGTProgress progress = writer.getProgress();</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">            if (progress.getMutatieInhoud() != null) {</span>
+<span class="nc" id="L188">                db.setMetadataForMutaties(progress.getMutatieInhoud());</span>
+<span class="nc" id="L189">                db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());</span>
+
+<span class="nc" id="L191">                log.info(</span>
+<span class="nc" id="L192">                        getMessageFormattedString(</span>
+                                &quot;load.mutatie&quot;,
+<span class="nc" id="L194">                                progress.getMutatieInhoud().getMutatieType(),</span>
+<span class="nc" id="L195">                                progress.getMutatieInhoud().getLeveringsId()));</span>
+            }
+<span class="nc" id="L197">            progressReporter.reportTotalSummary();</span>
+<span class="nc" id="L198">            db.getConnection().commit();</span>
+<span class="nc" id="L199">        }</span>
+
+<span class="nc" id="L201">        return ExitCode.OK;</span>
+    }
+
+    private static boolean isBGTZipEntrySelected(
+            String entryName,
+            FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            boolean logSkipAsInfo) {
+<span class="nc" id="L208">        Set&lt;DeltaCustomDownloadRequest.FeaturetypesEnum&gt; featureTypes =</span>
+<span class="nc" id="L209">                featureTypeSelectionOptions.getFeatureTypesList();</span>
+<span class="nc" id="L210">        Pattern p = Pattern.compile(&quot;bgt_(.+).[xg]ml&quot;);</span>
+
+<span class="nc" id="L212">        Matcher m = p.matcher(entryName);</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        if (!m.matches()) {</span>
+<span class="nc" id="L214">            log.warn(getMessageFormattedString(&quot;load.skip_entry&quot;, entryName));</span>
+<span class="nc" id="L215">            return false;</span>
+        }
+<span class="nc" id="L217">        String tableName = m.group(1);</span>
+        try {
+<span class="nc" id="L219">            DeltaCustomDownloadRequest.FeaturetypesEnum featureType =</span>
+<span class="nc" id="L220">                    DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">            if (!featureTypes.contains(featureType)) {</span>
+<span class="nc" id="L222">                String msg = getMessageFormattedString(&quot;load.skip_unselected&quot;, tableName);</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">                if (logSkipAsInfo) {</span>
+<span class="nc" id="L224">                    log.info(msg);</span>
+                } else {
+<span class="nc" id="L226">                    log.debug(msg);</span>
+                }
+<span class="nc" id="L228">                return false;</span>
+            } else {
+<span class="nc" id="L230">                return true;</span>
+            }
+<span class="nc" id="L232">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L233">            log.warn(getMessageFormattedString(&quot;load.skip_unknown_feature_type&quot;, entryName));</span>
+<span class="nc" id="L234">            return false;</span>
+        }
+    }
+
+    public void loadZipFromURI(
+            URI uri,
+            BGTObjectTableWriter writer,
+            FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            LoadOptions loadOptions,
+            boolean showSelected)
+            throws Exception {
+<span class="nc" id="L245">        log.info(getMessageFormattedString(&quot;download.downloading_from&quot;, uri));</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        if (loadOptions.isHttpZipRandomAccess()) {</span>
+<span class="nc" id="L247">            loadZipFromURIUsingRandomAccess(</span>
+                    uri,
+                    writer,
+                    featureTypeSelectionOptions,
+                    showSelected,
+<span class="nc" id="L252">                    loadOptions.isDebugHttpSeeks());</span>
+        } else {
+<span class="nc" id="L254">            loadZipFromURIUsingStreaming(uri, writer, featureTypeSelectionOptions);</span>
+        }
+<span class="nc" id="L256">    }</span>
+
+    public void loadZipFromURIUsingRandomAccess(
+            URI uri,
+            BGTObjectTableWriter writer,
+            FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            boolean showSelected,
+            boolean debugHttpSeeks)
+            throws Exception {
+<span class="nc" id="L265">        Instant start = Instant.now();</span>
+
+        // NOTE: it can happen that not all entries from a ZIP are read because of
+        // https://issues.apache.org/jira/browse/COMPRESS-584
+        // This happened with
+        // https://api.pdok.nl/lv/bgt/download/v1_0/cache/2/ebe787b3-e113-4331-ab96-edd1e9bf5aa7/bgt-citygml-nl-nopbp.zip
+
+<span class="nc" id="L272">        try (HttpSeekableByteChannel channel =</span>
+<span class="nc" id="L273">                        new HttpSeekableByteChannel(uri).withDebug(debugHttpSeeks);</span>
+<span class="nc" id="L274">                CountingSeekableByteChannel loggingChannel =</span>
+                        new CountingSeekableByteChannel(channel);
+<span class="nc" id="L276">                org.apache.commons.compress.archivers.zip.ZipFile zipFile =</span>
+                        new org.apache.commons.compress.archivers.zip.ZipFile(
+<span class="nc" id="L278">                                loggingChannel, uri.toString(), &quot;UTF8&quot;, false, true)) {</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">            if (debugHttpSeeks) {</span>
+<span class="nc" id="L280">                System.out.println();</span>
+            }
+<span class="nc" id="L282">            int count = 0;</span>
+<span class="nc" id="L283">            long uncompressed = 0;</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">            for (Iterator&lt;ZipArchiveEntry&gt; it = zipFile.getEntries().asIterator(); it.hasNext(); ) {</span>
+<span class="nc" id="L285">                ZipArchiveEntry entry = it.next();</span>
+<span class="nc" id="L286">                count++;</span>
+<span class="nc" id="L287">                uncompressed += entry.getSize();</span>
+<span class="nc" id="L288">            }</span>
+<span class="nc" id="L289">            log.info(</span>
+<span class="nc" id="L290">                    getMessageFormattedString(</span>
+                            &quot;download.zip.read&quot;,
+<span class="nc" id="L292">                            formatTimeSince(start),</span>
+<span class="nc" id="L293">                            count,</span>
+<span class="nc" id="L294">                            byteCountToDisplaySize(channel.size()),</span>
+<span class="nc" id="L295">                            byteCountToDisplaySize(uncompressed)));</span>
+<span class="nc bnc" id="L296" title="All 2 branches missed.">            if (debugHttpSeeks) {</span>
+<span class="nc" id="L297">                log.info(</span>
+<span class="nc" id="L298">                        getMessageFormattedString(</span>
+                                &quot;download.zip.debug-http-seeks.entries&quot;,
+<span class="nc" id="L300">                                loggingChannel.getNonConsecutiveIops(),</span>
+<span class="nc" id="L301">                                channel.getHttpRequestCount(),</span>
+<span class="nc" id="L302">                                channel.getBytesRead()));</span>
+            }
+<span class="nc" id="L304">            loggingChannel.setLoggingEnabled(false);</span>
+
+<span class="nc" id="L306">            ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();</span>
+<span class="nc" id="L307">            List&lt;ZipArchiveEntry&gt; selected = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L308">            zipFile.getEntries()</span>
+<span class="nc" id="L309">                    .asIterator()</span>
+<span class="nc" id="L310">                    .forEachRemaining(</span>
+                            entry -&gt; {
+<span class="nc bnc" id="L312" title="All 2 branches missed.">                                if (isBGTZipEntrySelected(</span>
+<span class="nc" id="L313">                                        entry.getName(), featureTypeSelectionOptions, false)) {</span>
+<span class="nc" id="L314">                                    selected.add(entry);</span>
+                                }
+<span class="nc" id="L316">                            });</span>
+
+<span class="nc bnc" id="L318" title="All 2 branches missed.">            if (selected.size() &gt; 1) {</span>
+                // Only report total percentage when more than one entry
+<span class="nc" id="L320">                long totalSize =</span>
+<span class="nc" id="L321">                        selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);</span>
+<span class="nc" id="L322">                Long totalCompressedSize =</span>
+<span class="nc" id="L323">                        selected.stream()</span>
+<span class="nc" id="L324">                                .map(ZipArchiveEntry::getCompressedSize)</span>
+<span class="nc" id="L325">                                .reduce(0L, Long::sum);</span>
+<span class="nc" id="L326">                progressReporter.setTotalBytes(totalSize);</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">                if (showSelected) {</span>
+<span class="nc" id="L328">                    log.info(</span>
+<span class="nc" id="L329">                            getMessageFormattedString(</span>
+                                    &quot;download.zip.selected&quot;,
+<span class="nc" id="L331">                                    selected.size(),</span>
+<span class="nc" id="L332">                                    byteCountToDisplaySize(totalCompressedSize),</span>
+<span class="nc" id="L333">                                    byteCountToDisplaySize(totalSize)));</span>
+                }
+            }
+<span class="nc" id="L336">            Long[] previousEntriesBytesRead = new Long[] {0L};</span>
+<span class="nc" id="L337">            progressReporter.setTotalBytesReadFunction(</span>
+<span class="nc" id="L338">                    () -&gt; previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());</span>
+
+<span class="nc bnc" id="L340" title="All 2 branches missed.">            for (ZipArchiveEntry entry : selected) {</span>
+<span class="nc" id="L341">                progressReporter.startNewFile(entry.getName(), entry.getSize());</span>
+<span class="nc" id="L342">                writer.write(zipFile.getInputStream(entry));</span>
+<span class="nc" id="L343">            }</span>
+<span class="nc bnc" id="L344" title="All 2 branches missed.">            if (debugHttpSeeks) {</span>
+<span class="nc" id="L345">                log.info(</span>
+<span class="nc" id="L346">                        getMessageFormattedString(</span>
+                                &quot;download.zip.debug-http-seeks.totals&quot;,
+<span class="nc" id="L348">                                loggingChannel.getNonConsecutiveIops(),</span>
+<span class="nc" id="L349">                                channel.getHttpRequestCount(),</span>
+<span class="nc" id="L350">                                channel.getBytesRead(),</span>
+<span class="nc" id="L351">                                byteCountToDisplaySize(channel.getBytesRead())));</span>
+            }
+        }
+<span class="nc" id="L354">    }</span>
+
+    public void loadZipFromURIUsingStreaming(
+            URI downloadURI,
+            BGTObjectTableWriter writer,
+            FeatureTypeSelectionOptions featureTypeSelectionOptions)
+            throws Exception {
+<span class="nc" id="L361">        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();</span>
+
+<span class="nc" id="L363">        try (InputStream input = new ResumingBGTDownloadInputStream(downloadURI, writer)) {</span>
+<span class="nc" id="L364">            CountingInputStream countingInputStream = new CountingInputStream(input);</span>
+<span class="nc" id="L365">            progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);</span>
+
+<span class="nc" id="L367">            try (ZipInputStream zis = new ZipInputStream(countingInputStream)) {</span>
+<span class="nc" id="L368">                ZipEntry entry = zis.getNextEntry();</span>
+<span class="nc bnc" id="L369" title="All 2 branches missed.">                while (entry != null) {</span>
+<span class="nc bnc" id="L370" title="All 2 branches missed.">                    if (isBGTZipEntrySelected(entry.getName(), featureTypeSelectionOptions, true)) {</span>
+<span class="nc" id="L371">                        progressReporter.startNewFile(entry.getName(), null);</span>
+<span class="nc" id="L372">                        writer.write(CloseShieldInputStream.wrap(zis));</span>
+                    }
+<span class="nc" id="L374">                    entry = zis.getNextEntry();</span>
+                }
+            }
+        }
+<span class="nc" id="L378">    }</span>
+
+    public void loadZip(
+            File file,
+            BGTObjectTableWriter writer,
+            FeatureTypeSelectionOptions featureTypeSelectionOptions)
+            throws Exception {
+<span class="nc" id="L385">        try (ZipFile zipFile = new ZipFile(file)) {</span>
+<span class="nc" id="L386">            List&lt;ZipEntry&gt; entries =</span>
+<span class="nc" id="L387">                    zipFile.stream()</span>
+<span class="nc" id="L388">                            .filter(</span>
+                                    entry -&gt;
+<span class="nc" id="L390">                                            isBGTZipEntrySelected(</span>
+<span class="nc" id="L391">                                                    entry.getName(),</span>
+                                                    featureTypeSelectionOptions,
+                                                    false))
+<span class="nc" id="L394">                            .collect(Collectors.toList());</span>
+
+<span class="nc" id="L396">            ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">            if (entries.size() &gt; 1) {</span>
+                // Only report total percentage when more than one entry
+<span class="nc" id="L399">                Long totalSize = entries.stream().map(ZipEntry::getSize).reduce(0L, Long::sum);</span>
+<span class="nc" id="L400">                progressReporter.setTotalBytes(totalSize);</span>
+            }
+<span class="nc" id="L402">            Long[] previousEntriesBytesRead = new Long[] {0L};</span>
+<span class="nc" id="L403">            progressReporter.setTotalBytesReadFunction(</span>
+<span class="nc" id="L404">                    () -&gt; previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());</span>
+
+<span class="nc bnc" id="L406" title="All 2 branches missed.">            for (ZipEntry entry : entries) {</span>
+<span class="nc" id="L407">                try (InputStream in = zipFile.getInputStream(entry)) {</span>
+                    // getSize() will not return -1 because ZipFile uses random access to read the
+                    // ZIP central directory
+<span class="nc" id="L410">                    loadInputStream(entry.getName(), in, entry.getSize(), writer);</span>
+<span class="nc" id="L411">                    previousEntriesBytesRead[0] += entry.getSize();</span>
+                }
+<span class="nc" id="L413">            }</span>
+<span class="nc" id="L414">            progressReporter.reportTotalSummary();</span>
+        }
+<span class="nc" id="L416">    }</span>
+
+    public void loadXml(File file, BGTObjectTableWriter writer) throws Exception {
+<span class="nc" id="L419">        try (FileInputStream in = new FileInputStream(file)) {</span>
+<span class="nc" id="L420">            loadInputStream(file.getName(), in, file.length(), writer);</span>
+        }
+<span class="nc" id="L422">    }</span>
+
+    public void loadInputStream(
+            String name, InputStream input, long size, BGTObjectTableWriter writer)
+            throws Exception {
+<span class="nc" id="L427">        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();</span>
+<span class="nc" id="L428">        progressReporter.startNewFile(name, size);</span>
+<span class="nc" id="L429">        writer.write(input);</span>
+<span class="nc" id="L430">    }</span>
+
+    @Override
+    public String[] getVersion() {
+<span class="nc" id="L434">        return new String[] {Utils.getLoaderVersion(), Utils.getUserAgent()};</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

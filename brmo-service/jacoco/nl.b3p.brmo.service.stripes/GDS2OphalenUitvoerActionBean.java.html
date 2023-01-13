@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GDS2OphalenUitvoerActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">GDS2OphalenUitvoerActionBean.java</span></div><h1>GDS2OphalenUitvoerActionBean.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GDS2OphalenUitvoerActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">GDS2OphalenUitvoerActionBean.java</span></div><h1>GDS2OphalenUitvoerActionBean.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.After;
@@ -15,22 +12,25 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.GDS2OphalenProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+
+/** @author Matthijs Laan */
 <span class="nc" id="L34">public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateListener {</span>
 
     private static final String JSP = &quot;/WEB-INF/jsp/beheer/gds2ophalenuitvoeren.jsp&quot;;
@@ -125,119 +125,122 @@ import org.stripesstuff.stripersist.Stripersist;
 <span class="nc" id="L125">            return new ForwardResolution(JSP);</span>
         }
         // opnieuw laden van config omdat de waitpage de entity detached
-<span class="nc" id="L128">        proces = (GDS2OphaalProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());</span>
-<span class="nc" id="L129">        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);</span>
+<span class="nc" id="L128">        proces =</span>
+                (GDS2OphaalProces)
+<span class="nc" id="L130">                        Stripersist.getEntityManager()</span>
+<span class="nc" id="L131">                                .find(AutomatischProces.class, proces.getId());</span>
+<span class="nc" id="L132">        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);</span>
 
         try {
-<span class="nc" id="L132">            exeProces.execute(this);</span>
+<span class="nc" id="L135">            exeProces.execute(this);</span>
         } finally {
-<span class="nc" id="L134">            completed();</span>
-<span class="nc bnc" id="L135" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
-<span class="nc" id="L136">                Stripersist.getEntityManager().getTransaction().rollback();</span>
+<span class="nc" id="L137">            completed();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L139">                Stripersist.getEntityManager().getTransaction().rollback();</span>
             }
         }
 
-<span class="nc" id="L140">        return new ForwardResolution(JSP);</span>
+<span class="nc" id="L143">        return new ForwardResolution(JSP);</span>
     }
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
     @Override
     public ActionBeanContext getContext() {
-<span class="nc" id="L146">        return context;</span>
+<span class="nc" id="L149">        return context;</span>
     }
 
     @Override
     public void setContext(ActionBeanContext context) {
-<span class="nc" id="L151">        this.context = context;</span>
-<span class="nc" id="L152">    }</span>
+<span class="nc" id="L154">        this.context = context;</span>
+<span class="nc" id="L155">    }</span>
 
     public String getLog() {
-<span class="nc" id="L155">        return log.toString();</span>
+<span class="nc" id="L158">        return log.toString();</span>
     }
 
     public void setLog(String log) {
-<span class="nc" id="L159">        this.log = new StringBuilder(log);</span>
-<span class="nc" id="L160">    }</span>
+<span class="nc" id="L162">        this.log = new StringBuilder(log);</span>
+<span class="nc" id="L163">    }</span>
 
     public long getTotal() {
-<span class="nc" id="L163">        return total;</span>
+<span class="nc" id="L166">        return total;</span>
     }
 
     public void setTotal(long total) {
-<span class="nc" id="L167">        this.total = total;</span>
-<span class="nc" id="L168">    }</span>
+<span class="nc" id="L170">        this.total = total;</span>
+<span class="nc" id="L171">    }</span>
 
     public long getProcessed() {
-<span class="nc" id="L171">        return processed;</span>
+<span class="nc" id="L174">        return processed;</span>
     }
 
     public void setProcessed(long processed) {
-<span class="nc" id="L175">        this.processed = processed;</span>
-<span class="nc" id="L176">    }</span>
+<span class="nc" id="L178">        this.processed = processed;</span>
+<span class="nc" id="L179">    }</span>
 
     public boolean isComplete() {
-<span class="nc" id="L179">        return complete;</span>
+<span class="nc" id="L182">        return complete;</span>
     }
 
     public void setComplete(boolean complete) {
-<span class="nc" id="L183">        this.complete = complete;</span>
-<span class="nc" id="L184">    }</span>
+<span class="nc" id="L186">        this.complete = complete;</span>
+<span class="nc" id="L187">    }</span>
 
     public Date getStart() {
-<span class="nc" id="L187">        return start;</span>
+<span class="nc" id="L190">        return start;</span>
     }
 
     public void setStart(Date start) {
-<span class="nc" id="L191">        this.start = start;</span>
-<span class="nc" id="L192">    }</span>
+<span class="nc" id="L194">        this.start = start;</span>
+<span class="nc" id="L195">    }</span>
 
     public Date getUpdate() {
-<span class="nc" id="L195">        return update;</span>
+<span class="nc" id="L198">        return update;</span>
     }
 
     public void setUpdate(Date update) {
-<span class="nc" id="L199">        this.update = update;</span>
-<span class="nc" id="L200">    }</span>
+<span class="nc" id="L202">        this.update = update;</span>
+<span class="nc" id="L203">    }</span>
 
     public double getProgress() {
-<span class="nc" id="L203">        return progress;</span>
+<span class="nc" id="L206">        return progress;</span>
     }
 
     public void setProgress(double progress) {
-<span class="nc" id="L207">        this.progress = progress;</span>
-<span class="nc" id="L208">    }</span>
+<span class="nc" id="L210">        this.progress = progress;</span>
+<span class="nc" id="L211">    }</span>
 
     public String getExceptionStacktrace() {
-<span class="nc" id="L211">        return exceptionStacktrace;</span>
+<span class="nc" id="L214">        return exceptionStacktrace;</span>
     }
 
     public void setExceptionStacktrace(String exceptionStacktrace) {
-<span class="nc" id="L215">        this.exceptionStacktrace = exceptionStacktrace;</span>
-<span class="nc" id="L216">    }</span>
+<span class="nc" id="L218">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L219">    }</span>
 
     public GDS2OphaalProces getProces() {
-<span class="nc" id="L219">        return proces;</span>
+<span class="nc" id="L222">        return proces;</span>
     }
 
     public void setProces(GDS2OphaalProces proces) {
-<span class="nc" id="L223">        this.proces = proces;</span>
-<span class="nc" id="L224">    }</span>
+<span class="nc" id="L226">        this.proces = proces;</span>
+<span class="nc" id="L227">    }</span>
 
     public String getStatus() {
-<span class="nc" id="L227">        return status;</span>
+<span class="nc" id="L230">        return status;</span>
     }
 
     public void setStatus(String status) {
-<span class="nc" id="L231">        this.status = status;</span>
-<span class="nc" id="L232">    }</span>
+<span class="nc" id="L234">        this.status = status;</span>
+<span class="nc" id="L235">    }</span>
 
     public String getLabel() {
-<span class="nc" id="L235">        return label;</span>
+<span class="nc" id="L238">        return label;</span>
     }
 
     public void setLabel(String label) {
-<span class="nc" id="L239">        this.label = label;</span>
-<span class="nc" id="L240">    }</span>
+<span class="nc" id="L242">        this.label = label;</span>
+<span class="nc" id="L243">    }</span>
     // &lt;/editor-fold&gt;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

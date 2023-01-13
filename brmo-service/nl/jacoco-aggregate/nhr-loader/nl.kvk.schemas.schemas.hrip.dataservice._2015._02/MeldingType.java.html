@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MeldingType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.dataservice._2015._02</a> &gt; <span class="el_source">MeldingType.java</span></div><h1>MeldingType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.dataservice._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for MeldingType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;MeldingType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;code&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;omschrijving&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;referentie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;MeldingType&quot;, propOrder = {
+    &quot;code&quot;,
+    &quot;omschrijving&quot;,
+    &quot;referentie&quot;
+})
+<span class="nc" id="L37">public class MeldingType {</span>
+
+    @XmlElement(required = true)
+    protected String code;
+    @XmlElement(required = true)
+    protected String omschrijving;
+    protected String referentie;
+
+    /**
+     * Gets the value of the code property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCode() {
+<span class="nc" id="L54">        return code;</span>
+    }
+
+    /**
+     * Sets the value of the code property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCode(String value) {
+<span class="nc" id="L66">        this.code = value;</span>
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * Gets the value of the omschrijving property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOmschrijving() {
+<span class="nc" id="L78">        return omschrijving;</span>
+    }
+
+    /**
+     * Sets the value of the omschrijving property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOmschrijving(String value) {
+<span class="nc" id="L90">        this.omschrijving = value;</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Gets the value of the referentie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getReferentie() {
+<span class="nc" id="L102">        return referentie;</span>
+    }
+
+    /**
+     * Sets the value of the referentie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setReferentie(String value) {
+<span class="nc" id="L114">        this.referentie = value;</span>
+<span class="nc" id="L115">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BagBericht.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.entity</a> &gt; <span class="el_source">BagBericht.java</span></div><h1>BagBericht.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.entity;
+
+import nl.b3p.brmo.loader.xml.BagXMLReader;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import java.io.StringReader;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+public class BagBericht extends Bericht {
+
+    private Document doc;
+<span class="pc" id="L25">    private boolean xpathEvaluated = false;</span>
+
+<span class="fc" id="L27">    private static final Log log = LogFactory.getLog(BagBericht.class);</span>
+
+<span class="fc" id="L29">    private static XPathExpression mutTijdstipVerwerking = null,</span>
+<span class="fc" id="L30">            mutVolgnr = null,</span>
+<span class="fc" id="L31">            mutObjectType = null;</span>
+<span class="fc" id="L32">    private static XPathExpression idXPath = null, mutIdXPath = null;</span>
+
+    static {
+<span class="fc" id="L35">        XPathFactory xPathfactory = XPathFactory.newInstance();</span>
+<span class="fc" id="L36">        XPath xpath = xPathfactory.newXPath();</span>
+
+        try {
+<span class="fc" id="L39">            mutTijdstipVerwerking =</span>
+<span class="fc" id="L40">                    xpath.compile(</span>
+                            &quot;/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking']/*[local-name() = 'TijdstipVerwerking']/text()&quot;);
+<span class="fc" id="L42">            mutVolgnr =</span>
+<span class="fc" id="L43">                    xpath.compile(</span>
+                            &quot;/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking']/*[local-name() = 'VolgnrVerwerking']/text()&quot;);
+<span class="fc" id="L45">            mutObjectType =</span>
+<span class="fc" id="L46">                    xpath.compile(</span>
+                            &quot;/*[local-name() = 'Mutatie-product']/*[local-name()= 'Verwerking']/*[local-name() = 'ObjectType']/text()&quot;);
+<span class="fc" id="L48">            mutIdXPath =</span>
+<span class="fc" id="L49">                    xpath.compile(</span>
+                            &quot;/*[local-name() = 'Mutatie-product']/*[local-name() = 'Nieuw']/*/*[local-name() = 'identificatie']/text()&quot;);
+<span class="fc" id="L51">            idXPath = xpath.compile(&quot;/*/*[local-name() = 'identificatie']/text()&quot;);</span>
+<span class="nc" id="L52">        } catch (XPathExpressionException ex) {</span>
+<span class="nc" id="L53">            log.fatal(&quot;Fout bij initialiseren XPath expressies&quot;, ex);</span>
+<span class="fc" id="L54">        }</span>
+<span class="fc" id="L55">    }</span>
+
+    public BagBericht(String brXml) {
+<span class="nc" id="L58">        super(brXml);</span>
+<span class="nc" id="L59">        setSoort(&quot;bag&quot;);</span>
+<span class="nc" id="L60">    }</span>
+
+    public BagBericht(String brXml, Document doc) {
+<span class="fc" id="L63">        super(brXml);</span>
+<span class="fc" id="L64">        setSoort(&quot;bag&quot;);</span>
+<span class="fc" id="L65">        this.doc = doc;</span>
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Deze methode haalt een aantal parameters uit (meestal header van) het bericht. Deze methode
+     * vult alleen waarden in indien nog geen waarde bekend is, Soms wordt een waarde, zoals datum,
+     * al eerder gezet (overruled).
+     */
+    private void evaluateXPath() {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (xpathEvaluated) {</span>
+<span class="fc" id="L75">            return;</span>
+        }
+
+<span class="fc" id="L78">        xpathEvaluated = true;</span>
+        try {
+            String objectType;
+
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">            if (doc == null) {</span>
+<span class="nc" id="L83">                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L84">                DocumentBuilder builder = factory.newDocumentBuilder();</span>
+<span class="nc" id="L85">                doc = builder.parse(new InputSource(new StringReader(getBrXml())));</span>
+            }
+
+<span class="fc" id="L88">            String id = null;</span>
+
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            if (doc.getDocumentElement().getLocalName().equals(BagXMLReader.MUTATIE_PRODUCT)) {</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                if (super.getDatum() == null) {</span>
+<span class="fc" id="L92">                    String d = mutTijdstipVerwerking.evaluate(doc);</span>
+<span class="fc" id="L93">                    setDatumAsString(d);</span>
+                }
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">                if (super.getVolgordeNummer() == null) {</span>
+<span class="fc" id="L97">                    setVolgordeNummer(Integer.valueOf(mutVolgnr.evaluate(doc)));</span>
+                }
+
+<span class="fc" id="L100">                objectType = mutObjectType.evaluate(doc);</span>
+<span class="fc" id="L101">                id = mutIdXPath.evaluate(doc);</span>
+
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">            } else if (BagXMLReader.lvcProductToObjectType.containsKey(</span>
+<span class="fc" id="L104">                    doc.getDocumentElement().getLocalName())) {</span>
+                // datum en volgordenr worden elders toegevoegd
+                // Levering
+<span class="fc" id="L107">                objectType =</span>
+<span class="fc" id="L108">                        BagXMLReader.lvcProductToObjectType.get(</span>
+<span class="fc" id="L109">                                doc.getDocumentElement().getLocalName());</span>
+<span class="fc" id="L110">                id = idXPath.evaluate(doc);</span>
+
+            } else {
+<span class="nc" id="L113">                throw new IllegalArgumentException(</span>
+                        &quot;Onbekend BAG bericht: verwacht &quot;
+                                + BagXMLReader.MUTATIE_PRODUCT
+                                + &quot; of &quot;
+<span class="nc" id="L117">                                + BagXMLReader.lvcProductToObjectType.keySet().toString()</span>
+                                + &quot; maar \&quot;&quot;
+<span class="nc" id="L119">                                + doc.getDocumentElement().getLocalName()</span>
+                                + &quot;\&quot; gevonden&quot;);
+            }
+
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">            if (super.getObjectRef() == null) {</span>
+<span class="fc" id="L124">                setObjectRef(objectType + &quot;:&quot; + id);</span>
+            }
+
+<span class="nc" id="L127">        } catch (Exception e) {</span>
+<span class="nc" id="L128">            log.error(&quot;Error while getting bag referentie&quot;, e);</span>
+<span class="fc" id="L129">        }</span>
+<span class="fc" id="L130">    }</span>
+
+    public void setDatumAsString(String d) {
+<span class="pc bpc" id="L133" title="2 of 4 branches missed.">        if (d == null || d.isEmpty()) {</span>
+<span class="nc" id="L134">            return;</span>
+        }
+
+<span class="fc" id="L137">        LocalDateTime date = LocalDateTime.parse(d);</span>
+<span class="fc" id="L138">        Date date2 = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());</span>
+
+<span class="fc" id="L140">        setDatum(date2);</span>
+<span class="fc" id="L141">    }</span>
+
+    @Override
+    public String getObjectRef() {
+<span class="fc" id="L145">        evaluateXPath();</span>
+
+<span class="fc" id="L147">        return super.getObjectRef();</span>
+    }
+
+    @Override
+    public Date getDatum() {
+<span class="fc" id="L152">        evaluateXPath();</span>
+
+<span class="fc" id="L154">        return super.getDatum();</span>
+    }
+
+    @Override
+    public Integer getVolgordeNummer() {
+<span class="fc" id="L159">        evaluateXPath();</span>
+
+<span class="fc" id="L161">        return super.getVolgordeNummer();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

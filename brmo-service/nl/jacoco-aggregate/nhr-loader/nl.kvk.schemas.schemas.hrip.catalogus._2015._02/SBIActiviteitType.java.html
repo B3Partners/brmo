@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SBIActiviteitType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">SBIActiviteitType.java</span></div><h1>SBIActiviteitType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for SBIActiviteitType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;SBIActiviteitType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}BasisType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;sbiCode&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;isHoofdactiviteit&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;volgorde&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}integer&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;SBIActiviteitType&quot;, propOrder = {
+    &quot;sbiCode&quot;,
+    &quot;isHoofdactiviteit&quot;,
+    &quot;volgorde&quot;
+})
+<span class="nc" id="L37">public class SBIActiviteitType</span>
+    extends BasisType
+{
+
+    protected EnumeratieType sbiCode;
+    protected EnumeratieType isHoofdactiviteit;
+    protected BigInteger volgorde;
+
+    /**
+     * Gets the value of the sbiCode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getSbiCode() {
+<span class="nc" id="L54">        return sbiCode;</span>
+    }
+
+    /**
+     * Sets the value of the sbiCode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setSbiCode(EnumeratieType value) {
+<span class="nc" id="L66">        this.sbiCode = value;</span>
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * Gets the value of the isHoofdactiviteit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getIsHoofdactiviteit() {
+<span class="nc" id="L78">        return isHoofdactiviteit;</span>
+    }
+
+    /**
+     * Sets the value of the isHoofdactiviteit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setIsHoofdactiviteit(EnumeratieType value) {
+<span class="nc" id="L90">        this.isHoofdactiviteit = value;</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Gets the value of the volgorde property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getVolgorde() {
+<span class="nc" id="L102">        return volgorde;</span>
+    }
+
+    /**
+     * Sets the value of the volgorde property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setVolgorde(BigInteger value) {
+<span class="nc" id="L114">        this.volgorde = value;</span>
+<span class="nc" id="L115">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
