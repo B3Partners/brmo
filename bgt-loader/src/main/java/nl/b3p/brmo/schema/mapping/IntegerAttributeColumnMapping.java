@@ -21,7 +21,7 @@ public class IntegerAttributeColumnMapping extends AttributeColumnMapping {
 
     @Override
     public Object toQueryParameter(Object value) {
-        if(value == null) {
+        if (value == null) {
             return null;
         } else {
             return Integer.parseInt(value.toString());

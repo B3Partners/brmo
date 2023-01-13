@@ -3,8 +3,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -13,17 +11,19 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+/** @author mprins */
 @StrictBinding
 public class MViewRefreshActionBean implements ActionBean, ProgressUpdateListener {
 
@@ -44,7 +44,8 @@ public class MViewRefreshActionBean implements ActionBean, ProgressUpdateListene
             getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
             return new ForwardResolution(JSP);
         }
-        MaterializedViewRefreshUitvoeren _proces = (MaterializedViewRefreshUitvoeren) AbstractExecutableProces.getProces(proces);
+        MaterializedViewRefreshUitvoeren _proces =
+                (MaterializedViewRefreshUitvoeren) AbstractExecutableProces.getProces(proces);
         try {
             _proces.execute(this);
         } finally {
@@ -55,14 +56,10 @@ public class MViewRefreshActionBean implements ActionBean, ProgressUpdateListene
     }
 
     @Override
-    public void total(long total) {
-
-    }
+    public void total(long total) {}
 
     @Override
-    public void progress(long progress) {
-
-    }
+    public void progress(long progress) {}
 
     @Override
     public void exception(Throwable t) {

@@ -16,12 +16,22 @@
  */
 package nl.b3p.brmo.loader.xml;
 
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,27 +50,17 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.StagingProxy;
-import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-/**
- *
- * @author Meine Toonen
- */
+/** @author Meine Toonen */
 public class BRPXMLReader extends BrmoXMLReader {
 
     private InputStream in;
     private NodeList nodes = null;
     private int index;
-    
+
     private Templates template;
     private final String pathToXsl = "/xsl/brp-brxml-preprocessor.xsl";
-    
+
     public static final String PREFIX = "NL.BRP.Persoon.";
     private StagingProxy staging;
 
@@ -78,18 +78,20 @@ public class BRPXMLReader extends BrmoXMLReader {
         factory.setNamespaceAware(true);
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(in);
-        
+
         TransformerFactory tf = TransformerFactory.newInstance();
-        tf.setURIResolver(new URIResolver() {
-            @Override
-            public Source resolve(String href, String base) throws TransformerException {
-                return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
-            }
-        });
-        
+        tf.setURIResolver(
+                new URIResolver() {
+                    @Override
+                    public Source resolve(String href, String base) throws TransformerException {
+                        return new StreamSource(
+                                RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
+                    }
+                });
+
         Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
         this.template = tf.newTemplates(xsl);
-        
+
         nodes = doc.getDocumentElement().getChildNodes();
         index = 0;
     }
@@ -105,10 +107,13 @@ public class BRPXMLReader extends BrmoXMLReader {
         index++;
         String object_ref = getObjectRef(n);
         StringWriter sw = new StringWriter();
-        Bericht old = staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());
-        
-        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor template gebruikt worden, maar de gewone.
-        
+        Bericht old =
+                staging.getPreviousBericht(
+                        object_ref, getBestandsDatum(), -1L, new StringBuilder());
+
+        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor
+        // template gebruikt worden, maar de gewone.
+
         Transformer t;
 
         if (old != null) {
@@ -118,8 +123,8 @@ public class BRPXMLReader extends BrmoXMLReader {
         }
 
         t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        t.transform(new DOMSource(n), new StreamResult(sw));//new StreamResult(outputStream));
- 
+        t.transform(new DOMSource(n), new StreamResult(sw)); // new StreamResult(outputStream));
+
         Map<String, String> bsns = extractBSN(n);
 
         String el = getXML(bsns);
@@ -152,6 +157,7 @@ public class BRPXMLReader extends BrmoXMLReader {
 
     /**
      * maakt een map met bsn,bsnhash.
+     *
      * @param n document node met bsn-nummer
      * @return hashmap met bsn,bsnhash
      * @throws XPathExpressionException if any
@@ -168,7 +174,6 @@ public class BRPXMLReader extends BrmoXMLReader {
             String bsnString = bsn.getTextContent();
             String hash = getHash(bsnString);
             hashes.put(bsnString, hash);
-            
         }
         return hashes;
     }
@@ -178,8 +183,17 @@ public class BRPXMLReader extends BrmoXMLReader {
         for (Entry<String, String> entry : map.entrySet()) {
             if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
                 String hash = entry.getValue();
-              
-                String el = "<" + PREFIX + entry.getKey() + ">" + hash + "</" + PREFIX + entry.getKey() + ">";
+
+                String el =
+                        "<"
+                                + PREFIX
+                                + entry.getKey()
+                                + ">"
+                                + hash
+                                + "</"
+                                + PREFIX
+                                + entry.getKey()
+                                + ">";
                 root += el;
             }
         }

@@ -38,7 +38,7 @@ public class SchemaObjectInstance {
         s.append("{");
         SortedSet<String> attributeNames = new TreeSet<>(attributes.keySet());
         boolean first = true;
-        for(String name: attributeNames) {
+        for (String name : attributeNames) {
             if (first) {
                 first = false;
             } else {
@@ -48,7 +48,7 @@ public class SchemaObjectInstance {
             s.append("=");
             Object value = attributes.get(name);
             if (value instanceof Geometry) {
-                value = wktWriter2.write((Geometry)value);
+                value = wktWriter2.write((Geometry) value);
             }
             s.append(value);
         }

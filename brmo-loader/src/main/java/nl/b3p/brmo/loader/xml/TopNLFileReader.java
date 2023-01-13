@@ -16,19 +16,14 @@
  */
 package nl.b3p.brmo.loader.xml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 
-/**
- *
- * @author Mark Prins
- */
+import java.io.File;
+import java.util.Date;
+import java.util.StringTokenizer;
+
+/** @author Mark Prins */
 public class TopNLFileReader extends BrmoXMLReader {
 
     private long fileSize = 0;
@@ -41,10 +36,7 @@ public class TopNLFileReader extends BrmoXMLReader {
         this.init();
     }
 
-    /**
-     *
-     * @throws Exception als het bestand niet bestaat of leeg is
-     */
+    /** @throws Exception als het bestand niet bestaat of leeg is */
     @Override
     public void init() throws Exception {
         File input = new File(this.getBestandsNaam());
@@ -64,12 +56,14 @@ public class TopNLFileReader extends BrmoXMLReader {
     @Override
     public void setBestandsNaam(String naam) {
         super.setBestandsNaam(naam);
-        StringTokenizer parts = new StringTokenizer(
-                naam.substring(naam.lastIndexOf(File.separator) + 1, naam.length()),
-                "_-.", false);
+        StringTokenizer parts =
+                new StringTokenizer(
+                        naam.substring(naam.lastIndexOf(File.separator) + 1, naam.length()),
+                        "_-.",
+                        false);
 
         if (parts.countTokens() > 2) {
-            this.setGebied("" + parts.nextToken() +" "+ parts.nextToken());
+            this.setGebied("" + parts.nextToken() + " " + parts.nextToken());
         } else {
             this.setGebied("Nederland");
         }

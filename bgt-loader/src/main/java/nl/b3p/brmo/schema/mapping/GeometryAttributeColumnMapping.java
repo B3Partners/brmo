@@ -19,7 +19,7 @@ public class GeometryAttributeColumnMapping extends AttributeColumnMapping {
     }
 
     @Override
-    public Geometry toQueryParameter(Object value)  {
+    public Geometry toQueryParameter(Object value) {
         return (Geometry) value;
     }
 }

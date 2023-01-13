@@ -18,12 +18,9 @@ package nl.b3p.topnl.entities;
 
 import java.util.Date;
 
-/**
- *
- * @author Meine Toonen
- */
+/** @author Meine Toonen */
 public abstract class TopNLEntity {
-    
+
     protected String topnltype;
     private Integer id;
     private String identificatie;
@@ -34,7 +31,7 @@ public abstract class TopNLEntity {
     private Date objectBeginTijd;
     private Date objectEindTijd;
     private Long visualisatieCode;
-    
+
     public String getTopnltype() {
         return topnltype;
     }

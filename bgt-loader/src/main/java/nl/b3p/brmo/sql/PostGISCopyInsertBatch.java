@@ -8,6 +8,7 @@ package nl.b3p.brmo.sql;
 
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.StringEscapeUtils;
@@ -20,9 +21,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * The PostgreSQL JDBC driver does not support parallel copy operations, even with multiple connections. So this class
- * can cache the copy stream in memory so only one copy operation is active at a time, although this is significantly
- * slower.
+ * The PostgreSQL JDBC driver does not support parallel copy operations, even with multiple
+ * connections. So this class can cache the copy stream in memory so only one copy operation is
+ * active at a time, although this is significantly slower.
  */
 public class PostGISCopyInsertBatch implements QueryBatch {
     private static final Log LOG = LogFactory.getLog(PostGISCopyInsertBatch.class);
@@ -39,13 +40,19 @@ public class PostGISCopyInsertBatch implements QueryBatch {
     protected CopyIn lastCopyIn = null;
     protected boolean buffer;
 
-    public PostGISCopyInsertBatch(Connection connection, String sql, int batchSize, SQLDialect dialect, boolean buffer, boolean linearizeCurves) {
+    public PostGISCopyInsertBatch(
+            Connection connection,
+            String sql,
+            int batchSize,
+            SQLDialect dialect,
+            boolean buffer,
+            boolean linearizeCurves) {
         if (!(dialect instanceof PostGISDialect)) {
             throw new IllegalArgumentException();
         }
         this.connection = connection;
         this.sql = sql;
-        this.dialect = (PostGISDialect)dialect;
+        this.dialect = (PostGISDialect) dialect;
         this.batchSize = batchSize;
         this.buffer = buffer;
         this.linearizeCurves = linearizeCurves;
@@ -67,7 +74,7 @@ public class PostGISCopyInsertBatch implements QueryBatch {
 
     @Override
     public boolean addBatch(Object[] params) throws Exception {
-        for(int i = 0; i < params.length; i++) {
+        for (int i = 0; i < params.length; i++) {
             if (i != 0) {
                 copyData.append("\t");
             }
@@ -78,7 +85,7 @@ public class PostGISCopyInsertBatch implements QueryBatch {
                 Geometry geometry = (Geometry) param;
                 copyData.append(dialect.getEWkt(geometry, linearizeCurves));
             } else if (param instanceof Boolean) {
-                copyData.append((Boolean)param ? "t" : "f");
+                copyData.append((Boolean) param ? "t" : "f");
             } else {
                 // TODO any more types need special conversion?
                 copyData.escape(param.toString());
@@ -98,7 +105,6 @@ public class PostGISCopyInsertBatch implements QueryBatch {
         return false;
     }
 
-
     @Override
     public void executeBatch() throws Exception {
         if (count > 0) {
@@ -106,7 +112,10 @@ public class PostGISCopyInsertBatch implements QueryBatch {
                 if (LOG.isDebugEnabled()) {
                     // To get the number of bytes this call is duplicated from writeToCopy()...
                     int bytes = copyData.toString().getBytes(StandardCharsets.UTF_8).length;
-                    LOG.debug(String.format("execute buffered copy batch, %d bytes, %d rows, sql: %s", bytes, count, sql));
+                    LOG.debug(
+                            String.format(
+                                    "execute buffered copy batch, %d bytes, %d rows, sql: %s",
+                                    bytes, count, sql));
                 }
                 writeToCopy();
             } else {
@@ -121,6 +130,5 @@ public class PostGISCopyInsertBatch implements QueryBatch {
     }
 
     @Override
-    public void close() {
-    }
+    public void close() {}
 }

@@ -21,9 +21,10 @@ public class BAG2ConsoleProgressReporter extends BAG2ProgressReporter {
 
     @Override
     public void accept(ObjectTableWriter.Progress progress) {
-        BAG2ObjectTableWriter.BAG2Progress bag2Progress = (BAG2ObjectTableWriter.BAG2Progress) progress;
+        BAG2ObjectTableWriter.BAG2Progress bag2Progress =
+                (BAG2ObjectTableWriter.BAG2Progress) progress;
 
-        switch(progress.getStage()) {
+        switch (progress.getStage()) {
             case LOAD_OBJECTS:
                 if (progress.getObjectCount() == 0) {
                     System.out.print("\r" + currentFileName);

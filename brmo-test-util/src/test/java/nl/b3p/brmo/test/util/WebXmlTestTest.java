@@ -1,12 +1,13 @@
 package nl.b3p.brmo.test.util;
 
+import static nl.b3p.brmo.test.util.WebXmlTest.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-
-import static nl.b3p.brmo.test.util.WebXmlTest.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class WebXmlTestTest {
 

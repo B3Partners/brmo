@@ -18,7 +18,7 @@ public interface QueryBatch {
     default void closeQuietly() {
         try {
             close();
-        } catch(SQLException ignored) {
+        } catch (SQLException ignored) {
         }
     }
 }

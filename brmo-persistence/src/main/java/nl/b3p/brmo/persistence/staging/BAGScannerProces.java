@@ -11,6 +11,4 @@ import javax.persistence.Entity;
  * @author mprins
  */
 @Entity
-public class BAGScannerProces extends DirectoryScannerProces {
-
-}
+public class BAGScannerProces extends DirectoryScannerProces {}

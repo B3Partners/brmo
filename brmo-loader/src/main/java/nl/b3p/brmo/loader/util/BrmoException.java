@@ -1,13 +1,9 @@
 package nl.b3p.brmo.loader.util;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 public class BrmoException extends Exception {
 
-    public BrmoException() {
-    }
+    public BrmoException() {}
 
     public BrmoException(String message) {
         super(message);
@@ -20,5 +16,4 @@ public class BrmoException extends Exception {
     public BrmoException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }

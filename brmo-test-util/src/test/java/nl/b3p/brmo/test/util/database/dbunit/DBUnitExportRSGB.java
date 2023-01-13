@@ -3,31 +3,29 @@
  */
 package nl.b3p.brmo.test.util.database.dbunit;
 
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.FilteredDataSet;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultTable;
-import org.dbunit.dataset.FilteredDataSet;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
-import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
 /**
- * Een tool om een export te maken van een aantal tabellen; de export kan
- * vervolgens worden gebruikt in een dbunit testcase.
+ * Een tool om een export te maken van een aantal tabellen; de export kan vervolgens worden gebruikt
+ * in een dbunit testcase.
  *
  * @author mprins
- *
- * zie: http://dbunit.wikidot.com/demoimportexport
+ *     <p>zie: http://dbunit.wikidot.com/demoimportexport
  */
 public class DBUnitExportRSGB {
 
@@ -65,13 +63,18 @@ public class DBUnitExportRSGB {
         "zak_recht"
     };
 
-    public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
+    public static void main(String[] args)
+            throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
         Class driverClass = Class.forName(_driverClass);
         Connection jdbcConnection = DriverManager.getConnection(_jdbcConnection, _user, _passwd);
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-         connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-//        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+        connection
+                .getConfig()
+                .setProperty(
+                        DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+        //        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new
+        // Oracle10DataTypeFactory());
 
         // voor alle tabellen:
         // ITableFilter filter = new DatabaseSequenceFilter(connection);

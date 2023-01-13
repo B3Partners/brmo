@@ -16,19 +16,19 @@
  */
 package nl.b3p.topnl.converters;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TestUtil;
 import nl.b3p.topnl.TopNLType;
 import nl.b3p.topnl.entities.*;
+
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -38,13 +38,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
-/**
- *
- * @author Meine Toonen
- */
-public class Top10NLConverterTest extends TestUtil{
+/** @author Meine Toonen */
+public class Top10NLConverterTest extends TestUtil {
 
     private final Top10NLConverter instance;
     private final Processor processor;
@@ -69,14 +68,13 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals(expResult.get(0).getClass(), result.get(0).getClass());
     }
 
-    /**
-     * Test of convertHoogte method, of class Top250NLConverter.
-     */
+    /** Test of convertHoogte method, of class Top250NLConverter. */
     @Test
     public void testConvertHoogte() throws Exception {
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setBronnauwkeurigheid(20000.0);
-        expected.setBronbeschrijving("Externe data: Hoogtegegevens. Gebaseerd op hoogtemodel Kadaster dat is bijgehouden met behulp van stereo luchtfoto's");
+        expected.setBronbeschrijving(
+                "Externe data: Hoogtegegevens. Gebaseerd op hoogtemodel Kadaster dat is bijgehouden met behulp van stereo luchtfoto's");
         expected.setVisualisatieCode(16300L);
 
         expected.setIdentificatie("NL.TOP10NL.105441792");
@@ -87,7 +85,7 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(entity, entity);
         Hoogte h = (Hoogte) entity;
-        
+
         assertEquals("hoogtepunt", h.getTypeHoogte());
         assertEquals(31.5d, h.getHoogte());
         assertEquals("NAP", h.getReferentieVlak());
@@ -134,7 +132,7 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals("Luchter Zeeduinen", real.getNaamNL());
         assertEquals(Point.class, real.getGeometrie().getClass());
     }
-    
+
     @Test
     public void testConvertGebouw() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Gebouw.xml");
@@ -146,20 +144,19 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setIdentificatie("NL.TOP10NL.127584838");
         expected.setVisualisatieCode(13000L);
         expected.setBronnauwkeurigheid(100d);
- 
-       assertNotNull(entity);
+
+        assertNotNull(entity);
         assertTrue(entity instanceof Gebouw);
 
         Gebouw real = (Gebouw) entity;
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals( "overig", real.getTypeGebouw());
-        assertEquals( "laagbouw", real.getHoogteklasse());
-        assertEquals( "in gebruik", real.getStatus());
+        assertEquals("overig", real.getTypeGebouw());
+        assertEquals("laagbouw", real.getHoogteklasse());
+        assertEquals("in gebruik", real.getStatus());
     }
-    
-       
+
     @Test
     public void testConvertInrichtingselement() throws Exception {
         TopNLEntity entity = getEntity("top10nl/InrichtingsElement.xml");
@@ -179,23 +176,23 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "koedam", real.getTypeInrichtingselement());
+        assertEquals("koedam", real.getTypeInrichtingselement());
         assertEquals(0L, real.getHoogteniveau());
     }
- 
+
     @Test
     public void testConvertPlaats() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Plaats.xml");
 
         assertNotNull(entity);
 
-        
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setBronactualiteit(sdf.parse("2016-07-01"));
         expected.setObjectBeginTijd(sdf.parse("2015-11-01"));
         expected.setBrontype("externe data");
-        expected.setBronbeschrijving("Geometrie ingetekend door Kadaster, op basis van luchtfoto's van 2016. Aantal inwoners: in de BRP geregistreerde inwoners op 30 juni 2016, berekend door het Centraal Bureau\n" +
-" voor de Statistiek, Voorburg/Heerlen.");
+        expected.setBronbeschrijving(
+                "Geometrie ingetekend door Kadaster, op basis van luchtfoto's van 2016. Aantal inwoners: in de BRP geregistreerde inwoners op 30 juni 2016, berekend door het Centraal Bureau\n"
+                        + " voor de Statistiek, Voorburg/Heerlen.");
         expected.setIdentificatie("NL.TOP10NL.128994154");
         expected.setVisualisatieCode(18400L);
 
@@ -206,11 +203,11 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals( "woonkern", real.getTypeGebied());
-        assertEquals( 65L, real.getAantalInwoners());
-        assertEquals( "Stitswerd", real.getNaamNL());
+        assertEquals("woonkern", real.getTypeGebied());
+        assertEquals(65L, real.getAantalInwoners());
+        assertEquals("Stitswerd", real.getNaamNL());
     }
-              
+
     @Test
     public void testConvertPlantopografie() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Plantopografie2.xml");
@@ -220,8 +217,9 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setIdentificatie("NL.TOP10NL.130146508");
         expected.setVisualisatieCode(999L);
         expected.setBronnauwkeurigheid(100d);
-        expected.setBrontype( "luchtfoto");
-        expected.setBronbeschrijving("Geometrie ingetekend door Kadaster, op basis van luchtfoto's. Voor de objectklasse Terrein is het type_landgebruik gebaseerd op BRP-Gewaspercelen 2016, bron: RVO.nl");
+        expected.setBrontype("luchtfoto");
+        expected.setBronbeschrijving(
+                "Geometrie ingetekend door Kadaster, op basis van luchtfoto's. Voor de objectklasse Terrein is het type_landgebruik gebaseerd op BRP-Gewaspercelen 2016, bron: RVO.nl");
         expected.setBronactualiteit(sdf.parse("2016-01-01"));
         expected.setObjectBeginTijd(sdf.parse("2017-06-01"));
         assertNotNull(entity);
@@ -231,11 +229,10 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals( "|A7/N7 Zuidelijke Ringweg Groningen|", real.getNaam());
-        assertEquals( "weg", real.getTypePlanTopografie());
-        
+        assertEquals("|A7/N7 Zuidelijke Ringweg Groningen|", real.getNaam());
+        assertEquals("weg", real.getTypePlanTopografie());
     }
-    
+
     @Test
     public void testConvertRegistratiefGebied() throws Exception {
         TopNLEntity entity = getEntity("top10nl/RegistratiefGebied.xml");
@@ -245,8 +242,9 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setIdentificatie("NL.TOP10NL.129704430");
         expected.setVisualisatieCode(17010L);
         expected.setBronnauwkeurigheid(20000d);
-        expected.setBrontype( "externe data");
-        expected.setBronbeschrijving("Externe data: Gemeentegrenzen. Gemeentegrenzen gebaseerd op grenswijzigingen in de Basisregistratie Kadaster (BRK). De gemeentegrenzen zijn gegeneraliseerd in de BRT opgenomen.");
+        expected.setBrontype("externe data");
+        expected.setBronbeschrijving(
+                "Externe data: Gemeentegrenzen. Gemeentegrenzen gebaseerd op grenswijzigingen in de Basisregistratie Kadaster (BRK). De gemeentegrenzen zijn gegeneraliseerd in de BRT opgenomen.");
         expected.setBronactualiteit(sdf.parse("2016-01-01"));
         expected.setObjectBeginTijd(sdf.parse("2016-11-01"));
         assertNotNull(entity);
@@ -256,10 +254,10 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
-        assertEquals( "provincie", real.getTypeRegistratiefGebied());
-        assertEquals( "31", real.getNummer());
-        assertEquals( "Limburg", real.getNaamNL());
-        assertEquals( "Limburg", real.getNaamOfficieel());
+        assertEquals("provincie", real.getTypeRegistratiefGebied());
+        assertEquals("31", real.getNummer());
+        assertEquals("Limburg", real.getNaamNL());
+        assertEquals("Limburg", real.getNaamOfficieel());
     }
 
     @Test
@@ -278,10 +276,11 @@ public class Top10NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "wal", real.getTypeRelief());
-        assertEquals( "< 1 meter", real.getHoogteklasse());
+        assertEquals("wal", real.getTypeRelief());
+        assertEquals("< 1 meter", real.getHoogteklasse());
         assertEquals(0L, real.getHoogteniveau());
     }
+
     @Test
     public void testConvertReliefTalud() throws Exception {
         TopNLEntity entity = getEntity("top10nl/ReliefTalud.xml");
@@ -292,10 +291,11 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setVisualisatieCode(16810L);
         expected.setBrontype("TOP10vector");
         expected.setBronnauwkeurigheid(2000d);
-        expected.setBronbeschrijving("Digitaal bestand met gecodeerde vectoren. Deze geven tezamen de topografie van Nederland weer op de schaal 1:10.000. Voorloper van TOP10NL.");
+        expected.setBronbeschrijving(
+                "Digitaal bestand met gecodeerde vectoren. Deze geven tezamen de topografie van Nederland weer op de schaal 1:10.000. Voorloper van TOP10NL.");
         expected.setBronactualiteit(sdf.parse("2005-01-01"));
         expected.setBronactualiteit(sdf.parse("2005-01-01"));
-        
+
         assertNotNull(entity);
         assertTrue(entity instanceof Relief);
 
@@ -305,11 +305,11 @@ public class Top10NLConverterTest extends TestUtil{
         assertNull(real.getGeometrie());
         assertEquals(LineString.class, real.getTaludHogeZijde().getClass());
         assertEquals(LineString.class, real.getTaludLageZijde().getClass());
-        assertEquals( "talud, hoogteverschil", real.getTypeRelief());
-        assertEquals( "> 2,5 meter", real.getHoogteklasse());
+        assertEquals("talud, hoogteverschil", real.getTypeRelief());
+        assertEquals("> 2,5 meter", real.getHoogteklasse());
         assertEquals(0, real.getHoogteniveau());
     }
-    
+
     @Test
     public void testConvertSpoorbaandeel() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Spoorbaandeel.xml");
@@ -336,7 +336,7 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals(true, real.getElektrificatie());
         assertEquals(-1L, real.getHoogteniveau());
     }
-    
+
     @Test
     public void testConvertTerrein() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Terrein.xml");
@@ -355,7 +355,7 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals(Polygon.class, real.getGeometrie().getClass());
         assertEquals("overig", real.getTypeLandgebruik());
     }
-    
+
     @Test
     public void testConvertWaterdeel() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Waterdeel.xml");
@@ -378,7 +378,7 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals("overig", real.getFunctie());
         assertEquals(0L, real.getHoogteniveau());
     }
-    
+
     @Test
     public void testConvertWegdeel() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Wegdeel.xml");
@@ -429,7 +429,7 @@ public class Top10NLConverterTest extends TestUtil{
     top10nl:Inrichtingselement
     top10nl:Plaats
     top10nl:GeografischGebied
-    
+
     top10nl:RegistratiefGebied
     top10nl:Relief
     top10nl:Spoorbaandeel
@@ -438,13 +438,14 @@ public class Top10NLConverterTest extends TestUtil{
     top10nl:Wegdeel
 
      */
-    private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
+    private TopNLEntity getEntity(String file)
+            throws JAXBException, IOException, SAXException, ParserConfigurationException,
+                    TransformerException {
         URL in = Top10NLConverterTest.class.getResource(file);
         List jaxb = processor.parse(in);
         return instance.convertObject(jaxb.get(0));
     }
-    
-      
+
     public TopNLEntity getStandardTestTopNLEntity() throws ParseException {
         TopNLEntity expected = new TopNLEntity() {};
 
@@ -452,9 +453,10 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setBrontype("luchtfoto");
         expected.setBronactualiteit(sdf.parse("2015-01-01"));
         expected.setBronnauwkeurigheid(100.0);
-        expected.setBronbeschrijving("Een orthogerectificeerde fotografische opname van een deel van het aardoppervlak. Gemaakt vanuit een vliegtuig.");
+        expected.setBronbeschrijving(
+                "Een orthogerectificeerde fotografische opname van een deel van het aardoppervlak. Gemaakt vanuit een vliegtuig.");
         expected.setObjectBeginTijd(sdf.parse("2008-11-24"));
-        
+
         return expected;
     }
 }

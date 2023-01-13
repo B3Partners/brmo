@@ -3,10 +3,7 @@ package nl.b3p.brmo.loader.entity;
 import java.math.BigInteger;
 import java.util.Date;
 
-/**
- *
- * @author Boy de Wit
- */
+/** @author Boy de Wit */
 public class LaadProces {
 
     private Long id;
@@ -37,17 +34,20 @@ public class LaadProces {
 
     private Date beschikbaar_tot;
 
-
-    /**
-     * see nl.b3p.brmo.persistence.staging.LaadProces
-     */
+    /** see nl.b3p.brmo.persistence.staging.LaadProces */
     public static enum STATUS {
         // als je er bij maakt ook in de andere LaadProces klasse toevoegen
-        STAGING_OK, STAGING_NOK, STAGING_MISSING, STAGING_DUPLICAAT, ARCHIVE, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK
+        STAGING_OK,
+        STAGING_NOK,
+        STAGING_MISSING,
+        STAGING_DUPLICAAT,
+        ARCHIVE,
+        RSGB_TOPNL_WAITING,
+        RSGB_TOPNL_OK,
+        RSGB_TOPNL_NOK
     };
 
-    public LaadProces() {
-    }
+    public LaadProces() {}
 
     public LaadProces(String bestandNaam, String soort) {
         this.bestandNaam = bestandNaam;
@@ -136,8 +136,7 @@ public class LaadProces {
     }
 
     /**
-     * itt de hibernate variant neemt dit aan en niet het object, dat betaat
-     * niet in dit model.
+     * itt de hibernate variant neemt dit aan en niet het object, dat betaat niet in dit model.
      *
      * @param automatischProces automatisch proces id
      */
@@ -219,26 +218,56 @@ public class LaadProces {
 
     @Override
     public String toString() {
-        return "LaadProces{" +
-                "id=" + id +
-                ", bestandNaam='" + bestandNaam + '\'' +
-                ", bestandNaamHersteld='" + bestandNaamHersteld + '\'' +
-                ", bestandDatum=" + bestandDatum +
-                ", soort='" + soort + '\'' +
-                ", gebied='" + gebied + '\'' +
-                ", opmerking='" + opmerking + '\'' +
-                ", status=" + status +
-                ", statusDatum=" + statusDatum +
-                ", contactEmail='" + contactEmail + '\'' +
-                ", automatischProces=" + automatischProces +
-                ", klantafgiftenummer=" + klantafgiftenummer +
-                ", contractafgiftenummer=" + contractafgiftenummer +
-                ", artikelnummer='" + artikelnummer + '\'' +
-                ", contractnummer='" + contractnummer + '\'' +
-                ", afgifteid='" + afgifteid + '\'' +
-                ", afgiftereferentie='" + afgiftereferentie + '\'' +
-                ", bestandsreferentie='" + bestandsreferentie + '\'' +
-                ", beschikbaar_tot=" + beschikbaar_tot +
-                '}';
+        return "LaadProces{"
+                + "id="
+                + id
+                + ", bestandNaam='"
+                + bestandNaam
+                + '\''
+                + ", bestandNaamHersteld='"
+                + bestandNaamHersteld
+                + '\''
+                + ", bestandDatum="
+                + bestandDatum
+                + ", soort='"
+                + soort
+                + '\''
+                + ", gebied='"
+                + gebied
+                + '\''
+                + ", opmerking='"
+                + opmerking
+                + '\''
+                + ", status="
+                + status
+                + ", statusDatum="
+                + statusDatum
+                + ", contactEmail='"
+                + contactEmail
+                + '\''
+                + ", automatischProces="
+                + automatischProces
+                + ", klantafgiftenummer="
+                + klantafgiftenummer
+                + ", contractafgiftenummer="
+                + contractafgiftenummer
+                + ", artikelnummer='"
+                + artikelnummer
+                + '\''
+                + ", contractnummer='"
+                + contractnummer
+                + '\''
+                + ", afgifteid='"
+                + afgifteid
+                + '\''
+                + ", afgiftereferentie='"
+                + afgiftereferentie
+                + '\''
+                + ", bestandsreferentie='"
+                + bestandsreferentie
+                + '\''
+                + ", beschikbaar_tot="
+                + beschikbaar_tot
+                + '}';
     }
 }

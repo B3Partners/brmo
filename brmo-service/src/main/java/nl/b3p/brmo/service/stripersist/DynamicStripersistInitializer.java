@@ -16,23 +16,22 @@
  */
 package nl.b3p.brmo.service.stripersist;
 
-import java.net.URL;
-import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.SortedMap;
-import javax.naming.InitialContext;
-import javax.servlet.ServletContext;
-import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.InitializeSettings;
 import org.w3c.dom.Node;
 
-/**
- *
- * @author Matthijs Laan
- */
+import java.net.URL;
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.List;
+import java.util.SortedMap;
+
+import javax.naming.InitialContext;
+import javax.servlet.ServletContext;
+import javax.sql.DataSource;
+
+/** @author Matthijs Laan */
 public class DynamicStripersistInitializer implements InitializeSettings {
 
     private static final Log log = LogFactory.getLog(DynamicStripersistInitializer.class);
@@ -42,11 +41,11 @@ public class DynamicStripersistInitializer implements InitializeSettings {
     public static final String PU_PREFIX = "brmo.persistence.";
     public static String databaseProductName = null;
 
-    private SortedMap<String,Node> persistenceUnits;
+    private SortedMap<String, Node> persistenceUnits;
     private ServletContext context;
 
     @Override
-    public void init(SortedMap<String,Node> persistenceUnits, URL xml, ServletContext context) {
+    public void init(SortedMap<String, Node> persistenceUnits, URL xml, ServletContext context) {
         this.persistenceUnits = persistenceUnits;
         this.context = context;
     }
@@ -61,31 +60,33 @@ public class DynamicStripersistInitializer implements InitializeSettings {
         try {
             InitialContext ctx = new InitialContext();
 
-            ds = (DataSource)ctx.lookup(DATA_SOURCE_NAME);
-        } catch(Exception e) {
+            ds = (DataSource) ctx.lookup(DATA_SOURCE_NAME);
+        } catch (Exception e) {
             log.info("No JNDI DataSource found under " + DATA_SOURCE_NAME + "");
         }
 
-        if(ds != null) {
+        if (ds != null) {
             try {
                 Connection conn = ds.getConnection();
                 try {
-                    databaseProductName = conn.getMetaData().getDatabaseProductName().replace(" ", "");
+                    databaseProductName =
+                            conn.getMetaData().getDatabaseProductName().replace(" ", "");
                 } finally {
                     conn.close();
                 }
 
-                if(databaseProductName == null) {
+                if (databaseProductName == null) {
                     throw new Exception("No database product name found!");
                 } else {
                     persistenceUnit = PU_PREFIX + databaseProductName.toLowerCase();
-                    if(!persistenceUnits.containsKey(persistenceUnit)) {
-                        throw new Exception(String.format("No persistence unit \"%s\" found for database product name \"%s\"",
-                                persistenceUnit,
-                                databaseProductName));
+                    if (!persistenceUnits.containsKey(persistenceUnit)) {
+                        throw new Exception(
+                                String.format(
+                                        "No persistence unit \"%s\" found for database product name \"%s\"",
+                                        persistenceUnit, databaseProductName));
                     }
                 }
-            } catch(Exception e) {
+            } catch (Exception e) {
                 log.error("Error looking up database product name", e);
                 throw e;
             }

@@ -29,7 +29,8 @@ public interface HttpResponseWrapper {
     String getHeader(String header);
 
     /**
-     * The input stream for the response body. Closing this stream should release all resources for this request.
+     * The input stream for the response body. Closing this stream should release all resources for
+     * this request.
      */
     InputStream getResponseBody() throws IOException;
 }

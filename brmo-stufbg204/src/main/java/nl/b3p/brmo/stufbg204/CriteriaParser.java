@@ -16,23 +16,21 @@
  */
 package nl.b3p.brmo.stufbg204;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import nl.egem.stuf.sector.bg._0204.PRSVraag;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.sector.bg._0204.VraagBericht.Body;
 
-/**
- *
- * @author Meine Toonen
- */
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/** @author Meine Toonen */
 public class CriteriaParser {
 
     private static final Map<String, String> vraagToColumn = new HashMap();
 
     static {
-        //nat_prs
+        // nat_prs
         vraagToColumn.put("voornamen", "nm_voornamen");
         vraagToColumn.put("voorletters", "na_voorletters_aanschrijving");
         vraagToColumn.put("voorvoegselGeslachtsnaam", "nm_voorvoegsel_geslachtsnaam");
@@ -61,7 +59,7 @@ public class CriteriaParser {
         vraagToColumn.put("datumOpschortingBijhouding", "datum_opschorting_bijhouding");
         vraagToColumn.put("omschrijvingRedenOpschortingBijhouding", "reden_opschorting_bijhouding");
 
-        //subject
+        // subject
         vraagToColumn.put("eMailAdres", "emailadres");
         vraagToColumn.put("telefoonnummer", "telefoonnummer");
         vraagToColumn.put("bankgiroRekeningnummer", "rn_bankrekeningnummer");
@@ -87,21 +85,22 @@ public class CriteriaParser {
         vraagToColumn.put("extraElementen", "");
     }
 
-    public CriteriaParser() {
+    public CriteriaParser() {}
 
-    }
-
-    public String getCriteria(VraagBericht bericht) throws IllegalArgumentException,UnsupportedOperationException {
+    public String getCriteria(VraagBericht bericht)
+            throws IllegalArgumentException, UnsupportedOperationException {
         String q;
         String entiteitType = bericht.getStuurgegevens().getEntiteittype();
         Body b = bericht.getBody();
         switch (entiteitType) {
-            case "PRS": {
-                q = getPRSCriterias(b);
-                break;
-            }
+            case "PRS":
+                {
+                    q = getPRSCriterias(b);
+                    break;
+                }
             default:
-                throw new IllegalArgumentException("Entiteitstype niet ondersteund: " + entiteitType);
+                throw new IllegalArgumentException(
+                        "Entiteitstype niet ondersteund: " + entiteitType);
         }
         if (q != null) {
             q = "WHERE " + q;
@@ -109,12 +108,17 @@ public class CriteriaParser {
         return q;
     }
 
-    private String getPRSCriterias(Body b) throws IllegalArgumentException,UnsupportedOperationException {
+    private String getPRSCriterias(Body b)
+            throws IllegalArgumentException, UnsupportedOperationException {
         String q;
         List<PRSVraag> prs = b.getPRS();
 
         String from = getPRSCriteria(prs.get(0), true);
-        String toCheck = getPRSCriteria(prs.get(1), true); // maak even een tweede filter aan met dezelfde operator, om te checken of er op hetzelfde gecheckt wordt == equals 
+        String toCheck =
+                getPRSCriteria(
+                        prs.get(1),
+                        true); // maak even een tweede filter aan met dezelfde operator, om te
+        // checken of er op hetzelfde gecheckt wordt == equals
         String to = getPRSCriteria(prs.get(1), false);
         if (from == null && to == null) {
             return null;
@@ -128,7 +132,8 @@ public class CriteriaParser {
         return q;
     }
 
-    private String getPRSCriteria(PRSVraag prs, boolean first) throws IllegalArgumentException, UnsupportedOperationException {
+    private String getPRSCriteria(PRSVraag prs, boolean first)
+            throws IllegalArgumentException, UnsupportedOperationException {
         String vraag = null;
         Object value = null;
         boolean exact = true;
@@ -339,12 +344,12 @@ public class CriteriaParser {
         if (valueIsString) {
             quote = "\'";
         }
-        if(!exact && !valueIsString){
+        if (!exact && !valueIsString) {
             throw new UnsupportedOperationException("Inexacte datums niet ondersteund");
         }
         if (exact) {
             operator = first ? " > " : " <= ";
-        }else{
+        } else {
             wildcard = "%";
             operator = " LIKE ";
         }

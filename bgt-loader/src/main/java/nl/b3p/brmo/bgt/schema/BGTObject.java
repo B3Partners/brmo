@@ -7,12 +7,13 @@
 
 package nl.b3p.brmo.bgt.schema;
 
+import static nl.b3p.brmo.bgt.schema.BGTObject.MutatieStatus.WORDT;
+
 import nl.b3p.brmo.schema.SchemaObjectInstance;
 
-import javax.xml.stream.Location;
 import java.util.Map;
 
-import static nl.b3p.brmo.bgt.schema.BGTObject.MutatieStatus.WORDT;
+import javax.xml.stream.Location;
 
 public class BGTObject extends SchemaObjectInstance {
     private final Location xmlLocation;
@@ -29,11 +30,17 @@ public class BGTObject extends SchemaObjectInstance {
         this(objectType, attributes, null);
     }
 
-    public BGTObject(BGTObjectType objectType, Map<String, Object> attributes, Location xmlLocation) {
+    public BGTObject(
+            BGTObjectType objectType, Map<String, Object> attributes, Location xmlLocation) {
         this(objectType, attributes, xmlLocation, WORDT, null);
     }
 
-    public BGTObject(BGTObjectType objectType, Map<String, Object> attributes, Location xmlLocation, MutatieStatus mutatieStatus, String mutatiePreviousVersionGmlId) {
+    public BGTObject(
+            BGTObjectType objectType,
+            Map<String, Object> attributes,
+            Location xmlLocation,
+            MutatieStatus mutatieStatus,
+            String mutatiePreviousVersionGmlId) {
         super(objectType, attributes);
         this.xmlLocation = xmlLocation;
         this.mutatieStatus = mutatieStatus;
@@ -58,6 +65,8 @@ public class BGTObject extends SchemaObjectInstance {
 
     public String toString() {
         String s = super.toString();
-        return xmlLocation == null ? s : String.format("xml line %6d: %s", xmlLocation.getLineNumber(), s);
+        return xmlLocation == null
+                ? s
+                : String.format("xml line %6d: %s", xmlLocation.getLineNumber(), s);
     }
 }

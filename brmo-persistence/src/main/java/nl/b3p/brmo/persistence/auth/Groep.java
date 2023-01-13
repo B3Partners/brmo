@@ -19,22 +19,19 @@ package nl.b3p.brmo.persistence.auth;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author Matthijs Laan
- */
+/** @author Matthijs Laan */
 @Entity
 @Table(name = "groep_")
 public class Groep implements Serializable {
 
-    @Id
-    private String naam;
+    @Id private String naam;
 
     @Lob
     @org.hibernate.annotations.Type(type = "org.hibernate.type.TextType")

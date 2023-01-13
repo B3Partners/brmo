@@ -18,17 +18,14 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class FunctioneelGebied extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class FunctioneelGebied extends TopNLEntity {
+
     private String typeFunctioneelGebied;
     private String soortnaam;
     private String naamNL;
     private String naamFries;
-    
+
     private Geometry geometrie;
 
     public String getTypeFunctioneelGebied() {
@@ -70,6 +67,4 @@ public class FunctioneelGebied extends TopNLEntity{
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-    
-    
 }

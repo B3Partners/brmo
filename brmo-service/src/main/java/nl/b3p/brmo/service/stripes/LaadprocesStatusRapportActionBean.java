@@ -5,18 +5,19 @@ package nl.b3p.brmo.service.stripes;
 
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.LaadprocesStatusRapport;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-/**
- * @author mprins
- */
+/** @author mprins */
 public class LaadprocesStatusRapportActionBean implements ActionBean, ProgressUpdateListener {
 
     private static final String JSP = "/WEB-INF/jsp/beheer/laadprocesstatusrapportuitvoeren.jsp";
@@ -36,7 +37,8 @@ public class LaadprocesStatusRapportActionBean implements ActionBean, ProgressUp
             getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
             return new ForwardResolution(JSP);
         }
-        LaadprocesStatusRapport _proces = (LaadprocesStatusRapport) AbstractExecutableProces.getProces(proces);
+        LaadprocesStatusRapport _proces =
+                (LaadprocesStatusRapport) AbstractExecutableProces.getProces(proces);
         try {
             _proces.execute(this);
         } finally {
@@ -47,12 +49,10 @@ public class LaadprocesStatusRapportActionBean implements ActionBean, ProgressUp
     }
 
     @Override
-    public void total(long total) {
-    }
+    public void total(long total) {}
 
     @Override
-    public void progress(long progress) {
-    }
+    public void progress(long progress) {}
 
     @Override
     public void exception(Throwable t) {

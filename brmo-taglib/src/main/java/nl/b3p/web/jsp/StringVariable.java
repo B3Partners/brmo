@@ -20,10 +20,7 @@ import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
 
-/**
- *
- * @author mprins
- */
+/** @author mprins */
 public class StringVariable extends TagExtraInfo {
 
     @Override
@@ -33,7 +30,7 @@ public class StringVariable extends TagExtraInfo {
             id = TailTag.DEFAULT_ID;
         }
 
-        return new VariableInfo[]{
+        return new VariableInfo[] {
             new VariableInfo(id, "java.lang.String", true, VariableInfo.NESTED)
         };
     }

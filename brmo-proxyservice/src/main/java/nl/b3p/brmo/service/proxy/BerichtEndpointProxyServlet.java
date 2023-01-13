@@ -7,10 +7,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -18,9 +14,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
- * Endpoint servlet welke geposte bestanden doorstuurt naar de BRMO. Voorbeeld:
- * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8084/brmo-proxyservice/post/brk -d  @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}
+ * Endpoint servlet welke geposte bestanden doorstuurt naar de BRMO. Voorbeeld: {@code curl -X POST
+ * -H "Content-Type: application/xml" http://localhost:8084/brmo-proxyservice/post/brk
+ * -d @'/testbestanden/BRK_KLEIN_SNAPSHOT.xml'}
  *
  * @author mprins
  */
@@ -36,7 +38,8 @@ public class BerichtEndpointProxyServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024 * 1024;
+            this.maxUploadSize =
+                    Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024 * 1024;
             log.info("De maximale upload size is ingesteld op " + this.maxUploadSize + " MB.");
         } catch (NumberFormatException nfe) {
             this.maxUploadSize = 25 * 1024 * 1024;
@@ -77,8 +80,10 @@ public class BerichtEndpointProxyServlet extends HttpServlet {
         int copied = IOUtils.copy(in, conn.getOutputStream());
         conn.disconnect();
 
-        log.info(String.format("BRMO response status: %d: %s (%d bytes).",
-                conn.getResponseCode(), conn.getResponseMessage(), copied));
+        log.info(
+                String.format(
+                        "BRMO response status: %d: %s (%d bytes).",
+                        conn.getResponseCode(), conn.getResponseMessage(), copied));
 
         response.setStatus(HttpServletResponse.SC_OK);
     }

@@ -19,5 +19,4 @@ public class BAG2Object extends SchemaObjectInstance {
     public BAG2ObjectType getObjectType() {
         return (BAG2ObjectType) super.getObjectType();
     }
-
 }

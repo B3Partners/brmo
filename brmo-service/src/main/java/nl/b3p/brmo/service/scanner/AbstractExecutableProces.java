@@ -3,19 +3,22 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
 import java.io.File;
 import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.persistence.staging.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.stripesstuff.stripersist.Stripersist;
 
 /**
  * Abstract to make sure comparisons are done right.
@@ -26,9 +29,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
 
     private static final Log log = LogFactory.getLog(AbstractExecutableProces.class);
 
-    /**
-     * maximale lengte waarna log wordt ingekort, moet een veelvoud van 10 zijn.
-     */
+    /** maximale lengte waarna log wordt ingekort, moet een veelvoud van 10 zijn. */
     protected static final int OLD_LOG_LENGTH = 3000;
 
     volatile boolean active = false;
@@ -38,7 +39,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      *
      * @param config the type of {@code ProcesExecutable} to create.
      * @return an instance of the specified type
-     *
      */
     public static ProcesExecutable getProces(AutomatischProces config) {
         ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());
@@ -58,7 +58,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
             case BerichtTransformatieProces:
                 return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
             case BerichtDoorstuurProces:
-                return new BerichtDoorsturenProces((BerichtDoorstuurProces)config);
+                return new BerichtDoorsturenProces((BerichtDoorstuurProces) config);
             case WebMirrorBAGScannerProces:
                 return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);
             case LaadprocesTransformatieProces:
@@ -76,29 +76,24 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
             case BGTLoaderProces:
                 return new BGTLoader((BGTLoaderProces) config);
             default:
-                throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
+                throw new IllegalArgumentException(
+                        imple.name() + " is is geen ondersteund proces...");
         }
     }
 
-    /**
-     * {@inheritDoc }
-     */
+    /** {@inheritDoc } */
     @Override
     public boolean isRunning() {
         return this.active;
     }
 
-    /**
-     * {@inheritDoc }
-     */
+    /** {@inheritDoc } */
     @Override
     public void stop() {
         this.active = false;
     }
 
-    /**
-     * {@inheritDoc }
-     */
+    /** {@inheritDoc } */
     @Override
     public void run() {
         while (active) {
@@ -113,10 +108,10 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     }
 
     /**
-     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en
-     * soort.
+     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en soort.
      *
-     * De flow in
+     * <p>De flow in
+     *
      * <pre>
      * loadFromFile(bericht)
      * 	→ stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
@@ -129,13 +124,16 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
      * </pre>
      *
      * @param input een input bestand
-     * @param soort het type registratie, bijvoorbeeld {@value nl.b3p.brmo.loader.BrmoFramework#BR_BRK2}
-     *
+     * @param soort het type registratie, bijvoorbeeld {@value
+     *     nl.b3p.brmo.loader.BrmoFramework#BR_BRK2}
      * @return {@code true} als het bestand een duplicaat betreft, anders {@code false}
-     *
      */
     protected boolean isDuplicaatLaadProces(File input, String soort) {
-        log.debug("Controle voor duplicaat laadproces, soort: '" + soort + "', bestand: " + input.getName());
+        log.debug(
+                "Controle voor duplicaat laadproces, soort: '"
+                        + soort
+                        + "', bestand: "
+                        + input.getName());
         final String name = getBestandsNaam(input);
         EntityManager em = Stripersist.getEntityManager();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -160,7 +158,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     protected String getBestandsNaam(File f) {
         return f.getAbsolutePath();
     }
-    
+
     protected Date getBestandsDatum(File f) {
         return new Date(f.lastModified());
     }

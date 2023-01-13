@@ -6,19 +6,22 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import mockwebserver3.MockWebServer;
+
 import nl.b3p.brmo.bgt.loader.cli.BGTLoaderMain;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
+
 import picocli.CommandLine;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommandLineTestBase extends DBTestBase {
     protected BGTLoaderMain main;
@@ -47,7 +50,7 @@ public class CommandLineTestBase extends DBTestBase {
         allArgs.add("--password=" + dbOptions.getPassword());
         allArgs.addAll(Arrays.asList(args));
         System.out.println("Command line: " + String.join(" ", allArgs));
-        return allArgs.toArray(new String[]{});
+        return allArgs.toArray(new String[] {});
     }
 
     void run(String command, String... args) {

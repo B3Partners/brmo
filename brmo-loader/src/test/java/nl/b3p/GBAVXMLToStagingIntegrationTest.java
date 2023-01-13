@@ -16,11 +16,16 @@
  */
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,14 +54,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * Draaien met:
- * {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql  -pl brmo-loader > /tmp/postgresql.log}
- * voor bijvoorbeeld PostgreSQL.
+ * Draaien met: {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify
+ * -Ppostgresql -pl brmo-loader > /tmp/postgresql.log} voor bijvoorbeeld PostgreSQL.
  *
  * @author Mark Prins
  */
@@ -64,13 +64,31 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // {"type","filename", aantalBerichten, aantalLaadProcessen, aantalSubject, aNummer, bsnNummer,
+                // {"type","filename", aantalBerichten, aantalLaadProcessen, aantalSubject, aNummer,
+                // bsnNummer,
                 // achterNaam, aandNaamgebruik, geslacht},
-                arguments("gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1, 2, "5054783237", "123459916",
-                        "Kumari", "E", "V"),
-                arguments("gbav", "/nl/b3p/brmo/loader/xml/fictieve-persoonslijst-brp.xml", 1, 1, 1, "1234567890",
-                        "987654321", "Jansen", "E", "M")
-        );
+                arguments(
+                        "gbav",
+                        "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml",
+                        1,
+                        1,
+                        2,
+                        "5054783237",
+                        "123459916",
+                        "Kumari",
+                        "E",
+                        "V"),
+                arguments(
+                        "gbav",
+                        "/nl/b3p/brmo/loader/xml/fictieve-persoonslijst-brp.xml",
+                        1,
+                        1,
+                        1,
+                        "1234567890",
+                        "987654321",
+                        "Jansen",
+                        "E",
+                        "M"));
     }
 
     private static final Log LOG = LogFactory.getLog(GBAVXMLToStagingIntegrationTest.class);
@@ -101,31 +119,59 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(GBAVXMLToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet =
+                fxdb.build(
+                        new FileInputStream(
+                                new File(
+                                        GBAVXMLToStagingIntegrationTest.class
+                                                .getResource("/staging-empty-flat.xml")
+                                                .toURI())));
 
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue(0L == brmo.getCountBerichten("gbav", "STAGING_OK"),
+        assumeTrue(
+                0L == brmo.getCountBerichten("gbav", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen("gbav", "STAGING_OK"),
+        assumeTrue(
+                0L == brmo.getCountLaadProcessen("gbav", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
@@ -145,18 +191,35 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     @DisplayName("insertOntbrekendeKlantAfgiftenummers")
     @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}")
     @MethodSource("argumentsProvider")
-    public void testGbavBerichtToStagingToRsgb(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, long aantalSubject,
-            String aNummer, String bsnNummer, String achterNaam, String aandNaamgebruik, String geslacht) throws Exception {
+    public void testGbavBerichtToStagingToRsgb(
+            String bestandType,
+            String bestandNaam,
+            long aantalBerichten,
+            long aantalProcessen,
+            long aantalSubject,
+            String aNummer,
+            String bsnNummer,
+            String achterNaam,
+            String aandNaamgebruik,
+            String geslacht)
+            throws Exception {
 
         try {
-            brmo.loadFromFile(bestandType, GBAVXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
+            brmo.loadFromFile(
+                    bestandType,
+                    GBAVXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(),
+                    null);
         } catch (BrmoLeegBestandException blbe) {
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen...).");
         }
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(bestandType, "STAGING_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten(bestandType, "STAGING_OK"),
                 "Verwacht aantal berichten");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(bestandType, "STAGING_OK"),
+        assertEquals(
+                aantalProcessen,
+                brmo.getCountLaadProcessen(bestandType, "STAGING_OK"),
                 "Verwacht aantal laadprocessen");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
@@ -164,7 +227,9 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(bestandType, "RSGB_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten(bestandType, "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         for (Bericht b : brmo.listBerichten()) {
@@ -181,19 +246,31 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
         assertEquals(aantalSubject, nat_prs.getRowCount(), "Het aantal 'nat_prs' klopt niet");
         int rowNum = (int) (aantalSubject - 1);
-        assertEquals(aandNaamgebruik, nat_prs.getValue(rowNum, "aand_naamgebruik"),
+        assertEquals(
+                aandNaamgebruik,
+                nat_prs.getValue(rowNum, "aand_naamgebruik"),
                 "Aanduiding naamgebruik komt niet overeen");
-        assertEquals(geslacht, nat_prs.getValue(rowNum, "geslachtsaand"),
+        assertEquals(
+                geslacht,
+                nat_prs.getValue(rowNum, "geslachtsaand"),
                 "Geslachtsaanduiding komt niet overeen");
-        assertEquals(achterNaam, nat_prs.getValue(rowNum, "nm_geslachtsnaam"),
+        assertEquals(
+                achterNaam,
+                nat_prs.getValue(rowNum, "nm_geslachtsnaam"),
                 "Achternaam komt niet overeen");
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals(aantalSubject, ingeschr_nat_prs.getRowCount(),
+        assertEquals(
+                aantalSubject,
+                ingeschr_nat_prs.getRowCount(),
                 "Het aantal 'ingeschr_nat_prs' klopt niet");
-        assertEquals(new BigDecimal(bsnNummer), ingeschr_nat_prs.getValue(rowNum, "bsn"),
+        assertEquals(
+                new BigDecimal(bsnNummer),
+                ingeschr_nat_prs.getValue(rowNum, "bsn"),
                 "BSN komt niet overeen");
-        assertEquals(new BigDecimal(aNummer), ingeschr_nat_prs.getValue(rowNum, "a_nummer"),
+        assertEquals(
+                new BigDecimal(aNummer),
+                ingeschr_nat_prs.getValue(rowNum, "a_nummer"),
                 "A-nummer komt niet overeen");
     }
 }

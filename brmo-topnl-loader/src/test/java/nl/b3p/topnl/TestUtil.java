@@ -16,15 +16,9 @@
  */
 package nl.b3p.topnl;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.sql.Connection;
-import java.sql.SQLException;
-import javax.sql.DataSource;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,22 +27,27 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  * @author mprins
  */
 public class TestUtil {
-    
-    private final static Log LOG = LogFactory.getLog(TestUtil.class);
+
+    private static final Log LOG = LogFactory.getLog(TestUtil.class);
     protected DataSource datasource;
     protected boolean useDB = false;
-    
+
     protected QueryRunner run;
 
-    /**
-     * Log de naam van de test als deze begint.
-     */
+    /** Log de naam van de test als deze begint. */
     @BeforeEach
     public void startTest(TestInfo testInfo) {
         LOG.info("==== Start test methode: " + testInfo.getDisplayName());
@@ -56,39 +55,42 @@ public class TestUtil {
 
     @BeforeEach
     public void setUpClass(TestInfo testInfo) throws SQLException, IOException {
-        if(useDB){
+        if (useDB) {
             JDBCDataSource ds = new JDBCDataSource();
-            String testname = testInfo.getDisplayName().replace(':','-').replace(' ','_');
-            ds.setUrl("jdbc:hsqldb:file:./target/unittest-hsqldb_" + testname + "_" + System.currentTimeMillis() + "/db;shutdown=true");
+            String testname = testInfo.getDisplayName().replace(':', '-').replace(' ', '_');
+            ds.setUrl(
+                    "jdbc:hsqldb:file:./target/unittest-hsqldb_"
+                            + testname
+                            + "_"
+                            + System.currentTimeMillis()
+                            + "/db;shutdown=true");
             datasource = ds;
             initDB("initdb250nl.sql");
             initDB("initdb100nl.sql");
             initDB("initdb50nl.sql");
             initDB("initdb10nl.sql");
-            GeometryJdbcConverter gjc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection());
-            run = new QueryRunner(datasource, gjc.isPmdKnownBroken() );
+            GeometryJdbcConverter gjc =
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+                            datasource.getConnection());
+            run = new QueryRunner(datasource, gjc.isPmdKnownBroken());
         }
     }
 
-    /**
-     * Log de naam van de test als deze eindigt.
-     */
+    /** Log de naam van de test als deze eindigt. */
     @AfterEach
     public void endTest(TestInfo testInfo) {
         LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
-    
-    private void initDB(String file) throws IOException{
+
+    private void initDB(String file) throws IOException {
         try {
             Reader f = new InputStreamReader(TestUtil.class.getResourceAsStream(file));
             executeScript(f);
         } catch (SQLException sqle) {
             LOG.error("Error initializing testdb:", sqle);
         }
-
     }
-    
-    
+
     public void executeScript(Reader f) throws IOException, SQLException {
 
         try (Connection conn = datasource.getConnection()) {
@@ -97,5 +99,4 @@ public class TestUtil {
             conn.commit();
         }
     }
-    
 }

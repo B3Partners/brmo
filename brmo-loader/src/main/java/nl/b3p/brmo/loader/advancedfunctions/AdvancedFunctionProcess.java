@@ -1,9 +1,6 @@
 package nl.b3p.brmo.loader.advancedfunctions;
 
-/**
- *
- * @author Chris van Lith
- */
+/** @author Chris van Lith */
 public class AdvancedFunctionProcess {
 
     private String name;

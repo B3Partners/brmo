@@ -16,19 +16,19 @@
  */
 package nl.b3p.topnl.converters;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TestUtil;
 import nl.b3p.topnl.TopNLType;
 import nl.b3p.topnl.entities.*;
+
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -38,13 +38,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
-/**
- *
- * @author meine
- */
-public class Top250NLConverterTest extends TestUtil{
+/** @author meine */
+public class Top250NLConverterTest extends TestUtil {
 
     private final Top250NLConverter instance;
     private final Processor processor;
@@ -56,9 +55,7 @@ public class Top250NLConverterTest extends TestUtil{
         this.instance = new Top250NLConverter();
     }
 
-    /**
-     * Test of convert method, of class Top250NLConverter.
-     */
+    /** Test of convert method, of class Top250NLConverter. */
     @Test
     public void testConvertFeatureCollection() throws Exception {
         Hoogte hoogte = new Hoogte();
@@ -85,9 +82,7 @@ public class Top250NLConverterTest extends TestUtil{
         assertEquals(expResult.get(0).getClass(), result.get(0).getClass());
     }
 
-    /**
-     * Test of convertHoogte method, of class Top250NLConverter.
-     */
+    /** Test of convertHoogte method, of class Top250NLConverter. */
     @Test
     public void testConvertHoogte() throws Exception {
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -147,7 +142,7 @@ public class Top250NLConverterTest extends TestUtil{
         assertEquals("Zuiderhaaks", real.getNaamNL());
         assertEquals(Point.class, real.getGeometrie().getClass());
     }
-    
+
     @Test
     public void testConvertGebouw() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Gebouw.xml");
@@ -165,10 +160,9 @@ public class Top250NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(Point.class, real.getGeometrie().getClass());
         assertEquals("pompstation", real.getTypeGebouw());
-        assertEquals( "in gebruik", real.getStatus());
+        assertEquals("in gebruik", real.getStatus());
     }
-    
-       
+
     @Test
     public void testConvertInrichtingselement() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Inrichtingselement.xml");
@@ -185,10 +179,9 @@ public class Top250NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "strekdam, krib, golfbreker", real.getTypeInrichtingselement());
+        assertEquals("strekdam, krib, golfbreker", real.getTypeInrichtingselement());
     }
- 
-       
+
     @Test
     public void testConvertPlaats() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Plaats.xml");
@@ -205,11 +198,11 @@ public class Top250NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(Point.class, real.getGeometrie().getClass());
-        assertEquals( "woonkern", real.getTypeGebied());
+        assertEquals("woonkern", real.getTypeGebied());
         assertNull(real.getNaamFries());
         assertEquals("Dreischor", real.getNaamNL());
     }
-       
+
     @Test
     public void testConvertRegistratiefGebied() throws Exception {
         TopNLEntity entity = getEntity("top250nl/RegistratiefGebied.xml");
@@ -246,10 +239,10 @@ public class Top250NLConverterTest extends TestUtil{
 
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
-        assertEquals( "dijk", real.getTypeRelief());
-        assertEquals( "> 2,5 meter", real.getHoogteklasse());
+        assertEquals("dijk", real.getTypeRelief());
+        assertEquals("> 2,5 meter", real.getHoogteklasse());
     }
-    
+
     @Test
     public void testConvertSpoorbaandeel() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Spoorbaandeel.xml");
@@ -274,7 +267,7 @@ public class Top250NLConverterTest extends TestUtil{
         assertEquals(true, real.getElektrificatie());
         assertEquals("in gebruik", real.getStatus());
     }
-    
+
     @Test
     public void testConvertTerrein() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Terrein.xml");
@@ -293,7 +286,7 @@ public class Top250NLConverterTest extends TestUtil{
         assertEquals(Polygon.class, real.getGeometrie().getClass());
         assertEquals("bos", real.getTypeLandgebruik());
     }
-    
+
     @Test
     public void testConvertWaterdeel() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Waterdeel.xml");
@@ -315,7 +308,7 @@ public class Top250NLConverterTest extends TestUtil{
         assertEquals(false, real.getGetijdeinvloed());
         assertEquals("", real.getNaamNL());
     }
-    
+
     @Test
     public void testConvertWegdeel() throws Exception {
         TopNLEntity entity = getEntity("top250nl/Wegdeel.xml");
@@ -362,7 +355,7 @@ public class Top250NLConverterTest extends TestUtil{
     top250nl:Inrichtingselement
     top250nl:Plaats
     top250nl:GeografischGebied
-    
+
     top250nl:RegistratiefGebied
     top250nl:Relief
     top250nl:Spoorbaandeel
@@ -371,25 +364,26 @@ public class Top250NLConverterTest extends TestUtil{
     top250nl:Wegdeel
 
      */
-    private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
+    private TopNLEntity getEntity(String file)
+            throws JAXBException, IOException, SAXException, ParserConfigurationException,
+                    TransformerException {
         URL in = Top250NLConverterTest.class.getResource(file);
         List jaxb = processor.parse(in);
         return instance.convertObject(jaxb.get(0));
     }
-    
-    
-    
+
     public TopNLEntity getStandardTestTopNLEntity() throws ParseException {
         TopNLEntity expected = new TopNLEntity() {};
 
         expected.setTopnltype(TopNLType.TOP250NL.getType());
         expected.setBrontype("ERM");
         expected.setBronactualiteit(sdf.parse("2017-11-01"));
-        expected.setBronbeschrijving("TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL");
+        expected.setBronbeschrijving(
+                "TOP50NL wordt als bron gebruikt bij het bijwerken van EuroRegionalMap (ERM). Via een automatisch proces worden de gegevens van ERM omgezet naar TOP250NL");
         expected.setBronnauwkeurigheid(125.0);
         expected.setObjectBeginTijd(sdf.parse("2017-11-01"));
         expected.setVisualisatieCode(1616L);
-        
+
         return expected;
-}
+    }
 }

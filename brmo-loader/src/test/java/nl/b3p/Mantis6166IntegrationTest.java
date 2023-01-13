@@ -3,10 +3,16 @@
  */
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,17 +40,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * testcases voor mantis 6166; incorrecte verwijdering van percelen. Draaien
- * met:
- * {@code mvn -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
- * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql  -pl brmo-loader > /tmp/postgresql.log} voor PostgreSQL
+ * testcases voor mantis 6166; incorrecte verwijdering van percelen. Draaien met: {@code mvn
+ * -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log} voor
+ * bijvoorbeeld Oracle of {@code mvn -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify
+ * -Ppostgresql -pl brmo-loader > /tmp/postgresql.log} voor PostgreSQL
  *
  * @author mprins
  */
@@ -55,12 +55,22 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // {"bestandsNaam", aantalProcessen, aantalBerichten, standId, verwijderId, mutatieIds },
-                arguments("/mantis6166/staging-69660669770000.xml", 4, 4, 722959, 946717,
-                        new long[]{47134330, 47134331}),
-                arguments("/mantis6166/staging-66860489870000.xml", 4, 4, 488741, 948118,
-                        new long[]{47125275, 47125276})
-        );
+                // {"bestandsNaam", aantalProcessen, aantalBerichten, standId, verwijderId,
+                // mutatieIds },
+                arguments(
+                        "/mantis6166/staging-69660669770000.xml",
+                        4,
+                        4,
+                        722959,
+                        946717,
+                        new long[] {47134330, 47134331}),
+                arguments(
+                        "/mantis6166/staging-66860489870000.xml",
+                        4,
+                        4,
+                        488741,
+                        948118,
+                        new long[] {47125275, 47125276}));
     }
 
     private BrmoFramework brmo;
@@ -69,6 +79,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
     private final Lock sequential = new ReentrantLock();
     private BasicDataSource dsRsgb;
     private BasicDataSource dsStaging;
+
     @Override
     @BeforeEach
     public void setUp() throws Exception {
@@ -88,17 +99,35 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
-                    params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegegeven.");
         }
@@ -109,20 +138,30 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         sequential.lock();
     }
 
-    private void loadData(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten)
+    private void loadData(
+            final String bestandsNaam, final long aantalProcessen, final long aantalBerichten)
             throws Exception {
-        assumeTrue(Mantis6166IntegrationTest.class.getResource(bestandsNaam) != null,
+        assumeTrue(
+                Mantis6166IntegrationTest.class.getResource(bestandsNaam) != null,
                 "Het bestand met testdata zou moeten bestaan.");
 
-        IDataSet stagingDataSet = new XmlDataSet(
-                new FileInputStream(new File(Mantis6166IntegrationTest.class.getResource(bestandsNaam).toURI())));
+        IDataSet stagingDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        Mantis6166IntegrationTest.class
+                                                .getResource(bestandsNaam)
+                                                .toURI())));
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         assumeTrue(aantalBerichten > 0, "Er zijn meer dan 0 berichten in het bestand om te laden");
-        assumeTrue(aantalProcessen > 0, "Er zijn meer dan 0 laadprocessen in het bestand om te laden");
-        assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
+        assumeTrue(
+                aantalProcessen > 0, "Er zijn meer dan 0 laadprocessen in het bestand om te laden");
+        assumeTrue(
+                aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK berichten om te verwerken");
-        assumeTrue(aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
+        assumeTrue(
+                aantalProcessen == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er zijn x STAGING_OK laadprocessen in de database");
     }
 
@@ -133,7 +172,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             brmo.closeBrmoFramework();
         }
 
-        CleanUtil.cleanRSGB_BRK(rsgb,true);
+        CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
         dsRsgb.close();
 
@@ -157,15 +196,24 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
     @DisplayName("Stand")
     @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testStand(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
-        loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
-        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand}, null);
+    public void testStand(
+            final String bestandsNaam,
+            final long aantalProcessen,
+            final long aantalBerichten,
+            final long stand,
+            final long verwijder,
+            final long[] mutaties)
+            throws Exception {
+        loadData(bestandsNaam, aantalProcessen, aantalBerichten);
+        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[] {stand}, null);
         t.join();
 
-        assertEquals(aantalBerichten - 1, brmo.getCountBerichten("brk", "STAGING_OK"),
+        assertEquals(
+                aantalBerichten - 1,
+                brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Mutatie berichten zijn niet getransformeerd");
-        assertEquals(1l, brmo.getCountBerichten("brk", "RSGB_OK"),
-                "Een bericht is OK getransformeerd");
+        assertEquals(
+                1l, brmo.getCountBerichten("brk", "RSGB_OK"), "Een bericht is OK getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
         assertEquals(1, kad_perceel.getRowCount(), "Er is 1 perceel geladen");
@@ -181,8 +229,15 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      */
     @ParameterizedTest(name = "Stand en mutatie #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testStandMutatie(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
-        loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
+    public void testStandMutatie(
+            final String bestandsNaam,
+            final long aantalProcessen,
+            final long aantalBerichten,
+            final long stand,
+            final long verwijder,
+            final long[] mutaties)
+            throws Exception {
+        loadData(bestandsNaam, aantalProcessen, aantalBerichten);
         long[] transformIds = new long[mutaties.length + 1];
         transformIds[0] = stand;
         for (int i = 1; i < transformIds.length; i++) {
@@ -191,9 +246,13 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, transformIds, null);
         t.join();
 
-        assertEquals(aantalBerichten - 1, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                aantalBerichten - 1,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Alle berichten behalve verwijderen zijn OK getransformeerd");
-        assertEquals(1l, brmo.getCountBerichten("brk", "STAGING_OK"),
+        assertEquals(
+                1l,
+                brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Een (verwijder) bericht is niet getransformeerd en heeft STAGING_OK status");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -203,11 +262,15 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals(1, kad_onrrnd_zk.getRowCount(), "Er is 1 onroerende zaak geladen");
 
         ITable kad_perceel_archief = rsgb.createDataSet().getTable("kad_perceel_archief");
-        assertEquals(transformIds.length - 1, kad_perceel_archief.getRowCount(),
+        assertEquals(
+                transformIds.length - 1,
+                kad_perceel_archief.getRowCount(),
                 "Er zijn (verwerkt aantal -1) percelen gearchiveerd");
 
         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable("kad_onrrnd_zk_archief");
-        assertEquals(transformIds.length - 1, kad_onrrnd_zk_archief.getRowCount(),
+        assertEquals(
+                transformIds.length - 1,
+                kad_onrrnd_zk_archief.getRowCount(),
                 "Er zijn (verwerkt aantal -1) onroerende zaken gearchiveerd");
     }
 
@@ -218,12 +281,21 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      */
     @ParameterizedTest(name = "All #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testAll(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
-        loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
+    public void testAll(
+            final String bestandsNaam,
+            final long aantalProcessen,
+            final long aantalBerichten,
+            final long stand,
+            final long verwijder,
+            final long[] mutaties)
+            throws Exception {
+        loadData(bestandsNaam, aantalProcessen, aantalBerichten);
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Alle berichten zijn OK getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -236,11 +308,15 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals(0, brondocument.getRowCount(), "Er zijn geen brondocumenten");
 
         ITable kad_perceel_archief = rsgb.createDataSet().getTable("kad_perceel_archief");
-        assertEquals(aantalBerichten - 1, kad_perceel_archief.getRowCount(),
+        assertEquals(
+                aantalBerichten - 1,
+                kad_perceel_archief.getRowCount(),
                 "Alle percelen zijn  gearchiveerd");
 
         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable("kad_onrrnd_zk_archief");
-        assertEquals(aantalBerichten - 1, kad_onrrnd_zk_archief.getRowCount(),
+        assertEquals(
+                aantalBerichten - 1,
+                kad_onrrnd_zk_archief.getRowCount(),
                 "Alle onroerende zaken zijn gearchiveerd");
     }
 
@@ -251,17 +327,27 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      */
     @ParameterizedTest(name = "Stand en delete #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testStandDelete(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
-        loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
-        long[] transformIds = new long[]{stand, verwijder};
+    public void testStandDelete(
+            final String bestandsNaam,
+            final long aantalProcessen,
+            final long aantalBerichten,
+            final long stand,
+            final long verwijder,
+            final long[] mutaties)
+            throws Exception {
+        loadData(bestandsNaam, aantalProcessen, aantalBerichten);
+        long[] transformIds = new long[] {stand, verwijder};
 
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, transformIds, null);
         t.join();
 
-        assertEquals(transformIds.length, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                transformIds.length,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Twee berichten zijn OK getransformeerd");
         assertEquals(
-                aantalBerichten - transformIds.length, brmo.getCountBerichten("brk", "STAGING_OK"),
+                aantalBerichten - transformIds.length,
+                brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Mutatie berichten zijn niet getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -281,31 +367,45 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
     }
 
     /**
-     * transformeer stand bericht en verwijder bericht; daarna mutatie(s)
-     * transformeren.
+     * transformeer stand bericht en verwijder bericht; daarna mutatie(s) transformeren.
      *
      * @throws Exception if any
      */
     @ParameterizedTest(name = "Stand en delete en mutatie #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testStandDeleteMutatie(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
-        loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
-        long[] transformIds = new long[]{stand, verwijder};
+    public void testStandDeleteMutatie(
+            final String bestandsNaam,
+            final long aantalProcessen,
+            final long aantalBerichten,
+            final long stand,
+            final long verwijder,
+            final long[] mutaties)
+            throws Exception {
+        loadData(bestandsNaam, aantalProcessen, aantalBerichten);
+        long[] transformIds = new long[] {stand, verwijder};
 
         Thread t1 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, transformIds, null);
         t1.join();
 
-        assertEquals(transformIds.length, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                transformIds.length,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Twee berichten zijn OK getransformeerd");
-        assertEquals(mutaties.length, brmo.getCountBerichten("brk", "STAGING_OK"),
+        assertEquals(
+                mutaties.length,
+                brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Mutatie berichten zijn niet getransformeerd");
 
         Thread t2 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, mutaties, null);
         t2.join();
 
-        assertEquals(transformIds.length, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                transformIds.length,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Twee berichten zijn OK getransformeerd");
-        assertEquals(mutaties.length, brmo.getCountBerichten("brk", "RSGB_OUTDATED"),
+        assertEquals(
+                mutaties.length,
+                brmo.getCountBerichten("brk", "RSGB_OUTDATED"),
                 "Mutatie berichten zijn outdated");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
@@ -317,5 +417,4 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
         assertEquals(0, brondocument.getRowCount(), "Er zijn geen brondocumenten");
     }
-
 }

@@ -1,12 +1,14 @@
 package nl.b3p.brmo.loader.xml;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import nl.b3p.brmo.loader.entity.Bericht;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * abstract reader of basisregistratie files
@@ -20,7 +22,7 @@ public abstract class BrmoXMLReader {
     // laadproces
     private String bestandsNaam;
     private Date bestandsDatum;
-    protected String soort; //waarde gezet in implementatie
+    protected String soort; // waarde gezet in implementatie
     private String gebied;
     private String opmerking;
     private String status;
@@ -28,7 +30,9 @@ public abstract class BrmoXMLReader {
     private String contactEmail;
 
     public abstract void init() throws Exception;
+
     public abstract boolean hasNext() throws Exception;
+
     public abstract Bericht next() throws Exception;
 
     public void setDatumAsString(String datumString, String simpleDateFormat) {
@@ -36,12 +40,18 @@ public abstract class BrmoXMLReader {
         try {
             bestandsDatum = sdf.parse(datumString);
         } catch (ParseException pe) {
-            log.error("Fout bij parsen bericht datum \"" + datumString + "\" met formaat " + simpleDateFormat, pe);
+            log.error(
+                    "Fout bij parsen bericht datum \""
+                            + datumString
+                            + "\" met formaat "
+                            + simpleDateFormat,
+                    pe);
         }
     }
+
     public String getHash(String bsn) {
         String hash = DigestUtils.sha1Hex(bsn);
-        return  hash;
+        return hash;
     }
 
     public void setDatumAsString(String datumString) {

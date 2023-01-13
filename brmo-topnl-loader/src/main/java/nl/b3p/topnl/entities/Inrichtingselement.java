@@ -17,19 +17,15 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.math.BigInteger;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class Inrichtingselement extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class Inrichtingselement extends TopNLEntity {
+
     private String typeInrichtingselement;
     private String soortnaam;
     private String status;
     private Long hoogteniveau;
-    
+
     private Geometry geometrie;
 
     public String getTypeInrichtingselement() {
@@ -71,5 +67,4 @@ public class Inrichtingselement extends TopNLEntity{
     public void setHoogteniveau(Long hoogteniveau) {
         this.hoogteniveau = hoogteniveau;
     }
-    
 }

@@ -1,7 +1,14 @@
 package nl.b3p.brmo.loader.xml;
 
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.BrkBericht;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.InputStream;
 import java.io.StringWriter;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -13,10 +20,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.BrkBericht;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * reader of BRK stand files
@@ -40,7 +43,8 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     private static final String BRK_DATUM = "BRKDatum";
     private static final String GEMEENTE = "naamBurgerlijkeGemeente";
     private static final String MUTATIE = "Mutatie";
-    private static final String NS_MUTATIE = "http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901";
+    private static final String NS_MUTATIE =
+            "http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901";
     private static final String NS_XLINK = "http://www.w3.org/1999/xlink";
 
     private static class MutatieGegevens {
@@ -49,11 +53,11 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
         boolean isMutatieZonderWordt = true;
         Integer volgnummerKadastraalObjectDatum = null;
     }
+
     private MutatieGegevens mutatieGegevens = null;
 
     public BrkSnapshotXMLReader(InputStream in)
-            throws XMLStreamException,
-            TransformerConfigurationException {
+            throws XMLStreamException, TransformerConfigurationException {
 
         streamReader = factory.createXMLStreamReader(in);
         TransformerFactory tf = TransformerFactory.newInstance();
@@ -69,14 +73,12 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     }
 
     /**
-     * Positioneer de XML stream aan het start element voor een
-     * KadastraalObjectSnapshot (als child van een GemeenteGebaseerdeStand:stand
-     * of als child van een Mutatie:wordt) of aan het end element voor een Mutatie:Mutatie
-     * zonder Mutatie:wordt (vervallen perceel).
+     * Positioneer de XML stream aan het start element voor een KadastraalObjectSnapshot (als child
+     * van een GemeenteGebaseerdeStand:stand of als child van een Mutatie:wordt) of aan het end
+     * element voor een Mutatie:Mutatie zonder Mutatie:wordt (vervallen perceel).
      *
      * @throws XMLStreamException
      */
-
     private void positionToNext() throws XMLStreamException {
         boolean inMutatie = false;
         mutatieGegevens = null;
@@ -96,9 +98,11 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
                     setDatumAsString(streamReader.getElementText());
                 } else if (streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {
                     inProductSpecificatie = true;
-                } else if (inProductSpecificatie && streamReader.getLocalName().equals(KENMERKNAAM)) {
+                } else if (inProductSpecificatie
+                        && streamReader.getLocalName().equals(KENMERKNAAM)) {
                     inProductSpecificatieNaam = streamReader.getElementText();
-                } else if (inProductSpecificatie && streamReader.getLocalName().equals(KENMERKWAARDE)) {
+                } else if (inProductSpecificatie
+                        && streamReader.getLocalName().equals(KENMERKWAARDE)) {
                     if ("Peildatum".equals(inProductSpecificatieNaam)) {
                         setDatumAsString(streamReader.getElementText());
                     } else if ("Gebiednummer".equals(inProductSpecificatieNaam)) {
@@ -108,42 +112,51 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
                     inGemeente = true;
                 } else if (inGemeente && streamReader.getLocalName().equals("waarde")) {
                     setGebied(streamReader.getElementText());
-                } else if(streamReader.getLocalName().equals(MUTATIE)) {
+                } else if (streamReader.getLocalName().equals(MUTATIE)) {
                     inMutatie = true;
                     mutatieGegevens = new MutatieGegevens();
-                } else if(inMutatie && streamReader.getLocalName().equals("volgnummerKadastraalObjectDatum")) {
-                    mutatieGegevens.volgnummerKadastraalObjectDatum = Integer.parseInt(streamReader.getElementText());
-                } else if(inMutatie && streamReader.getLocalName().equals("kadastraalObject") && streamReader.getNamespaceURI().equals(NS_MUTATIE)) {
-                    // Mutatie:AanduidingKadastraalObject -> Mutatie:kadastraalObject -> (AppartementsrechtRef | PerceelRef)
+                } else if (inMutatie
+                        && streamReader.getLocalName().equals("volgnummerKadastraalObjectDatum")) {
+                    mutatieGegevens.volgnummerKadastraalObjectDatum =
+                            Integer.parseInt(streamReader.getElementText());
+                } else if (inMutatie
+                        && streamReader.getLocalName().equals("kadastraalObject")
+                        && streamReader.getNamespaceURI().equals(NS_MUTATIE)) {
+                    // Mutatie:AanduidingKadastraalObject -> Mutatie:kadastraalObject ->
+                    // (AppartementsrechtRef | PerceelRef)
                     mutatieGegevens.inMutatieObjectRef = true;
-                } else if(inMutatie && mutatieGegevens.inMutatieObjectRef) {
+                } else if (inMutatie && mutatieGegevens.inMutatieObjectRef) {
                     // Haal id op van Appartementsrecht of PerceelRef
-                    mutatieGegevens.mutatieObjectRef = streamReader.getAttributeValue(NS_XLINK, "href");
-                    if(mutatieGegevens.mutatieObjectRef != null) {
+                    mutatieGegevens.mutatieObjectRef =
+                            streamReader.getAttributeValue(NS_XLINK, "href");
+                    if (mutatieGegevens.mutatieObjectRef != null) {
                         int i = mutatieGegevens.mutatieObjectRef.lastIndexOf('.');
-                        if(i != -1) {
-                            mutatieGegevens.mutatieObjectRef = mutatieGegevens.mutatieObjectRef.substring(0,i) + ':' + mutatieGegevens.mutatieObjectRef.substring(i+1);
+                        if (i != -1) {
+                            mutatieGegevens.mutatieObjectRef =
+                                    mutatieGegevens.mutatieObjectRef.substring(0, i)
+                                            + ':'
+                                            + mutatieGegevens.mutatieObjectRef.substring(i + 1);
                         }
                     }
                     mutatieGegevens.inMutatieObjectRef = false;
-                } else if(inMutatie && streamReader.getLocalName().equals("was")) {
+                } else if (inMutatie && streamReader.getLocalName().equals("was")) {
                     // Bij mutatie "was" skippen
                     inWas = true;
-                } else if(inMutatie && streamReader.getLocalName().equals("wordt")) {
+                } else if (inMutatie && streamReader.getLocalName().equals("wordt")) {
                     mutatieGegevens.isMutatieZonderWordt = false;
                 }
             } else if (streamReader.isEndElement()) {
-                if(streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {
+                if (streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {
                     inProductSpecificatie = false;
                     inProductSpecificatieNaam = null;
                 }
-                if(streamReader.getLocalName().equals(GEMEENTE)) {
+                if (streamReader.getLocalName().equals(GEMEENTE)) {
                     inGemeente = false;
                 }
-                if(streamReader.getLocalName().equals("was")) {
+                if (streamReader.getLocalName().equals("was")) {
                     inWas = false;
                 }
-                if(inMutatie && streamReader.getLocalName().equals(MUTATIE)) {
+                if (inMutatie && streamReader.getLocalName().equals(MUTATIE)) {
                     break;
                 }
             }
@@ -155,7 +168,8 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     @Override
     public boolean hasNext() {
         try {
-            return mutatieGegevens != null && mutatieGegevens.isMutatieZonderWordt || streamReader.hasNext();
+            return mutatieGegevens != null && mutatieGegevens.isMutatieZonderWordt
+                    || streamReader.hasNext();
         } catch (XMLStreamException ex) {
             log.error("Error while streaming XML", ex);
         }
@@ -166,7 +180,7 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
     public BrkBericht next() throws TransformerException, XMLStreamException {
         BrkBericht b;
 
-        if(mutatieGegevens != null && mutatieGegevens.isMutatieZonderWordt) {
+        if (mutatieGegevens != null && mutatieGegevens.isMutatieZonderWordt) {
             // Vervallen perceel
             b = new BrkBericht("<empty/>");
 
@@ -184,8 +198,9 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
 
             transformer.transform(new StAXSource(streamReader), new StAXResult(writer));
             b = new BrkBericht(sw.toString());
-            //volgende gegevens komen uit de header, in bericht worden gegevens verder aangevuld.
-            b.setVolgordeNummer(mutatieGegevens != null ? mutatieGegevens.volgnummerKadastraalObjectDatum : -1);
+            // volgende gegevens komen uit de header, in bericht worden gegevens verder aangevuld.
+            b.setVolgordeNummer(
+                    mutatieGegevens != null ? mutatieGegevens.volgnummerKadastraalObjectDatum : -1);
             b.setDatum(getBestandsDatum());
             b.setObjectRef(mutatieGegevens != null ? mutatieGegevens.mutatieObjectRef : null);
         }

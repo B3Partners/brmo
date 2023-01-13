@@ -12,18 +12,17 @@ import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.MailRapportage;
+
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
+/** @author mprins */
 @StrictBinding
 public class MailProcesUitvoerActionBean implements ActionBean {
 
@@ -46,9 +45,12 @@ public class MailProcesUitvoerActionBean implements ActionBean {
             getContext().getMessages().add(new SimpleMessage("De mail is verstuurd."));
         } catch (BrmoException ex) {
             proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
-            getContext().getMessages().add(
-                    new SimpleError("Er is een fout opgetreden tijdens het verturen van de mail. {2}",
-                            ex.getMessage()));
+            getContext()
+                    .getMessages()
+                    .add(
+                            new SimpleError(
+                                    "Er is een fout opgetreden tijdens het verturen van de mail. {2}",
+                                    ex.getMessage()));
         } finally {
             Stripersist.getEntityManager().merge(proces);
             Stripersist.getEntityManager().getTransaction().commit();
@@ -73,5 +75,4 @@ public class MailProcesUitvoerActionBean implements ActionBean {
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }
-
 }

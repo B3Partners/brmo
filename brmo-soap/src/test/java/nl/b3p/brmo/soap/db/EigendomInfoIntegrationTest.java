@@ -5,6 +5,7 @@ package nl.b3p.brmo.soap.db;
 
 import nl.b3p.brmo.soap.eigendom.*;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
+
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
@@ -20,8 +21,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.GregorianCalendar;
@@ -30,16 +29,16 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- * Draaien met:
- * {@code mvn -Dit.test=EigendomInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor bijvoorbeeld PostgreSQL.
+ * Draaien met: {@code mvn -Dit.test=EigendomInfoIntegrationTest -Dtest.onlyITs=true verify
+ * -Ppostgresql > target/postgresql.log} voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins
  */
 public class EigendomInfoIntegrationTest extends TestUtil {
-
 
     private final Lock sequential = new ReentrantLock(true);
     /*
@@ -59,32 +58,71 @@ public class EigendomInfoIntegrationTest extends TestUtil {
     public void setUp() throws Exception {
         rsgb = new DatabaseDataSourceConnection(this.dsRsgb, DBPROPS.getProperty("rsgb.schema"));
         staging = new DatabaseDataSourceConnection(dsStaging);
-        IDataSet rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(rBestandsNaam).toURI())));
+        IDataSet rsgbDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        BrkInfoIntegrationTest.class
+                                                .getResource(rBestandsNaam)
+                                                .toURI())));
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet stagingDataSet =
+                fxdb.build(
+                        new FileInputStream(
+                                new File(
+                                        BrkInfoIntegrationTest.class
+                                                .getResource(sBestandsNaam)
+                                                .toURI())));
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.schema").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class),
+                            DBPROPS.getProperty("rsgb.schema").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            staging = new DatabaseConnection(dsStaging.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("staging.username").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            dsStaging.getConnection().unwrap(oracle.jdbc.OracleConnection.class),
+                            DBPROPS.getProperty("staging.username").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource("/oracle-" + rBestandsNaam.substring(1)).toURI())));
+            rsgbDataSet =
+                    new XmlDataSet(
+                            new FileInputStream(
+                                    new File(
+                                            BrkInfoIntegrationTest.class
+                                                    .getResource(
+                                                            "/oracle-" + rBestandsNaam.substring(1))
+                                                    .toURI())));
         } else if (this.isPostgis) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
 
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
-        refreshMViews(new String[]{"mb_util_app_re_kad_perceel"}, this.dsRsgb);
+        refreshMViews(new String[] {"mb_util_app_re_kad_perceel"}, this.dsRsgb);
     }
 
     @AfterEach
@@ -99,8 +137,8 @@ public class EigendomInfoIntegrationTest extends TestUtil {
     }
 
     /**
-     * testcase voor
-     * {@link EigendomInfo#createEigendomMutatieContext(nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest)}
+     * testcase voor {@link
+     * EigendomInfo#createEigendomMutatieContext(nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest)}
      * en {@link EigendomInfo#createEigendomMutatieResponse(java.util.Map)} .
      *
      * @throws Exception if any
@@ -125,9 +163,9 @@ public class EigendomInfoIntegrationTest extends TestUtil {
     }
 
     /**
-     * testcase voor
-     * {@link EigendomInfo#createMutatieListContext(nl.b3p.brmo.soap.eigendom.MutatieListRequest)}
-     * en {@link EigendomInfo#createMutatieListResponse(java.util.Map)} .
+     * testcase voor {@link
+     * EigendomInfo#createMutatieListContext(nl.b3p.brmo.soap.eigendom.MutatieListRequest)} en
+     * {@link EigendomInfo#createMutatieListResponse(java.util.Map)} .
      *
      * @throws Exception if any
      */

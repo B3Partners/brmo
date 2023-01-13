@@ -14,18 +14,14 @@ import javax.persistence.Entity;
 public class MailRapportageProces extends AutomatischProces {
 
     public static final String DELIM = ",";
-    /**
-     * de sleutel {@value EMAIL}.
-     */
+    /** de sleutel {@value EMAIL}. */
     public static final String EMAIL = "email";
-    /**
-     * de sleutel {@value PIDS}.
-     */
+    /** de sleutel {@value PIDS}. */
     public static final String PIDS = "pIDS";
 
     /**
-     * de sleutel {@value FOR_STATUS}. Geldige waarden komen uit de verzameling
-     * van {@link AutomatischProces#status }
+     * de sleutel {@value FOR_STATUS}. Geldige waarden komen uit de verzameling van {@link
+     * AutomatischProces#status }
      */
     public static final String FOR_STATUS = "forStatus";
 

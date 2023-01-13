@@ -1,37 +1,33 @@
 package nl.b3p.brmo.soap.brk;
 
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.soap.db.BrkInfo;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.soap.db.BrkInfo;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 public class RechtenResponse {
     private static final Log LOG = LogFactory.getLog(RechtenResponse.class);
     private List<ZakelijkRechtResponse> zakelijkRecht = null;
 
-    /**
-     * @return the zakelijkRecht
-     */
+    /** @return the zakelijkRecht */
     @XmlElement
     public List<ZakelijkRechtResponse> getZakelijkRecht() {
         return zakelijkRecht;
     }
 
-    /**
-     * @param zakelijkRecht the zakelijkRecht to set
-     */
+    /** @param zakelijkRecht the zakelijkRecht to set */
     public void setZakelijkRecht(List<ZakelijkRechtResponse> zakelijkRecht) {
         this.zakelijkRecht = zakelijkRecht;
     }
@@ -66,8 +62,8 @@ public class RechtenResponse {
         return sql;
     }
 
-    public static RechtenResponse getRechtenByKoz(Long kozId,
-            Map<String, Object> searchContext) throws Exception {
+    public static RechtenResponse getRechtenByKoz(Long kozId, Map<String, Object> searchContext)
+            throws Exception {
 
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
@@ -100,28 +96,28 @@ public class RechtenResponse {
                 }
                 zkRecht = new ZakelijkRechtResponse();
 
-//                zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));
+                //                zkRecht.setAardVerkregenRecht(rs.getString("fk_3avr_aand"));
                 zkRecht.setAardVerkregenRecht(rs.getString("omschr"));
                 zkRecht.setIndicatieBetrokkenInSplitsing(
-                        rs.getString("indic_betrokken_in_splitsing")
-                        .equalsIgnoreCase("nee") ? false : true);
+                        rs.getString("indic_betrokken_in_splitsing").equalsIgnoreCase("nee")
+                                ? false
+                                : true);
                 zkRecht.setNoemer(rs.getInt("ar_noemer"));
                 zkRecht.setTeller(rs.getInt("ar_teller"));
 
                 Boolean st = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);
                 if (st != null && st) {
                     String pid = rs.getString("fk_8pes_sc_identif");
-                    NatuurlijkPersoonResponse np
-                            = NatuurlijkPersoonResponse.getRecordById(pid, searchContext);
+                    NatuurlijkPersoonResponse np =
+                            NatuurlijkPersoonResponse.getRecordById(pid, searchContext);
                     zkRecht.setNatuurlijkPersoon(np);
                     if (np == null) {
-                        NietNatuurlijkPersoonResponse nnp
-                                = NietNatuurlijkPersoonResponse.getRecordById(pid, searchContext);
+                        NietNatuurlijkPersoonResponse nnp =
+                                NietNatuurlijkPersoonResponse.getRecordById(pid, searchContext);
                         zkRecht.setNietNatuurlijkPersoon(nnp);
                     }
                 }
                 zrl.add(zkRecht);
-
             }
 
             return rr;
@@ -137,5 +133,4 @@ public class RechtenResponse {
             }
         }
     }
-
 }

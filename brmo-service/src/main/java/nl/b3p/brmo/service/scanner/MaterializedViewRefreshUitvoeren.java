@@ -3,29 +3,32 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Transient;
 import javax.sql.DataSource;
-import nl.b3p.brmo.loader.util.BrmoException;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
-import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
-import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ColumnListHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.stripesstuff.stripersist.Stripersist;
 
 /**
  * Proces om materilzed views te verversen.
@@ -38,8 +41,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
 
     private final MaterializedViewRefresh config;
 
-    @Transient
-    private ProgressUpdateListener listener;
+    @Transient private ProgressUpdateListener listener;
 
     public MaterializedViewRefreshUitvoeren(MaterializedViewRefresh config) {
         this.config = config;
@@ -47,29 +49,27 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                LOG.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        LOG.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-                MaterializedViewRefreshUitvoeren.LOG.info(log);
-            }
-        });
+                    @Override
+                    public void addLog(String log) {
+                        MaterializedViewRefreshUitvoeren.LOG.info(log);
+                    }
+                });
     }
 
     @Override
@@ -78,7 +78,10 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
         listener.updateStatus("Initialiseren...");
         config.setStatus(PROCESSING);
         config.setLastrun(new Date());
-        String msg = String.format("De materialized view ververser met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
+        String msg =
+                String.format(
+                        "De materialized view ververser met ID %d is gestart op %tc.",
+                        config.getId(), Calendar.getInstance());
         this.config.updateSamenvattingEnLogfile(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);
@@ -91,9 +94,12 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             final DataSource ds = ConfigUtil.getDataSourceRsgb();
             final Connection conn = ds.getConnection();
             conn.setAutoCommit(true);
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            final GeometryJdbcConverter geomToJdbc =
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             // "update" gebruiken omdat we een oracle stored procedure benaderen
-            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
+            Object o =
+                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                            .update(conn, geomToJdbc.getMViewRefreshSQL(mview));
             LOG.debug("mview update resultaat: " + o);
             String resultaat = null;
             // oracle geeft 1 terug als resultaat, postgresql geeft 0 terug...
@@ -104,7 +110,10 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             }
             DbUtils.closeQuietly(conn);
 
-            msg = String.format("De materialized view %s is ververst met resultaat %s op %tc", mview, resultaat, Calendar.getInstance());
+            msg =
+                    String.format(
+                            "De materialized view %s is ververst met resultaat %s op %tc",
+                            mview, resultaat, Calendar.getInstance());
             listener.updateStatus(msg);
             listener.addLog(msg);
 
@@ -131,15 +140,24 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
         try {
             final DataSource ds = ConfigUtil.getDataSourceRsgb();
             final Connection conn = ds.getConnection();
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-            List<String> mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<String>());
+            final GeometryJdbcConverter geomToJdbc =
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            List<String> mviews =
+                    new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                            .query(
+                                    conn,
+                                    geomToJdbc.getMViewsSQL(),
+                                    new ColumnListHandler<String>());
             mviews.sort(String::compareToIgnoreCase);
             DbUtils.closeQuietly(conn);
             return Collections.unmodifiableList(mviews);
-        } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
+        } catch (BrmoException
+                | SQLException
+                | ClassCastException
+                | UnsupportedOperationException
+                | IllegalArgumentException ex) {
             LOG.error("Ophalen materialized views is mislukt.", ex);
             return Collections.emptyList();
         }
     }
-
 }

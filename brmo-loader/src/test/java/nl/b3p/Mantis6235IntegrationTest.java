@@ -3,9 +3,14 @@
  */
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,16 +33,10 @@ import java.io.FileInputStream;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-
-
 /**
- * Testcases voor mantis-6235; incorrect parsen van VVE identificatie. Draaien
- * met:
- * {@code mvn -Dit.test=Mantis6235IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
- * voor bijvoorbeeld Oracle.
+ * Testcases voor mantis-6235; incorrect parsen van VVE identificatie. Draaien met: {@code mvn
+ * -Dit.test=Mantis6235IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log} voor
+ * bijvoorbeeld Oracle.
  *
  * @author mprins
  */
@@ -71,19 +70,45 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
 
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6235IntegrationTest.class.getResource("/mantis6235/staging.xml").toURI())));
+        IDataSet stagingDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        Mantis6235IntegrationTest.class
+                                                .getResource("/mantis6235/staging.xml")
+                                                .toURI())));
 
         sequential.lock();
 
@@ -91,9 +116,11 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
 
-        assumeTrue(2l == brmo.getCountBerichten("brk", "STAGING_OK"),
+        assumeTrue(
+                2l == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Er zijn 2 STAGING_OK berichten");
-        assumeTrue(1l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
+        assumeTrue(
+                1l == brmo.getCountLaadProcessen("brk", "STAGING_OK"),
                 "Er is 1 STAGING_OK laadproces");
     }
 
@@ -122,9 +149,13 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(2l, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                2l,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
-        assertEquals(0l, brmo.getCountBerichten("brk", "RSGB_NOK"),
+        assertEquals(
+                0l,
+                brmo.getCountBerichten("brk", "RSGB_NOK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
@@ -136,9 +167,13 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
         ITable app_re = rsgb.createDataSet().getTable("app_re");
         assertEquals(2, app_re.getRowCount(), "Er zijn geen actuele appartmentsrechten");
 
-        assertEquals("NL.KAD.Persoon.58193932", app_re.getValue(0, "fk_2nnp_sc_identif").toString(),
+        assertEquals(
+                "NL.KAD.Persoon.58193932",
+                app_re.getValue(0, "fk_2nnp_sc_identif").toString(),
                 "Eerste rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'");
-        assertEquals("NL.KAD.Persoon.58201049", app_re.getValue(1, "fk_2nnp_sc_identif").toString(),
+        assertEquals(
+                "NL.KAD.Persoon.58201049",
+                app_re.getValue(1, "fk_2nnp_sc_identif").toString(),
                 "Tweede rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'");
     }
 }

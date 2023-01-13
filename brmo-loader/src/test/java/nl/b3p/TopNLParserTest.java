@@ -1,7 +1,11 @@
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TopNLType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -12,19 +16,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import javax.xml.bind.JAXBException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
+import javax.xml.bind.JAXBException;
 
 /**
- * Deze test dient om onaangekondigde aanpassingen in het schema te vangen, pdok
- * heeft dat nu een paar keer gedaan. Draaien met:
- * {@code mvn -Dit.test=TopNLParserIntegrationTest -Dtest.onlyITs=true -Ppostgresql verify -pl brmo-loader > mvn.log}
+ * Deze test dient om onaangekondigde aanpassingen in het schema te vangen, pdok heeft dat nu een
+ * paar keer gedaan. Draaien met: {@code mvn -Dit.test=TopNLParserIntegrationTest
+ * -Dtest.onlyITs=true -Ppostgresql verify -pl brmo-loader > mvn.log}
  *
  * @author Mark Prins
  */
@@ -80,26 +82,19 @@ public class TopNLParserTest {
                 arguments(TopNLType.TOP250NL, "/topnl/top250nl_spoorbaandeel.gml"),
                 arguments(TopNLType.TOP250NL, "/topnl/top250nl_terrein.gml"),
                 arguments(TopNLType.TOP250NL, "/topnl/top250nl_waterdeel.gml"),
-                arguments(TopNLType.TOP250NL, "/topnl/top250nl_wegdeel.gml")
-        );
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_wegdeel.gml"));
     }
 
-    /**
-     * test object voor parsen van bestand.
-     */
+    /** test object voor parsen van bestand. */
     private Processor instance;
 
-    /**
-     * Log de naam van de test als deze begint.
-     */
+    /** Log de naam van de test als deze begint. */
     @BeforeEach
     public void startTest(TestInfo testInfo) {
         LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
-    /**
-     * Log de naam van de test als deze eindigt.
-     */
+    /** Log de naam van de test als deze eindigt. */
     @AfterEach
     public void endTest(TestInfo testInfo) {
         LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
@@ -120,8 +115,10 @@ public class TopNLParserTest {
     @MethodSource("argumentsProvider")
     public void testParse(final TopNLType bestandType, final String bestandNaam) throws Exception {
 
-        // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
-        assertNotNull(TopNLParserTest.class.getResource(bestandNaam),
+        // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen
+        // assumeNotNull
+        assertNotNull(
+                TopNLParserTest.class.getResource(bestandNaam),
                 "Het opgehaalde test bestand moet er zijn in deze omgeving.");
 
         URL in = TopNLParserTest.class.getResource(bestandNaam);
@@ -131,19 +128,23 @@ public class TopNLParserTest {
 
         switch (bestandType) {
             case TOP10NL:
-                assertTrue(jaxb.get(0) instanceof nl.b3p.topnl.top10nl.FeatureMemberType,
+                assertTrue(
+                        jaxb.get(0) instanceof nl.b3p.topnl.top10nl.FeatureMemberType,
                         "FeatureMemberType is niet correct");
                 break;
             case TOP50NL:
-                assertTrue(jaxb.get(0) instanceof nl.b3p.topnl.top50nl.FeatureMemberType,
+                assertTrue(
+                        jaxb.get(0) instanceof nl.b3p.topnl.top50nl.FeatureMemberType,
                         "FeatureMemberType is niet correct");
                 break;
             case TOP100NL:
-                assertTrue(jaxb.get(0) instanceof nl.b3p.topnl.top100nl.FeatureMemberType,
+                assertTrue(
+                        jaxb.get(0) instanceof nl.b3p.topnl.top100nl.FeatureMemberType,
                         "FeatureMemberType is niet correct");
                 break;
             case TOP250NL:
-                assertTrue(jaxb.get(0) instanceof nl.b3p.topnl.top250nl.FeatureMemberType,
+                assertTrue(
+                        jaxb.get(0) instanceof nl.b3p.topnl.top250nl.FeatureMemberType,
                         "FeatureMemberType is niet correct");
                 break;
             default:

@@ -1,9 +1,14 @@
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,14 +34,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * Draaien met:
- * {@code mvn -Dit.test=BAGXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql >
- * /tmp/postgresql.log}
+ * Draaien met: {@code mvn -Dit.test=BAGXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl
+ * brmo-loader -Ppostgresql > /tmp/postgresql.log}
  *
  * @author Boy de Wit
  * @author mprins
@@ -52,12 +52,13 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // {"type","filename", aantalBerichten, aantalLaadProcessen},
-                arguments("bag", "/nl/b3p/brmo/loader/xml/0197LIG01072014-01072014-000001.xml", 0, 1),
-                arguments("bag", "/nl/b3p/brmo/loader/xml/0197STA01072014-01072014-000001.xml", 2, 1),
+                arguments(
+                        "bag", "/nl/b3p/brmo/loader/xml/0197LIG01072014-01072014-000001.xml", 0, 1),
+                arguments(
+                        "bag", "/nl/b3p/brmo/loader/xml/0197STA01072014-01072014-000001.xml", 2, 1),
                 arguments("bag", "/nl/b3p/brmo/loader/xml/9999MUT02012015-03012015.zip", 25718, 6),
                 /* bestand heeft 4 berichten voor object, maar we houden alleen de laatste mutatie in staging */
-                arguments("bag", "/GH-275/OPR-1884300000000464.xml", 1, 1)
-        );
+                arguments("bag", "/GH-275/OPR-1884300000000464.xml", 1, 1));
     }
 
     @BeforeEach
@@ -73,12 +74,21 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
-                    params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
         sequential.lock();
     }
@@ -95,31 +105,44 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @DisplayName("Bag stand in staging")
     @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}")
     @MethodSource("argumentsProvider")
-    public void testBagStandToStaging(String bestandType, String bestandNaam, long aantalBerichten,
-                                      long aantalProcessen) throws Exception {
+    public void testBagStandToStaging(
+            String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen)
+            throws Exception {
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(
-                new File(BAGXMLToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet =
+                fxdb.build(
+                        new FileInputStream(
+                                new File(
+                                        BAGXMLToStagingIntegrationTest.class
+                                                .getResource("/staging-empty-flat.xml")
+                                                .toURI())));
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(0l == brmo.getCountBerichten("bag", "STAGING_OK"),
+        assumeTrue(
+                0l == brmo.getCountBerichten("bag", "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
+        assumeTrue(
+                0l == brmo.getCountLaadProcessen("bag", "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
 
-
         try {
-            brmo.loadFromFile(bestandType, BAGXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(),
+            brmo.loadFromFile(
+                    bestandType,
+                    BAGXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(),
                     null);
         } catch (BrmoLeegBestandException blbe) {
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen).");
         }
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(bestandType, "STAGING_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten(bestandType, "STAGING_OK"),
                 "Verwacht aantal berichten");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(bestandType, "STAGING_OK"),
+        assertEquals(
+                aantalProcessen,
+                brmo.getCountLaadProcessen(bestandType, "STAGING_OK"),
                 "Verwacht aantal laadprocessen");
     }
 }

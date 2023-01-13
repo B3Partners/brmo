@@ -53,21 +53,39 @@ public class BAG2SchemaMapper extends SchemaSQLMapper {
         return METADATA_TABLE_NAME;
     }
 
-    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
-        List<String> statements = super.getCreateMetadataTableStatements(dialect, tablePrefix, dropIfExists);
+    public List<String> getCreateMetadataTableStatements(
+            SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
+        List<String> statements =
+                super.getCreateMetadataTableStatements(dialect, tablePrefix, dropIfExists);
 
-        Map<BAG2SchemaMapper.Metadata, String> defaultMetadata = Stream.of(new Object[][]{
-                {BAG2SchemaMapper.Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
-                {BAG2SchemaMapper.Metadata.LOADER_VERSION, BAG2LoaderUtils.getLoaderVersion()},
-        }).collect(Collectors.toMap(entry -> (BAG2SchemaMapper.Metadata) entry[0], entry -> (String) entry[1]));
+        Map<BAG2SchemaMapper.Metadata, String> defaultMetadata =
+                Stream.of(
+                                new Object[][] {
+                                    {
+                                        BAG2SchemaMapper.Metadata.SCHEMA_VERSION,
+                                        SCHEMA_VERSION_VALUE
+                                    },
+                                    {
+                                        BAG2SchemaMapper.Metadata.LOADER_VERSION,
+                                        BAG2LoaderUtils.getLoaderVersion()
+                                    },
+                                })
+                        .collect(
+                                Collectors.toMap(
+                                        entry -> (BAG2SchemaMapper.Metadata) entry[0],
+                                        entry -> (String) entry[1]));
 
-        Stream.of(BAG2SchemaMapper.Metadata.values()).forEach(metadata -> {
-            String value = defaultMetadata.get(metadata);
-            statements.add(String.format("insert into %s (naam, waarde) values ('%s', %s)",
-                    getMetadataTableName(),
-                    metadata.getDbKey(),
-                    value == null ? "null" : "'" + value + "'"));
-        });
+        Stream.of(BAG2SchemaMapper.Metadata.values())
+                .forEach(
+                        metadata -> {
+                            String value = defaultMetadata.get(metadata);
+                            statements.add(
+                                    String.format(
+                                            "insert into %s (naam, waarde) values ('%s', %s)",
+                                            getMetadataTableName(),
+                                            metadata.getDbKey(),
+                                            value == null ? "null" : "'" + value + "'"));
+                        });
 
         return statements;
     }

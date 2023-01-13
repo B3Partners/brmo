@@ -16,31 +16,31 @@
  */
 package nl.b3p.brmo.persistence.auth;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-/**
- *
- * @author Matthijs Laan
- */
+/** @author Matthijs Laan */
 @Entity
 @Table(name = "gebruiker_")
 public class Gebruiker implements Serializable {
 
-    @Id
-    private String gebruikersnaam;
+    @Id private String gebruikersnaam;
 
     private String wachtwoord;
 
     @ManyToMany
-    @JoinTable(name = "gebruiker_groepen", joinColumns = @JoinColumn(name = "gebruikersnaam"), inverseJoinColumns = @JoinColumn(name = "groep_"))
+    @JoinTable(
+            name = "gebruiker_groepen",
+            joinColumns = @JoinColumn(name = "gebruikersnaam"),
+            inverseJoinColumns = @JoinColumn(name = "groep_"))
     private Set<Groep> groepen = new HashSet<>();
 
     public String getWachtwoord() {
@@ -48,8 +48,9 @@ public class Gebruiker implements Serializable {
     }
 
     /**
-     * Stel nieuw wachtwoord in. Het versleutelen van het wachtwoord naar een hash dient al uitgevoerd te zijn en
-     * moet conform de geconfigureerde {@code CredentialHandler} van de security realm gedaan zijn om te kunnen werken.
+     * Stel nieuw wachtwoord in. Het versleutelen van het wachtwoord naar een hash dient al
+     * uitgevoerd te zijn en moet conform de geconfigureerde {@code CredentialHandler} van de
+     * security realm gedaan zijn om te kunnen werken.
      *
      * @param wachtwoord een versleuteld/gehashed wachtwoord
      */

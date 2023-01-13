@@ -32,9 +32,17 @@ public interface SQLDialect {
         return getGeometryParameter(c, geometry, false);
     }
 
-    Object getGeometryParameter(Connection c, Geometry geometry, boolean linearizeCurves) throws SQLException;
+    Object getGeometryParameter(Connection c, Geometry geometry, boolean linearizeCurves)
+            throws SQLException;
 
-    default void setGeometryParameter(Connection c, PreparedStatement ps, int parameterIndex, int pmdType, Geometry geometry, boolean linearizeCurves) throws SQLException {
+    default void setGeometryParameter(
+            Connection c,
+            PreparedStatement ps,
+            int parameterIndex,
+            int pmdType,
+            Geometry geometry,
+            boolean linearizeCurves)
+            throws SQLException {
         if (geometry == null) {
             ps.setNull(parameterIndex, pmdType);
         } else {
@@ -42,7 +50,8 @@ public interface SQLDialect {
         }
     }
 
-    default String getCreateGeometryMetadataSQL(String tableName, String geometryColumn, String type) {
+    default String getCreateGeometryMetadataSQL(
+            String tableName, String geometryColumn, String type) {
         return "";
     }
 
@@ -52,11 +61,10 @@ public interface SQLDialect {
 
     int getDefaultOptimalBatchSize();
 
-    /**
-     * Does not take into account schema, case or search path!
-     */
+    /** Does not take into account schema, case or search path! */
     default boolean tableExists(Connection c, String name) throws SQLException {
-        try (ResultSet tables = c.getMetaData().getTables(null, null, null, new String[] {"TABLE"})) {
+        try (ResultSet tables =
+                c.getMetaData().getTables(null, null, null, new String[] {"TABLE"})) {
             while (tables.next()) {
                 if (tables.getString("TABLE_NAME").equalsIgnoreCase(name)) {
                     return true;

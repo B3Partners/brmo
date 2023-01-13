@@ -30,6 +30,6 @@ public class BAG2MutatieGroep {
         if (!isSingleToevoeging()) {
             throw new IllegalStateException("Not a single toevoeging mutatieGroep");
         }
-        return ((BAG2ToevoegingMutatie)mutaties.get(0)).getToevoeging();
+        return ((BAG2ToevoegingMutatie) mutaties.get(0)).getToevoeging();
     }
 }

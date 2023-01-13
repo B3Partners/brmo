@@ -17,17 +17,13 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.Polygon;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class PlanTopografie extends TopNLEntity{
-    
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class PlanTopografie extends TopNLEntity {
+
     private String typePlanTopografie;
     private String naam;
-    
+
     private Geometry geometrie;
 
     public String getTypePlanTopografie() {
@@ -53,5 +49,4 @@ public class PlanTopografie extends TopNLEntity{
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-    
 }

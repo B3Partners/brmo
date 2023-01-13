@@ -3,6 +3,29 @@
  */
 package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.stripesstuff.stripersist.Stripersist;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,26 +39,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
-import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
-import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.input.CloseShieldInputStream;
-import org.apache.commons.io.input.TeeInputStream;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.stripesstuff.stripersist.Stripersist;
 
 /**
  * Proces dat een web directory uitleest voor BAG mutaties in zipfiles.
@@ -46,9 +49,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
     private static final Log log = LogFactory.getLog(WebMirrorBAGDirectoryScanner.class);
 
-    /**
-     * proces data.
-     */
+    /** proces data. */
     private final WebMirrorBAGScannerProces config;
 
     private ProgressUpdateListener listener;
@@ -68,28 +69,25 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                log.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        log.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-            }
-        });
+                    @Override
+                    public void addLog(String log) {}
+                });
     }
 
     @Override
@@ -106,7 +104,12 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             String url = this.config.getScanDirectory();
             msg = String.format("Ophalen van de lijst van links van %s.", url);
             listener.addLog(msg);
-            Document doc = Jsoup.connect(url).timeout(5000).followRedirects(true).ignoreHttpErrors(false).get();
+            Document doc =
+                    Jsoup.connect(url)
+                            .timeout(5000)
+                            .followRedirects(true)
+                            .ignoreHttpErrors(false)
+                            .get();
             msg = "De lijst met download links is succesvol opgehaald.";
             listener.updateStatus(msg);
             listener.addLog(msg);
@@ -148,11 +151,14 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             listener.addLog("Aantal xml's geladen: " + aantalXMLGeladen);
             listener.addLog("Aantal xml's die al waren geladen: " + filterXMLAlVerwerkt);
 
-            config.updateSamenvattingEnLogfile(msg
-                    + "\nAantal url's gedownloaded: " + aantalZipGeladen
-                    + "\nAantal xml's geladen: " + aantalXMLGeladen
-                    + "\nAantal xml's die al waren geladen: " + filterXMLAlVerwerkt
-            );
+            config.updateSamenvattingEnLogfile(
+                    msg
+                            + "\nAantal url's gedownloaded: "
+                            + aantalZipGeladen
+                            + "\nAantal xml's geladen: "
+                            + aantalXMLGeladen
+                            + "\nAantal xml's die al waren geladen: "
+                            + filterXMLAlVerwerkt);
             config.setStatus(WAITING);
             this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
@@ -162,8 +168,10 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             config.setStatus(ERROR);
             listener.exception(ex);
         } catch (HttpStatusException ex) {
-            msg = String.format("Er is een fout opgetreden bij het uitlezen van de url %s. Status code %s",
-                    ex.getUrl(), ex.getStatusCode());
+            msg =
+                    String.format(
+                            "Er is een fout opgetreden bij het uitlezen van de url %s. Status code %s",
+                            ex.getUrl(), ex.getStatusCode());
             log.error(msg);
             config.setStatus(ERROR);
             listener.exception(ex);
@@ -220,8 +228,8 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 
         InputStream zipData = conn.getInputStream();
         if (isArchivingOK()) {
-            FileOutputStream archiveFile = new FileOutputStream(
-                    new File(this.config.getArchiefDirectory(), naam));
+            FileOutputStream archiveFile =
+                    new FileOutputStream(new File(this.config.getArchiefDirectory(), naam));
             zipData = new TeeInputStream(zipData, archiveFile, true);
         }
 
@@ -247,23 +255,27 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 final String bestandNaam = naam + "/" + entry.getName();
 
                 try {
-                    brmo.loadFromStream(BrmoFramework.BR_BAG, CloseShieldInputStream.wrap(zis), bestandNaam,
+                    brmo.loadFromStream(
+                            BrmoFramework.BR_BAG,
+                            CloseShieldInputStream.wrap(zis),
+                            bestandNaam,
                             new nl.b3p.brmo.loader.ProgressUpdateListener() {
                                 @Override
                                 public void total(long total) {
-                                    listener.addLog(total + " berichten gelezen uit " + bestandNaam);
+                                    listener.addLog(
+                                            total + " berichten gelezen uit " + bestandNaam);
                                     log.info(total + " berichten gelezen uit " + bestandNaam);
                                 }
 
                                 @Override
-                                public void progress(long progress) {
-                                }
+                                public void progress(long progress) {}
 
                                 @Override
-                        public void exception(Throwable t) {
-                            listener.exception(t);
-                        }
-                    }, config.getId());
+                                public void exception(Throwable t) {
+                                    listener.exception(t);
+                                }
+                            },
+                            config.getId());
                     this.aantalXMLGeladen++;
                 } catch (BrmoDuplicaatLaadprocesException dup) {
                     this.filterXMLAlVerwerkt++;
@@ -285,8 +297,8 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
     }
 
     /**
-     * Bepaal of de zipfile kan worden opgeslagen in de geconfigureerde
-     * directory. Als de directory niet bestaat wordt deze aangemaakt.
+     * Bepaal of de zipfile kan worden opgeslagen in de geconfigureerde directory. Als de directory
+     * niet bestaat wordt deze aangemaakt.
      *
      * @return true als we de zipfile lokaal kunnen opslaan.
      */
@@ -299,12 +311,18 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 archiefDirectory.mkdirs();
                 if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
                     config.setStatus(ERROR);
-                    String msg = String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles worden niet gearchiveerd.", archiefDirectory);
+                    String msg =
+                            String.format(
+                                    "FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles worden niet gearchiveerd.",
+                                    archiefDirectory);
                     listener.addLog(msg);
                     isArchiving = false;
                 }
             } catch (SecurityException e) {
-                String msg = String.format("SecurityException voor archief directory '%s', zipfiles worden niet gearchiveerd.", archiefDirectory);
+                String msg =
+                        String.format(
+                                "SecurityException voor archief directory '%s', zipfiles worden niet gearchiveerd.",
+                                archiefDirectory);
                 listener.addLog(msg);
                 log.error(msg, e);
                 isArchiving = false;

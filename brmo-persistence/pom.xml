@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>brmo-persistence</artifactId>
-    <packaging>jar</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>brmo-persistence</artifactId>
+    <packaging>jar</packaging>
     <name>BRMO persistence</name>
     <description>JPA (staging database) artifact voor de BRMO</description>
     <inceptionYear>2015</inceptionYear>
@@ -57,15 +58,15 @@
         </filters>
         <testResources>
             <testResource>
-                <directory>${project.basedir}/src/test/resources/</directory>
                 <filtering>true</filtering>
+                <directory>${project.basedir}/src/test/resources/</directory>
             </testResource>
             <testResource>
+                <filtering>false</filtering>
                 <directory>${project.basedir}/src/main/resources/</directory>
                 <includes>
                     <include>**/orm-*.xml</include>
                 </includes>
-                <filtering>false</filtering>
             </testResource>
         </testResources>
         <plugins>
@@ -78,15 +79,15 @@
                         <file>${project.basedir}/src/test/resources/local.connections.properties</file>
                     </files>
                     <quiet>true</quiet>
-                    <outputFile />
-                    <properties />
+                    <outputFile/>
+                    <properties/>
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>initialize</phase>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
+                        <phase>initialize</phase>
                     </execution>
                 </executions>
             </plugin>

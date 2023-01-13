@@ -16,14 +16,13 @@
  */
 package nl.b3p.web.stripes;
 
-import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.StreamingResolution;
+
 import org.json.JSONObject;
 
-/**
- *
- * @author matthijsln
- */
+import javax.servlet.http.HttpServletResponse;
+
+/** @author matthijsln */
 public class DirectResponseResolution extends StreamingResolution {
 
     private int status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;

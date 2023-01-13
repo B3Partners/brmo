@@ -3,9 +3,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.After;
@@ -15,25 +12,29 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
-import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
-import org.stripesstuff.stripersist.EntityTypeConverter;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
-import nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
+import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
-public class LaadprocesTransformatieUitvoerActionBean implements ActionBean, ProgressUpdateListener {
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
 
-    private static final Log LOG = LogFactory.getLog(LaadprocesTransformatieUitvoerActionBean.class);
+/** @author mprins */
+public class LaadprocesTransformatieUitvoerActionBean
+        implements ActionBean, ProgressUpdateListener {
+
+    private static final Log LOG =
+            LogFactory.getLog(LaadprocesTransformatieUitvoerActionBean.class);
 
     private static final String JSP = "/WEB-INF/jsp/beheer/laadprocestransformerenuitvoeren.jsp";
 
@@ -73,7 +74,10 @@ public class LaadprocesTransformatieUitvoerActionBean implements ActionBean, Pro
             return new ForwardResolution(JSP);
         }
         // opnieuw laden van config omdat de waitpage de entity detached
-        proces = (LaadprocesTransformatieProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        proces =
+                (LaadprocesTransformatieProces)
+                        Stripersist.getEntityManager()
+                                .find(AutomatischProces.class, proces.getId());
         ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);
 
         try {

@@ -8,6 +8,7 @@ import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.WozBericht;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
+
 import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -15,6 +16,14 @@ import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,14 +41,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class WozXMLReader extends BrmoXMLReader {
     public static final String PREFIX_PRS = "WOZ.NPS.";
@@ -80,10 +81,12 @@ public class WozXMLReader extends BrmoXMLReader {
         LOG.trace("Originele WOZ xml is: \n" + brOrigXML);
 
         TransformerFactory tf = TransformerFactory.newInstance();
-        tf.setURIResolver((href, base) -> {
-            LOG.debug("looking for: " + href + " base: " + base);
-            return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
-        });
+        tf.setURIResolver(
+                (href, base) -> {
+                    LOG.debug("looking for: " + href + " base: " + base);
+                    return new StreamSource(
+                            RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
+                });
 
         Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
         this.template = tf.newTemplates(xsl);
@@ -92,14 +95,17 @@ public class WozXMLReader extends BrmoXMLReader {
 
         if (this.getBestandsDatum() == null) {
             // probeer datum nog uit doc te halen..
-            LOG.debug("Tijdstip bericht was niet gegeven; alsnog proberen op te zoeken in bericht.");
+            LOG.debug(
+                    "Tijdstip bericht was niet gegeven; alsnog proberen op te zoeken in bericht.");
             XPathExpression tijdstipBericht = xpath.compile("//*[local-name()='tijdstipBericht']");
             Node datum = (Node) tijdstipBericht.evaluate(doc, XPathConstants.NODE);
             setDatumAsString(datum.getTextContent(), "yyyyMMddHHmmssSSS");
             LOG.debug("Tijdstip bericht ingesteld op " + getBestandsDatum());
         }
 
-        XPathExpression eersteGemeente = xpath.compile("//*[local-name()='verantwoordelijkeGemeente']/*[local-name()='gemeenteCode'][1]");
+        XPathExpression eersteGemeente =
+                xpath.compile(
+                        "//*[local-name()='verantwoordelijkeGemeente']/*[local-name()='gemeenteCode'][1]");
         Node gem = (Node) eersteGemeente.evaluate(doc, XPathConstants.NODE);
         gemeenteCode = null != gem ? gem.getTextContent() : null;
         if (null == gemeenteCode) {
@@ -107,12 +113,16 @@ public class WozXMLReader extends BrmoXMLReader {
             gem = (Node) eersteGemeente.evaluate(doc, XPathConstants.NODE);
             gemeenteCode = null != gem ? gem.getTextContent() : null;
         }
-        XPathExpression eersteWaterschap = xpath.compile("//*[local-name()='ligtIn']/*[local-name()='gerelateerde']/*[local-name()='betrokkenWaterschap'][1]");
+        XPathExpression eersteWaterschap =
+                xpath.compile(
+                        "//*[local-name()='ligtIn']/*[local-name()='gerelateerde']/*[local-name()='betrokkenWaterschap'][1]");
         Node ws = (Node) eersteWaterschap.evaluate(doc, XPathConstants.NODE);
         betrokkenWaterschap = null != ws ? ws.getTextContent() : null;
 
         // actuele woz:object nodes
-        XPathExpression objectNode = xpath.compile("//*[local-name()='object'][not(ancestor::*[local-name()='historie'])]");
+        XPathExpression objectNode =
+                xpath.compile(
+                        "//*[local-name()='object'][not(ancestor::*[local-name()='historie'])]");
         objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
 
         // mogelijk zijn er omhang berichten (WGEM_hangSubjectOm_Di01)
@@ -152,8 +162,11 @@ public class WozXMLReader extends BrmoXMLReader {
         String object_ref = getObjectRef(n);
         StringWriter sw = new StringWriter();
 
-        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor template gebruikt worden, maar de gewone.
-        Bericht old = staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());
+        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor
+        // template gebruikt worden, maar de gewone.
+        Bericht old =
+                staging.getPreviousBericht(
+                        object_ref, getBestandsDatum(), -1L, new StringBuilder());
         Transformer t;
         if (old != null) {
             LOG.debug("gebruik preprocessor xsl");
@@ -171,18 +184,20 @@ public class WozXMLReader extends BrmoXMLReader {
 
         Map<String, String> bsns = extractBSN(n);
         String origXML = sw.toString();
-        StringBuilder brXML = new StringBuilder("<root>")
-                .append(origXML)
-                .append(getXML(bsns))
-                .append("<fallback>");
+        StringBuilder brXML =
+                new StringBuilder("<root>")
+                        .append(origXML)
+                        .append(getXML(bsns))
+                        .append("<fallback>");
         if (null != gemeenteCode) {
             brXML.append("<gemeenteCode>").append(gemeenteCode).append("</gemeenteCode>");
         }
         if (null != betrokkenWaterschap) {
-            brXML.append("<betrokkenWaterschap>").append(betrokkenWaterschap).append("</betrokkenWaterschap>");
+            brXML.append("<betrokkenWaterschap>")
+                    .append(betrokkenWaterschap)
+                    .append("</betrokkenWaterschap>");
         }
-        brXML.append("</fallback>")
-                .append("</root>");
+        brXML.append("</fallback>").append("</root>");
 
         WozBericht b = new WozBericht(brXML.toString());
         b.setDatum(getBestandsDatum());
@@ -191,14 +206,18 @@ public class WozXMLReader extends BrmoXMLReader {
             b.setBrOrgineelXml(brOrigXML);
         }
         // TODO volgorde nummer:
-        //  bepaal aan de hand van de object_ref of volgordenummer opgehoogd moet worden. Een soap bericht kan meerdere
-        //  object entiteiten bevatten die een eigen type objectref krijgen. bijv. een entiteittype="WOZ" en een entiteittype="NPS"
-        //  bovendien kan een entiteittype="WOZ" een genests gerelateerde hebben die een apart bericht moet/zou kunnen opleveren met objectref
+        //  bepaal aan de hand van de object_ref of volgordenummer opgehoogd moet worden. Een soap
+        // bericht kan meerdere
+        //  object entiteiten bevatten die een eigen type objectref krijgen. bijv. een
+        // entiteittype="WOZ" en een entiteittype="NPS"
+        //  bovendien kan een entiteittype="WOZ" een genests gerelateerde hebben die een apart
+        // bericht moet/zou kunnen opleveren met objectref
         //  van een NPS, maar met een hoger volgordenummer...
         //  vooralsnog halen we niet de geneste entiteiten uit het bericht
         b.setVolgordeNummer(index);
         if (index > 1) {
-            // om om het probleem van 2 subjecten uit 1 bericht op zelfde tijdstip dus heen te werken hoger volgordenummer ook iets later maken
+            // om om het probleem van 2 subjecten uit 1 bericht op zelfde tijdstip dus heen te
+            // werken hoger volgordenummer ook iets later maken
             b.setDatum(new Date(getBestandsDatum().getTime() + 10));
         }
         b.setObjectRef(object_ref);
@@ -212,38 +231,55 @@ public class WozXMLReader extends BrmoXMLReader {
         return b;
     }
 
-
     private String getObjectRef(Node wozObjectNode) throws XPathExpressionException {
         // WOZ:object StUF:entiteittype="WOZ"/WOZ:wozObjectNummer
-        XPathExpression wozObjectNummer = xPathfactory.newXPath().compile("./*[local-name()='wozObjectNummer']");
-        NodeList obRefs = (NodeList) wozObjectNummer.evaluate(wozObjectNode, XPathConstants.NODESET);
+        XPathExpression wozObjectNummer =
+                xPathfactory.newXPath().compile("./*[local-name()='wozObjectNummer']");
+        NodeList obRefs =
+                (NodeList) wozObjectNummer.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0) {
             return PREFIX_WOZ + obRefs.item(0).getTextContent();
         }
 
         // WOZ:object StUF:entiteittype="NPS"/WOZ:isEen/WOZ:gerelateerde/BG:inp.bsn
-        XPathExpression bsn = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='inp.bsn']");
+        XPathExpression bsn =
+                xPathfactory
+                        .newXPath()
+                        .compile("./*/*[local-name()='gerelateerde']/*[local-name()='inp.bsn']");
         obRefs = (NodeList) bsn.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0) {
             return PREFIX_PRS + getHash(obRefs.item(0).getTextContent());
         }
 
-        // ./WOZ:object StUF:entiteittype="WOZ"/WOZ:heeftBelanghebbende/WOZ:gerelateerde/WOZ:natuurlijkPersoon/WOZ:soFiNummer
-        bsn = xPathfactory.newXPath().compile("//*[local-name()='heeftBelanghebbende']/*[local-name()='gerelateerde']/*[local-name()='natuurlijkPersoon']/*[local-name()='soFiNummer']");
+        // ./WOZ:object
+        // StUF:entiteittype="WOZ"/WOZ:heeftBelanghebbende/WOZ:gerelateerde/WOZ:natuurlijkPersoon/WOZ:soFiNummer
+        bsn =
+                xPathfactory
+                        .newXPath()
+                        .compile(
+                                "//*[local-name()='heeftBelanghebbende']/*[local-name()='gerelateerde']/*[local-name()='natuurlijkPersoon']/*[local-name()='soFiNummer']");
         obRefs = (NodeList) bsn.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             return PREFIX_PRS + obRefs.item(0).getTextContent();
         }
 
         // WOZ:object StUF:entiteittype="NNP"/WOZ:isEen/WOZ:gerelateerde/BG:inn.nnpId
-        XPathExpression nnpIdXpath = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='inn.nnpId']");
+        XPathExpression nnpIdXpath =
+                xPathfactory
+                        .newXPath()
+                        .compile("./*/*[local-name()='gerelateerde']/*[local-name()='inn.nnpId']");
         obRefs = (NodeList) nnpIdXpath.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             return PREFIX_NNP + obRefs.item(0).getTextContent();
         }
-        // er komen berichten voor in test set waarin geen nnpId zit, maar wel "aanvullingSoFiNummer" is gevuld...
+        // er komen berichten voor in test set waarin geen nnpId zit, maar wel
+        // "aanvullingSoFiNummer" is gevuld...
         // WOZ:object StUF:entiteittype="NNP"/WOZ:aanvullingSoFiNummer
-        nnpIdXpath = xPathfactory.newXPath().compile("*[@StUF:entiteittype='NNP']/*[local-name()='aanvullingSoFiNummer']");
+        nnpIdXpath =
+                xPathfactory
+                        .newXPath()
+                        .compile(
+                                "*[@StUF:entiteittype='NNP']/*[local-name()='aanvullingSoFiNummer']");
         obRefs = (NodeList) nnpIdXpath.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             LOG.warn("WOZ NNP zonder `inn.nnpId`, gebruik `aanvullingSoFiNummer` voor id.");
@@ -251,14 +287,22 @@ public class WozXMLReader extends BrmoXMLReader {
         }
 
         // WOZ:object StUF:entiteittype="WRD"/WOZ:isVoor/WOZ:gerelateerde/WOZ:wozObjectNummer
-        XPathExpression wrd = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='wozObjectNummer']");
+        XPathExpression wrd =
+                xPathfactory
+                        .newXPath()
+                        .compile(
+                                "./*/*[local-name()='gerelateerde']/*[local-name()='wozObjectNummer']");
         obRefs = (NodeList) wrd.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             return PREFIX_WOZ + obRefs.item(0).getTextContent();
         }
 
         // WOZ:object StUF:entiteittype="VES"/WOZ:isEen/WOZ:gerelateerde/BG:vestigingsNummer
-        XPathExpression ves = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='vestigingsNummer']");
+        XPathExpression ves =
+                xPathfactory
+                        .newXPath()
+                        .compile(
+                                "./*/*[local-name()='gerelateerde']/*[local-name()='vestigingsNummer']");
         obRefs = (NodeList) ves.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             return PREFIX_VES + obRefs.item(0).getTextContent();
@@ -297,7 +341,16 @@ public class WozXMLReader extends BrmoXMLReader {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
                 String hash = entry.getValue();
-                String el = "<" + PREFIX_PRS + entry.getKey() + ">" + hash + "</" + PREFIX_PRS + entry.getKey() + ">";
+                String el =
+                        "<"
+                                + PREFIX_PRS
+                                + entry.getKey()
+                                + ">"
+                                + hash
+                                + "</"
+                                + PREFIX_PRS
+                                + entry.getKey()
+                                + ">";
                 root += el;
             }
         }

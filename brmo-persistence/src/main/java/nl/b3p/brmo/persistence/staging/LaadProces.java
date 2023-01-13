@@ -5,10 +5,11 @@ package nl.b3p.brmo.persistence.staging;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+
+import javax.persistence.*;
 
 /**
  * Beschrijft een laad proces van een bericht of bestand.
@@ -19,12 +20,10 @@ import java.util.Date;
 @Table(name = "laadproces")
 public class LaadProces implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Id @GeneratedValue private Long id;
 
     private String bestand_naam;
-    
+
     private String bestand_naam_hersteld;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,7 +47,7 @@ public class LaadProces implements Serializable {
     private String contact_email;
 
     @ManyToOne
-    @JoinColumn(name="automatisch_proces")
+    @JoinColumn(name = "automatisch_proces")
     private AutomatischProces automatischProces;
 
     private BigInteger klantafgiftenummer;
@@ -68,16 +67,20 @@ public class LaadProces implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date beschikbaar_tot;
 
-    /**
-     * see nl.b3p.brmo.loader.entity.LaadProces
-     */
+    /** see nl.b3p.brmo.loader.entity.LaadProces */
     public static enum STATUS {
         // als je er bij maakt ook in de andere LaadProces klasse toevoegen
-        STAGING_OK, STAGING_NOK, STAGING_MISSING, STAGING_DUPLICAAT, ARCHIVE, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK
+        STAGING_OK,
+        STAGING_NOK,
+        STAGING_MISSING,
+        STAGING_DUPLICAAT,
+        ARCHIVE,
+        RSGB_TOPNL_WAITING,
+        RSGB_TOPNL_OK,
+        RSGB_TOPNL_NOK
     };
 
-        public LaadProces() {
-    }
+    public LaadProces() {}
 
     public LaadProces(String bestand_naam, String soort) {
         this.bestand_naam = bestand_naam;
@@ -240,26 +243,56 @@ public class LaadProces implements Serializable {
 
     @Override
     public String toString() {
-        return "LaadProces{" +
-                "id=" + id +
-                ", bestandNaam='" + bestand_naam + '\'' +
-                ", bestandNaamHersteld='" + bestand_naam_hersteld + '\'' +
-                ", bestandDatum=" + bestand_datum +
-                ", soort='" + soort + '\'' +
-                ", gebied='" + gebied + '\'' +
-                ", opmerking='" + opmerking + '\'' +
-                ", status=" + status +
-                ", statusDatum=" + status_datum +
-                ", contactEmail='" + contact_email + '\'' +
-                ", automatischProces=" + automatischProces +
-                ", klantafgiftenummer=" + klantafgiftenummer +
-                ", contractafgiftenummer=" + contractafgiftenummer +
-                ", artikelnummer='" + artikelnummer + '\'' +
-                ", contractnummer='" + contractnummer + '\'' +
-                ", afgifteid='" + afgifteid + '\'' +
-                ", afgiftereferentie='" + afgiftereferentie + '\'' +
-                ", bestandsreferentie='" + bestandsreferentie + '\'' +
-                ", beschikbaar_tot=" + beschikbaar_tot +
-                '}';
+        return "LaadProces{"
+                + "id="
+                + id
+                + ", bestandNaam='"
+                + bestand_naam
+                + '\''
+                + ", bestandNaamHersteld='"
+                + bestand_naam_hersteld
+                + '\''
+                + ", bestandDatum="
+                + bestand_datum
+                + ", soort='"
+                + soort
+                + '\''
+                + ", gebied='"
+                + gebied
+                + '\''
+                + ", opmerking='"
+                + opmerking
+                + '\''
+                + ", status="
+                + status
+                + ", statusDatum="
+                + status_datum
+                + ", contactEmail='"
+                + contact_email
+                + '\''
+                + ", automatischProces="
+                + automatischProces
+                + ", klantafgiftenummer="
+                + klantafgiftenummer
+                + ", contractafgiftenummer="
+                + contractafgiftenummer
+                + ", artikelnummer='"
+                + artikelnummer
+                + '\''
+                + ", contractnummer='"
+                + contractnummer
+                + '\''
+                + ", afgifteid='"
+                + afgifteid
+                + '\''
+                + ", afgiftereferentie='"
+                + afgiftereferentie
+                + '\''
+                + ", bestandsreferentie='"
+                + bestandsreferentie
+                + '\''
+                + ", beschikbaar_tot="
+                + beschikbaar_tot
+                + '}';
     }
 }

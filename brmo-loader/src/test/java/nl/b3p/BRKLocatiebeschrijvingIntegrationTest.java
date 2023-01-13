@@ -3,10 +3,16 @@
  */
 package nl.b3p;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,18 +40,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 /**
- * Test voor het correct vullen van {@code lo_loc__omschr} kolom van tabel
- * {@code kad_onrrnd_zk} in het RSGB schema. Draaien met:
- * {@code mvn -Dit.test=BRKLocatiebeschrijvingIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
- * voor Oracle of
- * {@code mvn -Dit.test=BRKLocatiebeschrijvingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql > /tmp/postgresql.log}
- * voor PostgreSQL.
+ * Test voor het correct vullen van {@code lo_loc__omschr} kolom van tabel {@code kad_onrrnd_zk} in
+ * het RSGB schema. Draaien met: {@code mvn -Dit.test=BRKLocatiebeschrijvingIntegrationTest
+ * -Dtest.onlyITs=true verify -Poracle > target/oracle.log} voor Oracle of {@code mvn
+ * -Dit.test=BRKLocatiebeschrijvingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader
+ * -Ppostgresql > /tmp/postgresql.log} voor PostgreSQL.
  *
  * @author mprins
  */
@@ -57,12 +57,18 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // {"filename", aantalBerichten, "lo_loc__omschr veld inhoud"},
-                arguments("/GH-288/bagadresplusvieradressen.xml", 1, "BRINKSTR 73 A, 9401HZ ASSEN  (3 meer adressen)"),
-                arguments("/GH-288/vieradressen.xml", 1, "BRINKSTR 73 A, 9401HZ ASSEN  (3 meer adressen)"),
+                arguments(
+                        "/GH-288/bagadresplusvieradressen.xml",
+                        1,
+                        "BRINKSTR 73 A, 9401HZ ASSEN  (3 meer adressen)"),
+                arguments(
+                        "/GH-288/vieradressen.xml",
+                        1,
+                        "BRINKSTR 73 A, 9401HZ ASSEN  (3 meer adressen)"),
                 arguments("/GH-288/bagadres.xml", 1, null),
-                arguments("/GH-288/imkadadres.xml", 1, "WILHELMINASTR 17, 9401NM ASSEN")
-        );
+                arguments("/GH-288/imkadadres.xml", 1, "WILHELMINASTR 17, 9401NM ASSEN"));
     }
+
     private BrmoFramework brmo;
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
@@ -92,17 +98,37 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
         rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            staging =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                            params.getProperty("staging.user").toUpperCase());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            staging.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+            rsgb =
+                    new DatabaseConnection(
+                            OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                            params.getProperty("rsgb.user").toUpperCase());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new Oracle10DataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
             // we hebben alleen nog postgres over
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+            staging.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+            rsgb.getConfig()
+                    .setProperty(
+                            DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
         }
         sequential.lock();
     }
@@ -125,29 +151,44 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
 
     @ParameterizedTest(name = "Locatie beschrijving #{index}: bestand: {0}")
     @MethodSource("argumentsProvider")
-    public void testLocatieBeschrijving(String bestandNaam, long aantalBerichten, String lo_loc__omschr) throws Exception {
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(BRKLocatiebeschrijvingIntegrationTest.class.getResource(bestandNaam).toURI())));
+    public void testLocatieBeschrijving(
+            String bestandNaam, long aantalBerichten, String lo_loc__omschr) throws Exception {
+        IDataSet stagingDataSet =
+                new XmlDataSet(
+                        new FileInputStream(
+                                new File(
+                                        BRKLocatiebeschrijvingIntegrationTest.class
+                                                .getResource(bestandNaam)
+                                                .toURI())));
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue(aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
+        assumeTrue(
+                aantalBerichten == brmo.getCountBerichten("brk", "STAGING_OK"),
                 "Het aantal STAGING_OK berichten is anders dan verwacht");
 
         List<Bericht> berichten = brmo.listBerichten();
         assertNotNull(berichten, "De verzameling berichten bestaat niet.");
-        assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertEquals(
+                aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten("brk", "RSGB_OK"),
+        assertEquals(
+                aantalBerichten,
+                brmo.getCountBerichten("brk", "RSGB_OK"),
                 "Niet alle berichten zijn OK getransformeerd");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals(aantalBerichten, kad_onrrnd_zk.getRowCount(),
+        assertEquals(
+                aantalBerichten,
+                kad_onrrnd_zk.getRowCount(),
                 "Het aantal onroerend zaak records komt niet overeen");
-        assertEquals(lo_loc__omschr, kad_onrrnd_zk.getValue(0, "lo_loc__omschr"),
+        assertEquals(
+                lo_loc__omschr,
+                kad_onrrnd_zk.getValue(0, "lo_loc__omschr"),
                 "Beschrijving in record komt niet overeen");
     }
 }

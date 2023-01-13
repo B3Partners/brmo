@@ -2,10 +2,7 @@ package nl.b3p.brmo.loader.pipeline;
 
 import nl.b3p.brmo.loader.BerichtenHandler;
 
-/**
- *
- * @author Matthijs Laan
- */
+/** @author Matthijs Laan */
 public class ProcessDbXmlPipeline extends BerichtPipelineThread {
 
     public ProcessDbXmlPipeline(BerichtenHandler handler, int capacity, String stopwatchPrefix) {

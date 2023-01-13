@@ -25,9 +25,11 @@ public class BAG2ToevoegingMutatie extends BAG2Mutatie {
 
     @Override
     public String toString() {
-        return "BAG2ToevoegingMutatie{" +
-                "location=" + getLocation() +
-                ", toevoeging=" + toevoeging +
-                '}';
+        return "BAG2ToevoegingMutatie{"
+                + "location="
+                + getLocation()
+                + ", toevoeging="
+                + toevoeging
+                + '}';
     }
 }

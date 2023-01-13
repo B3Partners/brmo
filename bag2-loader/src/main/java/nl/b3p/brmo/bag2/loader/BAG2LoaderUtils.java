@@ -10,11 +10,9 @@ package nl.b3p.brmo.bag2.loader;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.BAGExtractLevering;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.Gemeente;
 import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
+
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +30,10 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 public class BAG2LoaderUtils {
 
     public static final String BUNDLE_NAME = "BAG2Loader";
@@ -41,14 +43,14 @@ public class BAG2LoaderUtils {
     static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
 
     public static String getUserAgent() {
-        return String.format("%s, %s (%s)/%s, %s/%s",
+        return String.format(
+                "%s, %s (%s)/%s, %s/%s",
                 getBundleString("app.user-agent"),
                 System.getProperty("os.name"),
                 System.getProperty("os.arch"),
                 System.getProperty("os.version"),
                 System.getProperty("java.vm.name"),
-                System.getProperty("java.vm.version")
-        );
+                System.getProperty("java.vm.version"));
     }
 
     public static ResourceBundle getBundle() {
@@ -72,17 +74,19 @@ public class BAG2LoaderUtils {
         return getBundleString("brmo.version");
     }
 
-    public static BAGExtractSelectie getBAGExtractSelectieFromZip(String zipFileName) throws IOException {
+    public static BAGExtractSelectie getBAGExtractSelectieFromZip(String zipFileName)
+            throws IOException {
         if (zipFileName.startsWith("http://") || zipFileName.startsWith("https://")) {
-            // Try to parse filename in URL to avoid having to download the ZIP and extract the leveringsdocument --
+            // Try to parse filename in URL to avoid having to download the ZIP and extract the
+            // leveringsdocument --
             // because this may happen many times to check whether a mutatie ZIP is applicable
             try {
                 return BAGExtractSelectieFromFilename.parse(zipFileName);
-            } catch(IllegalArgumentException iae) {
-                // Could not parse BAG2 extract selection from filename, use HTTP random access to parse only
+            } catch (IllegalArgumentException iae) {
+                // Could not parse BAG2 extract selection from filename, use HTTP random access to
+                // parse only
                 // leveringsdocument without downloading/streaming the entire ZIP file
                 return getBAGExtractSelectieFromHttpZip(URI.create(zipFileName));
-
             }
         } else {
             return getBAGExtractSelectieFromZipFile(new File(zipFileName));
@@ -91,20 +95,16 @@ public class BAG2LoaderUtils {
 
     private static BAGExtractSelectie getBAGExtractSelectieFromHttpZip(URI uri) throws IOException {
         String message = getMessageFormattedString("load.leveringsdocument.readzip", uri);
-        try(
-                HttpSeekableByteChannel channel = new HttpSeekableByteChannel(uri);
-                org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
-                        channel,
-                        uri.toString(),
-                        "UTF8",
-                        false,
-                        true
-                )
-        ) {
+        try (HttpSeekableByteChannel channel = new HttpSeekableByteChannel(uri);
+                org.apache.commons.compress.archivers.zip.ZipFile zipFile =
+                        new org.apache.commons.compress.archivers.zip.ZipFile(
+                                channel, uri.toString(), "UTF8", false, true)) {
             message = getMessageFormattedString("load.leveringsdocument.zipentries", uri);
-            Iterator<ZipArchiveEntry> iterator = zipFile.getEntries(LEVERINGSDOCUMENT_FILENAME).iterator();
+            Iterator<ZipArchiveEntry> iterator =
+                    zipFile.getEntries(LEVERINGSDOCUMENT_FILENAME).iterator();
             if (!iterator.hasNext()) {
-                throw new IOException(getMessageFormattedString("load.leveringsdocument.notfound", uri));
+                throw new IOException(
+                        getMessageFormattedString("load.leveringsdocument.notfound", uri));
             }
             message = getMessageFormattedString("load.leveringsdocument.unmarshal", uri);
             JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);
@@ -113,40 +113,49 @@ public class BAG2LoaderUtils {
                 BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);
                 return new BAGExtractSelectieFromLeveringsdocument(levering);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new IOException(message, e);
         }
     }
 
-    public static BAGExtractSelectie getBAGExtractSelectieFromZipFile(File zipFile) throws IOException {
+    public static BAGExtractSelectie getBAGExtractSelectieFromZipFile(File zipFile)
+            throws IOException {
         String zipFileName = zipFile.getName();
         String message = getMessageFormattedString("load.leveringsdocument.readzip", zipFileName);
         try (ZipFile zf = new ZipFile(zipFile)) {
             message = getMessageFormattedString("load.leveringsdocument.zipentries", zipFileName);
             Enumeration<? extends ZipEntry> entries = zf.entries();
-            while(entries.hasMoreElements()) {
+            while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                if(LEVERINGSDOCUMENT_FILENAME.equals(entry.getName())) {
-                    message = getMessageFormattedString("load.leveringsdocument.unmarshal", zipFileName);
+                if (LEVERINGSDOCUMENT_FILENAME.equals(entry.getName())) {
+                    message =
+                            getMessageFormattedString(
+                                    "load.leveringsdocument.unmarshal", zipFileName);
                     JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);
                     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
                     try (InputStream in = zf.getInputStream(entry)) {
-                        BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);
+                        BAGExtractLevering levering =
+                                (BAGExtractLevering) unmarshaller.unmarshal(in);
                         return new BAGExtractSelectieFromLeveringsdocument(levering);
                     }
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new IOException(message, e);
         }
-        throw new IOException(getMessageFormattedString("load.leveringsdocument.notfound", zipFileName));
+        throw new IOException(
+                getMessageFormattedString("load.leveringsdocument.notfound", zipFileName));
     }
 
     public interface BAGExtractSelectie {
         boolean isStand();
+
         boolean isGebiedNLD();
+
         LocalDate getMutatiesFrom();
+
         LocalDate getMutatiesTot();
+
         Set<String> getGemeenteCodes();
     }
 
@@ -167,7 +176,7 @@ public class BAG2LoaderUtils {
             if (name.startsWith("http://") || name.startsWith("https://")) {
                 URI uri = URI.create(name);
                 String[] parts = uri.getPath().split("/");
-                name = parts[parts.length-1];
+                name = parts[parts.length - 1];
             }
             if (name.contains(File.separator)) {
                 Path p = Path.of(name);
@@ -262,7 +271,11 @@ public class BAG2LoaderUtils {
 
         @Override
         public LocalDate getMutatiesFrom() {
-            XMLGregorianCalendar xmlGregorianCalendar = levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumVanaf();
+            XMLGregorianCalendar xmlGregorianCalendar =
+                    levering.getSelectieGegevens()
+                            .getMUTExtract()
+                            .getMutatieperiode()
+                            .getMutatiedatumVanaf();
             return LocalDate.of(
                     xmlGregorianCalendar.getYear(),
                     xmlGregorianCalendar.getMonth(),
@@ -271,7 +284,11 @@ public class BAG2LoaderUtils {
 
         @Override
         public LocalDate getMutatiesTot() {
-            XMLGregorianCalendar xmlGregorianCalendar = levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumTot();
+            XMLGregorianCalendar xmlGregorianCalendar =
+                    levering.getSelectieGegevens()
+                            .getMUTExtract()
+                            .getMutatieperiode()
+                            .getMutatiedatumTot();
             return LocalDate.of(
                     xmlGregorianCalendar.getYear(),
                     xmlGregorianCalendar.getMonth(),
@@ -280,7 +297,13 @@ public class BAG2LoaderUtils {
 
         @Override
         public Set<String> getGemeenteCodes() {
-            return levering.getSelectieGegevens().getGebiedRegistratief().getGebiedGEM().getGemeenteCollectie().getGemeente().stream()
+            return levering
+                    .getSelectieGegevens()
+                    .getGebiedRegistratief()
+                    .getGebiedGEM()
+                    .getGemeenteCollectie()
+                    .getGemeente()
+                    .stream()
                     .map(Gemeente::getGemeenteIdentificatie)
                     .collect(Collectors.toSet());
         }

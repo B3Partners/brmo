@@ -1,38 +1,36 @@
 /*
- *  Copyright (C) 2019  B3Partners B.V.
+*  Copyright (C) 2019  B3Partners B.V.
 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Affero General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Affero General Public License for more details.
 
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+* You should have received a copy of the GNU Affero General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package nl.b3p.brmo.loader.checks;
+
+import nl.b3p.brmo.loader.entity.Bericht;
 
 import java.util.HashMap;
 import java.util.Map;
-import nl.b3p.brmo.loader.entity.Bericht;
 
-/**
- *
- * @author meine
- */
+/** @author meine */
 public class Afgifte {
-    
+
     private String klantnummer;
     private String contractnummer;
     private String datum;
     private String bestandsnaam;
     private boolean rapport;
     private boolean geleverd;
-    
+
     private boolean foundInStaging;
     private Map<Bericht.STATUS, Integer> statussen = new HashMap<>();
 
@@ -99,14 +97,13 @@ public class Afgifte {
     public void setStatussen(Map<Bericht.STATUS, Integer> statussen) {
         this.statussen = statussen;
     }
-    
-    
+
     @Override
-    public String toString(){
-        String res = "Afgifte [" + bestandsnaam + ", " + datum+ ", Found: " + foundInStaging + "]";
-        if(!statussen.keySet().isEmpty()){
+    public String toString() {
+        String res = "Afgifte [" + bestandsnaam + ", " + datum + ", Found: " + foundInStaging + "]";
+        if (!statussen.keySet().isEmpty()) {
             for (Bericht.STATUS status : statussen.keySet()) {
-                res += "\n" + status.name() + ": "+ statussen.get(status);
+                res += "\n" + status.name() + ": " + statussen.get(status);
             }
         }
         return res;

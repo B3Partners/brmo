@@ -1,10 +1,12 @@
 package nl.b3p.brmo.service.proxy;
 
+import static nl.b3p.brmo.test.util.WebXmlTest.testWebXmlIsValidSchemaJavaEE7;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nl.b3p.brmo.test.util.WebXmlTest.testWebXmlIsValidSchemaJavaEE7;
 
 class WebXmlTest {
     @Test

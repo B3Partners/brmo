@@ -18,11 +18,8 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
-public class Gebouw extends TopNLEntity{
+/** @author Meine Toonen meinetoonen@b3partners.nl */
+public class Gebouw extends TopNLEntity {
     private String typeGebouw;
     private String status;
     private String fysiekVoorkomen;
@@ -31,8 +28,7 @@ public class Gebouw extends TopNLEntity{
     private String soortnaam;
     private String naam;
     private String naamFries;
-    
-    
+
     private Geometry geometrie;
 
     public String getTypeGebouw() {
@@ -106,6 +102,4 @@ public class Gebouw extends TopNLEntity{
     public void setNaamFries(String naamFries) {
         this.naamFries = naamFries;
     }
-    
-    
 }

@@ -9,12 +9,14 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
@@ -30,8 +32,10 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
     private String status;
     private StringBuilder log = new StringBuilder();
     private ActionBeanContext context;
+
     @Validate(converter = EntityTypeConverter.class)
     private BAG2MutatieProces proces;
+
     private String mode;
     private Date start;
     private Date update;
@@ -59,7 +63,10 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
 
         // opnieuw laden van config omdat de waitpage de entity detached
         this.update = new Date();
-        proces = (BAG2MutatieProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        proces =
+                (BAG2MutatieProces)
+                        Stripersist.getEntityManager()
+                                .find(AutomatischProces.class, proces.getId());
         mode = ClobElement.nullSafeGet(proces.getConfig().get("mode"));
         final ProcesExecutable _proces = AbstractExecutableProces.getProces(proces);
         try {
@@ -73,8 +80,7 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
     }
 
     @Override
-    public void total(long total) {
-    }
+    public void total(long total) {}
 
     @Override
     public void progress(long progress) {

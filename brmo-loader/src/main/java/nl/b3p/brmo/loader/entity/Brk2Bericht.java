@@ -7,12 +7,19 @@
 package nl.b3p.brmo.loader.entity;
 
 import nl.b3p.brmo.loader.BrmoFramework;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,19 +28,12 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.IOException;
-import java.io.StringReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-/**
- * @author mprins
- */
+/** @author mprins */
 public class Brk2Bericht extends Bericht {
 
     private static final Log log = LogFactory.getLog(Brk2Bericht.class);
-    //private final String soort = BrmoFramework.BR_BRK2;
+    // private final String soort = BrmoFramework.BR_BRK2;
     private boolean xpathEvaluated = false;
 
     public Brk2Bericht(String brXml) {
@@ -57,7 +57,7 @@ public class Brk2Bericht extends Bericht {
         xpathEvaluated = true;
 
         if (objectRef != null && datum != null) {
-            //al uit de header gehaald
+            // al uit de header gehaald
             return;
         }
 
@@ -71,13 +71,19 @@ public class Brk2Bericht extends Bericht {
             XPathFactory xPathfactory = XPathFactory.newInstance();
             XPath xpath = xPathfactory.newXPath();
 
-            XPathExpression expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/@domein");
+            XPathExpression expr =
+                    xpath.compile(
+                            "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/@domein");
             objectRef = expr.evaluate(doc);
 
-            expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/text()");
+            expr =
+                    xpath.compile(
+                            "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/text()");
             objectRef += ":" + expr.evaluate(doc);
 
-            expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'toestandsdatum' or local-name()='toestandsdatum']/text()");
+            expr =
+                    xpath.compile(
+                            "/KadastraalObjectSnapshot/*[local-name()= 'toestandsdatum' or local-name()='toestandsdatum']/text()");
             setDatumAsString(expr.evaluate(doc));
         } catch (Exception e) {
             log.error("Probleem met uitlezen van BRK 2 referentie", e);
@@ -126,7 +132,8 @@ public class Brk2Bericht extends Bericht {
             String sectie;
             String appartementsrechtVolgnummer;
 
-            String basePath = "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/";
+            String basePath =
+                    "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/";
             XPathFactory xPathfactory = XPathFactory.newInstance();
             XPath xpath = xPathfactory.newXPath();
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -134,13 +141,16 @@ public class Brk2Bericht extends Bericht {
             Document doc = builder.parse(new InputSource(new StringReader(this.getBrXml())));
 
             // in geval van een verwijderbericht is de "wordt" leeg, db_xml <empty/>
-            if (this.getBrXml().contains("<empty/>") && StringUtils.isNotBlank(this.getBrOrgineelXml())) {
+            if (this.getBrXml().contains("<empty/>")
+                    && StringUtils.isNotBlank(this.getBrOrgineelXml())) {
                 // dan proberen om de db_origineel_xml te gebruiken.
-                basePath = "/Mutatie/kadastraalObject/AanduidingKadastraalObject/kadastraleAanduiding/";
+                basePath =
+                        "/Mutatie/kadastraalObject/AanduidingKadastraalObject/kadastraleAanduiding/";
                 doc = builder.parse(new InputSource(new StringReader(this.getBrOrgineelXml())));
             }
 
-            XPathExpression expr = xpath.compile(basePath + "akrKadastraleGemeenteCode/waarde/text()");
+            XPathExpression expr =
+                    xpath.compile(basePath + "akrKadastraleGemeenteCode/waarde/text()");
             kadGemCode = expr.evaluate(doc);
 
             expr = xpath.compile(basePath + "sectie/text()");
@@ -159,10 +169,21 @@ public class Brk2Bericht extends Bericht {
             log.debug("gevonden aanduiding voor herstelde bestandsnaam: " + aanduiding);
             String filename = "bestandsnaam kon niet worden hersteld";
             if (StringUtils.isNotBlank(aanduiding)) {
-                filename = prefix + "-" + aanduiding + "-" + brkdatum + "-" + volgordenummer.toString() + ".zip";
+                filename =
+                        prefix
+                                + "-"
+                                + aanduiding
+                                + "-"
+                                + brkdatum
+                                + "-"
+                                + volgordenummer.toString()
+                                + ".zip";
             }
             return filename;
-        } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException ex) {
+        } catch (ParserConfigurationException
+                | XPathExpressionException
+                | SAXException
+                | IOException ex) {
             log.error("Kan geen bestandsnaam maken van xml: ", ex);
             return "";
         }

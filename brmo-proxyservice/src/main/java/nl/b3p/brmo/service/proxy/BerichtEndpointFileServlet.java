@@ -3,28 +3,35 @@
  */
 package nl.b3p.brmo.service.proxy;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.GZIPInputStream;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
- * Endpoint servlet welke geposte bestanden opslaat in een directory conform de
- * configuratie. Deze servlet ondersteund gzip compressie. Voorbeeld:<br>
- * {@code curl -X POST -H "Content-Type: application/xml" http://localhost:8037/brmo-proxyservice/post/brk  -d  @'pom.xml'}
- * <br>of met gzip compressie:<br>
- * {@code curl -v -s --trace-ascii http_trace.log --data-binary @src/test/resources/web.xml.gz -H "Content-Type: text/xml" -H "Content-Encoding: gzip" -X POST http://localhost:8037/brmo-proxyservice/post/brk}
- * <br>of met certificaat authenticatie en wget:<br>
- * {@code wget --post-file="test.xml" --append-output=logs/wget.log --ca-cert=./ca.pem --certificate=./client.pem --private-key=./key.pem https://somehost.nl/brmo-proxyservice/post/brk -O - >> output.log}
+ * Endpoint servlet welke geposte bestanden opslaat in een directory conform de configuratie. Deze
+ * servlet ondersteund gzip compressie. Voorbeeld:<br>
+ * {@code curl -X POST -H "Content-Type: application/xml"
+ * http://localhost:8037/brmo-proxyservice/post/brk -d @'pom.xml'} <br>
+ * of met gzip compressie:<br>
+ * {@code curl -v -s --trace-ascii http_trace.log --data-binary @src/test/resources/web.xml.gz -H
+ * "Content-Type: text/xml" -H "Content-Encoding: gzip" -X POST
+ * http://localhost:8037/brmo-proxyservice/post/brk} <br>
+ * of met certificaat authenticatie en wget:<br>
+ * {@code wget --post-file="test.xml" --append-output=logs/wget.log --ca-cert=./ca.pem
+ * --certificate=./client.pem --private-key=./key.pem https://somehost.nl/brmo-proxyservice/post/brk
+ * -O - >> output.log}
  *
  * @author mprins
  */
@@ -74,17 +81,21 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getContentLength() > this.maxUploadSize) {
-            throw new ServletException("De 'max_upload_size' van " + this.maxUploadSize + " is overschreden.");
+            throw new ServletException(
+                    "De 'max_upload_size' van " + this.maxUploadSize + " is overschreden.");
         }
         InputStream in = request.getInputStream();
         if ("gzip".equals(request.getHeader("Content-Encoding"))) {
             in = new GZIPInputStream(in);
         }
-        File _tmpfile = File.createTempFile(this.getFileName(), ".xml", FileUtils.getTempDirectory());
+        File _tmpfile =
+                File.createTempFile(this.getFileName(), ".xml", FileUtils.getTempDirectory());
         FileUtils.copyInputStreamToFile(in, _tmpfile);
         FileUtils.moveToDirectory(_tmpfile, this.saveDir, true);
-        log.info(String.format("Aangeboden bestand '%s' opgeslagen in directory: %s.",
-                _tmpfile.getName(), this.saveDir));
+        log.info(
+                String.format(
+                        "Aangeboden bestand '%s' opgeslagen in directory: %s.",
+                        _tmpfile.getName(), this.saveDir));
         response.setStatus(HttpServletResponse.SC_OK);
     }
 

@@ -18,7 +18,7 @@ public class DoubleAttributeColumnMapping extends AttributeColumnMapping {
 
     @Override
     public Object toQueryParameter(Object value) {
-        if(value == null) {
+        if (value == null) {
             return null;
         } else {
             return Double.parseDouble(value.toString());

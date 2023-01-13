@@ -3,8 +3,11 @@
  */
 package nl.b3p.brmo.loader;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import nl.b3p.AbstractDatabaseIntegrationTest;
 import nl.b3p.brmo.loader.util.BrmoException;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,12 +15,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
- * Testcases voor {@link BrmoFramework}. Om de tests te runnen gebruik je:
- * {@code mvn -Dit.test=BrmoFrameworkIntegrationTest -Dtest.onlyITs=true integration-test -Poracle > target/oracle.log}
- * voor bijvoorbeeld Oracle.
+ * Testcases voor {@link BrmoFramework}. Om de tests te runnen gebruik je: {@code mvn
+ * -Dit.test=BrmoFrameworkIntegrationTest -Dtest.onlyITs=true integration-test -Poracle >
+ * target/oracle.log} voor bijvoorbeeld Oracle.
  *
  * @author mprins
  */

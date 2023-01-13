@@ -12,22 +12,31 @@ import nl.b3p.brmo.loader.util.BrmoException;
  */
 public interface ProcesExecutable extends Runnable {
 
-    /**
-     *
-     *
-     */
+    /** */
     enum ProcessingImple {
         // klassen uit nl.b3p.brmo.persistence.staging package
-        BAG2MutatieProces, BAGScannerProces, BRK2ScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces,
-        BerichtDoorstuurProces, WebMirrorBAGScannerProces, LaadprocesTransformatieProces, BGTLoaderProces,
-        MaterializedViewRefresh, BerichtstatusRapportProces, LaadprocesStatusRapportProces, TopNLScannerProces, AfgifteNummerScannerProces;
+        BAG2MutatieProces,
+        BAGScannerProces,
+        BRK2ScannerProces,
+        BRKScannerProces,
+        MailRapportageProces,
+        GDS2OphaalProces,
+        BerichtTransformatieProces,
+        BerichtDoorstuurProces,
+        WebMirrorBAGScannerProces,
+        LaadprocesTransformatieProces,
+        BGTLoaderProces,
+        MaterializedViewRefresh,
+        BerichtstatusRapportProces,
+        LaadprocesStatusRapportProces,
+        TopNLScannerProces,
+        AfgifteNummerScannerProces;
     }
 
     /**
      * Voert deze taak eenmalig uit.
      *
-     * @exception BrmoException als er een fout optreed in het uitvoeren van het
-     * proces.
+     * @exception BrmoException als er een fout optreed in het uitvoeren van het proces.
      */
     void execute() throws BrmoException;
 
@@ -38,14 +47,9 @@ public interface ProcesExecutable extends Runnable {
      */
     void execute(ProgressUpdateListener listener);
 
-    /**
-     * probeert het lopende proces te stoppen.
-     */
+    /** probeert het lopende proces te stoppen. */
     void stop();
 
-    /**
-     *
-     * @return true als deze processor runt.
-     */
+    /** @return true als deze processor runt. */
     boolean isRunning();
 }

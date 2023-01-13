@@ -5,15 +5,19 @@ package nl.b3p.brmo.loader.util;
 
 import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.atteo.xmlcombiner.XmlCombiner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.sql.SQLException;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -31,23 +35,23 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.sql.SQLException;
 
 public class RsgbWOZTransformer extends RsgbTransformer {
     private static final Log LOG = LogFactory.getLog(RsgbWOZTransformer.class);
     private static final String STUF_GEEN_WAARDE = "geenWaarde";
     private final StagingProxy staging;
 
-    public RsgbWOZTransformer(String pathToXsl, StagingProxy staging) throws TransformerConfigurationException, ParserConfigurationException {
+    public RsgbWOZTransformer(String pathToXsl, StagingProxy staging)
+            throws TransformerConfigurationException, ParserConfigurationException {
         super(pathToXsl);
         this.staging = staging;
     }
 
-    protected static Document merge(String oldDBxml, String newDBxml) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
-        final XPathExpression expression = XPathFactory.newInstance().newXPath().compile("/root/data");
+    protected static Document merge(String oldDBxml, String newDBxml)
+            throws XPathExpressionException, ParserConfigurationException, IOException,
+                    SAXException {
+        final XPathExpression expression =
+                XPathFactory.newInstance().newXPath().compile("/root/data");
 
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         // to prevent XXE
@@ -69,19 +73,19 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         Document merge = docBuilder.parse(new InputSource(new StringReader(newDBxml)));
 
         /*
-            (1)Voor elke node in merge, kijk of hij bestaat in base
-                zo nee, importeer
-                zo ja, kijk of dit het een na diepste niveau is
-                    zo ja,
-                        ga voor elk childnode na of deze bestaat
-                            zo nee, importeer
-                            zo ja, overschrijf waarde
-                    zo nee, recurse in (1)
-         */
+           (1)Voor elke node in merge, kijk of hij bestaat in base
+               zo nee, importeer
+               zo ja, kijk of dit het een na diepste niveau is
+                   zo ja,
+                       ga voor elk childnode na of deze bestaat
+                           zo nee, importeer
+                           zo ja, overschrijf waarde
+                   zo nee, recurse in (1)
+        */
         XmlCombiner combiner = new XmlCombiner();
         combiner.combine(base);
         combiner.combine(merge);
-       return combiner.buildDocument();
+        return combiner.buildDocument();
     }
 
     protected static String print(Document doc) throws TransformerException {
@@ -103,7 +107,8 @@ public class RsgbWOZTransformer extends RsgbTransformer {
     }
 
     @Override
-    public String transformToDbXml(Bericht bericht) throws SAXException, IOException, TransformerException {
+    public String transformToDbXml(Bericht bericht)
+            throws SAXException, IOException, TransformerException {
         String current = super.transformToDbXml(bericht);
         StringBuilder loadLog = new StringBuilder();
 
@@ -115,9 +120,11 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                 if (null == previousBericht.getDbXml()) {
                     // TODO mogelijk op te lossen door previousBericht nogmaals te transformeren via
                     //      oldDBXml = super.transformToDbXml(previousBericht);
-                    //      voor nu zetten we de pipelining.enabled op false in de web.xml/context.xml
+                    //      voor nu zetten we de pipelining.enabled op false in de
+                    // web.xml/context.xml
                     //      .
-                    //      Het probleem is dat het vorige bericht nog in de pipeline kan zitten en niet committed
+                    //      Het probleem is dat het vorige bericht nog in de pipeline kan zitten en
+                    // niet committed
                     //      is naar de bericht tabel
                     LOG.warn("Er is wel een vorig bericht, maar de DB_XML ontbreekt");
                 }
@@ -128,11 +135,14 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                 LOG.trace("mergedDBXML bericht is: " + mergedDBXML);
                 current = mergedDBXML;
             }
-        } catch (SQLException | XPathExpressionException | ParserConfigurationException | IOException | SAXException ex) {
+        } catch (SQLException
+                | XPathExpressionException
+                | ParserConfigurationException
+                | IOException
+                | SAXException ex) {
             LOG.error("Vorige bericht kon niet worden opgehaald: ", ex);
         }
         LOG.debug(loadLog);
         return current;
     }
-
 }

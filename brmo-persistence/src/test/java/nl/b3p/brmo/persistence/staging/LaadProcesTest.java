@@ -3,7 +3,10 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import nl.b3p.brmo.persistence.TestUtil;
+
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Query;
@@ -13,10 +16,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 /**
- * Testcase voor {@link  nl.b3p.brmo.persistence.staging.LaadProces}.
+ * Testcase voor {@link nl.b3p.brmo.persistence.staging.LaadProces}.
  *
  * @author mprins
  */
@@ -55,5 +56,4 @@ public class LaadProcesTest extends TestUtil {
         int deleted = q.executeUpdate();
         entityManager.getTransaction().commit();
     }
-
 }

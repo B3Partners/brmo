@@ -1,9 +1,6 @@
 package nl.b3p.brmo.loader.updates;
 
-/**
- *
- * @author Matthijs Laan
- */
+/** @author Matthijs Laan */
 public class UpdateProcess {
 
     private String name;
@@ -56,12 +53,17 @@ public class UpdateProcess {
      *
      * @return true als de DbXml opnieuw moet worden gemaakt en opgeslagen in het bericht.
      */
-    public boolean isUpdateDbXml() { return updateDbXml; }
+    public boolean isUpdateDbXml() {
+        return updateDbXml;
+    }
 
     /**
      * of de DbXml moet "herberekend" en gebruikt moet worden in verdere verwerking.
      *
-     * @param updateDbXml {@code true} als de DbXml opnieuw moet worden gemaakt en opgeslagen in het bericht.
+     * @param updateDbXml {@code true} als de DbXml opnieuw moet worden gemaakt en opgeslagen in het
+     *     bericht.
      */
-    public void setUpdateDbXml(boolean updateDbXml) { this.updateDbXml = updateDbXml; }
+    public void setUpdateDbXml(boolean updateDbXml) {
+        this.updateDbXml = updateDbXml;
+    }
 }

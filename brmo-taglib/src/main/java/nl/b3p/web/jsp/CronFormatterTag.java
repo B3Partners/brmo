@@ -16,20 +16,20 @@
  */
 package nl.b3p.web.jsp;
 
+import static com.cronutils.model.CronType.QUARTZ;
+
 import com.cronutils.descriptor.CronDescriptor;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.parser.CronParser;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.Locale;
 
-import static com.cronutils.model.CronType.QUARTZ;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * Formatter voor cron expressies. The default locale for this tag is
- * {@code nl}.
+ * Formatter voor cron expressies. The default locale for this tag is {@code nl}.
  *
  * @author mprins
  */
@@ -63,11 +63,16 @@ public class CronFormatterTag extends SimpleTagSupport {
         String formatted = "";
         if (cronExpression != null && !cronExpression.isEmpty()) {
             try {
-                CronParser cronParser = new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));
+                CronParser cronParser =
+                        new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));
                 if (locale != null) {
-                    formatted = CronDescriptor.instance(locale).describe(cronParser.parse(cronExpression));
+                    formatted =
+                            CronDescriptor.instance(locale)
+                                    .describe(cronParser.parse(cronExpression));
                 } else {
-                    formatted = CronDescriptor.instance(Locale.getDefault()).describe(cronParser.parse(cronExpression));
+                    formatted =
+                            CronDescriptor.instance(Locale.getDefault())
+                                    .describe(cronParser.parse(cronExpression));
                 }
             } catch (Exception e) {
                 formatted = e.getLocalizedMessage();
@@ -75,5 +80,4 @@ public class CronFormatterTag extends SimpleTagSupport {
         }
         return formatted;
     }
-
 }

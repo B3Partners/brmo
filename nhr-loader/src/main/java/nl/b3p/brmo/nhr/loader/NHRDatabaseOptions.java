@@ -10,13 +10,18 @@ package nl.b3p.brmo.nhr.loader;
 import picocli.CommandLine;
 
 public class NHRDatabaseOptions {
-    @CommandLine.Option(names={"-c", "--connection"}, paramLabel = "<string>")
+    @CommandLine.Option(
+            names = {"-c", "--connection"},
+            paramLabel = "<string>")
     private String connectionString = "jdbc:postgresql:brmo_staging?sslmode=disable";
 
-    @CommandLine.Option(names={"-u", "--user"})
+    @CommandLine.Option(names = {"-u", "--user"})
     private String user = "brmo";
 
-    @CommandLine.Option(names={"-p", "--password"}, interactive = true, arity = "0..1")
+    @CommandLine.Option(
+            names = {"-p", "--password"},
+            interactive = true,
+            arity = "0..1")
     private String password = "brmo";
 
     public String getConnectionString() {

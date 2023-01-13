@@ -31,10 +31,13 @@ public class BAG2WijzigingMutatie extends BAG2Mutatie {
 
     @Override
     public String toString() {
-        return "BAG2WijzigingMutatie{" +
-                "location=" + getLocation() +
-                ", was=" + was +
-                ", wordt=" + wordt +
-                '}';
+        return "BAG2WijzigingMutatie{"
+                + "location="
+                + getLocation()
+                + ", was="
+                + was
+                + ", wordt="
+                + wordt
+                + '}';
     }
 }

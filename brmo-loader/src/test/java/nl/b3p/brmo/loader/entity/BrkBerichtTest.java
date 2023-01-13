@@ -1,6 +1,10 @@
 package nl.b3p.brmo.loader.entity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -9,20 +13,14 @@ import org.junit.jupiter.api.Test;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-/**
- *
- * @author meine
- */
+/** @author meine */
 public class BrkBerichtTest {
-        private static final Log LOG = LogFactory.getLog(BrkBerichtTest.class);
+    private static final Log LOG = LogFactory.getLog(BrkBerichtTest.class);
 
     private BrkSnapshotXMLReader bReader;
 
-    private static final String B = "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
-    
+    private static final String B =
+            "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
 
     @AfterEach
     public void cleanup() throws Exception {
@@ -40,6 +38,6 @@ public class BrkBerichtTest {
         SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
         String real = b.getRestoredFileName(output.parse("20091119"), 1);
         String expected = "BKE-MUTBX01-ASN00T1660-20091119-1.zip";
-        assertEquals(expected,real);
+        assertEquals(expected, real);
     }
 }

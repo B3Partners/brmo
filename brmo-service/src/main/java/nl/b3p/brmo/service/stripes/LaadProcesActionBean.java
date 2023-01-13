@@ -1,9 +1,5 @@
 package nl.b3p.brmo.service.stripes;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -12,20 +8,25 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author Boy de Wit
- */
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+/** @author Boy de Wit */
 public class LaadProcesActionBean implements ActionBean {
 
     private static final Log log = LogFactory.getLog(LaadProcesActionBean.class);
@@ -35,20 +36,13 @@ public class LaadProcesActionBean implements ActionBean {
 
     private long[] selectedIds;
 
-    @Validate
-    private int page;
-    @Validate
-    private int start;
-    @Validate
-    private int limit;
-    @Validate
-    private String sort;
-    @Validate
-    private String dir;
-    @Validate
-    private JSONArray filter;
-    @Validate
-    private JSONObject changedItem;
+    @Validate private int page;
+    @Validate private int start;
+    @Validate private int limit;
+    @Validate private String sort;
+    @Validate private String dir;
+    @Validate private JSONArray filter;
+    @Validate private JSONObject changedItem;
 
     @DefaultHandler
     public Resolution list() {
@@ -92,15 +86,17 @@ public class LaadProcesActionBean implements ActionBean {
             } catch (BrmoException e) {
 
                 log.error("Fout", e);
-                return new ErrorResolution(500, "Er is een onherstelbare fout opgetreden. "
-                            + "Contacteer uw applicatiebeheerder: "
-                            + e.getLocalizedMessage());
+                return new ErrorResolution(
+                        500,
+                        "Er is een onherstelbare fout opgetreden. "
+                                + "Contacteer uw applicatiebeheerder: "
+                                + e.getLocalizedMessage());
 
             } finally {
                 if (brmo != null) {
                     brmo.closeBrmoFramework();
                 }
-           }
+            }
         }
 
         final JSONObject jsonResponse = new JSONObject();
@@ -146,11 +142,15 @@ public class LaadProcesActionBean implements ActionBean {
             if (start < 0) {
                 start = 0;
             }
-            processen = brmo.getLaadprocessen(page, start, limit, 
-                    (sort==null || sort.trim().isEmpty())?"id":sort, 
-                    (dir==null || dir.trim().isEmpty())?"asc":dir, 
-                    filterSoort,
-                    filterStatus);
+            processen =
+                    brmo.getLaadprocessen(
+                            page,
+                            start,
+                            limit,
+                            (sort == null || sort.trim().isEmpty()) ? "id" : sort,
+                            (dir == null || dir.trim().isEmpty()) ? "asc" : dir,
+                            filterSoort,
+                            filterStatus);
 
             for (LaadProces proces : processen) {
                 JSONObject jsonObject = laadProces2Json(proces);
@@ -163,7 +163,9 @@ public class LaadProcesActionBean implements ActionBean {
         } catch (BrmoException e) {
 
             log.error("Fout", e);
-            return new ErrorResolution(500, "Er is een onherstelbare fout opgetreden. "
+            return new ErrorResolution(
+                    500,
+                    "Er is een onherstelbare fout opgetreden. "
                             + "Contacteer uw applicatiebeheerder: "
                             + e.getLocalizedMessage());
 
@@ -204,7 +206,8 @@ public class LaadProcesActionBean implements ActionBean {
             jsonResponse.put("success", false);
         } else {
             final EntityManager em = Stripersist.getEntityManager();
-            nl.b3p.brmo.persistence.staging.LaadProces _lp = em.find(nl.b3p.brmo.persistence.staging.LaadProces.class, item.getLong("id"));
+            nl.b3p.brmo.persistence.staging.LaadProces _lp =
+                    em.find(nl.b3p.brmo.persistence.staging.LaadProces.class, item.getLong("id"));
             _lp.setStatus(nl.b3p.brmo.persistence.staging.LaadProces.STATUS.valueOf(status));
             em.merge(_lp);
             em.getTransaction().commit();

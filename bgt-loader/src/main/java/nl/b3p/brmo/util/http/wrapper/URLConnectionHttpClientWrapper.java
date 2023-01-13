@@ -21,20 +21,22 @@ import java.net.URLConnection;
  *
  * @author Matthijs Laan
  */
-public class URLConnectionHttpClientWrapper implements HttpClientWrapper<HttpURLConnection,HttpURLConnection> {
+public class URLConnectionHttpClientWrapper
+        implements HttpClientWrapper<HttpURLConnection, HttpURLConnection> {
     @Override
     public HttpResponseWrapper request(URI uri, String... requestHeaders) throws IOException {
         URLConnection connection = uri.toURL().openConnection();
         if (!(connection instanceof HttpURLConnection)) {
-            throw new IllegalArgumentException("Expected HttpURLConnection instance for URI " + uri);
+            throw new IllegalArgumentException(
+                    "Expected HttpURLConnection instance for URI " + uri);
         }
         HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
         httpURLConnection.setInstanceFollowRedirects(true);
         if (requestHeaders.length % 2 != 0) {
             throw new IllegalArgumentException();
         }
-        for(int i = 0; i < requestHeaders.length; i += 2) {
-            httpURLConnection.setRequestProperty(requestHeaders[i], requestHeaders[i+1]);
+        for (int i = 0; i < requestHeaders.length; i += 2) {
+            httpURLConnection.setRequestProperty(requestHeaders[i], requestHeaders[i + 1]);
         }
 
         beforeRequest(httpURLConnection);
@@ -45,13 +47,15 @@ public class URLConnectionHttpClientWrapper implements HttpClientWrapper<HttpURL
 
     /**
      * Called before doing a request, override to modify or log it.
+     *
      * @param httpURLConnection The HttpURLConnection that will be used, can be modified
      */
-    public void beforeRequest(HttpURLConnection httpURLConnection) {
-    }
+    public void beforeRequest(HttpURLConnection httpURLConnection) {}
 
     /**
-     * Wraps a HttpURLConnection after HttpURLConnection.connect() has been called, override to modify or log it.
+     * Wraps a HttpURLConnection after HttpURLConnection.connect() has been called, override to
+     * modify or log it.
+     *
      * @param httpURLConnection The URL connection to be wrapped
      * @return The wrapped response
      */

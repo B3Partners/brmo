@@ -17,18 +17,13 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.util.Date;
 
-/**
- *
- * @author meine
- */
-public class Hoogte extends TopNLEntity{
+/** @author meine */
+public class Hoogte extends TopNLEntity {
     private String typeHoogte;
     private Geometry geometrie;
     private String referentieVlak;
     private Double hoogte;
-    
 
     public String getReferentieVlak() {
         return referentieVlak;
@@ -45,7 +40,7 @@ public class Hoogte extends TopNLEntity{
     public void setHoogte(Double hoogte) {
         this.hoogte = hoogte;
     }
-    
+
     public String getTypeHoogte() {
         return typeHoogte;
     }
@@ -61,6 +56,4 @@ public class Hoogte extends TopNLEntity{
     public void setGeometrie(Geometry geometrie) {
         this.geometrie = geometrie;
     }
-
-    
 }

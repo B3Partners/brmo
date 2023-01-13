@@ -10,19 +10,21 @@ package nl.b3p.brmo.nhr.loader;
 import picocli.CommandLine;
 
 public class NHRCertificateOptions {
-    @CommandLine.Option(names="--truststore")
+    @CommandLine.Option(names = "--truststore")
     private String truststore;
 
-    @CommandLine.Option(names="--truststore-password")
+    @CommandLine.Option(names = "--truststore-password")
     private String truststorePassword;
 
-    @CommandLine.Option(names="--keystore")
+    @CommandLine.Option(names = "--keystore")
     private String keystore;
 
-    @CommandLine.Option(names={"--keystore-password"}, interactive = true)
+    @CommandLine.Option(
+            names = {"--keystore-password"},
+            interactive = true)
     private String keystorePassword;
 
-    @CommandLine.Option(names={"--keystore-alias"})
+    @CommandLine.Option(names = {"--keystore-alias"})
     private String keystoreAlias;
 
     public String getTruststore() {

@@ -1,52 +1,52 @@
 package nl.b3p.brmo.service.stripes;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.Validate;
+
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import nl.b3p.brmo.service.jobs.NHRJob;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.Date;
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletResponse;
 
 public class NHRActionBean implements ActionBean {
     private ActionBeanContext context;
 
     private String[] selectedIds;
-    @Validate
-    private int start;
-    @Validate
-    private int limit;
-    @Validate
-    private String sort;
-    @Validate
-    private String dir;
-    @Validate(required = true, on="upload")
+    @Validate private int start;
+    @Validate private int limit;
+    @Validate private String sort;
+    @Validate private String dir;
+
+    @Validate(required = true, on = "upload")
     private FileBean file;
 
     private boolean statusActive;
@@ -60,30 +60,39 @@ public class NHRActionBean implements ActionBean {
     public boolean getStatusActive() {
         return statusActive;
     }
+
     public Date getStatusCertificateExpiry() {
         return statusCertificateExpiry;
     }
+
     public long getStatusDaysUntilExpiry() {
         return statusDaysUntilExpiry;
     }
+
     public String getStatusNotification() {
         return statusNotification;
     }
+
     public String getStatusEndpoint() {
         return statusEndpoint;
     }
+
     public boolean getStatusEndpointPreprod() {
         return statusEndpointPreprod;
     }
+
     public float getStatusRefetchDays() {
         return statusRefetchDays;
     }
+
     public long getFetchCount() {
         return NHRJob.getFetchCount();
     }
+
     public long getFetchErrorCount() {
         return NHRJob.getFetchErrorCount();
     }
+
     public float getSecondsPerFetch() {
         return NHRJob.getAverageFetchTime() / 1000.0f;
     }
@@ -99,70 +108,98 @@ public class NHRActionBean implements ActionBean {
     }
 
     private void getCertificateStatus() {
-            statusNotification = "";
-            try {
-                statusActive = InitialContext.doLookup("java:comp/env/brmo/nhr/active");
-            } catch (NamingException e) {
-            } catch (Exception e) {
-                statusNotification += String.format("nhr/active incorrect: %s\n", e.getMessage());
+        statusNotification = "";
+        try {
+            statusActive = InitialContext.doLookup("java:comp/env/brmo/nhr/active");
+        } catch (NamingException e) {
+        } catch (Exception e) {
+            statusNotification += String.format("nhr/active incorrect: %s\n", e.getMessage());
+        }
+
+        KeyStore keyStore;
+        try {
+            keyStore = KeyStore.getInstance("PKCS12");
+            try (FileInputStream keyStoreFile =
+                    new FileInputStream(
+                            (String)
+                                    InitialContext.doLookup(
+                                            "java:comp/env/brmo/nhr/keystorePath"))) {
+                keyStore.load(
+                        keyStoreFile,
+                        ((String)
+                                        InitialContext.doLookup(
+                                                "java:comp/env/brmo/nhr/keystorePassword"))
+                                .toCharArray());
             }
 
-            KeyStore keyStore;
-            try {
-                keyStore = KeyStore.getInstance("PKCS12");
-                try (FileInputStream keyStoreFile = new FileInputStream((String) InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePath"))) {
-                    keyStore.load(keyStoreFile, ((String)InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePassword")).toCharArray());
+            String alias = keyStore.aliases().nextElement();
+            if (alias == null) {
+                statusNotification += "geen bruikbaar certificaat gevonden";
+            } else {
+                Certificate cert = keyStore.getCertificate(alias);
+                Date now = new Date();
+                statusCertificateExpiry = ((X509Certificate) cert).getNotAfter();
+                statusDaysUntilExpiry =
+                        (statusCertificateExpiry.getTime() - now.getTime()) / (60 * 60 * 24);
+                if (statusCertificateExpiry.before(now)) {
+                    statusNotification += "certificaat is verlopen!\n";
                 }
-
-                String alias = keyStore.aliases().nextElement();
-                if (alias == null) {
-                    statusNotification += "geen bruikbaar certificaat gevonden";
-                } else {
-                    Certificate cert = keyStore.getCertificate(alias);
-                    Date now = new Date();
-                    statusCertificateExpiry = ((X509Certificate) cert).getNotAfter();
-                    statusDaysUntilExpiry = (statusCertificateExpiry.getTime() - now.getTime()) / (60 * 60 * 24);
-                    if (statusCertificateExpiry.before(now)) {
-                        statusNotification += "certificaat is verlopen!\n";
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                statusNotification += "keystore niet gevonden\n";
-            } catch (NamingException e) {
-                if (statusActive) {
-                    statusNotification += String.format("geen keystore ingesteld: %s\n", e.getMessage());
-                }
-            } catch (Exception e) {
-                statusNotification += String.format("keystore incorrect: %s\n", e.getMessage());
             }
-
-            try {
-                KeyStore trustStore = KeyStore.getInstance("PKCS12");
-                try (FileInputStream trustStoreFile = new FileInputStream((String) InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePath"))) {
-                    trustStore.load(trustStoreFile, ((String)InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePassword")).toCharArray());
-                }
-            } catch (FileNotFoundException e) {
-                statusNotification += "truststore niet gevonden\n";
-            } catch (NamingException e) {
-                if (statusActive) {
-                    statusNotification += String.format("geen truststore ingesteld: %s\n", e.getMessage());
-                }
-            } catch (Exception e) {
-                statusNotification += String.format("truststore incorrect: %s\n", e.getMessage());
+        } catch (FileNotFoundException e) {
+            statusNotification += "keystore niet gevonden\n";
+        } catch (NamingException e) {
+            if (statusActive) {
+                statusNotification +=
+                        String.format("geen keystore ingesteld: %s\n", e.getMessage());
             }
+        } catch (Exception e) {
+            statusNotification += String.format("keystore incorrect: %s\n", e.getMessage());
+        }
 
-            try {
-                statusEndpoint = InitialContext.doLookup("java:comp/env/brmo/nhr/endpoint");
-                statusEndpointPreprod = InitialContext.doLookup("java:comp/env/brmo/nhr/endpointIsPreprod");
-            } catch (Exception e) {
-                statusNotification += String.format("endpoint incorrect: %s\n", e.getMessage());
+        try {
+            KeyStore trustStore = KeyStore.getInstance("PKCS12");
+            try (FileInputStream trustStoreFile =
+                    new FileInputStream(
+                            (String)
+                                    InitialContext.doLookup(
+                                            "java:comp/env/brmo/nhr/truststorePath"))) {
+                trustStore.load(
+                        trustStoreFile,
+                        ((String)
+                                        InitialContext.doLookup(
+                                                "java:comp/env/brmo/nhr/truststorePassword"))
+                                .toCharArray());
             }
+        } catch (FileNotFoundException e) {
+            statusNotification += "truststore niet gevonden\n";
+        } catch (NamingException e) {
+            if (statusActive) {
+                statusNotification +=
+                        String.format("geen truststore ingesteld: %s\n", e.getMessage());
+            }
+        } catch (Exception e) {
+            statusNotification += String.format("truststore incorrect: %s\n", e.getMessage());
+        }
 
-            try {
-                statusRefetchDays = ((float)(Integer)InitialContext.doLookup("java:comp/env/brmo/nhr/secondsBetweenFetches")) / (60.0f * 60.0f * 24.0f);
-            } catch (Exception e) {
-                statusNotification += String.format("secondsBetweenFetches incorrect: %s\n", e.getMessage());
-            }
+        try {
+            statusEndpoint = InitialContext.doLookup("java:comp/env/brmo/nhr/endpoint");
+            statusEndpointPreprod =
+                    InitialContext.doLookup("java:comp/env/brmo/nhr/endpointIsPreprod");
+        } catch (Exception e) {
+            statusNotification += String.format("endpoint incorrect: %s\n", e.getMessage());
+        }
+
+        try {
+            statusRefetchDays =
+                    ((float)
+                                    (Integer)
+                                            InitialContext.doLookup(
+                                                    "java:comp/env/brmo/nhr/secondsBetweenFetches"))
+                            / (60.0f * 60.0f * 24.0f);
+        } catch (Exception e) {
+            statusNotification +=
+                    String.format("secondsBetweenFetches incorrect: %s\n", e.getMessage());
+        }
     }
 
     @DefaultHandler
@@ -179,7 +216,6 @@ public class NHRActionBean implements ActionBean {
         cq.select(cb.count(from));
         return entityManager.createQuery(cq).getSingleResult();
     }
-
 
     public long getPendingCount() {
         EntityManager entityManager = Stripersist.getEntityManager();
@@ -213,7 +249,12 @@ public class NHRActionBean implements ActionBean {
             limit = 40;
         }
 
-        List<NHRInschrijving> procList = entityManager.createQuery(cq).setMaxResults(limit).setFirstResult(start).getResultList();
+        List<NHRInschrijving> procList =
+                entityManager
+                        .createQuery(cq)
+                        .setMaxResults(limit)
+                        .setFirstResult(start)
+                        .getResultList();
         JSONArray jsonBerichten = new JSONArray();
 
         for (NHRInschrijving b : procList) {
@@ -241,7 +282,8 @@ public class NHRActionBean implements ActionBean {
         } else {
             NHRInschrijving item = entityManager.find(NHRInschrijving.class, selectedIds[0]);
             if (item == null) {
-                responseString = String.format("Log voor KVK nummer %s niet gevonden", selectedIds[0]);
+                responseString =
+                        String.format("Log voor KVK nummer %s niet gevonden", selectedIds[0]);
             } else {
                 responseString = item.getException();
             }
@@ -285,7 +327,8 @@ public class NHRActionBean implements ActionBean {
 
     public Resolution upload() throws IOException {
         EntityManager entityManager = Stripersist.getEntityManager();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (BufferedReader reader =
+                new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             while (true) {
                 String line = reader.readLine();
                 if (line == null) {

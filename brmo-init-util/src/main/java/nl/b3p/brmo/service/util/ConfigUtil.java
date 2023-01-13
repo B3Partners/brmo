@@ -1,6 +1,12 @@
 package nl.b3p.brmo.service.util;
 
+import nl.b3p.brmo.loader.util.BrmoException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.IOException;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.Servlet;
@@ -9,9 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
-import nl.b3p.brmo.loader.util.BrmoException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class ConfigUtil implements Servlet {
 
@@ -31,7 +34,7 @@ public class ConfigUtil implements Servlet {
     private static DataSource datasourceRsgbBag = null;
     private static DataSource datasourceRsgbBgt = null;
     private static DataSource datasourceTopNL = null;
-    
+
     public static Integer MAX_UPLOAD_SIZE;
     public static String TEMP_FOLDER;
 
@@ -43,13 +46,13 @@ public class ConfigUtil implements Servlet {
         } else {
             MAX_UPLOAD_SIZE = 10000 * 1024 * 1024;
         }
-        
+
         String tempFolder = config.getInitParameter("temp_folder");
-        if (tempFolder != null && !tempFolder.isEmpty()) {          
+        if (tempFolder != null && !tempFolder.isEmpty()) {
             TEMP_FOLDER = tempFolder;
         } else {
             TEMP_FOLDER = System.getProperty("java.io.tmpdir");
-        }        
+        }
     }
 
     public static DataSource getDataSourceStaging() throws BrmoException {
@@ -66,7 +69,7 @@ public class ConfigUtil implements Servlet {
 
         return datasourceStaging;
     }
-    
+
     public static DataSource getDataSourceRsgb() throws BrmoException {
         try {
             if (datasourceRsgb == null) {
@@ -134,10 +137,8 @@ public class ConfigUtil implements Servlet {
     }
 
     /**
-     *
      * @return de gevraagde datasource
-     * @throws BrmoException als opzoeken van de datasource in de jndi context
-     * mislukt
+     * @throws BrmoException als opzoeken van de datasource in de jndi context mislukt
      */
     public static DataSource getDataSourceTopNL() throws BrmoException {
         try {
@@ -155,11 +156,12 @@ public class ConfigUtil implements Servlet {
     }
 
     public ServletConfig getServletConfig() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void service(ServletRequest sr, ServletResponse sr1) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public void service(ServletRequest sr, ServletResponse sr1)
+            throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public String getServletInfo() {

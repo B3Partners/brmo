@@ -1,25 +1,27 @@
 package nl.b3p.brmo.loader.entity;
 
+import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
+
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
 
-/**
- *
- * @author Boy de Wit
- */
+/** @author Boy de Wit */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Bericht {
     private Long id;
     private Long laadProcesId;
-    @XmlElement(namespace=NS_BRMO_BERICHT,name="object_ref")
+
+    @XmlElement(namespace = NS_BRMO_BERICHT, name = "object_ref")
     protected String objectRef;
-    @XmlElement(namespace=NS_BRMO_BERICHT)
+
+    @XmlElement(namespace = NS_BRMO_BERICHT)
     @XmlJavaTypeAdapter(NhrPeildatumAdapter.class)
     protected Date datum;
+
     private Integer volgordeNummer;
     private String soort;
     private String opmerking;
@@ -31,10 +33,22 @@ public class Bericht {
     private String dbXml;
     private String xslVersion;
 
-    public static final String GEEN_OBJECT_REF_MSG = "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.";
+    public static final String GEEN_OBJECT_REF_MSG =
+            "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.";
+
     public static enum STATUS {
-        // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
-        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE, RSGB_BAG_NOK
+        // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en
+        // /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
+        STAGING_OK,
+        STAGING_NOK,
+        STAGING_FORWARDED,
+        RSGB_WAITING,
+        RSGB_PROCESSING,
+        RSGB_OK,
+        RSGB_OUTDATED,
+        RSGB_NOK,
+        ARCHIVE,
+        RSGB_BAG_NOK
     };
 
     public Bericht(String brXml) {
@@ -155,21 +169,35 @@ public class Bericht {
 
     @Override
     public String toString() {
-        return "Bericht{" +
-                "id=" + id +
-                ", objectRef=" + objectRef +
-                ", datum=" + datum +
-                ", volgordeNummer=" + volgordeNummer +
-                ", soort=" + soort +
-                ", status=" + status +
-                ", statusDatum=" + statusDatum +
-                ", laadProcesId=" + laadProcesId +
-                " (lengte brOrgineelXml=" + (brOrgineelXml == null ? null : brOrgineelXml.length()) +
-                " (lengte brXml=" + (brXml == null ? null : brXml.length()) +
-                " (lengte dbXml=" + (dbXml == null ? null : dbXml.length()) +
-                " (lengte opmerking=" + (opmerking == null ? null : opmerking.length()) +
-                ", xslVersion='" + xslVersion +
-                ", jobId=" + jobId +
-                '}';
+        return "Bericht{"
+                + "id="
+                + id
+                + ", objectRef="
+                + objectRef
+                + ", datum="
+                + datum
+                + ", volgordeNummer="
+                + volgordeNummer
+                + ", soort="
+                + soort
+                + ", status="
+                + status
+                + ", statusDatum="
+                + statusDatum
+                + ", laadProcesId="
+                + laadProcesId
+                + " (lengte brOrgineelXml="
+                + (brOrgineelXml == null ? null : brOrgineelXml.length())
+                + " (lengte brXml="
+                + (brXml == null ? null : brXml.length())
+                + " (lengte dbXml="
+                + (dbXml == null ? null : dbXml.length())
+                + " (lengte opmerking="
+                + (opmerking == null ? null : opmerking.length())
+                + ", xslVersion='"
+                + xslVersion
+                + ", jobId="
+                + jobId
+                + '}';
     }
 }

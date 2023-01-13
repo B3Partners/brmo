@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>datamodel</artifactId>
-    <packaging>pom</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>datamodel</artifactId>
+    <packaging>pom</packaging>
     <name>BRMO RSGB datamodel</name>
     <description>Bevat de code voor het genereren en testen van het RSGB datamodel.</description>
     <properties>
@@ -109,8 +110,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <configuration>
-                    <properties />
-                    <outputFile />
+                    <properties/>
+                    <outputFile/>
                     <quiet>true</quiet>
                     <files>
                         <file>${project.basedir}/src/test/resources/pgsql.properties</file>
@@ -121,17 +122,17 @@
                 <executions>
                     <execution>
                         <id>initialize</id>
-                        <phase>initialize</phase>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
+                        <phase>initialize</phase>
                     </execution>
                     <execution>
                         <id>pre-site</id>
-                        <phase>pre-site</phase>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -153,14 +154,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>transform-rsgb-from-gml</id>
-                        <goals>
-                            <goal>transform</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <transformationSets>
                         <transformationSet>
@@ -261,6 +254,14 @@
                         </transformationSet>
                     </transformationSets>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>transform-rsgb-from-gml</id>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -313,56 +314,47 @@
                         <executions>
                             <execution>
                                 <id>prepare</id>
-                                <phase>generate-sources</phase>
-                                <configuration>
-                                    <target>
-                                        <echo message="unzip GEM-WPL koppeling xml bestanden" />
-                                        <unzip dest="${project.build.directory}/GEM-WPL" failOnEmptyArchive="true">
-                                            <fileset dir="${project.basedir}/referentiedata">
-                                                <include name="GEM-WPL-RELATIE-*.zip" />
-                                            </fileset>
-                                            <patternset>
-                                                <include name="GEM-WPL-RELATIE-*.xml" />
-                                            </patternset>
-                                        </unzip>
-                                        <echo message="GEM-WPL koppeling xml bestand klaar voor transformatie naar SQL" />
-                                    </target>
-                                </configuration>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message="unzip GEM-WPL koppeling xml bestanden"/>
+                                        <unzip dest="${project.build.directory}/GEM-WPL" failOnEmptyArchive="true">
+                                            <fileset dir="${project.basedir}/referentiedata">
+                                                <include name="GEM-WPL-RELATIE-*.zip"/>
+                                            </fileset>
+                                            <patternset>
+                                                <include name="GEM-WPL-RELATIE-*.xml"/>
+                                            </patternset>
+                                        </unzip>
+                                        <echo message="GEM-WPL koppeling xml bestand klaar voor transformatie naar SQL"/>
+                                    </target>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>copy</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
                                     <target>
                                         <copy todir="${project.basedir}/utility_scripts/oracle" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
                                         </copy>
                                         <copy todir="${project.basedir}/utility_scripts/postgresql" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
                                         </copy>
                                     </target>
                                 </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>xml-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>transform-gemeente-woonplaats-relatie</id>
-                                <goals>
-                                    <!-- generate-resources gebonden -->
-                                    <goal>transform</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <transformationSets>
                                 <transformationSet>
@@ -387,6 +379,15 @@
                                 </transformationSet>
                             </transformationSets>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>transform-gemeente-woonplaats-relatie</id>
+                                <goals>
+                                    <!-- generate-resources gebonden -->
+                                    <goal>transform</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -467,12 +468,12 @@
                 <defaultGoal>verify</defaultGoal>
                 <testResources>
                     <testResource>
+                        <targetPath>${project.build.directory}/</targetPath>
+                        <filtering>true</filtering>
                         <directory>${maven.multiModuleProjectDirectory}/.build/ci/</directory>
                         <includes>
                             <include>pgsql-reinstall-rsgb-views.sh</include>
                         </includes>
-                        <filtering>true</filtering>
-                        <targetPath>${project.build.directory}/</targetPath>
                     </testResource>
                     <testResource>
                         <directory>${project.basedir}/src/test/resources</directory>
@@ -483,8 +484,8 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>properties-maven-plugin</artifactId>
                         <configuration>
-                            <properties />
-                            <outputFile />
+                            <properties/>
+                            <outputFile/>
                             <quiet>true</quiet>
                             <files>
                                 <file>${project.basedir}/src/test/resources/P8.properties</file>
@@ -495,10 +496,10 @@
                         <executions>
                             <execution>
                                 <id>initialize</id>
-                                <phase>initialize</phase>
                                 <goals>
                                     <goal>read-project-properties</goal>
                                 </goals>
+                                <phase>initialize</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -507,15 +508,15 @@
                         <executions>
                             <execution>
                                 <id>process-test-resources</id>
-                                <phase>process-test-resources</phase>
-                                <configuration>
-                                    <target>
-                                        <chmod file="${project.build.directory}/pgsql-reinstall-rsgb-views.sh" perm="ugo+x" />
-                                    </target>
-                                </configuration>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
+                                <phase>process-test-resources</phase>
+                                <configuration>
+                                    <target>
+                                        <chmod file="${project.build.directory}/pgsql-reinstall-rsgb-views.sh" perm="ugo+x"/>
+                                    </target>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -534,11 +535,11 @@
                             <includes>
                                 <include>**/*IntegrationTest.java</include>
                             </includes>
-                            <systemPropertyVariables />
+                            <systemPropertyVariables/>
                             <trimStackTrace>false</trimStackTrace>
                             <useFile>false</useFile>
-<!--                            <skipTests>!${test.onlyITs}</skipTests>-->
-<!--                            <skipITs>!${test.onlyITs}</skipITs>-->
+                            <!--                            <skipTests>!${test.onlyITs}</skipTests>-->
+                            <!--                            <skipITs>!${test.onlyITs}</skipITs>-->
                             <argLine>${failsafeArgLine}</argLine>
                         </configuration>
                     </plugin>

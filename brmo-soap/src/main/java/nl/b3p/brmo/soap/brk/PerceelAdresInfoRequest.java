@@ -2,26 +2,20 @@ package nl.b3p.brmo.soap.brk;
 
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 @XmlType
 public class PerceelAdresInfoRequest {
-    
+
     private String straatNaam;
     private Integer huisnummer;
     private String postcode;
     private String woonplaatsNaam;
-    
 
-    public PerceelAdresInfoRequest() {
-    }
+    public PerceelAdresInfoRequest() {}
 
     /**
-     * Naam van de straat welke via de BAG koppeling aan 
-     * het perceel is gekoppeld
-     * 
+     * Naam van de straat welke via de BAG koppeling aan het perceel is gekoppeld
+     *
      * @return the straatNaam
      */
     public String getStraatNaam() {
@@ -29,9 +23,8 @@ public class PerceelAdresInfoRequest {
     }
 
     /**
-     * Naam van de straat welke via de BAG koppeling aan 
-     * het perceel is gekoppeld
-     * 
+     * Naam van de straat welke via de BAG koppeling aan het perceel is gekoppeld
+     *
      * @param straatNaam the straatNaam to set
      */
     public void setStraatNaam(String straatNaam) {
@@ -39,9 +32,8 @@ public class PerceelAdresInfoRequest {
     }
 
     /**
-     * Huisnummer van de straat welke via de BAG koppeling aan 
-     * het perceel is gekoppeld
-     * 
+     * Huisnummer van de straat welke via de BAG koppeling aan het perceel is gekoppeld
+     *
      * @return the huisnummer
      */
     public Integer getHuisnummer() {
@@ -49,9 +41,8 @@ public class PerceelAdresInfoRequest {
     }
 
     /**
-     * Huisnummer van de straat welke via de BAG koppeling aan 
-     * het perceel is gekoppeld
-     * 
+     * Huisnummer van de straat welke via de BAG koppeling aan het perceel is gekoppeld
+     *
      * @param huisnummer the huisnummer to set
      */
     public void setHuisnummer(Integer huisnummer) {
@@ -59,9 +50,8 @@ public class PerceelAdresInfoRequest {
     }
 
     /**
-     * Postcode welke via de BAG koppeling aan 
-     * het perceel is gekoppeld
-     * 
+     * Postcode welke via de BAG koppeling aan het perceel is gekoppeld
+     *
      * @return the postcode
      */
     public String getPostcode() {
@@ -69,27 +59,21 @@ public class PerceelAdresInfoRequest {
     }
 
     /**
-     * Postcode welke via de BAG koppeling aan 
-     * het perceel is gekoppeld
-     * 
+     * Postcode welke via de BAG koppeling aan het perceel is gekoppeld
+     *
      * @param postcode the postcode to set
      */
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
-    /**
-     * @return the woonplaatsNaam
-     */
+    /** @return the woonplaatsNaam */
     public String getWoonplaatsNaam() {
         return woonplaatsNaam;
     }
 
-    /**
-     * @param woonplaatsNaam the woonplaatsNaam to set
-     */
+    /** @param woonplaatsNaam the woonplaatsNaam to set */
     public void setWoonplaatsNaam(String woonplaatsNaam) {
         this.woonplaatsNaam = woonplaatsNaam;
     }
-
 }

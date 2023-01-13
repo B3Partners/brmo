@@ -1,20 +1,20 @@
 package nl.b3p.brmo.soap.brk;
 
+import nl.b3p.brmo.service.util.ConfigUtil;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
+
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Chris
- */
+/** @author Chris */
 @XmlType
 public class NietNatuurlijkPersoonResponse {
     private static final Log LOG = LogFactory.getLog(NietNatuurlijkPersoonResponse.class);
@@ -23,59 +23,43 @@ public class NietNatuurlijkPersoonResponse {
     private String statutaireZetel;
     private String naam;
 
-    /**
-     * @return the identificatie
-     */
+    /** @return the identificatie */
     @XmlElement
     public String getIdentificatie() {
         return identificatie;
     }
 
-    /**
-     * @param identificatie the identificatie to set
-     */
+    /** @param identificatie the identificatie to set */
     public void setIdentificatie(String identificatie) {
         this.identificatie = identificatie;
     }
 
-    /**
-     * @return the rechtsvorm
-     */
+    /** @return the rechtsvorm */
     public String getRechtsvorm() {
         return rechtsvorm;
     }
 
-    /**
-     * @param rechtsvorm the rechtsvorm to set
-     */
+    /** @param rechtsvorm the rechtsvorm to set */
     public void setRechtsvorm(String rechtsvorm) {
         this.rechtsvorm = rechtsvorm;
     }
 
-    /**
-     * @return the statutaireZetel
-     */
+    /** @return the statutaireZetel */
     public String getStatutaireZetel() {
         return statutaireZetel;
     }
 
-    /**
-     * @param statutaireZetel the statutaireZetel to set
-     */
+    /** @param statutaireZetel the statutaireZetel to set */
     public void setStatutaireZetel(String statutaireZetel) {
         this.statutaireZetel = statutaireZetel;
     }
 
-    /**
-     * @return the naam
-     */
+    /** @return the naam */
     public String getNaam() {
         return naam;
     }
 
-    /**
-     * @param naam the naam to set
-     */
+    /** @param naam the naam to set */
     public void setNaam(String naam) {
         this.naam = naam;
     }
@@ -105,8 +89,8 @@ public class NietNatuurlijkPersoonResponse {
         return sql;
     }
 
-    public static NietNatuurlijkPersoonResponse getRecordById(String id,
-            Map<String, Object> searchContext) throws Exception {
+    public static NietNatuurlijkPersoonResponse getRecordById(
+            String id, Map<String, Object> searchContext) throws Exception {
 
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
@@ -151,5 +135,4 @@ public class NietNatuurlijkPersoonResponse {
             }
         }
     }
-
 }

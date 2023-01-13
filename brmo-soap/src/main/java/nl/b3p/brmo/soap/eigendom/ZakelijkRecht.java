@@ -5,26 +5,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * <p>
- * Java class for ZakelijkRecht.
-  */
+/** Java class for ZakelijkRecht. */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "identificatienummer",
-    "noemer",
-    "teller",
-    "bsn",
-    "aardRecht"
-})
+@XmlType(
+        name = "",
+        propOrder = {"identificatienummer", "noemer", "teller", "bsn", "aardRecht"})
 public class ZakelijkRecht {
 
     @XmlElement(required = true)
     protected String identificatienummer;
+
     protected String noemer;
     protected String teller;
+
     @XmlElement(name = "BSN")
     protected String bsn;
+
     @XmlElement(name = "aard_recht")
     protected String aardRecht;
 
@@ -32,7 +28,6 @@ public class ZakelijkRecht {
      * Gets the value of the identificatienummer property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getIdentificatienummer() {
         return identificatienummer;
@@ -42,7 +37,6 @@ public class ZakelijkRecht {
      * Sets the value of the identificatienummer property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setIdentificatienummer(String value) {
         this.identificatienummer = value;
@@ -52,7 +46,6 @@ public class ZakelijkRecht {
      * Gets the value of the noemer property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getNoemer() {
         return noemer;
@@ -62,7 +55,6 @@ public class ZakelijkRecht {
      * Sets the value of the noemer property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setNoemer(String value) {
         this.noemer = value;
@@ -72,7 +64,6 @@ public class ZakelijkRecht {
      * Gets the value of the teller property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getTeller() {
         return teller;
@@ -82,7 +73,6 @@ public class ZakelijkRecht {
      * Sets the value of the teller property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setTeller(String value) {
         this.teller = value;
@@ -92,7 +82,6 @@ public class ZakelijkRecht {
      * Gets the value of the bsn property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getBSN() {
         return bsn;
@@ -102,7 +91,6 @@ public class ZakelijkRecht {
      * Sets the value of the bsn property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setBSN(String value) {
         this.bsn = value;
@@ -112,7 +100,6 @@ public class ZakelijkRecht {
      * Gets the value of the aardRecht property.
      *
      * @return possible object is {@link String }
-     *
      */
     public String getAardRecht() {
         return aardRecht;
@@ -122,10 +109,8 @@ public class ZakelijkRecht {
      * Sets the value of the aardRecht property.
      *
      * @param value allowed object is {@link String }
-     *
      */
     public void setAardRecht(String value) {
         this.aardRecht = value;
     }
-
 }

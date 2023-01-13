@@ -6,12 +6,10 @@ package nl.b3p.brmo.persistence.staging;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.persistence.Entity;
 
-/**
- *
- * @author mprins
- */
+/** @author mprins */
 @Entity
 public class LaadprocesTransformatieProces extends AutomatischProces {
 
@@ -24,9 +22,7 @@ public class LaadprocesTransformatieProces extends AutomatischProces {
         return "true".equals(alsStand);
     }
 
-    /**
-     * soorten laadproces waar we iets mee kunnen.
-     */
+    /** soorten laadproces waar we iets mee kunnen. */
     public enum LaadprocesSoorten {
         BR_TOPNL("topnl");
 
@@ -37,6 +33,7 @@ public class LaadprocesTransformatieProces extends AutomatischProces {
                 soorten.add(s.getSoort());
             }
         }
+
         private final String soort;
 
         LaadprocesSoorten(String soort) {

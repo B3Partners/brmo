@@ -3,32 +3,32 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import java.util.Calendar;
-import java.util.Date;
-import javax.persistence.EntityManager;
-import javax.persistence.Transient;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-/**
- *
- * @author mprins
- */
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Transient;
+
+/** @author mprins */
 public class BerichtstatusRapport extends AbstractExecutableProces {
 
     private static final Log LOG = LogFactory.getLog(MailRapportage.class);
     private BerichtstatusRapportProces config;
-    @Transient
-    private ProgressUpdateListener listener;
+    @Transient private ProgressUpdateListener listener;
 
     public BerichtstatusRapport(BerichtstatusRapportProces config) {
         this.config = config;
@@ -36,28 +36,25 @@ public class BerichtstatusRapport extends AbstractExecutableProces {
 
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                LOG.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        LOG.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-            }
-        });
+                    @Override
+                    public void addLog(String log) {}
+                });
     }
 
     @Override
@@ -81,7 +78,10 @@ public class BerichtstatusRapport extends AbstractExecutableProces {
         }
 
         config.setStatus(PROCESSING);
-        String msg = String.format("De Berichtstatus Rapportage met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
+        String msg =
+                String.format(
+                        "De Berichtstatus Rapportage met ID %d is gestart op %tc.",
+                        config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);
@@ -112,9 +112,11 @@ public class BerichtstatusRapport extends AbstractExecutableProces {
             if (brmo != null) {
                 brmo.closeBrmoFramework();
             }
-
         }
-        msg = String.format("De Berichtstatus Rapportage met ID %d is afgerond op %tc.", config.getId(), Calendar.getInstance());
+        msg =
+                String.format(
+                        "De Berichtstatus Rapportage met ID %d is afgerond op %tc.",
+                        config.getId(), Calendar.getInstance());
         LOG.info(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);

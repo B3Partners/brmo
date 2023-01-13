@@ -1,5 +1,9 @@
 package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.cli.BGTLoaderMain;
 import nl.b3p.brmo.bgt.loader.cli.CLIOptions;
@@ -13,26 +17,23 @@ import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-import javax.persistence.Transient;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import javax.persistence.Transient;
 
 public class BGTLoader extends AbstractExecutableProces {
     private static final Log LOG = LogFactory.getLog(BGTLoader.class);
     private final BGTLoaderProces config;
-    @Transient
-    private ProgressUpdateListener listener;
+    @Transient private ProgressUpdateListener listener;
 
     public BGTLoader(BGTLoaderProces config) {
         this.config = config;
@@ -41,34 +42,31 @@ public class BGTLoader extends AbstractExecutableProces {
     /**
      * Voert deze taak eenmalig uit.
      *
-     * @throws BrmoException als er een fout optreed in het uitvoeren van het
-     *                       proces.
+     * @throws BrmoException als er een fout optreed in het uitvoeren van het proces.
      */
     @Override
     public void execute() throws BrmoException {
-        this.execute(new ProgressUpdateListener() {
-            @Override
-            public void total(long total) {
-            }
+        this.execute(
+                new ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {}
 
-            @Override
-            public void progress(long progress) {
-            }
+                    @Override
+                    public void progress(long progress) {}
 
-            @Override
-            public void exception(Throwable t) {
-                LOG.error(t);
-            }
+                    @Override
+                    public void exception(Throwable t) {
+                        LOG.error(t);
+                    }
 
-            @Override
-            public void updateStatus(String status) {
-            }
+                    @Override
+                    public void updateStatus(String status) {}
 
-            @Override
-            public void addLog(String log) {
-                LOG.info(log);
-            }
-        });
+                    @Override
+                    public void addLog(String log) {
+                        LOG.info(log);
+                    }
+                });
     }
 
     /**
@@ -96,29 +94,48 @@ public class BGTLoader extends AbstractExecutableProces {
                 Connection connection = rsgbbgtConnection;
                 if (databaseOptions.getConnectionString().startsWith("jdbc:postgresql:")) {
                     // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
-                    // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de PGConnectionUnwrapper kan ook Tomcat JNDI
-                    // connection pool unwrapping aan welke niet met een normale Connection.unwrap() werkt.
+                    // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de
+                    // PGConnectionUnwrapper kan ook Tomcat JNDI
+                    // connection pool unwrapping aan welke niet met een normale Connection.unwrap()
+                    // werkt.
                     connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection);
                     databaseOptions.setUsePgCopy(true);
                 }
-                bgtDatabase = new BGTDatabase(databaseOptions, connection) {
-                    /**
-                     * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
-                     */
-                    @Override
-                    public void close() {
-                        LOG.debug("Had de BGT database kunnen sluiten... maar niet gedaan.");
-                    }
-                };
+                bgtDatabase =
+                        new BGTDatabase(databaseOptions, connection) {
+                            /**
+                             * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
+                             */
+                            @Override
+                            public void close() {
+                                LOG.debug(
+                                        "Had de BGT database kunnen sluiten... maar niet gedaan.");
+                            }
+                        };
 
                 LoadOptions loadOptions = new LoadOptions();
-                loadOptions.setIncludeHistory(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("include-history")))));
-                loadOptions.setCreateSchema(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("create-schema")))));
-                loadOptions.setLinearizeCurves("true".equals(ClobElement.nullSafeGet(config.getConfig().get("linearize-curves"))));
+                loadOptions.setIncludeHistory(
+                        ("true"
+                                .equals(
+                                        ClobElement.nullSafeGet(
+                                                config.getConfig().get("include-history")))));
+                loadOptions.setCreateSchema(
+                        ("true"
+                                .equals(
+                                        ClobElement.nullSafeGet(
+                                                config.getConfig().get("create-schema")))));
+                loadOptions.setLinearizeCurves(
+                        "true"
+                                .equals(
+                                        ClobElement.nullSafeGet(
+                                                config.getConfig().get("linearize-curves"))));
 
                 ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
-                extractSelectionOptions.setGeoFilterWkt(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
-                boolean noGeoFilter = StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
+                extractSelectionOptions.setGeoFilterWkt(
+                        ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
+                boolean noGeoFilter =
+                        StringUtils.isEmpty(
+                                ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
                 String fTypes = ClobElement.nullSafeGet(config.getConfig().get("feature-types"));
                 extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(",")));
                 DownloadCommand downloadCommand = new DownloadCommand();
@@ -131,8 +148,9 @@ public class BGTLoader extends AbstractExecutableProces {
 
                 String initialLoadDeltaId;
                 try {
-                    initialLoadDeltaId = bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
-                } catch(SQLException e) {
+                    initialLoadDeltaId =
+                            bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
+                } catch (SQLException e) {
                     // Metadata table may not exist
                     initialLoadDeltaId = null;
                 }
@@ -140,14 +158,24 @@ public class BGTLoader extends AbstractExecutableProces {
                 if (initialLoadDeltaId == null) {
                     listener.updateStatus("Ophalen BGT stand...");
                     listener.addLog("Ophalen BGT stand");
-                    exitCode = downloadCommand.initial(databaseOptions, loadOptions, extractSelectionOptions, noGeoFilter, null, new CLIOptions(), false);
+                    exitCode =
+                            downloadCommand.initial(
+                                    databaseOptions,
+                                    loadOptions,
+                                    extractSelectionOptions,
+                                    noGeoFilter,
+                                    null,
+                                    new CLIOptions(),
+                                    false);
                     // exitCode 2 = USAGE / config fout
                     listener.updateStatus("Einde ophalen BGT stand");
                     listener.addLog("Einde ophalen BGT stand");
                 } else {
                     listener.updateStatus("Ophalen BGT mutaties...");
                     listener.addLog("Ophalen BGT mutaties");
-                    exitCode = downloadCommand.update(databaseOptions, new CLIOptions(), null, false, false);
+                    exitCode =
+                            downloadCommand.update(
+                                    databaseOptions, new CLIOptions(), null, false, false);
                     listener.updateStatus("Einde ophalen BGT mutaties");
                     listener.addLog("Einde ophalen BGT mutaties");
                 }

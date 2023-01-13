@@ -19,10 +19,7 @@ package nl.b3p.topnl.entities;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 
-/**
- *
- * @author Meine Toonen meinetoonen@b3partners.nl
- */
+/** @author Meine Toonen meinetoonen@b3partners.nl */
 public class Spoorbaandeel extends TopNLEntity {
 
     private String typeInfrastructuur;
@@ -37,7 +34,7 @@ public class Spoorbaandeel extends TopNLEntity {
     private String tunnelnaam;
     private String baanvaknaam;
     private Long hoogteniveau;
-    
+
     private LineString geometrie;
     private Point puntGeometrie;
 

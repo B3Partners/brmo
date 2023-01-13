@@ -3,10 +3,11 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import nl.b3p.brmo.persistence.TestUtil;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import nl.b3p.brmo.persistence.TestUtil;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BAGScannerProces}.
@@ -15,9 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class BAGScannerProcesTest extends TestUtil {
 
-    /**
-     * round trip test van maken en uitlezen van een BAGScannerProces.
-     */
+    /** round trip test van maken en uitlezen van een BAGScannerProces. */
     @Test
     public void roundtrip() {
         BAGScannerProces p = new BAGScannerProces();
@@ -29,9 +28,18 @@ public class BAGScannerProcesTest extends TestUtil {
         final long id = p.getId();
         BAGScannerProces c = entityManager.find(BAGScannerProces.class, id);
 
-        assertEquals(DIR, c.getScanDirectory(), "Verwacht dat de scan directory is zoals geconfigureerd.");
-        assertEquals(DIR, c.getArchiefDirectory(), "Verwacht dat de archief directory is zoals geconfigureerd.");
-        assertEquals("true", c.getConfig().get("isActive").getValue(), "Verwacht dat de parameter is zoals geconfigureerd.");
+        assertEquals(
+                DIR,
+                c.getScanDirectory(),
+                "Verwacht dat de scan directory is zoals geconfigureerd.");
+        assertEquals(
+                DIR,
+                c.getArchiefDirectory(),
+                "Verwacht dat de archief directory is zoals geconfigureerd.");
+        assertEquals(
+                "true",
+                c.getConfig().get("isActive").getValue(),
+                "Verwacht dat de parameter is zoals geconfigureerd.");
 
         entityManager.remove(p);
         entityManager.getTransaction().commit();
