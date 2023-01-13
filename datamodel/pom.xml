@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>3.0.0-rc1</version>
+        <version>3.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>datamodel</artifactId>
     <packaging>pom</packaging>
@@ -110,8 +109,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <configuration>
-                    <properties/>
-                    <outputFile/>
+                    <properties />
+                    <outputFile />
                     <quiet>true</quiet>
                     <files>
                         <file>${project.basedir}/src/test/resources/pgsql.properties</file>
@@ -320,16 +319,16 @@
                                 <phase>generate-sources</phase>
                                 <configuration>
                                     <target>
-                                        <echo message="unzip GEM-WPL koppeling xml bestanden"/>
+                                        <echo message="unzip GEM-WPL koppeling xml bestanden" />
                                         <unzip dest="${project.build.directory}/GEM-WPL" failOnEmptyArchive="true">
                                             <fileset dir="${project.basedir}/referentiedata">
-                                                <include name="GEM-WPL-RELATIE-*.zip"/>
+                                                <include name="GEM-WPL-RELATIE-*.zip" />
                                             </fileset>
                                             <patternset>
-                                                <include name="GEM-WPL-RELATIE-*.xml"/>
+                                                <include name="GEM-WPL-RELATIE-*.xml" />
                                             </patternset>
                                         </unzip>
-                                        <echo message="GEM-WPL koppeling xml bestand klaar voor transformatie naar SQL"/>
+                                        <echo message="GEM-WPL koppeling xml bestand klaar voor transformatie naar SQL" />
                                     </target>
                                 </configuration>
                             </execution>
@@ -342,10 +341,10 @@
                                 <configuration>
                                     <target>
                                         <copy todir="${project.basedir}/utility_scripts/oracle" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                         <copy todir="${project.basedir}/utility_scripts/postgresql" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql"/>
+                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                     </target>
                                 </configuration>
@@ -484,8 +483,8 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>properties-maven-plugin</artifactId>
                         <configuration>
-                            <properties/>
-                            <outputFile/>
+                            <properties />
+                            <outputFile />
                             <quiet>true</quiet>
                             <files>
                                 <file>${project.basedir}/src/test/resources/P8.properties</file>
@@ -514,7 +513,7 @@
                                 <phase>process-test-resources</phase>
                                 <configuration>
                                     <target>
-                                        <chmod file="${project.build.directory}/pgsql-reinstall-rsgb-views.sh" perm="ugo+x"/>
+                                        <chmod file="${project.build.directory}/pgsql-reinstall-rsgb-views.sh" perm="ugo+x" />
                                     </target>
                                 </configuration>
                             </execution>
@@ -535,7 +534,7 @@
                             <includes>
                                 <include>**/*IntegrationTest.java</include>
                             </includes>
-                            <systemPropertyVariables/>
+                            <systemPropertyVariables />
                             <trimStackTrace>false</trimStackTrace>
                             <useFile>false</useFile>
                             <!--                            <skipTests>!${test.onlyITs}</skipTests>-->
