@@ -1,8 +1,10 @@
 name: 'Ubuntu PostgreSQL build'
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - 'master'
+  pull_request:
 
 concurrency: # cancel on PR pushes
   # More info: https://stackoverflow.com/a/68422069/253468
@@ -28,10 +30,10 @@ jobs:
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
             # tot 11-2023  
-#            - 11-3.3-alpine
-#            - 12-3.3-alpine
-#            - 13-3.3-alpine
-#            - 14-3.3-alpine
+            - 11-3.3-alpine
+            # - 12-3.3-alpine
+            # - 13-3.3-alpine
+            # - 14-3.3-alpine
             - 15-3.3-alpine
 
     steps:
@@ -183,7 +185,7 @@ jobs:
   deploy:
     name: 'Deploy docker images'
 #    if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-#    needs: [build, qacheck]
+    needs: [build, qacheck]
     runs-on: ubuntu-22.04
     permissions:
       contents: read
