@@ -18,13 +18,13 @@ mvn clean deploy
 Start een stack met de bijvoorbeeld volgende command line:
 
 ```shell
-docker compose --env-file /home/mark/dev/projects/brmo/docker/localhost.env \
-         -f /home/mark/dev/projects/brmo/docker/docker-compose.yml \
-         -f /home/mark/dev/projects/brmo/docker/docker-compose-ports.yml \
-         -p brmo-service up --always-recreate-deps --remove-orphans -d --build
+docker compose --env-file docker/localhost.env \
+         -f docker/docker-compose.yml \
+         -f docker/docker-compose-ports.yml \
+         -p brmo-service up --always-recreate-deps --remove-orphans -d
 ```
 
-Het default password dient te worden aangepast voordat er data wordt geladen.
+Het default password van de brmo-service dient te worden aangepast voordat er data wordt geladen.
 Gebruik de procedure op https://github.com/B3Partners/brmo/wiki/update-wachtwoord-procedure#versies-vanaf-210
 
 ```shell

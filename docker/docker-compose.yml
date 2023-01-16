@@ -8,9 +8,7 @@ volumes:
 
 services:
   db:
-    build:
-      context: ./src/main/docker
-      dockerfile: pg_conf/Dockerfile
+    image: ghcr.io/b3partners/brmo-service-db:${BRMO_VERSION:-snapshot}
     shm_size: '2gb'
     command: >
       -c shared_buffers=8GB
@@ -31,9 +29,6 @@ services:
 
   brmo:
     image: ghcr.io/b3partners/brmo-service:${BRMO_VERSION:-snapshot}
-    build:
-      context: ./src/main/docker
-      dockerfile: Dockerfile
     shm_size: '512mb'
     volumes:
       - brmo-logs:/usr/local/tomcat/logs

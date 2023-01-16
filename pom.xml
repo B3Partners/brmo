@@ -1182,13 +1182,13 @@
                 <configuration>
                     <skip>${skipQA}</skip>
                     <keepBlankLines>false</keepBlankLines>
-                    <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
+                    <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
                     <createBackupFile>false</createBackupFile>
                     <verifyFail>stop</verifyFail>
                     <verifyFailOn>strict</verifyFailOn>
                     <expandEmptyElements>false</expandEmptyElements>
                     <nrOfIndentSpace>4</nrOfIndentSpace>
-                    <indentSchemaLocation>true</indentSchemaLocation>
+                    <indentSchemaLocation>false</indentSchemaLocation>
                 </configuration>
                 <executions>
                     <execution>

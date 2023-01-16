@@ -1,4 +1,4 @@
-FROM tomcat:9.0.70-jre11-temurin
+FROM tomcat:9.0.71-jre11-temurin
 
 ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -20,6 +20,7 @@ LABEL org.opencontainers.image.authors="support@b3partners.nl" \
       org.opencontainers.image.title="BRMO service" \
       org.opencontainers.image.documentation="https://github.com/B3Partners/brmo/wiki" \
       org.opencontainers.image.licenses="GNU General Public License v3.0" \
+      org.opencontainers.image.source="https://github.com/B3Partners/brmo" \
       org.opencontainers.image.version=${BRMO_VERSION}
 
 SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
@@ -31,6 +32,10 @@ RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/t
     && mkdir -p /opt/brmo-data/TOPNL/Top100NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top250NL/ \
     && mkdir -p /opt/brmo-data/sqlscripts/ \
+    && chown -R www-data:www-data /usr/local/tomcat/webapps \
+    && chown -R www-data:www-data /usr/local/tomcat/logs \
+#    && chown -R www-data:www-data /usr/local/tomcat/conf/Catalina/localhost \
+    && chown -R www-data:www-data /opt/brmo-data \
     && apt-get update \
     && apt-get install -y --no-install-recommends postgresql-client less \
     && apt-get -y --purge autoremove \
@@ -53,6 +58,10 @@ COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
 COPY tomcat_conf /usr/local/tomcat/conf/
 
 EXPOSE 8080
+
+WORKDIR /usr/local/tomcat
+
+USER www-data:www-data
 
 HEALTHCHECK --interval=25s --timeout=5s --retries=2 CMD curl -f http://localhost:8080/brmo-service/ || exit 1
 

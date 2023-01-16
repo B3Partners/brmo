@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    name: Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}
+    name: "Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}"
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -28,10 +28,10 @@ jobs:
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
             # tot 11-2023  
-            - 11-3.3-alpine
-            - 12-3.3-alpine
-            - 13-3.3-alpine
-            - 14-3.3-alpine
+#            - 11-3.3-alpine
+#            - 12-3.3-alpine
+#            - 13-3.3-alpine
+#            - 14-3.3-alpine
             - 15-3.3-alpine
 
     steps:
@@ -178,6 +178,36 @@ jobs:
 
       - name: 'QA build with Maven'
         run: mvn -B -V -fae -DskipQA=false -Dfmt.action=check -Dpom.fmt.action=verify -Ddocker.skip=true -Dtest.onlyITs= -Dmaven.test.skip=true clean package
+
+
+  deploy:
+    name: 'Deploy docker images'
+#    if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+#    needs: [build, qacheck]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: false
+
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+          cache: 'maven'
+          server-id: 'ghcr.io'
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
+      - name: 'Build and Push docker images'
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn -pl :docker -am -Dmaven.test.skip=true -Ddocker.skip=false -Dtest.onlyITs= -B -V -fae -DskipQA=true clean install deploy
 
 
   cleanup:
