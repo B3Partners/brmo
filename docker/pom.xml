@@ -60,7 +60,18 @@
                         <image>
                             <name>ghcr.io/b3partners/brmo-service:snapshot</name>
                             <build>
+                                <contextDir>.</contextDir>
                                 <dockerFile>Dockerfile</dockerFile>
+                                <args>
+                                    <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                </args>
+                            </build>
+                        </image>
+                        <image>
+                            <name>ghcr.io/b3partners/brmo-service-db:snapshot</name>
+                            <build>
+                                <contextDir>.</contextDir>
+                                <dockerFile>pg_conf/Dockerfile</dockerFile>
                                 <args>
                                     <BRMO_VERSION>${project.version}</BRMO_VERSION>
                                 </args>
@@ -70,14 +81,14 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>docker-build</id>
+                        <id>default-build</id>
                         <goals>
                             <goal>build</goal>
                         </goals>
                         <phase>package</phase>
                     </execution>
                     <execution>
-                        <id>docker-push</id>
+                        <id>default-push</id>
                         <goals>
                             <goal>push</goal>
                         </goals>
@@ -112,12 +123,29 @@
                             <images>
                                 <image>
                                     <name>ghcr.io/b3partners/brmo-service:%l</name>
+                                    <build>
+                                        <contextDir>.</contextDir>
+                                        <dockerFile>Dockerfile</dockerFile>
+                                        <args>
+                                            <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                        </args>
+                                    </build>
+                                </image>
+                                <image>
+                                    <name>ghcr.io/b3partners/brmo-service-db:%l</name>
+                                    <build>
+                                        <contextDir>.</contextDir>
+                                        <dockerFile>pg_conf/Dockerfile</dockerFile>
+                                        <args>
+                                            <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                        </args>
+                                    </build>
                                 </image>
                             </images>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>docker-tag</id>
+                                <id>tag-latest</id>
                                 <goals>
                                     <goal>tag</goal>
                                 </goals>
@@ -128,7 +156,7 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>docker-push-latest</id>
+                                <id>push-latest</id>
                                 <goals>
                                     <goal>push</goal>
                                 </goals>
@@ -139,31 +167,13 @@
                                         <image>
                                             <name>ghcr.io/b3partners/brmo-service:latest</name>
                                         </image>
+                                        <image>
+                                            <name>ghcr.io/b3partners/brmo-service-db:latest</name>
+                                        </image>
                                     </images>
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>windows</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- skip op Windows -->
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <verbose>false</verbose>
-                            <skip>true</skip>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

@@ -134,6 +134,7 @@
         <pom.fmt.action>sort</pom.fmt.action>
         <!-- skip QA checks -->
         <skipQA>false</skipQA>
+        <docker.skip>false</docker.skip>
     </properties>
     <dependencyManagement>
         <!--
@@ -1182,13 +1183,13 @@
                 <configuration>
                     <skip>${skipQA}</skip>
                     <keepBlankLines>false</keepBlankLines>
-                    <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
+                    <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
                     <createBackupFile>false</createBackupFile>
                     <verifyFail>stop</verifyFail>
                     <verifyFailOn>strict</verifyFailOn>
                     <expandEmptyElements>false</expandEmptyElements>
                     <nrOfIndentSpace>4</nrOfIndentSpace>
-                    <indentSchemaLocation>true</indentSchemaLocation>
+                    <indentSchemaLocation>false</indentSchemaLocation>
                 </configuration>
                 <executions>
                     <execution>
@@ -1440,8 +1441,32 @@
                     <family>Windows</family>
                 </os>
             </activation>
-            <properties />
-            <build />
+            <properties>
+                <docker.skip>true</docker.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>macos</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <docker.skip>true</docker.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>openbsd</id>
+            <activation>
+                <os>
+                    <name>openbsd</name>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <docker.skip>true</docker.skip>
+            </properties>
         </profile>
     </profiles>
 </project>

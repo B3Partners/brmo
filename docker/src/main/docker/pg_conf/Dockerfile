@@ -8,6 +8,15 @@ ARG BRMO_VERSION="3.0.0-SNAPSHOT"
 #ENV DB_PASS_RSGBBGT=rsgbbgt
 #ENV DB_PASS_TOPNL=topnl
 
+LABEL org.opencontainers.image.authors="support@b3partners.nl" \
+      org.opencontainers.image.description="BRMO services PostGIS database" \
+      org.opencontainers.image.vendor="B3Partners BV" \
+      org.opencontainers.image.title="BRMO service database" \
+      org.opencontainers.image.documentation="https://github.com/B3Partners/brmo/wiki" \
+      org.opencontainers.image.licenses="GNU General Public License v3.0" \
+      org.opencontainers.image.source="https://github.com/B3Partners/brmo" \
+      org.opencontainers.image.version=${BRMO_VERSION}
+
 # get schema export from tailormap persistence
 RUN set -eux; \
     apk upgrade --update && apk -U add --no-cache tzdata curl unzip \

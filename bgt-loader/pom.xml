@@ -341,26 +341,26 @@ SPDX-License-Identifier: MIT
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>windows</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- skip op Windows -->
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <verbose>false</verbose>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <id>windows</id>-->
+<!--            <activation>-->
+<!--                <os>-->
+<!--                    <family>Windows</family>-->
+<!--                </os>-->
+<!--            </activation>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        &lt;!&ndash; skip op Windows &ndash;&gt;-->
+<!--                        <groupId>io.fabric8</groupId>-->
+<!--                        <artifactId>docker-maven-plugin</artifactId>-->
+<!--                        <configuration>-->
+<!--                            <verbose>false</verbose>-->
+<!--                            <skip>true</skip>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
     </profiles>
 </project>
