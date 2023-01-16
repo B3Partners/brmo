@@ -60,6 +60,7 @@
                         <image>
                             <name>ghcr.io/b3partners/brmo-service:snapshot</name>
                             <build>
+                                <contextDir>.</contextDir>
                                 <dockerFile>Dockerfile</dockerFile>
                                 <args>
                                     <BRMO_VERSION>${project.version}</BRMO_VERSION>
@@ -123,6 +124,7 @@
                                 <image>
                                     <name>ghcr.io/b3partners/brmo-service:%l</name>
                                     <build>
+                                        <contextDir>.</contextDir>
                                         <dockerFile>Dockerfile</dockerFile>
                                         <args>
                                             <BRMO_VERSION>${project.version}</BRMO_VERSION>

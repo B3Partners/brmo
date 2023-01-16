@@ -209,7 +209,9 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn -pl :docker -am -Dmaven.test.skip=true -Ddocker.skip=false -Dtest.onlyITs= -B -V -fae -DskipQA=true clean install deploy
+        run: |
+          mvn -pl docker,datamodel -am -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true -Ddocker.skip=true install
+          mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
 
   cleanup:
