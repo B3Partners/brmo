@@ -184,7 +184,7 @@ jobs:
 
   deploy:
     name: 'Deploy docker images'
-#    if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+    if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/main' && github.event_name == 'push' }}
     needs: [build, qacheck]
     runs-on: ubuntu-22.04
     permissions:
