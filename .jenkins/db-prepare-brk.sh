@@ -7,6 +7,7 @@ projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<versio
 sed -i s/\${project.version}/$projectversion/g ./datamodel/brk/brk2.0_oracle.sql
 sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./datamodel/brk/brk2.0_oracle.sql
 sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./datamodel/brk/brk2.0_commentaar.sql
+sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./datamodel/brk/brk2.0_oracle_views.sql
 
 # TODO update geotools metadata
 # sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE <<< "update GEOMETRY_COLUMNS set F_TABLE_SCHEMA = 'JENKINS_BRK';"

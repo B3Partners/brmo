@@ -163,7 +163,10 @@ public class MaterializedViewsTest {
                 "mb_adresseerbaar_object_geometrie_bag",
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
-                "mb_koz_rechth_bag"
+                "mb_koz_rechth_bag",
+                // brk 2
+                "brk.mb_subject",
+                "brk.mb_avg_subject"
         );
 
         // alles lower-case (ORACLE!) en gesorteerd vergelijken

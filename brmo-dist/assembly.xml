@@ -91,7 +91,9 @@
             <includes>
                 <include>**/README.md</include>
                 <include>**/brk2.0_postgresql.sql</include>
+                <include>**/brk2.0_postgresql_views.sql</include>
                 <include>**/brk2.0_oracle.sql</include>
+                <include>**/brk2.0_oracle_views.sql</include>
                 <include>**/brk2.0_commentaar.sql</include>
             </includes>
             <excludes/>

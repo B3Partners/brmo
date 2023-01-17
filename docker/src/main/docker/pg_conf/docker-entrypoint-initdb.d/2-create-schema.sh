@@ -7,3 +7,4 @@ PGPASSWORD=${DB_PASS_RSGB}    psql -v ON_ERROR_STOP=1 --username rsgb    --dbnam
 PGPASSWORD=${DB_PASS_TOPNL}   psql -v ON_ERROR_STOP=1 --username topnl   --dbname topnl   -f /opt/brmo-scripts/postgres.sql
 PGPASSWORD=${DB_PASS_RSGB}    psql -v ON_ERROR_STOP=1 --username rsgb    --dbname rsgb    -f /opt/brmo-scripts/brk2.0_postgresql.sql
 PGPASSWORD=${DB_PASS_RSGB}    psql "dbname=rsgb options=--search_path=brk" -v ON_ERROR_STOP=1 --username rsgb -f /opt/brmo-scripts/brk2.0_commentaar.sql
+PGPASSWORD=${DB_PASS_RSGB}    psql -v ON_ERROR_STOP=1 --username rsgb    --dbname rsgb    -f /opt/brmo-scripts/brk2.0_postgresql_views.sql
