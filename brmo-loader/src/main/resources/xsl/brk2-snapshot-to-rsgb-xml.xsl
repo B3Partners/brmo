@@ -645,6 +645,9 @@
                         <bedragtransactiesomlevering>
                             <xsl:value-of select="Stuk:bedragTransactiesomLevering/Typen:som"/>
                         </bedragtransactiesomlevering>
+                        <valutatransactiesomlevering>
+                            <xsl:value-of select="Stuk:bedragTransactiesomLevering/Typen:valuta/Typen:waarde"/>
+                        </valutatransactiesomlevering>
                         <datumkenbaarheidpb>
                             <xsl:value-of select="Stuk:datumKenbaarheidPB"/>
                         </datumkenbaarheidpb>
@@ -708,6 +711,10 @@
                 <xsl:value-of
                         select="$oz/OnroerendeZaak:landinrichtingsrente/OnroerendeZaak:TypeLandinrichtingsrente/OnroerendeZaak:bedrag/Typen:som"/>
             </landinrichtingsrente_bedrag>
+            <landinrichtingsrente_valuta>
+                <xsl:value-of
+                        select="$oz/OnroerendeZaak:landinrichtingsrente/OnroerendeZaak:TypeLandinrichtingsrente/OnroerendeZaak:bedrag/Typen:valuta/Typen:waarde"/>
+            </landinrichtingsrente_valuta>
             <landinrichtingsrente_jaar>
                 <xsl:value-of
                         select="$oz/OnroerendeZaak:landinrichtingsrente/OnroerendeZaak:TypeLandinrichtingsrente/OnroerendeZaak:eindjaar"/>
@@ -723,6 +730,10 @@
                 <xsl:value-of
                         select="$oz/OnroerendeZaak:koopsom/OnroerendeZaak:TypeKoopsom/OnroerendeZaak:bedrag/Typen:som"/>
             </koopsom_bedrag>
+            <koopsom_valuta>
+                <xsl:value-of
+                        select="$oz/OnroerendeZaak:koopsom/OnroerendeZaak:TypeKoopsom/OnroerendeZaak:bedrag/Typen:valuta/Typen:waarde"/>
+            </koopsom_valuta>
             <koopsom_koopjaar>
                 <xsl:value-of select="$oz/OnroerendeZaak:koopsom/OnroerendeZaak:TypeKoopsom/OnroerendeZaak:koopjaar"/>
             </koopsom_koopjaar>
@@ -872,6 +883,9 @@
             <jaarlijksbedrag>
                 <xsl:value-of select="$recht/Recht:jaarlijksBedrag/Typen:som"/>
             </jaarlijksbedrag>
+            <jaarlijksbedrag_valuta>
+                <xsl:value-of select="$recht/Recht:jaarlijksBedrag/Typen:valuta/Typen:waarde"/>
+            </jaarlijksbedrag_valuta>
             <jaarlijksbedragbetreftmeerdere_oz>
                 <xsl:value-of select="$recht/Recht:betreftMeerOnroerendeZaken"/>
             </jaarlijksbedragbetreftmeerdere_oz>
