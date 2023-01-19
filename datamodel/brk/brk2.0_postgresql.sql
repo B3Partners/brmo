@@ -55,6 +55,7 @@ CREATE TABLE stukdeel
     -- onroerende zaken zijn verkregen.In een stuk kunnen verschillende transacties zijn vermeld, met verschillende transactiesom.
     -- Per stukdeel (transactie) is de transactiesom weergegeven.
     bedragtransactiesomlevering DECIMAL(9, 0),
+    valutatransactiesomlevering VARCHAR(42),
     -- DatumKenbaarheid is de datum waarop een ter inschrijving aangboden publiekrechtelijke beperking besluit bekend is gemaakt of is geworden.
     datumkenbaarheidpb          DATE,
     -- referentie naar stuk
@@ -118,6 +119,7 @@ CREATE TABLE onroerendezaak
     -- Het bedrag waarmee de Onroerende zaak is belast in het kader van de landinrichtingswet.
     -- 	  Let op: Het bedrag is in AKR in euro-centen opgenomen!
     landinrichtingsrente_bedrag   DECIMAL(9, 0),
+    landinrichtingsrente_valuta   VARCHAR(42),
     -- 	Het laatste kalenderjaar waarin de rente in het kader van landinrichtingswet nog verschuldigd is.
     landinrichtingsrente_jaar     INTEGER,
     -- In principe moet elke onbebouwde onroerende zaak minimaal 1 (één) beschrijving hebben van de cultuur onbebouwd (bijv. grasland).
@@ -133,6 +135,7 @@ CREATE TABLE onroerendezaak
     -- Het in een ter inschrijving aangeboden stuk vermelde bedrag, waarvoor 1 of meer onroerende zaken zijn verkregen.
     -- Koopsom is altijd een positief bedrag. Dit is een bedrag (omgerekend naar) euro's.
     koopsom_bedrag                DECIMAL(9, 0),
+    koopsom_valuta                VARCHAR(42),
     -- Het jaar waarin het belangrijkste recht van het kadastraal object is verkregen.
     koopsom_koopjaar              INTEGER,
     -- Geeft aan of de koopsom betrekking heeft op meer dan 1 kadastraal object.
@@ -168,10 +171,12 @@ CREATE TABLE onroerendezaak_archief
     perceelnummer                 DECIMAL(5, 0),
     appartementsrechtvolgnummer   DECIMAL(4, 0),
     landinrichtingsrente_bedrag   DECIMAL(9, 0),
+    landinrichtingsrente_valuta   VARCHAR(42),
     landinrichtingsrente_jaar     INTEGER,
     aard_cultuur_onbebouwd        VARCHAR(65),
     aard_cultuur_bebouwd          VARCHAR(65),
     koopsom_bedrag                DECIMAL(9, 0),
+    koopsom_valuta                VARCHAR(42),
     koopsom_koopjaar              INTEGER,
     koopsom_indicatiemeerobjecten BOOLEAN,
     toelichtingbewaarder          VARCHAR(4000),
@@ -500,6 +505,7 @@ CREATE TABLE recht
     soort                                  VARCHAR(22),
     -- Jaarlijksbedrag is het bedrag dat jaarlijks als erpachtcanon moet worden betaald.
     jaarlijksbedrag                        DECIMAL(9, 0),
+    jaarlijksbedrag_valuta                 VARCHAR(42),
     -- Betreft meer onroerende zaken is een indicatie waarmee wordt aangegeven dat het jaarlijks bedrag meerdere onroerende zaken betreft.
     jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
     -- erfpacht
@@ -612,6 +618,7 @@ CREATE TABLE recht_archief
     isbestemdtot                           VARCHAR(255),
     soort                                  VARCHAR(22),
     jaarlijksbedrag                        DECIMAL(9, 0),
+    jaarlijksbedrag_valuta                 VARCHAR(42),
     jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
     einddatumafkoop                        DATE,
     indicatieoudeonroerendezaakbetrokken   BOOLEAN,

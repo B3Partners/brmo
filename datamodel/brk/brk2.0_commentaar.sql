@@ -19,6 +19,7 @@ COMMENT ON TABLE stukdeel is 'Een stukdeel is een paragraaf in een akte waarmee 
 COMMENT ON COLUMN stukdeel.identificatie IS 'Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.';
 COMMENT ON COLUMN stukdeel.aard IS 'Aanduiding aard stukdeel is een aanduiding voor de aard van een rechtsfeit.';
 COMMENT ON COLUMN stukdeel.bedragtransactiesomlevering IS 'Bedrag transactiesom levering is het in een ter inschrijving aangeboden stuk vermelde bedrag, waarvoor 1 of meer onroerende zaken zijn verkregen.';
+COMMENT ON COLUMN stukdeel.valutatransactiesomlevering IS 'De aanduiding van de valutasoort.';
 COMMENT ON COLUMN stukdeel.datumkenbaarheidpb IS 'DatumKenbaarheid is de datum waarop een ter inschrijving aangboden publiekrechtelijke beperking besluit bekend is gemaakt of is geworden.';
 COMMENT ON COLUMN stukdeel.deelvan IS 'Referentie naar het stuk waarvan dit deel uitmaakt.';
 
@@ -34,11 +35,13 @@ COMMENT ON COLUMN onroerendezaak.kadastralegemeente IS 'De kadastrale gemeente, 
 COMMENT ON COLUMN onroerendezaak.sectie IS 'Sectie is een onderverdeling van de kadastrale gemeente, bedoeld om het werk van de meetdienst en om de kadastrale kaarten overzichtelijk te houden.';
 COMMENT ON COLUMN onroerendezaak.perceelnummer IS 'Het perceelnummer dat een geheel perceel of een complex uniek identificeert binnen de sectie.';
 COMMENT ON COLUMN onroerendezaak.appartementsrechtvolgnummer IS 'Nummer dat het kadastraal object uniek identificeert als een appartementsrecht binnen het complex.';
-COMMENT ON COLUMN onroerendezaak.landinrichtingsrente_bedrag IS 'Het bedrag waarmee de Onroerende zaak is belast in het kader van de landinrichtingswet..';
+COMMENT ON COLUMN onroerendezaak.landinrichtingsrente_bedrag IS 'Het bedrag waarmee de Onroerende zaak is belast in het kader van de landinrichtingswet.';
+COMMENT ON COLUMN onroerendezaak.landinrichtingsrente_valuta IS 'De aanduiding van de valutasoort van het landinrichtingsrente bedrag.';
 COMMENT ON COLUMN onroerendezaak.landinrichtingsrente_jaar IS 'Het laatste kalenderjaar waarin de rente in het kader van landinrichtingswet nog verschuldigd is.';
 COMMENT ON COLUMN onroerendezaak.aard_cultuur_onbebouwd IS 'AardCultuurOnbebouwd is een aanduiding voor aard van het gebruik van een onbebouwde onroerende zaak.';
 COMMENT ON COLUMN onroerendezaak.aard_cultuur_bebouwd IS 'AardCultuurBebouwd is een aanduiding voor aard van het gebruik van een bebouwde onroerende zaak.';
 COMMENT ON COLUMN onroerendezaak.koopsom_bedrag IS 'Het in een ter inschrijving aangeboden stuk vermelde bedrag, waarvoor 1 of meer onroerende zaken zijn verkregen.';
+COMMENT ON COLUMN onroerendezaak.koopsom_valuta IS 'De aanduiding van de valutasoort van de koopsom.';
 COMMENT ON COLUMN onroerendezaak.koopsom_koopjaar IS 'Het jaar waarin het belangrijkste recht van het kadastraal object is verkregen.';
 COMMENT ON COLUMN onroerendezaak.koopsom_indicatiemeerobjecten IS 'Geeft aan of de koopsom betrekking heeft op meer dan 1 kadastraal object.';
 COMMENT ON COLUMN onroerendezaak.toelichtingbewaarder IS 'Toelichting bewaarder is een toelichtende tekst van de bewaarder bij het kadastraal object.';
@@ -166,6 +169,7 @@ COMMENT ON COLUMN recht.isbetrokkenbij IS 'Relatie van zakelijk recht naar (appa
 COMMENT ON COLUMN recht.isbestemdtot IS 'Relatie van zakelijk recht naar mandeligheid.';
 COMMENT ON COLUMN recht.soort IS 'Soort is een nadere aanduiding van de erfpachtcanon.';
 COMMENT ON COLUMN recht.jaarlijksbedrag IS 'Jaarlijksbedrag is het bedrag dat jaarlijks als erpachtcanon moet worden betaald.';
+COMMENT ON COLUMN recht.jaarlijksbedrag_valuta IS 'De aanduiding van de valutasoort van het jaarlijksbedrag.';
 COMMENT ON COLUMN recht.jaarlijksbedragbetreftmeerdere_oz IS 'Betreft meer onroerende zaken is een indicatie waarmee wordt aangegeven dat het jaarlijks bedrag van de erfpachtcanon meerdere onroerende zaken betreft.';
 COMMENT ON COLUMN recht.einddatumafkoop IS 'Erfpachtcanon afkoop, dit is niet hetzelfde als de historievelden in Voorkomen.';
 COMMENT ON COLUMN recht.indicatieoudeonroerendezaakbetrokken IS 'Met deze indicatie wordt aangegeven dat de erfpacht oorspronkelijk gevestigd is bij een perceel dat later is verenigd met een ander perceel.';
