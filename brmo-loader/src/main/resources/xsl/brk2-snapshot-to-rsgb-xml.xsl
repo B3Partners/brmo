@@ -854,10 +854,10 @@
             </isontstaanuit>
             <isbetrokkenbij>
                 <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="$recht/Recht:isOntstaanUit/Recht-ref:HoofdsplitsingRef |
-                                                      $recht/Recht:isOntstaanUit/Recht-ref:OndersplitsingRef |
-                                                      $recht/Recht:isOntstaanUit/Recht-ref:SpiegelsplitsingAfkoopErfpachtRef |
-                                                      $recht/Recht:isOntstaanUit/Recht-ref:SpiegelsplitsingOndersplitsingRef"/>
+                    <xsl:with-param name="id" select="$recht/Recht:isBetrokkenBij/Recht-ref:HoofdsplitsingRef |
+                                                      $recht/Recht:isBetrokkenBij/Recht-ref:OndersplitsingRef |
+                                                      $recht/Recht:isBetrokkenBij/Recht-ref:SpiegelsplitsingAfkoopErfpachtRef |
+                                                      $recht/Recht:isBetrokkenBij/Recht-ref:SpiegelsplitsingOndersplitsingRef"/>
                 </xsl:call-template>
             </isbetrokkenbij>
             <isbestemdtot>
