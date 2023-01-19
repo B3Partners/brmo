@@ -166,7 +166,8 @@ public class MaterializedViewsTest {
                 "mb_koz_rechth_bag",
                 // brk 2
                 "brk.mb_subject",
-                "brk.mb_avg_subject"
+                "brk.mb_avg_subject",
+                "brk.mb_kad_onrrnd_zk_adres"
         );
 
         // alles lower-case (ORACLE!) en gesorteerd vergelijken
