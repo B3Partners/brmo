@@ -94,6 +94,8 @@
                 <include>**/brk2.0_oracle.sql</include>
                 <include>**/brk2.0_commentaar.sql</include>
             </includes>
+            <excludes/>
+            <filtered>true</filtered>
         </fileSet>
         <fileSet>
             <directory>../${project.basedir}/datamodel/upgrade_scripts/</directory>
