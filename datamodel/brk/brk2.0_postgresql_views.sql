@@ -222,7 +222,7 @@ SELECT (row_number() OVER ())::INTEGER                                          
        o.begingeldigheid::text                                                                         AS begin_geldigheid,
        o.begingeldigheid                                                                               AS begin_geldigheid_datum,
        -- TODO koppling BAG
-       null                                                                                            AS benoemdobj_identif,
+       NULL                                                                                            AS benoemdobj_identif,
        qry.type                                                                                        AS type,
        COALESCE(o.sectie, '') || ' ' || COALESCE(o.perceelnummer::text, '')                            AS aanduiding,
        COALESCE(o.akrkadastralegemeente, '') || ' ' || COALESCE(o.sectie, '') || ' ' ||
@@ -233,16 +233,18 @@ SELECT (row_number() OVER ())::INTEGER                                          
        o.akrkadastralegemeentecode                                                                     AS gemeentecode,
        qry.soortgrootte                                                                                AS aand_soort_grootte,
        qry.kadastralegrootte                                                                           AS grootte_perceel,
-       st_area(qry.begrenzing_perceel)                                                            AS oppervlakte_geom,
+       st_area(qry.begrenzing_perceel)                                                                 AS oppervlakte_geom,
+       -- bestaat niet
        NULL                                                                                            AS deelperceelnummer,
+       -- bestaat niet
        NULL                                                                                            AS omschr_deelperceel,
-       -- TODO
+       -- TODO verkoop datum uit stukdeel via recht
        null                                                                                            AS verkoop_datum,
        o.aard_cultuur_onbebouwd                                                                        AS aard_cultuur_onbebouwd,
        o.koopsom_bedrag                                                                                AS bedrag,
        o.koopsom_koopjaar                                                                              AS koopjaar,
        o.koopsom_indicatiemeerobjecten                                                                 AS meer_onroerendgoed,
-       'EURO'                                                                                          AS valutasoort,
+       o.koopsom_valuta                                                                                AS valutasoort,
        -- TODO BRK adres?
        null                                                                                            AS loc_omschr,
 --       (
@@ -258,7 +260,7 @@ SELECT (row_number() OVER ())::INTEGER                                          
                                   'koz-id: ' || COALESCE(r.aantekeningkadastraalobject, '') || ', ' ||
                                   'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; '))
                 FROM recht r
-                WHERE r.aantekeningkadastraalobject = o.identificatie), ' & ')                         as aantekeningen,
+                WHERE r.aantekeningkadastraalobject = o.identificatie), ' & ')                         AS aantekeningen,
        -- TODO koppling BAG
        null                                                                                            AS na_identif,
        -- TODO koppling BAG
@@ -281,10 +283,9 @@ SELECT (row_number() OVER ())::INTEGER                                          
        null                                                                                            AS gebruiksdoelen,
        -- TODO koppling BAG
        null                                                                                            AS oppervlakte_obj,
-       st_x(st_transform(qry.plaatscoordinaten, 4326))                                                 as lon,
-       st_y(st_transform(qry.plaatscoordinaten, 4326))                                                 as lat,
-       qry.begrenzing_perceel
-                                                                                                       AS begrenzing_perceel
+       st_x(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lon,
+       st_y(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lat,
+       qry.begrenzing_perceel                                                                          AS begrenzing_perceel
 FROM (SELECT p.identificatie
                  AS identificatie,
              'perceel'
@@ -307,21 +308,9 @@ FROM (SELECT p.identificatie
                  AS begrenzing_perceel,
              NULL
                  AS plaatscoordinaten
-      FROM appartementsrecht a
-         --             ((mb_util_app_re_kad_perceel v
---         JOIN
---             kad_perceel kp
---         ON
---             (((
---                         v.perceel_identif)::NUMERIC = kp.sc_kad_identif)))
---         JOIN
---             app_re ar
---         ON
---             (((
---                         v.app_re_identif)::NUMERIC = ar.sc_kad_identif)))
-     ) qry
+      FROM appartementsrecht a) qry
          JOIN onroerendezaak o ON qry.identificatie = o.identificatie
-;
+WITH NO DATA;
 
 CREATE UNIQUE INDEX mb_kad_onrrnd_zk_adres_objectid ON mb_kad_onrrnd_zk_adres USING btree (objectid);
 CREATE INDEX mb_kad_onrrnd_zk_adres_identif ON mb_kad_onrrnd_zk_adres USING btree (koz_identif);
@@ -373,3 +362,116 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
     * begrenzing_perceel: perceelvlak
     ';
 
+
+
+CREATE MATERIALIZED VIEW mb_percelenkaart AS
+SELECT row_number() OVER ()::integer                                           AS objectid,
+       o.identificatie                                                         AS koz_identif,
+       o.begingeldigheid::text                                                 AS begin_geldigheid,
+       o.begingeldigheid                                                       AS begin_geldigheid_datum,
+       qry.type,
+       COALESCE(o.sectie, '') || ' ' || COALESCE(o.perceelnummer::text, '')    AS aanduiding,
+       COALESCE(o.akrkadastralegemeente, '') || ' ' || COALESCE(o.sectie, '') || ' ' ||
+       COALESCE(o.perceelnummer::text, '')                                     AS aanduiding2,
+       o.sectie                                                                AS sectie,
+       o.perceelnummer                                                         AS perceelnummer,
+       o.appartementsrechtvolgnummer                                           AS appartementsindex,
+       o.akrkadastralegemeentecode                                             AS gemeentecode,
+       qry.soortgrootte                                                        AS aand_soort_grootte,
+       qry.kadastralegrootte                                                   AS grootte_perceel,
+       st_area(qry.begrenzing_perceel)                                         AS oppervlakte_geom,
+       -- TODO verkoop datum uit stukdeel via recht
+       NULL                                                                    AS verkoop_datum,
+       o.aard_cultuur_onbebouwd                                                AS aard_cultuur_onbebouwd,
+       o.koopsom_bedrag                                                        AS bedrag,
+       o.koopsom_koopjaar                                                      AS koopjaar,
+       o.koopsom_indicatiemeerobjecten                                         AS meer_onroerendgoed,
+       o.koopsom_valuta                                                        AS valutasoort,
+       array_to_string(
+               (SELECT array_agg(('id: ' || r.identificatie || ', ' ||
+                                  'aard: ' || COALESCE(r.aard, '') || ', ' ||
+                                  'begin: ' || COALESCE(r.begingeldigheid::text, '') || ', ' ||
+                                  'beschrijving: ' || COALESCE(r.omschrijving, '') || ', ' ||
+                                  'eind: ' || COALESCE(r.einddatum::text, '') || ', ' ||
+                                  'koz-id: ' || COALESCE(r.aantekeningkadastraalobject, '') || ', ' ||
+                                  'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; '))
+                FROM recht r
+                WHERE r.aantekeningkadastraalobject = o.identificatie), ' & ') AS aantekeningen,
+
+       st_x(st_transform(qry.plaatscoordinaten, 4326))                         AS lon,
+       st_y(st_transform(qry.plaatscoordinaten, 4326))                         AS lat,
+       qry.begrenzing_perceel                                                  AS begrenzing_perceel
+FROM (SELECT p.identificatie,
+             'perceel' AS type,
+             p.soortgrootte,
+             p.kadastralegrootte,
+             p.plaatscoordinaten,
+             p.begrenzing_perceel
+      FROM perceel p) qry
+         LEFT JOIN onroerendezaak o on qry.identificatie = o.identificatie
+WITH NO DATA;
+
+CREATE UNIQUE INDEX mb_percelenkaart_objectid ON mb_percelenkaart USING btree (objectid);
+CREATE INDEX mb_percelenkaart_identif ON mb_percelenkaart USING btree (koz_identif);
+CREATE INDEX mb_percelenkaart_begrenzing_perceel_idx ON mb_percelenkaart USING gist (begrenzing_perceel);
+
+COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
+    'commentaar view mb_percelenkaart:
+    alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis
+
+    beschikbare kolommen:
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * koz_identif: natuurlijke id van perceel of appartementsrecht
+    * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * type: perceel of appartement,
+    * aanduiding: sectie perceelnummer,
+    * aanduiding2: kadgem sectie perceelnummer appartementsindex,
+    * sectie: -,
+    * perceelnummer: -,
+    * gemeentecode: -,
+    * aand_soort_grootte: -,
+    * grootte_perceel: -,
+    * oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,
+    * verkoop_datum: laatste datum gevonden akten van verkoop,
+    * aard_cultuur_onbebouwd: -,
+    * bedrag: -,
+    * koopjaar: -,
+    * meer_onroerendgoed: -,
+    * valutasoort: -,
+    * aantekeningen: -,
+    * lon: coordinaat als WSG84,
+    * lon: coordinaat als WSG84,
+    * begrenzing_perceel: perceelvlak
+    ';
+
+
+
+---
+-- eigendom
+-- select
+--     -- zakelijk recht
+--     r.identificatie  as zak_recht_id,
+--     -- altijd 'Eigendom (recht van)'
+--     -- r.aard,
+--     r.rustop,
+--     -- tenaamsteling
+--     r2.identificatie as tenaamstelling,
+--     r2.isgebaseerdop,
+--     r2.tennamevan,
+--     r2.aandeel_teller,
+--     r2.aandeel_noemer,
+--     -- stukdeel
+--     s.aard,
+--     s.bedragtransactiesomlevering,
+--     -- stuk
+--     s2.tijdstipaanbieding,
+--     s2.tijdstipondertekening
+-- from recht r
+--          left join recht r2 on
+--     r.identificatie = r2.van
+--          left join stukdeel s on
+--     s.identificatie = r2.isgebaseerdop
+--          left join stuk s2 on
+--     s2.identificatie = s.deelvan
+-- where r.aard = 'Eigendom (recht van)';
