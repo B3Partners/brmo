@@ -28,5 +28,4 @@ DROP TABLE IF EXISTS recht_aantekeningrecht_archief CASCADE;
 DROP TABLE IF EXISTS recht_isbelastmet_archief CASCADE;
 DROP TABLE IF EXISTS recht_isbeperkttot_archief CASCADE;
 DROP TABLE IF EXISTS onroerendezaakbeperking_archief CASCADE;
-DROP TABLE IF EXISTS publiekrechtelijkebeperking_archief CASCADE;
 DROP TABLE IF EXISTS objectlocatie_archief CASCADE;

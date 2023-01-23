@@ -164,6 +164,9 @@
         </root>
     </xsl:template>
 
+    <!--
+        vult publiekrechtelijkebeperking en de koppeltabel onroerendezaakbeperking voor de gerelateerde onroerende zaak.
+    -->
     <xsl:template match="/Snapshot:KadastraalObjectSnapshot/PubliekrechtelijkeBeperking:PubliekrechtelijkeBeperking">
         <xsl:variable name="beperkingId">
             <xsl:call-template name="domein_identificatie">
@@ -171,46 +174,46 @@
             </xsl:call-template>
         </xsl:variable>
 
-        <!-- vult publiekrechtelijkebeperking en gerelateerde onroerendezaakbeperking -->
-        <publiekrechtelijkebeperking column-dat-beg-geldh="begingeldigheid">
-            <begingeldigheid alleen-archief="true">
-                <xsl:value-of select="$toestandsdatum"/>
-            </begingeldigheid>
-            <identificatie>
-                <xsl:value-of select="$beperkingId"/>
-            </identificatie>
-            <grondslag>
-                <xsl:value-of select="PubliekrechtelijkeBeperking:grondslag/Typen:waarde"/>
-            </grondslag>
-            <datuminwerking>
-                <xsl:value-of select="PubliekrechtelijkeBeperking:datumInWerking"/>
-            </datuminwerking>
-            <datumbeeindiging>
-                <xsl:value-of select="PubliekrechtelijkeBeperking:datumBeeindiging"/>
-            </datumbeeindiging>
-            <isgebaseerdop>
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id" select="PubliekrechtelijkeBeperking:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
-                </xsl:call-template>
-            </isgebaseerdop>
-            <bevoegdgezag>
-                <!-- NNP referentie
-                        zoek de bevoegdgezag
-                        ../PubliekrechtelijkeBeperking:BevoegdGezag/PubliekrechtelijkeBeperking:is/Persoon-ref:NietNatuurlijkPersoonRef
-                        welke verwijst naar deze publiekrechtelijkebeperking met
-                        ../PubliekrechtelijkeBeperking:BevoegdGezag/PubliekrechtelijkeBeperking:beheert/PubliekrechtelijkeBeperking-ref:PubliekrechtelijkeBeperkingRef
-                -->
-                <xsl:variable name="gezagLinkId">
-                    <xsl:value-of select="@id"/>
-                </xsl:variable>
-                <xsl:variable name="bevoegdGezag"
-                              select="../PubliekrechtelijkeBeperking:BevoegdGezag[PubliekrechtelijkeBeperking:beheert/PubliekrechtelijkeBeperking-ref:PubliekrechtelijkeBeperkingRef[substring(@xlink:href,2) = $gezagLinkId]]"/>
-                <xsl:call-template name="domein_identificatie">
-                    <xsl:with-param name="id"
-                                    select="$bevoegdGezag/PubliekrechtelijkeBeperking:is/Persoon-ref:NietNatuurlijkPersoonRef"/>
-                </xsl:call-template>
-            </bevoegdgezag>
-        </publiekrechtelijkebeperking>
+        <comfort search-table="publiekrechtelijkebeperking" search-column="identificatie" search-value="{$beperkingId}"
+                 snapshot-date="{$toestandsdatum}">
+            <publiekrechtelijkebeperking>
+                <identificatie>
+                    <xsl:value-of select="$beperkingId"/>
+                </identificatie>
+                <grondslag>
+                    <xsl:value-of select="PubliekrechtelijkeBeperking:grondslag/Typen:waarde"/>
+                </grondslag>
+                <datuminwerking>
+                    <xsl:value-of select="PubliekrechtelijkeBeperking:datumInWerking"/>
+                </datuminwerking>
+                <datumbeeindiging>
+                    <xsl:value-of select="PubliekrechtelijkeBeperking:datumBeeindiging"/>
+                </datumbeeindiging>
+                <isgebaseerdop>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id"
+                                        select="PubliekrechtelijkeBeperking:isGebaseerdOp/Stuk-ref:StukdeelRef"/>
+                    </xsl:call-template>
+                </isgebaseerdop>
+                <bevoegdgezag>
+                    <!-- NNP referentie
+                            zoek de bevoegdgezag
+                            ../PubliekrechtelijkeBeperking:BevoegdGezag/PubliekrechtelijkeBeperking:is/Persoon-ref:NietNatuurlijkPersoonRef
+                            welke verwijst naar deze publiekrechtelijkebeperking met
+                            ../PubliekrechtelijkeBeperking:BevoegdGezag/PubliekrechtelijkeBeperking:beheert/PubliekrechtelijkeBeperking-ref:PubliekrechtelijkeBeperkingRef
+                    -->
+                    <xsl:variable name="gezagLinkId">
+                        <xsl:value-of select="@id"/>
+                    </xsl:variable>
+                    <xsl:variable name="bevoegdGezag"
+                                  select="../PubliekrechtelijkeBeperking:BevoegdGezag[PubliekrechtelijkeBeperking:beheert/PubliekrechtelijkeBeperking-ref:PubliekrechtelijkeBeperkingRef[substring(@xlink:href,2) = $gezagLinkId]]"/>
+                    <xsl:call-template name="domein_identificatie">
+                        <xsl:with-param name="id"
+                                        select="$bevoegdGezag/PubliekrechtelijkeBeperking:is/Persoon-ref:NietNatuurlijkPersoonRef"/>
+                    </xsl:call-template>
+                </bevoegdgezag>
+            </publiekrechtelijkebeperking>
+        </comfort>
 
         <xsl:for-each select="PubliekrechtelijkeBeperking:leidtTot">
             <onroerendezaakbeperking column-dat-beg-geldh="begingeldigheid">

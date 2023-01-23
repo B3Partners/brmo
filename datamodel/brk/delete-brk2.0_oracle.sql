@@ -24,6 +24,5 @@ DROP TABLE onroerendezaakfiliatie_archief CASCADE CONSTRAINTS PURGE;
 DROP TABLE perceel_archief CASCADE CONSTRAINTS PURGE;
 DROP TABLE recht_archief CASCADE CONSTRAINTS PURGE;
 DROP TABLE onroerendezaakbeperking_archief CASCADE CONSTRAINTS PURGE;
-DROP TABLE publiekrechtelijkebeperking_archief CASCADE CONSTRAINTS PURGE;
 DROP TABLE objectlocatie_archief CASCADE CONSTRAINTS PURGE;
 DELETE FROM user_sdo_geom_metadata;

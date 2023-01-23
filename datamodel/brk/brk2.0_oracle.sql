@@ -169,17 +169,6 @@ CREATE TABLE publiekrechtelijkebeperking
     bevoegdgezag     VARCHAR2(255) REFERENCES nietnatuurlijkpersoon (identificatie)
 );
 
-CREATE TABLE publiekrechtelijkebeperking_archief
-(
-    identificatie    VARCHAR2(255) NOT NULL,
-    grondslag        VARCHAR2(255),
-    datuminwerking   DATE,
-    datumbeeindiging DATE,
-    isgebaseerdop    VARCHAR2(255),
-    bevoegdgezag     VARCHAR2(255),
-    begingeldigheid  DATE          NOT NULL,
-    PRIMARY KEY (identificatie, begingeldigheid)
-);
 
 CREATE TABLE onroerendezaakbeperking
 (
@@ -193,7 +182,7 @@ CREATE TABLE onroerendezaakbeperking_archief
 (
     inonderzoek     NUMBER(1, 0) CHECK (inonderzoek in (0, 1)),
     beperkt         VARCHAR2(255) NOT NULL,
-    leidttot        VARCHAR2(255) NOT NULL,
+    leidttot        VARCHAR2(255) REFERENCES publiekrechtelijkebeperking (identificatie),
     begingeldigheid DATE          NOT NULL,
     PRIMARY KEY (beperkt, leidttot, begingeldigheid)
 );
