@@ -271,8 +271,6 @@ class Brk2MutatieVerwijderVerwerkingIntegrationTest extends AbstractDatabaseInte
 
         ITable publiekrechtelijkebeperking =
                 rsgbBrk.createDataSet().getTable("publiekrechtelijkebeperking");
-        ITable publiekrechtelijkebeperking_archief =
-                rsgbBrk.createDataSet().getTable("publiekrechtelijkebeperking_archief");
         assertEquals(
                 aantalPubliekRBeperking,
                 publiekrechtelijkebeperking.getRowCount(),

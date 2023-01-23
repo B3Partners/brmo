@@ -336,18 +336,6 @@ CREATE TABLE publiekrechtelijkebeperking
     bevoegdgezag     VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie)
 );
 
-CREATE TABLE publiekrechtelijkebeperking_archief
-(
-    identificatie    VARCHAR(255) NOT NULL,
-    grondslag        VARCHAR(255),
-    datuminwerking   DATE,
-    datumbeeindiging DATE,
-    isgebaseerdop    VARCHAR REFERENCES stukdeel (identificatie),
-    bevoegdgezag     VARCHAR(255),
-    begingeldigheid  DATE         NOT NULL,
-    PRIMARY KEY (identificatie, begingeldigheid)
-);
-
 CREATE TABLE onroerendezaakbeperking
 (
     inonderzoek BOOLEAN,
@@ -360,7 +348,7 @@ CREATE TABLE onroerendezaakbeperking_archief
 (
     inonderzoek     BOOLEAN,
     beperkt         VARCHAR(255) NOT NULL,
-    leidttot        VARCHAR(255) NOT NULL,
+    leidttot        VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie),
     begingeldigheid DATE         NOT NULL,
     PRIMARY KEY (beperkt, leidttot, begingeldigheid)
 );

@@ -150,7 +150,6 @@ public final class CleanUtil {
                             new DefaultTable("recht_isbelastmet_archief"),
                             new DefaultTable("recht_isbeperkttot_archief"),
                             new DefaultTable("onroerendezaakbeperking_archief"),
-                            new DefaultTable("publiekrechtelijkebeperking_archief"),
                             new DefaultTable("objectlocatie_archief"),
                         }));
     }
