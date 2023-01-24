@@ -26,6 +26,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,7 +143,7 @@ public class MaterializedViewsTest {
         assertNotNull(viewsFound, "Geen materialized views gevonden");
 
 
-        List<String> views = Arrays.asList(
+        List<String> views = Stream.of(
                 // bag
                 "mb_adres",
                 "mb_pand",
@@ -164,7 +166,7 @@ public class MaterializedViewsTest {
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
                 "mb_koz_rechth_bag"
-        );
+        ).collect(Collectors.toList());
         if (this.isPostgis) {
             views.addAll(Arrays.asList(
                     // brk 2 / postgres

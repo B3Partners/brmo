@@ -216,7 +216,7 @@ SELECT row_number() OVER ()                                                     
        o.sectie                                                                                        AS sectie,
        o.perceelnummer                                                                                 AS perceelnummer,
        o.appartementsrechtvolgnummer                                                                   AS appartementsindex,
-       o.akrkadastralegemeentecode                                                                     AS gemeentecode,
+       o.akrkadastralegemeente                                                                         AS gemeentecode,
        qry.soortgrootte                                                                                AS aand_soort_grootte,
        qry.kadastralegrootte                                                                           AS grootte_perceel,
        st_area(qry.begrenzing_perceel)                                                                 AS oppervlakte_geom,
@@ -362,7 +362,7 @@ SELECT row_number() OVER ()                                                    A
        o.sectie                                                                AS sectie,
        o.perceelnummer                                                         AS perceelnummer,
        o.appartementsrechtvolgnummer                                           AS appartementsindex,
-       o.akrkadastralegemeentecode                                             AS gemeentecode,
+       o.akrkadastralegemeente                                                 AS gemeentecode,
        qry.soortgrootte                                                        AS aand_soort_grootte,
        qry.kadastralegrootte                                                   AS grootte_perceel,
        st_area(qry.begrenzing_perceel)                                         AS oppervlakte_geom,
@@ -778,14 +778,15 @@ CREATE MATERIALIZED VIEW mb_koz_rechth
              begrenzing_perceel
                 )
 AS
-SELECT row_number() OVER ()                                               AS objectid,
+SELECT row_number() OVER ()                                                     AS objectid,
        koz.koz_identif,
        koz.begin_geldigheid,
        koz.begin_geldigheid_datum,
        koz.type,
-       COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
-       COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') ||
-       ' ' || COALESCE(koz.appartementsindex, '')                         AS aanduiding2,
+       COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer::text, '') AS aanduiding,
+       COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' ||
+       COALESCE(koz.perceelnummer::text, '') ||
+       ' ' || COALESCE(koz.appartementsindex::text, '')                         AS aanduiding2,
        koz.sectie,
        koz.perceelnummer,
        koz.appartementsindex,
@@ -971,14 +972,15 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth
              begrenzing_perceel
                 )
 AS
-SELECT row_number() OVER ()                                               AS objectid,
+SELECT row_number() OVER ()                                                     AS objectid,
        koz.koz_identif,
        koz.begin_geldigheid,
        koz.begin_geldigheid_datum,
        koz.type,
-       COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
-       COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') ||
-       ' ' || COALESCE(koz.appartementsindex, '')                         AS aanduiding2,
+       COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer::text, '') AS aanduiding,
+       COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' ||
+       COALESCE(koz.perceelnummer::text, '') ||
+       ' ' || COALESCE(koz.appartementsindex::text, '')                         AS aanduiding2,
        koz.sectie,
        koz.perceelnummer,
        koz.appartementsindex,
@@ -1131,34 +1133,34 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_archief
              begrenzing_perceel
                 )
 AS
-SELECT row_number() OVER ()                                                                                  AS objectid,
-       qry.identificatie                                                                                     as koz_identif,
-       koza.begingeldigheid::text                                                                            AS begin_geldigheid,
-       koza.begingeldigheid                                                                                  AS begin_geldigheid_datum,
-       koza.eindegeldigheid::text                                                                            AS eind_geldigheid,
-       koza.eindegeldigheid                                                                                  AS eind_geldigheid_datum,
+SELECT row_number() OVER ()                                 AS objectid,
+       qry.identificatie                                    as koz_identif,
+       koza.begingeldigheid::text                           AS begin_geldigheid,
+       koza.begingeldigheid                                 AS begin_geldigheid_datum,
+       koza.eindegeldigheid::text                           AS eind_geldigheid,
+       koza.eindegeldigheid                                 AS eind_geldigheid_datum,
        qry.type,
        COALESCE(koza.sectie, '') || ' ' ||
-       COALESCE(koza.perceelnummer::text, '')                                                                AS aanduiding,
+       COALESCE(koza.perceelnummer::text, '')               AS aanduiding,
        COALESCE(koza.akrkadastralegemeente, '') || ' ' || COALESCE(koza.sectie, '') || ' ' ||
        COALESCE(koza.perceelnummer::text, '') || ' ' ||
-       COALESCE(koza.appartementsrechtvolgnummer::text, '')                                                  AS aanduiding2,
-       koza.sectie                                                                                           AS sectie,
-       koza.perceelnummer                                                                                    AS perceelnummer,
-       koza.appartementsrechtvolgnummer                                                                      AS appartementsindex,
-       koza.akrkadastralegemeentecode                                                                        AS gemeentecode,
+       COALESCE(koza.appartementsrechtvolgnummer::text, '') AS aanduiding2,
+       koza.sectie                                          AS sectie,
+       koza.perceelnummer                                   AS perceelnummer,
+       koza.appartementsrechtvolgnummer                     AS appartementsindex,
+       koza.akrkadastralegemeente                           AS gemeentecode,
        qry.soortgrootte,
        qry.kadastralegrootte,
-       NULL                                                                                                  AS deelperceelnummer,
-       NULL                                                                                                  AS omschr_deelperceel,
-       koza.aard_cultuur_onbebouwd                                                                           AS aard_cultuur_onbebouwd,
-       koza.koopsom_bedrag                                                                                   AS bedrag,
-       koza.koopsom_koopjaar                                                                                 AS koopjaar,
-       koza.koopsom_indicatiemeerobjecten                                                                    AS meer_onroerendgoed,
-       koza.koopsom_valuta                                                                                   AS valutasoort,
+       NULL                                                 AS deelperceelnummer,
+       NULL                                                 AS omschr_deelperceel,
+       koza.aard_cultuur_onbebouwd                          AS aard_cultuur_onbebouwd,
+       koza.koopsom_bedrag                                  AS bedrag,
+       koza.koopsom_koopjaar                                AS koopjaar,
+       koza.koopsom_indicatiemeerobjecten                   AS meer_onroerendgoed,
+       koza.koopsom_valuta                                  AS valutasoort,
        -- TODO BRK adres?
-       NULL                                                                                                  AS loc_omschr,
-       kozhr.onroerendezaak                                                                                  AS overgegaan_in,
+       NULL                                                 AS loc_omschr,
+       kozhr.onroerendezaak                                 AS overgegaan_in,
        qry.begrenzing_perceel
 FROM (SELECT p_archief.identificatie,
              'perceel'
