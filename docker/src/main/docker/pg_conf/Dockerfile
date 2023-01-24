@@ -24,6 +24,7 @@ RUN set -eux; \
 
 COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql.sql", \
+      "bin_unzipped/db/brk/brk2.0_postgresql_views.sql", \
       "bin_unzipped/db/brk/brk2.0_commentaar.sql", \
       "bin_unzipped/db/topnl/postgres.sql", \
       "bin_unzipped/db/staging/create-brmo-persistence-postgresql.sql", \
