@@ -170,7 +170,9 @@ public class MaterializedViewsTest {
                 "brk.mb_kad_onrrnd_zk_adres",
                 "brk.mb_percelenkaart",
                 "brk.mb_zr_rechth",
-                "brk.mb_avg_zr_rechth"
+                "brk.mb_avg_zr_rechth",
+                "brk.mb_koz_rechth",
+                "brk.mb_avg_koz_rechth"
         );
 
         // alles lower-case (ORACLE!) en gesorteerd vergelijken
