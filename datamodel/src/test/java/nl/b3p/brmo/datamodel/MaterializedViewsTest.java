@@ -163,18 +163,23 @@ public class MaterializedViewsTest {
                 "mb_adresseerbaar_object_geometrie_bag",
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
-                "mb_koz_rechth_bag",
-                // brk 2 / postgres
-                "brk.mb_subject",
-                "brk.mb_avg_subject",
-                "brk.mb_kad_onrrnd_zk_adres",
-                "brk.mb_percelenkaart",
-                "brk.mb_zr_rechth",
-                "brk.mb_avg_zr_rechth",
-                "brk.mb_koz_rechth",
-                "brk.mb_avg_koz_rechth",
-                "brk.mb_kad_onrrnd_zk_archief"
+                "mb_koz_rechth_bag"
         );
+        if (this.isPostgis) {
+            views.addAll(Arrays.asList(
+                    // brk 2 / postgres
+                    "brk.mb_subject",
+                    "brk.mb_avg_subject",
+                    "brk.mb_kad_onrrnd_zk_adres",
+                    "brk.mb_percelenkaart",
+                    "brk.mb_zr_rechth",
+                    "brk.mb_avg_zr_rechth",
+                    "brk.mb_koz_rechth",
+                    "brk.mb_avg_koz_rechth",
+                    "brk.mb_kad_onrrnd_zk_archief"
+            ));
+        }
+
 
         // alles lower-case (ORACLE!) en gesorteerd vergelijken
         viewsFound.replaceAll(String::toLowerCase);
