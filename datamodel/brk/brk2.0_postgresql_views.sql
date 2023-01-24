@@ -38,7 +38,7 @@ CREATE MATERIALIZED VIEW mb_subject
              kvk_nummer
                 )
 AS
-SELECT (row_number() OVER ())::INTEGER                    AS objectid,
+SELECT row_number() OVER ()                               AS objectid,
        p.identificatie                                    AS subject_identif,
        p.soort                                            AS soort,
        np.geslachtsnaam                                   AS geslachtsnaam,
@@ -217,7 +217,7 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres
              lat,
              begrenzing_perceel)
 AS
-SELECT (row_number() OVER ())::INTEGER                                                                 AS objectid,
+SELECT row_number() OVER ()                                                                            AS objectid,
        o.identificatie                                                                                 AS koz_identif,
        o.begingeldigheid::text                                                                         AS begin_geldigheid,
        o.begingeldigheid                                                                               AS begin_geldigheid_datum,
@@ -365,7 +365,7 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
 
 
 CREATE MATERIALIZED VIEW mb_percelenkaart AS
-SELECT row_number() OVER ()::integer                                           AS objectid,
+SELECT row_number() OVER ()                                                    AS objectid,
        o.identificatie                                                         AS koz_identif,
        o.begingeldigheid::text                                                 AS begin_geldigheid,
        o.begingeldigheid                                                       AS begin_geldigheid_datum,
@@ -475,3 +475,257 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
 --          left join stuk s2 on
 --     s2.identificatie = s.deelvan
 -- where r.aard = 'Eigendom (recht van)';
+
+CREATE OR REPLACE VIEW
+    vb_util_zk_recht
+            (
+             zr_identif,
+             ingangsdatum_recht,
+             aandeel,
+             ar_teller,
+             ar_noemer,
+             subject_identif,
+             koz_identif,
+             indic_betrokken_in_splitsing,
+             omschr_aard_verkregen_recht,
+             fk_3avr_aand,
+             aantekeningen
+                )
+AS
+SELECT zakrecht.identificatie                                                        AS zr_identif,
+       zakrecht.begingeldigheid,
+       ((COALESCE((tenaamstelling.aandeel_teller)::text, ('0'::CHARACTER VARYING)::text) || ('/'::CHARACTER VARYING)::
+           text) || COALESCE((tenaamstelling.aandeel_noemer)::text,
+                             ('0'::CHARACTER VARYING)::text))::CHARACTER VARYING(20) AS aandeel,
+       tenaamstelling.aandeel_teller                                                 AS ar_teller,
+       tenaamstelling.aandeel_noemer                                                 AS ar_noemer,
+       tenaamstelling.tennamevan                                                     AS subject_identif,
+       zakrecht.rustop                                                               AS koz_identif,
+       (zakrecht.isbetrokkenbij is not null)::bool                                   AS indic_betrokken_in_splitsing,
+       zakrecht.aard                                                                 AS omschr_aard_verkregen_recht,
+       zakrecht.aard                                                                 AS fk_3avr_aand,
+       array_to_string(
+               (SELECT array_agg(('id: ' || aantekening.identificatie || ', ' ||
+                                  'aard: ' || COALESCE(aantekening.aard, '') || ', ' ||
+                                  'begin: ' || COALESCE(aantekening.begingeldigheid::text, '') || ', ' ||
+                                  'beschrijving: ' || COALESCE(aantekening.omschrijving, '') || ', ' ||
+                                  'eind: ' || COALESCE(aantekening.einddatum::text, '') || ', ' ||
+                                  'koz-id: ' || COALESCE(aantekening.aantekeningkadastraalobject, '') || ', ' ||
+                                  'subject-id: ' || COALESCE(aantekening.betrokkenpersoon, '') || '; '))
+                FROM recht aantekening
+                WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop),
+               ' & ')                                                                AS aantekeningen
+FROM recht zakrecht
+         JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
+WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
+
+COMMENT ON VIEW vb_util_zk_recht IS
+    'commentaar view vb_util_zk_recht:
+    zakelijk recht met opgezocht aard recht en berekend aandeel
+
+    beschikbare kolommen:
+    * zr_identif: natuurlijke id van zakelijk recht
+    * ingangsdatum_recht: -
+    * aandeel: samenvoeging van teller en noemer (1/2),
+    * ar_teller: teller van aandeel,
+    * ar_noemer: noemer van aandeel,
+    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+    * indic_betrokken_in_splitsing: -,
+    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+    * fk_3avr_aand: code aard recht,
+    * aantekeningen: samenvoeging van alle aantekening op dit recht
+    ';
+
+
+
+CREATE MATERIALIZED VIEW mb_zr_rechth
+            (
+             objectid,
+             zr_identif,
+             ingangsdatum_recht,
+             subject_identif,
+             koz_identif,
+             aandeel,
+             omschr_aard_verkregen_recht,
+             indic_betrokken_in_splitsing,
+             aantekeningen,
+             soort,
+             geslachtsnaam,
+             voorvoegsel,
+             voornamen,
+             aand_naamgebruik,
+             geslachtsaand,
+             naam,
+             woonadres,
+             geboortedatum,
+             geboorteplaats,
+             overlijdensdatum,
+             bsn,
+             organisatie_naam,
+             rechtsvorm,
+             statutaire_zetel,
+             rsin,
+             kvk_nummer
+                )
+AS
+SELECT row_number() OVER () AS objectid,
+       uzr.zr_identif,
+       uzr.ingangsdatum_recht,
+       uzr.subject_identif,
+       uzr.koz_identif,
+       uzr.aandeel,
+       uzr.omschr_aard_verkregen_recht,
+       uzr.indic_betrokken_in_splitsing,
+       uzr.aantekeningen,
+       persoon.soort,
+       persoon.geslachtsnaam,
+       persoon.voorvoegsel,
+       persoon.voornamen,
+       persoon.aand_naamgebruik,
+       persoon.geslachtsaand,
+       persoon.naam,
+       persoon.woonadres,
+       persoon.geboortedatum,
+       persoon.geboorteplaats,
+       persoon.overlijdensdatum,
+       persoon.bsn,
+       persoon.organisatie_naam,
+       persoon.rechtsvorm,
+       persoon.statutaire_zetel,
+       persoon.rsin,
+       persoon.kvk_nummer
+FROM vb_util_zk_recht uzr
+         JOIN mb_subject persoon ON uzr.subject_identif = persoon.subject_identif
+WITH NO DATA;
+
+CREATE UNIQUE INDEX mb_zr_rechth_objectid ON mb_zr_rechth USING btree (objectid);
+CREATE INDEX mb_zr_rechth_identif ON mb_zr_rechth USING btree (zr_identif);
+
+COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
+    'commentaar view mb_zr_rechth:
+    alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
+
+    beschikbare kolommen:
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * zr_identif: natuurlijke id van zakelijk recht,
+    * ingangsdatum_recht: -
+    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+    * aandeel: samenvoeging van teller en noemer (1/2),
+    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+    * indic_betrokken_in_splitsing: -,
+    * aantekeningen: samenvoeging van alle aantekeningen voor dit recht,
+    * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+    * geslachtsnaam: -
+    * voorvoegsel: -
+    * voornamen: -
+    * aand_naamgebruik: -
+    * geslachtsaand: M/V/X
+    * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
+    * woonadres: meegeleverd adres buiten BAG koppeling om
+    * geboortedatum: -
+    * geboorteplaats: -
+    * overlijdensdatum: -
+    * bsn: -
+    * organisatie_naam: naam niet natuurlijk subject
+    * rechtsvorm: -
+    * statutaire_zetel: -
+    * rsin: -
+    * kvk_nummer: -';
+
+
+CREATE MATERIALIZED VIEW mb_avg_zr_rechth
+            (
+             objectid,
+             zr_identif,
+             ingangsdatum_recht,
+             subject_identif,
+             koz_identif,
+             aandeel,
+             omschr_aard_verkregen_recht,
+             indic_betrokken_in_splitsing,
+             aantekeningen,
+             soort,
+             geslachtsnaam,
+             voorvoegsel,
+             voornamen,
+             aand_naamgebruik,
+             geslachtsaand,
+             naam,
+             woonadres,
+             geboortedatum,
+             geboorteplaats,
+             overlijdensdatum,
+             bsn,
+             organisatie_naam,
+             rechtsvorm,
+             statutaire_zetel,
+             rsin,
+             kvk_nummer
+                )
+AS
+SELECT row_number() OVER () AS objectid,
+       uzr.zr_identif       as zr_identif,
+       uzr.ingangsdatum_recht,
+       uzr.subject_identif,
+       uzr.koz_identif,
+       uzr.aandeel,
+       uzr.omschr_aard_verkregen_recht,
+       uzr.indic_betrokken_in_splitsing,
+       uzr.aantekeningen,
+       avgpersoon.soort,
+       avgpersoon.geslachtsnaam,
+       avgpersoon.voorvoegsel,
+       avgpersoon.voornamen,
+       avgpersoon.aand_naamgebruik,
+       avgpersoon.geslachtsaand,
+       avgpersoon.naam,
+       avgpersoon.woonadres,
+       avgpersoon.geboortedatum,
+       avgpersoon.geboorteplaats,
+       avgpersoon.overlijdensdatum,
+       avgpersoon.bsn,
+       avgpersoon.organisatie_naam,
+       avgpersoon.rechtsvorm,
+       avgpersoon.statutaire_zetel,
+       avgpersoon.rsin,
+       avgpersoon.kvk_nummer
+FROM vb_util_zk_recht uzr
+         JOIN mb_avg_subject avgpersoon ON uzr.subject_identif = avgpersoon.subject_identif
+WITH NO DATA;
+
+CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth USING btree (objectid);
+CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth USING btree (zr_identif);
+
+COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
+    'commentaar view mb_avg_zr_rechth:
+    alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
+
+    beschikbare kolommen:
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * zr_identif: natuurlijke id van zakelijk recht,
+    * ingangsdatum_recht: -,
+    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+    * aandeel: samenvoeging van teller en noemer (1/2),
+    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+    * indic_betrokken_in_splitsing: -,
+    * aantekeningen: samenvoeging van alle aantekeningen van dit recht
+    * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+    * geslachtsnaam: NULL (avg)
+    * voorvoegsel: NULL (avg)
+    * voornamen: NULL (avg)
+    * aand_naamgebruik: NULL (avg)
+    * geslachtsaand:NULL (avg)
+    * naam: gelijk aan organisatie_naam
+    * woonadres: NULL (avg)
+    * geboortedatum: NULL (avg)
+    * geboorteplaats: NULL (avg)
+    * overlijdensdatum: NULL (avg)
+    * bsn: NULL (avg)
+    * organisatie_naam: naam niet natuurlijk subject
+    * rechtsvorm: -
+    * statutaire_zetel: -
+    * rsin: -
+    * kvk_nummer: -';

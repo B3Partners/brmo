@@ -174,7 +174,7 @@ COMMENT ON COLUMN recht.jaarlijksbedragbetreftmeerdere_oz IS 'Betreft meer onroe
 COMMENT ON COLUMN recht.einddatumafkoop IS 'Erfpachtcanon afkoop, dit is niet hetzelfde als de historievelden in Voorkomen.';
 COMMENT ON COLUMN recht.indicatieoudeonroerendezaakbetrokken IS 'Met deze indicatie wordt aangegeven dat de erfpacht oorspronkelijk gevestigd is bij een perceel dat later is verenigd met een ander perceel.';
 COMMENT ON COLUMN recht.heefthoofdzaak IS 'Een Hoofdzaak is een onroerende zaak die een (aandeel in) een mandeligheid omvat.';
-COMMENT ON COLUMN recht.heeftverenigingvaneigenaren IS '';
+COMMENT ON COLUMN recht.heeftverenigingvaneigenaren IS '-';
 COMMENT ON COLUMN recht.aandeel_teller IS 'Het aantal delen. Aandeel in Recht is het aandeel waarvoor een persoon deelneemt in het Recht.';
 COMMENT ON COLUMN recht.aandeel_noemer IS 'De noemer van het deel. Aandeel in Recht is het aandeel waarvoor een persoon deelneemt in het Recht.';
 COMMENT ON COLUMN recht.burgerlijkestaattentijdevanverkrijging IS 'Burgerlijke staat tijdens verkrijging is een aanduiding voor de leefvorm van een persoon, zoals deze volgens het brondocument ten tijde van de verkrijging van het recht bestond.';
