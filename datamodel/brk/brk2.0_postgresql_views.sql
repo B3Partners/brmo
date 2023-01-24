@@ -1,20 +1,6 @@
 SET SCHEMA 'brk';
 SET search_path = brk,public;
 
--- TODO evt nog toevoegen:
---      p.beschikkingsbevoegdheid
---      p.indicatieniettoonbarediakriet
---      p.postlocatie
---      np.indicatieoverleden
---      np.indicatieafschermingpersoonsgegevens
---      np.adellijketitelofpredicaat
---      np.landwaarnaarvertrokken
---      np.geboorteland
---      np.indicatiegeheim
---      np.partnergeslachtsnaam
---      np.partnervoornamen
---      np.partnervoorvoegselsgeslachtsnaam
---      a.postcode
 CREATE MATERIALIZED VIEW mb_subject
             (
              objectid,
@@ -221,7 +207,7 @@ SELECT row_number() OVER ()                                                     
        o.identificatie                                                                                 AS koz_identif,
        o.begingeldigheid::text                                                                         AS begin_geldigheid,
        o.begingeldigheid                                                                               AS begin_geldigheid_datum,
-       -- TODO koppling BAG
+       -- koppeling met BAG
        NULL                                                                                            AS benoemdobj_identif,
        qry.type                                                                                        AS type,
        COALESCE(o.sectie, '') || ' ' || COALESCE(o.perceelnummer::text, '')                            AS aanduiding,
@@ -239,14 +225,14 @@ SELECT row_number() OVER ()                                                     
        -- bestaat niet
        NULL                                                                                            AS omschr_deelperceel,
        -- TODO verkoop datum uit stukdeel via recht
-       null                                                                                            AS verkoop_datum,
+       NULL                                                                                            AS verkoop_datum,
        o.aard_cultuur_onbebouwd                                                                        AS aard_cultuur_onbebouwd,
        o.koopsom_bedrag                                                                                AS bedrag,
        o.koopsom_koopjaar                                                                              AS koopjaar,
        o.koopsom_indicatiemeerobjecten                                                                 AS meer_onroerendgoed,
        o.koopsom_valuta                                                                                AS valutasoort,
        -- TODO BRK adres?
-       null                                                                                            AS loc_omschr,
+       NULL                                                                                            AS loc_omschr,
 --       (
 --        (
 --            (select count(objloc.heeft) from objectlocatie objloc where o.identificatie = objloc.heeft)  )::text || ' meer adressen'
@@ -261,28 +247,28 @@ SELECT row_number() OVER ()                                                     
                                   'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; '))
                 FROM recht r
                 WHERE r.aantekeningkadastraalobject = o.identificatie), ' & ')                         AS aantekeningen,
-       -- TODO koppling BAG
-       null                                                                                            AS na_identif,
-       -- TODO koppling BAG
-       null                                                                                            AS na_status,
-       -- TODO koppling BAG
-       null                                                                                            AS gemeente,
-       -- TODO koppling BAG
-       null                                                                                            AS woonplaats,
-       -- TODO koppling BAG
-       null                                                                                            AS straatnaam,
-       -- TODO koppling BAG
-       null                                                                                            AS huisnummer,
-       -- TODO koppling BAG
-       null                                                                                            AS huisletter,
-       -- TODO koppling BAG
-       null                                                                                            AS huisnummer_toev,
-       -- TODO koppling BAG
-       null                                                                                            AS postcode,
-       -- TODO koppling BAG
-       null                                                                                            AS gebruiksdoelen,
-       -- TODO koppling BAG
-       null                                                                                            AS oppervlakte_obj,
+       -- koppeling met BAG
+       NULL                                                                                            AS na_identif,
+       -- koppeling met BAG
+       NULL                                                                                            AS na_status,
+       -- koppeling met BAG
+       NULL                                                                                            AS gemeente,
+       -- koppeling met BAG
+       NULL                                                                                            AS woonplaats,
+       -- koppeling met BAG
+       NULL                                                                                            AS straatnaam,
+       -- koppeling met BAG
+       NULL                                                                                            AS huisnummer,
+       -- koppeling met BAG
+       NULL                                                                                            AS huisletter,
+       -- koppeling met BAG
+       NULL                                                                                            AS huisnummer_toev,
+       -- koppeling met BAG
+       NULL                                                                                            AS postcode,
+       -- koppeling met BAG
+       NULL                                                                                            AS gebruiksdoelen,
+       -- koppeling met BAG
+       NULL                                                                                            AS oppervlakte_obj,
        st_x(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lon,
        st_y(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lat,
        qry.begrenzing_perceel                                                                          AS begrenzing_perceel
@@ -492,18 +478,17 @@ CREATE OR REPLACE VIEW
              aantekeningen
                 )
 AS
-SELECT zakrecht.identificatie                                                        AS zr_identif,
+SELECT zakrecht.identificatie                                               AS zr_identif,
        zakrecht.begingeldigheid,
-       ((COALESCE((tenaamstelling.aandeel_teller)::text, ('0'::CHARACTER VARYING)::text) || ('/'::CHARACTER VARYING)::
-           text) || COALESCE((tenaamstelling.aandeel_noemer)::text,
-                             ('0'::CHARACTER VARYING)::text))::CHARACTER VARYING(20) AS aandeel,
-       tenaamstelling.aandeel_teller                                                 AS ar_teller,
-       tenaamstelling.aandeel_noemer                                                 AS ar_noemer,
-       tenaamstelling.tennamevan                                                     AS subject_identif,
-       zakrecht.rustop                                                               AS koz_identif,
-       (zakrecht.isbetrokkenbij is not null)::bool                                   AS indic_betrokken_in_splitsing,
-       zakrecht.aard                                                                 AS omschr_aard_verkregen_recht,
-       zakrecht.aard                                                                 AS fk_3avr_aand,
+       ((COALESCE((tenaamstelling.aandeel_teller)::text, ('0')::text) || ('/')::
+           text) || COALESCE((tenaamstelling.aandeel_noemer)::text, ('0'))) AS aandeel,
+       tenaamstelling.aandeel_teller                                        AS ar_teller,
+       tenaamstelling.aandeel_noemer                                        AS ar_noemer,
+       tenaamstelling.tennamevan                                            AS subject_identif,
+       zakrecht.rustop                                                      AS koz_identif,
+       (zakrecht.isbetrokkenbij is not NULL)::bool                          AS indic_betrokken_in_splitsing,
+       zakrecht.aard                                                        AS omschr_aard_verkregen_recht,
+       zakrecht.aard                                                        AS fk_3avr_aand,
        array_to_string(
                (SELECT array_agg(('id: ' || aantekening.identificatie || ', ' ||
                                   'aard: ' || COALESCE(aantekening.aard, '') || ', ' ||
@@ -514,7 +499,7 @@ SELECT zakrecht.identificatie                                                   
                                   'subject-id: ' || COALESCE(aantekening.betrokkenpersoon, '') || '; '))
                 FROM recht aantekening
                 WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop),
-               ' & ')                                                                AS aantekeningen
+               ' & ')                                                       AS aantekeningen
 FROM recht zakrecht
          JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
 WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
@@ -1114,3 +1099,135 @@ COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     * lat: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak
     ';
+
+
+
+CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_archief
+            (
+             objectid,
+             koz_identif,
+             begin_geldigheid,
+             begin_geldigheid_datum,
+             eind_geldigheid,
+             eind_geldigheid_datum,
+             type,
+             aanduiding,
+             aanduiding2,
+             sectie,
+             perceelnummer,
+             appartementsindex,
+             gemeentecode,
+             aand_soort_grootte,
+             grootte_perceel,
+             deelperceelnummer,
+             omschr_deelperceel,
+             aard_cultuur_onbebouwd,
+             bedrag,
+             koopjaar,
+             meer_onroerendgoed,
+             valutasoort,
+             loc_omschr,
+             overgegaan_in,
+             begrenzing_perceel
+                )
+AS
+SELECT row_number() OVER ()                                                                                  AS objectid,
+       qry.identificatie                                                                                     as koz_identif,
+       koza.begingeldigheid::text                                                                            AS begin_geldigheid,
+       koza.begingeldigheid                                                                                  AS begin_geldigheid_datum,
+       koza.eindegeldigheid::text                                                                            AS eind_geldigheid,
+       koza.eindegeldigheid                                                                                  AS eind_geldigheid_datum,
+       qry.type,
+       COALESCE(koza.sectie, '') || ' ' ||
+       COALESCE(koza.perceelnummer::text, '')                                                                AS aanduiding,
+       COALESCE(koza.akrkadastralegemeente, '') || ' ' || COALESCE(koza.sectie, '') || ' ' ||
+       COALESCE(koza.perceelnummer::text, '') || ' ' ||
+       COALESCE(koza.appartementsrechtvolgnummer::text, '')                                                  AS aanduiding2,
+       koza.sectie                                                                                           AS sectie,
+       koza.perceelnummer                                                                                    AS perceelnummer,
+       koza.appartementsrechtvolgnummer                                                                      AS appartementsindex,
+       koza.akrkadastralegemeentecode                                                                        AS gemeentecode,
+       qry.soortgrootte,
+       qry.kadastralegrootte,
+       NULL                                                                                                  AS deelperceelnummer,
+       NULL                                                                                                  AS omschr_deelperceel,
+       koza.aard_cultuur_onbebouwd                                                                           AS aard_cultuur_onbebouwd,
+       koza.koopsom_bedrag                                                                                   AS bedrag,
+       koza.koopsom_koopjaar                                                                                 AS koopjaar,
+       koza.koopsom_indicatiemeerobjecten                                                                    AS meer_onroerendgoed,
+       koza.koopsom_valuta                                                                                   AS valutasoort,
+       -- TODO BRK adres?
+       NULL                                                                                                  AS loc_omschr,
+       kozhr.onroerendezaak                                                                                  AS overgegaan_in,
+       qry.begrenzing_perceel
+FROM (SELECT p_archief.identificatie,
+             'perceel'
+                 AS type,
+             p_archief.begingeldigheid,
+             p_archief.soortgrootte,
+             p_archief.kadastralegrootte,
+             p_archief.begrenzing_perceel,
+             p_archief.plaatscoordinaten
+      FROM perceel_archief p_archief
+      UNION ALL
+      SELECT a_archief.identificatie,
+             'appartement'
+                 AS type,
+             a_archief.begingeldigheid,
+             NULL
+                 AS soortgrootte,
+             NULL
+                 AS kadastralegrootte,
+             NULL
+                 AS begrenzing_perceel,
+             NULL
+                 AS plaatscoordinaten
+      FROM appartementsrecht_archief a_archief) qry
+         JOIN onroerendezaak_archief koza
+              ON koza.identificatie = qry.identificatie AND qry.begingeldigheid = koza.begingeldigheid
+         JOIN (SELECT ikoza.identificatie, MAX(ikoza.begingeldigheid) bdate
+               FROM onroerendezaak_archief ikoza
+               GROUP BY ikoza.identificatie) nqry
+              ON nqry.identificatie = koza.identificatie AND nqry.bdate = koza.begingeldigheid
+         LEFT JOIN onroerendezaakfiliatie_archief kozhr ON kozhr.betreft = koza.identificatie
+WITH NO DATA;
+
+CREATE UNIQUE INDEX mb_kad_onrrnd_zk_archief_objectid ON mb_kad_onrrnd_zk_archief USING btree (objectid);
+CREATE INDEX mb_kad_onrrnd_zk_archief_identif ON mb_kad_onrrnd_zk_archief USING btree (koz_identif);
+CREATE INDEX mb_kad_onrrnd_zk_archief_begrenzing_perceel_idx ON mb_kad_onrrnd_zk_archief USING gist (begrenzing_perceel);
+CREATE INDEX mb_kad_onrrnd_zk_archief_overgegaan_in_idx ON mb_kad_onrrnd_zk_archief USING btree (overgegaan_in);
+
+COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_archief IS
+    'commentaar view mb_kad_onrrnd_zk_archief:
+    Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
+
+    beschikbare kolommen:
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * koz_identif: natuurlijke id van perceel of appartementsrecht
+    * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * eind_geldigheid: datum wanneer dit object ongeldig geworden is,
+    * eind_geldigheid_datum: datum wanneer dit object ongeldig geworden is,
+    * benoemdobj_identif: koppeling met BAG object,
+    * type: perceel of appartement,
+    * sectie: -,
+    * aanduiding: sectie perceelnummer,
+    * aanduiding2: kadgem sectie perceelnummer appartementsindex,
+    * perceelnummer: -,
+    * appartementsindex: -,
+    * gemeentecode: -,
+    * aand_soort_grootte: -,
+    * grootte_perceel: -,
+    * deelperceelnummer: -,
+    * omschr_deelperceel: -,
+    * aard_cultuur_onbebouwd: -,
+    * bedrag: -,
+    * koopjaar: -,
+    * meer_onroerendgoed: -,
+    * valutasoort: -,
+    * loc_omschr: adres buiten BAG om meegegeven,
+    * overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
+    * begrenzing_perceel: perceelvlak
+    ';
+
+

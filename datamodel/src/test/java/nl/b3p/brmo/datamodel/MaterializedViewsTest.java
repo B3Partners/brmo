@@ -164,7 +164,7 @@ public class MaterializedViewsTest {
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
                 "mb_koz_rechth_bag",
-                // brk 2
+                // brk 2 / postgres
                 "brk.mb_subject",
                 "brk.mb_avg_subject",
                 "brk.mb_kad_onrrnd_zk_adres",
@@ -172,7 +172,8 @@ public class MaterializedViewsTest {
                 "brk.mb_zr_rechth",
                 "brk.mb_avg_zr_rechth",
                 "brk.mb_koz_rechth",
-                "brk.mb_avg_koz_rechth"
+                "brk.mb_avg_koz_rechth",
+                "brk.mb_kad_onrrnd_zk_archief"
         );
 
         // alles lower-case (ORACLE!) en gesorteerd vergelijken
