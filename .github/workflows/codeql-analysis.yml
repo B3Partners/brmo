@@ -57,7 +57,7 @@ jobs:
       - name: 'Perform CodeQL Analysis'
         uses: github/codeql-action/analyze@v2
         with:
-          category: "language:${{ matrix.language }}"
+          category: "/language:${{ matrix.language }}"
           upload: false
           output: 'sarif-results'
 
@@ -78,7 +78,7 @@ jobs:
           sarif_file: "sarif-results/${{ matrix.language }}.sarif"
 
       - name: 'Upload loc as a Build Artifact'
-        uses: actions/upload-artifact@v2.2.0
+        uses: actions/upload-artifact@v3
         with:
           name: 'sarif-results'
           path: 'sarif-results'
