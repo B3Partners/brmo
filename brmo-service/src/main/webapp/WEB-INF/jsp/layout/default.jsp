@@ -9,6 +9,10 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <link rel="stylesheet" type="text/css" href="${contextPath}/styles/main.css" />
             <link rel="stylesheet" type="text/css" href="${contextPath}/extjs/resources/css/crisp/ext-theme-crisp-all.css">
+            <link rel="icon" type="image/png" sizes="32x32" href="${contextPath}/images/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="${contextPath}/images/favicon-16x16.png">
+            <link rel="icon" type="image/x-icon" href="${contextPath}/images/favicon.ico">
+            <link rel="shortcut icon" type="image/x-icon" href="${contextPath}/images/favicon.ico">
             <script type="text/javascript" src="${contextPath}/extjs/ext-all.js"></script>
             <stripes:layout-component name="html_head"/>
         </head>

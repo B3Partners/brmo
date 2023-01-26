@@ -70,8 +70,8 @@ opties die je kan gebruiken, probeer bijvoorbeeld `download initial --help` of `
 ## Database voorbereiding
 
 Een database is vereist voordat de BGT kan worden geladen. De volgende databases worden ondersteund:
-- [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 10 met PostGIS 2.5 t/m versie 14 met PostGIS 3.2
-- Oracle Spatial 18g en 21c
+- [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 11 t/m versie 15 met PostGIS 3.3
+- Oracle Spatial 21XE, 19c en 21c
 
 Andere versies werken mogelijk ook.
 
