@@ -1,7 +1,7 @@
 # BRMO docker
 
 Een project om een dockerfile te maken met daarin een Tomcat instantie waarin :
-- brmo-service (http://localhost:8080/brmo-service/)
+- brmo-service als ROOT applicatie (http://localhost:8080/)
 - postgis database
 
 ## build
@@ -45,7 +45,7 @@ update gebruiker_ set wachtwoord = '<HASH>' where gebruikersnaam = 'brmo';
 Kopieer grote stand files naar het `brmo-service_brmo-data` volume, bijvoorbeeld:
 
 ```shell
-docker cp /opt/data/brk/brk2-stand.zip brmo-service-brmo-1:/opt/brmo-data/brk2-stand.zip
+docker cp /opt/data/brk/brk2-stand.zip brmo-service-brmo-1:/opt/brmo-data/BRK/brk2-stand.zip
 ``` 
 
 Gebruik daarna de webinterface om het bestand in de staging te laden en te transformeren

@@ -66,8 +66,8 @@ bijvoorbeeld `load --help`.
 ## Database voorbereiding
 
 Een database is vereist voordat de BAG kan worden geladen. De volgende databases worden ondersteund:
-- [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 9.6 met PostGIS 2.5 t/m versie 13 met PostGIS 3.1
-- Oracle Spatial 18g
+- [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 11 t/m versie 15 met PostGIS 3.3
+- Oracle Spatial 21XE en 19c
 
 Let op dat de BAG van heel Nederland niet past binnen de database limiet van 12 GB van de Express Edition van Oracle, 
 maar een enkele gemeente(s) zal wel lukken.

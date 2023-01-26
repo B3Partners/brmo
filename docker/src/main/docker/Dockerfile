@@ -26,7 +26,8 @@ LABEL org.opencontainers.image.authors="support@b3partners.nl" \
 SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
 RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && mkdir -p /opt/brmo-data/BAG/ \
-    && mkdir -p /opt/brmo-data/BRK/ \
+    && mkdir -p /opt/brmo-data/BGT/ \
+    && mkdir -p /opt/brmo-data/BRK/berichtendump \
     && mkdir -p /opt/brmo-data/TOPNL/Top10NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top50NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top100NL/ \
@@ -44,7 +45,7 @@ RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/t
 
 # kopieer webapp en jdni libs in tomcat directories
 # maven zorgt ervoor dat deze worden neergezet
-COPY bin_unzipped/wars/brmo-service.war /usr/local/tomcat/webapps/
+COPY bin_unzipped/wars/brmo-service.war /usr/local/tomcat/webapps/ROOT.war
 COPY bin_unzipped/drivers/pgsql/*.jar /usr/local/tomcat/lib/
 
 # sla de SQL scripts op in de image om evt. database aan te kunnen maken

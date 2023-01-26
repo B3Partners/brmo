@@ -10,32 +10,32 @@
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/staging" password="${DB_PASS_STAGING}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/staging" username="staging"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/staging?sslmode=allow" username="staging"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgb" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=allow" username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbrk" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?currentSchema=brk" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?currentSchema=brk&amp;sslmode=allow" username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbag" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=disable&amp;reWriteBatchedInserts=true" username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbgt" password="${DB_PASS_RSGBBGT}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgbbgt" username="rsgbbgt"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgbbgt?sslmode=disable&amp;reWriteBatchedInserts=true" username="rsgbbgt"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbtopnl" password="${DB_PASS_TOPNL}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/topnl" username="topnl"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/topnl?sslmode=disable&amp;reWriteBatchedInserts=true" username="topnl"
                   validationQuery="select 1"/>
         <Environment name="brmo/nhr/active" value="false" type="java.lang.Boolean" />
         <Resource name="mail/session"
@@ -51,7 +51,9 @@
                   pathname="conf/tomcat-users.xml"/>
     </GlobalNamingResources>
     <Service name="Catalina">
-        <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443"/>
+        <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443">
+            <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        </Connector>
         <Engine name="Catalina" defaultHost="localhost">
             <Realm className="org.apache.catalina.realm.LockOutRealm">
                 <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
