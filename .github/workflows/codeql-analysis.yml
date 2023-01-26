@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request: # The branches below must be a subset of the branches above
     branches: [ master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
   schedule:
     - cron: '0 22 * * 6'
 
@@ -54,8 +57,33 @@ jobs:
       - name: 'Perform CodeQL Analysis'
         uses: github/codeql-action/analyze@v2
         with:
-         category: "/language:${{matrix.language}}"
-        
+          category: "/language:${{ matrix.language }}"
+          upload: false
+          output: 'sarif-results'
+
+      - name: 'Filter sarif files'
+        uses: advanced-security/filter-sarif@v1
+        with:
+          # filter out all these files unless they contain a sql-injection vulnerability
+          # https://josh-ops.com/posts/github-codeql-ignore-files/
+          patterns: |
+            -**/extjs/*.js
+            -**/*Test*.java
+          input: "sarif-results/${{ matrix.language }}.sarif"
+          output: "sarif-results/${{ matrix.language }}.sarif"
+
+      - name: 'Upload sarif files'
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "sarif-results/${{ matrix.language }}.sarif"
+
+      - name: 'Upload loc as a Build Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'sarif-results'
+          path: 'sarif-results'
+          retention-days: 1
+
       - name: 'Cleanup build artifacts'
         run: |
           mvn clean build-helper:remove-project-artifact
