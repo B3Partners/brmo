@@ -190,7 +190,7 @@ CREATE TABLE adres
 (
     identificatie        VARCHAR(255) PRIMARY KEY NOT NULL,
     -- adres binnenland
-    huisnummer           NUMERIC(4, 0),
+    huisnummer           NUMERIC(5, 0),
     huisletter           VARCHAR(1),
     huisnummertoevoeging VARCHAR(4),
     postbusnummer        NUMERIC(6, 0),

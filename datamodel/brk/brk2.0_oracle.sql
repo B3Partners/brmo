@@ -82,7 +82,7 @@ CREATE TABLE onroerendezaak_archief
 CREATE TABLE adres
 (
     identificatie        VARCHAR2(255) PRIMARY KEY NOT NULL,
-    huisnummer           NUMERIC(4, 0),
+    huisnummer           NUMERIC(5, 0),
     huisletter           VARCHAR2(1),
     huisnummertoevoeging VARCHAR2(4),
     postbusnummer        NUMERIC(6, 0),

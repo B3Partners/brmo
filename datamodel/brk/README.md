@@ -10,4 +10,6 @@ Met deze scripts kan het BRMO BRK 2.0 schema aangemaakt worden.
 Voor Oracle worden de scripts uitgevoerd in een user schema, bijv. BRK, 
 voor PostgreSQL worden de scripts uitgevoerd in het "brk" schema van de rsgb database.
 
-Meer details zijn beschikbaar in de installatie handleiding 
+Meer details zijn beschikbaar in de installatie handleiding: https://github.com/B3Partners/brmo/wiki/Installatiehandleiding
+
+
