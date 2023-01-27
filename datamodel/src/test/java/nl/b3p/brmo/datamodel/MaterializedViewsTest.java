@@ -90,7 +90,6 @@ public class MaterializedViewsTest {
         db = new DatabaseDataSourceConnection(ds, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
-            // db = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(db.getConnection()), params.getProperty(this.dbName + ".user").toUpperCase());
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             db.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
@@ -125,7 +124,7 @@ public class MaterializedViewsTest {
             naam = (String) metadata.getValue(i, "naam");
             LOG.debug(String.format("rsgb metadata tabel record: %d: naam: %s, waarde: %s", i, naam, waarde));
             if ("brmoversie".equalsIgnoreCase(naam)) {
-                assertEquals(currentVersion, waarde, "BRMO versinummer klopt niet");
+                assertEquals(currentVersion, waarde, "BRMO versienummer klopt niet");
                 foundVersion = true;
             }
         }
@@ -141,7 +140,6 @@ public class MaterializedViewsTest {
     public void testBasisMViews() throws SQLException {
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
         assertNotNull(viewsFound, "Geen materialized views gevonden");
-
 
         List<String> views = Stream.of(
                 // bag
@@ -167,6 +165,7 @@ public class MaterializedViewsTest {
                 "mb_kad_onrrnd_zk_adres_bag",
                 "mb_koz_rechth_bag"
         ).collect(Collectors.toList());
+
         if (this.isPostgis) {
             views.addAll(Arrays.asList(
                     // brk 2 / postgres
