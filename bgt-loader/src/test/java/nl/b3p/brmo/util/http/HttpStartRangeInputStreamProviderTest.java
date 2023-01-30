@@ -106,7 +106,7 @@ class HttpStartRangeInputStreamProviderTest {
         provider.get(123, 0, null).read();
         mockWebServer.takeRequest();
         RecordedRequest request = mockWebServer.takeRequest();
-        Assertions.assertEquals("something", request.getHeader("If-Range"));
+        Assertions.assertEquals("\"something\"", request.getHeader("If-Range"));
     }
 
     @Test
