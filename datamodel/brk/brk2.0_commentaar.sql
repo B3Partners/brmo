@@ -150,7 +150,7 @@ COMMENT ON COLUMN onroerendezaakbeperking.leidttot IS 'De publiekrechtelijkebepe
 
 
 COMMENT ON TABLE onroerendezaakfiliatie IS 'Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak. Het betreft hier de relatie tussen 2 percelen, 2 Appartementsrechten of 2 leidingnetwerken.';
-COMMENT ON COLUMN onroerendezaakfiliatie.aard IS 'Aard is een aanduiding voor de aard van de filiatie.';
+COMMENT ON COLUMN onroerendezaakfiliatie.aard IS 'Aard is een aanduiding voor de aard van de filiatie. Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere.';
 COMMENT ON COLUMN onroerendezaakfiliatie.onroerendezaak IS 'De ontstane onroerende zaak';
 COMMENT ON COLUMN onroerendezaakfiliatie.betreft IS 'De betreffende (bron) onroerende zaak.';
 COMMENT ON COLUMN onroerendezaakfiliatie.begingeldigheid IS 'BRMO: metadata tbv archivering, datum van bericht.';
