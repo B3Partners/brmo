@@ -60,6 +60,7 @@ public class Java11HttpClientWrapper
      *
      * @param requestBuilder The request that will be done, can be modified
      */
+    @Override
     public void beforeRequest(HttpRequest.Builder requestBuilder) {}
 
     /**
@@ -68,6 +69,7 @@ public class Java11HttpClientWrapper
      * @param response The received response to be wrapped
      * @return The wrapped response
      */
+    @Override
     public HttpResponseWrapper wrapResponse(HttpResponse<InputStream> response) {
         return new HttpResponseWrapper() {
             @Override

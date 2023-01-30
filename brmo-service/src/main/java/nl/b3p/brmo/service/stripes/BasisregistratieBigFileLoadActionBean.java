@@ -59,10 +59,12 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
         return new ForwardResolution("/WEB-INF/jsp/bestand/form.jsp");
     }
 
+    @Override
     public void total(long bytes) {
         this.totalBytes = bytes;
     }
 
+    @Override
     public void progress(long bytes) {
         this.processedBytes = bytes;
         this.progress = (100.0 / totalBytes) * this.processedBytes;
@@ -70,6 +72,7 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
         update = new Date();
     }
 
+    @Override
     public void exception(Throwable t) {}
 
     @WaitPage(path = "/WEB-INF/jsp/bestand/bigfile.jsp", delay = 1000, refresh = 1000)
@@ -106,10 +109,12 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

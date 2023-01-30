@@ -16,6 +16,7 @@ public class BAG2Object extends SchemaObjectInstance {
         super(objectType, attributes);
     }
 
+    @Override
     public BAG2ObjectType getObjectType() {
         return (BAG2ObjectType) super.getObjectType();
     }

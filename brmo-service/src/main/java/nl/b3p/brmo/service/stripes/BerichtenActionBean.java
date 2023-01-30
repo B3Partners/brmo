@@ -185,10 +185,12 @@ public class BerichtenActionBean implements ActionBean {
         };
     }
 
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

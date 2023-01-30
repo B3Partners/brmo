@@ -155,19 +155,23 @@ public class ConfigUtil implements Servlet {
         return datasourceTopNL;
     }
 
+    @Override
     public ServletConfig getServletConfig() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public void service(ServletRequest sr, ServletResponse sr1)
             throws ServletException, IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public String getServletInfo() {
         return "Servlet voor configuratie parameters in web.xml";
     }
 
+    @Override
     public void destroy() {
         // nothing
     }

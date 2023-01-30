@@ -453,6 +453,7 @@ public class BGTSchema extends Schema {
         return instance;
     }
 
+    @Override
     public Stream<BGTObjectType> getAllObjectTypes() {
         return (Stream<BGTObjectType>) super.getAllObjectTypes();
     }
@@ -465,6 +466,7 @@ public class BGTSchema extends Schema {
         return getAllObjectTypes().filter(BGTObjectType::isIMGeoPlusType);
     }
 
+    @Override
     public BGTObjectType getObjectTypeByName(String name) {
         return (BGTObjectType) super.getObjectTypeByName(name);
     }

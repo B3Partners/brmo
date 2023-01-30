@@ -32,6 +32,7 @@ public class NHRException extends BrmoException {
         message = errorList.toString();
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

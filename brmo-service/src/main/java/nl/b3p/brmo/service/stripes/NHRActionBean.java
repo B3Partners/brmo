@@ -373,10 +373,12 @@ public class NHRActionBean implements ActionBean {
         return json;
     }
 
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

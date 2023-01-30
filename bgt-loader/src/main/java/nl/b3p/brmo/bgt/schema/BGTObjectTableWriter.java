@@ -72,6 +72,7 @@ public class BGTObjectTableWriter extends ObjectTableWriter {
             return mutatieInhoud;
         }
 
+        @Override
         public BGTObjectTableWriter getWriter() {
             return BGTObjectTableWriter.this;
         }
@@ -82,6 +83,7 @@ public class BGTObjectTableWriter extends ObjectTableWriter {
         super(connection, dialect, schemaSQLMapper);
     }
 
+    @Override
     public BGTProgress getProgress() {
         return (BGTProgress) super.getProgress();
     }

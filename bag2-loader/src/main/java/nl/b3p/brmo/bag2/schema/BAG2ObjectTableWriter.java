@@ -58,6 +58,7 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
             return updatedCount;
         }
 
+        @Override
         public BAG2ObjectTableWriter getWriter() {
             return BAG2ObjectTableWriter.this;
         }
@@ -85,6 +86,7 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         return ignoreDuplicates;
     }
 
+    @Override
     public BAG2Progress getProgress() {
         return (BAG2Progress) super.getProgress();
     }
@@ -241,6 +243,7 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         return false;
     }
 
+    @Override
     public void complete() throws Exception {
         super.endOfObjects();
         for (QueryBatch batch : getProgress().deleteBatches.values()) {

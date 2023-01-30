@@ -146,6 +146,7 @@ public class NHRLoadUtils {
         props.put(
                 WSHandlerConstants.PW_CALLBACK_REF,
                 new CallbackHandler() {
+                    @Override
                     public void handle(Callback[] callbacks)
                             throws IOException, UnsupportedCallbackException {
                         for (Callback callback : callbacks) {

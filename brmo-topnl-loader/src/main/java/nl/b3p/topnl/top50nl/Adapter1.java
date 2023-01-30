@@ -14,10 +14,12 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class Adapter1 extends XmlAdapter<String, Calendar> {
 
+    @Override
     public Calendar unmarshal(String value) {
         return (javax.xml.bind.DatatypeConverter.parseDateTime(value));
     }
 
+    @Override
     public String marshal(Calendar value) {
         if (value == null) {
             return null;
