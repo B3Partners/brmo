@@ -466,3 +466,63 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
+
+
+
+CREATE OR REPLACE VIEW vb_util_zk_recht
+            (
+             zr_identif,
+             ingangsdatum_recht,
+             aandeel,
+             ar_teller,
+             ar_noemer,
+             subject_identif,
+             koz_identif,
+             indic_betrokken_in_splitsing,
+             omschr_aard_verkregenr_recht,
+             fk_3avr_aand,
+             aantekeningen
+                )
+AS
+SELECT zakrecht.identificatie                                            AS zr_identif,
+       zakrecht.begingeldigheid                                          AS ingangsdatum_recht,
+       COALESCE(TO_CHAR(tenaamstelling.aandeel_teller), '0') || '/' ||
+       COALESCE(TO_CHAR(tenaamstelling.aandeel_noemer), '0')             AS aandeel,
+       tenaamstelling.aandeel_teller                                     AS ar_teller,
+       tenaamstelling.aandeel_noemer                                     AS ar_noemer,
+       tenaamstelling.tennamevan                                         AS subject_identif,
+       zakrecht.rustop                                                   AS koz_identif,
+       CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
+       zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
+       zakrecht.aard                                                     AS fk_3avr_aand,
+       (SELECT LISTAGG(
+                           'id: ' || COALESCE(aantekening.identificatie, '') || ', '
+                           || 'aard: ' || COALESCE(aantekening.aard, '') || ', '
+                           || 'begin: ' || COALESCE(TO_CHAR(aantekening.begingeldigheid), '') || ', '
+                           || 'beschrijving: ' || COALESCE(aantekening.omschrijving, '') || ', '
+                           || 'eind: ' || COALESCE(TO_CHAR(aantekening.einddatum), '') || ', '
+                           || 'koz-id: ' || COALESCE(aantekening.aantekeningkadastraalobject, '') || ', '
+                           || 'subject-id: ' || COALESCE(aantekening.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
+                           TRUNCATE WITH COUNT)
+                           WITHIN GROUP ( ORDER BY aantekening.aantekeningkadastraalobject ) AS aantekeningen
+        FROM recht aantekening
+        WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop) AS aantekeningen
+FROM recht zakrecht
+         JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
+WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
+
+COMMENT ON TABLE vb_util_zk_recht IS
+    'commentaar view vb_util_zk_recht:
+    zakelijk recht met opgezocht aard recht en berekend aandeel
+    beschikbare kolommen:
+    * zr_identif: natuurlijke id van zakelijk recht
+    * ingangsdatum_recht: -
+    * aandeel: samenvoeging van teller en noemer (1/2),
+    * ar_teller: teller van aandeel,
+    * ar_noemer: noemer van aandeel,
+    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+    * indic_betrokken_in_splitsing: -,
+    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+    * fk_3avr_aand: code aard recht,
+    * aantekeningen: samenvoeging van alle aantekening op dit recht';

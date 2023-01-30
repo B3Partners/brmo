@@ -504,9 +504,8 @@ CREATE OR REPLACE VIEW
                 )
 AS
 SELECT zakrecht.identificatie                                               AS zr_identif,
-       zakrecht.begingeldigheid,
-       ((COALESCE((tenaamstelling.aandeel_teller)::text, ('0')::text) || ('/')::
-           text) || COALESCE((tenaamstelling.aandeel_noemer)::text, ('0'))) AS aandeel,
+       zakrecht.begingeldigheid AS ingangsdatum_recht,
+       COALESCE(tenaamstelling.aandeel_teller::text, '0') || '/'::text || COALESCE(tenaamstelling.aandeel_noemer::text, '0') AS aandeel,
        tenaamstelling.aandeel_teller                                        AS ar_teller,
        tenaamstelling.aandeel_noemer                                        AS ar_noemer,
        tenaamstelling.tennamevan                                            AS subject_identif,
