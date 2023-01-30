@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM eclipse-temurin:11.0.17_8-jre
+FROM eclipse-temurin:11.0.18_10-jre
 
 LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bag2-loader
 
