@@ -350,18 +350,43 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
 
 
 
-CREATE MATERIALIZED VIEW mb_percelenkaart AS
+CREATE MATERIALIZED VIEW mb_percelenkaart
+            (
+             objectid,
+             koz_identif,
+             begin_geldigheid,
+             begin_geldigheid_datum,
+             type,
+             aanduiding,
+             aanduiding2,
+             sectie,
+             perceelnummer,
+             gemeentecode,
+             aand_soort_grootte,
+             grootte_perceel,
+             oppervlakte_geom,
+             verkoop_datum,
+             aard_cultuur_onbebouwd,
+             bedrag,
+             koopjaar,
+             meer_onroerendgoed,
+             valutasoort,
+             aantekeningen,
+             lon,
+             lat,
+             begrenzing_perceel
+                )
+AS
 SELECT row_number() OVER ()                                                    AS objectid,
        o.identificatie                                                         AS koz_identif,
        o.begingeldigheid::text                                                 AS begin_geldigheid,
        o.begingeldigheid                                                       AS begin_geldigheid_datum,
-       qry.type,
+       qry.type                                                                AS type,
        COALESCE(o.sectie, '') || ' ' || COALESCE(o.perceelnummer::text, '')    AS aanduiding,
        COALESCE(o.akrkadastralegemeente, '') || ' ' || COALESCE(o.sectie, '') || ' ' ||
        COALESCE(o.perceelnummer::text, '')                                     AS aanduiding2,
        o.sectie                                                                AS sectie,
        o.perceelnummer                                                         AS perceelnummer,
-       o.appartementsrechtvolgnummer                                           AS appartementsindex,
        o.akrkadastralegemeente                                                 AS gemeentecode,
        qry.soortgrootte                                                        AS aand_soort_grootte,
        qry.kadastralegrootte                                                   AS grootte_perceel,
@@ -412,7 +437,7 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     * begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
     * type: perceel of appartement,
     * aanduiding: sectie perceelnummer,
-    * aanduiding2: kadgem sectie perceelnummer appartementsindex,
+    * aanduiding2: kadgem sectie perceelnummer,
     * sectie: -,
     * perceelnummer: -,
     * gemeentecode: -,

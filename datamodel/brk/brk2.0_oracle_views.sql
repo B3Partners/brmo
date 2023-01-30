@@ -212,7 +212,7 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres
     REFRESH ON DEMAND
 AS
 SELECT CAST(ROWNUM AS INTEGER)                                                 AS objectid,
-       qry.identificatie                                                       AS koz_identif,
+       o.identificatie                                                         AS koz_identif,
        TO_CHAR(o.begingeldigheid)                                              AS begin_geldigheid,
        o.begingeldigheid                                                       AS begin_geldigheid_datum,
        -- koppeling met BAG
@@ -348,6 +348,121 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
     * postcode: -,
     * gebruiksdoelen: alle gebruiksdoelen gescheiden door komma
     * oppervlakte_obj: oppervlak van gebouwd object
+    * lon: coordinaat als WSG84,
+    * lon: coordinaat als WSG84,
+    * begrenzing_perceel: perceelvlak';
+
+
+CREATE MATERIALIZED VIEW mb_percelenkaart
+            (
+             objectid,
+             koz_identif,
+             begin_geldigheid,
+             begin_geldigheid_datum,
+             type,
+             aanduiding,
+             aanduiding2,
+             sectie,
+             perceelnummer,
+             gemeentecode,
+             aand_soort_grootte,
+             grootte_perceel,
+             oppervlakte_geom,
+             verkoop_datum,
+             aard_cultuur_onbebouwd,
+             bedrag,
+             koopjaar,
+             meer_onroerendgoed,
+             valutasoort,
+             aantekeningen,
+             lon,
+             lat,
+             begrenzing_perceel
+                )
+            BUILD DEFERRED
+    REFRESH ON DEMAND
+AS
+SELECT CAST(ROWNUM AS INTEGER)                                                 AS objectid,
+       o.identificatie                                                         AS koz_identif,
+       TO_CHAR(o.begingeldigheid)                                              AS begin_geldigheid,
+       o.begingeldigheid                                                       AS begin_geldigheid_datum,
+       qry.type                                                                AS type,
+       COALESCE(o.sectie, '') || ' ' || COALESCE(TO_CHAR(o.perceelnummer), '') AS aanduiding,
+       COALESCE(o.akrkadastralegemeente, '') || ' ' || COALESCE(o.sectie, '') || ' ' ||
+       COALESCE(TO_CHAR(o.perceelnummer), '')                                  AS aanduiding2,
+       o.sectie                                                                AS sectie,
+       o.perceelnummer                                                         AS perceelnummer,
+       o.akrkadastralegemeente                                                 AS gemeentecode,
+       qry.soortgrootte                                                        AS aand_soort_grootte,
+       qry.kadastralegrootte                                                   AS grootte_perceel,
+       SDO_GEOM.SDO_AREA(qry.begrenzing_perceel, 0.1)                          AS oppervlakte_geom,
+       -- TODO verkoop datum uit stukdeel via recht
+       CAST(NULL AS DATE)                                                      AS verkoop_datum,
+       o.aard_cultuur_onbebouwd                                                AS aard_cultuur_onbebouwd,
+       o.koopsom_bedrag                                                        AS bedrag,
+       o.koopsom_koopjaar                                                      AS koopjaar,
+       o.koopsom_indicatiemeerobjecten                                         AS meer_onroerendgoed,
+       o.koopsom_valuta                                                        AS valutasoort,
+       aantekeningen.aantekeningen                                             AS aantekeningen,
+       SDO_CS.TRANSFORM((qry.plaatscoordinaten), 4326).SDO_POINT.X             AS lon,
+       SDO_CS.TRANSFORM((qry.plaatscoordinaten), 4326).SDO_POINT.Y             AS lat,
+       qry.begrenzing_perceel                                                  AS begrenzing_perceel
+FROM (SELECT p.identificatie      AS identificatie,
+             'perceel'            AS type,
+             p.soortgrootte       AS soortgrootte,
+             p.kadastralegrootte  AS kadastralegrootte,
+             p.begrenzing_perceel AS begrenzing_perceel,
+             p.plaatscoordinaten  AS plaatscoordinaten
+      FROM perceel p) qry
+         JOIN onroerendezaak o ON qry.identificatie = o.identificatie
+         LEFT JOIN(SELECT r.aantekeningkadastraalobject,
+                          LISTAGG(
+                                      'id: ' || COALESCE(r.identificatie, '') || ', '
+                                      || 'aard: ' || COALESCE(r.aard, '') || ', '
+                                      || 'begin: ' || COALESCE(TO_CHAR(r.begingeldigheid), '') || ', '
+                                      || 'beschrijving: ' || COALESCE(r.omschrijving, '') || ', '
+                                      || 'eind: ' || COALESCE(TO_CHAR(r.einddatum), '') || ', '
+                                      || 'koz-id: ' || COALESCE(r.aantekeningkadastraalobject, '') || ', '
+                                      || 'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
+                                      TRUNCATE WITH COUNT)
+                                      WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
+                   FROM recht r
+                   GROUP BY r.aantekeningkadastraalobject) aantekeningen
+                  ON o.identificatie = aantekeningen.aantekeningkadastraalobject
+;
+
+CREATE UNIQUE INDEX mb_percelenkaart_objectid ON mb_percelenkaart (objectid ASC);
+CREATE INDEX mb_percelenkaart_identif ON mb_percelenkaart (koz_identif ASC);
+INSERT INTO user_sdo_geom_metadata
+VALUES ('MB_PERCELENKAART', 'BEGRENZING_PERCEEL',
+        MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+                            MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX mb_percelenkaart_bgrgpidx ON mb_percelenkaart (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+
+COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
+    'commentaar view mb_percelenkaart:
+    alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis
+    beschikbare kolommen:
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * koz_identif: natuurlijke id van perceel of appartementsrecht
+    * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * type: perceel of appartement,
+    * aanduiding: sectie perceelnummer,
+    * aanduiding2: kadgem sectie perceelnummer,
+    * sectie: -,
+    * perceelnummer: -,
+    * gemeentecode: -,
+    * aand_soort_grootte: -,
+    * grootte_perceel: -,
+    * oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,
+    * verkoop_datum: laatste datum gevonden akten van verkoop,
+    * aard_cultuur_onbebouwd: -,
+    * bedrag: -,
+    * koopjaar: -,
+    * meer_onroerendgoed: -,
+    * valutasoort: -,
+    * aantekeningen: -,
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
