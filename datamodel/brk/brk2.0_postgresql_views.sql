@@ -1160,7 +1160,7 @@ SELECT row_number() OVER ()                                 AS objectid,
        koza.begingeldigheid                                 AS begin_geldigheid_datum,
        koza.eindegeldigheid::text                           AS eind_geldigheid,
        koza.eindegeldigheid                                 AS eind_geldigheid_datum,
-       qry.type,
+       qry.type                                             AS type,
        COALESCE(koza.sectie, '') || ' ' ||
        COALESCE(koza.perceelnummer::text, '')               AS aanduiding,
        COALESCE(koza.akrkadastralegemeente, '') || ' ' || COALESCE(koza.sectie, '') || ' ' ||
@@ -1170,8 +1170,8 @@ SELECT row_number() OVER ()                                 AS objectid,
        koza.perceelnummer                                   AS perceelnummer,
        koza.appartementsrechtvolgnummer                     AS appartementsindex,
        koza.akrkadastralegemeente                           AS gemeentecode,
-       qry.soortgrootte,
-       qry.kadastralegrootte,
+       qry.soortgrootte                                     AS aand_soort_grootte,
+       qry.kadastralegrootte                                AS grootte_perceel,
        NULL                                                 AS deelperceelnummer,
        NULL                                                 AS omschr_deelperceel,
        koza.aard_cultuur_onbebouwd                          AS aard_cultuur_onbebouwd,
@@ -1182,7 +1182,7 @@ SELECT row_number() OVER ()                                 AS objectid,
        -- TODO BRK adres?
        NULL                                                 AS loc_omschr,
        kozhr.onroerendezaak                                 AS overgegaan_in,
-       qry.begrenzing_perceel
+       qry.begrenzing_perceel                               AS begrenzing_perceel
 FROM (SELECT p_archief.identificatie,
              'perceel'
                  AS type,

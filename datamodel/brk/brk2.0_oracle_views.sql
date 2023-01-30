@@ -844,10 +844,7 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        koz.lat,
        koz.begrenzing_perceel
 FROM mb_zr_rechth zrr
-         RIGHT JOIN
-     mb_kad_onrrnd_zk_adres koz
-     ON
-         zrr.koz_identif = koz.koz_identif;
+         RIGHT JOIN mb_kad_onrrnd_zk_adres koz ON zrr.koz_identif = koz.koz_identif;
 
 CREATE UNIQUE INDEX mb_koz_rechth_objectid ON mb_koz_rechth (objectid ASC);
 CREATE INDEX mb_koz_rechth_identif ON mb_koz_rechth (koz_identif ASC);
@@ -1041,17 +1038,15 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        koz.lat,
        koz.begrenzing_perceel
 FROM mb_avg_zr_rechth zrr
-         RIGHT JOIN
-     mb_kad_onrrnd_zk_adres koz
-     ON zrr.koz_identif = koz.koz_identif;
+         RIGHT JOIN mb_kad_onrrnd_zk_adres koz ON zrr.koz_identif = koz.koz_identif;
 
-CREATE UNIQUE INDEX MB_AVG_KOZ_RECHTH_OBJECTID ON MB_AVG_KOZ_RECHTH (OBJECTID ASC);
-CREATE INDEX MB_AVG_KOZ_RECHTH_IDENTIF ON MB_AVG_KOZ_RECHTH (KOZ_IDENTIF ASC);
-INSERT INTO USER_SDO_GEOM_METADATA
-VALUES ('MB_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
-                                                                       MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)),
-        28992);
-CREATE INDEX MB_AVG_KOZ_RECHTH_BEGR_P_IDX ON MB_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+CREATE UNIQUE INDEX mb_avg_koz_rechth_objectid ON mb_avg_koz_rechth (objectid ASC);
+CREATE INDEX mb_avg_koz_rechth_identif ON mb_avg_koz_rechth (koz_identif ASC);
+INSERT INTO user_sdo_geom_metadata
+VALUES ('MB_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL',
+        MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+                            MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX mb_avg_koz_rechth_begr_p_idx ON mb_avg_koz_rechth (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
 COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     'commentaar view mb_avg_koz_rechth:
@@ -1113,4 +1108,130 @@ COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     * postcode: -,
     * lon: coordinaat als WSG84,
     * lat: coordinaat als WSG84,
+    * begrenzing_perceel: perceelvlak';
+
+
+CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_archief
+            (
+             objectid,
+             koz_identif,
+             begin_geldigheid,
+             begin_geldigheid_datum,
+             eind_geldigheid,
+             eind_geldigheid_datum,
+             type,
+             aanduiding,
+             aanduiding2,
+             sectie,
+             perceelnummer,
+             appartementsindex,
+             gemeentecode,
+             aand_soort_grootte,
+             grootte_perceel,
+             deelperceelnummer,
+             omschr_deelperceel,
+             aard_cultuur_onbebouwd,
+             bedrag,
+             koopjaar,
+             meer_onroerendgoed,
+             valutasoort,
+             loc_omschr,
+             overgegaan_in,
+             begrenzing_perceel
+                )
+            BUILD DEFERRED
+    REFRESH ON DEMAND
+AS
+SELECT CAST(ROWNUM AS INTEGER)                                 AS objectid,
+       qry.identificatie                                       as koz_identif,
+       TO_CHAR(koza.begingeldigheid)                           AS begin_geldigheid,
+       koza.begingeldigheid                                    AS begin_geldigheid_datum,
+       TO_CHAR(koza.eindegeldigheid)                           AS eind_geldigheid,
+       koza.eindegeldigheid                                    AS eind_geldigheid_datum,
+       qry.type                                                AS type,
+       COALESCE(koza.sectie, '') || ' ' ||
+       COALESCE(TO_CHAR(koza.perceelnummer), '')               AS aanduiding,
+       COALESCE(koza.akrkadastralegemeente, '') || ' ' || COALESCE(koza.sectie, '') || ' ' ||
+       COALESCE(TO_CHAR(koza.perceelnummer), '') || ' ' ||
+       COALESCE(TO_CHAR(koza.appartementsrechtvolgnummer), '') AS aanduiding2,
+       koza.sectie                                             AS sectie,
+       koza.perceelnummer                                      AS perceelnummer,
+       koza.appartementsrechtvolgnummer                        AS appartementsindex,
+       koza.akrkadastralegemeente                              AS gemeentecode,
+       qry.soortgrootte                                        AS aand_soort_grootte,
+       qry.kadastralegrootte                                   AS grootte_perceel,
+       -- bestaat niet
+       CAST(NULL AS VARCHAR2(4 CHAR))                          AS deelperceelnummer,
+       -- bestaat niet
+       CAST(NULL AS VARCHAR2(1120 CHAR))                       AS omschr_deelperceel,
+       koza.aard_cultuur_onbebouwd                             AS aard_cultuur_onbebouwd,
+       koza.koopsom_bedrag                                     AS bedrag,
+       koza.koopsom_koopjaar                                   AS koopjaar,
+       koza.koopsom_indicatiemeerobjecten                      AS meer_onroerendgoed,
+       koza.koopsom_valuta                                     AS valutasoort,
+       -- TODO BRK adres?
+       CAST(NULL AS VARCHAR2(255 CHAR))                        AS loc_omschr,
+       kozhr.onroerendezaak                                    AS overgegaan_in,
+       qry.begrenzing_perceel                                  AS begrenzing_perceel
+FROM (SELECT p_archief.identificatie,
+             'perceel' AS type,
+             p_archief.begingeldigheid,
+             p_archief.soortgrootte,
+             p_archief.kadastralegrootte,
+             p_archief.begrenzing_perceel,
+             p_archief.plaatscoordinaten
+      FROM perceel_archief p_archief
+      UNION ALL
+      SELECT a_archief.identificatie,
+             'appartement'               AS type,
+             a_archief.begingeldigheid,
+             CAST(NULL AS VARCHAR2(100)) AS soortgrootte,
+             CAST(NULL AS NUMBER)        AS kadastralegrootte,
+             CAST(NULL AS SDO_GEOMETRY)  AS begrenzing_perceel,
+             CAST(NULL AS SDO_GEOMETRY)  AS plaatscoordinaten
+      FROM appartementsrecht_archief a_archief) qry
+         JOIN onroerendezaak_archief koza
+              ON koza.identificatie = qry.identificatie AND qry.begingeldigheid = koza.begingeldigheid
+         JOIN (SELECT ikoza.identificatie, MAX(ikoza.begingeldigheid) bdate
+               FROM onroerendezaak_archief ikoza
+               GROUP BY ikoza.identificatie) nqry
+              ON nqry.identificatie = koza.identificatie AND nqry.bdate = koza.begingeldigheid
+         LEFT JOIN onroerendezaakfiliatie_archief kozhr ON kozhr.betreft = koza.identificatie;
+
+CREATE UNIQUE INDEX mb_kad_onrrnd_zk_a_objidx ON mb_kad_onrrnd_zk_archief (objectiD ASC);
+CREATE INDEX mb_kad_onrrnd_zk_a_identif ON mb_kad_onrrnd_zk_archief (koz_identif ASC);
+INSERT INTO user_sdo_geom_metadata
+VALUES ('MB_KAD_ONRRND_ZK_ARCHIEF', 'BEGRENZING_PERCEEL',
+        MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+                            MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+CREATE INDEX mb_kad_onrrnd_zk_a_bgrgpidx ON mb_kad_onrrnd_zk_archief (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+CREATE INDEX mb_kad_onrr_z_ar_overgeg_idx ON mb_kad_onrrnd_zk_archief (overgegaan_in);
+
+COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_archief IS
+    'commentaar materialized view mb_kad_onrrnd_zk_archief:
+    Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
+    beschikbare kolommen:
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * koz_identif: natuurlijke id van perceel of appartementsrecht
+    * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * eind_geldigheid: datum wanneer dit object ongeldig geworden is,
+    * benoemdobj_identif: koppeling met BAG object,
+    * type: perceel of appartement,
+    * sectie: -,
+    * aanduiding: sectie perceelnummer,
+    * aanduiding2: kadgem sectie perceelnummer appartementsindex,
+    * perceelnummer: -,
+    * appartementsindex: -,
+    * gemeentecode: -,
+    * aand_soort_grootte: -,
+    * grootte_perceel: -,
+    * deelperceelnummer: -,
+    * omschr_deelperceel: -,
+    * aard_cultuur_onbebouwd: -,
+    * bedrag: -,
+    * koopjaar: -,
+    * meer_onroerendgoed: -,
+    * valutasoort: -,
+    * loc_omschr: adres buiten BAG om meegegeven,
+    * overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
     * begrenzing_perceel: perceelvlak';
