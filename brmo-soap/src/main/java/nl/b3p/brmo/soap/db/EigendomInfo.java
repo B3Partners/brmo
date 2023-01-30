@@ -492,7 +492,7 @@ public class EigendomInfo {
         addZakelijkeRechten(zrn, kad_id, null);
 
         // zoek grondperceel grondperceel_kad_id
-        long grondperceel_kad_id = 0l;
+        long grondperceel_kad_id = 0L;
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -519,7 +519,7 @@ public class EigendomInfo {
             DbUtils.closeQuietly(stm);
         }
 
-        if (grondperceel_kad_id != 0l) {
+        if (grondperceel_kad_id != 0L) {
             addZakelijkeRechten(zrn, grondperceel_kad_id, "grondperceel");
         }
         return zrn;

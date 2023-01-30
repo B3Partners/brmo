@@ -144,10 +144,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
                     GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             List<String> mviews =
                     new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                            .query(
-                                    conn,
-                                    geomToJdbc.getMViewsSQL(),
-                                    new ColumnListHandler<String>());
+                            .query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<>());
             mviews.sort(String::compareToIgnoreCase);
             DbUtils.closeQuietly(conn);
             return Collections.unmodifiableList(mviews);

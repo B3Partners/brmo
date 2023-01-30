@@ -16,7 +16,7 @@ public class TableData {
     /* Used for comfort metadata tables */
     private String comfortSnapshotDate;
 
-    List<TableRow> rows = new ArrayList<TableRow>();
+    List<TableRow> rows = new ArrayList<>();
 
     public TableData(TableRow row) {
         this.deleteData = false;

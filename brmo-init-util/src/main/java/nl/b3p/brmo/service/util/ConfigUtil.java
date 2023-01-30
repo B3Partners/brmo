@@ -35,16 +35,16 @@ public class ConfigUtil implements Servlet {
     private static DataSource datasourceRsgbBgt = null;
     private static DataSource datasourceTopNL = null;
 
-    public static Integer MAX_UPLOAD_SIZE;
+    public static Long MAX_UPLOAD_SIZE;
     public static String TEMP_FOLDER;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         String tempSize = config.getInitParameter("max_upload_size");
         if (tempSize != null && !tempSize.isEmpty()) {
-            MAX_UPLOAD_SIZE = Integer.valueOf(tempSize) * 1024 * 1024;
+            MAX_UPLOAD_SIZE = Long.parseLong(tempSize) * 1024 * 1024;
         } else {
-            MAX_UPLOAD_SIZE = 10000 * 1024 * 1024;
+            MAX_UPLOAD_SIZE = 10000L * 1024 * 1024;
         }
 
         String tempFolder = config.getInitParameter("temp_folder");

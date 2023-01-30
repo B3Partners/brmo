@@ -153,66 +153,71 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
                     queryParams = "artikelnummers=2529";
                 }
 
-                if (mode.equals("applyFromMirror")) {
-                    listener.updateStatus("Verwerken van BAG2 mutatiebestanden...");
-                    listener.addLog(
-                            String.format(
-                                    "Verwerken van BAG2 mutatiebestanden van publieke mirror \"%s\"",
-                                    url));
-                    exitCode =
-                            mutatiesCommand.apply(
-                                    dbOptions,
-                                    new BAG2ProgressOptions(),
-                                    null,
-                                    null,
-                                    url,
-                                    queryParams,
-                                    false);
-                    listener.addLog("Einde verwerken BAG2 bestanden");
-                } else if (mode.equals("apply")) {
-                    listener.updateStatus("Verwerken van BAG2 mutatiebestanden...");
-                    listener.addLog(
-                            String.format(
-                                    "Verwerken van BAG2 mutatiebestanden van BAG Bestanden, gebruikersnaam %s",
-                                    kadasterUser));
-                    exitCode =
-                            mutatiesCommand.apply(
-                                    dbOptions,
-                                    new BAG2ProgressOptions(),
-                                    kadasterUser,
-                                    kadasterPassword,
-                                    url,
-                                    queryParams,
-                                    false);
-                    listener.addLog("Einde verwerken BAG2 bestanden");
-                } else if (mode.equals("download")) {
-                    listener.updateStatus("Downloaden van BAG2 mutatiebestanden...");
-                    listener.addLog(
-                            String.format(
-                                    "Downloaden van BAG2 mutatiebestanden naar directory %s, gebruikersnaam %s",
-                                    directory, kadasterUser));
-                    exitCode =
-                            mutatiesCommand.download(
-                                    false,
-                                    kadasterUser,
-                                    kadasterPassword,
-                                    url,
-                                    queryParams,
-                                    directory,
-                                    "",
-                                    false);
-                    listener.addLog("Einde downloaden BAG2 bestanden");
-                } else if (mode.equals("load")) {
-                    listener.updateStatus("Laden van BAG2 bestanden...");
-                    listener.addLog("Laden van BAG2 bestanden uit directory " + directory);
-                    exitCode =
-                            main.load(
-                                    dbOptions,
-                                    loadOptions,
-                                    new BAG2ProgressOptions(),
-                                    new String[] {directory},
-                                    false);
-                    listener.addLog("Einde laden BAG2 bestanden");
+                switch (mode) {
+                    case "applyFromMirror":
+                        listener.updateStatus("Verwerken van BAG2 mutatiebestanden...");
+                        listener.addLog(
+                                String.format(
+                                        "Verwerken van BAG2 mutatiebestanden van publieke mirror \"%s\"",
+                                        url));
+                        exitCode =
+                                mutatiesCommand.apply(
+                                        dbOptions,
+                                        new BAG2ProgressOptions(),
+                                        null,
+                                        null,
+                                        url,
+                                        queryParams,
+                                        false);
+                        listener.addLog("Einde verwerken BAG2 bestanden");
+                        break;
+                    case "apply":
+                        listener.updateStatus("Verwerken van BAG2 mutatiebestanden...");
+                        listener.addLog(
+                                String.format(
+                                        "Verwerken van BAG2 mutatiebestanden van BAG Bestanden, gebruikersnaam %s",
+                                        kadasterUser));
+                        exitCode =
+                                mutatiesCommand.apply(
+                                        dbOptions,
+                                        new BAG2ProgressOptions(),
+                                        kadasterUser,
+                                        kadasterPassword,
+                                        url,
+                                        queryParams,
+                                        false);
+                        listener.addLog("Einde verwerken BAG2 bestanden");
+                        break;
+                    case "download":
+                        listener.updateStatus("Downloaden van BAG2 mutatiebestanden...");
+                        listener.addLog(
+                                String.format(
+                                        "Downloaden van BAG2 mutatiebestanden naar directory %s, gebruikersnaam %s",
+                                        directory, kadasterUser));
+                        exitCode =
+                                mutatiesCommand.download(
+                                        false,
+                                        kadasterUser,
+                                        kadasterPassword,
+                                        url,
+                                        queryParams,
+                                        directory,
+                                        "",
+                                        false);
+                        listener.addLog("Einde downloaden BAG2 bestanden");
+                        break;
+                    case "load":
+                        listener.updateStatus("Laden van BAG2 bestanden...");
+                        listener.addLog("Laden van BAG2 bestanden uit directory " + directory);
+                        exitCode =
+                                main.load(
+                                        dbOptions,
+                                        loadOptions,
+                                        new BAG2ProgressOptions(),
+                                        new String[] {directory},
+                                        false);
+                        listener.addLog("Einde laden BAG2 bestanden");
+                        break;
                 }
             } catch (ClassNotFoundException e) {
                 LOG.error(e.getLocalizedMessage());

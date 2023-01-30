@@ -27,7 +27,7 @@ public interface HttpClientWrapper<REQUEST, RESPONSE> {
      *     expected.
      * @return A wrapper with the response.
      * @throws IOException If an I/O error occurs.
-     * @throws InterruptedException
+     * @throws InterruptedException if any
      */
     HttpResponseWrapper request(URI uri, String... requestHeaders)
             throws IOException, InterruptedException;
@@ -43,7 +43,7 @@ public interface HttpClientWrapper<REQUEST, RESPONSE> {
      * Wrap the HTTP response so the status code, response headers en the response body can be read.
      *
      * @param response The implementation defined HTTP response type.
-     * @return
+     * @return wrapped response
      */
     HttpResponseWrapper wrapResponse(RESPONSE response);
 }

@@ -15,7 +15,8 @@ import java.io.Writer;
 public class PostgresCopyEscapeUtils {
     /**
      * Escapes column values for use in the text-based PostgreSQL COPY format with the default
-     * column and row delimiters, see https://www.postgresql.org/docs/current/sql-copy.html
+     * column and row delimiters, see <a
+     * href="https://www.postgresql.org/docs/current/sql-copy.html">COPY</a>.
      */
     public static final CharSequenceTranslator ESCAPE =
             new CharSequenceTranslator() {

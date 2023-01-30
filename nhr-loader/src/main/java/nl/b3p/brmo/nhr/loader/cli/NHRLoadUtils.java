@@ -29,7 +29,6 @@ import org.apache.wss4j.common.ext.WSPasswordCallback;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +39,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.ws.BindingProvider;
 
@@ -121,7 +119,7 @@ public class NHRLoadUtils {
         tlsClientParameters.setSslContext(context);
         http.setTlsClientParameters(tlsClientParameters);
 
-        Map<String, Object> props = new HashMap<String, Object>();
+        Map<String, Object> props = new HashMap<>();
 
         props.put(
                 WSHandlerConstants.ACTION,
@@ -145,17 +143,14 @@ public class NHRLoadUtils {
         props.put(WSHandlerConstants.USER, alias);
         props.put(
                 WSHandlerConstants.PW_CALLBACK_REF,
-                new CallbackHandler() {
-                    @Override
-                    public void handle(Callback[] callbacks)
-                            throws IOException, UnsupportedCallbackException {
-                        for (Callback callback : callbacks) {
-                            ((WSPasswordCallback) callback)
-                                    .setPassword(certificateOptions.getKeystorePassword());
-                            return;
-                        }
-                    }
-                });
+                (CallbackHandler)
+                        callbacks -> {
+                            for (Callback callback : callbacks) {
+                                ((WSPasswordCallback) callback)
+                                        .setPassword(certificateOptions.getKeystorePassword());
+                                return;
+                            }
+                        });
 
         WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(props);
         endpoint.getOutInterceptors().add(wssOut);

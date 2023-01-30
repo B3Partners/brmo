@@ -118,13 +118,7 @@ public class TopNLDirectoryScanner extends AbstractExecutableProces {
         config.setLogfile(sb.toString());
         int total = 0;
         Map<String, List<File>> filesPerDir = new HashMap<>();
-        FilenameFilter ff =
-                new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.toLowerCase().endsWith(".gml");
-                    }
-                };
+        FilenameFilter ff = (dir, name) -> name.toLowerCase().endsWith(".gml");
         for (String topNLDir : subdirectoryNames) {
             File subdir = new File(scanDirectory, topNLDir);
             // File files[] = subdir.listFiles();

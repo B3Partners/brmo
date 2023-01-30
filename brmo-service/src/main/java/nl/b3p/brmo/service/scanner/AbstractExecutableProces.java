@@ -81,19 +81,16 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
         }
     }
 
-    /** {@inheritDoc } */
     @Override
     public boolean isRunning() {
         return this.active;
     }
 
-    /** {@inheritDoc } */
     @Override
     public void stop() {
         this.active = false;
     }
 
-    /** {@inheritDoc } */
     @Override
     public void run() {
         while (active) {

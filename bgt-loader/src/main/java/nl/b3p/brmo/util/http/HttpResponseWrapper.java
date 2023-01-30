@@ -18,13 +18,13 @@ import java.io.InputStream;
 public interface HttpResponseWrapper {
     /**
      * @return The response status code.
-     * @throws IOException
+     * @throws IOException if any
      */
     int getStatusCode() throws IOException;
 
     /**
      * @param header The name of the header value to return. Only single header values are expected.
-     * @return
+     * @return the value of the header
      */
     String getHeader(String header);
 

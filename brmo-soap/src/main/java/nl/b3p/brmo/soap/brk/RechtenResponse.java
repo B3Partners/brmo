@@ -91,7 +91,7 @@ public class RechtenResponse {
             while (rs.next()) {
                 if (rr == null) {
                     rr = new RechtenResponse();
-                    zrl = new ArrayList<ZakelijkRechtResponse>();
+                    zrl = new ArrayList<>();
                     rr.setZakelijkRecht(zrl);
                 }
                 zkRecht = new ZakelijkRechtResponse();

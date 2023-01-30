@@ -95,28 +95,28 @@ public class StUFBGasynchroon {
      * 4.2 Stuurgegevens voor kennisgevingberichten. In paragraaf 2.3 zijn vier varianten binnen een
      * kennisgevingbericht onderkend:
      *
-     * <h3>Toevoeging</h3>
+     * <p><strong>Toevoeging</strong>
      *
-     * Bij een toevoeging is in het zendende systeem een occurrence toegevoegd, omdat is vastgesteld
-     * dat in de werkelijkheid een voor het zendende systeem relevant object bestaat.
+     * <p>Bij een toevoeging is in het zendende systeem een occurrence toegevoegd, omdat is
+     * vastgesteld dat in de werkelijkheid een voor het zendende systeem relevant object bestaat.
      *
-     * <h3>Wijziging</h3>
+     * <p><strong>Wijziging</strong>
      *
-     * Bij een wijziging is in het zendende systeem een occurrence gewijzigd, omdat is vastgesteld
-     * dat er in de werkelijkheid eigenschappen (gegevens) zijn veranderd van het object waar naar
-     * die occurrence verwijst.
+     * <p>Bij een wijziging is in het zendende systeem een occurrence gewijzigd, omdat is
+     * vastgesteld dat er in de werkelijkheid eigenschappen (gegevens) zijn veranderd van het object
+     * waar naar die occurrence verwijst.
      *
-     * <h3>Verwijdering</h3>
+     * <p><strong>Verwijdering</strong>
      *
-     * Bij een verwijdering is in het zendende systeem een occurrence verwijderd, omdat is
+     * <p>Bij een verwijdering is in het zendende systeem een occurrence verwijderd, omdat is
      * vastgesteld dat in de werkelijkheid het object waarnaar de occurrence verwijst, niet meer
      * bestaat of niet meer relevant is voor het zendende systeem.
      *
-     * <h3>Correctie</h3>
+     * <p><strong>Correctie</strong>
      *
-     * Bij een correctie is in het zendende systeem een occurrence gewijzigd, omdat is vastgesteld
-     * dat de vastgelegde waarden niet correct waren. Bij een correctie is het object in de
-     * werkelijkheid waarnaar de occurrence verwijst, zelf niet gewijzigd. Deze verschillende
+     * <p>Bij een correctie is in het zendende systeem een occurrence gewijzigd, omdat is
+     * vastgesteld dat de vastgelegde waarden niet correct waren. Bij een correctie is het object in
+     * de werkelijkheid waarnaar de occurrence verwijst, zelf niet gewijzigd. Deze verschillende
      * varianten worden als volgt gecodeerd in het stuurgegeven mutatiesoort:
      *
      * <ul>

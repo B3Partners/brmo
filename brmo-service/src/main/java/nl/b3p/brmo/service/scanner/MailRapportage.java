@@ -145,11 +145,7 @@ public class MailRapportage extends AbstractExecutableProces {
             config.setStatus(WAITING);
             config.updateSamenvattingEnLogfile(sb.toString());
             config.setLastrun(new Date());
-        } catch (MessagingException ex) {
-            log.error(ex);
-            config.setStatus(ERROR);
-            throw new BrmoException(ex);
-        } catch (NamingException ex) {
+        } catch (MessagingException | NamingException ex) {
             log.error(ex);
             config.setStatus(ERROR);
             throw new BrmoException(ex);
@@ -167,7 +163,7 @@ public class MailRapportage extends AbstractExecutableProces {
     private List<AutomatischProces> getProcessen() {
         // unit test in
         // nl.b3p.brmo.persistence.staging.MailRapportageProcesTest#testRapportageLijst()
-        List<Predicate> predicates = new ArrayList<Predicate>();
+        List<Predicate> predicates = new ArrayList<>();
 
         final EntityManager em = Stripersist.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -183,7 +179,7 @@ public class MailRapportage extends AbstractExecutableProces {
         String pids =
                 ClobElement.nullSafeGet(this.config.getConfig().get(MailRapportageProces.PIDS));
         if (pids != null) {
-            List<Long> pidLijst = new ArrayList<Long>();
+            List<Long> pidLijst = new ArrayList<>();
             Matcher match = (Pattern.compile("[0-9]+")).matcher(pids);
             while (match.find()) {
                 pidLijst.add(Long.valueOf(match.group()));

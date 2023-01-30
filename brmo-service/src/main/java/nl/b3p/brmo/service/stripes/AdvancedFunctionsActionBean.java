@@ -833,7 +833,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                                                 ZipEntry e1 = new ZipEntry(sb.toString());
                                                 try {
                                                     out.putNextEntry(e1);
-                                                    byte[] data = null;
+                                                    byte[] data;
                                                     if (infoOK) {
                                                         data =
                                                                 bericht.getBrOrgineelXml()
