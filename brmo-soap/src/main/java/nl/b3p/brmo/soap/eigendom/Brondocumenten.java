@@ -23,7 +23,7 @@ public class Brondocumenten {
      *
      * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
      * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the document property.
+     * why there is not a {@code set} method for the document property.
      *
      * <p>For example, to add a new item, do as follows:
      *
@@ -36,7 +36,7 @@ public class Brondocumenten {
      */
     public List<Document> getDocument() {
         if (document == null) {
-            document = new ArrayList<Document>();
+            document = new ArrayList<>();
         }
         return this.document;
     }

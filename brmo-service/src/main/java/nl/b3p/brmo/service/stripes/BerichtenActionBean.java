@@ -80,7 +80,7 @@ public class BerichtenActionBean implements ActionBean {
         }
 
         DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-        long count = 0l;
+        long count;
         JSONArray jsoNBerichten = new JSONArray();
         BrmoFramework brmo = null;
         try {
@@ -114,7 +114,7 @@ public class BerichtenActionBean implements ActionBean {
         final JSONObject grid = new JSONObject();
         if (count < 0) {
             grid.put("virtualtotal", true);
-            count = 0l;
+            count = 0L;
         }
         grid.put("total", count);
         grid.put("items", jsoNBerichten);
@@ -185,10 +185,12 @@ public class BerichtenActionBean implements ActionBean {
         };
     }
 
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

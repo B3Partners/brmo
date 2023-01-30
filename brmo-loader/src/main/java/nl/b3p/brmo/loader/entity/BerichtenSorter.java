@@ -8,6 +8,7 @@ import java.util.Comparator;
 public class BerichtenSorter implements Comparator<Bericht> {
     public static String SQL_ORDER_BY = "datum, volgordenummer, object_ref";
 
+    @Override
     public int compare(Bericht one, Bericht another) {
 
         return new CompareToBuilder()

@@ -225,10 +225,12 @@ public class BasisregistratieFileUploadActionBean implements ActionBean {
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

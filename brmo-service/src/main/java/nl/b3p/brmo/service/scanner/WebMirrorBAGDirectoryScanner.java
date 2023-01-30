@@ -30,8 +30,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -135,9 +133,9 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             filterXMLAlVerwerkt = 0;
             aantalZipGeladen = 0;
             aantalXMLGeladen = 0;
-            for (int i = 0; i < items; i++) {
-                berichtUrl = links.get(i).attr("abs:href");
-                bestandsnaam = links.get(i).text();
+            for (org.jsoup.nodes.Element link : links) {
+                berichtUrl = link.attr("abs:href");
+                bestandsnaam = link.text();
                 laadBestand(berichtUrl, bestandsnaam);
                 aantalZipGeladen++;
                 listener.progress(++progress);
@@ -163,10 +161,6 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             this.config.setLastrun(new Date());
             Stripersist.getEntityManager().merge(this.config);
             Stripersist.getEntityManager().getTransaction().commit();
-        } catch (MalformedURLException | SocketTimeoutException ex) {
-            log.error(ex);
-            config.setStatus(ERROR);
-            listener.exception(ex);
         } catch (HttpStatusException ex) {
             msg =
                     String.format(

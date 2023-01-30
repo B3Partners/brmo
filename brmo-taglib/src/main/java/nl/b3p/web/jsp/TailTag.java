@@ -42,6 +42,7 @@ public class TailTag extends BodyTagSupport {
     private int current = 0;
     private int last = 0;
 
+    @Override
     public int doStartTag() throws JspException {
         if (this.count <= 0) {
             throw new JspException("Ongeldig aantal regels: " + this.count);
@@ -80,8 +81,8 @@ public class TailTag extends BodyTagSupport {
                         this.current = this.count - 1;
                     }
                 }
-            } catch (IOException ignore) {
-                LOG.debug("Probleem met benaderen van logfile: " + this.file, ignore);
+            } catch (IOException log) {
+                LOG.debug("Probleem met benaderen van logfile: " + this.file, log);
             }
 
             if (this.current < 0) {
@@ -95,6 +96,7 @@ public class TailTag extends BodyTagSupport {
         }
     }
 
+    @Override
     public int doAfterBody() throws JspException {
         ++this.current;
         if (this.current > this.last) {
@@ -111,7 +113,7 @@ public class TailTag extends BodyTagSupport {
     }
 
     @Override
-    public int doEndTag() throws JspException {
+    public int doEndTag() {
         this.reset();
         return EVAL_PAGE;
     }

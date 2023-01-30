@@ -50,6 +50,7 @@ public class URLConnectionHttpClientWrapper
      *
      * @param httpURLConnection The HttpURLConnection that will be used, can be modified
      */
+    @Override
     public void beforeRequest(HttpURLConnection httpURLConnection) {}
 
     /**

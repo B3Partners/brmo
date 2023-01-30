@@ -210,13 +210,13 @@ public class Processor {
         this.status = STATUS.OK;
     }
 
-    private class LocationListener extends Listener {
+    private static class LocationListener extends Listener {
         private XMLStreamReader xsr;
         private Map<Object, Location> locations;
 
         public LocationListener(XMLStreamReader xsr) {
             this.xsr = xsr;
-            this.locations = new HashMap<Object, Location>();
+            this.locations = new HashMap<>();
         }
 
         @Override

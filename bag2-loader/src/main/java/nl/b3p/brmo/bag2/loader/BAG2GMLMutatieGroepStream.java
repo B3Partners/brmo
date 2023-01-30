@@ -327,50 +327,59 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
                             String mutatieNaam = mutatieCursor.getLocalName();
 
                             Location location = mutatieCursor.getCursorLocation();
-                            if (mutatieNaam.equals("wijziging")) {
-                                SMInputCursor wijziging =
-                                        mutatieCursor.childElementCursor().advance();
-                                wijziging
-                                        .getStreamReader()
-                                        .require(
-                                                XMLStreamConstants.START_ELEMENT,
-                                                NS_MUTATIELEVERING,
-                                                "was");
-                                BAG2Object was =
-                                        parseBAG2ObjectFromBagObjectParentElement(
-                                                wijziging, NS_BAG_EXTRACT_MUTATIES);
-                                wijziging.getNext();
-                                wijziging
-                                        .getStreamReader()
-                                        .require(
-                                                XMLStreamConstants.START_ELEMENT,
-                                                NS_MUTATIELEVERING,
-                                                "wordt");
-                                BAG2Object wordt =
-                                        parseBAG2ObjectFromBagObjectParentElement(
-                                                wijziging, NS_BAG_EXTRACT_MUTATIES);
+                            switch (mutatieNaam) {
+                                case "wijziging":
+                                    {
+                                        SMInputCursor wijziging =
+                                                mutatieCursor.childElementCursor().advance();
+                                        wijziging
+                                                .getStreamReader()
+                                                .require(
+                                                        XMLStreamConstants.START_ELEMENT,
+                                                        NS_MUTATIELEVERING,
+                                                        "was");
+                                        BAG2Object was =
+                                                parseBAG2ObjectFromBagObjectParentElement(
+                                                        wijziging, NS_BAG_EXTRACT_MUTATIES);
+                                        wijziging.getNext();
+                                        wijziging
+                                                .getStreamReader()
+                                                .require(
+                                                        XMLStreamConstants.START_ELEMENT,
+                                                        NS_MUTATIELEVERING,
+                                                        "wordt");
+                                        BAG2Object wordt =
+                                                parseBAG2ObjectFromBagObjectParentElement(
+                                                        wijziging, NS_BAG_EXTRACT_MUTATIES);
 
-                                mutaties.add(new BAG2WijzigingMutatie(location, was, wordt));
-                            } else if (mutatieNaam.equals("toevoeging")) {
-                                SMInputCursor wijziging =
-                                        mutatieCursor.childElementCursor().advance();
-                                wijziging
-                                        .getStreamReader()
-                                        .require(
-                                                XMLStreamConstants.START_ELEMENT,
-                                                NS_MUTATIELEVERING,
-                                                "wordt");
-                                BAG2Object toevoeging =
-                                        parseBAG2ObjectFromBagObjectParentElement(
-                                                wijziging, NS_BAG_EXTRACT_MUTATIES);
-                                mutaties.add(new BAG2ToevoegingMutatie(location, toevoeging));
+                                        mutaties.add(
+                                                new BAG2WijzigingMutatie(location, was, wordt));
+                                        break;
+                                    }
+                                case "toevoeging":
+                                    {
+                                        SMInputCursor wijziging =
+                                                mutatieCursor.childElementCursor().advance();
+                                        wijziging
+                                                .getStreamReader()
+                                                .require(
+                                                        XMLStreamConstants.START_ELEMENT,
+                                                        NS_MUTATIELEVERING,
+                                                        "wordt");
+                                        BAG2Object toevoeging =
+                                                parseBAG2ObjectFromBagObjectParentElement(
+                                                        wijziging, NS_BAG_EXTRACT_MUTATIES);
+                                        mutaties.add(
+                                                new BAG2ToevoegingMutatie(location, toevoeging));
 
-                            } else if (mutatieNaam.equals("verwijdering")) {
-                                throw new IllegalArgumentException(
-                                        "Verwijdering-mutaties mogen niet voorkomen in de BAG2");
-                            } else {
-                                throw new IllegalArgumentException(
-                                        "Onbekende mutatie: " + mutatieNaam);
+                                        break;
+                                    }
+                                case "verwijdering":
+                                    throw new IllegalArgumentException(
+                                            "Verwijdering-mutaties mogen niet voorkomen in de BAG2");
+                                default:
+                                    throw new IllegalArgumentException(
+                                            "Onbekende mutatie: " + mutatieNaam);
                             }
                         } while (mutatieCursor.getNext() == SMEvent.START_ELEMENT);
 

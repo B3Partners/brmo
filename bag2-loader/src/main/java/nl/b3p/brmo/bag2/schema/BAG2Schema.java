@@ -252,10 +252,12 @@ public class BAG2Schema extends Schema {
         return instance;
     }
 
+    @Override
     public Stream<BAG2ObjectType> getAllObjectTypes() {
         return (Stream<BAG2ObjectType>) super.getAllObjectTypes();
     }
 
+    @Override
     public BAG2ObjectType getObjectTypeByName(String name) {
         return (BAG2ObjectType) super.getObjectTypeByName(name);
     }

@@ -85,7 +85,7 @@ public class BagBericht extends Bericht {
                 doc = builder.parse(new InputSource(new StringReader(getBrXml())));
             }
 
-            String id = null;
+            String id;
 
             if (doc.getDocumentElement().getLocalName().equals(BagXMLReader.MUTATIE_PRODUCT)) {
                 if (super.getDatum() == null) {

@@ -67,12 +67,9 @@ public class DynamicStripersistInitializer implements InitializeSettings {
 
         if (ds != null) {
             try {
-                Connection conn = ds.getConnection();
-                try {
+                try (Connection conn = ds.getConnection()) {
                     databaseProductName =
                             conn.getMetaData().getDatabaseProductName().replace(" ", "");
-                } finally {
-                    conn.close();
                 }
 
                 if (databaseProductName == null) {

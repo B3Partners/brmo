@@ -53,10 +53,12 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
         complete = true;
     }
 
+    @Override
     public void total(long total) {
         this.total = total;
     }
 
+    @Override
     public void progress(long progress) {
         this.processed = progress;
         if (this.total != 0) {
@@ -65,6 +67,7 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
         this.update = new Date();
     }
 
+    @Override
     public void exception(Throwable t) {
         //        StringWriter sw = new StringWriter();
         //        PrintWriter pw = new PrintWriter(sw);
@@ -216,10 +219,12 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

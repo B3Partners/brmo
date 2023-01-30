@@ -38,7 +38,7 @@ public class Groep implements Serializable {
     private String beschrijving;
 
     @ManyToMany(mappedBy = "groepen")
-    private Set<Gebruiker> leden = new HashSet<Gebruiker>();
+    private Set<Gebruiker> leden = new HashSet<>();
 
     public String getBeschrijving() {
         return beschrijving;

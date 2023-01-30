@@ -39,9 +39,7 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -81,13 +79,9 @@ public class BRPXMLReader extends BrmoXMLReader {
 
         TransformerFactory tf = TransformerFactory.newInstance();
         tf.setURIResolver(
-                new URIResolver() {
-                    @Override
-                    public Source resolve(String href, String base) throws TransformerException {
-                        return new StreamSource(
-                                RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
-                    }
-                });
+                (href, base) ->
+                        new StreamSource(
+                                RsgbTransformer.class.getResourceAsStream("/xsl/" + href)));
 
         Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
         this.template = tf.newTemplates(xsl);

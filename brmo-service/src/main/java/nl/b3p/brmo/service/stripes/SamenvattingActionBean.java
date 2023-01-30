@@ -55,13 +55,11 @@ public class SamenvattingActionBean implements ActionBean {
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">
-    /** {@inheritDoc } */
     @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }
 
-    /** {@inheritDoc } */
     @Override
     public ActionBeanContext getContext() {
         return this.context;

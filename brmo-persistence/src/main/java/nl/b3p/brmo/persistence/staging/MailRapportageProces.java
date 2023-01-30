@@ -21,7 +21,7 @@ public class MailRapportageProces extends AutomatischProces {
 
     /**
      * de sleutel {@value FOR_STATUS}. Geldige waarden komen uit de verzameling van {@link
-     * AutomatischProces#status }
+     * AutomatischProces#getStatus()} en zijn: {@link ProcessingStatus},
      */
     public static final String FOR_STATUS = "forStatus";
 

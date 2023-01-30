@@ -72,7 +72,7 @@ public class OphaalConfigActionBean implements ActionBean {
 
     private ActionBeanContext context;
 
-    private List<AutomatischProces> processen = new ArrayList();
+    private List<AutomatischProces> processen = new ArrayList<>();
 
     @Validate(converter = EntityTypeConverter.class)
     @ValidateNestedProperties({@Validate(field = "cronExpressie", on = "save")})
@@ -231,7 +231,7 @@ public class OphaalConfigActionBean implements ActionBean {
      * bestaan. Als de cron expressie {@code null} is wordt de job verwijderd uit de scheduler.
      *
      * @param p bij te werken proces
-     * @throws SchedulerException
+     * @throws SchedulerException bij een quartz fout
      */
     private void updateJobSchedule(AutomatischProces p) throws SchedulerException {
         log.debug("Update scheduled job:" + p.getId());

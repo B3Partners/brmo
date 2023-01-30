@@ -77,7 +77,7 @@ public class BrkSnapshotXMLReader extends BrmoXMLReader {
      * van een GemeenteGebaseerdeStand:stand of als child van een Mutatie:wordt) of aan het end
      * element voor een Mutatie:Mutatie zonder Mutatie:wordt (vervallen perceel).
      *
-     * @throws XMLStreamException
+     * @throws XMLStreamException if any
      */
     private void positionToNext() throws XMLStreamException {
         boolean inMutatie = false;

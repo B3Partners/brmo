@@ -47,6 +47,7 @@ public class BGTObject extends SchemaObjectInstance {
         this.mutatiePreviousVersionGmlId = mutatiePreviousVersionGmlId;
     }
 
+    @Override
     public BGTObjectType getObjectType() {
         return (BGTObjectType) super.getObjectType();
     }

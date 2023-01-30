@@ -53,10 +53,7 @@ public class AfgifteChecker {
     }
 
     public void check() {
-        afgiftes.forEach(
-                (afgifte) -> {
-                    check(afgifte);
-                });
+        afgiftes.forEach((afgifte) -> check(afgifte));
     }
 
     /**
@@ -96,9 +93,9 @@ public class AfgifteChecker {
                             return bericht;
                         })
                 .forEachOrdered(
-                        (bericht) -> {
-                            counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1);
-                        });
+                        (bericht) ->
+                                counts.put(
+                                        bericht.getStatus(), counts.get(bericht.getStatus()) + 1));
     }
 
     public File getResults(String input, String f) throws FileNotFoundException {

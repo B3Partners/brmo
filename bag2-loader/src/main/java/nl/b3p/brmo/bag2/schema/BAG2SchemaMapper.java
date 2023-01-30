@@ -53,6 +53,7 @@ public class BAG2SchemaMapper extends SchemaSQLMapper {
         return METADATA_TABLE_NAME;
     }
 
+    @Override
     public List<String> getCreateMetadataTableStatements(
             SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
         List<String> statements =

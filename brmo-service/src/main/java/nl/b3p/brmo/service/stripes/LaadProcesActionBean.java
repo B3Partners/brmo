@@ -133,7 +133,7 @@ public class LaadProcesActionBean implements ActionBean {
         BrmoFramework brmo = null;
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            long count = 0l;
+            long count = 0L;
             JSONArray jsonProcessen = new JSONArray();
 
             brmo = new BrmoFramework(dataSourceStaging, null, null);
@@ -221,10 +221,12 @@ public class LaadProcesActionBean implements ActionBean {
         };
     }
 
+    @Override
     public ActionBeanContext getContext() {
         return context;
     }
 
+    @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }

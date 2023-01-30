@@ -38,6 +38,7 @@ public class DownloadTag extends BodyTagSupport {
 
     private String file = null;
 
+    @Override
     public int doEndTag() throws JspException {
         if (this.file == null) {
             this.file = LogfileUtil.getLogfile();

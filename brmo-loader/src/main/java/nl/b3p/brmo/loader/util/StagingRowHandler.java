@@ -105,7 +105,7 @@ public class StagingRowHandler extends BasicRowProcessor {
         }
 
         if (type.getName().contains("Bericht")) {
-            Bericht b = null;
+            Bericht b;
             if (namesList.contains("br_xml")) {
                 b = new Bericht(rs.getString("br_xml"));
             } else {
@@ -161,7 +161,7 @@ public class StagingRowHandler extends BasicRowProcessor {
         return null;
     }
 
-    class IgnoreCaseStringList extends ArrayList<String> {
+    static class IgnoreCaseStringList extends ArrayList<String> {
 
         @Override
         public boolean contains(Object o) {

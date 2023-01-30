@@ -75,6 +75,7 @@ public class BGTSchemaMapper extends SchemaSQLMapper {
         return METADATA_TABLE_NAME;
     }
 
+    @Override
     public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
         if (attributeName.startsWith("geometrie")) {
             return "geom";
@@ -86,6 +87,7 @@ public class BGTSchemaMapper extends SchemaSQLMapper {
         return super.getColumnNameForObjectType(objectType, attributeName);
     }
 
+    @Override
     public List<String> getCreateMetadataTableStatements(
             SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
         List<String> statements =

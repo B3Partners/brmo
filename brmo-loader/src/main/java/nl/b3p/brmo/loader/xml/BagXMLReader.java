@@ -20,9 +20,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -67,15 +65,22 @@ public class BagXMLReader extends BrmoXMLReader {
     public static final Map<String, String> lvcProductToObjectType;
 
     static {
-        Map<String, String> m = new HashMap();
-        m.put("Ligplaats", "LIG");
-        m.put("Nummeraanduiding", "NUM");
-        m.put("OpenbareRuimte", "OPR");
-        m.put("Pand", "PND");
-        m.put("Verblijfsobject", "VBO");
-        m.put("Standplaats", "STA");
-        m.put("Woonplaats", "WPL");
-        lvcProductToObjectType = Collections.unmodifiableMap(m);
+        lvcProductToObjectType =
+                Map.of(
+                        "Ligplaats",
+                        "LIG",
+                        "Nummeraanduiding",
+                        "NUM",
+                        "OpenbareRuimte",
+                        "OPR",
+                        "Pand",
+                        "PND",
+                        "Verblijfsobject",
+                        "VBO",
+                        "Standplaats",
+                        "STA",
+                        "Woonplaats",
+                        "WPL");
     }
 
     public BagXMLReader(InputStream in)

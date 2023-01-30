@@ -175,10 +175,7 @@ public class Main {
                             options.addOption(o);
                             return o;
                         })
-                .forEach(
-                        (o) -> {
-                            dbOptions.addOption(o);
-                        });
+                .forEach((o) -> dbOptions.addOption(o));
 
         OptionGroup g = new OptionGroup();
         g.setRequired(true);
@@ -189,10 +186,7 @@ public class Main {
                             g.addOption(o);
                             return o;
                         })
-                .forEach(
-                        (o) -> {
-                            modeOptions.addOption(o);
-                        });
+                .forEach((o) -> modeOptions.addOption(o));
         options.addOptionGroup(g);
 
         return options;
@@ -421,27 +415,26 @@ public class Main {
                 sb.append(",\"laadprocessen\":[");
                 processen.stream()
                         .forEach(
-                                (lp) -> {
-                                    sb.append("{")
-                                            .append("\"id\":")
-                                            .append(lp.getId())
-                                            .append(",")
-                                            .append("\"bestand_naam\":\"")
-                                            .append(lp.getBestandNaam())
-                                            .append("\",")
-                                            .append("\"bestand_datum\":\"")
-                                            .append(lp.getBestandDatum())
-                                            .append("\",")
-                                            .append("\"soort\":\"")
-                                            .append(lp.getSoort())
-                                            .append("\",")
-                                            .append("\"status\":\"")
-                                            .append(lp.getStatus())
-                                            .append("\",")
-                                            .append("\"contact\":\"")
-                                            .append(lp.getContactEmail())
-                                            .append("\"},");
-                                });
+                                (lp) ->
+                                        sb.append("{")
+                                                .append("\"id\":")
+                                                .append(lp.getId())
+                                                .append(",")
+                                                .append("\"bestand_naam\":\"")
+                                                .append(lp.getBestandNaam())
+                                                .append("\",")
+                                                .append("\"bestand_datum\":\"")
+                                                .append(lp.getBestandDatum())
+                                                .append("\",")
+                                                .append("\"soort\":\"")
+                                                .append(lp.getSoort())
+                                                .append("\",")
+                                                .append("\"status\":\"")
+                                                .append(lp.getStatus())
+                                                .append("\",")
+                                                .append("\"contact\":\"")
+                                                .append(lp.getContactEmail())
+                                                .append("\"},"));
                 sb.deleteCharAt(sb.length() - 1);
                 sb.append("]");
             }
@@ -455,16 +448,15 @@ public class Main {
 
             processen.stream()
                     .forEach(
-                            (lp) -> {
-                                System.out.printf(
-                                        "%s,%s,%s,%s,%s,%s\n",
-                                        lp.getId(),
-                                        lp.getBestandNaam(),
-                                        lp.getBestandDatum(),
-                                        lp.getSoort(),
-                                        lp.getStatus(),
-                                        lp.getContactEmail());
-                            });
+                            (lp) ->
+                                    System.out.printf(
+                                            "%s,%s,%s,%s,%s,%s\n",
+                                            lp.getId(),
+                                            lp.getBestandNaam(),
+                                            lp.getBestandDatum(),
+                                            lp.getSoort(),
+                                            lp.getStatus(),
+                                            lp.getContactEmail()));
         }
         brmo.closeBrmoFramework();
         return 0;
@@ -549,7 +541,7 @@ public class Main {
         LOG.info("Verwijderen laadproces " + id + " met aanhangende berichten uit staging.");
         long laadProcesId = 0;
         if (id != null && !id.isEmpty()) {
-            laadProcesId = Long.valueOf(id);
+            laadProcesId = Long.parseLong(id);
         }
 
         BrmoFramework brmo = new BrmoFramework(ds, null, null);
@@ -681,12 +673,11 @@ public class Main {
             boolean withWarnings = false;
             String[] fNames =
                     dir.list(
-                            (File f, String name) -> {
-                                return (name.endsWith(".xml")
-                                        || name.endsWith(".XML")
-                                        || name.endsWith(".zip")
-                                        || name.endsWith(".ZIP"));
-                            });
+                            (File f, String name) ->
+                                    (name.endsWith(".xml")
+                                            || name.endsWith(".XML")
+                                            || name.endsWith(".zip")
+                                            || name.endsWith(".ZIP")));
             BrmoFramework brmo = new BrmoFramework(ds, null, null);
             brmo.setOrderBerichten(true);
             brmo.setErrorState("ignore");

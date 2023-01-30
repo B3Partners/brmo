@@ -106,7 +106,7 @@ public class AdressenResponse {
 
             AdressenResponse ar = null;
             List<AdresResponse> arl = null;
-            AdresResponse bagAdres = null;
+            AdresResponse bagAdres;
             while (rs.next()) {
                 if (ar == null) {
                     ar = new AdressenResponse();

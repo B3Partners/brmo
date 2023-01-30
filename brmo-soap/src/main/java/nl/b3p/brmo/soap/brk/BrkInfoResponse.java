@@ -52,7 +52,7 @@ public class BrkInfoResponse {
 
     public List<KadOnrndZkInfoResponse> addKadOnrndZk(KadOnrndZkInfoResponse koz) {
         if (kadOnrndZk == null) {
-            kadOnrndZk = new ArrayList<KadOnrndZkInfoResponse>();
+            kadOnrndZk = new ArrayList<>();
         }
         kadOnrndZk.add(koz);
         return kadOnrndZk;

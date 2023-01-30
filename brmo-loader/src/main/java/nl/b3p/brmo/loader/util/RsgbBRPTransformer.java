@@ -15,7 +15,6 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.sql.SQLException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -60,8 +59,6 @@ public class RsgbBRPTransformer extends RsgbTransformer {
                 bericht.setDbXml(mergedDBXML);
                 current = mergedDBXML;
             }
-        } catch (SQLException ex) {
-            log.error("Cannot retrieve old bericht: ", ex);
         } catch (Exception ex) {
             log.error("Cannot retrieve old bericht: ", ex);
         }
