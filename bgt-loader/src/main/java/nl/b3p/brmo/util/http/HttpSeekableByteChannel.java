@@ -181,7 +181,7 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
             // avoid HEAD requests to a location that redirects but does not support the HEAD
             // method.
 
-            HttpResponseWrapper response = null;
+            HttpResponseWrapper response;
             try {
                 response = httpClientWrapper.request(uri, "Range", "bytes=0-0");
             } catch (InterruptedException e) {
@@ -258,7 +258,8 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
                     resumingInputStreamWrapper.apply(
                             new ResumingInputStream(
                                     new HttpStartRangeInputStreamProvider(
-                                            uri, httpClientWrapper, contentLength),
+                                                    uri, httpClientWrapper, contentLength)
+                                            .assumeAcceptsRanges(true),
                                     position));
         }
 

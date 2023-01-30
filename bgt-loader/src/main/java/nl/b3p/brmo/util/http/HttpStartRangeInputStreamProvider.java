@@ -43,6 +43,8 @@ public class HttpStartRangeInputStreamProvider
     private String ifRange;
     private String acceptRanges;
 
+    private boolean assumeAcceptsRanges = false;
+
     public HttpStartRangeInputStreamProvider(URI uri) {
         this(uri, HttpClientWrappers.getDefault());
     }
@@ -58,13 +60,30 @@ public class HttpStartRangeInputStreamProvider
         this.contentLength = contentLength;
     }
 
+    public HttpStartRangeInputStreamProvider assumeAcceptsRanges(boolean assumeAcceptsRanges) {
+        this.assumeAcceptsRanges = assumeAcceptsRanges;
+        return this;
+    }
+
+    public boolean isAssumeAcceptsRanges() {
+        return assumeAcceptsRanges;
+    }
+
+    public void setAssumeAcceptsRanges(boolean assumeAcceptsRanges) {
+        this.assumeAcceptsRanges = assumeAcceptsRanges;
+    }
+
+    public Long getContentLength() {
+        return contentLength;
+    }
+
     @Override
     public InputStream get(long position, int totalRetries, Exception causeForRetry)
             throws IOException {
         List<String[]> headers = new ArrayList<>();
 
         if (position > 0 && !first) {
-            if (!"bytes".equals(acceptRanges)) {
+            if (!assumeAcceptsRanges && !"bytes".equals(acceptRanges)) {
                 throw new IOException(
                         "Exception reading from HTTP server and resume not supported",
                         causeForRetry);
@@ -111,10 +130,10 @@ public class HttpStartRangeInputStreamProvider
         String eTag = response.getHeader("ETag");
         if (eTag != null) {
             // Use strong ETag only
-            if (!eTag.startsWith("W/")
-                    && eTag.startsWith("\"")
-                    && eTag.charAt(eTag.length() - 1) == '"') {
-                ifRange = eTag.substring(1, eTag.length() - 1);
+            if (!eTag.startsWith("W/")) {
+                // Accept any value, also if not surrounded by DQUOTE as required by spec
+                // DQUOTE should also be included in If-Range header
+                ifRange = eTag;
             }
         } else {
             ifRange = lastModified;
