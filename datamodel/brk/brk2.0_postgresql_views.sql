@@ -503,16 +503,17 @@ CREATE OR REPLACE VIEW
              aantekeningen
                 )
 AS
-SELECT zakrecht.identificatie                                               AS zr_identif,
-       zakrecht.begingeldigheid AS ingangsdatum_recht,
-       COALESCE(tenaamstelling.aandeel_teller::text, '0') || '/'::text || COALESCE(tenaamstelling.aandeel_noemer::text, '0') AS aandeel,
-       tenaamstelling.aandeel_teller                                        AS ar_teller,
-       tenaamstelling.aandeel_noemer                                        AS ar_noemer,
-       tenaamstelling.tennamevan                                            AS subject_identif,
-       zakrecht.rustop                                                      AS koz_identif,
-       (zakrecht.isbetrokkenbij is not NULL)::bool                          AS indic_betrokken_in_splitsing,
-       zakrecht.aard                                                        AS omschr_aard_verkregen_recht,
-       zakrecht.aard                                                        AS fk_3avr_aand,
+SELECT zakrecht.identificatie                             AS zr_identif,
+       zakrecht.begingeldigheid                           AS ingangsdatum_recht,
+       COALESCE(tenaamstelling.aandeel_teller::text, '0') || '/'::text ||
+       COALESCE(tenaamstelling.aandeel_noemer::text, '0') AS aandeel,
+       tenaamstelling.aandeel_teller                      AS ar_teller,
+       tenaamstelling.aandeel_noemer                      AS ar_noemer,
+       tenaamstelling.tennamevan                          AS subject_identif,
+       zakrecht.rustop                                    AS koz_identif,
+       (zakrecht.isbetrokkenbij is not NULL)::bool        AS indic_betrokken_in_splitsing,
+       zakrecht.aard                                      AS omschr_aard_verkregen_recht,
+       zakrecht.aard                                      AS fk_3avr_aand,
        array_to_string(
                (SELECT array_agg(('id: ' || aantekening.identificatie || ', ' ||
                                   'aard: ' || COALESCE(aantekening.aard, '') || ', ' ||
@@ -523,7 +524,7 @@ SELECT zakrecht.identificatie                                               AS z
                                   'subject-id: ' || COALESCE(aantekening.betrokkenpersoon, '') || '; '))
                 FROM recht aantekening
                 WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop),
-               ' & ')                                                       AS aantekeningen
+               ' & ')                                     AS aantekeningen
 FROM recht zakrecht
          JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
 WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
@@ -802,15 +803,13 @@ CREATE MATERIALIZED VIEW mb_koz_rechth
              begrenzing_perceel
                 )
 AS
-SELECT row_number() OVER ()                                                     AS objectid,
+SELECT row_number() OVER () AS objectid,
        koz.koz_identif,
        koz.begin_geldigheid,
        koz.begin_geldigheid_datum,
        koz.type,
-       COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer::text, '') AS aanduiding,
-       COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' ||
-       COALESCE(koz.perceelnummer::text, '') ||
-       ' ' || COALESCE(koz.appartementsindex::text, '')                         AS aanduiding2,
+       koz.aanduiding,
+       koz.aanduiding2,
        koz.sectie,
        koz.perceelnummer,
        koz.appartementsindex,
@@ -996,15 +995,13 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth
              begrenzing_perceel
                 )
 AS
-SELECT row_number() OVER ()                                                     AS objectid,
+SELECT row_number() OVER () AS objectid,
        koz.koz_identif,
        koz.begin_geldigheid,
        koz.begin_geldigheid_datum,
        koz.type,
-       COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer::text, '') AS aanduiding,
-       COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' ||
-       COALESCE(koz.perceelnummer::text, '') ||
-       ' ' || COALESCE(koz.appartementsindex::text, '')                         AS aanduiding2,
+       koz.aanduiding,
+       koz.aanduiding2,
        koz.sectie,
        koz.perceelnummer,
        koz.appartementsindex,
