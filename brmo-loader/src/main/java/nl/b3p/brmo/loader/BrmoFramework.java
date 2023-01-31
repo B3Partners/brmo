@@ -67,10 +67,10 @@ public class BrmoFramework {
     public static final String BRMO_METADATA_TABEL = "brmo_metadata";
 
     private StagingProxy stagingProxy = null;
-    private DataSource dataSourceRsgb;
-    private DataSource dataSourceRsgbBrk;
+    private final DataSource dataSourceRsgb;
+    private final DataSource dataSourceRsgbBrk;
     private DataSource dataSourceRsgbBgt = null;
-    private DataSource dataSourceStaging;
+    private final DataSource dataSourceStaging;
     private DataSource dataSourceTopNL = null;
     private boolean enablePipeline = false;
     private Integer pipelineCapacity;
@@ -391,7 +391,7 @@ public class BrmoFramework {
                     CountingInputStream zipCis =
                             new CountingInputStream(new FileInputStream(f)) {
                                 @Override
-                                protected void afterRead(int n) {
+                                protected synchronized void afterRead(int n) {
                                     super.afterRead(n);
                                     if (listener != null) {
                                         listener.progress(getByteCount());
