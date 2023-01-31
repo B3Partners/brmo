@@ -992,6 +992,7 @@
                         <show>package</show>
                         <useStandardDocletOptions>true</useStandardDocletOptions>
                         <links>
+                            <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                             <link>https://www.slf4j.org/apidocs/</link>
                             <link>https://docs.oracle.com/javaee/7/api/</link>
                             <link>https://docs.jboss.org/hibernate/orm/5.6/javadocs/</link>
@@ -1000,11 +1001,11 @@
                             <link>https://junit.org/junit5/docs/current/api/</link>
                             <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
                             <link>https://b3partners.github.io/jdbc-util/apidocs/</link>
+                            <link>https://jdbc.postgresql.org/documentation/publicapi/</link>
+                            <link>https://www.xmlunit.org/api/java/main/</link>
                         </links>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <packagesheader>${project.artifactId}</packagesheader>
-                        <!-- dit werkt niet voor veel projecten omdat de detected-link ${project.url}/apidocs is -->
-                        <detectLinks>false</detectLinks>
                         <tags>
                             <tag>
                                 <name>todo</name>
