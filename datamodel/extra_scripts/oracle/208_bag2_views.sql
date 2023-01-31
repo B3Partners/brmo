@@ -79,7 +79,8 @@ from (select 'true'                                 as ishoofdadres,
       from v_ligplaats_actueel lpa
                join ligplaats_nevenadres lpna on (lpna.identificatie = lpa.identificatie and
                                                   lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
-               join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+               where qry.status::text <> 'Plaats ingetrokken'::text;
 
 comment on table vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
@@ -145,7 +146,8 @@ from (select 'true'                                 as ishoofdadres,
       from v_standplaats_actueel spa
                join standplaats_nevenadres spna on (spna.identificatie = spa.identificatie and
                                                     spna.voorkomenidentificatie = spa.voorkomenidentificatie)
-               join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+               where qry.status::text <> 'Plaats ingetrokken'::text;
 
 comment on table vb_standplaats_adres is 'standplaats met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';
@@ -233,7 +235,8 @@ from (select 'true'                                                             
       from v_verblijfsobject_actueel voa
                join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
                                                         vona.voorkomenidentificatie = voa.voorkomenidentificatie)
-               join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+               where qry.status::text NOT IN ('Niet gerealiseerd verblijfsobject'::text, 'Verblijfsobject ingetrokken'::text, 'Verblijfsobject ten onrechte opgevoerd'::text]);
 
 comment on table vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';
