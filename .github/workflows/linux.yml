@@ -135,6 +135,8 @@ jobs:
           distribution: 'temurin'
           java-version: 11
           cache: 'maven'
+          # this check can be removed when GH runners update to Javan 11.0.18 or higher
+          check-latest: true
 
       - name: 'Javadoc'
         run: mvn compile javadoc:javadoc -DskipQA=true
