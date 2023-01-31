@@ -64,6 +64,7 @@ public class BGTObject extends SchemaObjectInstance {
         return mutatiePreviousVersionGmlId;
     }
 
+    @Override
     public String toString() {
         String s = super.toString();
         return xmlLocation == null

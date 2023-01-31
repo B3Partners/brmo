@@ -33,6 +33,7 @@ public class SchemaObjectInstance {
         return attributes;
     }
 
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder(objectType.getName());
         s.append("{");
