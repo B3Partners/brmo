@@ -85,7 +85,8 @@ from (
              (lpna.identificatie = lpa.identificatie
                  and lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                   join vb_adres a on
-                 lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+                 lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+                 where qry.status::text <> 'Plaats ingetrokken'::text;
 
 comment on view vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
 
@@ -145,7 +146,8 @@ from (select true                      as ishoofdadres,
           (spna.identificatie = spa.identificatie
               and spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on
-          spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+          spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+          where qry.status::text <> 'Plaats ingetrokken'::text;
 
 comment on view vb_standplaats_adres is 'standplaats met adres en puntlocatie';
 
@@ -234,7 +236,8 @@ from (select true                      as ishoofdadres,
           (vona.identificatie = voa.identificatie
               and vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on
-          vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+          vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+          where qry.status::text <> ALL (ARRAY['Niet gerealiseerd verblijfsobject'::text, 'Verblijfsobject ingetrokken'::text, 'Verblijfsobject ten onrechte opgevoerd'::text]);
 
 comment on view vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 
