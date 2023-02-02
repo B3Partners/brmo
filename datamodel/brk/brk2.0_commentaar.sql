@@ -134,7 +134,7 @@ COMMENT ON COLUMN nietnatuurlijkpersoon.rsin IS 'Het RSIN is het Rechtspersonen 
 COMMENT ON COLUMN nietnatuurlijkpersoon.kvknummer IS 'Het KvKNummer is een uniek identificerend administratienummer van een rechtspersoon zijnde een niet-natuurlijk persoon zoals toegewezen door de Kamer van Koophandel.';
 
 
-COMMENT ON TABLE publiekrechtelijkebeperking IS 'PubliekrechtelijkeBeperking';
+COMMENT ON TABLE publiekrechtelijkebeperking IS 'Publiekrechtelijke beperkingen zijn beperkingen die door de overheid zijn opgelegd.';
 COMMENT ON COLUMN publiekrechtelijkebeperking.identificatie IS 'Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.';
 COMMENT ON COLUMN publiekrechtelijkebeperking.grondslag IS 'De grondslag is een verwijzing naar de wet waar de publiekrechtelijke beperking op gebaseerd is.';
 COMMENT ON COLUMN publiekrechtelijkebeperking.datuminwerking IS 'datumInWerking wordt overgenomen in het LTO van de PB';

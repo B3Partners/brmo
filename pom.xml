@@ -1247,7 +1247,6 @@
                     <generateSitemap>true</generateSitemap>
                     <attach>false</attach>
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
-                    <locales>nl</locales>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
                     <stagingDirectory>/tmp/staging</stagingDirectory>
                 </configuration>

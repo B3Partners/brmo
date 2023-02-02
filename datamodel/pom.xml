@@ -287,10 +287,10 @@
                     <user>${rsgb.username}</user>
                     <password>${rsgb.password}</password>
                     <database>${rsgb.database}</database>
-                    <schema>${rsgb.schema}</schema>
+                    <schemas>${rsgb.reporting.schemas}</schemas>
                     <pathToDrivers>${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</pathToDrivers>
                     <allowHtmlInComments>false</allowHtmlInComments>
-                    <schemaDescription>SchemaSpy rapport BRMO RSGB datamodel v${project.version}</schemaDescription>
+                    <schemaDescription>SchemaSpy rapport BRMO schemas v${project.version}</schemaDescription>
                     <highQuality>true</highQuality>
                 </configuration>
             </plugin>
