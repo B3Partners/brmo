@@ -27,10 +27,10 @@
         <menu name="Informatie">
             <item name="Home" href="/index.html"/>
         </menu>
-        <menu name="RSGBdatamodellen">
-            <item name="RSGB datamodel" href="/schemaspy/public/index.html"/>
-            <item name="BRK datamodel" href="/schemaspy/brk/index.html"/>
-            <item name="BAG datamodel" href="/schemaspy/bag/index.html"/>
+        <menu name="Database schema's">
+            <item name="RSGB datamodel/schema" href="/schemaspy/public/index.html"/>
+            <item name="BRK datamodel/schema" href="/schemaspy/brk/index.html"/>
+            <item name="BAG datamodel/schema" href="/schemaspy/bag/index.html"/>
         </menu>
         <menu ref="parent"/>
         <menu ref="modules"/>

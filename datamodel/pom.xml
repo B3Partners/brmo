@@ -8,8 +8,8 @@
     </parent>
     <artifactId>datamodel</artifactId>
     <packaging>pom</packaging>
-    <name>BRMO RSGB datamodel</name>
-    <description>Bevat de code voor het genereren en testen van het RSGB datamodel.</description>
+    <name>BRMO RSGB database schema's</name>
+    <description>Bevat de code voor het genereren en testen van het RSGB datamodel en ook de BRK en BAG schema's.</description>
     <properties>
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
         <!-- LET OP als deze file bestaat zal het specifieke profiel geactiveerd worden en wordt het rsgb model niet gebouwd -->
