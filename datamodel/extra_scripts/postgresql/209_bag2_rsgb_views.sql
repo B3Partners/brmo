@@ -1,5 +1,6 @@
 -- veranderd het search_path in de database naar het public schema om aan het public schema de nieuwe materialized views toe te voegen.
 -- Via de BRMO GUI kunnen deze materialized views vervolgens automatisch ververst worden.
+SET SCHEMA 'public';
 set search_path = public,bag;
 
 -- Vervangt mb_adres. Gemeentevelden zijn nog niet beschikbaar.
