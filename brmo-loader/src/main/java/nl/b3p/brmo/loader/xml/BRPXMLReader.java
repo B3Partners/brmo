@@ -81,7 +81,7 @@ public class BRPXMLReader extends BrmoXMLReader {
         (href, base) ->
             new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href)));
 
-    Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
+    Source xsl = new StreamSource(BRPXMLReader.class.getResourceAsStream(pathToXsl));
     this.template = tf.newTemplates(xsl);
 
     nodes = doc.getDocumentElement().getChildNodes();
