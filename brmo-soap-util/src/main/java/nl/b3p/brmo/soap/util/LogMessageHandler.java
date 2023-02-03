@@ -5,7 +5,6 @@ package nl.b3p.brmo.soap.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Iterator;
@@ -26,48 +25,47 @@ import org.apache.commons.logging.LogFactory;
  */
 public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static final Log LOG = LogFactory.getLog(LogMessageHandler.class);
+  private static final Log LOG = LogFactory.getLog(LogMessageHandler.class);
 
-    @Override
-    public Set<QName> getHeaders() {
-        return Collections.emptySet();
-    }
+  @Override
+  public Set<QName> getHeaders() {
+    return Collections.emptySet();
+  }
 
-    @Override
-    public boolean handleMessage(SOAPMessageContext context) {
-        if (LOG.isTraceEnabled()) {
-            try {
-                Boolean outboundProperty = (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-                String prefix = "<<< ";
-                if (outboundProperty) {
-                    prefix = ">>> ";
-                    LOG.trace(prefix + "Uitgaand soap bericht");
-                } else {
-                    LOG.trace(prefix + "Inkomend soap bericht.");
-                }
-
-                Iterator<MimeHeader> i = context.getMessage().getMimeHeaders().getAllHeaders();
-                while (i.hasNext()) {
-                    MimeHeader h = i.next();
-                    LOG.trace(prefix + " " + h.getName() + ": " + h.getValue());
-                }
-
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                context.getMessage().writeTo(bos);
-                LOG.trace(prefix + " " + bos.toString(StandardCharsets.UTF_8));
-            } catch (SOAPException | IOException ex) {
-                LOG.trace(ex);
-            }
+  @Override
+  public boolean handleMessage(SOAPMessageContext context) {
+    if (LOG.isTraceEnabled()) {
+      try {
+        Boolean outboundProperty = (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+        String prefix = "<<< ";
+        if (outboundProperty) {
+          prefix = ">>> ";
+          LOG.trace(prefix + "Uitgaand soap bericht");
+        } else {
+          LOG.trace(prefix + "Inkomend soap bericht.");
         }
-        return true;
-    }
 
-    @Override
-    public boolean handleFault(SOAPMessageContext context) {
-        return true;
-    }
+        Iterator<MimeHeader> i = context.getMessage().getMimeHeaders().getAllHeaders();
+        while (i.hasNext()) {
+          MimeHeader h = i.next();
+          LOG.trace(prefix + " " + h.getName() + ": " + h.getValue());
+        }
 
-    @Override
-    public void close(MessageContext context) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        context.getMessage().writeTo(bos);
+        LOG.trace(prefix + " " + bos.toString(StandardCharsets.UTF_8));
+      } catch (SOAPException | IOException ex) {
+        LOG.trace(ex);
+      }
     }
+    return true;
+  }
+
+  @Override
+  public boolean handleFault(SOAPMessageContext context) {
+    return true;
+  }
+
+  @Override
+  public void close(MessageContext context) {}
 }

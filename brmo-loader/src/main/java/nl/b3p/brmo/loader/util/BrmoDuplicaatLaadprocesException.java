@@ -10,18 +10,17 @@ package nl.b3p.brmo.loader.util;
  */
 public class BrmoDuplicaatLaadprocesException extends BrmoException {
 
-    public BrmoDuplicaatLaadprocesException() {
-    }
+  public BrmoDuplicaatLaadprocesException() {}
 
-    public BrmoDuplicaatLaadprocesException(String message) {
-        super(message);
-    }
+  public BrmoDuplicaatLaadprocesException(String message) {
+    super(message);
+  }
 
-    public BrmoDuplicaatLaadprocesException(Throwable cause) {
-        super(cause);
-    }
+  public BrmoDuplicaatLaadprocesException(Throwable cause) {
+    super(cause);
+  }
 
-    public BrmoDuplicaatLaadprocesException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public BrmoDuplicaatLaadprocesException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

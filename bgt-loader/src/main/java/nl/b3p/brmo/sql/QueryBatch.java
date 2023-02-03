@@ -9,16 +9,16 @@ package nl.b3p.brmo.sql;
 import java.sql.SQLException;
 
 public interface QueryBatch {
-    boolean addBatch(Object[] params) throws Exception;
+  boolean addBatch(Object[] params) throws Exception;
 
-    void executeBatch() throws Exception;
+  void executeBatch() throws Exception;
 
-    void close() throws SQLException;
+  void close() throws SQLException;
 
-    default void closeQuietly() {
-        try {
-            close();
-        } catch(SQLException ignored) {
-        }
+  default void closeQuietly() {
+    try {
+      close();
+    } catch (SQLException ignored) {
     }
+  }
 }

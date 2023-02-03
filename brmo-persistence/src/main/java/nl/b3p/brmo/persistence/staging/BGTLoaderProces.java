@@ -8,5 +8,4 @@ import javax.persistence.Entity;
  * @author mprins
  */
 @Entity
-public class BGTLoaderProces extends AutomatischProces {
-}
+public class BGTLoaderProces extends AutomatischProces {}

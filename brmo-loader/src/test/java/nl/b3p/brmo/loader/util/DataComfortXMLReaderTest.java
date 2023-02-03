@@ -16,79 +16,94 @@
  */
 package nl.b3p.brmo.loader.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.xml.transform.stream.StreamSource;
 import java.io.InputStream;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import javax.xml.transform.stream.StreamSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Meine Toonen
  */
 public class DataComfortXMLReaderTest {
 
-    private static final Log log = LogFactory.getLog(DataComfortXMLReaderTest.class);
-    private static final DataComfortXMLReader reader = new DataComfortXMLReader();
-    
-    @BeforeEach
-    public void setUp(){
-        log.debug("Testing DataComfortXMLReader");
-    }
+  private static final Log log = LogFactory.getLog(DataComfortXMLReaderTest.class);
+  private static final DataComfortXMLReader reader = new DataComfortXMLReader();
 
-    @AfterEach
-    public void tearDown() {
-    }
+  @Test
+  public void testEmptyStackExceptionXML() throws Exception {
+    InputStream stream =
+        DataComfortXMLReaderTest.class.getResourceAsStream("EmptyStackException.xml");
+    StreamSource source = new StreamSource(stream);
+    List<TableData> data = reader.readDataXML(source);
+    assertEquals(22, data.size());
+  }
 
-    @Test
-    public void testEmptyStackExceptionXML() throws Exception {
-        InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("EmptyStackException.xml");
-        StreamSource source= new StreamSource(stream);
-        List<TableData> data = reader.readDataXML(source);
-        try{
-            assertEquals(6, data.size());
-        }catch (Exception e){
-            fail(e.getLocalizedMessage());
-        }
-    }
-    @Test
-    public void testClassCastExceptionXML() throws Exception {
-        InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("classCastException.xml");
-        StreamSource source= new StreamSource(stream);
-        List<TableData> data = reader.readDataXML(source);
-        try{
-            assertEquals(6, data.size());
-        }catch (Exception e){
-            fail(e.getLocalizedMessage());
-        }
-    }
-    @Test
-    public void test() throws Exception {
-        InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata.xml");
-        StreamSource source = new StreamSource(stream);
-        List<TableData> data = reader.readDataXML(source);
-        try {
-            assertEquals(3, data.size(), "Er zijn drie table data elementen");
-            TableData d = data.get(0);
-            assertTrue(d.isComfortData(), "eerste table data is comfort data.");
-            assertEquals(4, d.getRows().size(), "Er zijn vier table rows");
-            TableRow row = d.getRows().get(0);
-            assertEquals("50656082", row.getColumnValue("kvk_nummer"));
+  @Test
+  public void testClassCastExceptionXML() throws Exception {
+    InputStream stream =
+        DataComfortXMLReaderTest.class.getResourceAsStream("classCastException.xml");
+    StreamSource source = new StreamSource(stream);
+    List<TableData> data = reader.readDataXML(source);
+    assertEquals(15, data.size());
+  }
 
-            d = data.get(2);
-            row = d.getRows().get(0);
-            assertEquals("214606.115 581137.695 214593.637 581184.181 214586.404 581200.432 214582.757 581198.853 214579.699 581197.328 214595.919 581135.491 214597.599 581135.854 214606.115 581137.695",
-                    row.getColumnValue("posList"));
+  @Test
+  public void test() throws Exception {
+    InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata.xml");
+    StreamSource source = new StreamSource(stream);
+    List<TableData> data = reader.readDataXML(source);
 
+    assertEquals(9, data.size(), "Er zijn drie table data elementen");
+    TableData d = data.get(0);
+    assertTrue(d.isComfortData(), "eerste table data is comfort data.");
+    assertEquals(4, d.getRows().size(), "Er zijn vier table rows");
+    TableRow row = d.getRows().get(0);
+    assertEquals("50656082", row.getColumnValue("kvk_nummer"));
 
-        } catch (Exception e) {
-            fail(e.getLocalizedMessage());
-        }
-    }
+    d = data.get(2);
+    row = d.getRows().get(0);
+    assertEquals(
+        "MULTIPOLYGON (((214606.115 581137.695, 214593.637 581184.181, 214586.404 581200.432, 214582.757 581198.853, 214579.699 581197.328, 214595.919 581135.491, 214597.599 581135.854, 214606.115 581137.695)))",
+        row.getColumnValue("begrenzing_perceel"));
+  }
+
+  @Test
+  public void testBrk2() throws Exception {
+    InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata-brk2.xml");
+    StreamSource source = new StreamSource(stream);
+    List<TableData> data = reader.readDataXML(source);
+    assertEquals(9, data.size(), "Er zijn niet 9 table data elementen");
+    TableData d = data.get(2);
+    assertTrue(d.isComfortData(), "3e table data is comfort data.");
+    assertEquals(2, d.getRows().size(), "Er zijn vier table rows");
+    TableRow row = d.getRows().get(1);
+    assertEquals("21013149", row.getColumnValue("kvknummer"));
+
+    d = data.get(6);
+    row = d.getRows().get(0);
+    assertEquals("NL.IMKAD.KadastraalObject.50247970000", row.getColumnValue("identificatie"));
+    assertEquals(
+        "MULTIPOLYGON (((19452.172 366623.187, 19476.238 366616.882, 19477.741 366622.664, 19453.125 366629.117, 19452.172 366623.187)))",
+        row.getColumnValue("begrenzing_perceel"));
+  }
+
+  @Test
+  public void testGml32() throws Exception {
+    InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("comfortdata32.xml");
+    StreamSource source = new StreamSource(stream);
+    List<TableData> data = reader.readDataXML(source);
+    assertEquals(9, data.size(), "Er zijn drie table data elementen");
+    TableData d = data.get(6);
+    assertEquals(1, d.getRows().size(), "Er is één table row");
+    TableRow row = d.getRows().get(0);
+    assertEquals("perceel", row.getTable());
+    assertEquals(
+        "MULTIPOLYGON (((19452.172 366623.187, 19476.238 366616.882, 19477.741 366622.664, 19453.125 366629.117, 19452.172 366623.187)))",
+        row.getValues().get(2));
+  }
 }

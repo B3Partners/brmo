@@ -13,11 +13,11 @@ then
 fi
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
-echo "Verwerk upgrade script voor: " $1
+echo "Verwerk upgrade script voor: "$1
 
 DB_NAME=$1
-if [ "bag" = $1 ]; then
-  # bag is geen database, maar een schema in rsgb database
+if [ "bag" = $1 ] || [ "brk" = $1 ]; then
+  # bag en brk zijn geen database, maar een schema in rsgb database
   DB_NAME=rsgb
 fi
 psql -U postgres -h localhost -d $DB_NAME -f ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/postgresql/$1.sql

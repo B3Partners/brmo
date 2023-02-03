@@ -17,59 +17,56 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.math.BigInteger;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
-public class Inrichtingselement extends TopNLEntity{
-    
-    private String typeInrichtingselement;
-    private String soortnaam;
-    private String status;
-    private Long hoogteniveau;
-    
-    private Geometry geometrie;
+public class Inrichtingselement extends TopNLEntity {
 
-    public String getTypeInrichtingselement() {
-        return typeInrichtingselement;
-    }
+  private String typeInrichtingselement;
+  private String soortnaam;
+  private String status;
+  private Long hoogteniveau;
 
-    public void setTypeInrichtingselement(String typeInrichtingselement) {
-        this.typeInrichtingselement = typeInrichtingselement;
-    }
+  private Geometry geometrie;
 
-    public String getSoortnaam() {
-        return soortnaam;
-    }
+  public String getTypeInrichtingselement() {
+    return typeInrichtingselement;
+  }
 
-    public void setSoortnaam(String soortnaam) {
-        this.soortnaam = soortnaam;
-    }
+  public void setTypeInrichtingselement(String typeInrichtingselement) {
+    this.typeInrichtingselement = typeInrichtingselement;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public String getSoortnaam() {
+    return soortnaam;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setSoortnaam(String soortnaam) {
+    this.soortnaam = soortnaam;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public Long getHoogteniveau() {
-        return hoogteniveau;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setHoogteniveau(Long hoogteniveau) {
-        this.hoogteniveau = hoogteniveau;
-    }
-    
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public Long getHoogteniveau() {
+    return hoogteniveau;
+  }
+
+  public void setHoogteniveau(Long hoogteniveau) {
+    this.hoogteniveau = hoogteniveau;
+  }
 }

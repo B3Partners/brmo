@@ -16,10 +16,6 @@
  */
 package nl.b3p.topnl.converters;
 
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.PrecisionModel;
-import org.locationtech.jts.simplify.DouglasPeuckerSimplifier;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.StringReader;
@@ -32,68 +28,72 @@ import org.geotools.gml3.CircleRadiusTolerance;
 import org.geotools.xsd.Parser;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.output.XMLOutputter;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.simplify.DouglasPeuckerSimplifier;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
 public class GeometryConverter {
 
-    protected final static Log log = LogFactory.getLog(GeometryConverter.class);
+  protected static final Log log = LogFactory.getLog(GeometryConverter.class);
 
-    private final static double DISTANCE_TOLERANCE = 0.001;
-    protected final static double LINEARIZATION_TOLERANCE_MULTIPLIER = 0.01;//0.001;
+  private static final double DISTANCE_TOLERANCE = 0.001;
+  protected static final double LINEARIZATION_TOLERANCE_MULTIPLIER = 0.01; // 0.001;
 
-    private Parser parser;
-    private GeometryFactory geometryFactory;
+  private Parser parser;
+  private GeometryFactory geometryFactory;
 
-    protected final static int SRID = 28992;
+  protected static final int SRID = 28992;
 
-    public GeometryConverter() {
-        GeometryFactory gf = new GeometryFactory(new PrecisionModel(), SRID);
+  public GeometryConverter() {
+    GeometryFactory gf = new GeometryFactory(new PrecisionModel(), SRID);
 
-      /*  GMLConfiguration gml3Config = new GMLConfiguration(true);
-        gml3Config.setGeometryFactory(gf);
-        gml3Config.setExtendedArcSurfaceSupport(true);*/
+    /*  GMLConfiguration gml3Config = new GMLConfiguration(true);
+    gml3Config.setGeometryFactory(gf);
+    gml3Config.setExtendedArcSurfaceSupport(true);*/
 
+    ArcParameters arcParameters =
+        new ArcParameters(new CircleRadiusTolerance(LINEARIZATION_TOLERANCE_MULTIPLIER)); // new
+    // AbsoluteTolerance(LINEARIZATION_TOLERANCE));
 
-        ArcParameters arcParameters = new ArcParameters(new CircleRadiusTolerance(LINEARIZATION_TOLERANCE_MULTIPLIER));//new AbsoluteTolerance(LINEARIZATION_TOLERANCE));
+    org.geotools.gml3.GMLConfiguration gml3Config = new org.geotools.gml3.GMLConfiguration();
+    gml3Config.setExtendedArcSurfaceSupport(true);
+    gml3Config.getContext().registerComponentInstance(gf);
+    gml3Config.getContext().registerComponentInstance(arcParameters);
+    parser = new Parser(gml3Config);
+    this.geometryFactory = gf;
+  }
 
-        org.geotools.gml3.GMLConfiguration gml3Config = new org.geotools.gml3.GMLConfiguration();
-        gml3Config.setExtendedArcSurfaceSupport(true);
-        gml3Config.getContext().registerComponentInstance(gf);
-        gml3Config.getContext().registerComponentInstance(arcParameters);
-        parser = new Parser(gml3Config);
-        this.geometryFactory = gf;
+  public Geometry convertGeometry(Element el)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    if (!(el instanceof org.w3c.dom.Element)) {
+      throw new IllegalArgumentException("gml org.w3c.node is not an org.w3c.Element");
     }
-
-    public Geometry convertGeometry(Element el)
-            throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        if (!(el instanceof org.w3c.dom.Element)) {
-            throw new IllegalArgumentException("gml org.w3c.node is not an org.w3c.Element");
-        }
-        // TODO: maybe convert node directly to a source / inputsource / reader / stream for parser.
-        // instead of JDOM detour.
-        org.jdom2.Element elem = new DOMBuilder().build((org.w3c.dom.Element) el);
-        String gmlString = new XMLOutputter().outputString(elem);
-        gmlString = gmlString.replaceAll("gml:", "");
-        //tySstem.out.println("gmlString:" + gmlString);
-     //   parser.getNamespaces().declarePrefix("gml", "http://www.opengis.net/gml/3.2");
-        Object parsedObject = parser.parse(new StringReader(gmlString));
-        if (parsedObject instanceof Geometry) {
-            Geometry geom = (Geometry) parsedObject;
-            if (!geom.isValid()) {
-                geom = geom.buffer(0.0);
-                log.debug("Geometry is invalid. Made valid by buffering with 0");
-            }
-            // arcs can have nodes that are on the same point (28992; 3 digit precision): simplify
-            Geometry simplGeom = DouglasPeuckerSimplifier.simplify(geom, DISTANCE_TOLERANCE);
-            return simplGeom;
-        } else {
-            throw new InvalidClassException(parsedObject.getClass().getCanonicalName(), "Parsed object not of class Geometry.");
-        }
-
+    // TODO: maybe convert node directly to a source / inputsource / reader / stream for parser.
+    // instead of JDOM detour.
+    org.jdom2.Element elem = new DOMBuilder().build((org.w3c.dom.Element) el);
+    String gmlString = new XMLOutputter().outputString(elem);
+    gmlString = gmlString.replaceAll("gml:", "");
+    // tySstem.out.println("gmlString:" + gmlString);
+    //   parser.getNamespaces().declarePrefix("gml", "http://www.opengis.net/gml/3.2");
+    Object parsedObject = parser.parse(new StringReader(gmlString));
+    if (parsedObject instanceof Geometry) {
+      Geometry geom = (Geometry) parsedObject;
+      if (!geom.isValid()) {
+        geom = geom.buffer(0.0);
+        log.debug("Geometry is invalid. Made valid by buffering with 0");
+      }
+      // arcs can have nodes that are on the same point (28992; 3 digit precision): simplify
+      Geometry simplGeom = DouglasPeuckerSimplifier.simplify(geom, DISTANCE_TOLERANCE);
+      return simplGeom;
+    } else {
+      throw new InvalidClassException(
+          parsedObject.getClass().getCanonicalName(), "Parsed object not of class Geometry.");
     }
+  }
 }

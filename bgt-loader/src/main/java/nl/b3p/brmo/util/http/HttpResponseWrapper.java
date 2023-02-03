@@ -16,20 +16,21 @@ import java.io.InputStream;
  * @author Matthijs Laan
  */
 public interface HttpResponseWrapper {
-    /**
-     * @return The response status code.
-     * @throws IOException
-     */
-    int getStatusCode() throws IOException;
+  /**
+   * @return The response status code.
+   * @throws IOException if any
+   */
+  int getStatusCode() throws IOException;
 
-    /**
-     * @param header The name of the header value to return. Only single header values are expected.
-     * @return
-     */
-    String getHeader(String header);
+  /**
+   * @param header The name of the header value to return. Only single header values are expected.
+   * @return the value of the header
+   */
+  String getHeader(String header);
 
-    /**
-     * The input stream for the response body. Closing this stream should release all resources for this request.
-     */
-    InputStream getResponseBody() throws IOException;
+  /**
+   * The input stream for the response body. Closing this stream should release all resources for
+   * this request.
+   */
+  InputStream getResponseBody() throws IOException;
 }

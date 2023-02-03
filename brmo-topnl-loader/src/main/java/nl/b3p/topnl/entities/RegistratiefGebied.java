@@ -19,66 +19,62 @@ package nl.b3p.topnl.entities;
 import org.locationtech.jts.geom.Geometry;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
-public class RegistratiefGebied extends TopNLEntity{
-    
-    private String typeRegistratiefGebied;
-    private String naamOfficieel;
-    private String naamNL;
-    private String naamFries;
-    private String nummer;
-    private Geometry geometrie;
+public class RegistratiefGebied extends TopNLEntity {
 
-    public String getTypeRegistratiefGebied() {
-        return typeRegistratiefGebied;
-    }
+  private String typeRegistratiefGebied;
+  private String naamOfficieel;
+  private String naamNL;
+  private String naamFries;
+  private String nummer;
+  private Geometry geometrie;
 
-    public void setTypeRegistratiefGebied(String typeRegistratiefGebied) {
-        this.typeRegistratiefGebied = typeRegistratiefGebied;
-    }
+  public String getTypeRegistratiefGebied() {
+    return typeRegistratiefGebied;
+  }
 
-    public String getNaamOfficieel() {
-        return naamOfficieel;
-    }
+  public void setTypeRegistratiefGebied(String typeRegistratiefGebied) {
+    this.typeRegistratiefGebied = typeRegistratiefGebied;
+  }
 
-    public void setNaamOfficieel(String naamOfficieel) {
-        this.naamOfficieel = naamOfficieel;
-    }
+  public String getNaamOfficieel() {
+    return naamOfficieel;
+  }
 
-    public String getNaamNL() {
-        return naamNL;
-    }
+  public void setNaamOfficieel(String naamOfficieel) {
+    this.naamOfficieel = naamOfficieel;
+  }
 
-    public void setNaamNL(String naamNL) {
-        this.naamNL = naamNL;
-    }
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    public String getNaamFries() {
-        return naamFries;
-    }
+  public void setNaamNL(String naamNL) {
+    this.naamNL = naamNL;
+  }
 
-    public void setNaamFries(String naamFries) {
-        this.naamFries = naamFries;
-    }
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    public String getNummer() {
-        return nummer;
-    }
+  public void setNaamFries(String naamFries) {
+    this.naamFries = naamFries;
+  }
 
-    public void setNummer(String nummer) {
-        this.nummer = nummer;
-    }
+  public String getNummer() {
+    return nummer;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public void setNummer(String nummer) {
+    this.nummer = nummer;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
-    
-    
-    
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
+
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 }

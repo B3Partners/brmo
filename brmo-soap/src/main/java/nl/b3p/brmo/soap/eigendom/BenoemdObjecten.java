@@ -7,25 +7,20 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * <p>
- * Java class for anonymous complex type.
-*
- */
+/** Java class for anonymous complex type. */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "benoemdObject"
-})
+@XmlType(
+    name = "",
+    propOrder = {"benoemdObject"})
 public class BenoemdObjecten {
 
-    @XmlElement(name = "benoemd_object", required = true)
-    protected List<BenoemdObject> benoemdObject;
+  @XmlElement(name = "benoemd_object", required = true)
+  protected List<BenoemdObject> benoemdObject;
 
-    public List<BenoemdObject> getBenoemdObject() {
-        if (benoemdObject == null) {
-            benoemdObject = new ArrayList<BenoemdObject>();
-        }
-        return this.benoemdObject;
+  public List<BenoemdObject> getBenoemdObject() {
+    if (benoemdObject == null) {
+      benoemdObject = new ArrayList<BenoemdObject>();
     }
-
+    return this.benoemdObject;
+  }
 }

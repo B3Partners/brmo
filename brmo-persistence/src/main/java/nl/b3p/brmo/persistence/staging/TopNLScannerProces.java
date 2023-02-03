@@ -11,5 +11,4 @@ import javax.persistence.Entity;
  * @author Meine Toonen
  */
 @Entity
-public class TopNLScannerProces extends DirectoryScannerProces {
-}
+public class TopNLScannerProces extends DirectoryScannerProces {}

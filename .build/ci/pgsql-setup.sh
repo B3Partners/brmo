@@ -29,3 +29,17 @@ if [ $? -eq 0 ]; then
 else
     echo Failed setting up BRK 2.0 schema in rsgb DB
 fi
+
+PGOPTIONS="--search_path=brk" psql -v ON_ERROR_STOP=1 -U postgres -h localhost -w -q -d rsgb -f ./datamodel/brk/brk2.0_commentaar.sql
+if [ $? -eq 0 ]; then
+    echo Success
+else
+    echo Failed setting up BRK 2.0 schema comments in rsgb DB
+fi
+
+PGOPTIONS="--search_path=brk" psql -v ON_ERROR_STOP=1 -U postgres -h localhost -w -q -d rsgb -f ./datamodel/brk/brk2.0_postgresql_views.sql
+if [ $? -eq 0 ]; then
+    echo Success
+else
+    echo Failed setting up BRK 2.0 schema comments in rsgb DB
+fi

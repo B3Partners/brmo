@@ -20,136 +20,135 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
 public class Spoorbaandeel extends TopNLEntity {
 
-    private String typeInfrastructuur;
-    private String typeSpoorbaan;
-    private String fysiekVoorkomen;
-    private String spoorbreedte;
-    private String aantalSporen;
-    private String vervoerfunctie;
-    private Boolean elektrificatie;
-    private String status;
-    private String brugnaam;
-    private String tunnelnaam;
-    private String baanvaknaam;
-    private Long hoogteniveau;
-    
-    private LineString geometrie;
-    private Point puntGeometrie;
+  private String typeInfrastructuur;
+  private String typeSpoorbaan;
+  private String fysiekVoorkomen;
+  private String spoorbreedte;
+  private String aantalSporen;
+  private String vervoerfunctie;
+  private Boolean elektrificatie;
+  private String status;
+  private String brugnaam;
+  private String tunnelnaam;
+  private String baanvaknaam;
+  private Long hoogteniveau;
 
-    public String getTypeInfrastructuur() {
-        return typeInfrastructuur;
-    }
+  private LineString geometrie;
+  private Point puntGeometrie;
 
-    public void setTypeInfrastructuur(String typeInfrastructuur) {
-        this.typeInfrastructuur = typeInfrastructuur;
-    }
+  public String getTypeInfrastructuur() {
+    return typeInfrastructuur;
+  }
 
-    public String getTypeSpoorbaan() {
-        return typeSpoorbaan;
-    }
+  public void setTypeInfrastructuur(String typeInfrastructuur) {
+    this.typeInfrastructuur = typeInfrastructuur;
+  }
 
-    public void setTypeSpoorbaan(String typeSpoorbaan) {
-        this.typeSpoorbaan = typeSpoorbaan;
-    }
+  public String getTypeSpoorbaan() {
+    return typeSpoorbaan;
+  }
 
-    public String getFysiekVoorkomen() {
-        return fysiekVoorkomen;
-    }
+  public void setTypeSpoorbaan(String typeSpoorbaan) {
+    this.typeSpoorbaan = typeSpoorbaan;
+  }
 
-    public void setFysiekVoorkomen(String fysiekVoorkomen) {
-        this.fysiekVoorkomen = fysiekVoorkomen;
-    }
+  public String getFysiekVoorkomen() {
+    return fysiekVoorkomen;
+  }
 
-    public String getSpoorbreedte() {
-        return spoorbreedte;
-    }
+  public void setFysiekVoorkomen(String fysiekVoorkomen) {
+    this.fysiekVoorkomen = fysiekVoorkomen;
+  }
 
-    public void setSpoorbreedte(String spoorbreedte) {
-        this.spoorbreedte = spoorbreedte;
-    }
+  public String getSpoorbreedte() {
+    return spoorbreedte;
+  }
 
-    public String getAantalSporen() {
-        return aantalSporen;
-    }
+  public void setSpoorbreedte(String spoorbreedte) {
+    this.spoorbreedte = spoorbreedte;
+  }
 
-    public void setAantalSporen(String aantalSporen) {
-        this.aantalSporen = aantalSporen;
-    }
+  public String getAantalSporen() {
+    return aantalSporen;
+  }
 
-    public String getVervoerfunctie() {
-        return vervoerfunctie;
-    }
+  public void setAantalSporen(String aantalSporen) {
+    this.aantalSporen = aantalSporen;
+  }
 
-    public void setVervoerfunctie(String vervoerfunctie) {
-        this.vervoerfunctie = vervoerfunctie;
-    }
+  public String getVervoerfunctie() {
+    return vervoerfunctie;
+  }
 
-    public Boolean getElektrificatie() {
-        return elektrificatie;
-    }
+  public void setVervoerfunctie(String vervoerfunctie) {
+    this.vervoerfunctie = vervoerfunctie;
+  }
 
-    public void setElektrificatie(Boolean elektrificatie) {
-        this.elektrificatie = elektrificatie;
-    }
+  public Boolean getElektrificatie() {
+    return elektrificatie;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public void setElektrificatie(Boolean elektrificatie) {
+    this.elektrificatie = elektrificatie;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public String getBrugnaam() {
-        return brugnaam;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public void setBrugnaam(String brugnaam) {
-        this.brugnaam = brugnaam;
-    }
+  public String getBrugnaam() {
+    return brugnaam;
+  }
 
-    public String getTunnelnaam() {
-        return tunnelnaam;
-    }
+  public void setBrugnaam(String brugnaam) {
+    this.brugnaam = brugnaam;
+  }
 
-    public void setTunnelnaam(String tunnelnaam) {
-        this.tunnelnaam = tunnelnaam;
-    }
+  public String getTunnelnaam() {
+    return tunnelnaam;
+  }
 
-    public String getBaanvaknaam() {
-        return baanvaknaam;
-    }
+  public void setTunnelnaam(String tunnelnaam) {
+    this.tunnelnaam = tunnelnaam;
+  }
 
-    public void setBaanvaknaam(String baanvaknaam) {
-        this.baanvaknaam = baanvaknaam;
-    }
+  public String getBaanvaknaam() {
+    return baanvaknaam;
+  }
 
-    public LineString getGeometrie() {
-        return geometrie;
-    }
+  public void setBaanvaknaam(String baanvaknaam) {
+    this.baanvaknaam = baanvaknaam;
+  }
 
-    public void setGeometrie(LineString geometrie) {
-        this.geometrie = geometrie;
-    }
+  public LineString getGeometrie() {
+    return geometrie;
+  }
 
-    public Long getHoogteniveau() {
-        return hoogteniveau;
-    }
+  public void setGeometrie(LineString geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public void setHoogteniveau(Long hoogteniveau) {
-        this.hoogteniveau = hoogteniveau;
-    }
+  public Long getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    public Point getPuntGeometrie() {
-        return puntGeometrie;
-    }
+  public void setHoogteniveau(Long hoogteniveau) {
+    this.hoogteniveau = hoogteniveau;
+  }
 
-    public void setPuntGeometrie(Point puntGeometrie) {
-        this.puntGeometrie = puntGeometrie;
-    }
+  public Point getPuntGeometrie() {
+    return puntGeometrie;
+  }
+
+  public void setPuntGeometrie(Point puntGeometrie) {
+    this.puntGeometrie = puntGeometrie;
+  }
 }

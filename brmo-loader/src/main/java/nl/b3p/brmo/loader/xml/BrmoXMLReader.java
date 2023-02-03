@@ -15,100 +15,105 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class BrmoXMLReader {
 
-    private static final Log log = LogFactory.getLog(BrmoXMLReader.class);
+  private static final Log log = LogFactory.getLog(BrmoXMLReader.class);
 
-    // laadproces
-    private String bestandsNaam;
-    private Date bestandsDatum;
-    protected String soort; //waarde gezet in implementatie
-    private String gebied;
-    private String opmerking;
-    private String status;
-    private Date statusDatum;
-    private String contactEmail;
+  // laadproces
+  private String bestandsNaam;
+  private Date bestandsDatum;
+  protected String soort; // waarde gezet in implementatie
+  private String gebied;
+  private String opmerking;
+  private String status;
+  private Date statusDatum;
+  private String contactEmail;
 
-    public abstract void init() throws Exception;
-    public abstract boolean hasNext() throws Exception;
-    public abstract Bericht next() throws Exception;
+  public abstract void init() throws Exception;
 
-    public void setDatumAsString(String datumString, String simpleDateFormat) {
-        SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);
-        try {
-            bestandsDatum = sdf.parse(datumString);
-        } catch (ParseException pe) {
-            log.error("Fout bij parsen bericht datum \"" + datumString + "\" met formaat " + simpleDateFormat, pe);
-        }
+  public abstract boolean hasNext() throws Exception;
+
+  public abstract Bericht next() throws Exception;
+
+  public void setDatumAsString(String datumString, String simpleDateFormat) {
+    SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);
+    try {
+      bestandsDatum = sdf.parse(datumString);
+    } catch (ParseException pe) {
+      log.error(
+          "Fout bij parsen bericht datum \"" + datumString + "\" met formaat " + simpleDateFormat,
+          pe);
     }
-    public String getHash(String bsn) {
-        String hash = DigestUtils.sha1Hex(bsn);
-        return  hash;
-    }
+  }
 
-    public void setDatumAsString(String brkDatumString) {
-        setDatumAsString(brkDatumString, "yyyy-MM-dd");
-    }
+  public String getHash(String bsn) {
+    String hash = DigestUtils.sha1Hex(bsn);
+    return hash;
+  }
 
-    public String getBestandsNaam() {
-        return bestandsNaam;
-    }
+  public void setDatumAsString(String datumString) {
+    setDatumAsString(datumString, "yyyy-MM-dd");
+  }
 
-    public void setBestandsNaam(String bestandsNaam) {
-        this.bestandsNaam = bestandsNaam;
-    }
+  public String getBestandsNaam() {
+    return bestandsNaam;
+  }
 
-    public Date getBestandsDatum() {
-        return bestandsDatum;
-    }
+  public void setBestandsNaam(String bestandsNaam) {
+    this.bestandsNaam = bestandsNaam;
+  }
 
-    public void setBestandsDatum(Date bestandsDatum) {
-        this.bestandsDatum = bestandsDatum;
-    }
+  public Date getBestandsDatum() {
+    return bestandsDatum;
+  }
 
-    public String getSoort() {
-        return soort;
-    }
+  public void setBestandsDatum(Date bestandsDatum) {
+    this.bestandsDatum = bestandsDatum;
+  }
 
-    public void setSoort(String soort) {
-        this.soort = soort;
-    }
+  public String getSoort() {
+    return soort;
+  }
 
-    public String getGebied() {
-        return gebied;
-    }
+  public void setSoort(String soort) {
+    this.soort = soort;
+  }
 
-    public void setGebied(String gebied) {
-        this.gebied = gebied;
-    }
+  public String getGebied() {
+    return gebied;
+  }
 
-    public String getOpmerking() {
-        return opmerking;
-    }
+  public void setGebied(String gebied) {
+    this.gebied = gebied;
+  }
 
-    public void setOpmerking(String opmerking) {
-        this.opmerking = opmerking;
-    }
+  public String getOpmerking() {
+    return opmerking;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public void setOpmerking(String opmerking) {
+    this.opmerking = opmerking;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public Date getStatusDatum() {
-        return statusDatum;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public void setStatusDatum(Date statusDatum) {
-        this.statusDatum = statusDatum;
-    }
+  public Date getStatusDatum() {
+    return statusDatum;
+  }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
+  public void setStatusDatum(Date statusDatum) {
+    this.statusDatum = statusDatum;
+  }
 
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
+  public String getContactEmail() {
+    return contactEmail;
+  }
+
+  public void setContactEmail(String contactEmail) {
+    this.contactEmail = contactEmail;
+  }
 }

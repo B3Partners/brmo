@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>datamodel</artifactId>
-    <packaging>pom</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
-    <name>BRMO RSGB datamodel</name>
-    <description>Bevat de code voor het genereren en testen van het RSGB datamodel.</description>
+    <artifactId>datamodel</artifactId>
+    <packaging>pom</packaging>
+    <name>BRMO RSGB database schema's</name>
+    <description>Bevat de code voor het genereren en testen van het RSGB datamodel en ook de BRK en BAG schema's.</description>
     <properties>
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
         <!-- LET OP als deze file bestaat zal het specifieke profiel geactiveerd worden en wordt het rsgb model niet gebouwd -->
@@ -121,17 +121,17 @@
                 <executions>
                     <execution>
                         <id>initialize</id>
-                        <phase>initialize</phase>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
+                        <phase>initialize</phase>
                     </execution>
                     <execution>
                         <id>pre-site</id>
-                        <phase>pre-site</phase>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -153,14 +153,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>transform-rsgb-from-gml</id>
-                        <goals>
-                            <goal>transform</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <transformationSets>
                         <transformationSet>
@@ -261,6 +253,14 @@
                         </transformationSet>
                     </transformationSets>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>transform-rsgb-from-gml</id>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -287,10 +287,10 @@
                     <user>${rsgb.username}</user>
                     <password>${rsgb.password}</password>
                     <database>${rsgb.database}</database>
-                    <schema>${rsgb.schema}</schema>
+                    <schemas>${rsgb.reporting.schemas}</schemas>
                     <pathToDrivers>${settings.localRepository}/org/postgresql/postgresql/${postgresql.jdbc.version}/postgresql-${postgresql.jdbc.version}.jar</pathToDrivers>
                     <allowHtmlInComments>false</allowHtmlInComments>
-                    <schemaDescription>SchemaSpy rapport BRMO RSGB datamodel v${project.version}</schemaDescription>
+                    <schemaDescription>SchemaSpy rapport BRMO schemas v${project.version}</schemaDescription>
                     <highQuality>true</highQuality>
                 </configuration>
             </plugin>
@@ -313,6 +313,9 @@
                         <executions>
                             <execution>
                                 <id>prepare</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
                                 <phase>generate-sources</phase>
                                 <configuration>
                                     <target>
@@ -328,12 +331,12 @@
                                         <echo message="GEM-WPL koppeling xml bestand klaar voor transformatie naar SQL" />
                                     </target>
                                 </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
                             </execution>
                             <execution>
                                 <id>copy</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
                                     <target>
@@ -345,24 +348,12 @@
                                         </copy>
                                     </target>
                                 </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>xml-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>transform-gemeente-woonplaats-relatie</id>
-                                <goals>
-                                    <!-- generate-resources gebonden -->
-                                    <goal>transform</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <transformationSets>
                                 <transformationSet>
@@ -387,6 +378,15 @@
                                 </transformationSet>
                             </transformationSets>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>transform-gemeente-woonplaats-relatie</id>
+                                <goals>
+                                    <!-- generate-resources gebonden -->
+                                    <goal>transform</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -467,12 +467,12 @@
                 <defaultGoal>verify</defaultGoal>
                 <testResources>
                     <testResource>
+                        <targetPath>${project.build.directory}/</targetPath>
+                        <filtering>true</filtering>
                         <directory>${maven.multiModuleProjectDirectory}/.build/ci/</directory>
                         <includes>
                             <include>pgsql-reinstall-rsgb-views.sh</include>
                         </includes>
-                        <filtering>true</filtering>
-                        <targetPath>${project.build.directory}/</targetPath>
                     </testResource>
                     <testResource>
                         <directory>${project.basedir}/src/test/resources</directory>
@@ -495,10 +495,10 @@
                         <executions>
                             <execution>
                                 <id>initialize</id>
-                                <phase>initialize</phase>
                                 <goals>
                                     <goal>read-project-properties</goal>
                                 </goals>
+                                <phase>initialize</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -507,15 +507,15 @@
                         <executions>
                             <execution>
                                 <id>process-test-resources</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
                                 <phase>process-test-resources</phase>
                                 <configuration>
                                     <target>
                                         <chmod file="${project.build.directory}/pgsql-reinstall-rsgb-views.sh" perm="ugo+x" />
                                     </target>
                                 </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
@@ -537,8 +537,8 @@
                             <systemPropertyVariables />
                             <trimStackTrace>false</trimStackTrace>
                             <useFile>false</useFile>
-<!--                            <skipTests>!${test.onlyITs}</skipTests>-->
-<!--                            <skipITs>!${test.onlyITs}</skipITs>-->
+                            <!--                            <skipTests>!${test.onlyITs}</skipTests>-->
+                            <!--                            <skipITs>!${test.onlyITs}</skipITs>-->
                             <argLine>${failsafeArgLine}</argLine>
                         </configuration>
                     </plugin>

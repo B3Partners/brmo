@@ -19,99 +19,98 @@ package nl.b3p.topnl.entities;
 import java.util.Date;
 
 /**
- *
  * @author Meine Toonen
  */
 public abstract class TopNLEntity {
-    
-    protected String topnltype;
-    private Integer id;
-    private String identificatie;
-    private String brontype;
-    private Date bronactualiteit;
-    private String bronbeschrijving;
-    private Double bronnauwkeurigheid;
-    private Date objectBeginTijd;
-    private Date objectEindTijd;
-    private Long visualisatieCode;
-    
-    public String getTopnltype() {
-        return topnltype;
-    }
 
-    public void setTopnltype(String topnltype) {
-        this.topnltype = topnltype;
-    }
+  protected String topnltype;
+  private Integer id;
+  private String identificatie;
+  private String brontype;
+  private Date bronactualiteit;
+  private String bronbeschrijving;
+  private Double bronnauwkeurigheid;
+  private Date objectBeginTijd;
+  private Date objectEindTijd;
+  private Long visualisatieCode;
 
-    public Integer getId() {
-        return id;
-    }
+  public String getTopnltype() {
+    return topnltype;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setTopnltype(String topnltype) {
+    this.topnltype = topnltype;
+  }
 
-    public String getIdentificatie() {
-        return identificatie;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setIdentificatie(String identificatie) {
-        this.identificatie = identificatie;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getBrontype() {
-        return brontype;
-    }
+  public String getIdentificatie() {
+    return identificatie;
+  }
 
-    public void setBrontype(String brontype) {
-        this.brontype = brontype;
-    }
+  public void setIdentificatie(String identificatie) {
+    this.identificatie = identificatie;
+  }
 
-    public Date getBronactualiteit() {
-        return bronactualiteit;
-    }
+  public String getBrontype() {
+    return brontype;
+  }
 
-    public void setBronactualiteit(Date bronactualiteit) {
-        this.bronactualiteit = bronactualiteit;
-    }
+  public void setBrontype(String brontype) {
+    this.brontype = brontype;
+  }
 
-    public String getBronbeschrijving() {
-        return bronbeschrijving;
-    }
+  public Date getBronactualiteit() {
+    return bronactualiteit;
+  }
 
-    public void setBronbeschrijving(String bronbeschrijving) {
-        this.bronbeschrijving = bronbeschrijving;
-    }
+  public void setBronactualiteit(Date bronactualiteit) {
+    this.bronactualiteit = bronactualiteit;
+  }
 
-    public Double getBronnauwkeurigheid() {
-        return bronnauwkeurigheid;
-    }
+  public String getBronbeschrijving() {
+    return bronbeschrijving;
+  }
 
-    public void setBronnauwkeurigheid(Double bronnauwkeurigheid) {
-        this.bronnauwkeurigheid = bronnauwkeurigheid;
-    }
+  public void setBronbeschrijving(String bronbeschrijving) {
+    this.bronbeschrijving = bronbeschrijving;
+  }
 
-    public Date getObjectBeginTijd() {
-        return objectBeginTijd;
-    }
+  public Double getBronnauwkeurigheid() {
+    return bronnauwkeurigheid;
+  }
 
-    public void setObjectBeginTijd(Date objectBeginTijd) {
-        this.objectBeginTijd = objectBeginTijd;
-    }
+  public void setBronnauwkeurigheid(Double bronnauwkeurigheid) {
+    this.bronnauwkeurigheid = bronnauwkeurigheid;
+  }
 
-    public Long getVisualisatieCode() {
-        return visualisatieCode;
-    }
+  public Date getObjectBeginTijd() {
+    return objectBeginTijd;
+  }
 
-    public void setVisualisatieCode(Long visualisatieCode) {
-        this.visualisatieCode = visualisatieCode;
-    }
+  public void setObjectBeginTijd(Date objectBeginTijd) {
+    this.objectBeginTijd = objectBeginTijd;
+  }
 
-    public Date getObjectEindTijd() {
-        return objectEindTijd;
-    }
+  public Long getVisualisatieCode() {
+    return visualisatieCode;
+  }
 
-    public void setObjectEindTijd(Date objectEindTijd) {
-        this.objectEindTijd = objectEindTijd;
-    }
+  public void setVisualisatieCode(Long visualisatieCode) {
+    this.visualisatieCode = visualisatieCode;
+  }
+
+  public Date getObjectEindTijd() {
+    return objectEindTijd;
+  }
+
+  public void setObjectEindTijd(Date objectEindTijd) {
+    this.objectEindTijd = objectEindTijd;
+  }
 }

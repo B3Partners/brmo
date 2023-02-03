@@ -1,9 +1,7 @@
-
 package nl.b3p.brmo.service.stripes;
 
 import java.util.Date;
 import javax.sql.DataSource;
-
 import net.sourceforge.stripes.action.*;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
@@ -16,261 +14,280 @@ import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.plugin.waitpage.WaitPage;
 
 /**
- *
  * @author Matthijs Laan
  */
 public class TransformActionBean implements ActionBean, ProgressUpdateListener {
-    private static final Log log = LogFactory.getLog(TransformActionBean.class);
+  private static final Log log = LogFactory.getLog(TransformActionBean.class);
 
-    private static final String JSP = "/WEB-INF/jsp/transform/transform.jsp";
+  private static final String JSP = "/WEB-INF/jsp/transform/transform.jsp";
 
-    private ActionBeanContext context;
+  private ActionBeanContext context;
 
-    private long[] selectedIds;
+  private long[] selectedIds;
 
-    private double progress;
+  private double progress;
 
-    private long total;
+  private long total;
 
-    private long processed;
+  private long processed;
 
-    private boolean complete;
+  private boolean complete;
 
-    private Date start;
+  private Date start;
 
-    private Date update;
+  private Date update;
 
-    private String exceptionStacktrace;
+  private String exceptionStacktrace;
 
-    private long standBerichtenVerwerkingsLimiet;
+  private long standBerichtenVerwerkingsLimiet;
 
-    @Before
-    public void before() {
-        start = new Date();
+  @Before
+  public void before() {
+    start = new Date();
+  }
+
+  @After
+  public void completed() {
+    complete = true;
+  }
+
+  @Override
+  public void total(long total) {
+    this.total = total;
+  }
+
+  @Override
+  public void progress(long progress) {
+    this.processed = progress;
+    if (this.total != 0) {
+      this.progress = (100.0 / this.total) * this.processed;
     }
+    this.update = new Date();
+  }
 
-    @After
-    public void completed() {
-        complete = true;
-    }
+  @Override
+  public void exception(Throwable t) {
+    //        StringWriter sw = new StringWriter();
+    //        PrintWriter pw = new PrintWriter(sw);
+    //        t.printStackTrace(new PrintWriter(sw));
+    //        this.exceptionStacktrace = sw.toString();
+    this.exceptionStacktrace = t.getLocalizedMessage();
+  }
 
-    public void total(long total) {
-        this.total = total;
-    }
+  private Resolution doTransform(RsgbProxy.BerichtSelectMode mode, boolean orderBerichten) {
+    BrmoFramework brmo = null;
+    try {
+      DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+      DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
+      DataSource dataSourceRsgbBrk = ConfigUtil.getDataSourceRsgbBrk();
+      brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBrk);
 
-    public void progress(long progress) {
-        this.processed = progress;
-        if(this.total != 0) {
-            this.progress = (100.0/this.total) * this.processed;
+      boolean enableTransformPipeline =
+          "true".equals(getContext().getServletContext().getInitParameter("pipelining.enabled"));
+      brmo.setEnablePipeline(enableTransformPipeline);
+      if (enableTransformPipeline) {
+        String capacityString =
+            getContext().getServletContext().getInitParameter("pipelining.capacity");
+        if (capacityString != null) {
+          brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
         }
-        this.update = new Date();
+      }
+      String batchString = getContext().getServletContext().getInitParameter("batch.capacity");
+      if (batchString != null) {
+        brmo.setBatchCapacity(Integer.parseInt(batchString));
+      }
+
+      boolean renewConnectionAfterCommit =
+          "true"
+              .equals(
+                  getContext().getServletContext().getInitParameter("renewconnectionaftercommit"));
+      brmo.setRenewConnectionAfterCommit(renewConnectionAfterCommit);
+
+      brmo.setOrderBerichten(orderBerichten);
+      String errorState = getContext().getServletContext().getInitParameter("error.state");
+      if (errorState != null) {
+        brmo.setErrorState(errorState);
+      }
+
+      String maxBerichten =
+          getContext().getServletContext().getInitParameter("stand.transform.max");
+      if (maxBerichten != null) {
+        brmo.setLimitStandBerichtenToTransform(Integer.parseInt(maxBerichten));
+        log.info(
+            "Maximum aantal stand berichten voor transformatie batch ingesteld op: "
+                + maxBerichten
+                + ". Mogelijk dient stand transformatie meerdere keren gestart te worden.");
+        this.standBerichtenVerwerkingsLimiet = Integer.parseInt(maxBerichten);
+      }
+      Thread t = null;
+      switch (mode) {
+        case BY_IDS:
+          t = brmo.toRsgb(BerichtSelectMode.BY_IDS, selectedIds, this);
+          break;
+        case BY_STATUS:
+          t = brmo.toRsgb(this);
+          break;
+        case RETRY_WAITING:
+          t = brmo.toRsgb(BerichtSelectMode.RETRY_WAITING, null, this);
+          break;
+        case BY_LAADPROCES:
+          brmo.setDataSourceRsgbBgt(ConfigUtil.getDataSourceRsgbBgt());
+          brmo.setDataSourceTopNL(ConfigUtil.getDataSourceTopNL());
+          t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);
+          break;
+      }
+      if (t != null) {
+        t.join();
+      }
+
+      if (this.exceptionStacktrace == null) {
+        getContext()
+            .getMessages()
+            .add(new SimpleMessage("Transformatie afgerond, controleer berichtenstatus."));
+      }
+    } catch (Throwable t) {
+      log.error("Fout bij transformeren berichten naar RSGB", t);
+      String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
+      if (t.getCause() != null) {
+        m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
+      }
+      getContext().getMessages().add(new SimpleMessage(m));
+    } finally {
+      if (brmo != null) {
+        brmo.closeBrmoFramework();
+      }
     }
 
-    public void exception(Throwable t) {
-//        StringWriter sw = new StringWriter();
-//        PrintWriter pw = new PrintWriter(sw);
-//        t.printStackTrace(new PrintWriter(sw));
-//        this.exceptionStacktrace = sw.toString();
-        this.exceptionStacktrace=t.getLocalizedMessage();
-    }
+    return new ForwardResolution(JSP);
+  }
 
-    private Resolution doTransform(RsgbProxy.BerichtSelectMode mode, boolean orderBerichten) {
-        BrmoFramework brmo = null;
-        try {
-            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+  @DefaultHandler
+  public Resolution transformUnknown() {
+    getContext()
+        .getMessages()
+        .add(
+            new SimpleMessage(
+                "Het proces is onbekend. Mogelijk is deze transformatie al enige tijd geleden afgerond."));
+    return new ForwardResolution(JSP);
+  }
 
-            boolean enableTransformPipeline = "true".equals(getContext().getServletContext().getInitParameter("pipelining.enabled"));
-            brmo.setEnablePipeline(enableTransformPipeline);
-            if(enableTransformPipeline) {
-                String capacityString = getContext().getServletContext().getInitParameter("pipelining.capacity");
-                if(capacityString != null) {
-                    brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
-                }
-            }
-            String batchString = getContext().getServletContext().getInitParameter("batch.capacity");
-            if(batchString != null) {
-                brmo.setBatchCapacity(Integer.parseInt(batchString));
-            }
-            
-            boolean renewConnectionAfterCommit = "true".equals(getContext().getServletContext().getInitParameter("renewconnectionaftercommit"));
-            brmo.setRenewConnectionAfterCommit(renewConnectionAfterCommit);
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformSelected() {
+    return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);
+  }
 
-            brmo.setOrderBerichten(orderBerichten);
-            String errorState = getContext().getServletContext().getInitParameter("error.state");
-            if (errorState != null) {
-                brmo.setErrorState(errorState);
-            }
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformAll() {
+    return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, true);
+  }
 
-            String maxBerichten = getContext().getServletContext().getInitParameter("stand.transform.max");
-            if (maxBerichten != null) {
-                brmo.setLimitStandBerichtenToTransform(Integer.parseInt(maxBerichten));
-                log.info("Maximum aantal stand berichten voor transformatie batch ingesteld op: " + maxBerichten
-                        + ". Mogelijk dient stand transformatie meerdere keren gestart te worden.");
-                this.standBerichtenVerwerkingsLimiet = Integer.parseInt(maxBerichten);
-            }
-            Thread t = null;
-            switch(mode) {
-                case BY_IDS:
-                    t = brmo.toRsgb(BerichtSelectMode.BY_IDS, selectedIds, this);
-                    break;
-                case BY_STATUS:
-                    t = brmo.toRsgb(this);
-                    break;
-                case RETRY_WAITING:
-                    t = brmo.toRsgb(BerichtSelectMode.RETRY_WAITING, null, this);
-                    break;
-                case BY_LAADPROCES:
-                    brmo.setDataSourceRsgbBgt(ConfigUtil.getDataSourceRsgbBgt());
-                    brmo.setDataSourceTopNL(ConfigUtil.getDataSourceTopNL());
-                    t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);
-                    break;
-            }
-            if (t != null) {
-                t.join();
-            }
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformAllStand() {
+    return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);
+  }
 
-            if(this.exceptionStacktrace == null) {
-                getContext().getMessages().add(new SimpleMessage("Transformatie afgerond, controleer berichtenstatus."));
-            }
-        } catch(Throwable t) {
-            log.error("Fout bij transformeren berichten naar RSGB", t);
-            String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
-            if(t.getCause() != null) {
-                m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
-            }
-            getContext().getMessages().add(new SimpleMessage(m));
-        } finally {
-            if (brmo!=null) {
-                brmo.closeBrmoFramework();
-            }
-        }
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformRetry() {
+    return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, true);
+  }
 
-        return new ForwardResolution(JSP);
-    }
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformRetryStand() {
+    return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);
+  }
 
-    @DefaultHandler
-    public Resolution transformUnknown() {
-        getContext().getMessages().add(new SimpleMessage("Het proces is onbekend. Mogelijk is deze transformatie al enige tijd geleden afgerond."));
-        return new ForwardResolution(JSP);
-    }
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformSelectedLaadprocessen() {
+    return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);
+  }
 
-    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
-    public Resolution transformSelected() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);
-    }
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution transformSelectedLaadprocessenStand() {
+    return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, false);
+  }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
-    public Resolution transformAll() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, true);
-    }
+  // <editor-fold defaultstate="collapsed" desc="getters en setters">
+  @Override
+  public ActionBeanContext getContext() {
+    return context;
+  }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
-    public Resolution transformAllStand() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);
-    }
-    
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
-    public Resolution transformRetry() {
-        return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, true);
-    }
+  @Override
+  public void setContext(ActionBeanContext context) {
+    this.context = context;
+  }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
-    public Resolution transformRetryStand() {
-        return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);
-    }
+  public long[] getSelectedIds() {
+    return selectedIds;
+  }
 
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
-    public Resolution transformSelectedLaadprocessen() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);
-    }
-    
-    @WaitPage(path=JSP, delay=1000, refresh=1000)
-    public Resolution transformSelectedLaadprocessenStand() {
-        return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, false);
-    }
+  public void setSelectedIds(long[] selectedIds) {
+    this.selectedIds = selectedIds;
+  }
 
-    // <editor-fold defaultstate="collapsed" desc="getters en setters">
-    public ActionBeanContext getContext() {
-        return context;
-    }
+  public long getTotal() {
+    return total;
+  }
 
-    public void setContext(ActionBeanContext context) {
-        this.context = context;
-    }
+  public void setTotal(long total) {
+    this.total = total;
+  }
 
-    public long[] getSelectedIds() {
-        return selectedIds;
-    }
+  public long getProcessed() {
+    return processed;
+  }
 
-    public void setSelectedIds(long[] selectedIds) {
-        this.selectedIds = selectedIds;
-    }
+  public void setProcessed(long processed) {
+    this.processed = processed;
+  }
 
-    public long getTotal() {
-        return total;
-    }
+  public boolean isComplete() {
+    return complete;
+  }
 
-    public void setTotal(long total) {
-        this.total = total;
-    }
+  public void setComplete(boolean complete) {
+    this.complete = complete;
+  }
 
-    public long getProcessed() {
-        return processed;
-    }
+  public Date getStart() {
+    return start;
+  }
 
-    public void setProcessed(long processed) {
-        this.processed = processed;
-    }
+  public void setStart(Date start) {
+    this.start = start;
+  }
 
-    public boolean isComplete() {
-        return complete;
-    }
+  public Date getUpdate() {
+    return update;
+  }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
+  public void setUpdate(Date update) {
+    this.update = update;
+  }
 
-    public Date getStart() {
-        return start;
-    }
+  public double getProgress() {
+    return progress;
+  }
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
+  public void setProgress(double progress) {
+    this.progress = progress;
+  }
 
-    public Date getUpdate() {
-        return update;
-    }
+  public String getExceptionStacktrace() {
+    return exceptionStacktrace;
+  }
 
-    public void setUpdate(Date update) {
-        this.update = update;
-    }
+  public void setExceptionStacktrace(String exceptionStacktrace) {
+    this.exceptionStacktrace = exceptionStacktrace;
+  }
 
-    public double getProgress() {
-        return progress;
-    }
+  public long getStandBerichtenVerwerkingsLimiet() {
+    return standBerichtenVerwerkingsLimiet;
+  }
 
-    public void setProgress(double progress) {
-        this.progress = progress;
-    }
+  public void setStandBerichtenVerwerkingsLimiet(long standBerichtenVerwerkingsLimiet) {
+    this.standBerichtenVerwerkingsLimiet = standBerichtenVerwerkingsLimiet;
+  }
 
-    public String getExceptionStacktrace() {
-        return exceptionStacktrace;
-    }
-
-    public void setExceptionStacktrace(String exceptionStacktrace) {
-        this.exceptionStacktrace = exceptionStacktrace;
-    }
-
-    public long getStandBerichtenVerwerkingsLimiet() {
-        return standBerichtenVerwerkingsLimiet;
-    }
-
-    public void setStandBerichtenVerwerkingsLimiet(long standBerichtenVerwerkingsLimiet) {
-        this.standBerichtenVerwerkingsLimiet = standBerichtenVerwerkingsLimiet;
-    }
-
-    // </editor-fold>
+  // </editor-fold>
 }

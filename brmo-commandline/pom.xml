@@ -24,8 +24,6 @@
             <artifactId>commons-cli</artifactId>
         </dependency>
         <dependency>
-            <!-- deze is eigenlijk alleen nodig voor java 11, maar
-            omdat we een runnable jar met classpath maken makkelijk om ook voor java 8 er bij te stoppen -->
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>${jaxb.api.version}</version>
@@ -150,10 +148,10 @@
                 <executions>
                     <execution>
                         <id>copy</id>
-                        <phase>prepare-package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                             <excludeGroupIds>${exclude.groupIds.fromPackaging}</excludeGroupIds>
@@ -171,6 +169,9 @@
                 <executions>
                     <execution>
                         <id>pack</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <phase>package</phase>
                         <configuration>
                             <target>
@@ -178,16 +179,13 @@
                                 <zip destfile="${project.build.directory}/${project.build.finalName}.zip">
                                     <zipfileset dir="${project.build.directory}" includes="lib/**" />
                                     <zipfileset dir="${project.build.directory}" includes="logs/**" />
-                                    <zipfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" fullpath="bin/${project.build.finalName}.jar" />
-                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" includes="commandline-example.properties" fullpath="conf/commandline-example.properties" />
-                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" includes="log4j.xml" fullpath="conf/log4j-example.xml" />
+                                    <zipfileset dir="${project.build.directory}" fullpath="bin/${project.build.finalName}.jar" includes="${project.build.finalName}.jar" />
+                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" fullpath="conf/commandline-example.properties" includes="commandline-example.properties" />
+                                    <zipfileset dir="${project.build.sourceDirectory}/../resources" fullpath="conf/log4j-example.xml" includes="log4j.xml" />
                                     <zipfileset dir="${basedir}" includes="README.md" />
                                 </zip>
                             </target>
                         </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -197,10 +195,10 @@
                 <executions>
                     <execution>
                         <id>attach-artifacts</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>attach-artifact</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <artifacts>
                                 <artifact>
@@ -226,19 +224,19 @@
                         <executions>
                             <execution>
                                 <id>prepare-integration-test</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
                                 <phase>pre-integration-test</phase>
                                 <configuration>
                                     <target>
                                         <mkdir dir="${project.build.directory}/itest" />
-                                        <unzip src="${project.build.directory}/${project.build.finalName}.zip" dest="${project.build.directory}/itest" overwrite="true" />
+                                        <unzip dest="${project.build.directory}/itest" overwrite="true" src="${project.build.directory}/${project.build.finalName}.zip" />
                                         <copy todir="${project.build.directory}/itest/conf">
                                             <fileset dir="${project.build.testSourceDirectory}/../resources/" />
                                         </copy>
                                     </target>
                                 </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>
@@ -264,20 +262,20 @@
                         <executions>
                             <execution>
                                 <id>prepare-integration-test</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
                                 <phase>pre-integration-test</phase>
                                 <configuration>
                                     <target>
                                         <mkdir dir="${project.build.directory}/itest" />
-                                        <unzip src="${project.build.directory}/${project.build.finalName}.zip" dest="${project.build.directory}/itest" overwrite="true" />
+                                        <unzip dest="${project.build.directory}/itest" overwrite="true" src="${project.build.directory}/${project.build.finalName}.zip" />
                                         <copy todir="${project.build.directory}/itest/conf">
                                             <fileset dir="${project.build.testSourceDirectory}/../resources/" />
                                         </copy>
                                         <move file="${project.build.directory}/itest/conf/oracle.properties" tofile="${project.build.directory}/itest/conf/test.properties" />
                                     </target>
                                 </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

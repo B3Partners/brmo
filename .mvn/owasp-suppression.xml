@@ -37,14 +37,14 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-                   file name: kernel-7.2.4.jar
+                   file name: kernel-7.2.5.jar
                    see: https://github.com/jeremylong/DependencyCheck/issues/4613
    ]]></notes>
-        <gav regex="true">^com\.itextpdf:kernel:7\.2\.4.*$</gav>
+        <gav regex="true">^com\.itextpdf:kernel:7\.2\.5.*$</gav>
         <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
     </suppress>
-    <suppress until="2022-11-30+02:00">
-       <notes><![CDATA[
+    <suppress until="2023-03-31+02:00">
+        <notes><![CDATA[
                    file name: commons-jxpath-1.3.jar
 
                    Het zal even duren voor er patch versies zijn, zie:
@@ -56,12 +56,32 @@
                    - alleen vertrouwde gegevens verwerken
                    - we zelf geen JXPath gebruiken
        ]]></notes>
-       <packageUrl regex="true">^pkg:maven/commons\-jxpath/commons\-jxpath@.*$</packageUrl>
-       <cve>CVE-2022-41852</cve>
-       <cve>CVE-2022-40157</cve>
-       <cve>CVE-2022-40158</cve>
-       <cve>CVE-2022-40159</cve>
-       <cve>CVE-2022-40160</cve>
-       <cve>CVE-2022-40161</cve>
+        <packageUrl regex="true">^pkg:maven/commons\-jxpath/commons\-jxpath@.*$</packageUrl>
+        <cve>CVE-2022-40159</cve>
+        <cve>CVE-2022-40160</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+                   file name: commons-jxpath-1.3.jar
+
+                   Voor zover bekend zijn deze CVEs niet van toepassing op BRMO aangezien we:
+                   - alleen vertrouwde gegevens verwerken
+                   - we zelf geen JXPath gebruiken
+
+                   CVE-2022-41852: rejected
+       ]]></notes>
+        <packageUrl regex="true">^pkg:maven/commons\-jxpath/commons\-jxpath@.*$</packageUrl>
+        <cve>CVE-2022-41852</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+                   file name: json-20220924.jar
+
+                   CVE is voor hutool-json v5.8.10 die doorverwijst naar org.json:json.
+                   We gebruiken de XML.toJSONObject(...) functie niet en sowieso wordt er alleen vertrouwde data geparsed.
+                   zie: https://github.com/stleary/JSON-java/issues/708
+    ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.json/json@.*$</packageUrl>
+        <vulnerabilityName>CVE-2022-45688</vulnerabilityName>
     </suppress>
 </suppressions>

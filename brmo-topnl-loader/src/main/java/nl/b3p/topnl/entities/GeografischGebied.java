@@ -19,49 +19,45 @@ package nl.b3p.topnl.entities;
 import org.locationtech.jts.geom.Geometry;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
-public class GeografischGebied extends TopNLEntity{
-    
-    private String typeGeografischGebied;
-    private String naamNL;
-    private String naamFries;
-    
-    private Geometry geometrie;
+public class GeografischGebied extends TopNLEntity {
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  private String typeGeografischGebied;
+  private String naamNL;
+  private String naamFries;
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  private Geometry geometrie;
 
-    public String getTypeGeografischGebied() {
-        return typeGeografischGebied;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    public void setTypeGeografischGebied(String typeGeografischGebied) {
-        this.typeGeografischGebied = typeGeografischGebied;
-    }
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public String getNaamNL() {
-        return naamNL;
-    }
+  public String getTypeGeografischGebied() {
+    return typeGeografischGebied;
+  }
 
-    public void setNaamNL(String naamNL) {
-        this.naamNL = naamNL;
-    }
+  public void setTypeGeografischGebied(String typeGeografischGebied) {
+    this.typeGeografischGebied = typeGeografischGebied;
+  }
 
-    public String getNaamFries() {
-        return naamFries;
-    }
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    public void setNaamFries(String naamFries) {
-        this.naamFries = naamFries;
-    }
-    
-    
-    
+  public void setNaamNL(String naamNL) {
+    this.naamNL = naamNL;
+  }
+
+  public String getNaamFries() {
+    return naamFries;
+  }
+
+  public void setNaamFries(String naamFries) {
+    this.naamFries = naamFries;
+  }
 }

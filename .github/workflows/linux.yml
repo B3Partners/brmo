@@ -1,8 +1,10 @@
-name: Ubuntu PostgreSQL build
+name: 'Ubuntu PostgreSQL build'
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - 'master'
+  pull_request:
 
 concurrency: # cancel on PR pushes
   # More info: https://stackoverflow.com/a/68422069/253468
@@ -17,7 +19,7 @@ env:
 
 jobs:
   build:
-    name: Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}
+    name: "Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}"
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -25,43 +27,21 @@ jobs:
         java: [ 11 ]
         java-dist: [ 'temurin' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
-        # export POSTGRES_PASSWORD=postgres
-        # export PGPASSWORD=postgres
-        # docker run --rm -e POSTGRES_PASSWORD=postgres -h brmo-dev-tmp --name brmo-dev-tmp -p 5432:5432 -d postgis/postgis:15-3.3 -c max_connections=200
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
             # tot 11-2023  
             - 11-3.3-alpine
-            - 12-3.3-alpine
-            - 13-3.3-alpine
-            - 14-3.3-alpine
+            # - 12-3.3-alpine
+            # - 13-3.3-alpine
+            # - 14-3.3-alpine
             - 15-3.3-alpine
-
-    services:
-      postgres:
-        image: postgis/postgis:${{ matrix.postgis }}
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 15s --health-timeout 5s --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
         with:
           lfs: true
 
-      - name: Cache Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
-
-      - name: Cache test data
+      - name: 'Cache test data'
         uses: actions/cache@v3
         with:
           path: ~/downloads
@@ -69,106 +49,100 @@ jobs:
           restore-keys: |
             downloads-
 
-      - name: Set up JDK
+      - name: 'Set up JDK'
         uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
+          cache: 'maven'
 
-      - name: Install extra software
+      - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
 
-      - name: Priming build
+      - name: 'Priming build'
         run: |
-          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql
+          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql -DskipQA=true
           projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
           echo $projectversion
           export PROJECTVERSION=$projectversion
           sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
+          sed -i s/\${project.version}/$projectversion/g ./datamodel/brk/brk2.0_postgresql.sql
 
-      - name: Set up PostgreSQL
+      - name: 'Set up PostgreSQL'
         run: |
+          .build/ci/pgsql-start-docker.sh ${{ matrix.postgis }}
           psql --version
           psql -U postgres -h localhost -c 'SELECT version();'
           .build/ci/pgsql-create-databases.sh
           .build/ci/pgsql-setup.sh
 
-      - name: Prepare TopNL Data
+      - name: 'Prepare TopNL Data'
         run: |
           .build/ci/data-prepare-topnl.sh
 
-      - name: Test
+      - name: 'Test'
         run: |
-          mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
+          mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false -DskipQA=true
 
-      - name: Verify bag2-loader
-        # bag schema gedropped vanwege dbunit beperking "ambiguous table LIGPLAATS" en we hebben geen zin alle brmo-loader test code te herschrijven
+      - name: 'Verify bag2-loader'
         run: |
-          mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader'
+          mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
           .build/ci/pgsql-setup-bag2_views.sh
-          mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*'
-          .build/ci/pgsql-drop-bag2_schema.sh
+          mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*' -DskipQA=true
 
-      - name: Verify bgt-loader
-        run: mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bgt-loader'
+      - name: 'Verify bgt-loader'
+        run: mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -DskipQA=true
 
-      - name: Verify brmo-loader
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
+      - name: 'Verify brmo-loader'
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader' -DskipQA=true
 
-      - name: Verify brmo-service
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
+      - name: 'Verify brmo-service'
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service' -DskipQA=true
 
-      - name: Verify brmo-soap
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
+      - name: 'Verify brmo-soap'
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap' -DskipQA=true
 
-      - name: Verify brmo-stufbg204
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
+      - name: 'Verify brmo-stufbg204'
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204' -DskipQA=true
 
-      - name: Verify brmo-commandline
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
+      - name: 'Verify brmo-commandline'
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline' -DskipQA=true
 
-      - name: Verify nhr-loader
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'nhr-loader'
+      - name: 'Verify nhr-loader'
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'nhr-loader' -DskipQA=true
 
-      - name: Upload coverage to Codecov
+      - name: 'Upload coverage to Codecov'
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
 
 
   javadoc:
-    name: JavaDoc Check
+    name: 'JavaDoc Check'
     runs-on: ubuntu-latest
+    needs: qacheck
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v3
         with:
           lfs: false
 
-      - name: Cache Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
-
-      - name: Install extra software
-        run: sudo apt install -y --no-install-recommends graphviz
-
-      - name: Set up JDK
+      - name: 'Set up JDK'
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          # downgrade to 11 because javadoc bug https://bugs.openjdk.org/browse/JDK-8222091
-          # see https://github.com/B3Partners/brmo/pull/1602
-          java-version: '11.0.16'
+          java-version: 11
+          cache: 'maven'
+          # this check can be removed when GH runners update to Javan 11.0.18 or higher
+          check-latest: true
 
-      - name: Javadoc
-        run: mvn compile javadoc:javadoc
+      - name: 'Javadoc'
+        run: mvn compile javadoc:javadoc -DskipQA=true
 
-      - name: Test Javadoc
-        run: mvn test-compile javadoc:test-javadoc
+      - name: 'Test Javadoc'
+        run: mvn test-compile javadoc:test-javadoc -DskipQA=true
 
 
   dependency-review:
@@ -180,15 +154,70 @@ jobs:
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@v3
+        with:
+          lfs: false
 
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
 
 
+  qacheck:
+    name: 'QA checks'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: false
+
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: 'QA build with Maven'
+        run: mvn -B -V -fae -DskipQA=false -Dfmt.action=check -Dpom.fmt.action=verify -Ddocker.skip=true -Dtest.onlyITs= -Dmaven.test.skip=true clean package
+
+
+  deploy:
+    name: 'Deploy docker images'
+    if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+    needs: [build, qacheck]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: false
+
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+          cache: 'maven'
+          server-id: 'ghcr.io'
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
+      - name: 'Build and Push docker images'
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mvn -pl docker,datamodel -am -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true -Ddocker.skip=true install
+          mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
+
+
   cleanup:
     name: 'Maven cache cleanup'
     if: ${{ always() }}
-    needs: [ build, javadoc ]
+    needs: [ build, javadoc, qacheck ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v3
@@ -198,6 +227,6 @@ jobs:
           restore-keys: |
             maven-
 
-      - name: Cleanup snapshot cache
+      - name: 'Cleanup snapshot cache'
         run: |
           find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}

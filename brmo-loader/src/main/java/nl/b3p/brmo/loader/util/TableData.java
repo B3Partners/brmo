@@ -4,115 +4,128 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Boy de Wit
  */
 public class TableData {
-    
-    private boolean comfortData = false;
-    private String comfortSearchTable;
-    private String comfortSearchColumn;
-    private String comfortSearchValue;
-    
-    private boolean deleteData = false;
-    
-    /* Used for comfort metadata tables */
-    private String comfortSnapshotDate;
-    
-    List<TableRow> rows = new ArrayList<TableRow>();
-    
-    public TableData(TableRow row) {
-        this.deleteData = false;
-        this.comfortData = false;  
-        this.rows.add(row);
-    }
-    
-    public TableData(String comfortSearchTable, String comfortSearchColumn, 
-            String comfortSearchValue, String comfortSnapshotDate) {
-        
-        this.comfortData = true;
-        this.deleteData = false;
-        this.comfortSearchTable = comfortSearchTable;
-        this.comfortSearchColumn = comfortSearchColumn;
-        this.comfortSearchValue = comfortSearchValue;    
-        this.comfortSnapshotDate = comfortSnapshotDate;
-    }
 
-    public TableData() {
-        this.deleteData = true;
-        this.comfortData = false;
-    }
+  private boolean comfortData = false;
+  private String comfortSearchTable;
+  private String comfortSearchColumn;
+  private String comfortSearchValue;
 
-    public void addRow(TableRow row) {
-        rows.add(row);      
-    }
+  private boolean deleteData = false;
 
-    public boolean isComfortData() {
-        return comfortData;
-    }
+  /* Used for comfort metadata tables */
+  private String comfortSnapshotDate;
 
-    public void setComfortData(boolean comfortData) {
-        this.comfortData = comfortData;
-    }
-    
-    public boolean isDeleteData() {
-        return deleteData;
-    }
+  List<TableRow> rows = new ArrayList<>();
 
-    public void setDeleteData(boolean deleteData) {
-        this.deleteData = deleteData;
-    }
+  public TableData(TableRow row) {
+    this.deleteData = false;
+    this.comfortData = false;
+    this.rows.add(row);
+  }
 
-    public String getComfortSearchTable() {
-        return comfortSearchTable;
-    }
+  public TableData(
+      String comfortSearchTable,
+      String comfortSearchColumn,
+      String comfortSearchValue,
+      String comfortSnapshotDate) {
 
-    public void setComfortSearchTable(String comfortSearchTable) {
-        this.comfortSearchTable = comfortSearchTable;
-    }
+    this.comfortData = true;
+    this.deleteData = false;
+    this.comfortSearchTable = comfortSearchTable;
+    this.comfortSearchColumn = comfortSearchColumn;
+    this.comfortSearchValue = comfortSearchValue;
+    this.comfortSnapshotDate = comfortSnapshotDate;
+  }
 
-    public String getComfortSearchColumn() {
-        return comfortSearchColumn;
-    }
+  public TableData() {
+    this.deleteData = true;
+    this.comfortData = false;
+  }
 
-    public void setComfortSearchColumn(String comfortSearchColumn) {
-        this.comfortSearchColumn = comfortSearchColumn;
-    }
+  public void addRow(TableRow row) {
+    rows.add(row);
+  }
 
-    public String getComfortSearchValue() {
-        return comfortSearchValue;
-    }
+  public boolean isComfortData() {
+    return comfortData;
+  }
 
-    public void setComfortSearchValue(String comfortSearchValue) {
-        this.comfortSearchValue = comfortSearchValue;
-    }
+  public void setComfortData(boolean comfortData) {
+    this.comfortData = comfortData;
+  }
 
-    public List<TableRow> getRows() {
-        return rows;
-    }
+  public boolean isDeleteData() {
+    return deleteData;
+  }
 
-    public void setRows(List<TableRow> rows) {
-        this.rows = rows;
-    }
+  public void setDeleteData(boolean deleteData) {
+    this.deleteData = deleteData;
+  }
 
-    public String getComfortSnapshotDate() {
-        return comfortSnapshotDate;
-    }
+  public String getComfortSearchTable() {
+    return comfortSearchTable;
+  }
 
-    public void setComfortSnapshotDate(String comfortSnapshotDate) {
-        this.comfortSnapshotDate = comfortSnapshotDate;
-    }
+  public void setComfortSearchTable(String comfortSearchTable) {
+    this.comfortSearchTable = comfortSearchTable;
+  }
 
-    @Override
-    public String toString() {
-        return "TableData{" +
-                "comfortData=" + comfortData +
-                ", comfortSearchTable='" + comfortSearchTable + '\'' +
-                ", comfortSearchColumn='" + comfortSearchColumn + '\'' +
-                ", comfortSearchValue='" + comfortSearchValue + '\'' +
-                ", deleteData=" + deleteData +
-                ", comfortSnapshotDate='" + comfortSnapshotDate + '\'' +
-                ", rows=" + rows +
-                '}';
-    }
+  public String getComfortSearchColumn() {
+    return comfortSearchColumn;
+  }
+
+  public void setComfortSearchColumn(String comfortSearchColumn) {
+    this.comfortSearchColumn = comfortSearchColumn;
+  }
+
+  public String getComfortSearchValue() {
+    return comfortSearchValue;
+  }
+
+  public void setComfortSearchValue(String comfortSearchValue) {
+    this.comfortSearchValue = comfortSearchValue;
+  }
+
+  public List<TableRow> getRows() {
+    return rows;
+  }
+
+  public void setRows(List<TableRow> rows) {
+    this.rows = rows;
+  }
+
+  public String getComfortSnapshotDate() {
+    return comfortSnapshotDate;
+  }
+
+  public void setComfortSnapshotDate(String comfortSnapshotDate) {
+    this.comfortSnapshotDate = comfortSnapshotDate;
+  }
+
+  @Override
+  public String toString() {
+    return "TableData{"
+        + "comfortData="
+        + comfortData
+        + ", comfortSearchTable='"
+        + comfortSearchTable
+        + '\''
+        + ", comfortSearchColumn='"
+        + comfortSearchColumn
+        + '\''
+        + ", comfortSearchValue='"
+        + comfortSearchValue
+        + '\''
+        + ", deleteData="
+        + deleteData
+        + ", comfortSnapshotDate='"
+        + comfortSnapshotDate
+        + '\''
+        + ", rows="
+        + rows
+        + '}';
+  }
 }

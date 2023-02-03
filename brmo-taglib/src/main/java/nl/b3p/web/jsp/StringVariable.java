@@ -21,20 +21,17 @@ import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
 
 /**
- *
  * @author mprins
  */
 public class StringVariable extends TagExtraInfo {
 
-    @Override
-    public VariableInfo[] getVariableInfo(TagData data) {
-        String id = data.getAttributeString("id");
-        if (id == null) {
-            id = TailTag.DEFAULT_ID;
-        }
-
-        return new VariableInfo[]{
-            new VariableInfo(id, "java.lang.String", true, VariableInfo.NESTED)
-        };
+  @Override
+  public VariableInfo[] getVariableInfo(TagData data) {
+    String id = data.getAttributeString("id");
+    if (id == null) {
+      id = TailTag.DEFAULT_ID;
     }
+
+    return new VariableInfo[] {new VariableInfo(id, "java.lang.String", true, VariableInfo.NESTED)};
+  }
 }

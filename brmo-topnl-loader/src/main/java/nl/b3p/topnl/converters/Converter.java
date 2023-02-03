@@ -37,37 +37,62 @@ import nl.b3p.topnl.entities.Wegdeel;
 import org.xml.sax.SAXException;
 
 /**
- *
  * @author Meine Toonen
  */
 public abstract class Converter {
-    
-    protected GeometryConverter gc = new GeometryConverter();
-    
-    public abstract List<TopNLEntity> convert(List jaxbObjects)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    
-    public abstract TopNLEntity convertObject(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException,IllegalArgumentException;
-    
-    public abstract List<TopNLEntity> convertFeatureCollection(List jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    
-    public abstract Hoogte convertHoogte(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract FunctioneelGebied convertFunctioneelGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Gebouw convertGebouw(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract GeografischGebied convertGeografischGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Inrichtingselement convertInrichtingselement(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract PlanTopografie convertPlanTopografie(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
 
-    /**
-     * @throws ClassCastException Als er een onverwacht type geometrie in de
-     * data zit.
-     */
-    public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException,
-            ParserConfigurationException, TransformerException, ClassCastException;
-    public abstract Terrein convertTerrein(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Waterdeel convertWaterdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Wegdeel convertWegdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    
+  protected GeometryConverter gc = new GeometryConverter();
+
+  public abstract List<TopNLEntity> convert(List jaxbObjects)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract TopNLEntity convertObject(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+          IllegalArgumentException;
+
+  public abstract List<TopNLEntity> convertFeatureCollection(List jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Hoogte convertHoogte(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract FunctioneelGebied convertFunctioneelGebied(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Gebouw convertGebouw(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract GeografischGebied convertGeografischGebied(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Inrichtingselement convertInrichtingselement(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Plaats convertPlaats(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract RegistratiefGebied convertRegistratiefGebied(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Relief convertRelief(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract PlanTopografie convertPlanTopografie(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  /**
+   * @throws ClassCastException Als er een onverwacht type geometrie in de data zit.
+   */
+  public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+          ClassCastException;
+
+  public abstract Terrein convertTerrein(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Waterdeel convertWaterdeel(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Wegdeel convertWegdeel(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
 }

@@ -30,69 +30,66 @@ import org.stripesstuff.stripersist.InitializeSettings;
 import org.w3c.dom.Node;
 
 /**
- *
  * @author Matthijs Laan
  */
 public class DynamicStripersistInitializer implements InitializeSettings {
 
-    private static final Log log = LogFactory.getLog(DynamicStripersistInitializer.class);
+  private static final Log log = LogFactory.getLog(DynamicStripersistInitializer.class);
 
-    private static final String DATA_SOURCE_NAME = "java:comp/env/jdbc/brmo/staging";
+  private static final String DATA_SOURCE_NAME = "java:comp/env/jdbc/brmo/staging";
 
-    public static final String PU_PREFIX = "brmo.persistence.";
-    public static String databaseProductName = null;
+  public static final String PU_PREFIX = "brmo.persistence.";
+  public static String databaseProductName = null;
 
-    private SortedMap<String,Node> persistenceUnits;
-    private ServletContext context;
+  private SortedMap<String, Node> persistenceUnits;
+  private ServletContext context;
 
-    @Override
-    public void init(SortedMap<String,Node> persistenceUnits, URL xml, ServletContext context) {
-        this.persistenceUnits = persistenceUnits;
-        this.context = context;
+  @Override
+  public void init(SortedMap<String, Node> persistenceUnits, URL xml, ServletContext context) {
+    this.persistenceUnits = persistenceUnits;
+    this.context = context;
+  }
+
+  @Override
+  public List<String> getPersistenceUnitsToCreate() throws Exception {
+
+    log.info("Trying to determine persistence unit from JNDI DataSource database");
+
+    String persistenceUnit = null;
+    DataSource ds = null;
+    try {
+      InitialContext ctx = new InitialContext();
+
+      ds = (DataSource) ctx.lookup(DATA_SOURCE_NAME);
+    } catch (Exception e) {
+      log.info("No JNDI DataSource found under " + DATA_SOURCE_NAME + "");
     }
 
-    @Override
-    public List<String> getPersistenceUnitsToCreate() throws Exception {
-
-        log.info("Trying to determine persistence unit from JNDI DataSource database");
-
-        String persistenceUnit = null;
-        DataSource ds = null;
-        try {
-            InitialContext ctx = new InitialContext();
-
-            ds = (DataSource)ctx.lookup(DATA_SOURCE_NAME);
-        } catch(Exception e) {
-            log.info("No JNDI DataSource found under " + DATA_SOURCE_NAME + "");
+    if (ds != null) {
+      try {
+        try (Connection conn = ds.getConnection()) {
+          databaseProductName = conn.getMetaData().getDatabaseProductName().replace(" ", "");
         }
 
-        if(ds != null) {
-            try {
-                Connection conn = ds.getConnection();
-                try {
-                    databaseProductName = conn.getMetaData().getDatabaseProductName().replace(" ", "");
-                } finally {
-                    conn.close();
-                }
-
-                if(databaseProductName == null) {
-                    throw new Exception("No database product name found!");
-                } else {
-                    persistenceUnit = PU_PREFIX + databaseProductName.toLowerCase();
-                    if(!persistenceUnits.containsKey(persistenceUnit)) {
-                        throw new Exception(String.format("No persistence unit \"%s\" found for database product name \"%s\"",
-                                persistenceUnit,
-                                databaseProductName));
-                    }
-                }
-            } catch(Exception e) {
-                log.error("Error looking up database product name", e);
-                throw e;
-            }
+        if (databaseProductName == null) {
+          throw new Exception("No database product name found!");
+        } else {
+          persistenceUnit = PU_PREFIX + databaseProductName.toLowerCase();
+          if (!persistenceUnits.containsKey(persistenceUnit)) {
+            throw new Exception(
+                String.format(
+                    "No persistence unit \"%s\" found for database product name \"%s\"",
+                    persistenceUnit, databaseProductName));
+          }
         }
-
-        log.info("Found persistence unit: " + persistenceUnit);
-
-        return Arrays.asList(persistenceUnit);
+      } catch (Exception e) {
+        log.error("Error looking up database product name", e);
+        throw e;
+      }
     }
+
+    log.info("Found persistence unit: " + persistenceUnit);
+
+    return Arrays.asList(persistenceUnit);
+  }
 }

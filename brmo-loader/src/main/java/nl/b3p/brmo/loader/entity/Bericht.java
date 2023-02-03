@@ -1,175 +1,204 @@
 package nl.b3p.brmo.loader.entity;
 
+import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
+
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
 
 /**
- *
  * @author Boy de Wit
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Bericht {
-    private Long id;
-    private Long laadProcesId;
-    @XmlElement(namespace=NS_BRMO_BERICHT,name="object_ref")
-    protected String objectRef;
-    @XmlElement(namespace=NS_BRMO_BERICHT)
-    @XmlJavaTypeAdapter(NhrPeildatumAdapter.class)
-    protected Date datum;
-    private Integer volgordeNummer;
-    private String soort;
-    private String opmerking;
-    private Bericht.STATUS status;
-    private String jobId;
-    private Date statusDatum;
-    private String brXml;
-    private String brOrgineelXml;
-    private String dbXml;
-    private String xslVersion;
+  private Long id;
+  private Long laadProcesId;
 
-    public static final String GEEN_OBJECT_REF_MSG = "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.";
-    public static enum STATUS {
-        // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
-        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE, RSGB_BAG_NOK
-    };
+  @XmlElement(namespace = NS_BRMO_BERICHT, name = "object_ref")
+  protected String objectRef;
 
-    public Bericht(String brXml) {
-        this.brXml = brXml;
-    }
+  @XmlElement(namespace = NS_BRMO_BERICHT)
+  @XmlJavaTypeAdapter(NhrPeildatumAdapter.class)
+  protected Date datum;
 
-    public Long getId() {
-        return id;
-    }
+  private Integer volgordeNummer;
+  private String soort;
+  private String opmerking;
+  private Bericht.STATUS status;
+  private String jobId;
+  private Date statusDatum;
+  private String brXml;
+  private String brOrgineelXml;
+  private String dbXml;
+  private String xslVersion;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public static final String GEEN_OBJECT_REF_MSG =
+      "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.";
 
-    public Long getLaadProcesId() {
-        return laadProcesId;
-    }
+  public static enum STATUS {
+    // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en
+    // /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
+    STAGING_OK,
+    STAGING_NOK,
+    STAGING_FORWARDED,
+    RSGB_WAITING,
+    RSGB_PROCESSING,
+    RSGB_OK,
+    RSGB_OUTDATED,
+    RSGB_NOK,
+    ARCHIVE,
+    RSGB_BAG_NOK
+  };
 
-    public void setLaadProcesId(Long laadProcesId) {
-        this.laadProcesId = laadProcesId;
-    }
+  public Bericht(String brXml) {
+    this.brXml = brXml;
+  }
 
-    public String getObjectRef() {
-        return objectRef;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setObjectRef(String objectRef) {
-        this.objectRef = objectRef;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Date getDatum() {
-        return datum;
-    }
+  public Long getLaadProcesId() {
+    return laadProcesId;
+  }
 
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
+  public void setLaadProcesId(Long laadProcesId) {
+    this.laadProcesId = laadProcesId;
+  }
 
-    public Integer getVolgordeNummer() {
-        return volgordeNummer;
-    }
+  public String getObjectRef() {
+    return objectRef;
+  }
 
-    public void setVolgordeNummer(Integer volgordeNummer) {
-        this.volgordeNummer = volgordeNummer;
-    }
+  public void setObjectRef(String objectRef) {
+    this.objectRef = objectRef;
+  }
 
-    public String getSoort() {
-        return soort;
-    }
+  public Date getDatum() {
+    return datum;
+  }
 
-    public void setSoort(String soort) {
-        this.soort = soort;
-    }
+  public void setDatum(Date datum) {
+    this.datum = datum;
+  }
 
-    public String getOpmerking() {
-        return opmerking;
-    }
+  public Integer getVolgordeNummer() {
+    return volgordeNummer;
+  }
 
-    public void setOpmerking(String opmerking) {
-        this.opmerking = opmerking;
-    }
+  public void setVolgordeNummer(Integer volgordeNummer) {
+    this.volgordeNummer = volgordeNummer;
+  }
 
-    public STATUS getStatus() {
-        return status;
-    }
+  public String getSoort() {
+    return soort;
+  }
 
-    public void setStatus(STATUS status) {
-        this.status = status;
-    }
+  public void setSoort(String soort) {
+    this.soort = soort;
+  }
 
-    public String getJobId() {
-        return jobId;
-    }
+  public String getOpmerking() {
+    return opmerking;
+  }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
-    }
+  public void setOpmerking(String opmerking) {
+    this.opmerking = opmerking;
+  }
 
-    public Date getStatusDatum() {
-        return statusDatum;
-    }
+  public STATUS getStatus() {
+    return status;
+  }
 
-    public void setStatusDatum(Date statusDatum) {
-        this.statusDatum = statusDatum;
-    }
+  public void setStatus(STATUS status) {
+    this.status = status;
+  }
 
-    public String getBrXml() {
-        return brXml;
-    }
+  public String getJobId() {
+    return jobId;
+  }
 
-    public void setBrXml(String brXml) {
-        this.brXml = brXml;
-    }
+  public void setJobId(String jobId) {
+    this.jobId = jobId;
+  }
 
-    public String getBrOrgineelXml() {
-        return brOrgineelXml;
-    }
+  public Date getStatusDatum() {
+    return statusDatum;
+  }
 
-    public void setBrOrgineelXml(String brOrgineelXml) {
-        this.brOrgineelXml = brOrgineelXml;
-    }
+  public void setStatusDatum(Date statusDatum) {
+    this.statusDatum = statusDatum;
+  }
 
-    public String getDbXml() {
-        return dbXml;
-    }
+  public String getBrXml() {
+    return brXml;
+  }
 
-    public void setDbXml(String dbXml) {
-        this.dbXml = dbXml;
-    }
+  public void setBrXml(String brXml) {
+    this.brXml = brXml;
+  }
 
-    public String getXslVersion() {
-        return xslVersion;
-    }
+  public String getBrOrgineelXml() {
+    return brOrgineelXml;
+  }
 
-    public void setXslVersion(String xslVersion) {
-        this.xslVersion = xslVersion;
-    }
+  public void setBrOrgineelXml(String brOrgineelXml) {
+    this.brOrgineelXml = brOrgineelXml;
+  }
 
-    @Override
-    public String toString() {
-        return "Bericht{" +
-                "id=" + id +
-                ", objectRef=" + objectRef +
-                ", datum=" + datum +
-                ", volgordeNummer=" + volgordeNummer +
-                ", soort=" + soort +
-                ", status=" + status +
-                ", statusDatum=" + statusDatum +
-                ", laadProcesId=" + laadProcesId +
-                " (lengte brOrgineelXml=" + (brOrgineelXml == null ? null : brOrgineelXml.length()) +
-                " (lengte brXml=" + (brXml == null ? null : brXml.length()) +
-                " (lengte dbXml=" + (dbXml == null ? null : dbXml.length()) +
-                " (lengte opmerking=" + (opmerking == null ? null : opmerking.length()) +
-                ", xslVersion='" + xslVersion +
-                ", jobId=" + jobId +
-                '}';
-    }
+  public String getDbXml() {
+    return dbXml;
+  }
+
+  public void setDbXml(String dbXml) {
+    this.dbXml = dbXml;
+  }
+
+  public String getXslVersion() {
+    return xslVersion;
+  }
+
+  public void setXslVersion(String xslVersion) {
+    this.xslVersion = xslVersion;
+  }
+
+  @Override
+  public String toString() {
+    return "Bericht{"
+        + "id="
+        + id
+        + ", objectRef="
+        + objectRef
+        + ", datum="
+        + datum
+        + ", volgordeNummer="
+        + volgordeNummer
+        + ", soort="
+        + soort
+        + ", status="
+        + status
+        + ", statusDatum="
+        + statusDatum
+        + ", laadProcesId="
+        + laadProcesId
+        + " (lengte brOrgineelXml="
+        + (brOrgineelXml == null ? null : brOrgineelXml.length())
+        + " (lengte brXml="
+        + (brXml == null ? null : brXml.length())
+        + " (lengte dbXml="
+        + (dbXml == null ? null : dbXml.length())
+        + " (lengte opmerking="
+        + (opmerking == null ? null : opmerking.length())
+        + ", xslVersion='"
+        + xslVersion
+        + ", jobId="
+        + jobId
+        + '}';
+  }
 }

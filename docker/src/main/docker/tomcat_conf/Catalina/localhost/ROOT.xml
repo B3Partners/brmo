@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="">
+    <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbbrk" name="jdbc/brmo/rsgbbrk" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbbag" name="jdbc/brmo/rsgbbag" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
+    <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
+    <ResourceLink global="brmo/nhr/active" name="brmo/nhr/active" type="java.lang.Boolean"/>
+    <ResourceLink global="brmo/nhr/keystorePath" name="brmo/nhr/keystorePath" type="java.lang.String"/>
+    <ResourceLink global="brmo/nhr/keystorePassword" name="brmo/nhr/keystorePassword" type="java.lang.String"/>
+    <ResourceLink global="brmo/nhr/truststorePath" name="brmo/nhr/truststorePath" type="java.lang.String"/>
+    <ResourceLink global="brmo/nhr/truststorePassword" name="brmo/nhr/truststorePassword" type="java.lang.String"/>
+    <ResourceLink global="brmo/nhr/endpoint" name="brmo/nhr/endpoint" type="java.lang.String"/>
+    <ResourceLink global="brmo/nhr/endpointIsPreprod" name="brmo/nhr/endpointIsPreprod" type="java.lang.Boolean"/>
+    <ResourceLink global="brmo/nhr/secondsBetweenFetches" name="brmo/nhr/secondsBetweenFetches"
+                  type="java.lang.Integer"/>
+    <ResourceLink global="brmo/nhr/email" name="brmo/nhr/email" type="javax.mail.Session"/>
+
+    <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.DataSourceRealm"
+               dataSourceName="jdbc/brmo/staging"
+               userTable="gebruiker_"
+               userNameCol="gebruikersnaam"
+               userCredCol="wachtwoord"
+               userRoleTable="gebruiker_groepen"
+               roleNameCol="groep_"
+               allRolesMode="authOnly"
+               localDataSource="false"
+        >
+            <CredentialHandler className="org.apache.catalina.realm.SecretKeyCredentialHandler"
+                               algorithm="PBKDF2WithHmacSHA512"
+            />
+        </Realm>
+    </Realm>
+
+    <Parameter name="stand.transform.max.size" value="-1" override="false"/>
+    <Parameter name="pipelining.enabled" value="true" override="false"/>
+    <Parameter name="exportDir.brk" value="true" override="/opt/brmo-data/BRK/berichtendump"/>
+</Context>

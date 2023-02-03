@@ -17,67 +17,63 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.LineString;
-import java.math.BigInteger;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
-public class Relief extends TopNLEntity{
-    private String typeRelief;
-    private String hoogteklasse;
-    private Long hoogteniveau;
-    private LineString geometrie;
-    private LineString taludLageZijde;
-    private LineString taludHogeZijde;
+public class Relief extends TopNLEntity {
+  private String typeRelief;
+  private String hoogteklasse;
+  private Long hoogteniveau;
+  private LineString geometrie;
+  private LineString taludLageZijde;
+  private LineString taludHogeZijde;
 
-    public String getTypeRelief() {
-        return typeRelief;
-    }
+  public String getTypeRelief() {
+    return typeRelief;
+  }
 
-    public void setTypeRelief(String typeRelief) {
-        this.typeRelief = typeRelief;
-    }
+  public void setTypeRelief(String typeRelief) {
+    this.typeRelief = typeRelief;
+  }
 
-    public String getHoogteklasse() {
-        return hoogteklasse;
-    }
+  public String getHoogteklasse() {
+    return hoogteklasse;
+  }
 
-    public void setHoogteklasse(String hoogteklasse) {
-        this.hoogteklasse = hoogteklasse;
-    }
+  public void setHoogteklasse(String hoogteklasse) {
+    this.hoogteklasse = hoogteklasse;
+  }
 
-    public LineString getGeometrie() {
-        return geometrie;
-    }
+  public LineString getGeometrie() {
+    return geometrie;
+  }
 
-    public void setGeometrie(LineString geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setGeometrie(LineString geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public Long getHoogteniveau() {
-        return hoogteniveau;
-    }
+  public Long getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    public void setHoogteniveau(Long hoogteniveau) {
-        this.hoogteniveau = hoogteniveau;
-    }
+  public void setHoogteniveau(Long hoogteniveau) {
+    this.hoogteniveau = hoogteniveau;
+  }
 
-    public LineString getTaludLageZijde() {
-        return taludLageZijde;
-    }
+  public LineString getTaludLageZijde() {
+    return taludLageZijde;
+  }
 
-    public void setTaludLageZijde(LineString taludLageZijde) {
-        this.taludLageZijde = taludLageZijde;
-    }
+  public void setTaludLageZijde(LineString taludLageZijde) {
+    this.taludLageZijde = taludLageZijde;
+  }
 
-    public LineString getTaludHogeZijde() {
-        return taludHogeZijde;
-    }
+  public LineString getTaludHogeZijde() {
+    return taludHogeZijde;
+  }
 
-    public void setTaludHogeZijde(LineString taludHogeZijde) {
-        this.taludHogeZijde = taludHogeZijde;
-    }
-    
-    
+  public void setTaludHogeZijde(LineString taludHogeZijde) {
+    this.taludHogeZijde = taludHogeZijde;
+  }
 }

@@ -1,101 +1,98 @@
 package nl.b3p.brmo.soap.brk;
 
 /**
- *
  * @author Chris
  */
 public class AdresResponse {
-    
-    private String straatNaam;
-    private Integer huisnummer;
-    private String huisLetter;
-    private String huisLetterToevoeging;
-    private String postcode;
-    private String woonplaatsNaam;
-            
 
-    /**
-     * @return the straatNaam
-     */
-    public String getStraatNaam() {
-        return straatNaam;
-    }
+  private String straatNaam;
+  private Integer huisnummer;
+  private String huisLetter;
+  private String huisLetterToevoeging;
+  private String postcode;
+  private String woonplaatsNaam;
 
-    /**
-     * @param straatNaam the straatNaam to set
-     */
-    public void setStraatNaam(String straatNaam) {
-        this.straatNaam = straatNaam;
-    }
+  /**
+   * @return the straatNaam
+   */
+  public String getStraatNaam() {
+    return straatNaam;
+  }
 
-    /**
-     * @return the huisnummer
-     */
-    public Integer getHuisnummer() {
-        return huisnummer;
-    }
+  /**
+   * @param straatNaam the straatNaam to set
+   */
+  public void setStraatNaam(String straatNaam) {
+    this.straatNaam = straatNaam;
+  }
 
-    /**
-     * @param huisnummer the huisnummer to set
-     */
-    public void setHuisnummer(Integer huisnummer) {
-        this.huisnummer = huisnummer;
-    }
+  /**
+   * @return the huisnummer
+   */
+  public Integer getHuisnummer() {
+    return huisnummer;
+  }
 
-    /**
-     * @return the huisLetter
-     */
-    public String getHuisLetter() {
-        return huisLetter;
-    }
+  /**
+   * @param huisnummer the huisnummer to set
+   */
+  public void setHuisnummer(Integer huisnummer) {
+    this.huisnummer = huisnummer;
+  }
 
-    /**
-     * @param huisLetter the huisLetter to set
-     */
-    public void setHuisLetter(String huisLetter) {
-        this.huisLetter = huisLetter;
-    }
+  /**
+   * @return the huisLetter
+   */
+  public String getHuisLetter() {
+    return huisLetter;
+  }
 
-    /**
-     * @return the huisLetterToevoeging
-     */
-    public String getHuisLetterToevoeging() {
-        return huisLetterToevoeging;
-    }
+  /**
+   * @param huisLetter the huisLetter to set
+   */
+  public void setHuisLetter(String huisLetter) {
+    this.huisLetter = huisLetter;
+  }
 
-    /**
-     * @param huisLetterToevoeging the huisLetterToevoeging to set
-     */
-    public void setHuisLetterToevoeging(String huisLetterToevoeging) {
-        this.huisLetterToevoeging = huisLetterToevoeging;
-    }
+  /**
+   * @return the huisLetterToevoeging
+   */
+  public String getHuisLetterToevoeging() {
+    return huisLetterToevoeging;
+  }
 
-    /**
-     * @return the postcode
-     */
-    public String getPostcode() {
-        return postcode;
-    }
+  /**
+   * @param huisLetterToevoeging the huisLetterToevoeging to set
+   */
+  public void setHuisLetterToevoeging(String huisLetterToevoeging) {
+    this.huisLetterToevoeging = huisLetterToevoeging;
+  }
 
-    /**
-     * @param postcode the postcode to set
-     */
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
+  /**
+   * @return the postcode
+   */
+  public String getPostcode() {
+    return postcode;
+  }
 
-    /**
-     * @return the woonplaatsNaam
-     */
-    public String getWoonplaatsNaam() {
-        return woonplaatsNaam;
-    }
+  /**
+   * @param postcode the postcode to set
+   */
+  public void setPostcode(String postcode) {
+    this.postcode = postcode;
+  }
 
-    /**
-     * @param woonplaatsNaam the woonplaatsNaam to set
-     */
-    public void setWoonplaatsNaam(String woonplaatsNaam) {
-        this.woonplaatsNaam = woonplaatsNaam;
-    }
+  /**
+   * @return the woonplaatsNaam
+   */
+  public String getWoonplaatsNaam() {
+    return woonplaatsNaam;
+  }
 
+  /**
+   * @param woonplaatsNaam the woonplaatsNaam to set
+   */
+  public void setWoonplaatsNaam(String woonplaatsNaam) {
+    this.woonplaatsNaam = woonplaatsNaam;
+  }
 }

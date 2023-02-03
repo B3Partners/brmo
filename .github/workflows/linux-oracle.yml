@@ -1,8 +1,10 @@
 name: Ubuntu Oracle build
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - 'master'
+  pull_request:
 
 concurrency: # cancel on PR pushes
   # More info: https://stackoverflow.com/a/68422069/253468
@@ -21,22 +23,14 @@ jobs:
       matrix:
         java: [ 11 ]
         java-dist: [ 'temurin' ]
-        oracle: [ '18.4.0-full', '21.3.0-full' ]
+        oracle: [ '21.3.0-full' ]
 
     steps:
       - uses: actions/checkout@v3
         with:
           lfs: true
 
-      - name: Cache Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
-
-      - name: Cache test data
+      - name: 'Cache test data'
         uses: actions/cache@v3
         with:
           path: ~/downloads
@@ -44,67 +38,68 @@ jobs:
           restore-keys: |
             downloads-
 
-      - name: Set up JDK
+      - name: 'Set up JDK'
         uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
+          cache: 'maven'
 
-      - name: Install extra software
+      - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
 
-      - name: Priming build
+      - name: 'Priming build'
         run: |
           ./.build/ci/oracle-setup-db-properties.sh
-          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Poracle
+          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -DskipQA=true
           projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
           echo $projectversion
           export PROJECTVERSION=$projectversion
           sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-oracle.sql
+          sed -i s/\${project.version}/$projectversion/g ./datamodel/brk/brk2.0_oracle.sql
 
-      - name: Setup Oracle XE
+      - name: 'Setup Oracle XE'
         run: |
           ./.build/ci/oracle-start-docker.sh ${{ matrix.oracle }}
           ./.build/ci/oracle-setup.sh
 
-      - name: Test
+      - name: 'Test'
         run: |
-          mvn -e test -B -Poracle -pl '!brmo-dist' -Dtest.onlyITs=false
+          mvn -e test -B -Poracle -pl '!brmo-dist' -Dtest.onlyITs=false -DskipQA=true
 
-      - name: Verify bag2-loader
+      - name: 'Verify bag2-loader'
         run: |
-          mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bag2-loader'
+          mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
           .build/ci/oracle-setup-bag2_views.sh
-          mvn resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*'
+          mvn resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*' -DskipQA=true
 
-      - name: Verify bgt-loader
-        run: mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader'
+      - name: 'Verify bgt-loader'
+        run: mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -DskipQA=true
 
-      - name: Verify brmo-loader
-        run: |
-          mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1
+      - name: 'Verify brmo-loader'
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1 -DskipQA=true
 
-      - name: Verify brmo-service
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service'
+      - name: 'Verify brmo-service'
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service' -DskipQA=true
 
-      - name: Verify brmo-soap
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-soap'
+      - name: 'Verify brmo-soap'
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-soap' -DskipQA=true
 
-      - name: Verify brmo-stufbg204
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-stufbg204'
+      - name: 'Verify brmo-stufbg204'
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-stufbg204' -DskipQA=true
 
-      - name: Verify brmo-commandline
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-commandline'
+      - name: 'Verify brmo-commandline'
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-commandline' -DskipQA=true
 
-      - name: Verify nhr-loader
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'nhr-loader'
+      - name: 'Verify nhr-loader'
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'nhr-loader' -DskipQA=true
 
-      - name: Upload coverage to Codecov
+      - name: 'Upload coverage to Codecov'
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
 
-      - name: Cleanup build artifacts
+      - name: 'Cleanup build artifacts'
         run: |
           mvn clean build-helper:remove-project-artifact
           find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}

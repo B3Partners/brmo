@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-12-19+01:00, zie commentaar in bericht.-->
+<Stand:Stand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:Stand="http://www.kadaster.nl/schemas/brk-levering/product-stand/v20211119"
+             xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20211119"
+             xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119"
+             xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
+             xmlns:Herverkaveling="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling/v20210702"
+             xmlns:Herverkaveling-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling-ref/v20210702"
+             xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20210702"
+             xmlns:InOnderzoek-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek-ref/v20210702"
+             xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702"
+             xmlns:KadastraalObject-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20210702"
+             xmlns:OnroerendeZaak="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak/v20211119"
+             xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
+             xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903"
+             xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
+             xmlns:PubliekrechtelijkeBeperking="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking/v20210702"
+             xmlns:PubliekrechtelijkeBeperking-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking-ref/v20210702"
+             xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903"
+             xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
+             xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119"
+             xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
+             xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702"
+             xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903"
+             xmlns:KIMBAGAdres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres-ref/v20210702"
+             xmlns:KIMBRPAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-adres/v20210702"
+             xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903"
+             xmlns:KIMNHRRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimnhr-rechtspersoon/v20210702"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             xmlns:gml="http://www.opengis.net/gml/3.2">
+   <Stand:productType>GemeentegebaseerdeStand</Stand:productType>
+   <Stand:productSpecificatie>
+      <Stand:kenmerknaam>Peildatum</Stand:kenmerknaam>
+      <Stand:kenmerkwaarde>2022-11-15</Stand:kenmerkwaarde>
+   </Stand:productSpecificatie>
+   <Stand:productSpecificatie>
+      <Stand:kenmerknaam>Gemeentenummer</Stand:kenmerknaam>
+      <Stand:kenmerkwaarde>0106</Stand:kenmerkwaarde>
+   </Stand:productSpecificatie>
+   <Stand:productSpecificatie>
+      <Stand:kenmerknaam>Gemeentenaam</Stand:kenmerknaam>
+      <Stand:kenmerkwaarde>Assen</Stand:kenmerkwaarde>
+   </Stand:productSpecificatie>
+   <Stand:stand>
+      <Snapshot:KadastraalObjectSnapshot>
+         <Snapshot:referentie>30E2A8A110B0-1D52822535B</Snapshot:referentie>
+         <Snapshot:toestandsdatum>2015-01-30</Snapshot:toestandsdatum>
+         <OnroerendeZaak:Perceel id="ID.4102396779">
+            <KadastraalObject:identificatie domein="NL.IMKAD.KadastraalObject">53750049870000</KadastraalObject:identificatie>
+            <OnroerendeZaak:kadastraleAanduiding>
+               <OnroerendeZaak:akrKadastraleGemeenteCode>
+                  <Typen:code>106</Typen:code>
+                  <Typen:waarde>ASN00</Typen:waarde>
+               </OnroerendeZaak:akrKadastraleGemeenteCode>
+               <OnroerendeZaak:kadastraleGemeente>
+                  <Typen:code>59</Typen:code>
+                  <Typen:waarde>Assen</Typen:waarde>
+               </OnroerendeZaak:kadastraleGemeente>
+               <OnroerendeZaak:sectie>AC</OnroerendeZaak:sectie>
+               <OnroerendeZaak:perceelnummer>498</OnroerendeZaak:perceelnummer>
+            </OnroerendeZaak:kadastraleAanduiding>
+            <OnroerendeZaak:aardCultuurOnbebouwd>
+               <Typen:code>63</Typen:code>
+               <Typen:waarde>Terrein (grasland)</Typen:waarde>
+            </OnroerendeZaak:aardCultuurOnbebouwd>
+            <OnroerendeZaak:koopsom>
+               <OnroerendeZaak:TypeKoopsom>
+                  <OnroerendeZaak:bedrag>
+                     <Typen:som>4200000</Typen:som>
+                     <Typen:valuta>
+                        <Typen:code>EUR</Typen:code>
+                        <Typen:waarde>Euro</Typen:waarde>
+                     </Typen:valuta>
+                  </OnroerendeZaak:bedrag>
+                  <OnroerendeZaak:koopjaar>2008</OnroerendeZaak:koopjaar>
+                  <OnroerendeZaak:indicatieMeerObjecten>true</OnroerendeZaak:indicatieMeerObjecten>
+               </OnroerendeZaak:TypeKoopsom>
+            </OnroerendeZaak:koopsom>
+            <OnroerendeZaak:tijdstipOntstaanObject>
+               <Typen:datum>1998-10-20</Typen:datum>
+               <Typen:tijd>00:00:00</Typen:tijd>
+            </OnroerendeZaak:tijdstipOntstaanObject>
+            <OnroerendeZaak:oudstDigitaalBekend>
+               <Typen:datum>1998-10-20</Typen:datum>
+               <Typen:tijd xsi:nil="true"/>
+               <Typen:tijdNilreason>waardeOnbekend</Typen:tijdNilreason>
+            </OnroerendeZaak:oudstDigitaalBekend>
+            <OnroerendeZaak:ontstaanUitOZ>
+               <OnroerendeZaak:OnroerendeZaakFiliatie>
+                  <OnroerendeZaak:aard>
+                     <Typen:code>19</Typen:code>
+                     <Typen:waarde>Verenigen percelen</Typen:waarde>
+                  </OnroerendeZaak:aard>
+                  <OnroerendeZaak:betreftOZ>
+                     <OnroerendeZaak-ref:PerceelRef domein="NL.IMKAD.KadastraalObject">53750000870000</OnroerendeZaak-ref:PerceelRef>
+                  </OnroerendeZaak:betreftOZ>
+               </OnroerendeZaak:OnroerendeZaakFiliatie>
+               <OnroerendeZaak:OnroerendeZaakFiliatie>
+                  <OnroerendeZaak:aard>
+                     <Typen:code>19</Typen:code>
+                     <Typen:waarde>Verenigen percelen</Typen:waarde>
+                  </OnroerendeZaak:aard>
+                  <OnroerendeZaak:betreftOZ>
+                     <OnroerendeZaak-ref:PerceelRef domein="NL.IMKAD.KadastraalObject">53750000970000</OnroerendeZaak-ref:PerceelRef>
+                  </OnroerendeZaak:betreftOZ>
+               </OnroerendeZaak:OnroerendeZaakFiliatie>
+               <OnroerendeZaak:OnroerendeZaakFiliatie>
+                  <OnroerendeZaak:aard>
+                     <Typen:code>19</Typen:code>
+                     <Typen:waarde>Verenigen percelen</Typen:waarde>
+                  </OnroerendeZaak:aard>
+                  <OnroerendeZaak:betreftOZ>
+                     <OnroerendeZaak-ref:PerceelRef domein="NL.IMKAD.KadastraalObject">53750001670000</OnroerendeZaak-ref:PerceelRef>
+                  </OnroerendeZaak:betreftOZ>
+               </OnroerendeZaak:OnroerendeZaakFiliatie>
+            </OnroerendeZaak:ontstaanUitOZ>
+            <OnroerendeZaak:begrenzingPerceel>
+               <gml:Surface srsName="urn:ogc:def:crs:EPSG::28992">
+                  <gml:patches>
+                     <gml:PolygonPatch>
+                        <gml:exterior>
+                           <gml:LinearRing>
+                              <gml:posList srsDimension="2" count="34">230143.731 561959.959 230141.486 561957.58 230139.967 561955.97 230086.272 561927.508 230023.771 561894.897 230020.796 561893.32 230018.194 561891.941 230018.002 561891.839 230018.295 561891.329 230003.076 561883.345 230000.651 561882.073 229693.718 561721.347 229689.985 561718.56 229688.36 561716.743 229688.156 561715.337 229688.028 561714.458 229689.07 561710.336 229703.5 561660.825 229710.477 561637.727 229705.577 561636.324 229703.536 561635.739 229706.875 561624.309 229709.155 561616.504 229715.503 561594.778 229738.027 561520.457 229920.139 561617.408 229999.749 561660.369 230202.366 561767.419 230201.832 561769.174 230182.721 561830.875 230174.028 561860.235 230171.599 561868.446 230156.909 561918.141 230143.731 561959.959</gml:posList>
+                           </gml:LinearRing>
+                        </gml:exterior>
+                     </gml:PolygonPatch>
+                  </gml:patches>
+               </gml:Surface>
+            </OnroerendeZaak:begrenzingPerceel>
+            <OnroerendeZaak:kadastraleGrootte>
+               <OnroerendeZaak:waarde>102685</OnroerendeZaak:waarde>
+               <OnroerendeZaak:soortGrootte>
+                  <Typen:code>1</Typen:code>
+                  <Typen:waarde>Vastgesteld</Typen:waarde>
+               </OnroerendeZaak:soortGrootte>
+            </OnroerendeZaak:kadastraleGrootte>
+            <OnroerendeZaak:plaatscoordinaten>
+               <gml:Point srsName="urn:ogc:def:crs:EPSG::28992">
+                  <gml:pos>229962.733 561735.301</gml:pos>
+               </gml:Point>
+            </OnroerendeZaak:plaatscoordinaten>
+            <OnroerendeZaak:meettariefVerschuldigd>false</OnroerendeZaak:meettariefVerschuldigd>
+         </OnroerendeZaak:Perceel>
+         <Recht:ZakelijkRecht id="ID.4102396789">
+            <Recht:identificatie domein="NL.IMKAD.ZakelijkRecht">50032475</Recht:identificatie>
+            <Recht:aard>
+               <Typen:code>2</Typen:code>
+               <Typen:waarde>Eigendom (recht van)</Typen:waarde>
+            </Recht:aard>
+            <Recht:rustOp>
+               <OnroerendeZaak-ref:PerceelRef xlink:href="#ID.4102396779" domein="NL.IMKAD.KadastraalObject">53750049870000</OnroerendeZaak-ref:PerceelRef>
+            </Recht:rustOp>
+         </Recht:ZakelijkRecht>
+         <Recht:Tenaamstelling id="ID.4102396805">
+            <Recht:identificatie domein="NL.IMKAD.Tenaamstelling">50082126</Recht:identificatie>
+            <Recht:aandeel>
+               <Recht:teller>1</Recht:teller>
+               <Recht:noemer>1</Recht:noemer>
+            </Recht:aandeel>
+            <Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+               <Typen:code>1</Typen:code>
+               <Typen:waarde>Gehuwd</Typen:waarde>
+            </Recht:burgerlijkeStaatTenTijdeVanVerkrijging>
+            <Recht:van>
+               <Recht-ref:ZakelijkRechtRef xlink:href="#ID.4102396789" domein="NL.IMKAD.ZakelijkRecht">50032475</Recht-ref:ZakelijkRechtRef>
+            </Recht:van>
+            <Recht:isGebaseerdOp>
+               <Stuk-ref:StukdeelRef xlink:href="#ID.4102396797" domein="NL.IMKAD.Stukdeel">AKR1.10841354</Stuk-ref:StukdeelRef>
+            </Recht:isGebaseerdOp>
+            <Recht:betrokkenPartner>
+               <Persoon-ref:NatuurlijkPersoonRef xlink:href="#ID.4102396807" domein="NL.IMKAD.Persoon">24190251</Persoon-ref:NatuurlijkPersoonRef>
+            </Recht:betrokkenPartner>
+            <Recht:tenNameVan>
+               <Persoon-ref:NatuurlijkPersoonRef xlink:href="#ID.4102396791" domein="NL.IMKAD.Persoon">24190244</Persoon-ref:NatuurlijkPersoonRef>
+            </Recht:tenNameVan>
+         </Recht:Tenaamstelling>
+         <Persoon:NatuurlijkPersoon id="ID.4102396791">
+            <Persoon:identificatie domein="NL.IMKAD.Persoon">24190244</Persoon:identificatie>
+            <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+            <Persoon:woonlocatie>
+               <Adres-ref:ObjectlocatieBinnenlandRef xlink:href="#ID.8325699231" domein="NL.IMKAD.AdresLocatie">KPR.10369481</Adres-ref:ObjectlocatieBinnenlandRef>
+            </Persoon:woonlocatie>
+            <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+            <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+            <Persoon:betreft>
+               <KIMBRPPersoon:GeregistreerdPersoon>
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xsi:nil="true"/>
+                  <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+                  <KIMBRPPersoon:aanduidingNaamgebruik>
+                     <Typen:code>E</Typen:code>
+                     <Typen:waarde>Eigen geslachtsnaam</Typen:waarde>
+                  </KIMBRPPersoon:aanduidingNaamgebruik>
+                  <KIMBRPPersoon:naam>
+                     <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>98e6805e</KIMBRPPersoon:geslachtsnaam>
+                        <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>3a936bcaf 979c286e</KIMBRPPersoon:voornamen>
+                     </KIMBRPPersoon:Naam>
+                  </KIMBRPPersoon:naam>
+                  <KIMBRPPersoon:geslacht>
+                     <KIMBRPPersoon:Geslacht>
+                        <KIMBRPPersoon:geslachtsaanduiding>
+                           <Typen:code>M</Typen:code>
+                           <Typen:waarde>Man</Typen:waarde>
+                        </KIMBRPPersoon:geslachtsaanduiding>
+                     </KIMBRPPersoon:Geslacht>
+                  </KIMBRPPersoon:geslacht>
+                  <KIMBRPPersoon:geboorte>
+                     <KIMBRPPersoon:Geboorte>
+                        <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum>19400601</Typen:datum>
+                        </KIMBRPPersoon:geboortedatum>
+                        <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>3bb5d0c2</KIMBRPPersoon:geboorteplaats>
+                        <KIMBRPPersoon:geboorteland>
+<!--Anonimisatie 'Typen:code': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><Typen:code>1866</Typen:code>
+                           <!--Anonimisatie 'Typen:waarde': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><Typen:waarde>8a869db3f</Typen:waarde>
+                        </KIMBRPPersoon:geboorteland>
+                     </KIMBRPPersoon:Geboorte>
+                  </KIMBRPPersoon:geboorte>
+                  <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+                  <KIMBRPPersoon:heeftPartnerschap>
+                     <KIMBRPPersoon:Partnerschap>
+                        <KIMBRPPersoon:naamPartner>
+                           <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>76c61</KIMBRPPersoon:geslachtsnaam>
+                           </KIMBRPPersoon:Naam>
+                        </KIMBRPPersoon:naamPartner>
+                     </KIMBRPPersoon:Partnerschap>
+                  </KIMBRPPersoon:heeftPartnerschap>
+               </KIMBRPPersoon:GeregistreerdPersoon>
+            </Persoon:betreft>
+         </Persoon:NatuurlijkPersoon>
+         <Persoon:NatuurlijkPersoon id="ID.4102396807">
+            <Persoon:identificatie domein="NL.IMKAD.Persoon">24190251</Persoon:identificatie>
+            <Persoon:indicatieNietToonbareDiakriet>false</Persoon:indicatieNietToonbareDiakriet>
+            <Persoon:woonlocatie>
+               <Adres-ref:ObjectlocatieBinnenlandRef xlink:href="#ID.8325699231" domein="NL.IMKAD.AdresLocatie">KPR.10369481</Adres-ref:ObjectlocatieBinnenlandRef>
+            </Persoon:woonlocatie>
+            <Persoon:indicatieOverleden>false</Persoon:indicatieOverleden>
+            <Persoon:indicatieAfschermingPersoonsgegevens>false</Persoon:indicatieAfschermingPersoonsgegevens>
+            <Persoon:betreft>
+               <KIMBRPPersoon:GeregistreerdPersoon>
+<!--Anonimisatie 'KIMBRPPersoon:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><KIMBRPPersoon:bsn xsi:nil="true"/>
+                  <KIMBRPPersoon:bsnNilreason>nietGeautoriseerd</KIMBRPPersoon:bsnNilreason>
+                  <KIMBRPPersoon:aanduidingNaamgebruik>
+                     <Typen:code>V</Typen:code>
+                     <Typen:waarde>Geslachtsnaam echtgenoot/geregistreerd partner voor eigen geslachtsnaam</Typen:waarde>
+                  </KIMBRPPersoon:aanduidingNaamgebruik>
+                  <KIMBRPPersoon:naam>
+                     <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>76c61</KIMBRPPersoon:geslachtsnaam>
+                        <!--Anonimisatie 'KIMBRPPersoon:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:voornamen>2baa6f 5679b1e2 b61dd52e d09a5</KIMBRPPersoon:voornamen>
+                     </KIMBRPPersoon:Naam>
+                  </KIMBRPPersoon:naam>
+                  <KIMBRPPersoon:geslacht>
+                     <KIMBRPPersoon:Geslacht>
+                        <KIMBRPPersoon:geslachtsaanduiding>
+                           <Typen:code>V</Typen:code>
+                           <Typen:waarde>Vrouw</Typen:waarde>
+                        </KIMBRPPersoon:geslachtsaanduiding>
+                     </KIMBRPPersoon:Geslacht>
+                  </KIMBRPPersoon:geslacht>
+                  <KIMBRPPersoon:geboorte>
+                     <KIMBRPPersoon:Geboorte>
+                        <KIMBRPPersoon:geboortedatum>
+<!--Anonimisatie 'Typen:datum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><Typen:datum>19620311</Typen:datum>
+                        </KIMBRPPersoon:geboortedatum>
+                        <!--Anonimisatie 'KIMBRPPersoon:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geboorteplaats>d6537c</KIMBRPPersoon:geboorteplaats>
+                        <KIMBRPPersoon:geboorteland>
+<!--Anonimisatie 'Typen:code': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><Typen:code>1866</Typen:code>
+                           <!--Anonimisatie 'Typen:waarde': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><Typen:waarde>8a869db3f</Typen:waarde>
+                        </KIMBRPPersoon:geboorteland>
+                     </KIMBRPPersoon:Geboorte>
+                  </KIMBRPPersoon:geboorte>
+                  <KIMBRPPersoon:indicatieGeheim>false</KIMBRPPersoon:indicatieGeheim>
+                  <KIMBRPPersoon:heeftPartnerschap>
+                     <KIMBRPPersoon:Partnerschap>
+                        <KIMBRPPersoon:naamPartner>
+                           <KIMBRPPersoon:Naam>
+<!--Anonimisatie 'KIMBRPPersoon:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><KIMBRPPersoon:geslachtsnaam>98e6805e</KIMBRPPersoon:geslachtsnaam>
+                           </KIMBRPPersoon:Naam>
+                        </KIMBRPPersoon:naamPartner>
+                     </KIMBRPPersoon:Partnerschap>
+                  </KIMBRPPersoon:heeftPartnerschap>
+               </KIMBRPPersoon:GeregistreerdPersoon>
+            </Persoon:betreft>
+         </Persoon:NatuurlijkPersoon>
+         <Adres:ObjectlocatieBinnenland id="ID.8325699231">
+            <Adres:identificatie domein="NL.IMKAD.AdresLocatie">KPR.10369481</Adres:identificatie>
+            <Adres:adresgegevens>
+               <KIMBAGAdres:Nummeraanduiding>
+                  <KIMBAGAdres:identificatie xsi:nil="true"/>
+                  <KIMBAGAdres:identificatieNilreason>waardeOnbekend</KIMBAGAdres:identificatieNilreason>
+                  <KIMBAGAdres:huisnummer>7</KIMBAGAdres:huisnummer>
+                  <KIMBAGAdres:postcode>9488TG</KIMBAGAdres:postcode>
+                  <KIMBAGAdres:gerelateerdeOpenbareRuimte>
+                     <KIMBAGAdres:OpenbareRuimte>
+                        <KIMBAGAdres:openbareRuimteNaam>Vorenkampsweg</KIMBAGAdres:openbareRuimteNaam>
+                        <KIMBAGAdres:gerelateerdeWoonplaats>
+                           <KIMBAGAdres:Woonplaats>
+                              <KIMBAGAdres:woonplaatsNaam>ZEIJERVELD</KIMBAGAdres:woonplaatsNaam>
+                           </KIMBAGAdres:Woonplaats>
+                        </KIMBAGAdres:gerelateerdeWoonplaats>
+                     </KIMBAGAdres:OpenbareRuimte>
+                  </KIMBAGAdres:gerelateerdeOpenbareRuimte>
+               </KIMBAGAdres:Nummeraanduiding>
+            </Adres:adresgegevens>
+         </Adres:ObjectlocatieBinnenland>
+         <Stuk:TerInschrijvingAangebodenStuk id="ID.4102396795">
+            <Stuk:omvat>
+               <Stuk-ref:StukdeelRef xlink:href="#ID.4102396797" domein="NL.IMKAD.Stukdeel">AKR1.10841354</Stuk-ref:StukdeelRef>
+            </Stuk:omvat>
+            <Stuk:identificatie domein="NL.IMKAD.TIAStuk">20080507003109</Stuk:identificatie>
+            <Stuk:deelEnNummer>
+               <Stuk:deel>54612</Stuk:deel>
+               <Stuk:nummer>30</Stuk:nummer>
+               <Stuk:registercode>
+                  <Typen:code>2</Typen:code>
+                  <Typen:waarde>Hyp4</Typen:waarde>
+               </Stuk:registercode>
+               <Stuk:soortRegister>
+                  <Typen:code>2</Typen:code>
+                  <Typen:waarde>Onroerende Zaken</Typen:waarde>
+               </Stuk:soortRegister>
+            </Stuk:deelEnNummer>
+            <Stuk:tijdstipAanbieding>
+               <Typen:datum>2008-05-07</Typen:datum>
+               <Typen:tijd>14:28:00</Typen:tijd>
+            </Stuk:tijdstipAanbieding>
+            <Stuk:tekeningIngeschreven>false</Stuk:tekeningIngeschreven>
+         </Stuk:TerInschrijvingAangebodenStuk>
+         <Stuk:Stukdeel id="ID.4102396797">
+            <Stuk:identificatie domein="NL.IMKAD.Stukdeel">AKR1.10841354</Stuk:identificatie>
+            <Stuk:aard xsi:nil="true"/>
+            <Stuk:aardNilreason>waardeOnbekend</Stuk:aardNilreason>
+         </Stuk:Stukdeel>
+      </Snapshot:KadastraalObjectSnapshot>
+   </Stand:stand>
+</Stand:Stand>

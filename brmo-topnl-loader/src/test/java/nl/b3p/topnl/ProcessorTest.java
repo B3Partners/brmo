@@ -16,6 +16,15 @@
  */
 package nl.b3p.topnl;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.Hoogte;
@@ -29,120 +38,148 @@ import org.junit.jupiter.api.Test;
 import org.locationtech.jts.io.ParseException;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
- *
  * @author meine
  */
-public class ProcessorTest extends TestUtil{
-    
-    private Processor instance;
-    
-    public ProcessorTest() {
-        this.useDB = true; 
-    }
+public class ProcessorTest extends TestUtil {
 
-    @BeforeEach
-    public void setUp() throws JAXBException, SQLException {
-        instance = new Processor(datasource);
-    }
+  private Processor instance;
 
-    /**
-     * Test of parse method, of class Processor.
-     */
-    @Test
-    public void testParse() throws JAXBException, IOException {
-        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
-        List jaxb = instance.parse(in);
-        assertNotNull(jaxb);
-        assertEquals(1, jaxb.size());
-        assertTrue (jaxb.get(0) instanceof nl.b3p.topnl.top250nl.FeatureMemberType);
-    }
+  public ProcessorTest() {
+    this.useDB = true;
+  }
 
+  @BeforeEach
+  public void setUp() throws JAXBException, SQLException {
+    instance = new Processor(datasource);
+  }
 
-    /**
-     * Test of save method, of class Processor.
-     */
-    @Test
-    public void testSave250() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
-        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
-        TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in);
-        List<TopNLEntity> hoogte = instance.convert(jaxb, type);
-        instance.save(hoogte.get(0), type);
+  /** Test of parse method, of class Processor. */
+  @Test
+  public void testParse() throws JAXBException, IOException {
+    URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
+    List jaxb = instance.parse(in);
+    assertNotNull(jaxb);
+    assertEquals(1, jaxb.size());
+    assertTrue(jaxb.get(0) instanceof nl.b3p.topnl.top250nl.FeatureMemberType);
+  }
 
-        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+  /** Test of save method, of class Processor. */
+  @Test
+  public void testSave250()
+      throws JAXBException, IOException, SAXException, TransformerException,
+          ParserConfigurationException, SQLException, ParseException {
+    URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
+    TopNLType type = TopNLType.TOP250NL;
+    List jaxb = instance.parse(in);
+    List<TopNLEntity> hoogte = instance.convert(jaxb, type);
+    instance.save(hoogte.get(0), type);
 
-        Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
-        assertNotNull(real);
-    }
-    /**
-     * Test of save method, of class Processor.
-     */
-    @Test
-    public void testImportIntoDb250() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException, JDOMException {
-        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
-        TopNLType type = TopNLType.TOP250NL;
-        instance.importIntoDb(in, type);
-        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+    ResultSetHandler<Hoogte> handler =
+        new BeanHandler<>(
+            Hoogte.class,
+            new BasicRowProcessor(
+                new DbUtilsGeometryColumnConverter(
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+                        datasource.getConnection()))));
 
-        Hoogte real = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
-        assertNotNull(real);
-    }
+    Hoogte real =
+        run.query(
+            "SELECT * FROM top250nl.Hoogte WHERE identificatie=?",
+            handler,
+            "NL.TOP250NL.16R09-0000084246");
+    assertNotNull(real);
+  }
+  /** Test of save method, of class Processor. */
+  @Test
+  public void testImportIntoDb250()
+      throws JAXBException, IOException, SAXException, TransformerException,
+          ParserConfigurationException, SQLException, ParseException, JDOMException {
+    URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
+    TopNLType type = TopNLType.TOP250NL;
+    instance.importIntoDb(in, type);
+    ResultSetHandler<Hoogte> handler =
+        new BeanHandler<>(
+            Hoogte.class,
+            new BasicRowProcessor(
+                new DbUtilsGeometryColumnConverter(
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+                        datasource.getConnection()))));
 
-    /**
-     * Test of save method, of class Processor.
-     */
-    @Test
-    public void testSave250MultipleFeature() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
-        URL in = ProcessorTest.class.getResource("top250nl_HoogteMulti.xml");
-        TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in);
-        List<TopNLEntity> hoogte = instance.convert(jaxb, type);
-        instance.save(hoogte, type);
+    Hoogte real =
+        run.query(
+            "SELECT * FROM top250nl.Hoogte WHERE identificatie=?",
+            handler,
+            "NL.TOP250NL.16R09-0000084246");
+    assertNotNull(real);
+  }
 
-        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+  /** Test of save method, of class Processor. */
+  @Test
+  public void testSave250MultipleFeature()
+      throws JAXBException, IOException, SAXException, TransformerException,
+          ParserConfigurationException, SQLException, ParseException {
+    URL in = ProcessorTest.class.getResource("top250nl_HoogteMulti.xml");
+    TopNLType type = TopNLType.TOP250NL;
+    List jaxb = instance.parse(in);
+    List<TopNLEntity> hoogte = instance.convert(jaxb, type);
+    instance.save(hoogte, type);
 
-        Hoogte real1 = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084246");
-        assertNotNull(real1);
-        Hoogte real2 = run.query("SELECT * FROM top250nl.Hoogte WHERE identificatie=?", handler, "NL.TOP250NL.16R09-0000084247");
-        assertNotNull(real2);
-    }
-    /**
-     * Test of save method, of class Processor.
-     */
-    @Test
-    public void testSave100() throws JAXBException, IOException, SAXException, TransformerException, ParserConfigurationException, SQLException, ParseException {
-        URL in = ProcessorTest.class.getResource("top100nl_Hoogte.xml");
-        TopNLType type = TopNLType.TOP100NL;
-        List jaxb = instance.parse(in);
-        List<TopNLEntity> hoogte = instance.convert(jaxb, type);
-        instance.save(hoogte.get(0), type);
+    ResultSetHandler<Hoogte> handler =
+        new BeanHandler<>(
+            Hoogte.class,
+            new BasicRowProcessor(
+                new DbUtilsGeometryColumnConverter(
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+                        datasource.getConnection()))));
 
-        ResultSetHandler<Hoogte> handler = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(GeometryJdbcConverterFactory.getGeometryJdbcConverter(datasource.getConnection()))));
+    Hoogte real1 =
+        run.query(
+            "SELECT * FROM top250nl.Hoogte WHERE identificatie=?",
+            handler,
+            "NL.TOP250NL.16R09-0000084246");
+    assertNotNull(real1);
+    Hoogte real2 =
+        run.query(
+            "SELECT * FROM top250nl.Hoogte WHERE identificatie=?",
+            handler,
+            "NL.TOP250NL.16R09-0000084247");
+    assertNotNull(real2);
+  }
+  /** Test of save method, of class Processor. */
+  @Test
+  public void testSave100()
+      throws JAXBException, IOException, SAXException, TransformerException,
+          ParserConfigurationException, SQLException, ParseException {
+    URL in = ProcessorTest.class.getResource("top100nl_Hoogte.xml");
+    TopNLType type = TopNLType.TOP100NL;
+    List jaxb = instance.parse(in);
+    List<TopNLEntity> hoogte = instance.convert(jaxb, type);
+    instance.save(hoogte.get(0), type);
 
-        Hoogte real = run.query("SELECT * FROM top100nl.Hoogte WHERE identificatie=?", handler, "NL.TOP100NL.16R11-0001468165");
-        assertNotNull(real);
-    }
+    ResultSetHandler<Hoogte> handler =
+        new BeanHandler<>(
+            Hoogte.class,
+            new BasicRowProcessor(
+                new DbUtilsGeometryColumnConverter(
+                    GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+                        datasource.getConnection()))));
 
-    /**
-     * Test of convert method, of class Processor.
-     */
-    @Test
-    public void testConvert() throws Exception {
-        URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
-        TopNLType type = TopNLType.TOP250NL;
-        List jaxb = instance.parse(in);
-        List<TopNLEntity> hoogte = instance.convert(jaxb, type);
-        assertEquals(1, hoogte.size());
-    }
+    Hoogte real =
+        run.query(
+            "SELECT * FROM top100nl.Hoogte WHERE identificatie=?",
+            handler,
+            "NL.TOP100NL.16R11-0001468165");
+    assertNotNull(real);
+  }
+
+  /** Test of convert method, of class Processor. */
+  @Test
+  public void testConvert() throws Exception {
+    URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
+    TopNLType type = TopNLType.TOP250NL;
+    List jaxb = instance.parse(in);
+    List<TopNLEntity> hoogte = instance.convert(jaxb, type);
+    assertEquals(1, hoogte.size());
+  }
 }

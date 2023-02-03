@@ -29,9 +29,7 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -49,141 +47,140 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- *
  * @author Meine Toonen
  */
 public class BRPXMLReader extends BrmoXMLReader {
 
-    private InputStream in;
-    private NodeList nodes = null;
-    private int index;
-    
-    private Templates template;
-    private final String pathToXsl = "/xsl/brp-brxml-preprocessor.xsl";
-    
-    public static final String PREFIX = "NL.BRP.Persoon.";
-    private StagingProxy staging;
+  private InputStream in;
+  private NodeList nodes = null;
+  private int index;
 
-    public BRPXMLReader(InputStream in, Date d, StagingProxy staging) throws Exception {
-        this.in = in;
-        this.staging = staging;
-        setBestandsDatum(d);
-        init();
+  private Templates template;
+  private final String pathToXsl = "/xsl/brp-brxml-preprocessor.xsl";
+
+  public static final String PREFIX = "NL.BRP.Persoon.";
+  private StagingProxy staging;
+
+  public BRPXMLReader(InputStream in, Date d, StagingProxy staging) throws Exception {
+    this.in = in;
+    this.staging = staging;
+    setBestandsDatum(d);
+    init();
+  }
+
+  @Override
+  public void init() throws Exception {
+    soort = BrmoFramework.BR_BRP;
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setNamespaceAware(true);
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document doc = builder.parse(in);
+
+    TransformerFactory tf = TransformerFactory.newInstance();
+    tf.setURIResolver(
+        (href, base) ->
+            new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href)));
+
+    Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
+    this.template = tf.newTemplates(xsl);
+
+    nodes = doc.getDocumentElement().getChildNodes();
+    index = 0;
+  }
+
+  @Override
+  public boolean hasNext() throws Exception {
+    return index < nodes.getLength();
+  }
+
+  @Override
+  public Bericht next() throws Exception {
+    Node n = nodes.item(index);
+    index++;
+    String object_ref = getObjectRef(n);
+    StringWriter sw = new StringWriter();
+    Bericht old =
+        staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());
+
+    // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor
+    // template gebruikt worden, maar de gewone.
+
+    Transformer t;
+
+    if (old != null) {
+      t = this.template.newTransformer();
+    } else {
+      t = TransformerFactory.newInstance().newTransformer();
     }
 
-    @Override
-    public void init() throws Exception {
-        soort = BrmoFramework.BR_BRP;
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(in);
-        
-        TransformerFactory tf = TransformerFactory.newInstance();
-        tf.setURIResolver(new URIResolver() {
-            @Override
-            public Source resolve(String href, String base) throws TransformerException {
-                return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
-            }
-        });
-        
-        Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
-        this.template = tf.newTemplates(xsl);
-        
-        nodes = doc.getDocumentElement().getChildNodes();
-        index = 0;
+    t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+    t.transform(new DOMSource(n), new StreamResult(sw)); // new StreamResult(outputStream));
+
+    Map<String, String> bsns = extractBSN(n);
+
+    String el = getXML(bsns);
+    String origXML = sw.toString();
+    String brXML = "<root>" + origXML;
+    brXML += el + "</root>";
+    Bericht b = new Bericht(brXML);
+    b.setBrOrgineelXml(origXML);
+    b.setVolgordeNummer(index);
+    b.setObjectRef(object_ref);
+    b.setSoort(BrmoFramework.BR_BRP);
+    b.setDatum(getBestandsDatum());
+    return b;
+  }
+
+  private String getObjectRef(Node n) {
+    NodeList childs = n.getChildNodes();
+    String hash = null;
+    for (int i = 0; i < childs.getLength(); i++) {
+      Node child = childs.item(i);
+      String name = child.getNodeName();
+      if (name.contains("bsn-nummer")) {
+        hash = child.getTextContent();
+        hash = getHash(hash);
+        break;
+      }
     }
+    return PREFIX + hash;
+  }
 
-    @Override
-    public boolean hasNext() throws Exception {
-        return index < nodes.getLength();
+  /**
+   * maakt een map met bsn,bsnhash.
+   *
+   * @param n document node met bsn-nummer
+   * @return hashmap met bsn,bsnhash
+   * @throws XPathExpressionException if any
+   */
+  public Map<String, String> extractBSN(Node n) throws XPathExpressionException {
+    Map<String, String> hashes = new HashMap<>();
+
+    XPathFactory xPathfactory = XPathFactory.newInstance();
+    XPath xpath = xPathfactory.newXPath();
+    XPathExpression expr = xpath.compile("//*[local-name() = 'bsn-nummer']");
+    NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);
+    for (int i = 0; i < nodelist.getLength(); i++) {
+      Node bsn = nodelist.item(i);
+      String bsnString = bsn.getTextContent();
+      String hash = getHash(bsnString);
+      hashes.put(bsnString, hash);
     }
+    return hashes;
+  }
 
-    @Override
-    public Bericht next() throws Exception {
-        Node n = nodes.item(index);
-        index++;
-        String object_ref = getObjectRef(n);
-        StringWriter sw = new StringWriter();
-        Bericht old = staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());
-        
-        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor template gebruikt worden, maar de gewone.
-        
-        Transformer t;
+  public String getXML(Map<String, String> map) throws ParserConfigurationException {
+    String root = "<bsnhashes>";
+    for (Entry<String, String> entry : map.entrySet()) {
+      if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
+        String hash = entry.getValue();
 
-        if (old != null) {
-            t = this.template.newTransformer();
-        } else {
-            t = TransformerFactory.newInstance().newTransformer();
-        }
-
-        t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        t.transform(new DOMSource(n), new StreamResult(sw));//new StreamResult(outputStream));
- 
-        Map<String, String> bsns = extractBSN(n);
-
-        String el = getXML(bsns);
-        String origXML = sw.toString();
-        String brXML = "<root>" + origXML;
-        brXML += el + "</root>";
-        Bericht b = new Bericht(brXML);
-        b.setBrOrgineelXml(origXML);
-        b.setVolgordeNummer(index);
-        b.setObjectRef(object_ref);
-        b.setSoort(BrmoFramework.BR_BRP);
-        b.setDatum(getBestandsDatum());
-        return b;
+        String el =
+            "<" + PREFIX + entry.getKey() + ">" + hash + "</" + PREFIX + entry.getKey() + ">";
+        root += el;
+      }
     }
-
-    private String getObjectRef(Node n) {
-        NodeList childs = n.getChildNodes();
-        String hash = null;
-        for (int i = 0; i < childs.getLength(); i++) {
-            Node child = childs.item(i);
-            String name = child.getNodeName();
-            if (name.contains("bsn-nummer")) {
-                hash = child.getTextContent();
-                hash = getHash(hash);
-                break;
-            }
-        }
-        return PREFIX + hash;
-    }
-
-    /**
-     * maakt een map met bsn,bsnhash.
-     * @param n document node met bsn-nummer
-     * @return hashmap met bsn,bsnhash
-     * @throws XPathExpressionException if any
-     */
-    public Map<String, String> extractBSN(Node n) throws XPathExpressionException {
-        Map<String, String> hashes = new HashMap<>();
-
-        XPathFactory xPathfactory = XPathFactory.newInstance();
-        XPath xpath = xPathfactory.newXPath();
-        XPathExpression expr = xpath.compile("//*[local-name() = 'bsn-nummer']");
-        NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);
-        for (int i = 0; i < nodelist.getLength(); i++) {
-            Node bsn = nodelist.item(i);
-            String bsnString = bsn.getTextContent();
-            String hash = getHash(bsnString);
-            hashes.put(bsnString, hash);
-            
-        }
-        return hashes;
-    }
-
-    public String getXML(Map<String, String> map) throws ParserConfigurationException {
-        String root = "<bsnhashes>";
-        for (Entry<String, String> entry : map.entrySet()) {
-            if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
-                String hash = entry.getValue();
-              
-                String el = "<" + PREFIX + entry.getKey() + ">" + hash + "</" + PREFIX + entry.getKey() + ">";
-                root += el;
-            }
-        }
-        root += "</bsnhashes>";
-        return root;
-    }
+    root += "</bsnhashes>";
+    return root;
+  }
 }

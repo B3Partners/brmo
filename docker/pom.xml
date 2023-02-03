@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>docker</artifactId>
-    <packaging>docker</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>docker</artifactId>
+    <packaging>docker</packaging>
     <name>BRMO Dockerfile</name>
     <description>Maak een docker image van de brmo-service</description>
-    <properties>
-    </properties>
+    <properties />
     <dependencies>
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -39,6 +38,7 @@
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <includeGroupIds>nl.b3p</includeGroupIds>
                             <includeArtifactIds>brmo-dist</includeArtifactIds>
@@ -60,7 +60,18 @@
                         <image>
                             <name>ghcr.io/b3partners/brmo-service:snapshot</name>
                             <build>
+                                <contextDir>.</contextDir>
                                 <dockerFile>Dockerfile</dockerFile>
+                                <args>
+                                    <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                </args>
+                            </build>
+                        </image>
+                        <image>
+                            <name>ghcr.io/b3partners/brmo-service-db:snapshot</name>
+                            <build>
+                                <contextDir>.</contextDir>
+                                <dockerFile>pg_conf/Dockerfile</dockerFile>
                                 <args>
                                     <BRMO_VERSION>${project.version}</BRMO_VERSION>
                                 </args>
@@ -70,20 +81,20 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>docker-build</id>
-                        <phase>pre-integration-test</phase>
+                        <id>default-build</id>
                         <goals>
                             <goal>build</goal>
                         </goals>
+                        <phase>package</phase>
                     </execution>
                     <execution>
-                        <id>docker-push</id>
-                        <!-- NB voor deploy/push is het nodig dat je bent ingelogd op de ghcr.io repository met docker.
-                        zie: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
-                        <phase>deploy</phase>
+                        <id>default-push</id>
                         <goals>
                             <goal>push</goal>
                         </goals>
+                        <!-- NB voor deploy/push is het nodig dat je bent ingelogd op de ghcr.io repository met docker.
+                        zie: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
+                        <phase>deploy</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -112,74 +123,57 @@
                             <images>
                                 <image>
                                     <name>ghcr.io/b3partners/brmo-service:%l</name>
+                                    <build>
+                                        <contextDir>.</contextDir>
+                                        <dockerFile>Dockerfile</dockerFile>
+                                        <args>
+                                            <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                        </args>
+                                    </build>
+                                </image>
+                                <image>
+                                    <name>ghcr.io/b3partners/brmo-service-db:%l</name>
+                                    <build>
+                                        <contextDir>.</contextDir>
+                                        <dockerFile>pg_conf/Dockerfile</dockerFile>
+                                        <args>
+                                            <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                        </args>
+                                    </build>
                                 </image>
                             </images>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>docker-tag</id>
-                                <phase>verify</phase>
+                                <id>tag-latest</id>
                                 <goals>
                                     <goal>tag</goal>
                                 </goals>
+                                <phase>verify</phase>
                                 <configuration>
                                     <tagName>latest</tagName>
                                     <repo>ghcr.io/b3partners</repo>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>docker-push-latest</id>
-                                <phase>deploy</phase>
+                                <id>push-latest</id>
                                 <goals>
                                     <goal>push</goal>
                                 </goals>
+                                <phase>deploy</phase>
                                 <configuration>
                                     <verbose>true</verbose>
                                     <images>
                                         <image>
                                             <name>ghcr.io/b3partners/brmo-service:latest</name>
                                         </image>
+                                        <image>
+                                            <name>ghcr.io/b3partners/brmo-service-db:latest</name>
+                                        </image>
                                     </images>
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>windows</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- skip op Windows -->
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <verbose>false</verbose>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>lgtm</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- skip op LGTM service -->
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <verbose>false</verbose>
-                            <skip>true</skip>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

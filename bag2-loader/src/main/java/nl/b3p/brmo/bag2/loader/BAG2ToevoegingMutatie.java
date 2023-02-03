@@ -7,27 +7,28 @@
 
 package nl.b3p.brmo.bag2.loader;
 
+import javax.xml.stream.Location;
 import nl.b3p.brmo.bag2.schema.BAG2Object;
 
-import javax.xml.stream.Location;
-
 public class BAG2ToevoegingMutatie extends BAG2Mutatie {
-    private BAG2Object toevoeging;
+  private BAG2Object toevoeging;
 
-    BAG2ToevoegingMutatie(Location location, BAG2Object toevoeging) {
-        super(location);
-        this.toevoeging = toevoeging;
-    }
+  BAG2ToevoegingMutatie(Location location, BAG2Object toevoeging) {
+    super(location);
+    this.toevoeging = toevoeging;
+  }
 
-    public BAG2Object getToevoeging() {
-        return toevoeging;
-    }
+  public BAG2Object getToevoeging() {
+    return toevoeging;
+  }
 
-    @Override
-    public String toString() {
-        return "BAG2ToevoegingMutatie{" +
-                "location=" + getLocation() +
-                ", toevoeging=" + toevoeging +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "BAG2ToevoegingMutatie{"
+        + "location="
+        + getLocation()
+        + ", toevoeging="
+        + toevoeging
+        + '}';
+  }
 }

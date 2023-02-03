@@ -26,7 +26,7 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.jdbc.util.converter">
-        <level value="debug" />
+        <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo">
         <level value="info" />
@@ -35,13 +35,14 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader">
+        <!-- trace voor sql statements -->
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader.xml">
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader.util">
-        <level value="trace" />
+        <level value="info" />
     </logger>
     <root>
         <level value="info" />

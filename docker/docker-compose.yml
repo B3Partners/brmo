@@ -5,46 +5,42 @@ volumes:
   brmo-logs:
   brmo-data:
 
+
 services:
   db:
-    build:
-      context: ./src/main/docker
-      dockerfile: pg_conf/Dockerfile
+    image: ghcr.io/b3partners/brmo-service-db:${BRMO_VERSION:-snapshot}
     shm_size: '2gb'
     command: >
-            -c shared_buffers=8GB
-            -c max_connections=200
-            -c max_wal_size=3GB
-            -c autovacuum_max_workers=4
-            -c maintenance_work_mem=2GB
+      -c shared_buffers=8GB
+      -c max_connections=200
+      -c max_wal_size=3GB
+      -c autovacuum_max_workers=4
+      -c maintenance_work_mem=2GB
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      BRMO_PASSWORD: ${BRMO_DB_PASSWORD:-brmo}
-      BRMO_USER: brmo
-    restart: on-failure
+      DB_PASS_RSGB: ${DB_PASS_RSGB:-rsgb}
+      DB_PASS_STAGING: ${DB_PASS_STAGING:-staging}
+      DB_PASS_RSGBBGT: ${DB_PASS_RSGBBGT:-rsgbbgt}
+      DB_PASS_TOPNL: ${DB_PASS_TOPNL:-topnl}
     volumes:
       - brmo-db:/var/lib/postgresql/data
-    healthcheck:
-      test: su postgres -c "pg_isready --dbname=rsgb -q"
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
+    restart: unless-stopped
+
 
   brmo:
-    build:
-      context: ./src/main/docker
-      dockerfile: Dockerfile
+    image: ghcr.io/b3partners/brmo-service:${BRMO_VERSION:-snapshot}
     shm_size: '512mb'
     volumes:
       - brmo-logs:/usr/local/tomcat/logs
       - brmo-data:/opt/brmo-data
-    restart: on-failure
-    env_file:
-      - ./src/main/docker/env/tomcat
+    environment:
+      PG_HOST: ${PG_HOST:-db}
+      PG_PORT: ${PG_PORT:-5432}
+      DB_PASS_RSGB: ${DB_PASS_RSGB:-rsgb}
+      DB_PASS_STAGING: ${DB_PASS_STAGING:-staging}
+      DB_PASS_RSGBBGT: ${DB_PASS_RSGBBGT:-rsgbbgt}
+      DB_PASS_TOPNL: ${DB_PASS_TOPNL:-topnl}
+      CATALINA_OPTS: -DMAIL_FROM=${MAIL_FROM:-brmo-no-reply@b3partners.nl} -DMAIL_HOST=${MAIL_HOST:-mail.b3partners.nl} -DPG_PORT=${PG_PORT:-5432} -DPG_HOST=${PG_HOST:-db} -DDB_PASS_RSGB=${DB_PASS_RSGB} -DDB_PASS_STAGING=${DB_PASS_STAGING} -DDB_PASS_RSGBBGT=${DB_PASS_RSGBBGT} -DDB_PASS_TOPNL=${DB_PASS_TOPNL}
     depends_on:
       - db
-    healthcheck:
-      test: "curl --fail -s http://localhost:8080/brmo-service/ || exit 1"
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
+    restart: unless-stopped

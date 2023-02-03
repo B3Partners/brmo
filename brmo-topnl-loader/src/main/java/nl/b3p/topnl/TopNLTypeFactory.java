@@ -24,51 +24,54 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
 public class TopNLTypeFactory {
 
-    private static final String TOP250NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1";
-    private static final String TOP100NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
-    private static final String TOP50NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1";
-    private static final String TOP10NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0";
+  private static final String TOP250NLNAMESPACE =
+      "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1";
+  private static final String TOP100NLNAMESPACE =
+      "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0";
+  private static final String TOP50NLNAMESPACE =
+      "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1";
+  private static final String TOP10NLNAMESPACE =
+      "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0";
 
-    public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
-        saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        saxBuilder.setExpandEntities(false);
-        Document inputXml = saxBuilder.build(is);
-        return getTopNLType(inputXml);       
-    }
-    
-    public static TopNLType getTopNLType(String is) throws JDOMException, IOException {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
-        saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        saxBuilder.setExpandEntities(false);
-        Document inputXml = saxBuilder.build(is);
-        return getTopNLType(inputXml);
-    }
+  public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
+    SAXBuilder saxBuilder = new SAXBuilder();
+    saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
+    saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    saxBuilder.setExpandEntities(false);
+    Document inputXml = saxBuilder.build(is);
+    return getTopNLType(inputXml);
+  }
 
-    private static TopNLType getTopNLType(Document inputXml){
-         if (!inputXml.hasRootElement()) {
-            throw new IllegalArgumentException("Document contains no root element");
-        }
-        Element rootElem = inputXml.getRootElement();
-        String currentNamespace = rootElem.getNamespace().getURI();
-        switch (currentNamespace) {
-            case TOP250NLNAMESPACE:
-                return TopNLType.TOP250NL;
-            case TOP100NLNAMESPACE:
-                return TopNLType.TOP100NL;
-            case TOP50NLNAMESPACE:
-                return TopNLType.TOP50NL;
-            case TOP10NLNAMESPACE:
-                return TopNLType.TOP10NL;
-            default:
-                throw new IllegalArgumentException("Type not recognized: " + currentNamespace);
-        }
+  public static TopNLType getTopNLType(String is) throws JDOMException, IOException {
+    SAXBuilder saxBuilder = new SAXBuilder();
+    saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
+    saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    saxBuilder.setExpandEntities(false);
+    Document inputXml = saxBuilder.build(is);
+    return getTopNLType(inputXml);
+  }
+
+  private static TopNLType getTopNLType(Document inputXml) {
+    if (!inputXml.hasRootElement()) {
+      throw new IllegalArgumentException("Document contains no root element");
     }
+    Element rootElem = inputXml.getRootElement();
+    String currentNamespace = rootElem.getNamespace().getURI();
+    switch (currentNamespace) {
+      case TOP250NLNAMESPACE:
+        return TopNLType.TOP250NL;
+      case TOP100NLNAMESPACE:
+        return TopNLType.TOP100NL;
+      case TOP50NLNAMESPACE:
+        return TopNLType.TOP50NL;
+      case TOP10NLNAMESPACE:
+        return TopNLType.TOP10NL;
+      default:
+        throw new IllegalArgumentException("Type not recognized: " + currentNamespace);
+    }
+  }
 }

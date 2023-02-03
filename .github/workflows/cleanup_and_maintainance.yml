@@ -12,78 +12,132 @@ jobs:
     # using https://github.com/marketplace/actions/ghcr-pruning
     steps:
       - name: "brmo-bgt-loader older than 1 week"
-        uses: vlaurin/action-ghcr-prune@v0.4.0
+        uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
           container: brmo-bgt-loader
           dry-run: false
-          older-than: 7
+          keep-younger-than: 7
           keep-last: 1
-          untagged: true
+          prune-untagged: true
+
       - name: "brmo-service older than 1 week"
-        uses: vlaurin/action-ghcr-prune@v0.4.0
+        uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
           container: brmo-service
           dry-run: false
-          older-than: 7
+          keep-younger-than: 7
           keep-last: 1
-          untagged: true
+          prune-untagged: true
+
+      - name: "brmo-service-db older than 1 week"
+        uses: vlaurin/action-ghcr-prune@v0.5.0
+        with:
+          token: ${{ secrets.GHCR_CLEANUP_PAT }}
+          organization: B3Partners
+          container: brmo-service-db
+          dry-run: false
+          keep-younger-than: 7
+          keep-last: 1
+          prune-untagged: true
+
       - name: "brmo-bag2-loader older than 1 week"
         continue-on-error: true
-        uses: vlaurin/action-ghcr-prune@v0.4.0
+        uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
           container: brmo-bag2-loader
           dry-run: false
-          older-than: 7
+          keep-younger-than: 7
           keep-last: 1
-          untagged: true
+          prune-untagged: true
+
       - name: "brmo-bgt-loader older than 4 weeks"
-        uses: vlaurin/action-ghcr-prune@v0.4.0
+        uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
           container: brmo-bgt-loader
           dry-run: false
-          older-than: 28
+          keep-younger-than: 28
           keep-last: 0
-          untagged: true
+          prune-untagged: true
+
       - name: "brmo-service older than 4 weeks"
-        uses: vlaurin/action-ghcr-prune@v0.4.0
+        uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
           container: brmo-service
           dry-run: false
-          older-than: 28
+          keep-younger-than: 28
           keep-last: 0
-          untagged: true
+          prune-untagged: true
+
+      - name: "brmo-service-db older than 4 weeks"
+        uses: vlaurin/action-ghcr-prune@v0.5.0
+        with:
+          token: ${{ secrets.GHCR_CLEANUP_PAT }}
+          organization: B3Partners
+          container: brmo-service-db
+          dry-run: false
+          keep-younger-than: 28
+          keep-last: 0
+          prune-untagged: true
+
       - name: "brmo-bag2-loader older than 4 weeks"
         continue-on-error: true
-        uses: vlaurin/action-ghcr-prune@v0.4.0
+        uses: vlaurin/action-ghcr-prune@v0.5.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
           container: brmo-bag2-loader
           dry-run: false
-          older-than: 28
+          keep-younger-than: 28
           keep-last: 0
-          untagged: true
+          prune-untagged: true
 
 
-  workflows:
+#  workflows:
+#    runs-on: ubuntu-latest
+#    name: "Cleanup old workflow runs"
+#    steps:
+#      - name: Delete workflow runs
+#        uses: Mattraks/delete-workflow-runs@v2
+#        with:
+#          token: ${{ github.token }}
+#          repository: ${{ github.repository }}
+#          retain_days: 60
+#          keep_minimum_runs: 0
+#          delete_workflow_pattern: 'all'
+
+
+  otherworkflows:
     runs-on: ubuntu-latest
-    name: "Cleanup old workflow runs"
+    name: "Cleanup all old workflow runs"
     steps:
       - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
+        uses: boredland/action-purge-workflow-runs@1.0.0
         with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          # same as "Artifact and log retention" in https://github.com/B3Partners/brmo/settings/actions
-          retain_days: 60
-          keep_minimum_runs: 2
+          days-old: 60
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  stale:
+    runs-on: ubuntu-latest
+    name: "Close Stale PRs"
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v7
+        with:
+          days-before-stale: 60
+          days-before-close: 14
+          stale-pr-label: 'stale'
+          exempt-pr-labels: 'dependency update'
+          stale-pr-message: 'Dit PR is automatisch gemarkeerd als "stale" omdat er niet meer aan gewerkt wordt. Als er niets meer mee gebeurd zal deze PR automatisch worden gesloten.'

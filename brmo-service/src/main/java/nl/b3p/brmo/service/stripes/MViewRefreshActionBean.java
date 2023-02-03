@@ -21,108 +21,104 @@ import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
- *
  * @author mprins
  */
 @StrictBinding
 public class MViewRefreshActionBean implements ActionBean, ProgressUpdateListener {
 
-    private static final String JSP = "/WEB-INF/jsp/beheer/mviewrefreshuitvoeren.jsp";
+  private static final String JSP = "/WEB-INF/jsp/beheer/mviewrefreshuitvoeren.jsp";
 
-    @Validate(converter = EntityTypeConverter.class)
-    private MaterializedViewRefresh proces;
+  @Validate(converter = EntityTypeConverter.class)
+  private MaterializedViewRefresh proces;
 
-    private ActionBeanContext context;
+  private ActionBeanContext context;
 
-    private String exceptionStacktrace;
-    private String status;
-    private StringBuilder log = new StringBuilder();
+  private String exceptionStacktrace;
+  private String status;
+  private StringBuilder log = new StringBuilder();
 
-    @DefaultHandler
-    public Resolution execute() {
-        if (proces == null) {
-            getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
-            return new ForwardResolution(JSP);
-        }
-        MaterializedViewRefreshUitvoeren _proces = (MaterializedViewRefreshUitvoeren) AbstractExecutableProces.getProces(proces);
-        try {
-            _proces.execute(this);
-        } finally {
-            Stripersist.getEntityManager().merge(proces);
-            Stripersist.getEntityManager().getTransaction().commit();
-        }
-        return new ForwardResolution(JSP);
+  @DefaultHandler
+  public Resolution execute() {
+    if (proces == null) {
+      getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
+      return new ForwardResolution(JSP);
     }
-
-    @Override
-    public void total(long total) {
-
+    MaterializedViewRefreshUitvoeren _proces =
+        (MaterializedViewRefreshUitvoeren) AbstractExecutableProces.getProces(proces);
+    try {
+      _proces.execute(this);
+    } finally {
+      Stripersist.getEntityManager().merge(proces);
+      Stripersist.getEntityManager().getTransaction().commit();
     }
+    return new ForwardResolution(JSP);
+  }
 
-    @Override
-    public void progress(long progress) {
+  @Override
+  public void total(long total) {}
 
-    }
+  @Override
+  public void progress(long progress) {}
 
-    @Override
-    public void exception(Throwable t) {
-        StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw));
-        this.exceptionStacktrace = sw.toString();
-    }
+  @Override
+  public void exception(Throwable t) {
+    StringWriter sw = new StringWriter();
+    t.printStackTrace(new PrintWriter(sw));
+    this.exceptionStacktrace = sw.toString();
+  }
 
-    @Override
-    public void updateStatus(String status) {
-        this.status = status;
-    }
+  @Override
+  public void updateStatus(String status) {
+    this.status = status;
+  }
 
-    @Override
-    public void addLog(String line) {
-        this.log.append(line).append("\n");
-    }
+  @Override
+  public void addLog(String line) {
+    this.log.append(line).append("\n");
+  }
 
-    // <editor-fold defaultstate="collapsed" desc="getters en setters">
-    public MaterializedViewRefresh getProces() {
-        return proces;
-    }
+  // <editor-fold defaultstate="collapsed" desc="getters en setters">
+  public MaterializedViewRefresh getProces() {
+    return proces;
+  }
 
-    public void setProces(MaterializedViewRefresh proces) {
-        this.proces = proces;
-    }
+  public void setProces(MaterializedViewRefresh proces) {
+    this.proces = proces;
+  }
 
-    @Override
-    public ActionBeanContext getContext() {
-        return context;
-    }
+  @Override
+  public ActionBeanContext getContext() {
+    return context;
+  }
 
-    @Override
-    public void setContext(ActionBeanContext context) {
-        this.context = context;
-    }
+  @Override
+  public void setContext(ActionBeanContext context) {
+    this.context = context;
+  }
 
-    public String getLog() {
-        return log.toString();
-    }
+  public String getLog() {
+    return log.toString();
+  }
 
-    public void setLog(String log) {
-        this.log = new StringBuilder(log);
-    }
+  public void setLog(String log) {
+    this.log = new StringBuilder(log);
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public String getExceptionStacktrace() {
-        return exceptionStacktrace;
-    }
+  public String getExceptionStacktrace() {
+    return exceptionStacktrace;
+  }
 
-    public void setExceptionStacktrace(String exceptionStacktrace) {
-        this.exceptionStacktrace = exceptionStacktrace;
-    }
-    // </editor-fold>
+  public void setExceptionStacktrace(String exceptionStacktrace) {
+    this.exceptionStacktrace = exceptionStacktrace;
+  }
+  // </editor-fold>
 
 }

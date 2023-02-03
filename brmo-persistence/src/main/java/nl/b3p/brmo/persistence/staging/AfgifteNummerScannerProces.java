@@ -19,76 +19,75 @@ package nl.b3p.brmo.persistence.staging;
 import javax.persistence.Entity;
 
 /**
- *
  * @author mprins
  */
 @Entity
 public class AfgifteNummerScannerProces extends AutomatischProces {
 
-    private static final String CONTRACTNUMMER = "contractnummer";
-    private static final String AFGIFTENUMMERTYPE = "afgiftenummertype";
-    public static final String MISSINGNUMBERSFOUND = "ontbrekendenummersgevonden";
-    private static final String INSERT_LAADPROCESSEN = "laadprocessen_toevoegen";
+  private static final String CONTRACTNUMMER = "contractnummer";
+  private static final String AFGIFTENUMMERTYPE = "afgiftenummertype";
+  public static final String MISSINGNUMBERSFOUND = "ontbrekendenummersgevonden";
+  private static final String INSERT_LAADPROCESSEN = "laadprocessen_toevoegen";
 
-    /**
-     * Zoekt het geconfigureerde contractnummer op.
-     *
-     * @return contractnummer of null
-     */
-    public String getContracNummer() {
-        return ClobElement.nullSafeGet(this.getConfig().get(CONTRACTNUMMER));
-    }
+  /**
+   * Zoekt het geconfigureerde contractnummer op.
+   *
+   * @return contractnummer of null
+   */
+  public String getContracNummer() {
+    return ClobElement.nullSafeGet(this.getConfig().get(CONTRACTNUMMER));
+  }
 
-    /**
-     * set contractnummer.
-     *
-     * @param contractnummer of null
-     */
-    public void setContracNummer(String contractnummer) {
-        if (contractnummer == null) {
-            this.getConfig().put(CONTRACTNUMMER, null);
-        } else {
-            this.getConfig().put(CONTRACTNUMMER, new ClobElement(contractnummer));
-        }
+  /**
+   * set contractnummer.
+   *
+   * @param contractnummer of null
+   */
+  public void setContracNummer(String contractnummer) {
+    if (contractnummer == null) {
+      this.getConfig().put(CONTRACTNUMMER, null);
+    } else {
+      this.getConfig().put(CONTRACTNUMMER, new ClobElement(contractnummer));
     }
+  }
 
-    /**
-     * Zoekt het geconfigureerde afgifte nummer type op.
-     *
-     * @return afgiftenummertype of een lege String
-     */
-    public String getAfgifteNummerType() {
-        return ClobElement.nullSafeGet(this.getConfig().get(AFGIFTENUMMERTYPE));
-    }
+  /**
+   * Zoekt het geconfigureerde afgifte nummer type op.
+   *
+   * @return afgiftenummertype of een lege String
+   */
+  public String getAfgifteNummerType() {
+    return ClobElement.nullSafeGet(this.getConfig().get(AFGIFTENUMMERTYPE));
+  }
 
-    /**
-     * set afgifte nummer type.
-     *
-     * @param afgiftenummertype of null
-     */
-    public void setAfgifteNummerType(String afgiftenummertype) {
-        if (afgiftenummertype == null) {
-            this.getConfig().put(AFGIFTENUMMERTYPE, null);
-        } else {
-            this.getConfig().put(AFGIFTENUMMERTYPE, new ClobElement(afgiftenummertype));
-        }
+  /**
+   * set afgifte nummer type.
+   *
+   * @param afgiftenummertype of null
+   */
+  public void setAfgifteNummerType(String afgiftenummertype) {
+    if (afgiftenummertype == null) {
+      this.getConfig().put(AFGIFTENUMMERTYPE, null);
+    } else {
+      this.getConfig().put(AFGIFTENUMMERTYPE, new ClobElement(afgiftenummertype));
     }
+  }
 
-    public void setOntbrekendeNummersGevonden(boolean gevonden) {
-        this.getConfig().put(MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(gevonden)));
-    }
+  public void setOntbrekendeNummersGevonden(boolean gevonden) {
+    this.getConfig().put(MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(gevonden)));
+  }
 
-    public boolean getOntbrekendeNummersGevonden() {
-        String s = ClobElement.nullSafeGet(this.getConfig().get(MISSINGNUMBERSFOUND));
-        return (s == null ? false : Boolean.parseBoolean(s));
-    }
+  public boolean getOntbrekendeNummersGevonden() {
+    String s = ClobElement.nullSafeGet(this.getConfig().get(MISSINGNUMBERSFOUND));
+    return (s == null ? false : Boolean.parseBoolean(s));
+  }
 
-    public void setOntbrekendeAfgiftenummersToevoegen(boolean toevoegen) {
-        this.getConfig().put(INSERT_LAADPROCESSEN, new ClobElement(Boolean.toString(toevoegen)));
-    }
+  public void setOntbrekendeAfgiftenummersToevoegen(boolean toevoegen) {
+    this.getConfig().put(INSERT_LAADPROCESSEN, new ClobElement(Boolean.toString(toevoegen)));
+  }
 
-    public boolean getOntbrekendeAfgiftenummersToevoegen() {
-        String s = ClobElement.nullSafeGet(this.getConfig().get(INSERT_LAADPROCESSEN));
-        return (s == null ? false : Boolean.parseBoolean(s));
-    }
+  public boolean getOntbrekendeAfgiftenummersToevoegen() {
+    String s = ClobElement.nullSafeGet(this.getConfig().get(INSERT_LAADPROCESSEN));
+    return (s == null ? false : Boolean.parseBoolean(s));
+  }
 }

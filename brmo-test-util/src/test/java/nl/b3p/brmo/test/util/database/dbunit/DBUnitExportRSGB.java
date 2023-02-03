@@ -13,75 +13,76 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
 /**
- * Een tool om een export te maken van een aantal tabellen; de export kan
- * vervolgens worden gebruikt in een dbunit testcase.
+ * Een tool om een export te maken van een aantal tabellen; de export kan vervolgens worden gebruikt
+ * in een dbunit testcase.
  *
  * @author mprins
- *
- * zie: http://dbunit.wikidot.com/demoimportexport
+ *     <p>zie: http://dbunit.wikidot.com/demoimportexport
  */
 public class DBUnitExportRSGB {
 
-    private static final String _testDir = "target/";
-    private static final String _dbFile = "rsgb-flat.xml";
-    private static final String _dbFile2 = "rsgb.xml";
+  private static final String _testDir = "target/";
+  private static final String _dbFile = "rsgb-flat.xml";
+  private static final String _dbFile2 = "rsgb.xml";
 
-    // postgis
-    private static final String _driverClass = "org.postgresql.Driver";
-    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
-    private static final String _user = "rsgb";
-    private static final String _passwd = "rsgb";
+  // postgis
+  private static final String _driverClass = "org.postgresql.Driver";
+  private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
+  private static final String _user = "rsgb";
+  private static final String _passwd = "rsgb";
 
-    // oracle
-    // private static final String _driverClass = "oracle.jdbc.OracleDriver";
-    // private static final String _jdbcConnection = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
-    // private static final String _user = "rsgbitest";
-    // private static final String _passwd = "rsgbitest";
+  // oracle
+  // private static final String _driverClass = "oracle.jdbc.OracleDriver";
+  // private static final String _jdbcConnection = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+  // private static final String _user = "rsgbitest";
+  // private static final String _passwd = "rsgbitest";
 
-    // volgorde van tabellen belangrijk vanwege de constraints
-    private static final String[] _testTableNames = {
-        "kad_onrrnd_zk",
-        "kad_onrrnd_zk_archief",
-        "kad_onrrnd_zk_his_rel",
-        "kad_perceel",
-        "kad_perceel_archief",
-        "subject",
-        "prs",
-        "niet_nat_prs",
-        "ingeschr_niet_nat_prs",
-        "herkomst_metadata",
-        "kad_onrrnd_zk_aantek",
-        "kad_onrrnd_zk_aantek_archief",
-        "brondocument",
-        "zak_recht"
-    };
+  // volgorde van tabellen belangrijk vanwege de constraints
+  private static final String[] _testTableNames = {
+    "kad_onrrnd_zk",
+    "kad_onrrnd_zk_archief",
+    "kad_onrrnd_zk_his_rel",
+    "kad_perceel",
+    "kad_perceel_archief",
+    "subject",
+    "prs",
+    "niet_nat_prs",
+    "ingeschr_niet_nat_prs",
+    "herkomst_metadata",
+    "kad_onrrnd_zk_aantek",
+    "kad_onrrnd_zk_aantek_archief",
+    "brondocument",
+    "zak_recht"
+  };
 
-    public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
-        Class driverClass = Class.forName(_driverClass);
-        Connection jdbcConnection = DriverManager.getConnection(_jdbcConnection, _user, _passwd);
-        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
+  public static void main(String[] args)
+      throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
+    Class driverClass = Class.forName(_driverClass);
+    Connection jdbcConnection = DriverManager.getConnection(_jdbcConnection, _user, _passwd);
+    IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-         connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-//        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+    connection
+        .getConfig()
+        .setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+    //        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new
+    // Oracle10DataTypeFactory());
 
-        // voor alle tabellen:
-        // ITableFilter filter = new DatabaseSequenceFilter(connection);
-        // IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
-        // voor een setje tabellen
-        IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
+    // voor alle tabellen:
+    // ITableFilter filter = new DatabaseSequenceFilter(connection);
+    // IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
+    // voor een setje tabellen
+    IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
 
-        // "flat" xml export
-        FlatXmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile)));
-        // "formatted" xml export
-        XmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile2)));
-    }
+    // "flat" xml export
+    FlatXmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile)));
+    // "formatted" xml export
+    XmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile2)));
+  }
 }

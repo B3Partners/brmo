@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>brmo-loader</artifactId>
-    <packaging>jar</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>brmo-loader</artifactId>
+    <packaging>jar</packaging>
     <name>BRMO loader</name>
     <description>BRMO data loader module.</description>
     <dependencies>
@@ -75,6 +75,10 @@
         <dependency>
             <groupId>org.geotools.xsd</groupId>
             <artifactId>gt-xsd-gml3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-gml-geometry-streaming</artifactId>
         </dependency>
         <dependency>
             <groupId>org.geotools.jdbc</groupId>
@@ -168,8 +172,7 @@
     <profiles>
         <profile>
             <id>oracle</id>
-            <properties>
-            </properties>
+            <properties />
             <build>
                 <plugins>
                     <plugin>
@@ -199,6 +202,25 @@
                                 <database.upgrade>${database.upgrade}</database.upgrade>
                             </systemPropertyVariables>
                             <excludedGroups>skip-pgsql</excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>postgresql-github</id>
+            <activation>
+                <property>
+                    <name>env.CI</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <excludedGroups>skip-flakey-pgsql-github</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

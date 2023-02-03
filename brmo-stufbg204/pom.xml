@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>brmo-stufbg204</artifactId>
-    <packaging>war</packaging>
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>brmo-stufbg204</artifactId>
+    <packaging>war</packaging>
     <name>BRMO STUF BG 204</name>
     <description>StufBG 2.04 SOAP service voor de BRMO applicatie</description>
     <properties>
@@ -103,13 +103,6 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <prefix>builddetails</prefix>
                     <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
@@ -127,6 +120,13 @@
                         <forceLongFormat>false</forceLongFormat>
                     </gitDescribe>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -170,10 +170,10 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
+                        <phase>validate</phase>
                         <configuration>
                             <outputDirectory>${endorsed.dir}</outputDirectory>
                             <silent>true</silent>
@@ -190,11 +190,17 @@
             <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
+                <configuration>
+                    <xnocompile>true</xnocompile>
+                    <verbose>false</verbose>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>wsimport-generate-bg0204</id>
                         <goals>
                             <goal>wsimport</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <wsdlDirectory>src/main/webapp/WEB-INF/wsdl</wsdlDirectory>
                             <wsdlFiles>
@@ -204,14 +210,8 @@
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
                             </vmArgs>
                         </configuration>
-                        <id>wsimport-generate-bg0204</id>
-                        <phase>generate-sources</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <xnocompile>true</xnocompile>
-                    <verbose>false</verbose>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -245,8 +245,8 @@
                 </filters>
                 <testResources>
                     <testResource>
-                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
                         <filtering>true</filtering>
+                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
                     </testResource>
                     <testResource>
                         <directory>${project.basedir}/src/test/resources/</directory>
@@ -265,10 +265,10 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <phase>initialize</phase>
                                 <goals>
                                     <goal>read-project-properties</goal>
                                 </goals>
+                                <phase>initialize</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -298,17 +298,17 @@
                         <executions>
                             <execution>
                                 <id>start-server</id>
-                                <phase>pre-integration-test</phase>
                                 <goals>
                                     <goal>start</goal>
                                 </goals>
+                                <phase>pre-integration-test</phase>
                             </execution>
                             <execution>
                                 <id>stop-server</id>
-                                <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
+                                <phase>post-integration-test</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -343,8 +343,8 @@
                 </filters>
                 <testResources>
                     <testResource>
-                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
                         <filtering>true</filtering>
+                        <directory>${project.basedir}/src/test/tomcatconf/</directory>
                     </testResource>
                     <testResource>
                         <directory>${project.basedir}/src/test/resources/</directory>
@@ -363,10 +363,10 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <phase>initialize</phase>
                                 <goals>
                                     <goal>read-project-properties</goal>
                                 </goals>
+                                <phase>initialize</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -396,17 +396,17 @@
                         <executions>
                             <execution>
                                 <id>start-server</id>
-                                <phase>pre-integration-test</phase>
                                 <goals>
                                     <goal>start</goal>
                                 </goals>
+                                <phase>pre-integration-test</phase>
                             </execution>
                             <execution>
                                 <id>stop-server</id>
-                                <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
+                                <phase>post-integration-test</phase>
                             </execution>
                         </executions>
                     </plugin>

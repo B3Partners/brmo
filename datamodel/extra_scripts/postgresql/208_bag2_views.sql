@@ -1,3 +1,5 @@
+SET SCHEMA 'bag';
+SET search_path = bag,public;
 /*
  * Views BAG 2 data.
  */

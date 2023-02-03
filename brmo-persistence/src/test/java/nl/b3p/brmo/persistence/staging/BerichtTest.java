@@ -3,32 +3,31 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import javax.persistence.Query;
 import nl.b3p.brmo.persistence.TestUtil;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Query;
-
 /**
- * Testcase voor {@link  nl.b3p.brmo.persistence.staging.Bericht}.
+ * Testcase voor {@link nl.b3p.brmo.persistence.staging.Bericht}.
  *
  * @author mprins
  */
 public class BerichtTest extends TestUtil {
 
-    @Test
-    public void shouldStoreBericht() {
-        Bericht b = new Bericht();
-        b.setStatus(Bericht.STATUS.RSGB_OK);
-        entityManager.persist(b);
+  @Test
+  public void shouldStoreBericht() {
+    Bericht b = new Bericht();
+    b.setStatus(Bericht.STATUS.RSGB_OK);
+    entityManager.persist(b);
 
-        entityManager.remove(b);
-        entityManager.getTransaction().commit();
-    }
+    entityManager.remove(b);
+    entityManager.getTransaction().commit();
+  }
 
-    @Test
-    public void shouldDeleteAllBericht() {
-        Query q = entityManager.createQuery("DELETE FROM Bericht");
-        int deleted = q.executeUpdate();
-        entityManager.getTransaction().commit();
-    }
+  @Test
+  public void shouldDeleteAllBericht() {
+    Query q = entityManager.createQuery("DELETE FROM Bericht");
+    int deleted = q.executeUpdate();
+    entityManager.getTransaction().commit();
+  }
 }

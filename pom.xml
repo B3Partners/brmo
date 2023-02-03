@@ -5,6 +5,22 @@
     <artifactId>brmo</artifactId>
     <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>BRMO</name>
+    <description>B3Partners BRMO applicatie</description>
+    <url>https://github.com/B3Partners/brmo/</url>
+    <inceptionYear>2014</inceptionYear>
+    <organization>
+        <name>B3Partners B.V.</name>
+        <url>https://www.b3partners.nl/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE 3.0</name>
+            <url>https://raw.githubusercontent.com/B3Partners/brmo/master/LICENSE</url>
+            <distribution>repo</distribution>
+            <comments>Voor de code van de BRMO applicatie.</comments>
+        </license>
+    </licenses>
     <modules>
         <module>brmo-test-util</module>
         <module>datamodel</module>
@@ -25,27 +41,11 @@
         <module>docker</module>
         <module>nhr-loader</module>
     </modules>
-    <name>BRMO</name>
-    <description>B3Partners BRMO applicatie</description>
-    <url>https://github.com/B3Partners/brmo/</url>
-    <inceptionYear>2014</inceptionYear>
-    <licenses>
-        <license>
-            <url>https://raw.githubusercontent.com/B3Partners/brmo/master/LICENSE</url>
-            <name>GNU GENERAL PUBLIC LICENSE 3.0</name>
-            <distribution>repo</distribution>
-            <comments>Voor de code van de BRMO applicatie.</comments>
-        </license>
-    </licenses>
-    <organization>
-        <name>B3Partners B.V.</name>
-        <url>https://www.b3partners.nl/</url>
-    </organization>
     <scm>
-        <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
-        <url>https://github.com/B3Partners/brmo/</url>
+        <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/B3Partners/brmo/</url>
     </scm>
     <issueManagement>
         <system>Jira</system>
@@ -55,38 +55,55 @@
         <system>Github Actions</system>
         <url>https://github.com/B3Partners/brmo/actions</url>
     </ciManagement>
+    <distributionManagement>
+        <repository>
+            <id>repo.b3p.nl</id>
+            <name>B3Partners releases repository</name>
+            <url>https://repo.b3p.nl/nexus/repository/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>repo.b3p.nl</id>
+            <name>B3Partners snapshots repository</name>
+            <url>https://repo.b3p.nl/nexus/repository/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>gh-pages</id>
+            <name>github pages site</name>
+            <url>scm:git:ssh://git@github.com/b3partners/brmo.git</url>
+        </site>
+    </distributionManagement>
     <properties>
         <java.version>11</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
-        <project.build.outputTimestamp>2022-11-29T13:14:11Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2023-01-13T13:00:57Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven-fluido-skin.version>1.11.1</maven-fluido-skin.version>
+        <maven-fluido-skin.version>2.0.0-M2</maven-fluido-skin.version>
         <hibernate.version>5.6.14.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>28.0</geotools.version>
-        <jdbc-util.version>13.0</jdbc-util.version>
+        <geotools.version>28.1</geotools.version>
+        <jdbc-util.version>13.2</jdbc-util.version>
         <jts.version>1.19.0</jts.version>
-        <itextpdf.version>7.2.4</itextpdf.version>
-        <postgresql.jdbc.version>42.5.1</postgresql.jdbc.version>
+        <itextpdf.version>7.2.5</itextpdf.version>
+        <postgresql.jdbc.version>42.5.2</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2021.1.0</postgresql.postgis-jdbc.version>
-        <oracle.jdbc.version>21.7.0.0</oracle.jdbc.version>
+        <oracle.jdbc.version>21.8.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.7</jakarta.mail.version>
-        <apache.cxf.version>3.5.4</apache.cxf.version>
+        <apache.cxf.version>3.5.5</apache.cxf.version>
         <apache.poi.version>5.2.3</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
-        <slf4j.version>2.0.5</slf4j.version>
+        <slf4j.version>2.0.6</slf4j.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
-        <jaxb.impl.version>2.3.6</jaxb.impl.version>
-        <jackson.version>2.14.1</jackson.version>
-        <jackson.databind.version>2.14.1</jackson.databind.version>
+        <jaxb.impl.version>2.3.7</jaxb.impl.version>
+        <jackson.version>2.14.2</jackson.version>
+        <jackson.databind.version>2.14.2</jackson.databind.version>
         <javax-annotation.version>1.3.2</javax-annotation.version>
         <activation.api.version>1.2.2</activation.api.version>
-        <tomcat.version>9.0.69</tomcat.version>
+        <tomcat.version>9.0.71</tomcat.version>
         <tomcat.http.port>9091</tomcat.http.port>
         <tomcat.localDatasource>false</tomcat.localDatasource>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
@@ -101,11 +118,11 @@
         <test.persistence.unit>brmo.persistence.hsqldb</test.persistence.unit>
         <test.hsqldb.version>2.7.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
-        <test.junit-jupiter.version>5.9.1</test.junit-jupiter.version>
-        <maven.surefire.version>3.0.0-M7</maven.surefire.version>
+        <test.junit-jupiter.version>5.9.2</test.junit-jupiter.version>
+        <maven.surefire.version>3.0.0-M8</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-        <versions-maven-plugin.version>2.13.0</versions-maven-plugin.version>
-        <maven-project-info-reports-plugin.version>3.4.1</maven-project-info-reports-plugin.version>
+        <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+        <maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
         <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
@@ -113,6 +130,11 @@
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
         <database.upgrade />
+        <fmt.action>format</fmt.action>
+        <pom.fmt.action>sort</pom.fmt.action>
+        <!-- skip QA checks -->
+        <skipQA>false</skipQA>
+        <docker.skip>false</docker.skip>
     </properties>
     <dependencyManagement>
         <!--
@@ -120,6 +142,16 @@
         mvn -U org.codehaus.mojo:versions-maven-plugin:display-dependency-updates -T1 > dependency-updates.log
         -->
         <dependencies>
+            <dependency>
+                <!--
+                override transtive dependency van com.sun.xml.ws:jaxws-rt:jar:2.3.5:compile
+                en org.apache.cxf:cxf-core:jar:3.5.4:compile
+                CVE-2022-40152
+                -->
+                <groupId>com.fasterxml.woodstox</groupId>
+                <artifactId>woodstox-core</artifactId>
+                <version>6.5.0</version>
+            </dependency>
             <dependency>
                 <groupId>org.gaul</groupId>
                 <artifactId>modernizer-maven-annotations</artifactId>
@@ -368,7 +400,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>kadaster-gds2</artifactId>
-                <version>2.7</version>
+                <version>3.0</version>
             </dependency>
             <!-- J2EE dependencies en stripes -->
             <dependency>
@@ -579,14 +611,14 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <artifactId>swagger-annotations</artifactId>
                 <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
                 <version>1.6.9</version>
             </dependency>
             <dependency>
                 <groupId>info.picocli</groupId>
                 <artifactId>picocli</artifactId>
-                <version>4.7.0</version>
+                <version>4.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -703,6 +735,7 @@
                 <groupId>org.httpunit</groupId>
                 <artifactId>httpunit</artifactId>
                 <version>1.7.3</version>
+                <scope>test</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>junit</groupId>
@@ -713,24 +746,23 @@
                         <artifactId>hamcrest-core</artifactId>
                     </exclusion>
                 </exclusions>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>net.javacrumbs.json-unit</groupId>
                 <artifactId>json-unit</artifactId>
-                <version>2.36.0</version>
+                <version>2.36.1</version>
+                <scope>test</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>org.hamcrest</groupId>
                         <artifactId>hamcrest-core</artifactId>
                     </exclusion>
                 </exclusions>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.xmlunit</groupId>
                 <artifactId>xmlunit-core</artifactId>
-                <version>2.9.0</version>
+                <version>2.9.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -748,55 +780,17 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>4.9.0</version>
+                <version>5.1.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>mockwebserver3-junit5</artifactId>
-                <version>5.0.0-alpha.10</version>
+                <version>5.0.0-alpha.11</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <distributionManagement>
-        <site>
-            <id>gh-pages</id>
-            <name>github pages site</name>
-            <url>scm:git:ssh://git@github.com/b3partners/brmo.git</url>
-        </site>
-        <repository>
-            <id>repo.b3p.nl</id>
-            <name>B3Partners releases repository</name>
-            <url>https://repo.b3p.nl/nexus/repository/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>repo.b3p.nl</id>
-            <name>B3Partners snapshots repository</name>
-            <url>https://repo.b3p.nl/nexus/repository/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>B3Partners</id>
-            <name>Releases hosted by B3Partners</name>
-            <url>https://repo.b3p.nl/nexus/repository/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencies>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -819,8 +813,33 @@
             <artifactId>log4j-to-slf4j</artifactId>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>B3Partners</id>
+            <name>Releases hosted by B3Partners</name>
+            <url>https://repo.b3p.nl/nexus/repository/public/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <defaultGoal>package</defaultGoal>
+        <testResources>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>${project.basedir}/src/test/resources/</directory>
+            </testResource>
+        </testResources>
         <pluginManagement>
             <plugins>
                 <!--
@@ -867,7 +886,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M3</version>
+                    <version>4.0.0-M4</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -885,6 +904,16 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.ekryd.sortpom</groupId>
+                    <artifactId>sortpom-maven-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify.fmt</groupId>
+                    <artifactId>fmt-maven-plugin</artifactId>
+                    <version>2.19</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -909,7 +938,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.4.0</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -967,32 +996,23 @@
                         <notimestamp>true</notimestamp>
                         <quiet>true</quiet>
                         <stylesheet>java</stylesheet>
-                        <!-- dit is stuk miv Java 11 vanwege aanpassingen in de Javadoc API
-                        <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                        <docletArtifact>
-                            <groupId>org.umlgraph</groupId>
-                            <artifactId>umlgraph</artifactId>
-                            <version>5.6.6</version>
-                        </docletArtifact>
-                        <additionalOptions>-all -hide java.* -hide javax.* -hide org.* -inferrel</additionalOptions>
-                        -->
                         <show>package</show>
                         <useStandardDocletOptions>true</useStandardDocletOptions>
                         <links>
+                            <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                             <link>https://www.slf4j.org/apidocs/</link>
                             <link>https://docs.oracle.com/javaee/7/api/</link>
-                            <!-- <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link> -->
                             <link>https://docs.jboss.org/hibernate/orm/5.6/javadocs/</link>
                             <link>https://docs.geotools.org/stable/javadocs/</link>
                             <link>https://reload4j.qos.ch/apidocs/</link>
                             <link>https://junit.org/junit5/docs/current/api/</link>
                             <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
                             <link>https://b3partners.github.io/jdbc-util/apidocs/</link>
+                            <link>https://jdbc.postgresql.org/documentation/publicapi/</link>
+                            <link>https://www.xmlunit.org/api/java/main/</link>
                         </links>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <packagesheader>${project.artifactId}</packagesheader>
-                        <!-- dit werkt niet voor veel projecten omdat de detected-link ${project.url}/apidocs is -->
-                        <detectLinks>false</detectLinks>
                         <tags>
                             <tag>
                                 <name>todo</name>
@@ -1003,30 +1023,6 @@
                                 <name>note</name>
                                 <placement>a</placement>
                                 <head>Note:</head>
-                            </tag>
-                            <tag>
-                                <name>opt</name>
-                                <placement>X</placement>
-                            </tag>
-                            <tag>
-                                <name>composed</name>
-                                <placement>X</placement>
-                            </tag>
-                            <tag>
-                                <name>has</name>
-                                <placement>X</placement>
-                            </tag>
-                            <tag>
-                                <name>depend</name>
-                                <placement>X</placement>
-                            </tag>
-                            <tag>
-                                <name>assoc</name>
-                                <placement>X</placement>
-                            </tag>
-                            <tag>
-                                <name>extends</name>
-                                <placement>X</placement>
                             </tag>
                         </tags>
                     </configuration>
@@ -1078,7 +1074,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.xml.ws</groupId>
@@ -1088,7 +1084,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>7.4.0</version>
+                    <version>8.0.2</version>
                     <configuration>
                         <enableExperimental>true</enableExperimental>
                         <retirejs>
@@ -1115,7 +1111,7 @@
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.40.2</version>
+                    <version>0.40.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.openapitools</groupId>
@@ -1131,16 +1127,10 @@
                 <plugin>
                     <groupId>org.jvnet.jaxb2.maven2</groupId>
                     <artifactId>maven-jaxb2-plugin</artifactId>
-                    <version>0.15.1</version>
+                    <version>0.15.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/src/test/resources/</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -1178,6 +1168,47 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>com.spotify.fmt</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <configuration>
+                    <verbose>false</verbose>
+                    <filesNamePattern>.*\.java</filesNamePattern>
+                    <skip>${skipQA}</skip>
+                    <style>google</style>
+                    <displayFiles>true</displayFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>${fmt.action}</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${skipQA}</skip>
+                    <keepBlankLines>false</keepBlankLines>
+                    <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+                    <createBackupFile>false</createBackupFile>
+                    <verifyFail>stop</verifyFail>
+                    <verifyFailOn>strict</verifyFailOn>
+                    <expandEmptyElements>false</expandEmptyElements>
+                    <nrOfIndentSpace>4</nrOfIndentSpace>
+                    <indentSchemaLocation>false</indentSchemaLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>${pom.fmt.action}</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
@@ -1192,27 +1223,27 @@
                     </execution>
                     <execution>
                         <id>pre-integration-test</id>
-                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>prepare-agent-integration</goal>
                         </goals>
+                        <phase>pre-integration-test</phase>
                         <configuration>
                             <propertyName>failsafeArgLine</propertyName>
                         </configuration>
                     </execution>
                     <execution>
                         <id>post-unit-test</id>
-                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <phase>test</phase>
                     </execution>
                     <execution>
                         <id>post-integration-test</id>
-                        <phase>post-integration-test</phase>
                         <goals>
                             <goal>report-integration</goal>
                         </goals>
+                        <phase>post-integration-test</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1223,7 +1254,6 @@
                     <generateSitemap>true</generateSitemap>
                     <attach>false</attach>
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
-                    <locales>nl</locales>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
                     <stagingDirectory>/tmp/staging</stagingDirectory>
                 </configuration>
@@ -1304,6 +1334,9 @@
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>${maven-project-info-reports-plugin.version}</version>
+                <configuration>
+                    <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -1324,9 +1357,6 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-                <configuration>
-                    <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -1394,6 +1424,7 @@
         <profile>
             <id>windows-java11-mvn</id>
             <activation>
+                <jdk>[11,)</jdk>
                 <!--
                 dit profiel wordt getriggerd op de Github Windows runner:
                 - Windows
@@ -1404,7 +1435,6 @@
                 <os>
                     <family>Windows</family>
                 </os>
-                <jdk>[11,)</jdk>
             </activation>
             <properties>
                 <!-- zodat we getaggede tests kunnen skippen met failsafe -->
@@ -1418,8 +1448,32 @@
                     <family>Windows</family>
                 </os>
             </activation>
-            <properties />
-            <build />
+            <properties>
+                <docker.skip>true</docker.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>macos</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <docker.skip>true</docker.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>openbsd</id>
+            <activation>
+                <os>
+                    <name>openbsd</name>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <docker.skip>true</docker.skip>
+            </properties>
         </profile>
     </profiles>
 </project>

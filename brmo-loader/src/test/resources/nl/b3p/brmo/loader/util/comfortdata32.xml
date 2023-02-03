@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:gml="http://www.opengis.net/gml/3.2">
+    <!--objectRef: NL.IMKAD.KadastraalObject:50247970000, datum: 2021-06-10 00:00:00.0, volgordeNummer: -1, soort: brk2-->
+    <data>
+        <adres ignore-duplicates="yes">
+            <identificatie>NL.IMKAD.AdresLocatie.KPR.6384596</identificatie>
+            <huisnummer/>
+            <huisletter/>
+            <huisnummertoevoeging/>
+            <postbusnummer>269</postbusnummer>
+            <postcode>4530AG</postcode>
+            <openbareruimtenaam/>
+            <woonplaatsnaam>TERNEUZEN</woonplaatsnaam>
+            <openbareruimte/>
+            <verblijfsobject/>
+            <adresseerbaarobject/>
+            <nummeraanduiding/>
+            <standplaats/>
+            <ligplaats/>
+            <nevenadres/>
+            <hoofdadres/>
+            <koppelingswijze/>
+            <buitenlandadres/>
+            <buitenlandwoonplaats/>
+            <buitenlandregio/>
+            <land/>
+            <onroerendezaak/>
+        </adres>
+        <adres ignore-duplicates="yes">
+            <identificatie>NL.IMKAD.AdresLocatie.KPR.10893769</identificatie>
+            <huisnummer>2</huisnummer>
+            <huisletter/>
+            <huisnummertoevoeging/>
+            <postbusnummer/>
+            <postcode>4538BV</postcode>
+            <openbareruimtenaam>Communicatielaan</openbareruimtenaam>
+            <woonplaatsnaam>TERNEUZEN</woonplaatsnaam>
+            <openbareruimte/>
+            <verblijfsobject/>
+            <adresseerbaarobject/>
+            <nummeraanduiding/>
+            <standplaats/>
+            <ligplaats/>
+            <nevenadres/>
+            <hoofdadres/>
+            <koppelingswijze/>
+            <buitenlandadres/>
+            <buitenlandwoonplaats/>
+            <buitenlandregio/>
+            <land/>
+            <onroerendezaak/>
+        </adres>
+        <comfort search-table="nietnatuurlijkpersoon" search-column="identificatie"
+                 search-value="NL.IMKAD.Persoon.133914028" snapshot-date="2021-06-10">
+            <persoon>
+                <identificatie>NL.IMKAD.Persoon.133914028</identificatie>
+                <beschikkingsbevoegdheid/>
+                <indicatieniettoonbarediakriet>false</indicatieniettoonbarediakriet>
+                <postlocatie/>
+                <woonlocatie>NL.IMKAD.AdresLocatie.KPR.10893769</woonlocatie>
+                <soort>nietnatuurlijkpersoon</soort>
+            </persoon>
+            <nietnatuurlijkpersoon>
+                <identificatie>NL.IMKAD.Persoon.133914028</identificatie>
+                <statutairenaam>Stichting Woongoed Zeeuws-Vlaanderen</statutairenaam>
+                <rechtsvorm>Stichting</rechtsvorm>
+                <statutairezetel>TERNEUZEN</statutairezetel>
+                <betreft/>
+                <rsin>002595849</rsin>
+                <kvknummer>21013149</kvknummer>
+            </nietnatuurlijkpersoon>
+        </comfort>
+        <stuk>
+            <identificatie>NL.IMKAD.TIAStuk.20170208000090</identificatie>
+            <toelichtingbewaarder/>
+            <portefeuillenummer/>
+            <deel>70045</deel>
+            <nummer>63</nummer>
+            <reeks/>
+            <registercode>Hyp4</registercode>
+            <soortregister>Onroerende Zaken</soortregister>
+            <tijdstipaanbieding>2017-02-08T09:00:00</tijdstipaanbieding>
+            <tijdstipondertekening/>
+            <tekeningingeschreven>false</tekeningingeschreven>
+        </stuk>
+        <stukdeel>
+            <identificatie>NL.IMKAD.Stukdeel.AKR1.100000011467529</identificatie>
+            <aard>Akte van Koop en Verkoop</aard>
+            <bedragtransactiesomlevering>180000</bedragtransactiesomlevering>
+            <datumkenbaarheidpb/>
+            <deelvan>NL.IMKAD.TIAStuk.20170208000090</deelvan>
+        </stukdeel>
+        <onroerendezaak column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="eindegeldigheid">
+            <begingeldigheid>2021-06-10</begingeldigheid>
+            <eindegeldigheid/>
+            <identificatie>NL.IMKAD.KadastraalObject.50247970000</identificatie>
+            <akrkadastralegemeentecode>6</akrkadastralegemeentecode>
+            <akrkadastralegemeente>ADB00</akrkadastralegemeente>
+            <kadastralegemeentecode>6</kadastralegemeentecode>
+            <kadastralegemeente>Aardenburg</kadastralegemeente>
+            <sectie>E</sectie>
+            <perceelnummer>2479</perceelnummer>
+            <appartementsrechtvolgnummer/>
+            <landinrichtingsrente_bedrag/>
+            <landinrichtingsrente_jaar/>
+            <aard_cultuur_onbebouwd/>
+            <aard_cultuur_bebouwd>Wonen</aard_cultuur_bebouwd>
+            <koopsom_bedrag>180000</koopsom_bedrag>
+            <koopsom_koopjaar>2017</koopsom_koopjaar>
+            <koopsom_indicatiemeerobjecten>false</koopsom_indicatiemeerobjecten>
+            <toelichtingbewaarder/>
+            <tijdstipontstaanobject/>
+            <oudstdigitaalbekend>1984-12-11</oudstdigitaalbekend>
+            <ontstaanuit/>
+        </onroerendezaak>
+        <perceel>
+            <begingeldigheid alleen-archief="true">2021-06-10</begingeldigheid>
+            <identificatie>NL.IMKAD.KadastraalObject.50247970000</identificatie>
+            <begrenzing_perceel>
+                <gml:Surface srsName="urn:ogc:def:crs:EPSG::28992">
+                    <gml:patches>
+                        <gml:PolygonPatch>
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList count="5" srsDimension="2">19452.172 366623.187 19476.238 366616.882 19477.741 366622.664 19453.125 366629.117 19452.172 366623.187</gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:PolygonPatch>
+                    </gml:patches>
+                </gml:Surface>
+            </begrenzing_perceel>
+            <kadastralegrootte>152</kadastralegrootte>
+            <soortgrootte>Vastgesteld</soortgrootte>
+            <perceelnummerrotatie>14.5</perceelnummerrotatie>
+            <perceelnummer_deltax/>
+            <perceelnummer_deltay/>
+            <plaatscoordinaten>
+                <gml:Point srsName="urn:ogc:def:crs:EPSG::28992">
+                    <gml:pos>19461.513 366623.67</gml:pos>
+                </gml:Point>
+            </plaatscoordinaten>
+            <meettariefverschuldigd>false</meettariefverschuldigd>
+        </perceel>
+        <recht column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="einddatumrecht">
+            <identificatie>NL.IMKAD.ZakelijkRecht.120259679</identificatie>
+            <aard/>
+            <toelichtingbewaarder/>
+            <isbelastmet/>
+            <isgebaseerdop/>
+            <rustop>NL.IMKAD.KadastraalObject.50247970000</rustop>
+            <isontstaanuit/>
+            <isbetrokkenbij/>
+            <isbestemdtot/>
+            <isbeperkttot/>
+            <soort/>
+            <jaarlijksbedrag/>
+            <jaarlijksbedragbetreftmeerdere_oz/>
+            <einddatumafkoop/>
+            <indicatieoudeonroerendezaakbetrokken/>
+            <heefthoofdzaak/>
+            <heeftverenigingvaneigenaren/>
+            <aandeel_teller/>
+            <aandeel_noemer/>
+            <burgerlijkestaattentijdevanverkrijging/>
+            <verkregennamenssamenwerkingsverband/>
+            <betrokkenpartner/>
+            <geldtvoor/>
+            <betrokkensamenwerkingsverband/>
+            <betrokkengorzenenaanwassen/>
+            <tennamevan/>
+            <omschrijving/>
+            <einddatumrecht alleen-archief="true"/>
+            <einddatum/>
+            <betreftgedeeltevanperceel/>
+            <aantekeningrecht/>
+            <aantekeningkadastraalobject/>
+            <betrokkenpersoon/>
+            <begingeldigheid>2021-06-10</begingeldigheid>
+        </recht>
+        <recht column-dat-beg-geldh="begingeldigheid" column-datum-einde-geldh="einddatumrecht">
+            <identificatie>NL.IMKAD.Tenaamstelling.120045870</identificatie>
+            <aard/>
+            <toelichtingbewaarder/>
+            <isbelastmet/>
+            <isgebaseerdop>NL.IMKAD.Stukdeel.AKR1.100000011467529</isgebaseerdop>
+            <rustop/>
+            <isontstaanuit/>
+            <isbetrokkenbij/>
+            <isbestemdtot/>
+            <isbeperkttot/>
+            <soort/>
+            <jaarlijksbedrag/>
+            <jaarlijksbedragbetreftmeerdere_oz/>
+            <einddatumafkoop/>
+            <indicatieoudeonroerendezaakbetrokken/>
+            <heefthoofdzaak/>
+            <heeftverenigingvaneigenaren/>
+            <aandeel_teller>1</aandeel_teller>
+            <aandeel_noemer>1</aandeel_noemer>
+            <burgerlijkestaattentijdevanverkrijging/>
+            <verkregennamenssamenwerkingsverband/>
+            <betrokkenpartner/>
+            <geldtvoor/>
+            <betrokkensamenwerkingsverband/>
+            <betrokkengorzenenaanwassen/>
+            <tennamevan>NL.IMKAD.Persoon.133914028</tennamevan>
+            <omschrijving/>
+            <einddatumrecht alleen-archief="true"/>
+            <einddatum/>
+            <betreftgedeeltevanperceel/>
+            <aantekeningrecht/>
+            <aantekeningkadastraalobject/>
+            <betrokkenpersoon/>
+            <begingeldigheid>2021-06-10</begingeldigheid>
+        </recht>
+    </data>
+</root>

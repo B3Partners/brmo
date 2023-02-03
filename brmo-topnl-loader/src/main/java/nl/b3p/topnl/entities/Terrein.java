@@ -19,38 +19,36 @@ package nl.b3p.topnl.entities;
 import org.locationtech.jts.geom.Polygon;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
  */
-public class Terrein extends TopNLEntity{
-    
-    private String typeLandgebruik;
-    private String naam;
-    
-    private Polygon geometrie;
+public class Terrein extends TopNLEntity {
 
-    public String getTypeLandgebruik() {
-        return typeLandgebruik;
-    }
+  private String typeLandgebruik;
+  private String naam;
 
-    public void setTypeLandgebruik(String typeLandgebruik) {
-        this.typeLandgebruik = typeLandgebruik;
-    }
+  private Polygon geometrie;
 
-    public String getNaam() {
-        return naam;
-    }
+  public String getTypeLandgebruik() {
+    return typeLandgebruik;
+  }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
+  public void setTypeLandgebruik(String typeLandgebruik) {
+    this.typeLandgebruik = typeLandgebruik;
+  }
 
-    public Polygon getGeometrie() {
-        return geometrie;
-    }
+  public String getNaam() {
+    return naam;
+  }
 
-    public void setGeometrie(Polygon geometrie) {
-        this.geometrie = geometrie;
-    }
-    
+  public void setNaam(String naam) {
+    this.naam = naam;
+  }
+
+  public Polygon getGeometrie() {
+    return geometrie;
+  }
+
+  public void setGeometrie(Polygon geometrie) {
+    this.geometrie = geometrie;
+  }
 }

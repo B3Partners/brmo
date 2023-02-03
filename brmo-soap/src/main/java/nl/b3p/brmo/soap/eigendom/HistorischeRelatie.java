@@ -5,59 +5,51 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * <p>
- * Java class for HistorischeRelatie.
-  */
+/** Java class for HistorischeRelatie. */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "identificatienummer",
-    "aard"
-})
+@XmlType(
+    name = "",
+    propOrder = {"identificatienummer", "aard"})
 public class HistorischeRelatie {
 
-    @XmlElement(required = true)
-    protected String identificatienummer;
-    protected String aard;
+  @XmlElement(required = true)
+  protected String identificatienummer;
 
-    /**
-     * Gets the value of the identificatienummer property.
-     *
-     * @return possible object is {@link String }
-     *
-     */
-    public String getIdentificatienummer() {
-        return identificatienummer;
-    }
+  protected String aard;
 
-    /**
-     * Sets the value of the identificatienummer property.
-     *
-     * @param value allowed object is {@link String }
-     *
-     */
-    public void setIdentificatienummer(String value) {
-        this.identificatienummer = value;
-    }
+  /**
+   * Gets the value of the identificatienummer property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdentificatienummer() {
+    return identificatienummer;
+  }
 
-    /**
-     * Gets the value of the aard property.
-     *
-     * @return possible object is {@link String }
-     *
-     */
-    public String getAard() {
-        return aard;
-    }
+  /**
+   * Sets the value of the identificatienummer property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdentificatienummer(String value) {
+    this.identificatienummer = value;
+  }
 
-    /**
-     * Sets the value of the aard property.
-     *
-     * @param value allowed object is {@link String }
-     *
-     */
-    public void setAard(String value) {
-        this.aard = value;
-    }
+  /**
+   * Gets the value of the aard property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getAard() {
+    return aard;
+  }
 
+  /**
+   * Sets the value of the aard property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setAard(String value) {
+    this.aard = value;
+  }
 }

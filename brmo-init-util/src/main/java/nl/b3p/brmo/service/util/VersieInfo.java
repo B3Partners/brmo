@@ -17,10 +17,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * log versie informatie van de gebruikte schema's. Maakt gebruik van
- * {@link ConfigUtil} om de datasources op te halen. Voeg deze servlet toe aan
- * de web.xml van jouw brmo webapp met een startup parameter hoger dan de
- * {@link ConfigUtil} servlet. Voorbeeld:
+ * log versie informatie van de gebruikte schema's. Maakt gebruik van {@link ConfigUtil} om de
+ * datasources op te halen. Voeg deze servlet toe aan de web.xml van jouw brmo webapp met een
+ * startup parameter hoger dan de {@link ConfigUtil} servlet. Voorbeeld:
+ *
  * <pre>
  * &lt;servlet&gt;
  *      &lt;servlet-name&gt;VersieInfo&lt;/servlet-name&gt;
@@ -35,58 +35,66 @@ import org.apache.commons.logging.LogFactory;
  */
 public class VersieInfo implements Servlet {
 
-    private static final Log LOG = LogFactory.getLog(VersieInfo.class);
+  private static final Log LOG = LogFactory.getLog(VersieInfo.class);
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        BrmoFramework brmo = null;
-        String appVersie = "mislukt";
-        final Properties props = new Properties();
-        try {
-            props.load(VersieInfo.class.getClassLoader().getResourceAsStream("git.properties"));
-            appVersie = props.getProperty("builddetails.build.version", "onbekend");
-        } catch (IOException ex) {
-            String name = config.getServletContext().getContextPath();
-            name = name.startsWith("/") ? name.substring(1).toUpperCase(Locale.ROOT) : "ROOT";
-            LOG.warn("Ophalen " + name + " applicatie versie informatie is mislukt.", ex);
-        }
-
-        try {
-            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), ConfigUtil.getDataSourceRsgb(), ConfigUtil.getDataSourceRsgbBgt(), ConfigUtil.getDataSourceTopNL());
-            LOG.info("BRMO versie informatie:");
-            LOG.info("  brmo applicatie versie is: " + appVersie);
-            LOG.info("  staging schema versie is:  " + brmo.getStagingVersion());
-            LOG.info("  rsgb schema versie is:     " + brmo.getRsgbVersion());
-            LOG.info("  rsgbbgt schema versie is:  " + brmo.getRsgbBgtVersion());
-            // LOG.info("  topnl schema versie is:  " + brmo.getRsgbTopNLVersion());
-            // TODO TopNL versie info
-            // TODO check voor passende versies
-        } catch (BrmoException ex) {
-            LOG.warn("Ophalen BRMO schema versie informatie is mislukt.", ex);
-        } finally {
-            if (brmo != null) {
-                brmo.closeBrmoFramework();
-            }
-        }
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    BrmoFramework brmo = null;
+    String appVersie = "mislukt";
+    final Properties props = new Properties();
+    try {
+      props.load(VersieInfo.class.getClassLoader().getResourceAsStream("git.properties"));
+      appVersie = props.getProperty("builddetails.build.version", "onbekend");
+    } catch (IOException ex) {
+      String name = config.getServletContext().getContextPath();
+      name = name.startsWith("/") ? name.substring(1).toUpperCase(Locale.ROOT) : "ROOT";
+      LOG.warn("Ophalen " + name + " applicatie versie informatie is mislukt.", ex);
     }
 
-    @Override
-    public ServletConfig getServletConfig() {
-        throw new UnsupportedOperationException("Not supported.");
+    try {
+      brmo =
+          new BrmoFramework(
+              ConfigUtil.getDataSourceStaging(),
+              ConfigUtil.getDataSourceRsgb(),
+              ConfigUtil.getDataSourceRsgbBgt(),
+              ConfigUtil.getDataSourceTopNL(),
+              ConfigUtil.getDataSourceRsgbBrk());
+      LOG.info("BRMO versie informatie:");
+      LOG.info("  brmo applicatie versie is: " + appVersie);
+      LOG.info("  staging schema versie is:  " + brmo.getStagingVersion());
+      LOG.info("  rsgb schema versie is:     " + brmo.getRsgbVersion());
+      LOG.info("  rsgb brk schema versie is: " + brmo.getRsgbBrkVersion());
+      LOG.info("  rsgbbgt schema versie is:  " + brmo.getRsgbBgtVersion());
+      // LOG.info("  topnl schema versie is:  " + brmo.getRsgbTopNLVersion());
+      // TODO TopNL versie info
+      // TODO check voor passende versies
+    } catch (BrmoException ex) {
+      LOG.warn("Ophalen BRMO schema versie informatie is mislukt.", ex);
+    } finally {
+      if (brmo != null) {
+        brmo.closeBrmoFramework();
+      }
     }
+  }
 
-    @Override
-    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported.");
-    }
+  @Override
+  public ServletConfig getServletConfig() {
+    throw new UnsupportedOperationException("Not supported.");
+  }
 
-    @Override
-    public String getServletInfo() {
-        return "Versie info logging servlet";
-    }
+  @Override
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+    throw new UnsupportedOperationException("Not supported.");
+  }
 
-    @Override
-    public void destroy() {
-        // leeg
-    }
+  @Override
+  public String getServletInfo() {
+    return "Versie info logging servlet";
+  }
+
+  @Override
+  public void destroy() {
+    // leeg
+  }
 }

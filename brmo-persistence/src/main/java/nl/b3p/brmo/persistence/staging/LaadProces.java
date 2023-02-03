@@ -3,12 +3,11 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import javax.persistence.*;
+import org.hibernate.annotations.Type;
 
 /**
  * Beschrijft een laad proces van een bericht of bestand.
@@ -19,247 +18,279 @@ import java.util.Date;
 @Table(name = "laadproces")
 public class LaadProces implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+  @Id @GeneratedValue private Long id;
 
-    private String bestand_naam;
-    
-    private String bestand_naam_hersteld;
+  private String bestand_naam;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date bestand_datum;
+  private String bestand_naam_hersteld;
 
-    private String soort;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date bestand_datum;
 
-    private String gebied;
+  private String soort;
 
-    @Column
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    private String opmerking;
+  private String gebied;
 
-    @Enumerated(EnumType.STRING)
-    private STATUS status;
+  @Column
+  @Lob
+  @Type(type = "org.hibernate.type.TextType")
+  private String opmerking;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date status_datum;
+  @Enumerated(EnumType.STRING)
+  private STATUS status;
 
-    private String contact_email;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date status_datum;
 
-    @ManyToOne
-    @JoinColumn(name="automatisch_proces")
-    private AutomatischProces automatischProces;
+  private String contact_email;
 
-    private BigInteger klantafgiftenummer;
+  @ManyToOne
+  @JoinColumn(name = "automatisch_proces")
+  private AutomatischProces automatischProces;
 
-    private BigInteger contractafgiftenummer;
+  private BigInteger klantafgiftenummer;
 
-    private String artikelnummer;
+  private BigInteger contractafgiftenummer;
 
-    private String contractnummer;
+  private String artikelnummer;
 
-    private String afgifteid;
+  private String contractnummer;
 
-    private String afgiftereferentie;
+  private String afgifteid;
 
-    private String bestandsreferentie;
+  private String afgiftereferentie;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date beschikbaar_tot;
+  private String bestandsreferentie;
 
-    /**
-     * see nl.b3p.brmo.loader.entity.LaadProces
-     */
-    public static enum STATUS {
-        // als je er bij maakt ook in de andere LaadProces klasse toevoegen
-        STAGING_OK, STAGING_NOK, STAGING_MISSING, STAGING_DUPLICAAT, ARCHIVE, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK
-    };
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date beschikbaar_tot;
 
-        public LaadProces() {
-    }
+  /** see nl.b3p.brmo.loader.entity.LaadProces */
+  public static enum STATUS {
+    // als je er bij maakt ook in de andere LaadProces klasse toevoegen
+    STAGING_OK,
+    STAGING_NOK,
+    STAGING_MISSING,
+    STAGING_DUPLICAAT,
+    ARCHIVE,
+    RSGB_TOPNL_WAITING,
+    RSGB_TOPNL_OK,
+    RSGB_TOPNL_NOK
+  };
 
-    public LaadProces(String bestand_naam, String soort) {
-        this.bestand_naam = bestand_naam;
-        this.soort = soort;
-    }
+  public LaadProces() {}
 
-    // <editor-fold defaultstate="collapsed" desc="getters and setters">
-    public Long getId() {
-        return id;
-    }
+  public LaadProces(String bestand_naam, String soort) {
+    this.bestand_naam = bestand_naam;
+    this.soort = soort;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  // <editor-fold defaultstate="collapsed" desc="getters and setters">
+  public Long getId() {
+    return id;
+  }
 
-    public String getBestand_naam() {
-        return bestand_naam;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setBestand_naam(String bestand_naam) {
-        this.bestand_naam = bestand_naam;
-    }
+  public String getBestand_naam() {
+    return bestand_naam;
+  }
 
-    public Date getBestand_datum() {
-        return bestand_datum;
-    }
+  public void setBestand_naam(String bestand_naam) {
+    this.bestand_naam = bestand_naam;
+  }
 
-    public void setBestand_datum(Date bestand_datum) {
-        this.bestand_datum = bestand_datum;
-    }
+  public Date getBestand_datum() {
+    return bestand_datum;
+  }
 
-    public String getSoort() {
-        return soort;
-    }
+  public void setBestand_datum(Date bestand_datum) {
+    this.bestand_datum = bestand_datum;
+  }
 
-    public void setSoort(String soort) {
-        this.soort = soort;
-    }
+  public String getSoort() {
+    return soort;
+  }
 
-    public String getGebied() {
-        return gebied;
-    }
+  public void setSoort(String soort) {
+    this.soort = soort;
+  }
 
-    public void setGebied(String gebied) {
-        this.gebied = gebied;
-    }
+  public String getGebied() {
+    return gebied;
+  }
 
-    public String getOpmerking() {
-        return opmerking;
-    }
+  public void setGebied(String gebied) {
+    this.gebied = gebied;
+  }
 
-    public void setOpmerking(String opmerking) {
-        this.opmerking = opmerking;
-    }
+  public String getOpmerking() {
+    return opmerking;
+  }
 
-    public STATUS getStatus() {
-        return status;
-    }
+  public void setOpmerking(String opmerking) {
+    this.opmerking = opmerking;
+  }
 
-    public void setStatus(STATUS status) {
-        this.status = status;
-    }
+  public STATUS getStatus() {
+    return status;
+  }
 
-    public Date getStatus_datum() {
-        return status_datum;
-    }
+  public void setStatus(STATUS status) {
+    this.status = status;
+  }
 
-    public void setStatus_datum(Date status_datum) {
-        this.status_datum = status_datum;
-    }
+  public Date getStatus_datum() {
+    return status_datum;
+  }
 
-    public String getContact_email() {
-        return contact_email;
-    }
+  public void setStatus_datum(Date status_datum) {
+    this.status_datum = status_datum;
+  }
 
-    public void setContact_email(String contact_email) {
-        this.contact_email = contact_email;
-    }
+  public String getContact_email() {
+    return contact_email;
+  }
 
-    public AutomatischProces getAutomatischProces() {
-        return automatischProces;
-    }
+  public void setContact_email(String contact_email) {
+    this.contact_email = contact_email;
+  }
 
-    public void setAutomatischProces(AutomatischProces automatischProces) {
-        this.automatischProces = automatischProces;
-    }
+  public AutomatischProces getAutomatischProces() {
+    return automatischProces;
+  }
 
-    public BigInteger getKlantafgiftenummer() {
-        return klantafgiftenummer;
-    }
+  public void setAutomatischProces(AutomatischProces automatischProces) {
+    this.automatischProces = automatischProces;
+  }
 
-    public void setKlantafgiftenummer(BigInteger klantafgiftenummer) {
-        this.klantafgiftenummer = klantafgiftenummer;
-    }
+  public BigInteger getKlantafgiftenummer() {
+    return klantafgiftenummer;
+  }
 
-    public BigInteger getContractafgiftenummer() {
-        return contractafgiftenummer;
-    }
+  public void setKlantafgiftenummer(BigInteger klantafgiftenummer) {
+    this.klantafgiftenummer = klantafgiftenummer;
+  }
 
-    public void setContractafgiftenummer(BigInteger contractafgiftenummer) {
-        this.contractafgiftenummer = contractafgiftenummer;
-    }
+  public BigInteger getContractafgiftenummer() {
+    return contractafgiftenummer;
+  }
 
-    public String getArtikelnummer() {
-        return artikelnummer;
-    }
+  public void setContractafgiftenummer(BigInteger contractafgiftenummer) {
+    this.contractafgiftenummer = contractafgiftenummer;
+  }
 
-    public void setArtikelnummer(String artikelnummer) {
-        this.artikelnummer = artikelnummer;
-    }
+  public String getArtikelnummer() {
+    return artikelnummer;
+  }
 
-    public String getContractnummer() {
-        return contractnummer;
-    }
+  public void setArtikelnummer(String artikelnummer) {
+    this.artikelnummer = artikelnummer;
+  }
 
-    public void setContractnummer(String contractnummer) {
-        this.contractnummer = contractnummer;
-    }
+  public String getContractnummer() {
+    return contractnummer;
+  }
 
-    public String getAfgifteid() {
-        return afgifteid;
-    }
+  public void setContractnummer(String contractnummer) {
+    this.contractnummer = contractnummer;
+  }
 
-    public void setAfgifteid(String afgifteid) {
-        this.afgifteid = afgifteid;
-    }
+  public String getAfgifteid() {
+    return afgifteid;
+  }
 
-    public String getAfgiftereferentie() {
-        return afgiftereferentie;
-    }
+  public void setAfgifteid(String afgifteid) {
+    this.afgifteid = afgifteid;
+  }
 
-    public void setAfgiftereferentie(String afgiftereferentie) {
-        this.afgiftereferentie = afgiftereferentie;
-    }
+  public String getAfgiftereferentie() {
+    return afgiftereferentie;
+  }
 
-    public String getBestandsreferentie() {
-        return bestandsreferentie;
-    }
+  public void setAfgiftereferentie(String afgiftereferentie) {
+    this.afgiftereferentie = afgiftereferentie;
+  }
 
-    public void setBestandsreferentie(String bestandsreferentie) {
-        this.bestandsreferentie = bestandsreferentie;
-    }
+  public String getBestandsreferentie() {
+    return bestandsreferentie;
+  }
 
-    public Date getBeschikbaar_tot() {
-        return beschikbaar_tot;
-    }
+  public void setBestandsreferentie(String bestandsreferentie) {
+    this.bestandsreferentie = bestandsreferentie;
+  }
 
-    public void setBeschikbaar_tot(Date beschikbaar_tot) {
-        this.beschikbaar_tot = beschikbaar_tot;
-    }
+  public Date getBeschikbaar_tot() {
+    return beschikbaar_tot;
+  }
 
-    public String getBestand_naam_hersteld() {
-        return bestand_naam_hersteld;
-    }
+  public void setBeschikbaar_tot(Date beschikbaar_tot) {
+    this.beschikbaar_tot = beschikbaar_tot;
+  }
 
-    public void setBestand_naam_hersteld(String bestand_naam_hersteld) {
-        this.bestand_naam_hersteld = bestand_naam_hersteld;
-    }
-    // </editor-fold>
+  public String getBestand_naam_hersteld() {
+    return bestand_naam_hersteld;
+  }
 
-    @Override
-    public String toString() {
-        return "LaadProces{" +
-                "id=" + id +
-                ", bestandNaam='" + bestand_naam + '\'' +
-                ", bestandNaamHersteld='" + bestand_naam_hersteld + '\'' +
-                ", bestandDatum=" + bestand_datum +
-                ", soort='" + soort + '\'' +
-                ", gebied='" + gebied + '\'' +
-                ", opmerking='" + opmerking + '\'' +
-                ", status=" + status +
-                ", statusDatum=" + status_datum +
-                ", contactEmail='" + contact_email + '\'' +
-                ", automatischProces=" + automatischProces +
-                ", klantafgiftenummer=" + klantafgiftenummer +
-                ", contractafgiftenummer=" + contractafgiftenummer +
-                ", artikelnummer='" + artikelnummer + '\'' +
-                ", contractnummer='" + contractnummer + '\'' +
-                ", afgifteid='" + afgifteid + '\'' +
-                ", afgiftereferentie='" + afgiftereferentie + '\'' +
-                ", bestandsreferentie='" + bestandsreferentie + '\'' +
-                ", beschikbaar_tot=" + beschikbaar_tot +
-                '}';
-    }
+  public void setBestand_naam_hersteld(String bestand_naam_hersteld) {
+    this.bestand_naam_hersteld = bestand_naam_hersteld;
+  }
+  // </editor-fold>
+
+  @Override
+  public String toString() {
+    return "LaadProces{"
+        + "id="
+        + id
+        + ", bestandNaam='"
+        + bestand_naam
+        + '\''
+        + ", bestandNaamHersteld='"
+        + bestand_naam_hersteld
+        + '\''
+        + ", bestandDatum="
+        + bestand_datum
+        + ", soort='"
+        + soort
+        + '\''
+        + ", gebied='"
+        + gebied
+        + '\''
+        + ", opmerking='"
+        + opmerking
+        + '\''
+        + ", status="
+        + status
+        + ", statusDatum="
+        + status_datum
+        + ", contactEmail='"
+        + contact_email
+        + '\''
+        + ", automatischProces="
+        + automatischProces
+        + ", klantafgiftenummer="
+        + klantafgiftenummer
+        + ", contractafgiftenummer="
+        + contractafgiftenummer
+        + ", artikelnummer='"
+        + artikelnummer
+        + '\''
+        + ", contractnummer='"
+        + contractnummer
+        + '\''
+        + ", afgifteid='"
+        + afgifteid
+        + '\''
+        + ", afgiftereferentie='"
+        + afgiftereferentie
+        + '\''
+        + ", bestandsreferentie='"
+        + bestandsreferentie
+        + '\''
+        + ", beschikbaar_tot="
+        + beschikbaar_tot
+        + '}';
+  }
 }

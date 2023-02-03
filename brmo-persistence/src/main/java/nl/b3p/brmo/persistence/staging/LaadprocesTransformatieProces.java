@@ -9,46 +9,44 @@ import java.util.List;
 import javax.persistence.Entity;
 
 /**
- *
  * @author mprins
  */
 @Entity
 public class LaadprocesTransformatieProces extends AutomatischProces {
 
+  public String getSoort() {
+    return ClobElement.nullSafeGet(this.getConfig().get("laadprocessoort"));
+  }
+
+  public boolean alsStandTransformeren() {
+    String alsStand = ClobElement.nullSafeGet(this.getConfig().get("versneldtransformeren"));
+    return "true".equals(alsStand);
+  }
+
+  /** soorten laadproces waar we iets mee kunnen. */
+  public enum LaadprocesSoorten {
+    BR_TOPNL("topnl");
+
+    private static final ArrayList<String> soorten = new ArrayList();
+
+    static {
+      for (LaadprocesSoorten s : values()) {
+        soorten.add(s.getSoort());
+      }
+    }
+
+    private final String soort;
+
+    LaadprocesSoorten(String soort) {
+      this.soort = soort;
+    }
+
     public String getSoort() {
-        return ClobElement.nullSafeGet(this.getConfig().get("laadprocessoort"));
+      return soort;
     }
 
-    public boolean alsStandTransformeren() {
-        String alsStand = ClobElement.nullSafeGet(this.getConfig().get("versneldtransformeren"));
-        return "true".equals(alsStand);
+    public static List<String> soorten() {
+      return Collections.unmodifiableList(soorten);
     }
-
-    /**
-     * soorten laadproces waar we iets mee kunnen.
-     */
-    public enum LaadprocesSoorten {
-        BR_TOPNL("topnl");
-
-        private static final ArrayList<String> soorten = new ArrayList();
-
-        static {
-            for (LaadprocesSoorten s : values()) {
-                soorten.add(s.getSoort());
-            }
-        }
-        private final String soort;
-
-        LaadprocesSoorten(String soort) {
-            this.soort = soort;
-        }
-
-        public String getSoort() {
-            return soort;
-        }
-
-        public static List<String> soorten() {
-            return Collections.unmodifiableList(soorten);
-        }
-    }
+  }
 }

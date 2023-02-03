@@ -6,10 +6,7 @@ package nl.b3p.brmo.persistence.staging;
 import javax.persistence.Entity;
 
 /**
- *
  * @author mprins
  */
 @Entity
-public class WebMirrorBAGScannerProces extends DirectoryScannerProces{
-
-}
+public class WebMirrorBAGScannerProces extends DirectoryScannerProces {}

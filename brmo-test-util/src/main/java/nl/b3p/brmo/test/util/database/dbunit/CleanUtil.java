@@ -17,333 +17,358 @@ import org.dbunit.operation.DatabaseOperation;
  */
 public final class CleanUtil {
 
-    /**
-     * leegt de BRK tabellen in het RSGB schema. kan worden gebruikt in een
-     * {@code @After} van een test case.
-     *
-     * @param rsgb database welke geleegd moet worden
-     *
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
-     * @deprecated gebruik {@link #cleanRSGB_BRK(org.dbunit.database.IDatabaseConnection, boolean)
-     * }
-     */
-    @Deprecated
-    public static void cleanRSGB(final IDatabaseConnection rsgb)
-            throws DatabaseUnitException, SQLException {
+  /** private by design. */
+  private CleanUtil() {}
 
-        cleanRSGB_BRK(rsgb, true);
+  /**
+   * leegt de BRK tabellen in het RSGB schema. kan worden gebruikt in een {@code @After} van een
+   * test case.
+   *
+   * @param rsgb database welke geleegd moet worden
+   * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd moeten worden
+   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+   * @throws java.sql.SQLException als er iets misgaat in de database
+   */
+  public static void cleanRSGB_BRK(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+      throws DatabaseUnitException, SQLException {
+
+    if (deleteBrondocument) {
+      DatabaseOperation.TRUNCATE_TABLE.execute(
+          rsgb, new DefaultDataSet(new DefaultTable[] {new DefaultTable("brondocument")}));
     }
+    /* cleanup rsgb, doet:
+           DELETE FROM herkomst_metadata;
+           DELETE FROM zak_recht;
+           DELETE FROM ingeschr_niet_nat_prs;
+           ...
+           DELETE FROM kad_perceel_archief;
+           DELETE FROM kad_perceel;
+           DELETE FROM kad_onrrnd_zk_archief;
+           DELETE FROM kad_onrrnd_zk;
+    dus omgekeerde volgorde tov. onderstaande array
+    */
+    DatabaseOperation.DELETE_ALL.execute(
+        rsgb,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              new DefaultTable("kad_onrrnd_zk"),
+              new DefaultTable("kad_onrrnd_zk_his_rel"),
+              new DefaultTable("kad_onrrnd_zk_aantek"),
+              new DefaultTable("kad_onrrnd_zk_archief"),
+              new DefaultTable("kad_onrrnd_zk_aantek_archief"),
+              new DefaultTable("kad_perceel"),
+              new DefaultTable("kad_perceel_archief"),
+              new DefaultTable("subject"),
+              new DefaultTable("prs"),
+              new DefaultTable("nat_prs"),
+              new DefaultTable("ingeschr_nat_prs"),
+              new DefaultTable("niet_ingezetene"),
+              new DefaultTable("ander_nat_prs"),
+              new DefaultTable("niet_nat_prs"),
+              new DefaultTable("ingeschr_niet_nat_prs"),
+              new DefaultTable("app_re"),
+              new DefaultTable("app_re_archief"),
+              new DefaultTable("zak_recht"),
+              new DefaultTable("zak_recht_archief"),
+              new DefaultTable("zak_recht_aantek"),
+              new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
+              new DefaultTable("herkomst_metadata"),
+              // schemaspy geeft de volgende volgorde
+              //  new DefaultTable("subject"),
+              //  new DefaultTable("prs"),
+              //  new DefaultTable("kad_onrrnd_zk"),
+              //  new DefaultTable("kad_perceel"),
+              //  new DefaultTable("niet_nat_prs"),
+              //  new DefaultTable("nat_prs"),
+              //  new DefaultTable("ingeschr_nat_prs"),
+              //  new DefaultTable("app_re"),
+              //  new DefaultTable("zak_recht"),
+              //  new DefaultTable("ander_btnlnds_niet_nat_prs"),
+              //  new DefaultTable("ander_nat_prs"),
+              //  new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
+              //  new DefaultTable("ingeschr_niet_nat_prs"),
+              //  new DefaultTable("kad_onrrnd_zk_his_rel"),
+              //  new DefaultTable("niet_ingezetene"),
+              //  new DefaultTable("app_re_kad_perceel"),
+              //  new DefaultTable("ingezetene"),
+              //  new DefaultTable("kad_onrrnd_zk_aantek"),
+              //  new DefaultTable("kad_onrrnd_zk_kad_onrrnd_zk"),
+              //  new DefaultTable("zak_recht_aantek"),
+              //  new DefaultTable("app_re_archief"),
+              //  new DefaultTable("app_re_kad_perceel_archief"),
+              ////  new DefaultTable("brondocument"),
+              //  new DefaultTable("kad_onrrnd_zk_aantek_archief"),
+              //  new DefaultTable("kad_onrrnd_zk_archief"),
+              //  new DefaultTable("kad_onrrnd_zk_kad_onrr_archief"),
+              //  new DefaultTable("kad_perceel_archief"),
+              //  new DefaultTable("zak_recht_archief"),
+            }));
+  }
 
-    /**
-     * leegt de BRK tabellen in het RSGB schema. kan worden gebruikt in een
-     * {@code @After} van een test case.
-     *
-     * @param rsgb database welke geleegd moet worden
-     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
-     * moeten worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
-     */
-    public static void cleanRSGB_BRK(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
-            throws DatabaseUnitException, SQLException {
+  /**
+   * leegt de BRK 2 tabellen in het BRK schema. kan worden gebruikt in een {@code @After} van een
+   * test case.
+   *
+   * @param rsgbbrk database welke geleegd moet worden moeten worden
+   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+   * @throws java.sql.SQLException als er iets misgaat in de database
+   */
+  public static void cleanRSGB_BRK2(final IDatabaseConnection rsgbbrk)
+      throws DatabaseUnitException, SQLException {
 
-        if (deleteBrondocument) {
-            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-                new DefaultTable("brondocument")}
-            ));
-        }
-        /* cleanup rsgb, doet:
-                DELETE FROM herkomst_metadata;
-                DELETE FROM zak_recht;
-                DELETE FROM ingeschr_niet_nat_prs;
-                ...
-                DELETE FROM kad_perceel_archief;
-                DELETE FROM kad_perceel;
-                DELETE FROM kad_onrrnd_zk_archief;
-                DELETE FROM kad_onrrnd_zk;
-         dus omgekeerde volgorde tov. onderstaande array
-         */
-        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("kad_onrrnd_zk"),
-            new DefaultTable("kad_onrrnd_zk_his_rel"),
-            new DefaultTable("kad_onrrnd_zk_aantek"),
-            new DefaultTable("kad_onrrnd_zk_archief"),
-            new DefaultTable("kad_onrrnd_zk_aantek_archief"),
-            new DefaultTable("kad_perceel"),
-            new DefaultTable("kad_perceel_archief"),
-            new DefaultTable("subject"),
-            new DefaultTable("prs"),
-            new DefaultTable("nat_prs"),
-            new DefaultTable("ingeschr_nat_prs"),
-            new DefaultTable("niet_ingezetene"),
-            new DefaultTable("ander_nat_prs"),
-            new DefaultTable("niet_nat_prs"),
-            new DefaultTable("ingeschr_niet_nat_prs"),
-            new DefaultTable("app_re"),
-            new DefaultTable("app_re_archief"),
-            new DefaultTable("zak_recht"),
-            new DefaultTable("zak_recht_archief"),
-            new DefaultTable("zak_recht_aantek"),
-            new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
-            new DefaultTable("herkomst_metadata"),
-            // schemaspy geeft de volgende volgorde
-            //  new DefaultTable("subject"),
-            //  new DefaultTable("prs"),
-            //  new DefaultTable("kad_onrrnd_zk"),
-            //  new DefaultTable("kad_perceel"),
-            //  new DefaultTable("niet_nat_prs"),
-            //  new DefaultTable("nat_prs"),
-            //  new DefaultTable("ingeschr_nat_prs"),
-            //  new DefaultTable("app_re"),
-            //  new DefaultTable("zak_recht"),
-            //  new DefaultTable("ander_btnlnds_niet_nat_prs"),
-            //  new DefaultTable("ander_nat_prs"),
-            //  new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
-            //  new DefaultTable("ingeschr_niet_nat_prs"),
-            //  new DefaultTable("kad_onrrnd_zk_his_rel"),
-            //  new DefaultTable("niet_ingezetene"),
-            //  new DefaultTable("app_re_kad_perceel"),
-            //  new DefaultTable("ingezetene"),
-            //  new DefaultTable("kad_onrrnd_zk_aantek"),
-            //  new DefaultTable("kad_onrrnd_zk_kad_onrrnd_zk"),
-            //  new DefaultTable("zak_recht_aantek"),
-            //  new DefaultTable("app_re_archief"),
-            //  new DefaultTable("app_re_kad_perceel_archief"),
-            ////  new DefaultTable("brondocument"),
-            //  new DefaultTable("kad_onrrnd_zk_aantek_archief"),
-            //  new DefaultTable("kad_onrrnd_zk_archief"),
-            //  new DefaultTable("kad_onrrnd_zk_kad_onrr_archief"),
-            //  new DefaultTable("kad_perceel_archief"),
-            //  new DefaultTable("zak_recht_archief"),
-        }));
+    DatabaseOperation.DELETE_ALL.execute(
+        rsgbbrk,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              // TODO mogelijk de volgorde nog aanpassen
+              new DefaultTable("onroerendezaak"),
+              new DefaultTable("nietnatuurlijkpersoon"),
+              new DefaultTable("adres"),
+              new DefaultTable("natuurlijkpersoon"),
+              new DefaultTable("stuk"),
+              new DefaultTable("stukdeel"),
+              new DefaultTable("persoon"),
+              new DefaultTable("recht"),
+              new DefaultTable("publiekrechtelijkebeperking"),
+              new DefaultTable("onroerendezaakbeperking_archief"),
+              new DefaultTable("onroerendezaakfiliatie"),
+              new DefaultTable("recht_isbeperkttot"),
+              new DefaultTable("objectlocatie"),
+              new DefaultTable("onroerendezaakbeperking"),
+              new DefaultTable("recht_aantekeningrecht"),
+              new DefaultTable("recht_archief"),
+              new DefaultTable("recht_isbelastmet"),
+              new DefaultTable("appartementsrecht"),
+              new DefaultTable("appartementsrecht_archief"),
+              new DefaultTable("objectlocatie_archief"),
+              new DefaultTable("onroerendezaak_archief"),
+              new DefaultTable("onroerendezaakfiliatie_archief"),
+              new DefaultTable("perceel"),
+              new DefaultTable("perceel_archief"),
+              new DefaultTable("recht_aantekeningrecht_archief"),
+              new DefaultTable("recht_isbelastmet_archief"),
+              new DefaultTable("recht_isbeperkttot_archief"),
+            }));
+  }
+
+  /**
+   * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP.
+   *
+   * @param rsgb database welke geleegd moet worden
+   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+   * @throws java.sql.SQLException als er iets misgaat in de database
+   */
+  public static void cleanRSGB_BRP(final IDatabaseConnection rsgb)
+      throws DatabaseUnitException, SQLException {
+    CleanUtil.cleanRSGB_BRP(rsgb, true);
+  }
+
+  /**
+   * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP. NB. deze cleanup is niet
+   * bijzonder slim, alle (natuurlijke) personen worden verwijderd, dus ook uit brk.
+   *
+   * @param rsgb database welke geleegd moet worden
+   * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd moeten worden
+   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+   * @throws java.sql.SQLException als er iets misgaat in de database
+   */
+  public static void cleanRSGB_BRP(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+      throws DatabaseUnitException, SQLException {
+    if (deleteBrondocument) {
+      DatabaseOperation.DELETE_ALL.execute(
+          rsgb, new DefaultDataSet(new DefaultTable[] {new DefaultTable("brondocument")}));
     }
+    /* cleanup rsgb, doet:
 
-    /**
-     * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP.
-     *
-     * @param rsgb database welke geleegd moet worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
+     DELETE FROM herkomst_metadata;
+     ...
+     DELETE FROM subject;
+    dus omgekeerde volgorde tov. onderstaande array
      */
-    public static void cleanRSGB_BRP(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
-        CleanUtil.cleanRSGB_BRP(rsgb, true);
+    DatabaseOperation.DELETE_ALL.execute(
+        rsgb,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              new DefaultTable("subject"),
+              new DefaultTable("prs"),
+              new DefaultTable("nat_prs"),
+              new DefaultTable("ingeschr_nat_prs"),
+              new DefaultTable("niet_ingezetene"),
+              new DefaultTable("ander_nat_prs"),
+              new DefaultTable("niet_nat_prs"),
+              new DefaultTable("ingeschr_niet_nat_prs"),
+              new DefaultTable("ouder_kind_rel"),
+              new DefaultTable("huw_ger_partn"),
+              new DefaultTable("herkomst_metadata")
+            }));
+  }
+
+  /**
+   * leegt de BAG tabellen in het RSGB schema. kan worden gebruikt in een {@code @After} van een
+   * test case.
+   *
+   * @param rsgb database welke geleegd moet worden
+   * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd moeten worden
+   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+   * @throws java.sql.SQLException als er iets misgaat in de database
+   */
+  public static void cleanRSGB_BAG(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+      throws DatabaseUnitException, SQLException {
+
+    if (deleteBrondocument) {
+      DatabaseOperation.DELETE_ALL.execute(
+          rsgb, new DefaultDataSet(new DefaultTable[] {new DefaultTable("brondocument")}));
     }
+    // cleanup doet deletes in omgekeerde volgorde dan in onderstaande array met tabellen
+    DatabaseOperation.DELETE_ALL.execute(
+        rsgb,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              // TODO volgorde van de tabellen aanpassen aan constraints
+              new DefaultTable("addresseerb_obj_aand"),
+              new DefaultTable("addresseerb_obj_aand_archief"),
+              new DefaultTable("benoemd_obj"),
+              new DefaultTable("benoemd_terrein"),
+              new DefaultTable("benoemd_terrein_archief"),
+              new DefaultTable("benoemd_terrein_benoem_archief"),
+              new DefaultTable("benoemd_terrein_benoemd_terrei"),
+              new DefaultTable("gebouwd_obj"),
+              new DefaultTable("gebouwd_obj_archief"),
+              new DefaultTable("gebouwd_obj_gebruiksdoel"),
+              new DefaultTable("gem_openb_rmte"),
+              new DefaultTable("gem_openb_rmte_archief"),
+              new DefaultTable("ligplaats"),
+              new DefaultTable("ligplaats_archief"),
+              new DefaultTable("ligplaats_nummeraand"),
+              new DefaultTable("ligplaats_nummeraand_archief"),
+              new DefaultTable("nummeraand"),
+              new DefaultTable("nummeraand_archief"),
+              new DefaultTable("openb_rmte"),
+              new DefaultTable("openb_rmte_gem_openb_rmte"),
+              new DefaultTable("openb_rmte_wnplts"),
+              new DefaultTable("overig_bouwwerk"),
+              new DefaultTable("overig_bouwwerk_archief"),
+              new DefaultTable("overig_gebouwd_obj"),
+              new DefaultTable("overig_gebouwd_obj_archief"),
+              new DefaultTable("overig_terrein"),
+              new DefaultTable("overig_terrein_archief"),
+              new DefaultTable("overig_terrein_gebruiksdoel"),
+              new DefaultTable("ovrg_addresseerb_obj_a_archief"),
+              new DefaultTable("ovrg_addresseerb_obj_aand"),
+              new DefaultTable("pand"),
+              new DefaultTable("pand_archief"),
+              new DefaultTable("standplaats"),
+              new DefaultTable("standplaats_archief"),
+              new DefaultTable("standplaats_nummeraand"),
+              new DefaultTable("standplaats_nummeraand_archief"),
+              new DefaultTable("verblijfsobj"),
+              new DefaultTable("verblijfsobj_archief"),
+              new DefaultTable("verblijfsobj_nummeraan_archief"),
+              new DefaultTable("verblijfsobj_nummeraand"),
+              new DefaultTable("verblijfsobj_pand"),
+              new DefaultTable("verblijfsobj_pand_archief"),
+              new DefaultTable("wnplts"),
+              new DefaultTable("wnplts_archief")
+            }));
+  }
 
-    /**
-     * Leeg de subject en onderliggende tabellen die betrokken zijn bij BRP. NB.
-     * deze cleanup is niet bijzonder slim, alle (natuurlijke) personen worden
-     * verwijderd, dus ook uit brk.
-     *
-     * @param rsgb database welke geleegd moet worden
-     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
-     * moeten worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
-     */
-    public static void cleanRSGB_BRP(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
-            throws DatabaseUnitException, SQLException {
-        if (deleteBrondocument) {
-            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-                new DefaultTable("brondocument")}
-            ));
-        }
-        /* cleanup rsgb, doet:
+  /**
+   * ruimt personen en kvk tabellen op.
+   *
+   * @param rsgb database welke opgeruimd moet worden
+   * @throws DatabaseUnitException als er een DBunit fout optreedt
+   * @throws SQLException als er iets misgaat in de database
+   */
+  public static void cleanRSGB_NHR(final IDatabaseConnection rsgb)
+      throws DatabaseUnitException, SQLException {
+    cleanRSGB_NHR(rsgb, true);
+  }
 
-         DELETE FROM herkomst_metadata;
-         ...
-         DELETE FROM subject;
-        dus omgekeerde volgorde tov. onderstaande array
-         */
-        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("subject"),
-            new DefaultTable("prs"),
-            new DefaultTable("nat_prs"),
-            new DefaultTable("ingeschr_nat_prs"),
-            new DefaultTable("niet_ingezetene"),
-            new DefaultTable("ander_nat_prs"),
-            new DefaultTable("niet_nat_prs"),
-            new DefaultTable("ingeschr_niet_nat_prs"),
-            new DefaultTable("ouder_kind_rel"),
-            new DefaultTable("huw_ger_partn"),
-            new DefaultTable("herkomst_metadata")}
-        ));
-    }
+  /**
+   * ruimt personen en kvk tabellen op (en ook BRP tabellen).
+   *
+   * @param rsgb database welke opgeruimd moet worden
+   * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
+   * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van
+   *     verwijderen
+   * @throws SQLException als er iets mis gaat met uitvieren van de deletes
+   */
+  public static void cleanRSGB_NHR(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+      throws DatabaseUnitException, SQLException {
 
-    /**
-     * leegt de BAG tabellen in het RSGB schema. kan worden gebruikt in een
-     * {@code @After} van een test case.
-     *
-     * @param rsgb database welke geleegd moet worden
-     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
-     * moeten worden
-     *
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
-     */
-    public static void cleanRSGB_BAG(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
-            throws DatabaseUnitException, SQLException {
+    DatabaseOperation.DELETE_ALL.execute(
+        rsgb,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              new DefaultTable("sbi_activiteit"),
+              new DefaultTable("functionaris"),
+              new DefaultTable("ondrnmng"),
+              new DefaultTable("maatschapp_activiteit"),
+              new DefaultTable("vestg"),
+              new DefaultTable("vestg_activiteit"),
+              new DefaultTable("vestg_naam"),
+              new DefaultTable("ander_btnlnds_niet_nat_prs"),
+            }));
+    cleanRSGB_BRP(rsgb, deleteBrondocument);
+  }
 
-        if (deleteBrondocument) {
-            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-                new DefaultTable("brondocument")}
-            ));
-        }
-        // cleanup doet deletes in omgekeerde volgorde dan in onderstaande array met tabellen
-        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-            // TODO volgorde van de tabellen aanpassen aan constraints
-            new DefaultTable("addresseerb_obj_aand"),
-            new DefaultTable("addresseerb_obj_aand_archief"),
-            new DefaultTable("benoemd_obj"),
-            new DefaultTable("benoemd_terrein"),
-            new DefaultTable("benoemd_terrein_archief"),
-            new DefaultTable("benoemd_terrein_benoem_archief"),
-            new DefaultTable("benoemd_terrein_benoemd_terrei"),
-            new DefaultTable("gebouwd_obj"),
-            new DefaultTable("gebouwd_obj_archief"),
-            new DefaultTable("gebouwd_obj_gebruiksdoel"),
-            new DefaultTable("gem_openb_rmte"),
-            new DefaultTable("gem_openb_rmte_archief"),
-            new DefaultTable("ligplaats"),
-            new DefaultTable("ligplaats_archief"),
-            new DefaultTable("ligplaats_nummeraand"),
-            new DefaultTable("ligplaats_nummeraand_archief"),
-            new DefaultTable("nummeraand"),
-            new DefaultTable("nummeraand_archief"),
-            new DefaultTable("openb_rmte"),
-            new DefaultTable("openb_rmte_gem_openb_rmte"),
-            new DefaultTable("openb_rmte_wnplts"),
-            new DefaultTable("overig_bouwwerk"),
-            new DefaultTable("overig_bouwwerk_archief"),
-            new DefaultTable("overig_gebouwd_obj"),
-            new DefaultTable("overig_gebouwd_obj_archief"),
-            new DefaultTable("overig_terrein"),
-            new DefaultTable("overig_terrein_archief"),
-            new DefaultTable("overig_terrein_gebruiksdoel"),
-            new DefaultTable("ovrg_addresseerb_obj_a_archief"),
-            new DefaultTable("ovrg_addresseerb_obj_aand"),
-            new DefaultTable("pand"),
-            new DefaultTable("pand_archief"),
-            new DefaultTable("standplaats"),
-            new DefaultTable("standplaats_archief"),
-            new DefaultTable("standplaats_nummeraand"),
-            new DefaultTable("standplaats_nummeraand_archief"),
-            new DefaultTable("verblijfsobj"),
-            new DefaultTable("verblijfsobj_archief"),
-            new DefaultTable("verblijfsobj_nummeraan_archief"),
-            new DefaultTable("verblijfsobj_nummeraand"),
-            new DefaultTable("verblijfsobj_pand"),
-            new DefaultTable("verblijfsobj_pand_archief"),
-            new DefaultTable("wnplts"),
-            new DefaultTable("wnplts_archief")}
-        ));
-    }
+  /**
+   * ruimt WOZ en subject tabellen op (dus ook BRP tabellen).
+   *
+   * @param rsgb database welke opgeruimd moet worden
+   * @param deleteBrondocument {@code true} als alle brondocumenten ook verwijderd moeten worden
+   * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van
+   *     verwijderen
+   * @throws SQLException als er iets mis gaat met uitvieren van de deletes
+   */
+  public static void cleanRSGB_WOZ(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+      throws DatabaseUnitException, SQLException {
 
-    /**
-     * ruimt personen en kvk tabellen op.
-     *
-     * @param rsgb database welke opgeruimd moet worden
-     * @throws DatabaseUnitException als er een DBunit fout optreedt
-     * @throws SQLException als er iets misgaat in de database
-     */
-    public static void cleanRSGB_NHR(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
-        cleanRSGB_NHR(rsgb, true);
-    }
+    DatabaseOperation.DELETE_ALL.execute(
+        rsgb,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              new DefaultTable("woz_obj"),
+              new DefaultTable("woz_deelobj"),
+              new DefaultTable("woz_waarde"),
+              new DefaultTable("woz_omvat"),
+              new DefaultTable("woz_belang"),
+              new DefaultTable("woz_deelobj_archief"),
+              new DefaultTable("woz_obj_archief"),
+              new DefaultTable("woz_waarde_archief"),
+              new DefaultTable("locaand_adres"),
+              new DefaultTable("locaand_openb_rmte"),
+            }));
+    // WOZ bevat ook vestigingen, NHR leegt ook BRP
+    cleanRSGB_NHR(rsgb, deleteBrondocument);
+  }
 
-    /**
-     * ruimt personen en kvk tabellen op (en ook BRP tabellen).
-     *
-     * @param rsgb database welke opgeruimd moet worden
-     * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
-     * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van verwijderen
-     * @throws SQLException als er iets mis gaat met uitvieren van de deletes
-     */
-    public static void cleanRSGB_NHR(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
-            throws DatabaseUnitException, SQLException {
-
-        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("sbi_activiteit"),
-            new DefaultTable("functionaris"),
-            new DefaultTable("ondrnmng"),
-            new DefaultTable("maatschapp_activiteit"),
-            new DefaultTable("vestg"),
-            new DefaultTable("vestg_activiteit"),
-            new DefaultTable("vestg_naam"),
-            new DefaultTable("ander_btnlnds_niet_nat_prs"),
-        }));
-        cleanRSGB_BRP(rsgb, deleteBrondocument);
-    }
-
-
-    /**
-     * ruimt WOZ en subject tabellen op (dus ook BRP tabellen).
-     *
-     * @param rsgb database welke opgeruimd moet worden
-     * @param deleteBrondocument {@code true} als alle brondocumenten ook verwijderd moeten worden
-     * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van verwijderen
-     * @throws SQLException als er iets mis gaat met uitvieren van de deletes
-     */
-    public static void cleanRSGB_WOZ(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
-            throws DatabaseUnitException, SQLException {
-
-        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
-                new DefaultTable("woz_obj"),
-                new DefaultTable("woz_deelobj"),
-                new DefaultTable("woz_waarde"),
-                new DefaultTable("woz_omvat"),
-                new DefaultTable("woz_belang"),
-                new DefaultTable("woz_deelobj_archief"),
-                new DefaultTable("woz_obj_archief"),
-                new DefaultTable("woz_waarde_archief"),
-                new DefaultTable("locaand_adres"),
-                new DefaultTable("locaand_openb_rmte"),
-        }));
-        // WOZ bevat ook vestigingen, NHR leegt ook BRP
-        cleanRSGB_NHR(rsgb, deleteBrondocument);
-    }
-
-    /**
-     * leegt de bericht, laadproces en job tabellen in het staging schema. kan
-     * worden gebruikt in een {@code @After} van een test case.
-     *
-     * @param staging database welke geleegd moet worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
-     * @deprecated gebruik {@link #cleanSTAGING(org.dbunit.database.IDatabaseConnection, boolean)}
-     */
-    @Deprecated
-    public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
-        cleanSTAGING(staging, false);
-    }
-
-    /**
-     * leegt de bericht, laadproces en job tabellen en de automatsiche processen
-     * in het staging schema. kan worden gebruikt in een {@code @After} van een
-     * test case.
-     *
-     * @param staging database welke geleegd moet worden
-     * @param includeProcessen {@code true} als alle automatische processen ook
-     * verwijderd moeten worden
-     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-     * @throws java.sql.SQLException als er iets misgaat in de database
-     */
-    public static void cleanSTAGING(final IDatabaseConnection staging, final boolean includeProcessen) throws DatabaseUnitException, SQLException {
-        if (includeProcessen) {
-            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
+  /**
+   * leegt de bericht, laadproces en job tabellen en de automatsiche processen in het staging
+   * schema. kan worden gebruikt in een {@code @After} van een test case.
+   *
+   * @param staging database welke geleegd moet worden
+   * @param includeProcessen {@code true} als alle automatische processen ook verwijderd moeten
+   *     worden
+   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+   * @throws java.sql.SQLException als er iets misgaat in de database
+   */
+  public static void cleanSTAGING(final IDatabaseConnection staging, final boolean includeProcessen)
+      throws DatabaseUnitException, SQLException {
+    if (includeProcessen) {
+      DatabaseOperation.DELETE_ALL.execute(
+          staging,
+          new DefaultDataSet(
+              new DefaultTable[] {
                 new DefaultTable("automatisch_proces"),
                 new DefaultTable("automatisch_proces_config")
+              }));
+    }
+    DatabaseOperation.DELETE_ALL.execute(
+        staging,
+        new DefaultDataSet(
+            new DefaultTable[] {
+              new DefaultTable("laadproces"), new DefaultTable("bericht"), new DefaultTable("job")
             }));
-        }
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("laadproces"),
-            new DefaultTable("bericht"),
-            new DefaultTable("job")
-        }));
-    }
-
-    /**
-     * private by design.
-     */
-    private CleanUtil() {
-    }
+  }
 }

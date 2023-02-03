@@ -17,50 +17,45 @@
 package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
-import java.util.Date;
 
 /**
- *
  * @author meine
  */
-public class Hoogte extends TopNLEntity{
-    private String typeHoogte;
-    private Geometry geometrie;
-    private String referentieVlak;
-    private Double hoogte;
-    
+public class Hoogte extends TopNLEntity {
+  private String typeHoogte;
+  private Geometry geometrie;
+  private String referentieVlak;
+  private Double hoogte;
 
-    public String getReferentieVlak() {
-        return referentieVlak;
-    }
+  public String getReferentieVlak() {
+    return referentieVlak;
+  }
 
-    public void setReferentieVlak(String referentieVlak) {
-        this.referentieVlak = referentieVlak;
-    }
+  public void setReferentieVlak(String referentieVlak) {
+    this.referentieVlak = referentieVlak;
+  }
 
-    public Double getHoogte() {
-        return hoogte;
-    }
+  public Double getHoogte() {
+    return hoogte;
+  }
 
-    public void setHoogte(Double hoogte) {
-        this.hoogte = hoogte;
-    }
-    
-    public String getTypeHoogte() {
-        return typeHoogte;
-    }
+  public void setHoogte(Double hoogte) {
+    this.hoogte = hoogte;
+  }
 
-    public void setTypeHoogte(String typeHoogte) {
-        this.typeHoogte = typeHoogte;
-    }
+  public String getTypeHoogte() {
+    return typeHoogte;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public void setTypeHoogte(String typeHoogte) {
+    this.typeHoogte = typeHoogte;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 }

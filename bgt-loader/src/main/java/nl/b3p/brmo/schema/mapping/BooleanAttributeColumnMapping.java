@@ -7,20 +7,20 @@
 package nl.b3p.brmo.schema.mapping;
 
 public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
-    public BooleanAttributeColumnMapping(String name, boolean notNull) {
-        super(name, "boolean", notNull, false);
-    }
+  public BooleanAttributeColumnMapping(String name, boolean notNull) {
+    super(name, "boolean", notNull, false);
+  }
 
-    public BooleanAttributeColumnMapping(String name) {
-        this(name, true);
-    }
+  public BooleanAttributeColumnMapping(String name) {
+    this(name, true);
+  }
 
-    @Override
-    public Object toQueryParameter(Object value) {
-        if(value == null) {
-            return null;
-        } else {
-            return Boolean.parseBoolean(value.toString());
-        }
+  @Override
+  public Object toQueryParameter(Object value) {
+    if (value == null) {
+      return null;
+    } else {
+      return Boolean.parseBoolean(value.toString());
     }
+  }
 }

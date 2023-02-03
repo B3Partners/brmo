@@ -13,8 +13,8 @@ updates:
     assignees:
       - mprins
     labels:
-      - bouw- en testinfrastuctuur
-      - dependency update
+      - "bouw- en testinfrastuctuur"
+      - "dependency update"
     ignore:
       - dependency-name: commons-cli:commons-cli
         versions:
@@ -37,7 +37,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     labels:
@@ -48,7 +48,7 @@ updates:
     directory: "/docker/src/main/docker"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -58,7 +58,7 @@ updates:
     assignees:
       - mprins
     labels:
-      - bouw- en testinfrastuctuur
+      - "bouw- en testinfrastuctuur"
     ignore: # stay on Tomcat 9 for now
       - dependency-name: "tomcat"
         versions:
@@ -69,7 +69,7 @@ updates:
     directory: "/docker/src/main/docker/pg_conf"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -79,13 +79,13 @@ updates:
     assignees:
       - mprins
     labels:
-      - bouw- en testinfrastuctuur
+      - "bouw- en testinfrastuctuur"
 
   - package-ecosystem: docker
     directory: "/bgt-loader"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -95,7 +95,7 @@ updates:
     assignees:
       - matthijsln
     labels:
-      - bouw- en testinfrastuctuur
+      - "bouw- en testinfrastuctuur"
     ignore:
       - dependency-name: "eclipse-temurin"
         versions:
@@ -106,7 +106,7 @@ updates:
     directory: "/bag2-loader"
     schedule:
       interval: weekly
-      day: saturday
+      day: monday
       time: "21:10"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
@@ -116,7 +116,7 @@ updates:
     assignees:
       - matthijsln
     labels:
-      - bouw- en testinfrastuctuur
+      - "bouw- en testinfrastuctuur"
     ignore:
       - dependency-name: "eclipse-temurin"
         versions:
