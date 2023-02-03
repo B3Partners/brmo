@@ -136,7 +136,7 @@ wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "${API_
 
 
 # uitpakken in de /tmp dir
-ls *.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done;
+ls TOP*NL.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done;
 # lowercase alle gml files uit de zips
 for f in /tmp/*.gml ; do mv -vn -- "$f" "$(tr '[:upper:]' '[:lower:]' <<< "$f")" ; done
 # van ieder alleen de eerste 5 features
