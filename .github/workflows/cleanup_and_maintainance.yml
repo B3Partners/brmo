@@ -136,7 +136,6 @@ jobs:
     steps:
       - uses: actions/stale@v7
         with:
-          debug-only: true
           days-before-stale: 60
           days-before-close: 14
           stale-pr-label: 'stale'
