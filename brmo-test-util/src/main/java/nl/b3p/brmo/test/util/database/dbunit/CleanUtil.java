@@ -143,7 +143,6 @@ public final class CleanUtil {
                             new DefaultTable("recht_isbelastmet"),
                             new DefaultTable("appartementsrecht"),
                             new DefaultTable("appartementsrecht_archief"),
-                            new DefaultTable("brmo_metadata"),
                             new DefaultTable("objectlocatie_archief"),
                             new DefaultTable("onroerendezaak_archief"),
                             new DefaultTable("onroerendezaakfiliatie_archief"),
