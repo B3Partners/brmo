@@ -85,7 +85,7 @@ public class OphaalConfigActionBean implements ActionBean {
   public void load() {
     processen =
         Stripersist.getEntityManager()
-            .createQuery("from AutomatischProces p order by type(p),p.id")
+            .createQuery("from AutomatischProces p order by type(p), p.id", AutomatischProces.class)
             .getResultList();
   }
 
