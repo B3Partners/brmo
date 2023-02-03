@@ -48,10 +48,13 @@ jobs:
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
 
+      - id: install-mvnd
+        uses: ./.github/actions/install-mvnd
+
       - name: 'Priming build'
         run: |
           ./.build/ci/oracle-setup-db-properties.sh
-          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -DskipQA=true
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -DskipQA=true
           projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
           echo $projectversion
           export PROJECTVERSION=$projectversion
@@ -65,34 +68,34 @@ jobs:
 
       - name: 'Test'
         run: |
-          mvn -e test -B -Poracle -pl '!brmo-dist' -Dtest.onlyITs=false -DskipQA=true
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e test -B -Poracle -pl '!brmo-dist' -Dtest.onlyITs=false -DskipQA=true
 
       - name: 'Verify bag2-loader'
         run: |
-          mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
           .build/ci/oracle-setup-bag2_views.sh
-          mvn resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*' -DskipQA=true
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*' -DskipQA=true
 
       - name: 'Verify bgt-loader'
-        run: mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -DskipQA=true
 
       - name: 'Verify brmo-loader'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1 -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1 -DskipQA=true
 
       - name: 'Verify brmo-service'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service' -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service' -DskipQA=true
 
       - name: 'Verify brmo-soap'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-soap' -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-soap' -DskipQA=true
 
       - name: 'Verify brmo-stufbg204'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-stufbg204' -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-stufbg204' -DskipQA=true
 
       - name: 'Verify brmo-commandline'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-commandline' -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-commandline' -DskipQA=true
 
       - name: 'Verify nhr-loader'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'nhr-loader' -DskipQA=true
+        run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -Dtest.onlyITs=true -pl 'nhr-loader' -DskipQA=true
 
       - name: 'Upload coverage to Codecov'
         uses: codecov/codecov-action@v3
@@ -101,5 +104,5 @@ jobs:
 
       - name: 'Cleanup build artifacts'
         run: |
-          mvn clean build-helper:remove-project-artifact
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd clean build-helper:remove-project-artifact
           find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
