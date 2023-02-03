@@ -35,7 +35,7 @@ public class RsgbTransformer {
   public RsgbTransformer(String pathToXsl)
       throws TransformerConfigurationException, ParserConfigurationException {
 
-    Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
+    Source xsl = new StreamSource(RsgbTransformer.class.getResourceAsStream(pathToXsl));
     TransformerFactory tf = TransformerFactory.newInstance();
     tf.setURIResolver(
         (href, base) ->
