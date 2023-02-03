@@ -102,22 +102,23 @@ jobs:
           prune-untagged: true
 
 
-  workflows:
-    runs-on: ubuntu-latest
-    name: "Cleanup old workflow runs"
-    steps:
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 60
-          keep_minimum_runs: 0
-          delete_workflow_pattern: 'all'
+#  workflows:
+#    runs-on: ubuntu-latest
+#    name: "Cleanup old workflow runs"
+#    steps:
+#      - name: Delete workflow runs
+#        uses: Mattraks/delete-workflow-runs@v2
+#        with:
+#          token: ${{ github.token }}
+#          repository: ${{ github.repository }}
+#          retain_days: 60
+#          keep_minimum_runs: 0
+#          delete_workflow_pattern: 'all'
+
 
   otherworkflows:
     runs-on: ubuntu-latest
-    name: "other Cleanup old workflow runs"
+    name: "Cleanup all old workflow runs"
     steps:
       - name: Delete workflow runs
         uses: boredland/action-purge-workflow-runs@1.0.0
@@ -125,3 +126,19 @@ jobs:
           days-old: 60
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  stale:
+    runs-on: ubuntu-latest
+    name: "Close Stale PRs"
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v7
+        with:
+          debug-only: true
+          days-before-stale: 60
+          days-before-close: 14
+          stale-pr-label: 'stale'
+          exempt-pr-labels: 'dependency update'
+          stale-pr-message: 'Dit PR is automatisch gemarkeerd als "stale" omdat er niet meer aan gewerkt wordt. Als er niets meer mee gebeurd zal deze PR automatisch worden gesloten.'
