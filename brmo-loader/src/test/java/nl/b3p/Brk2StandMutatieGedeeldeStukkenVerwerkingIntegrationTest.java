@@ -321,8 +321,6 @@ class Brk2StandMutatieGedeeldeStukkenVerwerkingIntegrationTest
         "Aantal onroerendezaakbeperking klopt niet");
 
     ITable onroerendezaakfiliatie = rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie");
-    ITable onroerendezaakfiliatie_archief =
-        rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie_archief");
     assertEquals(
         aantalFiliatie,
         onroerendezaakfiliatie.getRowCount(),
@@ -337,14 +335,17 @@ class Brk2StandMutatieGedeeldeStukkenVerwerkingIntegrationTest
               + onroerendezaakRef
               + " is niet gelijk aan objectRef");
     }
-    for (int i = 0; i < onroerendezaakfiliatie_archief.getRowCount(); i++) {
-      onroerendezaakRef = onroerendezaakfiliatie_archief.getValue(i, "onroerendezaak").toString();
-      assertTrue(
-          objectRefs.contains(onroerendezaakRef),
-          "onroerendezaakfiliatie_archief.onroerendezaak "
-              + onroerendezaakRef
-              + " is niet gelijk aan objectRef");
-    }
+    //    ITable onroerendezaakfiliatie_archief =
+    //            rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie_archief");
+    //    for (int i = 0; i < onroerendezaakfiliatie_archief.getRowCount(); i++) {
+    //      onroerendezaakRef = onroerendezaakfiliatie_archief.getValue(i,
+    // "onroerendezaak").toString();
+    //      assertTrue(
+    //          objectRefs.contains(onroerendezaakRef),
+    //          "onroerendezaakfiliatie_archief.onroerendezaak "
+    //              + onroerendezaakRef
+    //              + " is niet gelijk aan objectRef");
+    //    }
 
     ITable perceelOfAppRe;
     ITable perceelOfAppRe_archief;

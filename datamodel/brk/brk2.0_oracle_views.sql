@@ -1191,7 +1191,7 @@ FROM (SELECT p_archief.identificatie,
                FROM onroerendezaak_archief ikoza
                GROUP BY ikoza.identificatie) nqry
               ON nqry.identificatie = koza.identificatie AND nqry.bdate = koza.begingeldigheid
-         LEFT JOIN onroerendezaakfiliatie_archief kozhr ON kozhr.betreft = koza.identificatie;
+         LEFT JOIN onroerendezaakfiliatie kozhr ON kozhr.betreft = koza.identificatie;
 
 CREATE UNIQUE INDEX mb_kad_onrrnd_zk_a_objidx ON mb_kad_onrrnd_zk_archief (objectiD ASC);
 CREATE INDEX mb_kad_onrrnd_zk_a_identif ON mb_kad_onrrnd_zk_archief (koz_identif ASC);

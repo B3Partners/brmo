@@ -362,21 +362,11 @@ CREATE TABLE onroerendezaakfiliatie
     -- Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere.
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardFiliatie/
     aard            VARCHAR(65) NOT NULL,
-    onroerendezaak  VARCHAR REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
+    -- referentie naar onroerendezaak.identificatie of onroerendezaak_archief.identificatie
+    onroerendezaak  VARCHAR(255),
     -- betreft OZ relatie; referentie naar OZ/Perceel/AppRe
     betreft         VARCHAR(255),
-    -- metadata tbv archivering
-    begingeldigheid DATE        NOT NULL,
     PRIMARY KEY (aard, onroerendezaak, betreft)
-);
-
-CREATE TABLE onroerendezaakfiliatie_archief
-(
-    aard            VARCHAR(65)  NOT NULL,
-    onroerendezaak  VARCHAR(255),
-    betreft         VARCHAR(255) NOT NULL,
-    begingeldigheid DATE         NOT NULL,
-    PRIMARY KEY (aard, onroerendezaak, betreft, begingeldigheid)
 );
 
 -- In de BRK is een kadastraal perceel een specialisatie van een onroerende zaak.

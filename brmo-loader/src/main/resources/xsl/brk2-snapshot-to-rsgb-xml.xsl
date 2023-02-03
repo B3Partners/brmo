@@ -252,7 +252,7 @@
         <xsl:variable name="relatedBAGnevenadres"
                       select="../KIMBAGAdres:*[KIMBAGAdres:nevenadres/Adres-ref:ObjectlocatieBinnenlandRef[substring(@xlink:href,2) = $adresId]]"/>
 
-        <comfort search-table="natuurlijkpersoon" search-column="identificatie" search-value="{$adresIdentificatie}"
+        <comfort search-table="adres" search-column="identificatie" search-value="{$adresIdentificatie}"
                  snapshot-date="{$toestandsdatum}">
             <adres ignore-duplicates="yes">
                 <identificatie>
@@ -768,24 +768,28 @@
         </onroerendezaak>
 
         <xsl:for-each select="OnroerendeZaak:ontstaanUitOZ/OnroerendeZaak:OnroerendeZaakFiliatie">
-            <onroerendezaakfiliatie column-dat-beg-geldh="begingeldigheid">
-                <aard>
-                    <xsl:value-of select="OnroerendeZaak:aard/Typen:waarde"/>
-                </aard>
-                <onroerendezaak>
-                    <xsl:value-of select="$ozId"/>
-                </onroerendezaak>
-                <betreft>
-                    <xsl:call-template name="domein_identificatie">
-                        <xsl:with-param name="id"
-                                        select="OnroerendeZaak:betreftOZ/OnroerendeZaak-ref:PerceelRef |
-                                                OnroerendeZaak:betreftOZ/OnroerendeZaak-ref:AppartementsrechtRef"/>
-                    </xsl:call-template>
-                </betreft>
-                <begingeldigheid>
-                    <xsl:value-of select="$toestandsdatum"/>
-                </begingeldigheid>
-            </onroerendezaakfiliatie>
+            <comfort search-table="onroerendezaakfiliatie" search-column="identificatie" search-value="{$ozId}"
+                     snapshot-date="{$toestandsdatum}">
+                <onroerendezaakfiliatie ignore-duplicates="yes">
+                    <!--
+                    deze tabel heeft een samengestelde primary key (aard, onroerendezaak, betreft)
+                    mogelijk werkt het opzoek mechanisme niet goed als er meerdere records zijn met dezelfde aard
+                    -->
+                    <aard>
+                        <xsl:value-of select="OnroerendeZaak:aard/Typen:waarde"/>
+                    </aard>
+                    <onroerendezaak>
+                        <xsl:value-of select="$ozId"/>
+                    </onroerendezaak>
+                    <betreft>
+                        <xsl:call-template name="domein_identificatie">
+                            <xsl:with-param name="id"
+                                            select="OnroerendeZaak:betreftOZ/OnroerendeZaak-ref:PerceelRef |
+                                                    OnroerendeZaak:betreftOZ/OnroerendeZaak-ref:AppartementsrechtRef"/>
+                        </xsl:call-template>
+                    </betreft>
+                </onroerendezaakfiliatie>
+            </comfort>
         </xsl:for-each>
     </xsl:template>
 

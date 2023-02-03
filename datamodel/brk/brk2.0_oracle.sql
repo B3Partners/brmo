@@ -190,19 +190,11 @@ CREATE TABLE onroerendezaakbeperking_archief
 CREATE TABLE onroerendezaakfiliatie
 (
     aard            VARCHAR2(65) NOT NULL,
-    onroerendezaak  VARCHAR2(255) REFERENCES onroerendezaak (identificatie) ON DELETE CASCADE,
+    onroerendezaak  VARCHAR2(255),
     betreft         VARCHAR2(255),
-    begingeldigheid DATE         NOT NULL,
     PRIMARY KEY (aard, onroerendezaak, betreft)
 );
-CREATE TABLE onroerendezaakfiliatie_archief
-(
-    aard            VARCHAR2(65)  NOT NULL,
-    onroerendezaak  VARCHAR2(255),
-    betreft         VARCHAR2(255) NOT NULL,
-    begingeldigheid DATE          NOT NULL,
-    PRIMARY KEY (aard, onroerendezaak, betreft, begingeldigheid)
-);
+
 CREATE TABLE perceel
 (
     identificatie          VARCHAR2(255) NOT NULL PRIMARY KEY,
