@@ -10,9 +10,9 @@
 
 ### Basisprocedure
 
-1. doe je ding, als het mogelijk is gebruik `aosp` styling (voer `mvn com.coveo:fmt-maven-plugin:format` uit om alle opmaak te corrigeren)
+1. doe je ding, als het mogelijk is gebruik `aosp` styling (voer `mvn fmt:format` uit om alle opmaak te corrigeren)
 2. voer `mvn clean install` uit om te controleren of alle vereiste opmaak is toegepast en of alle tests slagen
-3. commit en push je branch om een pull request te maken
+3. commit en push je branch om een pull request te maken, gebruik de Nederlandse taal voor commit messages en pull request beschijvingen
 4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
 4. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
 
@@ -30,27 +30,30 @@ commandline worden meegegeven, bijvoorbeeld:
 mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=3.0.1-SNAPSHOT -DreleaseVersion=3.0.0 -Dtag=v3.0.0 -T1
 mvn release:perform -l rel-perform.log -T1
 ```
-_NB_ Voor het maken van de database documentatie is een draaienede database met de betreffende schema's 
-nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`.
+_NB_ Voor het maken van de database documentatie is een draaiende, up-2-date databases met de betreffende RSGB 
+schema's (public, brk, bag) nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`. 
+Zorg dat de tabellen en views zijn aangemaakt (BAG!).
 
 Met het commando `mvn release:perform` wordt daarna, op basis van de tag uit de
 stap hierboven, de release gebouwd en gedeployed naar de repository uit de (parent)
-pom file. De release bestaat uit jar en war files met daarin oa. ook de javadoc.
+pom file. De release bestaat uit docker images en jar en war files met daarin oa. ook de javadoc.
 Voor het hele project kan dit even duren, oa. omdat de javadoc gebouwd wordt.
 
 ### Maven site bouwen en online brengen
 
-De Maven site voor de BRMO leeft in de `gh-pages` branch van de repository, met onderstaande commando's kan de site worden bijgwerkt en online gebracht.
+De Maven site voor de BRMO leeft in de `gh-pages` branch van de repository, met onderstaande commando's kan de site worden 
+bijgewerkt en online gebracht.
 
 - `cd target/checkout` (als je dit direct na een release doet)
 - `mvn -T1 site site:stage`
 - `mvn scm-publish:publish-scm -T1`
 
-_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt
+_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt.
 
 ### nieuwe ontwikkel cyclus
 
-Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory gebruiken om upgrade scripts voor de volgende release te maken.
+Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory 
+gebruiken om upgrade scripts voor de volgende release te maken.
 
 ```
 cd datamodel/upgrade_scripts
