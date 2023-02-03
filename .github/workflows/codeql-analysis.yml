@@ -69,6 +69,7 @@ jobs:
           patterns: |
             -**/extjs/*.js
             -**/*Test*.java
+            -**/generated-sources/**/*.java
           input: "sarif-results/${{ matrix.language }}.sarif"
           output: "sarif-results/${{ matrix.language }}.sarif"
 
