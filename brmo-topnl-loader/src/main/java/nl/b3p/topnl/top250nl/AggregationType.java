@@ -35,34 +35,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "AggregationType")
 @XmlEnum
 public enum AggregationType {
-    @XmlEnumValue("set")
-    SET("set"),
-    @XmlEnumValue("bag")
-    BAG("bag"),
-    @XmlEnumValue("sequence")
-    SEQUENCE("sequence"),
-    @XmlEnumValue("array")
-    ARRAY("array"),
-    @XmlEnumValue("record")
-    RECORD("record"),
-    @XmlEnumValue("table")
-    TABLE("table");
-    private final String value;
+  @XmlEnumValue("set")
+  SET("set"),
+  @XmlEnumValue("bag")
+  BAG("bag"),
+  @XmlEnumValue("sequence")
+  SEQUENCE("sequence"),
+  @XmlEnumValue("array")
+  ARRAY("array"),
+  @XmlEnumValue("record")
+  RECORD("record"),
+  @XmlEnumValue("table")
+  TABLE("table");
+  private final String value;
 
-    AggregationType(String v) {
-        value = v;
-    }
+  AggregationType(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static AggregationType fromValue(String v) {
-        for (AggregationType c : AggregationType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static AggregationType fromValue(String v) {
+    for (AggregationType c : AggregationType.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

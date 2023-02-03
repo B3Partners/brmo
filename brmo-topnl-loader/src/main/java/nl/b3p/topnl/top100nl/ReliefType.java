@@ -8,16 +8,14 @@
 
 package nl.b3p.topnl.top100nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for ReliefType complex type.
@@ -44,159 +42,159 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "ReliefType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {
-            "typeRelief",
-            "hoogteklasse",
-            "functie",
-            "naamFries",
-            "naamNL",
-            "hoogteniveau",
-            "geometrie"
-        })
+    name = "ReliefType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {
+      "typeRelief",
+      "hoogteklasse",
+      "functie",
+      "naamFries",
+      "naamNL",
+      "hoogteniveau",
+      "geometrie"
+    })
 public class ReliefType extends Top100NlObjectType {
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeReliefT100Type typeRelief;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeReliefT100Type typeRelief;
 
-    protected String hoogteklasse;
+  protected String hoogteklasse;
 
-    @XmlSchemaType(name = "string")
-    protected FunctieReliefT100Type functie;
+  @XmlSchemaType(name = "string")
+  protected FunctieReliefT100Type functie;
 
-    protected String naamFries;
-    protected String naamNL;
+  protected String naamFries;
+  protected String naamNL;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteniveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteniveau;
 
-    @XmlAnyElement protected Element geometrie;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeRelief property.
-     *
-     * @return possible object is {@link TypeReliefT100Type }
-     */
-    public TypeReliefT100Type getTypeRelief() {
-        return typeRelief;
-    }
+  /**
+   * Gets the value of the typeRelief property.
+   *
+   * @return possible object is {@link TypeReliefT100Type }
+   */
+  public TypeReliefT100Type getTypeRelief() {
+    return typeRelief;
+  }
 
-    /**
-     * Sets the value of the typeRelief property.
-     *
-     * @param value allowed object is {@link TypeReliefT100Type }
-     */
-    public void setTypeRelief(TypeReliefT100Type value) {
-        this.typeRelief = value;
-    }
+  /**
+   * Sets the value of the typeRelief property.
+   *
+   * @param value allowed object is {@link TypeReliefT100Type }
+   */
+  public void setTypeRelief(TypeReliefT100Type value) {
+    this.typeRelief = value;
+  }
 
-    /**
-     * Gets the value of the hoogteklasse property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getHoogteklasse() {
-        return hoogteklasse;
-    }
+  /**
+   * Gets the value of the hoogteklasse property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getHoogteklasse() {
+    return hoogteklasse;
+  }
 
-    /**
-     * Sets the value of the hoogteklasse property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setHoogteklasse(String value) {
-        this.hoogteklasse = value;
-    }
+  /**
+   * Sets the value of the hoogteklasse property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setHoogteklasse(String value) {
+    this.hoogteklasse = value;
+  }
 
-    /**
-     * Gets the value of the functie property.
-     *
-     * @return possible object is {@link FunctieReliefT100Type }
-     */
-    public FunctieReliefT100Type getFunctie() {
-        return functie;
-    }
+  /**
+   * Gets the value of the functie property.
+   *
+   * @return possible object is {@link FunctieReliefT100Type }
+   */
+  public FunctieReliefT100Type getFunctie() {
+    return functie;
+  }
 
-    /**
-     * Sets the value of the functie property.
-     *
-     * @param value allowed object is {@link FunctieReliefT100Type }
-     */
-    public void setFunctie(FunctieReliefT100Type value) {
-        this.functie = value;
-    }
+  /**
+   * Sets the value of the functie property.
+   *
+   * @param value allowed object is {@link FunctieReliefT100Type }
+   */
+  public void setFunctie(FunctieReliefT100Type value) {
+    this.functie = value;
+  }
 
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamFries() {
-        return naamFries;
-    }
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    /**
-     * Sets the value of the naamFries property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamFries(String value) {
-        this.naamFries = value;
-    }
+  /**
+   * Sets the value of the naamFries property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamFries(String value) {
+    this.naamFries = value;
+  }
 
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamNL() {
-        return naamNL;
-    }
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    /**
-     * Sets the value of the naamNL property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamNL(String value) {
-        this.naamNL = value;
-    }
+  /**
+   * Sets the value of the naamNL property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamNL(String value) {
+    this.naamNL = value;
+  }
 
-    /**
-     * Gets the value of the hoogteniveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteniveau() {
-        return hoogteniveau;
-    }
+  /**
+   * Gets the value of the hoogteniveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    /**
-     * Sets the value of the hoogteniveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteniveau(BigInteger value) {
-        this.hoogteniveau = value;
-    }
+  /**
+   * Sets the value of the hoogteniveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteniveau(BigInteger value) {
+    this.hoogteniveau = value;
+  }
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

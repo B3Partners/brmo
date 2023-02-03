@@ -8,17 +8,15 @@
 
 package nl.b3p.topnl.top10nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for TerreinType complex type.
@@ -44,143 +42,143 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "TerreinType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
-        propOrder = {
-            "typeLandgebruik",
-            "fysiekVoorkomen",
-            "voorkomen",
-            "hoogteniveau",
-            "naam",
-            "geometrieVlak"
-        })
+    name = "TerreinType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
+    propOrder = {
+      "typeLandgebruik",
+      "fysiekVoorkomen",
+      "voorkomen",
+      "hoogteniveau",
+      "naam",
+      "geometrieVlak"
+    })
 public class TerreinType extends Top10NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeLandgebruik;
+  @XmlElement(required = true)
+  protected CodeType typeLandgebruik;
 
-    protected List<CodeType> fysiekVoorkomen;
-    protected List<CodeType> voorkomen;
+  protected List<CodeType> fysiekVoorkomen;
+  protected List<CodeType> voorkomen;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteniveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteniveau;
 
-    protected String naam;
-    @XmlAnyElement protected Element geometrieVlak;
+  protected String naam;
+  @XmlAnyElement protected Element geometrieVlak;
 
-    /**
-     * Gets the value of the typeLandgebruik property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeLandgebruik() {
-        return typeLandgebruik;
+  /**
+   * Gets the value of the typeLandgebruik property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeLandgebruik() {
+    return typeLandgebruik;
+  }
+
+  /**
+   * Sets the value of the typeLandgebruik property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeLandgebruik(CodeType value) {
+    this.typeLandgebruik = value;
+  }
+
+  /**
+   * Gets the value of the fysiekVoorkomen property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getFysiekVoorkomen().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
+   */
+  public List<CodeType> getFysiekVoorkomen() {
+    if (fysiekVoorkomen == null) {
+      fysiekVoorkomen = new ArrayList<CodeType>();
     }
+    return this.fysiekVoorkomen;
+  }
 
-    /**
-     * Sets the value of the typeLandgebruik property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeLandgebruik(CodeType value) {
-        this.typeLandgebruik = value;
+  /**
+   * Gets the value of the voorkomen property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the voorkomen property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getVoorkomen().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
+   */
+  public List<CodeType> getVoorkomen() {
+    if (voorkomen == null) {
+      voorkomen = new ArrayList<CodeType>();
     }
+    return this.voorkomen;
+  }
 
-    /**
-     * Gets the value of the fysiekVoorkomen property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getFysiekVoorkomen().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
-     */
-    public List<CodeType> getFysiekVoorkomen() {
-        if (fysiekVoorkomen == null) {
-            fysiekVoorkomen = new ArrayList<CodeType>();
-        }
-        return this.fysiekVoorkomen;
-    }
+  /**
+   * Gets the value of the hoogteniveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    /**
-     * Gets the value of the voorkomen property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the voorkomen property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getVoorkomen().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
-     */
-    public List<CodeType> getVoorkomen() {
-        if (voorkomen == null) {
-            voorkomen = new ArrayList<CodeType>();
-        }
-        return this.voorkomen;
-    }
+  /**
+   * Sets the value of the hoogteniveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteniveau(BigInteger value) {
+    this.hoogteniveau = value;
+  }
 
-    /**
-     * Gets the value of the hoogteniveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteniveau() {
-        return hoogteniveau;
-    }
+  /**
+   * Gets the value of the naam property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaam() {
+    return naam;
+  }
 
-    /**
-     * Sets the value of the hoogteniveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteniveau(BigInteger value) {
-        this.hoogteniveau = value;
-    }
+  /**
+   * Sets the value of the naam property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaam(String value) {
+    this.naam = value;
+  }
 
-    /**
-     * Gets the value of the naam property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaam() {
-        return naam;
-    }
+  /**
+   * Gets the value of the geometrieVlak property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrieVlak() {
+    return geometrieVlak;
+  }
 
-    /**
-     * Sets the value of the naam property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaam(String value) {
-        this.naam = value;
-    }
-
-    /**
-     * Gets the value of the geometrieVlak property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrieVlak() {
-        return geometrieVlak;
-    }
-
-    /**
-     * Sets the value of the geometrieVlak property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrieVlak(Element value) {
-        this.geometrieVlak = value;
-    }
+  /**
+   * Sets the value of the geometrieVlak property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrieVlak(Element value) {
+    this.geometrieVlak = value;
+  }
 }

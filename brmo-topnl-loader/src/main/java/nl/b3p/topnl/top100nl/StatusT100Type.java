@@ -32,36 +32,36 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "StatusT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "StatusT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum StatusT100Type {
-    @XmlEnumValue("realisatie: nog niet in uitvoering")
-    REALISATIE_NOG_NIET_IN_UITVOERING("realisatie: nog niet in uitvoering"),
-    @XmlEnumValue("realisatie: in uitvoering")
-    REALISATIE_IN_UITVOERING("realisatie: in uitvoering"),
-    @XmlEnumValue("in gebruik")
-    IN_GEBRUIK("in gebruik"),
-    @XmlEnumValue("buiten gebruik")
-    BUITEN_GEBRUIK("buiten gebruik"),
-    @XmlEnumValue("onbekend")
-    ONBEKEND("onbekend");
-    private final String value;
+  @XmlEnumValue("realisatie: nog niet in uitvoering")
+  REALISATIE_NOG_NIET_IN_UITVOERING("realisatie: nog niet in uitvoering"),
+  @XmlEnumValue("realisatie: in uitvoering")
+  REALISATIE_IN_UITVOERING("realisatie: in uitvoering"),
+  @XmlEnumValue("in gebruik")
+  IN_GEBRUIK("in gebruik"),
+  @XmlEnumValue("buiten gebruik")
+  BUITEN_GEBRUIK("buiten gebruik"),
+  @XmlEnumValue("onbekend")
+  ONBEKEND("onbekend");
+  private final String value;
 
-    StatusT100Type(String v) {
-        value = v;
-    }
+  StatusT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static StatusT100Type fromValue(String v) {
-        for (StatusT100Type c : StatusT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static StatusT100Type fromValue(String v) {
+    for (StatusT100Type c : StatusT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

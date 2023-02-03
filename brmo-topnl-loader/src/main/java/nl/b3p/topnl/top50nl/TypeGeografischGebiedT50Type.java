@@ -38,48 +38,48 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeGeografischGebiedT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "TypeGeografischGebiedT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum TypeGeografischGebiedT50Type {
-    @XmlEnumValue("bosgebied")
-    BOSGEBIED("bosgebied"),
-    @XmlEnumValue("buurtschap")
-    BUURTSCHAP("buurtschap"),
-    @XmlEnumValue("eiland")
-    EILAND("eiland"),
-    @XmlEnumValue("geul, vaargeul")
-    GEUL_VAARGEUL("geul, vaargeul"),
-    @XmlEnumValue("huizengroep")
-    HUIZENGROEP("huizengroep"),
-    @XmlEnumValue("kaap, hoek")
-    KAAP_HOEK("kaap, hoek"),
-    @XmlEnumValue("plaats, bewoond oord")
-    PLAATS_BEWOOND_OORD("plaats, bewoond oord"),
-    @XmlEnumValue("terp")
-    TERP("terp"),
-    @XmlEnumValue("woonwijk")
-    WOONWIJK("woonwijk"),
-    @XmlEnumValue("zeegat, zeearm")
-    ZEEGAT_ZEEARM("zeegat, zeearm"),
-    @XmlEnumValue("overig")
-    OVERIG("overig");
-    private final String value;
+  @XmlEnumValue("bosgebied")
+  BOSGEBIED("bosgebied"),
+  @XmlEnumValue("buurtschap")
+  BUURTSCHAP("buurtschap"),
+  @XmlEnumValue("eiland")
+  EILAND("eiland"),
+  @XmlEnumValue("geul, vaargeul")
+  GEUL_VAARGEUL("geul, vaargeul"),
+  @XmlEnumValue("huizengroep")
+  HUIZENGROEP("huizengroep"),
+  @XmlEnumValue("kaap, hoek")
+  KAAP_HOEK("kaap, hoek"),
+  @XmlEnumValue("plaats, bewoond oord")
+  PLAATS_BEWOOND_OORD("plaats, bewoond oord"),
+  @XmlEnumValue("terp")
+  TERP("terp"),
+  @XmlEnumValue("woonwijk")
+  WOONWIJK("woonwijk"),
+  @XmlEnumValue("zeegat, zeearm")
+  ZEEGAT_ZEEARM("zeegat, zeearm"),
+  @XmlEnumValue("overig")
+  OVERIG("overig");
+  private final String value;
 
-    TypeGeografischGebiedT50Type(String v) {
-        value = v;
-    }
+  TypeGeografischGebiedT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeGeografischGebiedT50Type fromValue(String v) {
-        for (TypeGeografischGebiedT50Type c : TypeGeografischGebiedT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeGeografischGebiedT50Type fromValue(String v) {
+    for (TypeGeografischGebiedT50Type c : TypeGeografischGebiedT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

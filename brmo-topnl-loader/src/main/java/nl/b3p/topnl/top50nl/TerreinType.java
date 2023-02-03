@@ -8,14 +8,13 @@
 
 package nl.b3p.topnl.top50nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for TerreinType complex type.
@@ -37,50 +36,50 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "TerreinType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {"geometrie", "typeLandgebruik"})
+    name = "TerreinType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {"geometrie", "typeLandgebruik"})
 public class TerreinType extends Top50NlObjectType {
 
-    @XmlAnyElement protected Element geometrie;
+  @XmlAnyElement protected Element geometrie;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeLandgebruikT50Type typeLandgebruik;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeLandgebruikT50Type typeLandgebruik;
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 
-    /**
-     * Gets the value of the typeLandgebruik property.
-     *
-     * @return possible object is {@link TypeLandgebruikT50Type }
-     */
-    public TypeLandgebruikT50Type getTypeLandgebruik() {
-        return typeLandgebruik;
-    }
+  /**
+   * Gets the value of the typeLandgebruik property.
+   *
+   * @return possible object is {@link TypeLandgebruikT50Type }
+   */
+  public TypeLandgebruikT50Type getTypeLandgebruik() {
+    return typeLandgebruik;
+  }
 
-    /**
-     * Sets the value of the typeLandgebruik property.
-     *
-     * @param value allowed object is {@link TypeLandgebruikT50Type }
-     */
-    public void setTypeLandgebruik(TypeLandgebruikT50Type value) {
-        this.typeLandgebruik = value;
-    }
+  /**
+   * Sets the value of the typeLandgebruik property.
+   *
+   * @param value allowed object is {@link TypeLandgebruikT50Type }
+   */
+  public void setTypeLandgebruik(TypeLandgebruikT50Type value) {
+    this.typeLandgebruik = value;
+  }
 }

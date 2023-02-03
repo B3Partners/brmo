@@ -32,31 +32,31 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "",
-        propOrder = {"nen3610ID"})
+    name = "",
+    propOrder = {"nen3610ID"})
 public class Identificatie {
 
-    @XmlElement(
-            name = "NEN3610ID",
-            namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-            required = true)
-    protected NEN3610IDType nen3610ID;
+  @XmlElement(
+      name = "NEN3610ID",
+      namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+      required = true)
+  protected NEN3610IDType nen3610ID;
 
-    /**
-     * Gets the value of the nen3610ID property.
-     *
-     * @return possible object is {@link NEN3610IDType }
-     */
-    public NEN3610IDType getNEN3610ID() {
-        return nen3610ID;
-    }
+  /**
+   * Gets the value of the nen3610ID property.
+   *
+   * @return possible object is {@link NEN3610IDType }
+   */
+  public NEN3610IDType getNEN3610ID() {
+    return nen3610ID;
+  }
 
-    /**
-     * Sets the value of the nen3610ID property.
-     *
-     * @param value allowed object is {@link NEN3610IDType }
-     */
-    public void setNEN3610ID(NEN3610IDType value) {
-        this.nen3610ID = value;
-    }
+  /**
+   * Sets the value of the nen3610ID property.
+   *
+   * @param value allowed object is {@link NEN3610IDType }
+   */
+  public void setNEN3610ID(NEN3610IDType value) {
+    this.nen3610ID = value;
+  }
 }

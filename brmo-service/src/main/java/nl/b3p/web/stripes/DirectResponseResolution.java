@@ -16,40 +16,40 @@
  */
 package nl.b3p.web.stripes;
 
+import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.StreamingResolution;
-
 import org.json.JSONObject;
 
-import javax.servlet.http.HttpServletResponse;
-
-/** @author matthijsln */
+/**
+ * @author matthijsln
+ */
 public class DirectResponseResolution extends StreamingResolution {
 
-    private int status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+  private int status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
-    public DirectResponseResolution(String message) {
-        super("text/plain", message);
-        setCharacterEncoding("UTF-8");
-    }
+  public DirectResponseResolution(String message) {
+    super("text/plain", message);
+    setCharacterEncoding("UTF-8");
+  }
 
-    public DirectResponseResolution(int status, String message) {
-        this(message);
-        this.status = status;
-    }
+  public DirectResponseResolution(int status, String message) {
+    this(message);
+    this.status = status;
+  }
 
-    public DirectResponseResolution(JSONObject json) {
-        super("application/json", json.toString());
-        setCharacterEncoding("UTF-8");
-    }
+  public DirectResponseResolution(JSONObject json) {
+    super("application/json", json.toString());
+    setCharacterEncoding("UTF-8");
+  }
 
-    public DirectResponseResolution(int status, JSONObject json) {
-        this(json);
-        this.status = status;
-    }
+  public DirectResponseResolution(int status, JSONObject json) {
+    this(json);
+    this.status = status;
+  }
 
-    @Override
-    protected void stream(HttpServletResponse response) throws Exception {
-        response.setStatus(status);
-        super.stream(response);
-    }
+  @Override
+  protected void stream(HttpServletResponse response) throws Exception {
+    response.setStatus(status);
+    super.stream(response);
+  }
 }

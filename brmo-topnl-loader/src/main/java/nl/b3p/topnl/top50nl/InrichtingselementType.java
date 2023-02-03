@@ -8,18 +8,16 @@
 
 package nl.b3p.topnl.top50nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for InrichtingselementType complex type.
@@ -46,171 +44,171 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "InrichtingselementType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {
-            "geometrie",
-            "hoogteNiveau",
-            "naamFries",
-            "naamNL",
-            "nummer",
-            "status",
-            "typeInrichtingsElement"
-        })
+    name = "InrichtingselementType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {
+      "geometrie",
+      "hoogteNiveau",
+      "naamFries",
+      "naamNL",
+      "nummer",
+      "status",
+      "typeInrichtingsElement"
+    })
 public class InrichtingselementType extends Top50NlObjectType {
 
-    @XmlAnyElement protected Element geometrie;
+  @XmlAnyElement protected Element geometrie;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteNiveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteNiveau;
 
-    protected List<String> naamFries;
-    protected List<String> naamNL;
-    protected List<String> nummer;
+  protected List<String> naamFries;
+  protected List<String> naamNL;
+  protected List<String> nummer;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected StatusT50Type status;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected StatusT50Type status;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeInrichtingselementT50Type typeInrichtingsElement;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeInrichtingselementT50Type typeInrichtingsElement;
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
+
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
+
+  /**
+   * Gets the value of the hoogteNiveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteNiveau() {
+    return hoogteNiveau;
+  }
+
+  /**
+   * Sets the value of the hoogteNiveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteNiveau(BigInteger value) {
+    this.hoogteNiveau = value;
+  }
+
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamFries property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamFries().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamFries() {
+    if (naamFries == null) {
+      naamFries = new ArrayList<String>();
     }
+    return this.naamFries;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamNL property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamNL().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamNL() {
+    if (naamNL == null) {
+      naamNL = new ArrayList<String>();
     }
+    return this.naamNL;
+  }
 
-    /**
-     * Gets the value of the hoogteNiveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteNiveau() {
-        return hoogteNiveau;
+  /**
+   * Gets the value of the nummer property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the nummer property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNummer().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNummer() {
+    if (nummer == null) {
+      nummer = new ArrayList<String>();
     }
+    return this.nummer;
+  }
 
-    /**
-     * Sets the value of the hoogteNiveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteNiveau(BigInteger value) {
-        this.hoogteNiveau = value;
-    }
+  /**
+   * Gets the value of the status property.
+   *
+   * @return possible object is {@link StatusT50Type }
+   */
+  public StatusT50Type getStatus() {
+    return status;
+  }
 
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamFries property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamFries().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamFries() {
-        if (naamFries == null) {
-            naamFries = new ArrayList<String>();
-        }
-        return this.naamFries;
-    }
+  /**
+   * Sets the value of the status property.
+   *
+   * @param value allowed object is {@link StatusT50Type }
+   */
+  public void setStatus(StatusT50Type value) {
+    this.status = value;
+  }
 
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamNL property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamNL().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamNL() {
-        if (naamNL == null) {
-            naamNL = new ArrayList<String>();
-        }
-        return this.naamNL;
-    }
+  /**
+   * Gets the value of the typeInrichtingsElement property.
+   *
+   * @return possible object is {@link TypeInrichtingselementT50Type }
+   */
+  public TypeInrichtingselementT50Type getTypeInrichtingsElement() {
+    return typeInrichtingsElement;
+  }
 
-    /**
-     * Gets the value of the nummer property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the nummer property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNummer().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNummer() {
-        if (nummer == null) {
-            nummer = new ArrayList<String>();
-        }
-        return this.nummer;
-    }
-
-    /**
-     * Gets the value of the status property.
-     *
-     * @return possible object is {@link StatusT50Type }
-     */
-    public StatusT50Type getStatus() {
-        return status;
-    }
-
-    /**
-     * Sets the value of the status property.
-     *
-     * @param value allowed object is {@link StatusT50Type }
-     */
-    public void setStatus(StatusT50Type value) {
-        this.status = value;
-    }
-
-    /**
-     * Gets the value of the typeInrichtingsElement property.
-     *
-     * @return possible object is {@link TypeInrichtingselementT50Type }
-     */
-    public TypeInrichtingselementT50Type getTypeInrichtingsElement() {
-        return typeInrichtingsElement;
-    }
-
-    /**
-     * Sets the value of the typeInrichtingsElement property.
-     *
-     * @param value allowed object is {@link TypeInrichtingselementT50Type }
-     */
-    public void setTypeInrichtingsElement(TypeInrichtingselementT50Type value) {
-        this.typeInrichtingsElement = value;
-    }
+  /**
+   * Sets the value of the typeInrichtingsElement property.
+   *
+   * @param value allowed object is {@link TypeInrichtingselementT50Type }
+   */
+  public void setTypeInrichtingsElement(TypeInrichtingselementT50Type value) {
+    this.typeInrichtingsElement = value;
+  }
 }

@@ -34,68 +34,66 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "FysiekVoorkomenWegT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "FysiekVoorkomenWegT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum FysiekVoorkomenWegT50Type {
 
-    /**
-     * Gelegen op een niet beweegbaar deel van een kunstwerk dat een verbinding vormt door middel
-     * van een overspanning
-     */
-    @XmlEnumValue("op vast deel van brug")
-    OP_VAST_DEEL_VAN_BRUG("op vast deel van brug"),
+  /**
+   * Gelegen op een niet beweegbaar deel van een kunstwerk dat een verbinding vormt door middel van
+   * een overspanning
+   */
+  @XmlEnumValue("op vast deel van brug")
+  OP_VAST_DEEL_VAN_BRUG("op vast deel van brug"),
 
-    /**
-     * Gelegen op een beweegbaar deel van een kunstwerk dat een verbinding vormt door middel van een
-     * overspanning
-     */
-    @XmlEnumValue("op beweegbaar deel van brug")
-    OP_BEWEEGBAAR_DEEL_VAN_BRUG("op beweegbaar deel van brug"),
+  /**
+   * Gelegen op een beweegbaar deel van een kunstwerk dat een verbinding vormt door middel van een
+   * overspanning
+   */
+  @XmlEnumValue("op beweegbaar deel van brug")
+  OP_BEWEEGBAAR_DEEL_VAN_BRUG("op beweegbaar deel van brug"),
 
-    /**
-     * Gelegen op een verbinding tussen twee wegen op een verkeersknooppunt, zoals een klaverblad
-     */
-    @XmlEnumValue("op knooppuntverbinding")
-    OP_KNOOPPUNTVERBINDING("op knooppuntverbinding"),
+  /** Gelegen op een verbinding tussen twee wegen op een verkeersknooppunt, zoals een klaverblad */
+  @XmlEnumValue("op knooppuntverbinding")
+  OP_KNOOPPUNTVERBINDING("op knooppuntverbinding"),
 
-    /** Gelegen op een oprit of afrit van een auto(snel)weg */
-    @XmlEnumValue("op oprit / afrit")
-    OP_OPRIT_AFRIT("op oprit / afrit"),
+  /** Gelegen op een oprit of afrit van een auto(snel)weg */
+  @XmlEnumValue("op oprit / afrit")
+  OP_OPRIT_AFRIT("op oprit / afrit"),
 
-    /** Gelegen op een vrijliggende baan */
-    @XmlEnumValue("op vrijliggende baan")
-    OP_VRIJLIGGENDE_BAAN("op vrijliggende baan"),
+  /** Gelegen op een vrijliggende baan */
+  @XmlEnumValue("op vrijliggende baan")
+  OP_VRIJLIGGENDE_BAAN("op vrijliggende baan"),
 
-    /**
-     * Overbouwd door gebouwen, zodanig dat de orthogonale projectie van de gebouwen op of over het
-     * object valt
-     */
-    @XmlEnumValue("overkluisd")
-    OVERKLUISD("overkluisd"),
+  /**
+   * Overbouwd door gebouwen, zodanig dat de orthogonale projectie van de gebouwen op of over het
+   * object valt
+   */
+  @XmlEnumValue("overkluisd")
+  OVERKLUISD("overkluisd"),
 
-    /**
-     * Gelegen in een kunstmatig aangelegde, onderaardse of door een berg geboorde kokervormige
-     * doorgang
-     */
-    @XmlEnumValue("in tunnel")
-    IN_TUNNEL("in tunnel");
-    private final String value;
+  /**
+   * Gelegen in een kunstmatig aangelegde, onderaardse of door een berg geboorde kokervormige
+   * doorgang
+   */
+  @XmlEnumValue("in tunnel")
+  IN_TUNNEL("in tunnel");
+  private final String value;
 
-    FysiekVoorkomenWegT50Type(String v) {
-        value = v;
+  FysiekVoorkomenWegT50Type(String v) {
+    value = v;
+  }
+
+  public String value() {
+    return value;
+  }
+
+  public static FysiekVoorkomenWegT50Type fromValue(String v) {
+    for (FysiekVoorkomenWegT50Type c : FysiekVoorkomenWegT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
-
-    public String value() {
-        return value;
-    }
-
-    public static FysiekVoorkomenWegT50Type fromValue(String v) {
-        for (FysiekVoorkomenWegT50Type c : FysiekVoorkomenWegT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+    throw new IllegalArgumentException(v);
+  }
 }

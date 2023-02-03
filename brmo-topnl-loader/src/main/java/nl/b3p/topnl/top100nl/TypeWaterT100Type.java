@@ -34,40 +34,40 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeWaterT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeWaterT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeWaterT100Type {
-    @XmlEnumValue("waterloop")
-    WATERLOOP("waterloop"),
-    @XmlEnumValue("meer, plas, ven, vijver")
-    MEER_PLAS_VEN_VIJVER("meer, plas, ven, vijver"),
-    @XmlEnumValue("greppel, droge sloot")
-    GREPPEL_DROGE_SLOOT("greppel, droge sloot"),
-    @XmlEnumValue("zee")
-    ZEE("zee"),
-    @XmlEnumValue("droogvallend")
-    DROOGVALLEND("droogvallend"),
-    @XmlEnumValue("bron, wel")
-    BRON_WEL("bron, wel"),
-    @XmlEnumValue("overig")
-    OVERIG("overig");
-    private final String value;
+  @XmlEnumValue("waterloop")
+  WATERLOOP("waterloop"),
+  @XmlEnumValue("meer, plas, ven, vijver")
+  MEER_PLAS_VEN_VIJVER("meer, plas, ven, vijver"),
+  @XmlEnumValue("greppel, droge sloot")
+  GREPPEL_DROGE_SLOOT("greppel, droge sloot"),
+  @XmlEnumValue("zee")
+  ZEE("zee"),
+  @XmlEnumValue("droogvallend")
+  DROOGVALLEND("droogvallend"),
+  @XmlEnumValue("bron, wel")
+  BRON_WEL("bron, wel"),
+  @XmlEnumValue("overig")
+  OVERIG("overig");
+  private final String value;
 
-    TypeWaterT100Type(String v) {
-        value = v;
-    }
+  TypeWaterT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeWaterT100Type fromValue(String v) {
-        for (TypeWaterT100Type c : TypeWaterT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeWaterT100Type fromValue(String v) {
+    for (TypeWaterT100Type c : TypeWaterT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

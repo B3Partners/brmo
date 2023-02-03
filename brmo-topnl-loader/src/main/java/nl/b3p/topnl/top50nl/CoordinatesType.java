@@ -44,102 +44,102 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "CoordinatesType",
-        propOrder = {"value"})
+    name = "CoordinatesType",
+    propOrder = {"value"})
 public class CoordinatesType {
 
-    @XmlValue protected String value;
+  @XmlValue protected String value;
 
-    @XmlAttribute(name = "decimal")
-    protected String decimal;
+  @XmlAttribute(name = "decimal")
+  protected String decimal;
 
-    @XmlAttribute(name = "cs")
-    protected String cs;
+  @XmlAttribute(name = "cs")
+  protected String cs;
 
-    @XmlAttribute(name = "ts")
-    protected String ts;
+  @XmlAttribute(name = "ts")
+  protected String ts;
 
-    /**
-     * Gets the value of the value property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getValue() {
-        return value;
+  /**
+   * Gets the value of the value property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getValue() {
+    return value;
+  }
+
+  /**
+   * Sets the value of the value property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  /**
+   * Gets the value of the decimal property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDecimal() {
+    if (decimal == null) {
+      return ".";
+    } else {
+      return decimal;
     }
+  }
 
-    /**
-     * Sets the value of the value property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+  /**
+   * Sets the value of the decimal property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDecimal(String value) {
+    this.decimal = value;
+  }
 
-    /**
-     * Gets the value of the decimal property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getDecimal() {
-        if (decimal == null) {
-            return ".";
-        } else {
-            return decimal;
-        }
+  /**
+   * Gets the value of the cs property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCs() {
+    if (cs == null) {
+      return ",";
+    } else {
+      return cs;
     }
+  }
 
-    /**
-     * Sets the value of the decimal property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setDecimal(String value) {
-        this.decimal = value;
-    }
+  /**
+   * Sets the value of the cs property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCs(String value) {
+    this.cs = value;
+  }
 
-    /**
-     * Gets the value of the cs property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getCs() {
-        if (cs == null) {
-            return ",";
-        } else {
-            return cs;
-        }
+  /**
+   * Gets the value of the ts property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getTs() {
+    if (ts == null) {
+      return " ";
+    } else {
+      return ts;
     }
+  }
 
-    /**
-     * Sets the value of the cs property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setCs(String value) {
-        this.cs = value;
-    }
-
-    /**
-     * Gets the value of the ts property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getTs() {
-        if (ts == null) {
-            return " ";
-        } else {
-            return ts;
-        }
-    }
-
-    /**
-     * Sets the value of the ts property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setTs(String value) {
-        this.ts = value;
-    }
+  /**
+   * Sets the value of the ts property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setTs(String value) {
+    this.ts = value;
+  }
 }

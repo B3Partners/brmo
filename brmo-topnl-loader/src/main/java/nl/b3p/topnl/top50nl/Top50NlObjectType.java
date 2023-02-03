@@ -10,7 +10,6 @@ package nl.b3p.topnl.top50nl;
 
 import java.math.BigInteger;
 import java.util.Calendar;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -55,250 +54,250 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "_Top50nlObjectType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {
-            "identificatie",
-            "objectBeginTijd",
-            "objectEindTijd",
-            "brontype",
-            "bronbeschrijving",
-            "bronactualiteit",
-            "tdnCode",
-            "visualisatieCode"
-        })
+    name = "_Top50nlObjectType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {
+      "identificatie",
+      "objectBeginTijd",
+      "objectEindTijd",
+      "brontype",
+      "bronbeschrijving",
+      "bronactualiteit",
+      "tdnCode",
+      "visualisatieCode"
+    })
 @XmlSeeAlso({
-    FunctioneelGebiedType.class,
-    GebouwType.class,
-    SpoorbaandeelType.class,
-    WaterdeelType.class,
-    InrichtingselementType.class,
-    WegdeelType.class,
-    TerreinType.class,
-    GeografischGebiedType.class,
-    HoogteType.class,
-    RegistratiefGebiedType.class,
-    ReliefType.class
+  FunctioneelGebiedType.class,
+  GebouwType.class,
+  SpoorbaandeelType.class,
+  WaterdeelType.class,
+  InrichtingselementType.class,
+  WegdeelType.class,
+  TerreinType.class,
+  GeografischGebiedType.class,
+  HoogteType.class,
+  RegistratiefGebiedType.class,
+  ReliefType.class
 })
 public abstract class Top50NlObjectType extends AbstractFeatureType {
 
-    @XmlElement(required = true)
-    protected Top50NlObjectType.Identificatie identificatie;
+  @XmlElement(required = true)
+  protected Top50NlObjectType.Identificatie identificatie;
 
-    @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1.class)
-    @XmlSchemaType(name = "dateTime")
-    protected Calendar objectBeginTijd;
+  @XmlElement(required = true, type = String.class)
+  @XmlJavaTypeAdapter(Adapter1.class)
+  @XmlSchemaType(name = "dateTime")
+  protected Calendar objectBeginTijd;
 
-    @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(Adapter1.class)
-    @XmlSchemaType(name = "dateTime")
-    protected Calendar objectEindTijd;
+  @XmlElement(type = String.class)
+  @XmlJavaTypeAdapter(Adapter1.class)
+  @XmlSchemaType(name = "dateTime")
+  protected Calendar objectEindTijd;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeBronT50Type brontype;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeBronT50Type brontype;
 
-    @XmlElement(required = true)
-    protected String bronbeschrijving;
+  @XmlElement(required = true)
+  protected String bronbeschrijving;
 
-    @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter2.class)
-    @XmlSchemaType(name = "date")
-    protected Calendar bronactualiteit;
+  @XmlElement(required = true, type = String.class)
+  @XmlJavaTypeAdapter(Adapter2.class)
+  @XmlSchemaType(name = "date")
+  protected Calendar bronactualiteit;
 
-    protected BigInteger tdnCode;
-    protected BigInteger visualisatieCode;
+  protected BigInteger tdnCode;
+  protected BigInteger visualisatieCode;
+
+  /**
+   * Gets the value of the identificatie property.
+   *
+   * @return possible object is {@link Top50NlObjectType.Identificatie }
+   */
+  public Top50NlObjectType.Identificatie getIdentificatie() {
+    return identificatie;
+  }
+
+  /**
+   * Sets the value of the identificatie property.
+   *
+   * @param value allowed object is {@link Top50NlObjectType.Identificatie }
+   */
+  public void setIdentificatie(Top50NlObjectType.Identificatie value) {
+    this.identificatie = value;
+  }
+
+  /**
+   * Gets the value of the objectBeginTijd property.
+   *
+   * @return possible object is {@link String }
+   */
+  public Calendar getObjectBeginTijd() {
+    return objectBeginTijd;
+  }
+
+  /**
+   * Sets the value of the objectBeginTijd property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setObjectBeginTijd(Calendar value) {
+    this.objectBeginTijd = value;
+  }
+
+  /**
+   * Gets the value of the objectEindTijd property.
+   *
+   * @return possible object is {@link String }
+   */
+  public Calendar getObjectEindTijd() {
+    return objectEindTijd;
+  }
+
+  /**
+   * Sets the value of the objectEindTijd property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setObjectEindTijd(Calendar value) {
+    this.objectEindTijd = value;
+  }
+
+  /**
+   * Gets the value of the brontype property.
+   *
+   * @return possible object is {@link TypeBronT50Type }
+   */
+  public TypeBronT50Type getBrontype() {
+    return brontype;
+  }
+
+  /**
+   * Sets the value of the brontype property.
+   *
+   * @param value allowed object is {@link TypeBronT50Type }
+   */
+  public void setBrontype(TypeBronT50Type value) {
+    this.brontype = value;
+  }
+
+  /**
+   * Gets the value of the bronbeschrijving property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getBronbeschrijving() {
+    return bronbeschrijving;
+  }
+
+  /**
+   * Sets the value of the bronbeschrijving property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBronbeschrijving(String value) {
+    this.bronbeschrijving = value;
+  }
+
+  /**
+   * Gets the value of the bronactualiteit property.
+   *
+   * @return possible object is {@link String }
+   */
+  public Calendar getBronactualiteit() {
+    return bronactualiteit;
+  }
+
+  /**
+   * Sets the value of the bronactualiteit property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBronactualiteit(Calendar value) {
+    this.bronactualiteit = value;
+  }
+
+  /**
+   * Gets the value of the tdnCode property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getTdnCode() {
+    return tdnCode;
+  }
+
+  /**
+   * Sets the value of the tdnCode property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setTdnCode(BigInteger value) {
+    this.tdnCode = value;
+  }
+
+  /**
+   * Gets the value of the visualisatieCode property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getVisualisatieCode() {
+    return visualisatieCode;
+  }
+
+  /**
+   * Sets the value of the visualisatieCode property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setVisualisatieCode(BigInteger value) {
+    this.visualisatieCode = value;
+  }
+
+  /**
+   * Java class for anonymous complex type.
+   *
+   * <p>The following schema fragment specifies the expected content contained within this class.
+   *
+   * <pre>
+   * &lt;complexType>
+   *   &lt;complexContent>
+   *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+   *       &lt;sequence>
+   *         &lt;element ref="{http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1}NEN3610ID"/>
+   *       &lt;/sequence>
+   *     &lt;/restriction>
+   *   &lt;/complexContent>
+   * &lt;/complexType>
+   * </pre>
+   */
+  @XmlAccessorType(XmlAccessType.FIELD)
+  @XmlType(
+      name = "",
+      propOrder = {"nen3610ID"})
+  public static class Identificatie {
+
+    @XmlElement(
+        name = "NEN3610ID",
+        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+        required = true)
+    protected NEN3610IDType nen3610ID;
 
     /**
-     * Gets the value of the identificatie property.
+     * Gets the value of the nen3610ID property.
      *
-     * @return possible object is {@link Top50NlObjectType.Identificatie }
+     * @return possible object is {@link NEN3610IDType }
      */
-    public Top50NlObjectType.Identificatie getIdentificatie() {
-        return identificatie;
+    public NEN3610IDType getNEN3610ID() {
+      return nen3610ID;
     }
 
     /**
-     * Sets the value of the identificatie property.
+     * Sets the value of the nen3610ID property.
      *
-     * @param value allowed object is {@link Top50NlObjectType.Identificatie }
+     * @param value allowed object is {@link NEN3610IDType }
      */
-    public void setIdentificatie(Top50NlObjectType.Identificatie value) {
-        this.identificatie = value;
+    public void setNEN3610ID(NEN3610IDType value) {
+      this.nen3610ID = value;
     }
-
-    /**
-     * Gets the value of the objectBeginTijd property.
-     *
-     * @return possible object is {@link String }
-     */
-    public Calendar getObjectBeginTijd() {
-        return objectBeginTijd;
-    }
-
-    /**
-     * Sets the value of the objectBeginTijd property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setObjectBeginTijd(Calendar value) {
-        this.objectBeginTijd = value;
-    }
-
-    /**
-     * Gets the value of the objectEindTijd property.
-     *
-     * @return possible object is {@link String }
-     */
-    public Calendar getObjectEindTijd() {
-        return objectEindTijd;
-    }
-
-    /**
-     * Sets the value of the objectEindTijd property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setObjectEindTijd(Calendar value) {
-        this.objectEindTijd = value;
-    }
-
-    /**
-     * Gets the value of the brontype property.
-     *
-     * @return possible object is {@link TypeBronT50Type }
-     */
-    public TypeBronT50Type getBrontype() {
-        return brontype;
-    }
-
-    /**
-     * Sets the value of the brontype property.
-     *
-     * @param value allowed object is {@link TypeBronT50Type }
-     */
-    public void setBrontype(TypeBronT50Type value) {
-        this.brontype = value;
-    }
-
-    /**
-     * Gets the value of the bronbeschrijving property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getBronbeschrijving() {
-        return bronbeschrijving;
-    }
-
-    /**
-     * Sets the value of the bronbeschrijving property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setBronbeschrijving(String value) {
-        this.bronbeschrijving = value;
-    }
-
-    /**
-     * Gets the value of the bronactualiteit property.
-     *
-     * @return possible object is {@link String }
-     */
-    public Calendar getBronactualiteit() {
-        return bronactualiteit;
-    }
-
-    /**
-     * Sets the value of the bronactualiteit property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setBronactualiteit(Calendar value) {
-        this.bronactualiteit = value;
-    }
-
-    /**
-     * Gets the value of the tdnCode property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getTdnCode() {
-        return tdnCode;
-    }
-
-    /**
-     * Sets the value of the tdnCode property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setTdnCode(BigInteger value) {
-        this.tdnCode = value;
-    }
-
-    /**
-     * Gets the value of the visualisatieCode property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getVisualisatieCode() {
-        return visualisatieCode;
-    }
-
-    /**
-     * Sets the value of the visualisatieCode property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setVisualisatieCode(BigInteger value) {
-        this.visualisatieCode = value;
-    }
-
-    /**
-     * Java class for anonymous complex type.
-     *
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     *
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1}NEN3610ID"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(
-            name = "",
-            propOrder = {"nen3610ID"})
-    public static class Identificatie {
-
-        @XmlElement(
-                name = "NEN3610ID",
-                namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-                required = true)
-        protected NEN3610IDType nen3610ID;
-
-        /**
-         * Gets the value of the nen3610ID property.
-         *
-         * @return possible object is {@link NEN3610IDType }
-         */
-        public NEN3610IDType getNEN3610ID() {
-            return nen3610ID;
-        }
-
-        /**
-         * Sets the value of the nen3610ID property.
-         *
-         * @param value allowed object is {@link NEN3610IDType }
-         */
-        public void setNEN3610ID(NEN3610IDType value) {
-            this.nen3610ID = value;
-        }
-    }
+  }
 }

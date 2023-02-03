@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTVlakOfMultivlakPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"brtVlakOfMultivlak"})
+    name = "BRTVlakOfMultivlakPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"brtVlakOfMultivlak"})
 public class BRTVlakOfMultivlakPropertyType {
 
-    @XmlElement(name = "BRTVlakOfMultivlak", required = true)
-    protected BRTVlakOfMultivlakType brtVlakOfMultivlak;
+  @XmlElement(name = "BRTVlakOfMultivlak", required = true)
+  protected BRTVlakOfMultivlakType brtVlakOfMultivlak;
 
-    /**
-     * Gets the value of the brtVlakOfMultivlak property.
-     *
-     * @return possible object is {@link BRTVlakOfMultivlakType }
-     */
-    public BRTVlakOfMultivlakType getBRTVlakOfMultivlak() {
-        return brtVlakOfMultivlak;
-    }
+  /**
+   * Gets the value of the brtVlakOfMultivlak property.
+   *
+   * @return possible object is {@link BRTVlakOfMultivlakType }
+   */
+  public BRTVlakOfMultivlakType getBRTVlakOfMultivlak() {
+    return brtVlakOfMultivlak;
+  }
 
-    /**
-     * Sets the value of the brtVlakOfMultivlak property.
-     *
-     * @param value allowed object is {@link BRTVlakOfMultivlakType }
-     */
-    public void setBRTVlakOfMultivlak(BRTVlakOfMultivlakType value) {
-        this.brtVlakOfMultivlak = value;
-    }
+  /**
+   * Sets the value of the brtVlakOfMultivlak property.
+   *
+   * @param value allowed object is {@link BRTVlakOfMultivlakType }
+   */
+  public void setBRTVlakOfMultivlak(BRTVlakOfMultivlakType value) {
+    this.brtVlakOfMultivlak = value;
+  }
 }

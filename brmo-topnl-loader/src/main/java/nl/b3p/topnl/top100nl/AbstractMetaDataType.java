@@ -10,7 +10,6 @@ package nl.b3p.topnl.top100nl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -40,55 +39,55 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "AbstractMetaDataType",
-        propOrder = {"content"})
+    name = "AbstractMetaDataType",
+    propOrder = {"content"})
 public abstract class AbstractMetaDataType {
 
-    @XmlMixed protected List<String> content;
+  @XmlMixed protected List<String> content;
 
-    @XmlAttribute(name = "id", namespace = "http://www.opengis.net/gml/3.2")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlID
-    @XmlSchemaType(name = "ID")
-    protected String id;
+  @XmlAttribute(name = "id", namespace = "http://www.opengis.net/gml/3.2")
+  @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+  @XmlID
+  @XmlSchemaType(name = "ID")
+  protected String id;
 
-    /**
-     * Gets the value of the content property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the content property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getContent().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getContent() {
-        if (content == null) {
-            content = new ArrayList<String>();
-        }
-        return this.content;
+  /**
+   * Gets the value of the content property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the content property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getContent().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getContent() {
+    if (content == null) {
+      content = new ArrayList<String>();
     }
+    return this.content;
+  }
 
-    /**
-     * Gets the value of the id property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getId() {
-        return id;
-    }
+  /**
+   * Gets the value of the id property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getId() {
+    return id;
+  }
 
-    /**
-     * Sets the value of the id property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setId(String value) {
-        this.id = value;
-    }
+  /**
+   * Sets the value of the id property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setId(String value) {
+    this.id = value;
+  }
 }

@@ -34,40 +34,40 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "HoofdverkeersgebruikT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "HoofdverkeersgebruikT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum HoofdverkeersgebruikT100Type {
-    @XmlEnumValue("snelverkeer")
-    SNELVERKEER("snelverkeer"),
-    @XmlEnumValue("gemengd verkeer")
-    GEMENGD_VERKEER("gemengd verkeer"),
-    @XmlEnumValue("busverkeer")
-    BUSVERKEER("busverkeer"),
-    @XmlEnumValue("fietsers, bromfietsers")
-    FIETSERS_BROMFIETSERS("fietsers, bromfietsers"),
-    @XmlEnumValue("voetgangers")
-    VOETGANGERS("voetgangers"),
-    @XmlEnumValue("vliegverkeer")
-    VLIEGVERKEER("vliegverkeer"),
-    @XmlEnumValue("overig")
-    OVERIG("overig");
-    private final String value;
+  @XmlEnumValue("snelverkeer")
+  SNELVERKEER("snelverkeer"),
+  @XmlEnumValue("gemengd verkeer")
+  GEMENGD_VERKEER("gemengd verkeer"),
+  @XmlEnumValue("busverkeer")
+  BUSVERKEER("busverkeer"),
+  @XmlEnumValue("fietsers, bromfietsers")
+  FIETSERS_BROMFIETSERS("fietsers, bromfietsers"),
+  @XmlEnumValue("voetgangers")
+  VOETGANGERS("voetgangers"),
+  @XmlEnumValue("vliegverkeer")
+  VLIEGVERKEER("vliegverkeer"),
+  @XmlEnumValue("overig")
+  OVERIG("overig");
+  private final String value;
 
-    HoofdverkeersgebruikT100Type(String v) {
-        value = v;
-    }
+  HoofdverkeersgebruikT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static HoofdverkeersgebruikT100Type fromValue(String v) {
-        for (HoofdverkeersgebruikT100Type c : HoofdverkeersgebruikT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static HoofdverkeersgebruikT100Type fromValue(String v) {
+    for (HoofdverkeersgebruikT100Type c : HoofdverkeersgebruikT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

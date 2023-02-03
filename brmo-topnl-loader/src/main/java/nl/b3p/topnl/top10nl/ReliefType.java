@@ -8,15 +8,13 @@
 
 package nl.b3p.topnl.top10nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for ReliefType complex type.
@@ -42,136 +40,136 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "ReliefType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
-        propOrder = {
-            "typeRelief",
-            "hoogteklasse",
-            "hoogteniveau",
-            "functie",
-            "lijnGeometrie",
-            "taludGeometrie"
-        })
+    name = "ReliefType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
+    propOrder = {
+      "typeRelief",
+      "hoogteklasse",
+      "hoogteniveau",
+      "functie",
+      "lijnGeometrie",
+      "taludGeometrie"
+    })
 public class ReliefType extends Top10NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeRelief;
+  @XmlElement(required = true)
+  protected CodeType typeRelief;
 
-    @XmlElement(required = true)
-    protected CodeType hoogteklasse;
+  @XmlElement(required = true)
+  protected CodeType hoogteklasse;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteniveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteniveau;
 
-    protected CodeType functie;
-    @XmlAnyElement protected Element lijnGeometrie;
-    protected BRTHogeEnLageZijdePropertyType taludGeometrie;
+  protected CodeType functie;
+  @XmlAnyElement protected Element lijnGeometrie;
+  protected BRTHogeEnLageZijdePropertyType taludGeometrie;
 
-    /**
-     * Gets the value of the typeRelief property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeRelief() {
-        return typeRelief;
-    }
+  /**
+   * Gets the value of the typeRelief property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeRelief() {
+    return typeRelief;
+  }
 
-    /**
-     * Sets the value of the typeRelief property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeRelief(CodeType value) {
-        this.typeRelief = value;
-    }
+  /**
+   * Sets the value of the typeRelief property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeRelief(CodeType value) {
+    this.typeRelief = value;
+  }
 
-    /**
-     * Gets the value of the hoogteklasse property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getHoogteklasse() {
-        return hoogteklasse;
-    }
+  /**
+   * Gets the value of the hoogteklasse property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getHoogteklasse() {
+    return hoogteklasse;
+  }
 
-    /**
-     * Sets the value of the hoogteklasse property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setHoogteklasse(CodeType value) {
-        this.hoogteklasse = value;
-    }
+  /**
+   * Sets the value of the hoogteklasse property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setHoogteklasse(CodeType value) {
+    this.hoogteklasse = value;
+  }
 
-    /**
-     * Gets the value of the hoogteniveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteniveau() {
-        return hoogteniveau;
-    }
+  /**
+   * Gets the value of the hoogteniveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    /**
-     * Sets the value of the hoogteniveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteniveau(BigInteger value) {
-        this.hoogteniveau = value;
-    }
+  /**
+   * Sets the value of the hoogteniveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteniveau(BigInteger value) {
+    this.hoogteniveau = value;
+  }
 
-    /**
-     * Gets the value of the functie property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getFunctie() {
-        return functie;
-    }
+  /**
+   * Gets the value of the functie property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getFunctie() {
+    return functie;
+  }
 
-    /**
-     * Sets the value of the functie property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setFunctie(CodeType value) {
-        this.functie = value;
-    }
+  /**
+   * Sets the value of the functie property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setFunctie(CodeType value) {
+    this.functie = value;
+  }
 
-    /**
-     * Gets the value of the lijnGeometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getLijnGeometrie() {
-        return lijnGeometrie;
-    }
+  /**
+   * Gets the value of the lijnGeometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getLijnGeometrie() {
+    return lijnGeometrie;
+  }
 
-    /**
-     * Sets the value of the lijnGeometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setLijnGeometrie(Element value) {
-        this.lijnGeometrie = value;
-    }
+  /**
+   * Sets the value of the lijnGeometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setLijnGeometrie(Element value) {
+    this.lijnGeometrie = value;
+  }
 
-    /**
-     * Gets the value of the taludGeometrie property.
-     *
-     * @return possible object is {@link BRTHogeEnLageZijdePropertyType }
-     */
-    public BRTHogeEnLageZijdePropertyType getTaludGeometrie() {
-        return taludGeometrie;
-    }
+  /**
+   * Gets the value of the taludGeometrie property.
+   *
+   * @return possible object is {@link BRTHogeEnLageZijdePropertyType }
+   */
+  public BRTHogeEnLageZijdePropertyType getTaludGeometrie() {
+    return taludGeometrie;
+  }
 
-    /**
-     * Sets the value of the taludGeometrie property.
-     *
-     * @param value allowed object is {@link BRTHogeEnLageZijdePropertyType }
-     */
-    public void setTaludGeometrie(BRTHogeEnLageZijdePropertyType value) {
-        this.taludGeometrie = value;
-    }
+  /**
+   * Sets the value of the taludGeometrie property.
+   *
+   * @param value allowed object is {@link BRTHogeEnLageZijdePropertyType }
+   */
+  public void setTaludGeometrie(BRTHogeEnLageZijdePropertyType value) {
+    this.taludGeometrie = value;
+  }
 }

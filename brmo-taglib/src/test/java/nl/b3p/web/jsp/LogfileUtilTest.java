@@ -18,10 +18,9 @@ package nl.b3p.web.jsp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 /**
  * testcases voor {@link LogfileUtil}.
@@ -30,26 +29,26 @@ import java.util.List;
  */
 public class LogfileUtilTest {
 
-    @Test
-    public void testGetLogFile() {
-        String l = LogfileUtil.getLogfile();
-        assertNotNull(l);
-        assertEquals(getTestFileName(), l);
-    }
+  @Test
+  public void testGetLogFile() {
+    String l = LogfileUtil.getLogfile();
+    assertNotNull(l);
+    assertEquals(getTestFileName(), l);
+  }
 
-    @Test
-    public void getLogfileList() {
-        List<String> l = LogfileUtil.getLogfileList();
-        assertNotNull(l);
-        assertFalse(l.isEmpty());
-        assertEquals(getTestFileName(), l.get(0));
-    }
+  @Test
+  public void getLogfileList() {
+    List<String> l = LogfileUtil.getLogfileList();
+    assertNotNull(l);
+    assertFalse(l.isEmpty());
+    assertEquals(getTestFileName(), l.get(0));
+  }
 
-    private String getTestFileName() {
-        String s = System.getProperty("java.io.tmpdir");
-        if (s.endsWith(File.separator)) {
-            s = s.substring(0, s.length() - 1);
-        }
-        return s + File.separator + "LogfileUtilTest.log";
+  private String getTestFileName() {
+    String s = System.getProperty("java.io.tmpdir");
+    if (s.endsWith(File.separator)) {
+      s = s.substring(0, s.length() - 1);
     }
+    return s + File.separator + "LogfileUtilTest.log";
+  }
 }

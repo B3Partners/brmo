@@ -10,17 +10,17 @@ package nl.b3p.brmo.loader.util;
  */
 public class BrmoLeegBestandException extends BrmoException {
 
-    public BrmoLeegBestandException() {}
+  public BrmoLeegBestandException() {}
 
-    public BrmoLeegBestandException(String message) {
-        super(message);
-    }
+  public BrmoLeegBestandException(String message) {
+    super(message);
+  }
 
-    public BrmoLeegBestandException(Throwable cause) {
-        super(cause);
-    }
+  public BrmoLeegBestandException(Throwable cause) {
+    super(cause);
+  }
 
-    public BrmoLeegBestandException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public BrmoLeegBestandException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

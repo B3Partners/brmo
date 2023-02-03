@@ -3,84 +3,82 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import org.hibernate.annotations.Type;
-
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.*;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "nhr_laadproces")
 public class NHRInschrijving implements Serializable {
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date datum;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date datum;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date laatstGeprobeerd;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date laatstGeprobeerd;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date volgendProberen;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date volgendProberen;
 
-    private Integer probeerAantal;
+  private Integer probeerAantal;
 
-    @Id
-    @Column(nullable = false)
-    private String kvkNummer;
+  @Id
+  @Column(nullable = false)
+  private String kvkNummer;
 
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    private String exception;
+  @Lob
+  @Type(type = "org.hibernate.type.TextType")
+  private String exception;
 
-    // <editor-fold defaultstate="collapsed" desc="getters and setters">
-    public Date getDatum() {
-        return datum;
-    }
+  // <editor-fold defaultstate="collapsed" desc="getters and setters">
+  public Date getDatum() {
+    return datum;
+  }
 
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
+  public void setDatum(Date datum) {
+    this.datum = datum;
+  }
 
-    public Date getLaatstGeprobeerd() {
-        return laatstGeprobeerd;
-    }
+  public Date getLaatstGeprobeerd() {
+    return laatstGeprobeerd;
+  }
 
-    public void setLaatstGeprobeerd(Date laatstGeprobeerd) {
-        this.laatstGeprobeerd = laatstGeprobeerd;
-    }
+  public void setLaatstGeprobeerd(Date laatstGeprobeerd) {
+    this.laatstGeprobeerd = laatstGeprobeerd;
+  }
 
-    public Date getVolgendProberen() {
-        return volgendProberen;
-    }
+  public Date getVolgendProberen() {
+    return volgendProberen;
+  }
 
-    public void setVolgendProberen(Date volgendProberen) {
-        this.volgendProberen = volgendProberen;
-    }
+  public void setVolgendProberen(Date volgendProberen) {
+    this.volgendProberen = volgendProberen;
+  }
 
-    public Integer getProbeerAantal() {
-        return probeerAantal;
-    }
+  public Integer getProbeerAantal() {
+    return probeerAantal;
+  }
 
-    public void setProbeerAantal(Integer probeerAantal) {
-        this.probeerAantal = probeerAantal;
-    }
+  public void setProbeerAantal(Integer probeerAantal) {
+    this.probeerAantal = probeerAantal;
+  }
 
-    public String getKvkNummer() {
-        return kvkNummer;
-    }
+  public String getKvkNummer() {
+    return kvkNummer;
+  }
 
-    public void setKvkNummer(String kvkNummer) {
-        this.kvkNummer = kvkNummer;
-    }
+  public void setKvkNummer(String kvkNummer) {
+    this.kvkNummer = kvkNummer;
+  }
 
-    public String getException() {
-        return exception;
-    }
+  public String getException() {
+    return exception;
+  }
 
-    public void setException(String exception) {
-        this.exception = exception;
-    }
+  public void setException(String exception) {
+    this.exception = exception;
+  }
 
-    // </editor-fold>
+  // </editor-fold>
 }

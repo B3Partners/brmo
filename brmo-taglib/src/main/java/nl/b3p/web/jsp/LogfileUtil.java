@@ -16,13 +16,6 @@
  */
 package nl.b3p.web.jsp;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -32,61 +25,66 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Appender;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
 
-/** @author mprins */
+/**
+ * @author mprins
+ */
 public final class LogfileUtil {
 
-    private static final Log LOG = LogFactory.getLog(LogfileUtil.class);
+  private static final Log LOG = LogFactory.getLog(LogfileUtil.class);
 
-    /**
-     * opzoeken van log file, de logger heeft de naam 'file' in de log4j properties.
-     *
-     * @return volledig pad naar actuele logfile 'file', mogelijk null. Het pad is de string die
-     *     geconfigureerd is in de log4j properties
-     */
-    public static String getLogfile() {
-        String file = null;
-        Enumeration e = Logger.getRootLogger().getAllAppenders();
-        while (e.hasMoreElements()) {
-            Appender a = (Appender) e.nextElement();
-            if (a instanceof FileAppender && a.getName() != null && a.getName().equals("file")) {
-                LOG.debug("Gevonden logfile (naam): " + ((FileAppender) a).getFile());
-                file = ((FileAppender) a).getFile();
-                break;
-            }
-        }
-        File f = new File(file);
-        return f.getAbsolutePath();
+  /**
+   * opzoeken van log file, de logger heeft de naam 'file' in de log4j properties.
+   *
+   * @return volledig pad naar actuele logfile 'file', mogelijk null. Het pad is de string die
+   *     geconfigureerd is in de log4j properties
+   */
+  public static String getLogfile() {
+    String file = null;
+    Enumeration e = Logger.getRootLogger().getAllAppenders();
+    while (e.hasMoreElements()) {
+      Appender a = (Appender) e.nextElement();
+      if (a instanceof FileAppender && a.getName() != null && a.getName().equals("file")) {
+        LOG.debug("Gevonden logfile (naam): " + ((FileAppender) a).getFile());
+        file = ((FileAppender) a).getFile();
+        break;
+      }
     }
+    File f = new File(file);
+    return f.getAbsolutePath();
+  }
 
-    /**
-     * zoek alle logfiles, ook geroteerde, op aan de hand van de basename van de actuele logfile.
-     *
-     * @return lijst met logfile namen incl. pad
-     * @see #getLogfile()
-     */
-    public static List<String> getLogfileList() {
-        List<String> files = new ArrayList<>();
-        // opzoeken van brmo log files, de logger heeft de naam 'file' in de log4j properties
-        final File f = new File(getLogfile());
+  /**
+   * zoek alle logfiles, ook geroteerde, op aan de hand van de basename van de actuele logfile.
+   *
+   * @return lijst met logfile namen incl. pad
+   * @see #getLogfile()
+   */
+  public static List<String> getLogfileList() {
+    List<String> files = new ArrayList<>();
+    // opzoeken van brmo log files, de logger heeft de naam 'file' in de log4j properties
+    final File f = new File(getLogfile());
 
-        // filter op basename van actuele logfile zodat geroteerde files ook in de lijst komen
-        DirectoryStream.Filter<Path> filter =
-                (Path p) ->
-                        (p.getFileName()
-                                .toString()
-                                .startsWith(FilenameUtils.getBaseName(f.getName())));
+    // filter op basename van actuele logfile zodat geroteerde files ook in de lijst komen
+    DirectoryStream.Filter<Path> filter =
+        (Path p) -> (p.getFileName().toString().startsWith(FilenameUtils.getBaseName(f.getName())));
 
-        try (DirectoryStream<Path> directoryStream =
-                Files.newDirectoryStream(Paths.get(f.getParent()), filter)) {
-            for (Path path : directoryStream) {
-                files.add(path.toString());
-            }
-        } catch (IOException ioe) {
-            LOG.warn("Lijst van logfiles ophalen is mislukt.", ioe);
-        }
-        return files;
+    try (DirectoryStream<Path> directoryStream =
+        Files.newDirectoryStream(Paths.get(f.getParent()), filter)) {
+      for (Path path : directoryStream) {
+        files.add(path.toString());
+      }
+    } catch (IOException ioe) {
+      LOG.warn("Lijst van logfiles ophalen is mislukt.", ioe);
     }
+    return files;
+  }
 
-    private LogfileUtil() {}
+  private LogfileUtil() {}
 }

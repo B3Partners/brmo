@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "VlakMultivlakOfPuntPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"vlakMultivlakOfPunt"})
+    name = "VlakMultivlakOfPuntPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"vlakMultivlakOfPunt"})
 public class VlakMultivlakOfPuntPropertyType {
 
-    @XmlElement(name = "VlakMultivlakOfPunt", required = true)
-    protected VlakMultivlakOfPuntType vlakMultivlakOfPunt;
+  @XmlElement(name = "VlakMultivlakOfPunt", required = true)
+  protected VlakMultivlakOfPuntType vlakMultivlakOfPunt;
 
-    /**
-     * Gets the value of the vlakMultivlakOfPunt property.
-     *
-     * @return possible object is {@link VlakMultivlakOfPuntType }
-     */
-    public VlakMultivlakOfPuntType getVlakMultivlakOfPunt() {
-        return vlakMultivlakOfPunt;
-    }
+  /**
+   * Gets the value of the vlakMultivlakOfPunt property.
+   *
+   * @return possible object is {@link VlakMultivlakOfPuntType }
+   */
+  public VlakMultivlakOfPuntType getVlakMultivlakOfPunt() {
+    return vlakMultivlakOfPunt;
+  }
 
-    /**
-     * Sets the value of the vlakMultivlakOfPunt property.
-     *
-     * @param value allowed object is {@link VlakMultivlakOfPuntType }
-     */
-    public void setVlakMultivlakOfPunt(VlakMultivlakOfPuntType value) {
-        this.vlakMultivlakOfPunt = value;
-    }
+  /**
+   * Sets the value of the vlakMultivlakOfPunt property.
+   *
+   * @param value allowed object is {@link VlakMultivlakOfPuntType }
+   */
+  public void setVlakMultivlakOfPunt(VlakMultivlakOfPuntType value) {
+    this.vlakMultivlakOfPunt = value;
+  }
 }

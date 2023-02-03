@@ -10,13 +10,13 @@ package nl.b3p.brmo.bag2.loader;
 import javax.xml.stream.Location;
 
 public class BAG2Mutatie {
-    private Location location;
+  private Location location;
 
-    BAG2Mutatie(Location location) {
-        this.location = location;
-    }
+  BAG2Mutatie(Location location) {
+    this.location = location;
+  }
 
-    public Location getLocation() {
-        return location;
-    }
+  public Location getLocation() {
+    return location;
+  }
 }

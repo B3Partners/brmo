@@ -34,40 +34,40 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "FysiekVoorkomenWaterT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "FysiekVoorkomenWaterT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum FysiekVoorkomenWaterT50Type {
-    @XmlEnumValue("in sluis")
-    IN_SLUIS("in sluis"),
-    @XmlEnumValue("op brug")
-    OP_BRUG("op brug"),
-    @XmlEnumValue("in duiker")
-    IN_DUIKER("in duiker"),
-    @XmlEnumValue("in afsluitbare duiker")
-    IN_AFSLUITBARE_DUIKER("in afsluitbare duiker"),
-    @XmlEnumValue("in grondduiker")
-    IN_GRONDDUIKER("in grondduiker"),
-    @XmlEnumValue("in afsluitbare grondduiker")
-    IN_AFSLUITBARE_GRONDDUIKER("in afsluitbare grondduiker"),
-    @XmlEnumValue("overkluisd")
-    OVERKLUISD("overkluisd");
-    private final String value;
+  @XmlEnumValue("in sluis")
+  IN_SLUIS("in sluis"),
+  @XmlEnumValue("op brug")
+  OP_BRUG("op brug"),
+  @XmlEnumValue("in duiker")
+  IN_DUIKER("in duiker"),
+  @XmlEnumValue("in afsluitbare duiker")
+  IN_AFSLUITBARE_DUIKER("in afsluitbare duiker"),
+  @XmlEnumValue("in grondduiker")
+  IN_GRONDDUIKER("in grondduiker"),
+  @XmlEnumValue("in afsluitbare grondduiker")
+  IN_AFSLUITBARE_GRONDDUIKER("in afsluitbare grondduiker"),
+  @XmlEnumValue("overkluisd")
+  OVERKLUISD("overkluisd");
+  private final String value;
 
-    FysiekVoorkomenWaterT50Type(String v) {
-        value = v;
-    }
+  FysiekVoorkomenWaterT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static FysiekVoorkomenWaterT50Type fromValue(String v) {
-        for (FysiekVoorkomenWaterT50Type c : FysiekVoorkomenWaterT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static FysiekVoorkomenWaterT50Type fromValue(String v) {
+    for (FysiekVoorkomenWaterT50Type c : FysiekVoorkomenWaterT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

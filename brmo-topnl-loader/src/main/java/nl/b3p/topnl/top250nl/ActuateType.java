@@ -33,30 +33,30 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "actuateType", namespace = "http://www.w3.org/1999/xlink")
 @XmlEnum
 public enum ActuateType {
-    @XmlEnumValue("onLoad")
-    ON_LOAD("onLoad"),
-    @XmlEnumValue("onRequest")
-    ON_REQUEST("onRequest"),
-    @XmlEnumValue("other")
-    OTHER("other"),
-    @XmlEnumValue("none")
-    NONE("none");
-    private final String value;
+  @XmlEnumValue("onLoad")
+  ON_LOAD("onLoad"),
+  @XmlEnumValue("onRequest")
+  ON_REQUEST("onRequest"),
+  @XmlEnumValue("other")
+  OTHER("other"),
+  @XmlEnumValue("none")
+  NONE("none");
+  private final String value;
 
-    ActuateType(String v) {
-        value = v;
-    }
+  ActuateType(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static ActuateType fromValue(String v) {
-        for (ActuateType c : ActuateType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static ActuateType fromValue(String v) {
+    for (ActuateType c : ActuateType.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

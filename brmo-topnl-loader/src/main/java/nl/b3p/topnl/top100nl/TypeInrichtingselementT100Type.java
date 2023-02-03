@@ -87,146 +87,146 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeInrichtingselementT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeInrichtingselementT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeInrichtingselementT100Type {
-    @XmlEnumValue("aanlegsteiger")
-    AANLEGSTEIGER("aanlegsteiger"),
-    @XmlEnumValue("baak")
-    BAAK("baak"),
-    @XmlEnumValue("bomenrij")
-    BOMENRIJ("bomenrij"),
-    @XmlEnumValue("boom")
-    BOOM("boom"),
-    @XmlEnumValue("boortoren")
-    BOORTOREN("boortoren"),
-    @XmlEnumValue("brug")
-    BRUG("brug"),
-    @XmlEnumValue("dam, koedam")
-    DAM_KOEDAM("dam, koedam"),
-    @XmlEnumValue("dukdalf")
-    DUKDALF("dukdalf"),
-    @XmlEnumValue("gedenkteken, monument")
-    GEDENKTEKEN_MONUMENT("gedenkteken, monument"),
-    @XmlEnumValue("geluidswering")
-    GELUIDSWERING("geluidswering"),
-    @XmlEnumValue("golfmeetpaal")
-    GOLFMEETPAAL("golfmeetpaal"),
-    @XmlEnumValue("GPS kernnetpunt")
-    GPS_KERNNETPUNT("GPS kernnetpunt"),
-    @XmlEnumValue("grenspunt")
-    GRENSPUNT("grenspunt"),
-    @XmlEnumValue("heg, haag")
-    HEG_HAAG("heg, haag"),
-    @XmlEnumValue("hekwerk")
-    HEKWERK("hekwerk"),
-    @XmlEnumValue("helikopterlandingsplatform")
-    HELIKOPTERLANDINGSPLATFORM("helikopterlandingsplatform"),
-    @XmlEnumValue("hoogspanningsleiding")
-    HOOGSPANNINGSLEIDING("hoogspanningsleiding"),
-    @XmlEnumValue("hoogspanningsmast")
-    HOOGSPANNINGSMAST("hoogspanningsmast"),
-    @XmlEnumValue("hunebed")
-    HUNEBED("hunebed"),
-    @XmlEnumValue("kaap")
-    KAAP("kaap"),
-    @XmlEnumValue("kabelbaan")
-    KABELBAAN("kabelbaan"),
-    @XmlEnumValue("kabelbaanmast")
-    KABELBAANMAST("kabelbaanmast"),
-    @XmlEnumValue("kilometerpaal")
-    KILOMETERPAAL("kilometerpaal"),
-    @XmlEnumValue("kilometerpaal spoorweg")
-    KILOMETERPAAL_SPOORWEG("kilometerpaal spoorweg"),
-    @XmlEnumValue("kilometerpaal water")
-    KILOMETERPAAL_WATER("kilometerpaal water"),
-    @XmlEnumValue("kilometerraaibord")
-    KILOMETERRAAIBORD("kilometerraaibord"),
-    @XmlEnumValue("kilometerraaipaal")
-    KILOMETERRAAIPAAL("kilometerraaipaal"),
-    @XmlEnumValue("kruis")
-    KRUIS("kruis"),
-    @XmlEnumValue("laadperron")
-    LAADPERRON("laadperron"),
-    @XmlEnumValue("licht, lichtopstand")
-    LICHT_LICHTOPSTAND("licht, lichtopstand"),
-    @XmlEnumValue("markant object")
-    MARKANT_OBJECT("markant object"),
-    @XmlEnumValue("muur")
-    MUUR("muur"),
-    @XmlEnumValue("oliepompinstallatie")
-    OLIEPOMPINSTALLATIE("oliepompinstallatie"),
-    @XmlEnumValue("paal")
-    PAAL("paal"),
-    @XmlEnumValue("paalwerk")
-    PAALWERK("paalwerk"),
-    @XmlEnumValue("peilschaal")
-    PEILSCHAAL("peilschaal"),
-    @XmlEnumValue("pijler")
-    PIJLER("pijler"),
-    @XmlEnumValue("radarpost")
-    RADARPOST("radarpost"),
-    @XmlEnumValue("radiotelescoop")
-    RADIOTELESCOOP("radiotelescoop"),
-    @XmlEnumValue("RD punt")
-    RD_PUNT("RD punt"),
-    @XmlEnumValue("recreatiepier")
-    RECREATIEPIER("recreatiepier"),
-    @XmlEnumValue("schietbaan")
-    SCHIETBAAN("schietbaan"),
-    @XmlEnumValue("schoorsteen")
-    SCHOORSTEEN("schoorsteen"),
-    @XmlEnumValue("seinmast")
-    SEINMAST("seinmast"),
-    @XmlEnumValue("sluisdeur")
-    SLUISDEUR("sluisdeur"),
-    @XmlEnumValue("station")
-    STATION("station"),
-    @XmlEnumValue("stormvloedkering")
-    STORMVLOEDKERING("stormvloedkering"),
-    @XmlEnumValue("strandpaal")
-    STRANDPAAL("strandpaal"),
-    @XmlEnumValue("strekdam, krib, golfbreker")
-    STREKDAM_KRIB_GOLFBREKER("strekdam, krib, golfbreker"),
-    @XmlEnumValue("stuw")
-    STUW("stuw"),
-    @XmlEnumValue("tol")
-    TOL("tol"),
-    @XmlEnumValue("toren")
-    TOREN("toren"),
-    @XmlEnumValue("verkeersgeleider")
-    VERKEERSGELEIDER("verkeersgeleider"),
-    @XmlEnumValue("vlampijp")
-    VLAMPIJP("vlampijp"),
-    @XmlEnumValue("wegafsluiting")
-    WEGAFSLUITING("wegafsluiting"),
-    @XmlEnumValue("wegwijzer")
-    WEGWIJZER("wegwijzer"),
-    @XmlEnumValue("windmolentje")
-    WINDMOLENTJE("windmolentje"),
-    @XmlEnumValue("windturbine")
-    WINDTURBINE("windturbine"),
-    @XmlEnumValue("zendmast")
-    ZENDMAST("zendmast"),
-    @XmlEnumValue("overig")
-    OVERIG("overig");
-    private final String value;
+  @XmlEnumValue("aanlegsteiger")
+  AANLEGSTEIGER("aanlegsteiger"),
+  @XmlEnumValue("baak")
+  BAAK("baak"),
+  @XmlEnumValue("bomenrij")
+  BOMENRIJ("bomenrij"),
+  @XmlEnumValue("boom")
+  BOOM("boom"),
+  @XmlEnumValue("boortoren")
+  BOORTOREN("boortoren"),
+  @XmlEnumValue("brug")
+  BRUG("brug"),
+  @XmlEnumValue("dam, koedam")
+  DAM_KOEDAM("dam, koedam"),
+  @XmlEnumValue("dukdalf")
+  DUKDALF("dukdalf"),
+  @XmlEnumValue("gedenkteken, monument")
+  GEDENKTEKEN_MONUMENT("gedenkteken, monument"),
+  @XmlEnumValue("geluidswering")
+  GELUIDSWERING("geluidswering"),
+  @XmlEnumValue("golfmeetpaal")
+  GOLFMEETPAAL("golfmeetpaal"),
+  @XmlEnumValue("GPS kernnetpunt")
+  GPS_KERNNETPUNT("GPS kernnetpunt"),
+  @XmlEnumValue("grenspunt")
+  GRENSPUNT("grenspunt"),
+  @XmlEnumValue("heg, haag")
+  HEG_HAAG("heg, haag"),
+  @XmlEnumValue("hekwerk")
+  HEKWERK("hekwerk"),
+  @XmlEnumValue("helikopterlandingsplatform")
+  HELIKOPTERLANDINGSPLATFORM("helikopterlandingsplatform"),
+  @XmlEnumValue("hoogspanningsleiding")
+  HOOGSPANNINGSLEIDING("hoogspanningsleiding"),
+  @XmlEnumValue("hoogspanningsmast")
+  HOOGSPANNINGSMAST("hoogspanningsmast"),
+  @XmlEnumValue("hunebed")
+  HUNEBED("hunebed"),
+  @XmlEnumValue("kaap")
+  KAAP("kaap"),
+  @XmlEnumValue("kabelbaan")
+  KABELBAAN("kabelbaan"),
+  @XmlEnumValue("kabelbaanmast")
+  KABELBAANMAST("kabelbaanmast"),
+  @XmlEnumValue("kilometerpaal")
+  KILOMETERPAAL("kilometerpaal"),
+  @XmlEnumValue("kilometerpaal spoorweg")
+  KILOMETERPAAL_SPOORWEG("kilometerpaal spoorweg"),
+  @XmlEnumValue("kilometerpaal water")
+  KILOMETERPAAL_WATER("kilometerpaal water"),
+  @XmlEnumValue("kilometerraaibord")
+  KILOMETERRAAIBORD("kilometerraaibord"),
+  @XmlEnumValue("kilometerraaipaal")
+  KILOMETERRAAIPAAL("kilometerraaipaal"),
+  @XmlEnumValue("kruis")
+  KRUIS("kruis"),
+  @XmlEnumValue("laadperron")
+  LAADPERRON("laadperron"),
+  @XmlEnumValue("licht, lichtopstand")
+  LICHT_LICHTOPSTAND("licht, lichtopstand"),
+  @XmlEnumValue("markant object")
+  MARKANT_OBJECT("markant object"),
+  @XmlEnumValue("muur")
+  MUUR("muur"),
+  @XmlEnumValue("oliepompinstallatie")
+  OLIEPOMPINSTALLATIE("oliepompinstallatie"),
+  @XmlEnumValue("paal")
+  PAAL("paal"),
+  @XmlEnumValue("paalwerk")
+  PAALWERK("paalwerk"),
+  @XmlEnumValue("peilschaal")
+  PEILSCHAAL("peilschaal"),
+  @XmlEnumValue("pijler")
+  PIJLER("pijler"),
+  @XmlEnumValue("radarpost")
+  RADARPOST("radarpost"),
+  @XmlEnumValue("radiotelescoop")
+  RADIOTELESCOOP("radiotelescoop"),
+  @XmlEnumValue("RD punt")
+  RD_PUNT("RD punt"),
+  @XmlEnumValue("recreatiepier")
+  RECREATIEPIER("recreatiepier"),
+  @XmlEnumValue("schietbaan")
+  SCHIETBAAN("schietbaan"),
+  @XmlEnumValue("schoorsteen")
+  SCHOORSTEEN("schoorsteen"),
+  @XmlEnumValue("seinmast")
+  SEINMAST("seinmast"),
+  @XmlEnumValue("sluisdeur")
+  SLUISDEUR("sluisdeur"),
+  @XmlEnumValue("station")
+  STATION("station"),
+  @XmlEnumValue("stormvloedkering")
+  STORMVLOEDKERING("stormvloedkering"),
+  @XmlEnumValue("strandpaal")
+  STRANDPAAL("strandpaal"),
+  @XmlEnumValue("strekdam, krib, golfbreker")
+  STREKDAM_KRIB_GOLFBREKER("strekdam, krib, golfbreker"),
+  @XmlEnumValue("stuw")
+  STUW("stuw"),
+  @XmlEnumValue("tol")
+  TOL("tol"),
+  @XmlEnumValue("toren")
+  TOREN("toren"),
+  @XmlEnumValue("verkeersgeleider")
+  VERKEERSGELEIDER("verkeersgeleider"),
+  @XmlEnumValue("vlampijp")
+  VLAMPIJP("vlampijp"),
+  @XmlEnumValue("wegafsluiting")
+  WEGAFSLUITING("wegafsluiting"),
+  @XmlEnumValue("wegwijzer")
+  WEGWIJZER("wegwijzer"),
+  @XmlEnumValue("windmolentje")
+  WINDMOLENTJE("windmolentje"),
+  @XmlEnumValue("windturbine")
+  WINDTURBINE("windturbine"),
+  @XmlEnumValue("zendmast")
+  ZENDMAST("zendmast"),
+  @XmlEnumValue("overig")
+  OVERIG("overig");
+  private final String value;
 
-    TypeInrichtingselementT100Type(String v) {
-        value = v;
-    }
+  TypeInrichtingselementT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeInrichtingselementT100Type fromValue(String v) {
-        for (TypeInrichtingselementT100Type c : TypeInrichtingselementT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeInrichtingselementT100Type fromValue(String v) {
+    for (TypeInrichtingselementT100Type c : TypeInrichtingselementT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

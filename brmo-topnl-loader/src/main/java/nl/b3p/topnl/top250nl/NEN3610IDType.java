@@ -33,50 +33,50 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "NEN3610IDType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"namespace", "lokaalID"})
+    name = "NEN3610IDType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"namespace", "lokaalID"})
 public class NEN3610IDType {
 
-    @XmlElement(required = true)
-    protected String namespace;
+  @XmlElement(required = true)
+  protected String namespace;
 
-    @XmlElement(required = true)
-    protected String lokaalID;
+  @XmlElement(required = true)
+  protected String lokaalID;
 
-    /**
-     * Gets the value of the namespace property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNamespace() {
-        return namespace;
-    }
+  /**
+   * Gets the value of the namespace property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNamespace() {
+    return namespace;
+  }
 
-    /**
-     * Sets the value of the namespace property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNamespace(String value) {
-        this.namespace = value;
-    }
+  /**
+   * Sets the value of the namespace property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNamespace(String value) {
+    this.namespace = value;
+  }
 
-    /**
-     * Gets the value of the lokaalID property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getLokaalID() {
-        return lokaalID;
-    }
+  /**
+   * Gets the value of the lokaalID property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLokaalID() {
+    return lokaalID;
+  }
 
-    /**
-     * Sets the value of the lokaalID property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setLokaalID(String value) {
-        this.lokaalID = value;
-    }
+  /**
+   * Sets the value of the lokaalID property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLokaalID(String value) {
+    this.lokaalID = value;
+  }
 }

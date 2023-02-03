@@ -10,11 +10,11 @@
 
 ### Basisprocedure
 
-1. doe je ding, als het mogelijk is gebruik `aosp` styling (voer `mvn fmt:format` uit om alle opmaak te corrigeren)
+1. doe je ding, als het mogelijk is gebruik `google` styling (voer `mvn fmt:format` uit om alle opmaak te corrigeren)
 2. voer `mvn clean install` uit om te controleren of alle vereiste opmaak is toegepast en of alle tests slagen
 3. commit en push je branch om een pull request te maken, gebruik de Nederlandse taal voor commit messages en pull request beschijvingen
 4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
-4. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
+5. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
 
 
 ## release maken

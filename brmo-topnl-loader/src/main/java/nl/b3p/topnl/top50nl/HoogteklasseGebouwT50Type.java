@@ -29,30 +29,30 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "HoogteklasseGebouwT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "HoogteklasseGebouwT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum HoogteklasseGebouwT50Type {
-    @XmlEnumValue("laagbouw")
-    LAAGBOUW("laagbouw"),
-    @XmlEnumValue("hoogbouw")
-    HOOGBOUW("hoogbouw");
-    private final String value;
+  @XmlEnumValue("laagbouw")
+  LAAGBOUW("laagbouw"),
+  @XmlEnumValue("hoogbouw")
+  HOOGBOUW("hoogbouw");
+  private final String value;
 
-    HoogteklasseGebouwT50Type(String v) {
-        value = v;
-    }
+  HoogteklasseGebouwT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static HoogteklasseGebouwT50Type fromValue(String v) {
-        for (HoogteklasseGebouwT50Type c : HoogteklasseGebouwT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static HoogteklasseGebouwT50Type fromValue(String v) {
+    for (HoogteklasseGebouwT50Type c : HoogteklasseGebouwT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

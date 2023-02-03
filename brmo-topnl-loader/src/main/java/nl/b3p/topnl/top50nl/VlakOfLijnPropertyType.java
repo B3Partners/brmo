@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "VlakOfLijnPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {"vlakOfLijn"})
+    name = "VlakOfLijnPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {"vlakOfLijn"})
 public class VlakOfLijnPropertyType {
 
-    @XmlElement(name = "VlakOfLijn", required = true)
-    protected VlakOfLijnType vlakOfLijn;
+  @XmlElement(name = "VlakOfLijn", required = true)
+  protected VlakOfLijnType vlakOfLijn;
 
-    /**
-     * Gets the value of the vlakOfLijn property.
-     *
-     * @return possible object is {@link VlakOfLijnType }
-     */
-    public VlakOfLijnType getVlakOfLijn() {
-        return vlakOfLijn;
-    }
+  /**
+   * Gets the value of the vlakOfLijn property.
+   *
+   * @return possible object is {@link VlakOfLijnType }
+   */
+  public VlakOfLijnType getVlakOfLijn() {
+    return vlakOfLijn;
+  }
 
-    /**
-     * Sets the value of the vlakOfLijn property.
-     *
-     * @param value allowed object is {@link VlakOfLijnType }
-     */
-    public void setVlakOfLijn(VlakOfLijnType value) {
-        this.vlakOfLijn = value;
-    }
+  /**
+   * Sets the value of the vlakOfLijn property.
+   *
+   * @param value allowed object is {@link VlakOfLijnType }
+   */
+  public void setVlakOfLijn(VlakOfLijnType value) {
+    this.vlakOfLijn = value;
+  }
 }

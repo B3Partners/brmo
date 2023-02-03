@@ -32,47 +32,47 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "VlakOfPuntType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"vlakGeometrie", "puntGeometrie"})
+    name = "VlakOfPuntType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"vlakGeometrie", "puntGeometrie"})
 public class VlakOfPuntType {
 
-    protected SurfacePropertyType vlakGeometrie;
-    protected PointPropertyType puntGeometrie;
+  protected SurfacePropertyType vlakGeometrie;
+  protected PointPropertyType puntGeometrie;
 
-    /**
-     * Gets the value of the vlakGeometrie property.
-     *
-     * @return possible object is {@link SurfacePropertyType }
-     */
-    public SurfacePropertyType getVlakGeometrie() {
-        return vlakGeometrie;
-    }
+  /**
+   * Gets the value of the vlakGeometrie property.
+   *
+   * @return possible object is {@link SurfacePropertyType }
+   */
+  public SurfacePropertyType getVlakGeometrie() {
+    return vlakGeometrie;
+  }
 
-    /**
-     * Sets the value of the vlakGeometrie property.
-     *
-     * @param value allowed object is {@link SurfacePropertyType }
-     */
-    public void setVlakGeometrie(SurfacePropertyType value) {
-        this.vlakGeometrie = value;
-    }
+  /**
+   * Sets the value of the vlakGeometrie property.
+   *
+   * @param value allowed object is {@link SurfacePropertyType }
+   */
+  public void setVlakGeometrie(SurfacePropertyType value) {
+    this.vlakGeometrie = value;
+  }
 
-    /**
-     * Gets the value of the puntGeometrie property.
-     *
-     * @return possible object is {@link PointPropertyType }
-     */
-    public PointPropertyType getPuntGeometrie() {
-        return puntGeometrie;
-    }
+  /**
+   * Gets the value of the puntGeometrie property.
+   *
+   * @return possible object is {@link PointPropertyType }
+   */
+  public PointPropertyType getPuntGeometrie() {
+    return puntGeometrie;
+  }
 
-    /**
-     * Sets the value of the puntGeometrie property.
-     *
-     * @param value allowed object is {@link PointPropertyType }
-     */
-    public void setPuntGeometrie(PointPropertyType value) {
-        this.puntGeometrie = value;
-    }
+  /**
+   * Sets the value of the puntGeometrie property.
+   *
+   * @param value allowed object is {@link PointPropertyType }
+   */
+  public void setPuntGeometrie(PointPropertyType value) {
+    this.puntGeometrie = value;
+  }
 }

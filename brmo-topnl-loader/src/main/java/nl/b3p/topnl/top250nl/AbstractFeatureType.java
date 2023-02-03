@@ -41,49 +41,49 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "AbstractFeatureType",
-        propOrder = {"boundedBy", "location"})
+    name = "AbstractFeatureType",
+    propOrder = {"boundedBy", "location"})
 @XmlSeeAlso({Top250NlObjectType.class})
 public abstract class AbstractFeatureType extends AbstractGMLType {
 
-    @XmlElement(nillable = true)
-    protected BoundingShapeType boundedBy;
+  @XmlElement(nillable = true)
+  protected BoundingShapeType boundedBy;
 
-    protected LocationPropertyType location;
+  protected LocationPropertyType location;
 
-    /**
-     * Gets the value of the boundedBy property.
-     *
-     * @return possible object is {@link BoundingShapeType }
-     */
-    public BoundingShapeType getBoundedBy() {
-        return boundedBy;
-    }
+  /**
+   * Gets the value of the boundedBy property.
+   *
+   * @return possible object is {@link BoundingShapeType }
+   */
+  public BoundingShapeType getBoundedBy() {
+    return boundedBy;
+  }
 
-    /**
-     * Sets the value of the boundedBy property.
-     *
-     * @param value allowed object is {@link BoundingShapeType }
-     */
-    public void setBoundedBy(BoundingShapeType value) {
-        this.boundedBy = value;
-    }
+  /**
+   * Sets the value of the boundedBy property.
+   *
+   * @param value allowed object is {@link BoundingShapeType }
+   */
+  public void setBoundedBy(BoundingShapeType value) {
+    this.boundedBy = value;
+  }
 
-    /**
-     * Gets the value of the location property.
-     *
-     * @return possible object is {@link LocationPropertyType }
-     */
-    public LocationPropertyType getLocation() {
-        return location;
-    }
+  /**
+   * Gets the value of the location property.
+   *
+   * @return possible object is {@link LocationPropertyType }
+   */
+  public LocationPropertyType getLocation() {
+    return location;
+  }
 
-    /**
-     * Sets the value of the location property.
-     *
-     * @param value allowed object is {@link LocationPropertyType }
-     */
-    public void setLocation(LocationPropertyType value) {
-        this.location = value;
-    }
+  /**
+   * Sets the value of the location property.
+   *
+   * @param value allowed object is {@link LocationPropertyType }
+   */
+  public void setLocation(LocationPropertyType value) {
+    this.location = value;
+  }
 }

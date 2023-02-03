@@ -21,10 +21,8 @@ import static com.cronutils.model.CronType.QUARTZ;
 import com.cronutils.descriptor.CronDescriptor;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.parser.CronParser;
-
 import java.io.IOException;
 import java.util.Locale;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
@@ -35,49 +33,46 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public class CronFormatterTag extends SimpleTagSupport {
 
-    private String cronExpression;
-    private Locale locale;
+  private String cronExpression;
+  private Locale locale;
 
-    public CronFormatterTag() {
-        setLocale("nl");
+  public CronFormatterTag() {
+    setLocale("nl");
+  }
+
+  public void setCronExpression(String cronExpression) {
+    this.cronExpression = cronExpression;
+  }
+
+  public void setLocale(String locale) {
+    try {
+      this.locale = new Locale(locale);
+    } catch (NullPointerException npe) {
+      this.locale = null;
     }
+  }
 
-    public void setCronExpression(String cronExpression) {
-        this.cronExpression = cronExpression;
-    }
+  @Override
+  public void doTag() throws JspException, IOException {
+    getJspContext().getOut().write(buildOutput());
+  }
 
-    public void setLocale(String locale) {
-        try {
-            this.locale = new Locale(locale);
-        } catch (NullPointerException npe) {
-            this.locale = null;
+  public String buildOutput() {
+    String formatted = "";
+    if (cronExpression != null && !cronExpression.isEmpty()) {
+      try {
+        CronParser cronParser = new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));
+        if (locale != null) {
+          formatted = CronDescriptor.instance(locale).describe(cronParser.parse(cronExpression));
+        } else {
+          formatted =
+              CronDescriptor.instance(Locale.getDefault())
+                  .describe(cronParser.parse(cronExpression));
         }
+      } catch (Exception e) {
+        formatted = e.getLocalizedMessage();
+      }
     }
-
-    @Override
-    public void doTag() throws JspException, IOException {
-        getJspContext().getOut().write(buildOutput());
-    }
-
-    public String buildOutput() {
-        String formatted = "";
-        if (cronExpression != null && !cronExpression.isEmpty()) {
-            try {
-                CronParser cronParser =
-                        new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));
-                if (locale != null) {
-                    formatted =
-                            CronDescriptor.instance(locale)
-                                    .describe(cronParser.parse(cronExpression));
-                } else {
-                    formatted =
-                            CronDescriptor.instance(Locale.getDefault())
-                                    .describe(cronParser.parse(cronExpression));
-                }
-            } catch (Exception e) {
-                formatted = e.getLocalizedMessage();
-            }
-        }
-        return formatted;
-    }
+    return formatted;
+  }
 }

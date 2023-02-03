@@ -10,7 +10,6 @@ package nl.b3p.topnl.top250nl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -41,57 +40,57 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "SurfaceArrayPropertyType",
-        propOrder = {"abstractSurface"})
+    name = "SurfaceArrayPropertyType",
+    propOrder = {"abstractSurface"})
 public class SurfaceArrayPropertyType {
 
-    @XmlElement(name = "AbstractSurface")
-    protected List<AbstractSurfaceType> abstractSurface;
+  @XmlElement(name = "AbstractSurface")
+  protected List<AbstractSurfaceType> abstractSurface;
 
-    @XmlAttribute(name = "owns")
-    protected Boolean owns;
+  @XmlAttribute(name = "owns")
+  protected Boolean owns;
 
-    /**
-     * Gets the value of the abstractSurface property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the abstractSurface property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getAbstractSurface().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link AbstractSurfaceType }
-     */
-    public List<AbstractSurfaceType> getAbstractSurface() {
-        if (abstractSurface == null) {
-            abstractSurface = new ArrayList<AbstractSurfaceType>();
-        }
-        return this.abstractSurface;
+  /**
+   * Gets the value of the abstractSurface property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the abstractSurface property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getAbstractSurface().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link AbstractSurfaceType }
+   */
+  public List<AbstractSurfaceType> getAbstractSurface() {
+    if (abstractSurface == null) {
+      abstractSurface = new ArrayList<AbstractSurfaceType>();
     }
+    return this.abstractSurface;
+  }
 
-    /**
-     * Gets the value of the owns property.
-     *
-     * @return possible object is {@link Boolean }
-     */
-    public boolean isOwns() {
-        if (owns == null) {
-            return false;
-        } else {
-            return owns;
-        }
+  /**
+   * Gets the value of the owns property.
+   *
+   * @return possible object is {@link Boolean }
+   */
+  public boolean isOwns() {
+    if (owns == null) {
+      return false;
+    } else {
+      return owns;
     }
+  }
 
-    /**
-     * Sets the value of the owns property.
-     *
-     * @param value allowed object is {@link Boolean }
-     */
-    public void setOwns(Boolean value) {
-        this.owns = value;
-    }
+  /**
+   * Sets the value of the owns property.
+   *
+   * @param value allowed object is {@link Boolean }
+   */
+  public void setOwns(Boolean value) {
+    this.owns = value;
+  }
 }

@@ -8,18 +8,16 @@
 
 package nl.b3p.topnl.top100nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for WegdeelType complex type.
@@ -59,476 +57,475 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "WegdeelType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {
-            "typeInfrastructuur",
-            "typeWeg",
-            "hoofdverkeersgebruik",
-            "fysiekVoorkomen",
-            "verhardingsbreedteklasse",
-            "gescheidenRijbaan",
-            "typeVerharding",
-            "straatnaamNL",
-            "straatnaamFries",
-            "aWegnummer",
-            "eWegnummer",
-            "nWegnummer",
-            "sWegnummer",
-            "afritnummer",
-            "afritnaam",
-            "knooppuntnaam",
-            "brugnaam",
-            "tunnelnaam",
-            "hoogteniveau",
-            "geometrie"
-        })
+    name = "WegdeelType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {
+      "typeInfrastructuur",
+      "typeWeg",
+      "hoofdverkeersgebruik",
+      "fysiekVoorkomen",
+      "verhardingsbreedteklasse",
+      "gescheidenRijbaan",
+      "typeVerharding",
+      "straatnaamNL",
+      "straatnaamFries",
+      "aWegnummer",
+      "eWegnummer",
+      "nWegnummer",
+      "sWegnummer",
+      "afritnummer",
+      "afritnaam",
+      "knooppuntnaam",
+      "brugnaam",
+      "tunnelnaam",
+      "hoogteniveau",
+      "geometrie"
+    })
 public class WegdeelType extends Top100NlObjectType {
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeInfrastructuurWegT100Type typeInfrastructuur;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeInfrastructuurWegT100Type typeInfrastructuur;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeWegT100Type typeWeg;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeWegT100Type typeWeg;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected HoofdverkeersgebruikT100Type hoofdverkeersgebruik;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected HoofdverkeersgebruikT100Type hoofdverkeersgebruik;
 
-    @XmlSchemaType(name = "string")
-    protected List<FysiekVoorkomenWegT100Type> fysiekVoorkomen;
+  @XmlSchemaType(name = "string")
+  protected List<FysiekVoorkomenWegT100Type> fysiekVoorkomen;
 
-    protected String verhardingsbreedteklasse;
+  protected String verhardingsbreedteklasse;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected JaNeeType gescheidenRijbaan;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected JaNeeType gescheidenRijbaan;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeVerhardingT100Type typeVerharding;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeVerhardingT100Type typeVerharding;
 
-    protected List<String> straatnaamNL;
-    protected List<String> straatnaamFries;
-    protected List<String> aWegnummer;
-    protected List<String> eWegnummer;
-    protected List<String> nWegnummer;
-    protected List<String> sWegnummer;
-    protected String afritnummer;
-    protected List<String> afritnaam;
-    protected List<String> knooppuntnaam;
-    protected List<String> brugnaam;
-    protected List<String> tunnelnaam;
+  protected List<String> straatnaamNL;
+  protected List<String> straatnaamFries;
+  protected List<String> aWegnummer;
+  protected List<String> eWegnummer;
+  protected List<String> nWegnummer;
+  protected List<String> sWegnummer;
+  protected String afritnummer;
+  protected List<String> afritnaam;
+  protected List<String> knooppuntnaam;
+  protected List<String> brugnaam;
+  protected List<String> tunnelnaam;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteniveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteniveau;
 
-    @XmlAnyElement protected Element geometrie;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeInfrastructuur property.
-     *
-     * @return possible object is {@link TypeInfrastructuurWegT100Type }
-     */
-    public TypeInfrastructuurWegT100Type getTypeInfrastructuur() {
-        return typeInfrastructuur;
+  /**
+   * Gets the value of the typeInfrastructuur property.
+   *
+   * @return possible object is {@link TypeInfrastructuurWegT100Type }
+   */
+  public TypeInfrastructuurWegT100Type getTypeInfrastructuur() {
+    return typeInfrastructuur;
+  }
+
+  /**
+   * Sets the value of the typeInfrastructuur property.
+   *
+   * @param value allowed object is {@link TypeInfrastructuurWegT100Type }
+   */
+  public void setTypeInfrastructuur(TypeInfrastructuurWegT100Type value) {
+    this.typeInfrastructuur = value;
+  }
+
+  /**
+   * Gets the value of the typeWeg property.
+   *
+   * @return possible object is {@link TypeWegT100Type }
+   */
+  public TypeWegT100Type getTypeWeg() {
+    return typeWeg;
+  }
+
+  /**
+   * Sets the value of the typeWeg property.
+   *
+   * @param value allowed object is {@link TypeWegT100Type }
+   */
+  public void setTypeWeg(TypeWegT100Type value) {
+    this.typeWeg = value;
+  }
+
+  /**
+   * Gets the value of the hoofdverkeersgebruik property.
+   *
+   * @return possible object is {@link HoofdverkeersgebruikT100Type }
+   */
+  public HoofdverkeersgebruikT100Type getHoofdverkeersgebruik() {
+    return hoofdverkeersgebruik;
+  }
+
+  /**
+   * Sets the value of the hoofdverkeersgebruik property.
+   *
+   * @param value allowed object is {@link HoofdverkeersgebruikT100Type }
+   */
+  public void setHoofdverkeersgebruik(HoofdverkeersgebruikT100Type value) {
+    this.hoofdverkeersgebruik = value;
+  }
+
+  /**
+   * Gets the value of the fysiekVoorkomen property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getFysiekVoorkomen().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link FysiekVoorkomenWegT100Type }
+   */
+  public List<FysiekVoorkomenWegT100Type> getFysiekVoorkomen() {
+    if (fysiekVoorkomen == null) {
+      fysiekVoorkomen = new ArrayList<FysiekVoorkomenWegT100Type>();
     }
+    return this.fysiekVoorkomen;
+  }
 
-    /**
-     * Sets the value of the typeInfrastructuur property.
-     *
-     * @param value allowed object is {@link TypeInfrastructuurWegT100Type }
-     */
-    public void setTypeInfrastructuur(TypeInfrastructuurWegT100Type value) {
-        this.typeInfrastructuur = value;
-    }
+  /**
+   * Gets the value of the verhardingsbreedteklasse property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getVerhardingsbreedteklasse() {
+    return verhardingsbreedteklasse;
+  }
 
-    /**
-     * Gets the value of the typeWeg property.
-     *
-     * @return possible object is {@link TypeWegT100Type }
-     */
-    public TypeWegT100Type getTypeWeg() {
-        return typeWeg;
-    }
+  /**
+   * Sets the value of the verhardingsbreedteklasse property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setVerhardingsbreedteklasse(String value) {
+    this.verhardingsbreedteklasse = value;
+  }
 
-    /**
-     * Sets the value of the typeWeg property.
-     *
-     * @param value allowed object is {@link TypeWegT100Type }
-     */
-    public void setTypeWeg(TypeWegT100Type value) {
-        this.typeWeg = value;
-    }
+  /**
+   * Gets the value of the gescheidenRijbaan property.
+   *
+   * @return possible object is {@link JaNeeType }
+   */
+  public JaNeeType getGescheidenRijbaan() {
+    return gescheidenRijbaan;
+  }
 
-    /**
-     * Gets the value of the hoofdverkeersgebruik property.
-     *
-     * @return possible object is {@link HoofdverkeersgebruikT100Type }
-     */
-    public HoofdverkeersgebruikT100Type getHoofdverkeersgebruik() {
-        return hoofdverkeersgebruik;
-    }
+  /**
+   * Sets the value of the gescheidenRijbaan property.
+   *
+   * @param value allowed object is {@link JaNeeType }
+   */
+  public void setGescheidenRijbaan(JaNeeType value) {
+    this.gescheidenRijbaan = value;
+  }
 
-    /**
-     * Sets the value of the hoofdverkeersgebruik property.
-     *
-     * @param value allowed object is {@link HoofdverkeersgebruikT100Type }
-     */
-    public void setHoofdverkeersgebruik(HoofdverkeersgebruikT100Type value) {
-        this.hoofdverkeersgebruik = value;
-    }
+  /**
+   * Gets the value of the typeVerharding property.
+   *
+   * @return possible object is {@link TypeVerhardingT100Type }
+   */
+  public TypeVerhardingT100Type getTypeVerharding() {
+    return typeVerharding;
+  }
 
-    /**
-     * Gets the value of the fysiekVoorkomen property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getFysiekVoorkomen().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link FysiekVoorkomenWegT100Type
-     * }
-     */
-    public List<FysiekVoorkomenWegT100Type> getFysiekVoorkomen() {
-        if (fysiekVoorkomen == null) {
-            fysiekVoorkomen = new ArrayList<FysiekVoorkomenWegT100Type>();
-        }
-        return this.fysiekVoorkomen;
-    }
+  /**
+   * Sets the value of the typeVerharding property.
+   *
+   * @param value allowed object is {@link TypeVerhardingT100Type }
+   */
+  public void setTypeVerharding(TypeVerhardingT100Type value) {
+    this.typeVerharding = value;
+  }
 
-    /**
-     * Gets the value of the verhardingsbreedteklasse property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getVerhardingsbreedteklasse() {
-        return verhardingsbreedteklasse;
+  /**
+   * Gets the value of the straatnaamNL property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the straatnaamNL property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getStraatnaamNL().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getStraatnaamNL() {
+    if (straatnaamNL == null) {
+      straatnaamNL = new ArrayList<String>();
     }
+    return this.straatnaamNL;
+  }
 
-    /**
-     * Sets the value of the verhardingsbreedteklasse property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setVerhardingsbreedteklasse(String value) {
-        this.verhardingsbreedteklasse = value;
+  /**
+   * Gets the value of the straatnaamFries property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the straatnaamFries property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getStraatnaamFries().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getStraatnaamFries() {
+    if (straatnaamFries == null) {
+      straatnaamFries = new ArrayList<String>();
     }
+    return this.straatnaamFries;
+  }
 
-    /**
-     * Gets the value of the gescheidenRijbaan property.
-     *
-     * @return possible object is {@link JaNeeType }
-     */
-    public JaNeeType getGescheidenRijbaan() {
-        return gescheidenRijbaan;
+  /**
+   * Gets the value of the aWegnummer property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the aWegnummer property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getAWegnummer().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getAWegnummer() {
+    if (aWegnummer == null) {
+      aWegnummer = new ArrayList<String>();
     }
+    return this.aWegnummer;
+  }
 
-    /**
-     * Sets the value of the gescheidenRijbaan property.
-     *
-     * @param value allowed object is {@link JaNeeType }
-     */
-    public void setGescheidenRijbaan(JaNeeType value) {
-        this.gescheidenRijbaan = value;
+  /**
+   * Gets the value of the eWegnummer property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the eWegnummer property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getEWegnummer().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getEWegnummer() {
+    if (eWegnummer == null) {
+      eWegnummer = new ArrayList<String>();
     }
+    return this.eWegnummer;
+  }
 
-    /**
-     * Gets the value of the typeVerharding property.
-     *
-     * @return possible object is {@link TypeVerhardingT100Type }
-     */
-    public TypeVerhardingT100Type getTypeVerharding() {
-        return typeVerharding;
+  /**
+   * Gets the value of the nWegnummer property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the nWegnummer property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNWegnummer().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNWegnummer() {
+    if (nWegnummer == null) {
+      nWegnummer = new ArrayList<String>();
     }
+    return this.nWegnummer;
+  }
 
-    /**
-     * Sets the value of the typeVerharding property.
-     *
-     * @param value allowed object is {@link TypeVerhardingT100Type }
-     */
-    public void setTypeVerharding(TypeVerhardingT100Type value) {
-        this.typeVerharding = value;
+  /**
+   * Gets the value of the sWegnummer property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the sWegnummer property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getSWegnummer().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getSWegnummer() {
+    if (sWegnummer == null) {
+      sWegnummer = new ArrayList<String>();
     }
+    return this.sWegnummer;
+  }
 
-    /**
-     * Gets the value of the straatnaamNL property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the straatnaamNL property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getStraatnaamNL().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getStraatnaamNL() {
-        if (straatnaamNL == null) {
-            straatnaamNL = new ArrayList<String>();
-        }
-        return this.straatnaamNL;
-    }
+  /**
+   * Gets the value of the afritnummer property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getAfritnummer() {
+    return afritnummer;
+  }
 
-    /**
-     * Gets the value of the straatnaamFries property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the straatnaamFries property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getStraatnaamFries().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getStraatnaamFries() {
-        if (straatnaamFries == null) {
-            straatnaamFries = new ArrayList<String>();
-        }
-        return this.straatnaamFries;
-    }
+  /**
+   * Sets the value of the afritnummer property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setAfritnummer(String value) {
+    this.afritnummer = value;
+  }
 
-    /**
-     * Gets the value of the aWegnummer property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the aWegnummer property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getAWegnummer().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getAWegnummer() {
-        if (aWegnummer == null) {
-            aWegnummer = new ArrayList<String>();
-        }
-        return this.aWegnummer;
+  /**
+   * Gets the value of the afritnaam property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the afritnaam property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getAfritnaam().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getAfritnaam() {
+    if (afritnaam == null) {
+      afritnaam = new ArrayList<String>();
     }
+    return this.afritnaam;
+  }
 
-    /**
-     * Gets the value of the eWegnummer property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the eWegnummer property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getEWegnummer().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getEWegnummer() {
-        if (eWegnummer == null) {
-            eWegnummer = new ArrayList<String>();
-        }
-        return this.eWegnummer;
+  /**
+   * Gets the value of the knooppuntnaam property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the knooppuntnaam property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getKnooppuntnaam().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getKnooppuntnaam() {
+    if (knooppuntnaam == null) {
+      knooppuntnaam = new ArrayList<String>();
     }
+    return this.knooppuntnaam;
+  }
 
-    /**
-     * Gets the value of the nWegnummer property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the nWegnummer property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNWegnummer().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNWegnummer() {
-        if (nWegnummer == null) {
-            nWegnummer = new ArrayList<String>();
-        }
-        return this.nWegnummer;
+  /**
+   * Gets the value of the brugnaam property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the brugnaam property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getBrugnaam().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getBrugnaam() {
+    if (brugnaam == null) {
+      brugnaam = new ArrayList<String>();
     }
+    return this.brugnaam;
+  }
 
-    /**
-     * Gets the value of the sWegnummer property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the sWegnummer property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getSWegnummer().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getSWegnummer() {
-        if (sWegnummer == null) {
-            sWegnummer = new ArrayList<String>();
-        }
-        return this.sWegnummer;
+  /**
+   * Gets the value of the tunnelnaam property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the tunnelnaam property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getTunnelnaam().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getTunnelnaam() {
+    if (tunnelnaam == null) {
+      tunnelnaam = new ArrayList<String>();
     }
+    return this.tunnelnaam;
+  }
 
-    /**
-     * Gets the value of the afritnummer property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getAfritnummer() {
-        return afritnummer;
-    }
+  /**
+   * Gets the value of the hoogteniveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    /**
-     * Sets the value of the afritnummer property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setAfritnummer(String value) {
-        this.afritnummer = value;
-    }
+  /**
+   * Sets the value of the hoogteniveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteniveau(BigInteger value) {
+    this.hoogteniveau = value;
+  }
 
-    /**
-     * Gets the value of the afritnaam property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the afritnaam property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getAfritnaam().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getAfritnaam() {
-        if (afritnaam == null) {
-            afritnaam = new ArrayList<String>();
-        }
-        return this.afritnaam;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Gets the value of the knooppuntnaam property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the knooppuntnaam property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getKnooppuntnaam().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getKnooppuntnaam() {
-        if (knooppuntnaam == null) {
-            knooppuntnaam = new ArrayList<String>();
-        }
-        return this.knooppuntnaam;
-    }
-
-    /**
-     * Gets the value of the brugnaam property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the brugnaam property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getBrugnaam().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getBrugnaam() {
-        if (brugnaam == null) {
-            brugnaam = new ArrayList<String>();
-        }
-        return this.brugnaam;
-    }
-
-    /**
-     * Gets the value of the tunnelnaam property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the tunnelnaam property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getTunnelnaam().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getTunnelnaam() {
-        if (tunnelnaam == null) {
-            tunnelnaam = new ArrayList<String>();
-        }
-        return this.tunnelnaam;
-    }
-
-    /**
-     * Gets the value of the hoogteniveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteniveau() {
-        return hoogteniveau;
-    }
-
-    /**
-     * Sets the value of the hoogteniveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteniveau(BigInteger value) {
-        this.hoogteniveau = value;
-    }
-
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
-
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

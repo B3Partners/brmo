@@ -8,28 +8,28 @@ import javax.xml.bind.annotation.XmlType;
 /** Java class for getEigendomMutatiesResponse complex type. */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "getEigendomMutatiesResponse",
-        propOrder = {"_return"})
+    name = "getEigendomMutatiesResponse",
+    propOrder = {"_return"})
 public class GetEigendomMutatiesResponse {
 
-    @XmlElement(name = "return")
-    protected EigendomMutatieResponse _return;
+  @XmlElement(name = "return")
+  protected EigendomMutatieResponse _return;
 
-    /**
-     * Gets the value of the return property.
-     *
-     * @return possible object is {@link EigendomMutatieResponse }
-     */
-    public EigendomMutatieResponse getReturn() {
-        return _return;
-    }
+  /**
+   * Gets the value of the return property.
+   *
+   * @return possible object is {@link EigendomMutatieResponse }
+   */
+  public EigendomMutatieResponse getReturn() {
+    return _return;
+  }
 
-    /**
-     * Sets the value of the return property.
-     *
-     * @param value allowed object is {@link EigendomMutatieResponse }
-     */
-    public void setReturn(EigendomMutatieResponse value) {
-        this._return = value;
-    }
+  /**
+   * Sets the value of the return property.
+   *
+   * @param value allowed object is {@link EigendomMutatieResponse }
+   */
+  public void setReturn(EigendomMutatieResponse value) {
+    this._return = value;
+  }
 }

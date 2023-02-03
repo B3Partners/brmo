@@ -8,15 +8,13 @@
 
 package nl.b3p.topnl.top250nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for PlaatsType complex type.
@@ -42,132 +40,132 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "PlaatsType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
-        propOrder = {
-            "typeGebied",
-            "aantalinwoners",
-            "naamOfficieel",
-            "naamNL",
-            "naamFries",
-            "geometrie"
-        })
+    name = "PlaatsType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
+    propOrder = {
+      "typeGebied",
+      "aantalinwoners",
+      "naamOfficieel",
+      "naamNL",
+      "naamFries",
+      "geometrie"
+    })
 public class PlaatsType extends Top250NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeGebied;
+  @XmlElement(required = true)
+  protected CodeType typeGebied;
 
-    protected BigInteger aantalinwoners;
-    protected String naamOfficieel;
-    protected String naamNL;
-    protected String naamFries;
-    @XmlAnyElement protected Element geometrie;
+  protected BigInteger aantalinwoners;
+  protected String naamOfficieel;
+  protected String naamNL;
+  protected String naamFries;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeGebied property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeGebied() {
-        return typeGebied;
-    }
+  /**
+   * Gets the value of the typeGebied property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeGebied() {
+    return typeGebied;
+  }
 
-    /**
-     * Sets the value of the typeGebied property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeGebied(CodeType value) {
-        this.typeGebied = value;
-    }
+  /**
+   * Sets the value of the typeGebied property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeGebied(CodeType value) {
+    this.typeGebied = value;
+  }
 
-    /**
-     * Gets the value of the aantalinwoners property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getAantalinwoners() {
-        return aantalinwoners;
-    }
+  /**
+   * Gets the value of the aantalinwoners property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getAantalinwoners() {
+    return aantalinwoners;
+  }
 
-    /**
-     * Sets the value of the aantalinwoners property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setAantalinwoners(BigInteger value) {
-        this.aantalinwoners = value;
-    }
+  /**
+   * Sets the value of the aantalinwoners property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setAantalinwoners(BigInteger value) {
+    this.aantalinwoners = value;
+  }
 
-    /**
-     * Gets the value of the naamOfficieel property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamOfficieel() {
-        return naamOfficieel;
-    }
+  /**
+   * Gets the value of the naamOfficieel property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamOfficieel() {
+    return naamOfficieel;
+  }
 
-    /**
-     * Sets the value of the naamOfficieel property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamOfficieel(String value) {
-        this.naamOfficieel = value;
-    }
+  /**
+   * Sets the value of the naamOfficieel property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamOfficieel(String value) {
+    this.naamOfficieel = value;
+  }
 
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamNL() {
-        return naamNL;
-    }
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    /**
-     * Sets the value of the naamNL property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamNL(String value) {
-        this.naamNL = value;
-    }
+  /**
+   * Sets the value of the naamNL property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamNL(String value) {
+    this.naamNL = value;
+  }
 
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamFries() {
-        return naamFries;
-    }
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    /**
-     * Sets the value of the naamFries property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamFries(String value) {
-        this.naamFries = value;
-    }
+  /**
+   * Sets the value of the naamFries property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamFries(String value) {
+    this.naamFries = value;
+  }
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

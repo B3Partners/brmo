@@ -32,47 +32,47 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "VlakOfMultivlakType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {"vlakGeometrie", "multivlakGeometrie"})
+    name = "VlakOfMultivlakType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {"vlakGeometrie", "multivlakGeometrie"})
 public class VlakOfMultivlakType {
 
-    protected SurfacePropertyType vlakGeometrie;
-    protected MultiSurfacePropertyType multivlakGeometrie;
+  protected SurfacePropertyType vlakGeometrie;
+  protected MultiSurfacePropertyType multivlakGeometrie;
 
-    /**
-     * Gets the value of the vlakGeometrie property.
-     *
-     * @return possible object is {@link SurfacePropertyType }
-     */
-    public SurfacePropertyType getVlakGeometrie() {
-        return vlakGeometrie;
-    }
+  /**
+   * Gets the value of the vlakGeometrie property.
+   *
+   * @return possible object is {@link SurfacePropertyType }
+   */
+  public SurfacePropertyType getVlakGeometrie() {
+    return vlakGeometrie;
+  }
 
-    /**
-     * Sets the value of the vlakGeometrie property.
-     *
-     * @param value allowed object is {@link SurfacePropertyType }
-     */
-    public void setVlakGeometrie(SurfacePropertyType value) {
-        this.vlakGeometrie = value;
-    }
+  /**
+   * Sets the value of the vlakGeometrie property.
+   *
+   * @param value allowed object is {@link SurfacePropertyType }
+   */
+  public void setVlakGeometrie(SurfacePropertyType value) {
+    this.vlakGeometrie = value;
+  }
 
-    /**
-     * Gets the value of the multivlakGeometrie property.
-     *
-     * @return possible object is {@link MultiSurfacePropertyType }
-     */
-    public MultiSurfacePropertyType getMultivlakGeometrie() {
-        return multivlakGeometrie;
-    }
+  /**
+   * Gets the value of the multivlakGeometrie property.
+   *
+   * @return possible object is {@link MultiSurfacePropertyType }
+   */
+  public MultiSurfacePropertyType getMultivlakGeometrie() {
+    return multivlakGeometrie;
+  }
 
-    /**
-     * Sets the value of the multivlakGeometrie property.
-     *
-     * @param value allowed object is {@link MultiSurfacePropertyType }
-     */
-    public void setMultivlakGeometrie(MultiSurfacePropertyType value) {
-        this.multivlakGeometrie = value;
-    }
+  /**
+   * Sets the value of the multivlakGeometrie property.
+   *
+   * @param value allowed object is {@link MultiSurfacePropertyType }
+   */
+  public void setMultivlakGeometrie(MultiSurfacePropertyType value) {
+    this.multivlakGeometrie = value;
+  }
 }

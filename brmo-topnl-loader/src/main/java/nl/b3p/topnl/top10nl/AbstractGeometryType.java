@@ -11,7 +11,6 @@ package nl.b3p.topnl.top10nl;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -47,97 +46,97 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({AbstractGeometricAggregateType.class, AbstractGeometricPrimitiveType.class})
 public abstract class AbstractGeometryType extends AbstractGMLType {
 
-    @XmlAttribute(name = "srsName")
-    @XmlSchemaType(name = "anyURI")
-    protected String srsName;
+  @XmlAttribute(name = "srsName")
+  @XmlSchemaType(name = "anyURI")
+  protected String srsName;
 
-    @XmlAttribute(name = "srsDimension")
-    @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger srsDimension;
+  @XmlAttribute(name = "srsDimension")
+  @XmlSchemaType(name = "positiveInteger")
+  protected BigInteger srsDimension;
 
-    @XmlAttribute(name = "axisLabels")
-    protected List<String> axisLabels;
+  @XmlAttribute(name = "axisLabels")
+  protected List<String> axisLabels;
 
-    @XmlAttribute(name = "uomLabels")
-    protected List<String> uomLabels;
+  @XmlAttribute(name = "uomLabels")
+  protected List<String> uomLabels;
 
-    /**
-     * Gets the value of the srsName property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getSrsName() {
-        return srsName;
+  /**
+   * Gets the value of the srsName property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getSrsName() {
+    return srsName;
+  }
+
+  /**
+   * Sets the value of the srsName property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setSrsName(String value) {
+    this.srsName = value;
+  }
+
+  /**
+   * Gets the value of the srsDimension property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getSrsDimension() {
+    return srsDimension;
+  }
+
+  /**
+   * Sets the value of the srsDimension property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setSrsDimension(BigInteger value) {
+    this.srsDimension = value;
+  }
+
+  /**
+   * Gets the value of the axisLabels property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the axisLabels property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getAxisLabels().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getAxisLabels() {
+    if (axisLabels == null) {
+      axisLabels = new ArrayList<String>();
     }
+    return this.axisLabels;
+  }
 
-    /**
-     * Sets the value of the srsName property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setSrsName(String value) {
-        this.srsName = value;
+  /**
+   * Gets the value of the uomLabels property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the uomLabels property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getUomLabels().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getUomLabels() {
+    if (uomLabels == null) {
+      uomLabels = new ArrayList<String>();
     }
-
-    /**
-     * Gets the value of the srsDimension property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getSrsDimension() {
-        return srsDimension;
-    }
-
-    /**
-     * Sets the value of the srsDimension property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setSrsDimension(BigInteger value) {
-        this.srsDimension = value;
-    }
-
-    /**
-     * Gets the value of the axisLabels property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the axisLabels property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getAxisLabels().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getAxisLabels() {
-        if (axisLabels == null) {
-            axisLabels = new ArrayList<String>();
-        }
-        return this.axisLabels;
-    }
-
-    /**
-     * Gets the value of the uomLabels property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the uomLabels property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getUomLabels().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getUomLabels() {
-        if (uomLabels == null) {
-            uomLabels = new ArrayList<String>();
-        }
-        return this.uomLabels;
-    }
+    return this.uomLabels;
+  }
 }

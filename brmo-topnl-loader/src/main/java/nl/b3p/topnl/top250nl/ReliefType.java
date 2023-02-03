@@ -8,13 +8,12 @@
 
 package nl.b3p.topnl.top250nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for ReliefType complex type.
@@ -37,70 +36,70 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "ReliefType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
-        propOrder = {"typeRelief", "hoogteklasse", "lijnGeometrie"})
+    name = "ReliefType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
+    propOrder = {"typeRelief", "hoogteklasse", "lijnGeometrie"})
 public class ReliefType extends Top250NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeRelief;
+  @XmlElement(required = true)
+  protected CodeType typeRelief;
 
-    @XmlElement(required = true)
-    protected CodeType hoogteklasse;
+  @XmlElement(required = true)
+  protected CodeType hoogteklasse;
 
-    @XmlAnyElement protected Element lijnGeometrie;
+  @XmlAnyElement protected Element lijnGeometrie;
 
-    /**
-     * Gets the value of the typeRelief property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeRelief() {
-        return typeRelief;
-    }
+  /**
+   * Gets the value of the typeRelief property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeRelief() {
+    return typeRelief;
+  }
 
-    /**
-     * Sets the value of the typeRelief property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeRelief(CodeType value) {
-        this.typeRelief = value;
-    }
+  /**
+   * Sets the value of the typeRelief property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeRelief(CodeType value) {
+    this.typeRelief = value;
+  }
 
-    /**
-     * Gets the value of the hoogteklasse property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getHoogteklasse() {
-        return hoogteklasse;
-    }
+  /**
+   * Gets the value of the hoogteklasse property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getHoogteklasse() {
+    return hoogteklasse;
+  }
 
-    /**
-     * Sets the value of the hoogteklasse property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setHoogteklasse(CodeType value) {
-        this.hoogteklasse = value;
-    }
+  /**
+   * Sets the value of the hoogteklasse property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setHoogteklasse(CodeType value) {
+    this.hoogteklasse = value;
+  }
 
-    /**
-     * Gets the value of the lijnGeometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getLijnGeometrie() {
-        return lijnGeometrie;
-    }
+  /**
+   * Gets the value of the lijnGeometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getLijnGeometrie() {
+    return lijnGeometrie;
+  }
 
-    /**
-     * Sets the value of the lijnGeometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setLijnGeometrie(Element value) {
-        this.lijnGeometrie = value;
-    }
+  /**
+   * Sets the value of the lijnGeometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setLijnGeometrie(Element value) {
+    this.lijnGeometrie = value;
+  }
 }

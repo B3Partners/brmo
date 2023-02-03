@@ -19,48 +19,49 @@ package nl.b3p.brmo.persistence.auth;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/** @author Matthijs Laan */
+/**
+ * @author Matthijs Laan
+ */
 @Entity
 @Table(name = "groep_")
 public class Groep implements Serializable {
 
-    @Id private String naam;
+  @Id private String naam;
 
-    @Lob
-    @org.hibernate.annotations.Type(type = "org.hibernate.type.TextType")
-    private String beschrijving;
+  @Lob
+  @org.hibernate.annotations.Type(type = "org.hibernate.type.TextType")
+  private String beschrijving;
 
-    @ManyToMany(mappedBy = "groepen")
-    private Set<Gebruiker> leden = new HashSet<>();
+  @ManyToMany(mappedBy = "groepen")
+  private Set<Gebruiker> leden = new HashSet<>();
 
-    public String getBeschrijving() {
-        return beschrijving;
-    }
+  public String getBeschrijving() {
+    return beschrijving;
+  }
 
-    public void setBeschrijving(String beschrijving) {
-        this.beschrijving = beschrijving;
-    }
+  public void setBeschrijving(String beschrijving) {
+    this.beschrijving = beschrijving;
+  }
 
-    public String getNaam() {
-        return naam;
-    }
+  public String getNaam() {
+    return naam;
+  }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
+  public void setNaam(String naam) {
+    this.naam = naam;
+  }
 
-    public Set<Gebruiker> getLeden() {
-        return leden;
-    }
+  public Set<Gebruiker> getLeden() {
+    return leden;
+  }
 
-    public void setLeden(Set<Gebruiker> leden) {
-        this.leden = leden;
-    }
+  public void setLeden(Set<Gebruiker> leden) {
+    this.leden = leden;
+  }
 }

@@ -31,34 +31,34 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeReliefT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "TypeReliefT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum TypeReliefT50Type {
-    @XmlEnumValue("dijk")
-    DIJK("dijk"),
-    @XmlEnumValue("kade, wal")
-    KADE_WAL("kade, wal"),
-    @XmlEnumValue("talud, hoogteverschil")
-    TALUD_HOOGTEVERSCHIL("talud, hoogteverschil"),
-    @XmlEnumValue("steile rand, aardrand")
-    STEILE_RAND_AARDRAND("steile rand, aardrand");
-    private final String value;
+  @XmlEnumValue("dijk")
+  DIJK("dijk"),
+  @XmlEnumValue("kade, wal")
+  KADE_WAL("kade, wal"),
+  @XmlEnumValue("talud, hoogteverschil")
+  TALUD_HOOGTEVERSCHIL("talud, hoogteverschil"),
+  @XmlEnumValue("steile rand, aardrand")
+  STEILE_RAND_AARDRAND("steile rand, aardrand");
+  private final String value;
 
-    TypeReliefT50Type(String v) {
-        value = v;
-    }
+  TypeReliefT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeReliefT50Type fromValue(String v) {
-        for (TypeReliefT50Type c : TypeReliefT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeReliefT50Type fromValue(String v) {
+    for (TypeReliefT50Type c : TypeReliefT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

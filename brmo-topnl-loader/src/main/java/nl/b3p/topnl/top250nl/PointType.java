@@ -34,46 +34,46 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "PointType",
-        propOrder = {"pos", "coordinates"})
+    name = "PointType",
+    propOrder = {"pos", "coordinates"})
 public class PointType extends AbstractGeometricPrimitiveType {
 
-    protected DirectPositionType pos;
-    protected CoordinatesType coordinates;
+  protected DirectPositionType pos;
+  protected CoordinatesType coordinates;
 
-    /**
-     * Gets the value of the pos property.
-     *
-     * @return possible object is {@link DirectPositionType }
-     */
-    public DirectPositionType getPos() {
-        return pos;
-    }
+  /**
+   * Gets the value of the pos property.
+   *
+   * @return possible object is {@link DirectPositionType }
+   */
+  public DirectPositionType getPos() {
+    return pos;
+  }
 
-    /**
-     * Sets the value of the pos property.
-     *
-     * @param value allowed object is {@link DirectPositionType }
-     */
-    public void setPos(DirectPositionType value) {
-        this.pos = value;
-    }
+  /**
+   * Sets the value of the pos property.
+   *
+   * @param value allowed object is {@link DirectPositionType }
+   */
+  public void setPos(DirectPositionType value) {
+    this.pos = value;
+  }
 
-    /**
-     * Gets the value of the coordinates property.
-     *
-     * @return possible object is {@link CoordinatesType }
-     */
-    public CoordinatesType getCoordinates() {
-        return coordinates;
-    }
+  /**
+   * Gets the value of the coordinates property.
+   *
+   * @return possible object is {@link CoordinatesType }
+   */
+  public CoordinatesType getCoordinates() {
+    return coordinates;
+  }
 
-    /**
-     * Sets the value of the coordinates property.
-     *
-     * @param value allowed object is {@link CoordinatesType }
-     */
-    public void setCoordinates(CoordinatesType value) {
-        this.coordinates = value;
-    }
+  /**
+   * Sets the value of the coordinates property.
+   *
+   * @param value allowed object is {@link CoordinatesType }
+   */
+  public void setCoordinates(CoordinatesType value) {
+    this.coordinates = value;
+  }
 }

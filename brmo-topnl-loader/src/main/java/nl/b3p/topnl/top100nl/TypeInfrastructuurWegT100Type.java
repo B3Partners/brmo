@@ -29,30 +29,30 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeInfrastructuurWegT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeInfrastructuurWegT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeInfrastructuurWegT100Type {
-    @XmlEnumValue("verbinding")
-    VERBINDING("verbinding"),
-    @XmlEnumValue("overig verkeersgebied")
-    OVERIG_VERKEERSGEBIED("overig verkeersgebied");
-    private final String value;
+  @XmlEnumValue("verbinding")
+  VERBINDING("verbinding"),
+  @XmlEnumValue("overig verkeersgebied")
+  OVERIG_VERKEERSGEBIED("overig verkeersgebied");
+  private final String value;
 
-    TypeInfrastructuurWegT100Type(String v) {
-        value = v;
-    }
+  TypeInfrastructuurWegT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeInfrastructuurWegT100Type fromValue(String v) {
-        for (TypeInfrastructuurWegT100Type c : TypeInfrastructuurWegT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeInfrastructuurWegT100Type fromValue(String v) {
+    for (TypeInfrastructuurWegT100Type c : TypeInfrastructuurWegT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

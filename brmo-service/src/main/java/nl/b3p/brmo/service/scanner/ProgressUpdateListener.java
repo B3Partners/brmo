@@ -1,15 +1,17 @@
 package nl.b3p.brmo.service.scanner;
 
-/** @author Matthijs Laan */
+/**
+ * @author Matthijs Laan
+ */
 public interface ProgressUpdateListener {
 
-    public void total(long total);
+  public void total(long total);
 
-    public void progress(long progress);
+  public void progress(long progress);
 
-    public void exception(Throwable t);
+  public void exception(Throwable t);
 
-    public void updateStatus(String status);
+  public void updateStatus(String status);
 
-    public void addLog(String log);
+  public void addLog(String log);
 }

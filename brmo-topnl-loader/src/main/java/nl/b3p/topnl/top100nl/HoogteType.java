@@ -8,14 +8,13 @@
 
 package nl.b3p.topnl.top100nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for HoogteType complex type.
@@ -38,61 +37,61 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "HoogteType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"geometrie", "hoogte", "typeHoogte"})
+    name = "HoogteType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"geometrie", "hoogte", "typeHoogte"})
 public class HoogteType extends Top100NlObjectType {
 
-    @XmlAnyElement protected Element geometrie;
-    protected double hoogte;
+  @XmlAnyElement protected Element geometrie;
+  protected double hoogte;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeHoogteT100Type typeHoogte;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeHoogteT100Type typeHoogte;
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 
-    /** Gets the value of the hoogte property. */
-    public double getHoogte() {
-        return hoogte;
-    }
+  /** Gets the value of the hoogte property. */
+  public double getHoogte() {
+    return hoogte;
+  }
 
-    /** Sets the value of the hoogte property. */
-    public void setHoogte(double value) {
-        this.hoogte = value;
-    }
+  /** Sets the value of the hoogte property. */
+  public void setHoogte(double value) {
+    this.hoogte = value;
+  }
 
-    /**
-     * Gets the value of the typeHoogte property.
-     *
-     * @return possible object is {@link TypeHoogteT100Type }
-     */
-    public TypeHoogteT100Type getTypeHoogte() {
-        return typeHoogte;
-    }
+  /**
+   * Gets the value of the typeHoogte property.
+   *
+   * @return possible object is {@link TypeHoogteT100Type }
+   */
+  public TypeHoogteT100Type getTypeHoogte() {
+    return typeHoogte;
+  }
 
-    /**
-     * Sets the value of the typeHoogte property.
-     *
-     * @param value allowed object is {@link TypeHoogteT100Type }
-     */
-    public void setTypeHoogte(TypeHoogteT100Type value) {
-        this.typeHoogte = value;
-    }
+  /**
+   * Sets the value of the typeHoogte property.
+   *
+   * @param value allowed object is {@link TypeHoogteT100Type }
+   */
+  public void setTypeHoogte(TypeHoogteT100Type value) {
+    this.typeHoogte = value;
+  }
 }

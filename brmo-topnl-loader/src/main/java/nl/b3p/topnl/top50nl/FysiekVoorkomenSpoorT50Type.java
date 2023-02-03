@@ -31,34 +31,34 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "FysiekVoorkomenSpoorT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "FysiekVoorkomenSpoorT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum FysiekVoorkomenSpoorT50Type {
-    @XmlEnumValue("in tunnel")
-    IN_TUNNEL("in tunnel"),
-    @XmlEnumValue("op beweegbaar deel van brug")
-    OP_BEWEEGBAAR_DEEL_VAN_BRUG("op beweegbaar deel van brug"),
-    @XmlEnumValue("op vast deel van brug")
-    OP_VAST_DEEL_VAN_BRUG("op vast deel van brug"),
-    @XmlEnumValue("overkluisd")
-    OVERKLUISD("overkluisd");
-    private final String value;
+  @XmlEnumValue("in tunnel")
+  IN_TUNNEL("in tunnel"),
+  @XmlEnumValue("op beweegbaar deel van brug")
+  OP_BEWEEGBAAR_DEEL_VAN_BRUG("op beweegbaar deel van brug"),
+  @XmlEnumValue("op vast deel van brug")
+  OP_VAST_DEEL_VAN_BRUG("op vast deel van brug"),
+  @XmlEnumValue("overkluisd")
+  OVERKLUISD("overkluisd");
+  private final String value;
 
-    FysiekVoorkomenSpoorT50Type(String v) {
-        value = v;
-    }
+  FysiekVoorkomenSpoorT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static FysiekVoorkomenSpoorT50Type fromValue(String v) {
-        for (FysiekVoorkomenSpoorT50Type c : FysiekVoorkomenSpoorT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static FysiekVoorkomenSpoorT50Type fromValue(String v) {
+    for (FysiekVoorkomenSpoorT50Type c : FysiekVoorkomenSpoorT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

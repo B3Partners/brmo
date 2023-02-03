@@ -18,6 +18,8 @@ package nl.b3p.topnl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+import java.net.URL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom2.JDOMException;
@@ -26,54 +28,51 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import java.io.IOException;
-import java.net.URL;
-
 /**
  * @author Meine Toonen meinetoonen@b3partners.nl
  * @author mprins
  */
 public class TopNLTypeFactoryTest {
 
-    private static final Log LOG = LogFactory.getLog(TopNLTypeFactoryTest.class);
-    private TopNLTypeFactory instance = new TopNLTypeFactory();
+  private static final Log LOG = LogFactory.getLog(TopNLTypeFactoryTest.class);
+  private TopNLTypeFactory instance = new TopNLTypeFactory();
 
-    /** Log de naam van de test als deze begint. */
-    @BeforeEach
-    public void startTest(TestInfo testInfo) {
-        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
-    }
+  /** Log de naam van de test als deze begint. */
+  @BeforeEach
+  public void startTest(TestInfo testInfo) {
+    LOG.info("==== Start test methode: " + testInfo.getDisplayName());
+  }
 
-    /** Log de naam van de test als deze eindigt. */
-    @AfterEach
-    public void endTest(TestInfo testInfo) {
-        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
-    }
+  /** Log de naam van de test als deze eindigt. */
+  @AfterEach
+  public void endTest(TestInfo testInfo) {
+    LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
+  }
 
-    /** Test of getTopNLType method, of class TopNLTypeFactory. */
-    @Test
-    public void testGetTopNLType50() throws JDOMException, IOException {
-        URL is = TopNLTypeFactoryTest.class.getResource("top50nl_Gebouw.xml");
-        TopNLType expResult = TopNLType.TOP50NL;
-        TopNLType result = instance.getTopNLType(is);
-        assertEquals(expResult, result);
-    }
+  /** Test of getTopNLType method, of class TopNLTypeFactory. */
+  @Test
+  public void testGetTopNLType50() throws JDOMException, IOException {
+    URL is = TopNLTypeFactoryTest.class.getResource("top50nl_Gebouw.xml");
+    TopNLType expResult = TopNLType.TOP50NL;
+    TopNLType result = instance.getTopNLType(is);
+    assertEquals(expResult, result);
+  }
 
-    @Test
-    public void testGetTopNLType250() throws JDOMException, IOException {
-        URL is = TopNLTypeFactoryTest.class.getResource("top250nl_Hoogte.xml");
+  @Test
+  public void testGetTopNLType250() throws JDOMException, IOException {
+    URL is = TopNLTypeFactoryTest.class.getResource("top250nl_Hoogte.xml");
 
-        TopNLType expResult = TopNLType.TOP250NL;
-        TopNLType result = instance.getTopNLType(is);
-        assertEquals(expResult, result);
-    }
+    TopNLType expResult = TopNLType.TOP250NL;
+    TopNLType result = instance.getTopNLType(is);
+    assertEquals(expResult, result);
+  }
 
-    @Test
-    public void testGetTopNLType100() throws JDOMException, IOException {
-        URL is = TopNLTypeFactoryTest.class.getResource("top100nl_Hoogte.xml");
+  @Test
+  public void testGetTopNLType100() throws JDOMException, IOException {
+    URL is = TopNLTypeFactoryTest.class.getResource("top100nl_Hoogte.xml");
 
-        TopNLType expResult = TopNLType.TOP100NL;
-        TopNLType result = instance.getTopNLType(is);
-        assertEquals(expResult, result);
-    }
+    TopNLType expResult = TopNLType.TOP100NL;
+    TopNLType result = instance.getTopNLType(is);
+    assertEquals(expResult, result);
+  }
 }

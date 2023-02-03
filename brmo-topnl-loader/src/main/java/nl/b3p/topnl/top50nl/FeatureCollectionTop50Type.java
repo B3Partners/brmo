@@ -10,7 +10,6 @@ package nl.b3p.topnl.top50nl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -35,33 +34,33 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "FeatureCollectionTop50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {"featureMember"})
+    name = "FeatureCollectionTop50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {"featureMember"})
 public class FeatureCollectionTop50Type extends AbstractGMLType {
 
-    @XmlElement(name = "FeatureMember")
-    protected List<Object> featureMember;
+  @XmlElement(name = "FeatureMember")
+  protected List<Object> featureMember;
 
-    /**
-     * Gets the value of the featureMember property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the featureMember property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getFeatureMember().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link Object }
-     */
-    public List<Object> getFeatureMember() {
-        if (featureMember == null) {
-            featureMember = new ArrayList<Object>();
-        }
-        return this.featureMember;
+  /**
+   * Gets the value of the featureMember property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the featureMember property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getFeatureMember().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link Object }
+   */
+  public List<Object> getFeatureMember() {
+    if (featureMember == null) {
+      featureMember = new ArrayList<Object>();
     }
+    return this.featureMember;
+  }
 }

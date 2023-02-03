@@ -10,16 +10,16 @@ import org.locationtech.jts.geom.Geometry;
 
 public class GeometryAttributeColumnMapping extends AttributeColumnMapping {
 
-    public GeometryAttributeColumnMapping(String name, String type) {
-        super(name, type, false, false);
-    }
+  public GeometryAttributeColumnMapping(String name, String type) {
+    super(name, type, false, false);
+  }
 
-    public GeometryAttributeColumnMapping(String name) {
-        this(name, "geometry(GEOMETRY, 28992)");
-    }
+  public GeometryAttributeColumnMapping(String name) {
+    this(name, "geometry(GEOMETRY, 28992)");
+  }
 
-    @Override
-    public Geometry toQueryParameter(Object value) {
-        return (Geometry) value;
-    }
+  @Override
+  public Geometry toQueryParameter(Object value) {
+    return (Geometry) value;
+  }
 }

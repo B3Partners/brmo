@@ -8,13 +8,12 @@
 
 package nl.b3p.topnl.top10nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for PlanTopografieType complex type.
@@ -37,68 +36,68 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "PlanTopografieType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
-        propOrder = {"typeObject", "naam", "geometrie"})
+    name = "PlanTopografieType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
+    propOrder = {"typeObject", "naam", "geometrie"})
 public class PlanTopografieType extends Top10NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeObject;
+  @XmlElement(required = true)
+  protected CodeType typeObject;
 
-    protected String naam;
-    @XmlAnyElement protected Element geometrie;
+  protected String naam;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeObject property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeObject() {
-        return typeObject;
-    }
+  /**
+   * Gets the value of the typeObject property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeObject() {
+    return typeObject;
+  }
 
-    /**
-     * Sets the value of the typeObject property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeObject(CodeType value) {
-        this.typeObject = value;
-    }
+  /**
+   * Sets the value of the typeObject property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeObject(CodeType value) {
+    this.typeObject = value;
+  }
 
-    /**
-     * Gets the value of the naam property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaam() {
-        return naam;
-    }
+  /**
+   * Gets the value of the naam property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaam() {
+    return naam;
+  }
 
-    /**
-     * Sets the value of the naam property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaam(String value) {
-        this.naam = value;
-    }
+  /**
+   * Sets the value of the naam property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaam(String value) {
+    this.naam = value;
+  }
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

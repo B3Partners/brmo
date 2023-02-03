@@ -8,18 +8,16 @@
 
 package nl.b3p.topnl.top100nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for WaterdeelType complex type.
@@ -44,117 +42,117 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "WaterdeelType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"typeWater", "breedteklasse", "fysiekVoorkomen", "hoogteniveau", "geometrie"})
+    name = "WaterdeelType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"typeWater", "breedteklasse", "fysiekVoorkomen", "hoogteniveau", "geometrie"})
 public class WaterdeelType extends Top100NlObjectType {
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeWaterT100Type typeWater;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeWaterT100Type typeWater;
 
-    protected String breedteklasse;
+  protected String breedteklasse;
 
-    @XmlSchemaType(name = "string")
-    protected List<FysiekVoorkomenWaterT100Type> fysiekVoorkomen;
+  @XmlSchemaType(name = "string")
+  protected List<FysiekVoorkomenWaterT100Type> fysiekVoorkomen;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteniveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteniveau;
 
-    @XmlAnyElement protected Element geometrie;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeWater property.
-     *
-     * @return possible object is {@link TypeWaterT100Type }
-     */
-    public TypeWaterT100Type getTypeWater() {
-        return typeWater;
+  /**
+   * Gets the value of the typeWater property.
+   *
+   * @return possible object is {@link TypeWaterT100Type }
+   */
+  public TypeWaterT100Type getTypeWater() {
+    return typeWater;
+  }
+
+  /**
+   * Sets the value of the typeWater property.
+   *
+   * @param value allowed object is {@link TypeWaterT100Type }
+   */
+  public void setTypeWater(TypeWaterT100Type value) {
+    this.typeWater = value;
+  }
+
+  /**
+   * Gets the value of the breedteklasse property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getBreedteklasse() {
+    return breedteklasse;
+  }
+
+  /**
+   * Sets the value of the breedteklasse property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBreedteklasse(String value) {
+    this.breedteklasse = value;
+  }
+
+  /**
+   * Gets the value of the fysiekVoorkomen property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getFysiekVoorkomen().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link FysiekVoorkomenWaterT100Type
+   * }
+   */
+  public List<FysiekVoorkomenWaterT100Type> getFysiekVoorkomen() {
+    if (fysiekVoorkomen == null) {
+      fysiekVoorkomen = new ArrayList<FysiekVoorkomenWaterT100Type>();
     }
+    return this.fysiekVoorkomen;
+  }
 
-    /**
-     * Sets the value of the typeWater property.
-     *
-     * @param value allowed object is {@link TypeWaterT100Type }
-     */
-    public void setTypeWater(TypeWaterT100Type value) {
-        this.typeWater = value;
-    }
+  /**
+   * Gets the value of the hoogteniveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    /**
-     * Gets the value of the breedteklasse property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getBreedteklasse() {
-        return breedteklasse;
-    }
+  /**
+   * Sets the value of the hoogteniveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteniveau(BigInteger value) {
+    this.hoogteniveau = value;
+  }
 
-    /**
-     * Sets the value of the breedteklasse property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setBreedteklasse(String value) {
-        this.breedteklasse = value;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Gets the value of the fysiekVoorkomen property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getFysiekVoorkomen().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link
-     * FysiekVoorkomenWaterT100Type }
-     */
-    public List<FysiekVoorkomenWaterT100Type> getFysiekVoorkomen() {
-        if (fysiekVoorkomen == null) {
-            fysiekVoorkomen = new ArrayList<FysiekVoorkomenWaterT100Type>();
-        }
-        return this.fysiekVoorkomen;
-    }
-
-    /**
-     * Gets the value of the hoogteniveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteniveau() {
-        return hoogteniveau;
-    }
-
-    /**
-     * Sets the value of the hoogteniveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteniveau(BigInteger value) {
-        this.hoogteniveau = value;
-    }
-
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
-
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

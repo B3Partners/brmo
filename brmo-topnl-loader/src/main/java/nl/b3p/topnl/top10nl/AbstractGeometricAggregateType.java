@@ -34,24 +34,24 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({MultiSurfaceType.class})
 public abstract class AbstractGeometricAggregateType extends AbstractGeometryType {
 
-    @XmlAttribute(name = "aggregationType")
-    protected AggregationType aggregationType;
+  @XmlAttribute(name = "aggregationType")
+  protected AggregationType aggregationType;
 
-    /**
-     * Gets the value of the aggregationType property.
-     *
-     * @return possible object is {@link AggregationType }
-     */
-    public AggregationType getAggregationType() {
-        return aggregationType;
-    }
+  /**
+   * Gets the value of the aggregationType property.
+   *
+   * @return possible object is {@link AggregationType }
+   */
+  public AggregationType getAggregationType() {
+    return aggregationType;
+  }
 
-    /**
-     * Sets the value of the aggregationType property.
-     *
-     * @param value allowed object is {@link AggregationType }
-     */
-    public void setAggregationType(AggregationType value) {
-        this.aggregationType = value;
-    }
+  /**
+   * Sets the value of the aggregationType property.
+   *
+   * @param value allowed object is {@link AggregationType }
+   */
+  public void setAggregationType(AggregationType value) {
+    this.aggregationType = value;
+  }
 }

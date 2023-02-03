@@ -20,41 +20,43 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** @author Meine Toonen */
+/**
+ * @author Meine Toonen
+ */
 public enum TopNLType {
-    TOP10NL("Top10NL"),
-    TOP50NL("Top50NL"),
-    TOP100NL("Top100NL"),
-    TOP250NL("Top250NL");
+  TOP10NL("Top10NL"),
+  TOP50NL("Top50NL"),
+  TOP100NL("Top100NL"),
+  TOP250NL("Top250NL");
 
-    private final String type;
+  private final String type;
 
-    private static final ArrayList<String> typen = new ArrayList();
+  private static final ArrayList<String> typen = new ArrayList();
 
-    static {
-        for (TopNLType s : values()) {
-            typen.add(s.getType());
-        }
+  static {
+    for (TopNLType s : values()) {
+      typen.add(s.getType());
     }
+  }
 
-    TopNLType(String type) {
-        this.type = type;
-    }
+  TopNLType(String type) {
+    this.type = type;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public static List<String> typen() {
-        return Collections.unmodifiableList(typen);
-    }
+  public static List<String> typen() {
+    return Collections.unmodifiableList(typen);
+  }
 
-    public static boolean isTopNLType(String type) {
-        for (TopNLType value : TopNLType.values()) {
-            if (value.getType().equalsIgnoreCase(type)) {
-                return true;
-            }
-        }
-        return false;
+  public static boolean isTopNLType(String type) {
+    for (TopNLType value : TopNLType.values()) {
+      if (value.getType().equalsIgnoreCase(type)) {
+        return true;
+      }
     }
+    return false;
+  }
 }

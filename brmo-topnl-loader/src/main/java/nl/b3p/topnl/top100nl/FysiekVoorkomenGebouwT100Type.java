@@ -28,28 +28,28 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "FysiekVoorkomenGebouwT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "FysiekVoorkomenGebouwT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum FysiekVoorkomenGebouwT100Type {
-    @XmlEnumValue("overkluisd")
-    OVERKLUISD("overkluisd");
-    private final String value;
+  @XmlEnumValue("overkluisd")
+  OVERKLUISD("overkluisd");
+  private final String value;
 
-    FysiekVoorkomenGebouwT100Type(String v) {
-        value = v;
-    }
+  FysiekVoorkomenGebouwT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static FysiekVoorkomenGebouwT100Type fromValue(String v) {
-        for (FysiekVoorkomenGebouwT100Type c : FysiekVoorkomenGebouwT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static FysiekVoorkomenGebouwT100Type fromValue(String v) {
+    for (FysiekVoorkomenGebouwT100Type c : FysiekVoorkomenGebouwT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }
