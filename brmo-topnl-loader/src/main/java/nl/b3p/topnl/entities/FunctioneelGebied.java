@@ -18,53 +18,55 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/** @author Meine Toonen meinetoonen@b3partners.nl */
+/**
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
 public class FunctioneelGebied extends TopNLEntity {
 
-    private String typeFunctioneelGebied;
-    private String soortnaam;
-    private String naamNL;
-    private String naamFries;
+  private String typeFunctioneelGebied;
+  private String soortnaam;
+  private String naamNL;
+  private String naamFries;
 
-    private Geometry geometrie;
+  private Geometry geometrie;
 
-    public String getTypeFunctioneelGebied() {
-        return typeFunctioneelGebied;
-    }
+  public String getTypeFunctioneelGebied() {
+    return typeFunctioneelGebied;
+  }
 
-    public void setTypeFunctioneelGebied(String functioneelGebied) {
-        this.typeFunctioneelGebied = functioneelGebied;
-    }
+  public void setTypeFunctioneelGebied(String functioneelGebied) {
+    this.typeFunctioneelGebied = functioneelGebied;
+  }
 
-    public String getSoortnaam() {
-        return soortnaam;
-    }
+  public String getSoortnaam() {
+    return soortnaam;
+  }
 
-    public void setSoortnaam(String soortnaam) {
-        this.soortnaam = soortnaam;
-    }
+  public void setSoortnaam(String soortnaam) {
+    this.soortnaam = soortnaam;
+  }
 
-    public String getNaamNL() {
-        return naamNL;
-    }
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    public void setNaamNL(String naamNL) {
-        this.naamNL = naamNL;
-    }
+  public void setNaamNL(String naamNL) {
+    this.naamNL = naamNL;
+  }
 
-    public String getNaamFries() {
-        return naamFries;
-    }
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    public void setNaamFries(String naamFries) {
-        this.naamFries = naamFries;
-    }
+  public void setNaamFries(String naamFries) {
+    this.naamFries = naamFries;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 }

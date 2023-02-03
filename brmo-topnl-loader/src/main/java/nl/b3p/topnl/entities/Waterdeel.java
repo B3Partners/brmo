@@ -18,152 +18,154 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/** @author Meine Toonen meinetoonen@b3partners.nl */
+/**
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
 public class Waterdeel extends TopNLEntity {
 
-    private String typeWater;
-    private String breedteklasse;
-    private String fysiekVoorkomen;
-    private String voorkomen;
-    private Boolean getijdeinvloed;
-    private String vaarwegklasse;
-    private String naamOfficieel;
-    private String naamNL;
-    private String naamFries;
-    private Boolean isBAGnaam;
-    private String sluisnaam;
-    private String brugnaam;
-    private Long hoogteniveau;
-    private String functie;
-    private boolean hoofdAfwatering;
+  private String typeWater;
+  private String breedteklasse;
+  private String fysiekVoorkomen;
+  private String voorkomen;
+  private Boolean getijdeinvloed;
+  private String vaarwegklasse;
+  private String naamOfficieel;
+  private String naamNL;
+  private String naamFries;
+  private Boolean isBAGnaam;
+  private String sluisnaam;
+  private String brugnaam;
+  private Long hoogteniveau;
+  private String functie;
+  private boolean hoofdAfwatering;
 
-    private Geometry geometrie;
+  private Geometry geometrie;
 
-    public String getTypeWater() {
-        return typeWater;
-    }
+  public String getTypeWater() {
+    return typeWater;
+  }
 
-    public void setTypeWater(String typeWater) {
-        this.typeWater = typeWater;
-    }
+  public void setTypeWater(String typeWater) {
+    this.typeWater = typeWater;
+  }
 
-    public String getBreedteklasse() {
-        return breedteklasse;
-    }
+  public String getBreedteklasse() {
+    return breedteklasse;
+  }
 
-    public void setBreedteklasse(String breedteklasse) {
-        this.breedteklasse = breedteklasse;
-    }
+  public void setBreedteklasse(String breedteklasse) {
+    this.breedteklasse = breedteklasse;
+  }
 
-    public String getFysiekVoorkomen() {
-        return fysiekVoorkomen;
-    }
+  public String getFysiekVoorkomen() {
+    return fysiekVoorkomen;
+  }
 
-    public void setFysiekVoorkomen(String fysiekVoorkomen) {
-        this.fysiekVoorkomen = fysiekVoorkomen;
-    }
+  public void setFysiekVoorkomen(String fysiekVoorkomen) {
+    this.fysiekVoorkomen = fysiekVoorkomen;
+  }
 
-    public String getVoorkomen() {
-        return voorkomen;
-    }
+  public String getVoorkomen() {
+    return voorkomen;
+  }
 
-    public void setVoorkomen(String voorkomen) {
-        this.voorkomen = voorkomen;
-    }
+  public void setVoorkomen(String voorkomen) {
+    this.voorkomen = voorkomen;
+  }
 
-    public Boolean getGetijdeinvloed() {
-        return getijdeinvloed;
-    }
+  public Boolean getGetijdeinvloed() {
+    return getijdeinvloed;
+  }
 
-    public void setGetijdeinvloed(Boolean getijdeinvloed) {
-        this.getijdeinvloed = getijdeinvloed;
-    }
+  public void setGetijdeinvloed(Boolean getijdeinvloed) {
+    this.getijdeinvloed = getijdeinvloed;
+  }
 
-    public String getVaarwegklasse() {
-        return vaarwegklasse;
-    }
+  public String getVaarwegklasse() {
+    return vaarwegklasse;
+  }
 
-    public void setVaarwegklasse(String vaarwegklasse) {
-        this.vaarwegklasse = vaarwegklasse;
-    }
+  public void setVaarwegklasse(String vaarwegklasse) {
+    this.vaarwegklasse = vaarwegklasse;
+  }
 
-    public String getNaamOfficieel() {
-        return naamOfficieel;
-    }
+  public String getNaamOfficieel() {
+    return naamOfficieel;
+  }
 
-    public void setNaamOfficieel(String naamOfficieel) {
-        this.naamOfficieel = naamOfficieel;
-    }
+  public void setNaamOfficieel(String naamOfficieel) {
+    this.naamOfficieel = naamOfficieel;
+  }
 
-    public String getNaamNL() {
-        return naamNL;
-    }
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    public void setNaamNL(String naamNL) {
-        this.naamNL = naamNL;
-    }
+  public void setNaamNL(String naamNL) {
+    this.naamNL = naamNL;
+  }
 
-    public String getNaamFries() {
-        return naamFries;
-    }
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    public void setNaamFries(String naamFries) {
-        this.naamFries = naamFries;
-    }
+  public void setNaamFries(String naamFries) {
+    this.naamFries = naamFries;
+  }
 
-    public Boolean getIsBAGnaam() {
-        return isBAGnaam;
-    }
+  public Boolean getIsBAGnaam() {
+    return isBAGnaam;
+  }
 
-    public void setIsBAGnaam(Boolean isBAGnaam) {
-        this.isBAGnaam = isBAGnaam;
-    }
+  public void setIsBAGnaam(Boolean isBAGnaam) {
+    this.isBAGnaam = isBAGnaam;
+  }
 
-    public String getSluisnaam() {
-        return sluisnaam;
-    }
+  public String getSluisnaam() {
+    return sluisnaam;
+  }
 
-    public void setSluisnaam(String sluisnaam) {
-        this.sluisnaam = sluisnaam;
-    }
+  public void setSluisnaam(String sluisnaam) {
+    this.sluisnaam = sluisnaam;
+  }
 
-    public String getBrugnaam() {
-        return brugnaam;
-    }
+  public String getBrugnaam() {
+    return brugnaam;
+  }
 
-    public void setBrugnaam(String brugnaam) {
-        this.brugnaam = brugnaam;
-    }
+  public void setBrugnaam(String brugnaam) {
+    this.brugnaam = brugnaam;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public Long getHoogteniveau() {
-        return hoogteniveau;
-    }
+  public Long getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    public void setHoogteniveau(Long hoogteniveau) {
-        this.hoogteniveau = hoogteniveau;
-    }
+  public void setHoogteniveau(Long hoogteniveau) {
+    this.hoogteniveau = hoogteniveau;
+  }
 
-    public boolean isHoofdAfwatering() {
-        return hoofdAfwatering;
-    }
+  public boolean isHoofdAfwatering() {
+    return hoofdAfwatering;
+  }
 
-    public void setHoofdAfwatering(boolean hoofdAfwatering) {
-        this.hoofdAfwatering = hoofdAfwatering;
-    }
+  public void setHoofdAfwatering(boolean hoofdAfwatering) {
+    this.hoofdAfwatering = hoofdAfwatering;
+  }
 
-    public String getFunctie() {
-        return functie;
-    }
+  public String getFunctie() {
+    return functie;
+  }
 
-    public void setFunctie(String functie) {
-        this.functie = functie;
-    }
+  public void setFunctie(String functie) {
+    this.functie = functie;
+  }
 }

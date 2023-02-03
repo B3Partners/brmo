@@ -16,18 +16,11 @@
  */
 package nl.b3p.brmo.loader.xml;
 
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.GbavBericht;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -37,112 +30,113 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.GbavBericht;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-/** @author Mark Prins */
+/**
+ * @author Mark Prins
+ */
 public class GbavXMLReader extends BrmoXMLReader {
 
-    private static final Log log = LogFactory.getLog(GbavXMLReader.class);
-    private static final String PERSOON = "persoon";
-    public static final String PREFIX = "NL.BRP.Persoon.";
-    private final XMLInputFactory factory = XMLInputFactory.newInstance();
-    private final XMLStreamReader streamReader;
-    private final Transformer transformer;
-    private final XMLOutputFactory xmlof;
-    private GbavBericht nextBericht = null;
-    private int volgordeNummer = 0;
+  private static final Log log = LogFactory.getLog(GbavXMLReader.class);
+  private static final String PERSOON = "persoon";
+  public static final String PREFIX = "NL.BRP.Persoon.";
+  private final XMLInputFactory factory = XMLInputFactory.newInstance();
+  private final XMLStreamReader streamReader;
+  private final Transformer transformer;
+  private final XMLOutputFactory xmlof;
+  private GbavBericht nextBericht = null;
+  private int volgordeNummer = 0;
 
-    public GbavXMLReader(InputStream in)
-            throws XMLStreamException, TransformerConfigurationException {
-        streamReader = factory.createXMLStreamReader(in);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        transformer = tf.newTransformer();
-        xmlof = XMLOutputFactory.newInstance();
-        // xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
+  public GbavXMLReader(InputStream in)
+      throws XMLStreamException, TransformerConfigurationException {
+    streamReader = factory.createXMLStreamReader(in);
+    TransformerFactory tf = TransformerFactory.newInstance();
+    transformer = tf.newTransformer();
+    xmlof = XMLOutputFactory.newInstance();
+    // xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
 
-        init();
-    }
+    init();
+  }
 
-    @Override
-    public void init() throws XMLStreamException {
-        soort = BrmoFramework.BR_GBAV;
-        try {
-            while (streamReader.hasNext()) {
-                if (streamReader.isStartElement()) {
-                    String localName = streamReader.getLocalName();
-                    if (localName.equals(PERSOON)) {
-                        break;
-                    }
-                }
-                streamReader.next();
-            }
-        } catch (XMLStreamException ex) {
-            log.error("Error while streaming XML", ex);
+  @Override
+  public void init() throws XMLStreamException {
+    soort = BrmoFramework.BR_GBAV;
+    try {
+      while (streamReader.hasNext()) {
+        if (streamReader.isStartElement()) {
+          String localName = streamReader.getLocalName();
+          if (localName.equals(PERSOON)) {
+            break;
+          }
         }
-        if (getBestandsDatum() == null) {
-            setBestandsDatum(new Date());
-        }
+        streamReader.next();
+      }
+    } catch (XMLStreamException ex) {
+      log.error("Error while streaming XML", ex);
     }
-
-    @Override
-    public boolean hasNext() throws Exception {
-        if (nextBericht != null) {
-            return true;
-        }
-        try {
-            while (streamReader.hasNext()) {
-                if (streamReader.isStartElement() && streamReader.getLocalName().equals(PERSOON)) {
-                    StringWriter sw = new StringWriter();
-                    transformer.transform(
-                            new StAXSource(streamReader),
-                            new StAXResult(xmlof.createXMLStreamWriter(sw)));
-                    nextBericht = new GbavBericht(sw.toString());
-                    nextBericht.setDatum(nextBericht.parseDatum());
-                    if (nextBericht.getDatum() == null) {
-                        nextBericht.setDatum(new Date());
-                    }
-                    nextBericht.setVolgordeNummer(volgordeNummer);
-
-                    String bsn = nextBericht.getBsn();
-                    String bsnHash = this.getHash(bsn);
-                    nextBericht.setObjectRef(PREFIX + bsnHash);
-
-                    Map<String, String> bsns = new HashMap<>();
-                    nextBericht
-                            .getBsnList()
-                            .forEach(
-                                    (_bsn) -> {
-                                        log.debug(
-                                                "toevoegen bsn en hash: "
-                                                        + _bsn
-                                                        + ":"
-                                                        + this.getHash(_bsn));
-                                        bsns.put(_bsn, this.getHash(_bsn));
-                                    });
-                    log.debug("aantal BSN in bericht:" + bsns.size());
-                    nextBericht.setBsnMap(bsns);
-                    return true;
-                } else {
-                    streamReader.next();
-                }
-            }
-        } catch (XMLStreamException ex) {
-            log.error("Streamfout tijdens parsen GBA-V XML", ex);
-        }
-        return false;
+    if (getBestandsDatum() == null) {
+      setBestandsDatum(new Date());
     }
+  }
 
-    /**
-     * geeft het volgende bericht uit de stream, mits {@link #hasNext() } {@code true} geeft.
-     * Gebruik dus eerst {@link #hasNext()}.
-     *
-     * @return volgend bericht
-     * @throws Exception soms
-     */
-    @Override
-    public GbavBericht next() throws Exception {
-        GbavBericht b = nextBericht;
-        nextBericht = null;
-        volgordeNummer++;
-        return b;
+  @Override
+  public boolean hasNext() throws Exception {
+    if (nextBericht != null) {
+      return true;
     }
+    try {
+      while (streamReader.hasNext()) {
+        if (streamReader.isStartElement() && streamReader.getLocalName().equals(PERSOON)) {
+          StringWriter sw = new StringWriter();
+          transformer.transform(
+              new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
+          nextBericht = new GbavBericht(sw.toString());
+          nextBericht.setDatum(nextBericht.parseDatum());
+          if (nextBericht.getDatum() == null) {
+            nextBericht.setDatum(new Date());
+          }
+          nextBericht.setVolgordeNummer(volgordeNummer);
+
+          String bsn = nextBericht.getBsn();
+          String bsnHash = this.getHash(bsn);
+          nextBericht.setObjectRef(PREFIX + bsnHash);
+
+          Map<String, String> bsns = new HashMap<>();
+          nextBericht
+              .getBsnList()
+              .forEach(
+                  (_bsn) -> {
+                    log.debug("toevoegen bsn en hash: " + _bsn + ":" + this.getHash(_bsn));
+                    bsns.put(_bsn, this.getHash(_bsn));
+                  });
+          log.debug("aantal BSN in bericht:" + bsns.size());
+          nextBericht.setBsnMap(bsns);
+          return true;
+        } else {
+          streamReader.next();
+        }
+      }
+    } catch (XMLStreamException ex) {
+      log.error("Streamfout tijdens parsen GBA-V XML", ex);
+    }
+    return false;
+  }
+
+  /**
+   * geeft het volgende bericht uit de stream, mits {@link #hasNext() } {@code true} geeft. Gebruik
+   * dus eerst {@link #hasNext()}.
+   *
+   * @return volgend bericht
+   * @throws Exception soms
+   */
+  @Override
+  public GbavBericht next() throws Exception {
+    GbavBericht b = nextBericht;
+    nextBericht = null;
+    volgordeNummer++;
+    return b;
+  }
 }

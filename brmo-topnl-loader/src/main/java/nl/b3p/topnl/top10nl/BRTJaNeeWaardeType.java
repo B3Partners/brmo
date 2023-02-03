@@ -29,30 +29,30 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "BRTJaNeeWaardeType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0")
+    name = "BRTJaNeeWaardeType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0")
 @XmlEnum
 public enum BRTJaNeeWaardeType {
-    @XmlEnumValue("ja")
-    JA("ja"),
-    @XmlEnumValue("nee")
-    NEE("nee");
-    private final String value;
+  @XmlEnumValue("ja")
+  JA("ja"),
+  @XmlEnumValue("nee")
+  NEE("nee");
+  private final String value;
 
-    BRTJaNeeWaardeType(String v) {
-        value = v;
-    }
+  BRTJaNeeWaardeType(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static BRTJaNeeWaardeType fromValue(String v) {
-        for (BRTJaNeeWaardeType c : BRTJaNeeWaardeType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static BRTJaNeeWaardeType fromValue(String v) {
+    for (BRTJaNeeWaardeType c : BRTJaNeeWaardeType.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

@@ -8,16 +8,14 @@
 
 package nl.b3p.topnl.top250nl;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for TerreinType complex type.
@@ -41,92 +39,92 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "TerreinType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
-        propOrder = {"geometrieVlak", "naam", "typeLandgebruik", "voorkomen"})
+    name = "TerreinType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
+    propOrder = {"geometrieVlak", "naam", "typeLandgebruik", "voorkomen"})
 public class TerreinType extends Top250NlObjectType {
 
-    @XmlAnyElement protected Element geometrieVlak;
-    protected String naam;
+  @XmlAnyElement protected Element geometrieVlak;
+  protected String naam;
 
-    @XmlElement(required = true)
-    protected CodeType typeLandgebruik;
+  @XmlElement(required = true)
+  protected CodeType typeLandgebruik;
 
-    protected List<CodeType> voorkomen;
+  protected List<CodeType> voorkomen;
 
-    /**
-     * Gets the value of the geometrieVlak property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrieVlak() {
-        return geometrieVlak;
+  /**
+   * Gets the value of the geometrieVlak property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrieVlak() {
+    return geometrieVlak;
+  }
+
+  /**
+   * Sets the value of the geometrieVlak property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrieVlak(Element value) {
+    this.geometrieVlak = value;
+  }
+
+  /**
+   * Gets the value of the naam property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaam() {
+    return naam;
+  }
+
+  /**
+   * Sets the value of the naam property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaam(String value) {
+    this.naam = value;
+  }
+
+  /**
+   * Gets the value of the typeLandgebruik property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeLandgebruik() {
+    return typeLandgebruik;
+  }
+
+  /**
+   * Sets the value of the typeLandgebruik property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeLandgebruik(CodeType value) {
+    this.typeLandgebruik = value;
+  }
+
+  /**
+   * Gets the value of the voorkomen property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the voorkomen property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getVoorkomen().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
+   */
+  public List<CodeType> getVoorkomen() {
+    if (voorkomen == null) {
+      voorkomen = new ArrayList<CodeType>();
     }
-
-    /**
-     * Sets the value of the geometrieVlak property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrieVlak(Element value) {
-        this.geometrieVlak = value;
-    }
-
-    /**
-     * Gets the value of the naam property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaam() {
-        return naam;
-    }
-
-    /**
-     * Sets the value of the naam property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaam(String value) {
-        this.naam = value;
-    }
-
-    /**
-     * Gets the value of the typeLandgebruik property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeLandgebruik() {
-        return typeLandgebruik;
-    }
-
-    /**
-     * Sets the value of the typeLandgebruik property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeLandgebruik(CodeType value) {
-        this.typeLandgebruik = value;
-    }
-
-    /**
-     * Gets the value of the voorkomen property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the voorkomen property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getVoorkomen().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
-     */
-    public List<CodeType> getVoorkomen() {
-        if (voorkomen == null) {
-            voorkomen = new ArrayList<CodeType>();
-        }
-        return this.voorkomen;
-    }
+    return this.voorkomen;
+  }
 }

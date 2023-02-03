@@ -19,6 +19,9 @@ package nl.b3p.web;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
@@ -29,66 +32,63 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-/** @author Mark Prins */
+/**
+ * @author Mark Prins
+ */
 public class LogsPageIntegrationTest extends WebTestUtil {
 
-    /**
-     * Test login/logs/logout sequentie.
-     *
-     * @throws IOException mag niet optreden
-     * @throws URISyntaxException mag niet optreden
-     */
-    @Test
-    public void testLoginLogsLogoutPage() throws Exception {
-        // login
-        HttpResponse response = client.execute(new HttpGet(BASE_TEST_URL));
-        EntityUtils.consume(response.getEntity());
+  /**
+   * Test login/logs/logout sequentie.
+   *
+   * @throws IOException mag niet optreden
+   * @throws URISyntaxException mag niet optreden
+   */
+  @Test
+  public void testLoginLogsLogoutPage() throws Exception {
+    // login
+    HttpResponse response = client.execute(new HttpGet(BASE_TEST_URL));
+    EntityUtils.consume(response.getEntity());
 
-        HttpUriRequest login =
-                RequestBuilder.post()
-                        .setUri(new URI(BASE_TEST_URL + "j_security_check"))
-                        .addParameter("j_username", "brmo")
-                        .addParameter("j_password", "brmo")
-                        .build();
-        response = client.execute(login);
-        EntityUtils.consume(response.getEntity());
-        assertThat(
-                "Response status is OK.",
-                response.getStatusLine().getStatusCode(),
-                equalTo(HttpStatus.SC_OK));
+    HttpUriRequest login =
+        RequestBuilder.post()
+            .setUri(new URI(BASE_TEST_URL + "j_security_check"))
+            .addParameter("j_username", "brmo")
+            .addParameter("j_password", "brmo")
+            .build();
+    response = client.execute(login);
+    EntityUtils.consume(response.getEntity());
+    assertThat(
+        "Response status is OK.",
+        response.getStatusLine().getStatusCode(),
+        equalTo(HttpStatus.SC_OK));
 
-        // logs
-        response = client.execute(new HttpGet(BASE_TEST_URL + "logs.jsp"));
-        assertThat(
-                "Response status is OK.",
-                response.getStatusLine().getStatusCode(),
-                equalTo(HttpStatus.SC_OK));
-        String body = EntityUtils.toString(response.getEntity());
-        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
-        Assertions.assertTrue(
-                body.contains("<h1>BRMO Service logfile</h1>"),
-                "Response moet 'BRMO Service logfiles' header hebben.");
-        Assumptions.assumeTrue(body.contains("Database en driver informatie"));
+    // logs
+    response = client.execute(new HttpGet(BASE_TEST_URL + "logs.jsp"));
+    assertThat(
+        "Response status is OK.",
+        response.getStatusLine().getStatusCode(),
+        equalTo(HttpStatus.SC_OK));
+    String body = EntityUtils.toString(response.getEntity());
+    Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+    Assertions.assertTrue(
+        body.contains("<h1>BRMO Service logfile</h1>"),
+        "Response moet 'BRMO Service logfiles' header hebben.");
+    Assumptions.assumeTrue(body.contains("Database en driver informatie"));
 
-        // logout
-        response = client.execute(new HttpGet(BASE_TEST_URL + "logout.jsp"));
-        body = EntityUtils.toString(response.getEntity());
-        assertThat(
-                "Response status is OK.",
-                response.getStatusLine().getStatusCode(),
-                equalTo(HttpStatus.SC_OK));
-        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
-        Assertions.assertTrue(
-                body.contains("Opnieuw inloggen"),
-                "Response moet 'Opnieuw inloggen' tekst hebben.");
-    }
+    // logout
+    response = client.execute(new HttpGet(BASE_TEST_URL + "logout.jsp"));
+    body = EntityUtils.toString(response.getEntity());
+    assertThat(
+        "Response status is OK.",
+        response.getStatusLine().getStatusCode(),
+        equalTo(HttpStatus.SC_OK));
+    Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+    Assertions.assertTrue(
+        body.contains("Opnieuw inloggen"), "Response moet 'Opnieuw inloggen' tekst hebben.");
+  }
 
-    @Override
-    public void setUp() {
-        // void implementatie
-    }
+  @Override
+  public void setUp() {
+    // void implementatie
+  }
 }

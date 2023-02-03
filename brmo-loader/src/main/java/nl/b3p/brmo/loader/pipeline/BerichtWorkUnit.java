@@ -2,44 +2,45 @@ package nl.b3p.brmo.loader.pipeline;
 
 import static nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork.*;
 
+import java.util.List;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.TableData;
 
-import java.util.List;
-
-/** @author Matthijs Laan */
+/**
+ * @author Matthijs Laan
+ */
 public class BerichtWorkUnit {
-    private BerichtTypeOfWork typeOfWork = TRANSFORM_TO_TABLEDATA;
+  private BerichtTypeOfWork typeOfWork = TRANSFORM_TO_TABLEDATA;
 
-    private Bericht bericht;
+  private Bericht bericht;
 
-    private List<TableData> tableData;
+  private List<TableData> tableData;
 
-    public BerichtWorkUnit(Bericht bericht) {
-        this.bericht = bericht;
-    }
+  public BerichtWorkUnit(Bericht bericht) {
+    this.bericht = bericht;
+  }
 
-    public BerichtTypeOfWork getTypeOfWork() {
-        return typeOfWork;
-    }
+  public BerichtTypeOfWork getTypeOfWork() {
+    return typeOfWork;
+  }
 
-    public void setTypeOfWork(BerichtTypeOfWork typeOfWork) {
-        this.typeOfWork = typeOfWork;
-    }
+  public void setTypeOfWork(BerichtTypeOfWork typeOfWork) {
+    this.typeOfWork = typeOfWork;
+  }
 
-    public Bericht getBericht() {
-        return bericht;
-    }
+  public Bericht getBericht() {
+    return bericht;
+  }
 
-    public void setBericht(Bericht bericht) {
-        this.bericht = bericht;
-    }
+  public void setBericht(Bericht bericht) {
+    this.bericht = bericht;
+  }
 
-    public List<TableData> getTableData() {
-        return tableData;
-    }
+  public List<TableData> getTableData() {
+    return tableData;
+  }
 
-    public void setTableData(List<TableData> tableData) {
-        this.tableData = tableData;
-    }
+  public void setTableData(List<TableData> tableData) {
+    this.tableData = tableData;
+  }
 }

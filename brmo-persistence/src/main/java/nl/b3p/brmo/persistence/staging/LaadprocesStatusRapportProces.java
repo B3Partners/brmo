@@ -5,6 +5,8 @@ package nl.b3p.brmo.persistence.staging;
 
 import javax.persistence.Entity;
 
-/** @author mprins */
+/**
+ * @author mprins
+ */
 @Entity
 public class LaadprocesStatusRapportProces extends AutomatischProces {}

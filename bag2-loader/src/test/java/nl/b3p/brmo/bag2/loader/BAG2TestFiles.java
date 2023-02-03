@@ -14,15 +14,15 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class BAG2TestFiles {
-    public static InputStream getTestInputStream(String name) {
-        InputStream input = BAG2TestFiles.class.getResourceAsStream("/" + name);
-        assertNotNull(input, name);
-        return input;
-    }
+  public static InputStream getTestInputStream(String name) {
+    InputStream input = BAG2TestFiles.class.getResourceAsStream("/" + name);
+    assertNotNull(input, name);
+    return input;
+  }
 
-    public static File getTestFile(String name) {
-        URL url = BAG2TestFiles.class.getResource("/" + name);
-        assertNotNull(url, name);
-        return new File(url.getFile());
-    }
+  public static File getTestFile(String name) {
+    URL url = BAG2TestFiles.class.getResource("/" + name);
+    assertNotNull(url, name);
+    return new File(url.getFile());
+  }
 }

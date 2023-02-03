@@ -32,47 +32,47 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTVlakOfLijnType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"vlakGeometrie", "lijnGeometrie"})
+    name = "BRTVlakOfLijnType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"vlakGeometrie", "lijnGeometrie"})
 public class BRTVlakOfLijnType {
 
-    protected SurfacePropertyType vlakGeometrie;
-    protected CurvePropertyType lijnGeometrie;
+  protected SurfacePropertyType vlakGeometrie;
+  protected CurvePropertyType lijnGeometrie;
 
-    /**
-     * Gets the value of the vlakGeometrie property.
-     *
-     * @return possible object is {@link SurfacePropertyType }
-     */
-    public SurfacePropertyType getVlakGeometrie() {
-        return vlakGeometrie;
-    }
+  /**
+   * Gets the value of the vlakGeometrie property.
+   *
+   * @return possible object is {@link SurfacePropertyType }
+   */
+  public SurfacePropertyType getVlakGeometrie() {
+    return vlakGeometrie;
+  }
 
-    /**
-     * Sets the value of the vlakGeometrie property.
-     *
-     * @param value allowed object is {@link SurfacePropertyType }
-     */
-    public void setVlakGeometrie(SurfacePropertyType value) {
-        this.vlakGeometrie = value;
-    }
+  /**
+   * Sets the value of the vlakGeometrie property.
+   *
+   * @param value allowed object is {@link SurfacePropertyType }
+   */
+  public void setVlakGeometrie(SurfacePropertyType value) {
+    this.vlakGeometrie = value;
+  }
 
-    /**
-     * Gets the value of the lijnGeometrie property.
-     *
-     * @return possible object is {@link CurvePropertyType }
-     */
-    public CurvePropertyType getLijnGeometrie() {
-        return lijnGeometrie;
-    }
+  /**
+   * Gets the value of the lijnGeometrie property.
+   *
+   * @return possible object is {@link CurvePropertyType }
+   */
+  public CurvePropertyType getLijnGeometrie() {
+    return lijnGeometrie;
+  }
 
-    /**
-     * Sets the value of the lijnGeometrie property.
-     *
-     * @param value allowed object is {@link CurvePropertyType }
-     */
-    public void setLijnGeometrie(CurvePropertyType value) {
-        this.lijnGeometrie = value;
-    }
+  /**
+   * Sets the value of the lijnGeometrie property.
+   *
+   * @param value allowed object is {@link CurvePropertyType }
+   */
+  public void setLijnGeometrie(CurvePropertyType value) {
+    this.lijnGeometrie = value;
+  }
 }

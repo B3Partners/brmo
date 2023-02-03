@@ -48,70 +48,70 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeLandgebruikT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeLandgebruikT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeLandgebruikT100Type {
-    @XmlEnumValue("aanlegsteiger")
-    AANLEGSTEIGER("aanlegsteiger"),
-    @XmlEnumValue("akkerland")
-    AKKERLAND("akkerland"),
-    @XmlEnumValue("basaltblokken, steenglooiing")
-    BASALTBLOKKEN_STEENGLOOIING("basaltblokken, steenglooiing"),
-    @XmlEnumValue("bebouwd gebied")
-    BEBOUWD_GEBIED("bebouwd gebied"),
-    @XmlEnumValue("boomgaard")
-    BOOMGAARD("boomgaard"),
-    @XmlEnumValue("boomkwekerij")
-    BOOMKWEKERIJ("boomkwekerij"),
-    @XmlEnumValue("bos: gemengd bos")
-    BOS_GEMENGD_BOS("bos: gemengd bos"),
-    @XmlEnumValue("bos: griend")
-    BOS_GRIEND("bos: griend"),
-    @XmlEnumValue("bos: loofbos")
-    BOS_LOOFBOS("bos: loofbos"),
-    @XmlEnumValue("bos: naaldbos")
-    BOS_NAALDBOS("bos: naaldbos"),
-    @XmlEnumValue("dodenakker")
-    DODENAKKER("dodenakker"),
-    @XmlEnumValue("fruitkwekerij")
-    FRUITKWEKERIJ("fruitkwekerij"),
-    @XmlEnumValue("grasland")
-    GRASLAND("grasland"),
-    @XmlEnumValue("heide")
-    HEIDE("heide"),
-    @XmlEnumValue("kassengebied")
-    KASSENGEBIED("kassengebied"),
-    @XmlEnumValue("laadperron")
-    LAADPERRON("laadperron"),
-    @XmlEnumValue("populieren")
-    POPULIEREN("populieren"),
-    @XmlEnumValue("spoorbaanlichaam")
-    SPOORBAANLICHAAM("spoorbaanlichaam"),
-    @XmlEnumValue("zand")
-    ZAND("zand"),
-    @XmlEnumValue("overig")
-    OVERIG("overig"),
+  @XmlEnumValue("aanlegsteiger")
+  AANLEGSTEIGER("aanlegsteiger"),
+  @XmlEnumValue("akkerland")
+  AKKERLAND("akkerland"),
+  @XmlEnumValue("basaltblokken, steenglooiing")
+  BASALTBLOKKEN_STEENGLOOIING("basaltblokken, steenglooiing"),
+  @XmlEnumValue("bebouwd gebied")
+  BEBOUWD_GEBIED("bebouwd gebied"),
+  @XmlEnumValue("boomgaard")
+  BOOMGAARD("boomgaard"),
+  @XmlEnumValue("boomkwekerij")
+  BOOMKWEKERIJ("boomkwekerij"),
+  @XmlEnumValue("bos: gemengd bos")
+  BOS_GEMENGD_BOS("bos: gemengd bos"),
+  @XmlEnumValue("bos: griend")
+  BOS_GRIEND("bos: griend"),
+  @XmlEnumValue("bos: loofbos")
+  BOS_LOOFBOS("bos: loofbos"),
+  @XmlEnumValue("bos: naaldbos")
+  BOS_NAALDBOS("bos: naaldbos"),
+  @XmlEnumValue("dodenakker")
+  DODENAKKER("dodenakker"),
+  @XmlEnumValue("fruitkwekerij")
+  FRUITKWEKERIJ("fruitkwekerij"),
+  @XmlEnumValue("grasland")
+  GRASLAND("grasland"),
+  @XmlEnumValue("heide")
+  HEIDE("heide"),
+  @XmlEnumValue("kassengebied")
+  KASSENGEBIED("kassengebied"),
+  @XmlEnumValue("laadperron")
+  LAADPERRON("laadperron"),
+  @XmlEnumValue("populieren")
+  POPULIEREN("populieren"),
+  @XmlEnumValue("spoorbaanlichaam")
+  SPOORBAANLICHAAM("spoorbaanlichaam"),
+  @XmlEnumValue("zand")
+  ZAND("zand"),
+  @XmlEnumValue("overig")
+  OVERIG("overig"),
 
-    /** ruimte tussen 2 weglijnen van direct naast elkaar gelegen wegen */
-    @XmlEnumValue("ongedefinieerd")
-    ONGEDEFINIEERD("ongedefinieerd");
-    private final String value;
+  /** ruimte tussen 2 weglijnen van direct naast elkaar gelegen wegen */
+  @XmlEnumValue("ongedefinieerd")
+  ONGEDEFINIEERD("ongedefinieerd");
+  private final String value;
 
-    TypeLandgebruikT100Type(String v) {
-        value = v;
+  TypeLandgebruikT100Type(String v) {
+    value = v;
+  }
+
+  public String value() {
+    return value;
+  }
+
+  public static TypeLandgebruikT100Type fromValue(String v) {
+    for (TypeLandgebruikT100Type c : TypeLandgebruikT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
-
-    public String value() {
-        return value;
-    }
-
-    public static TypeLandgebruikT100Type fromValue(String v) {
-        for (TypeLandgebruikT100Type c : TypeLandgebruikT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+    throw new IllegalArgumentException(v);
+  }
 }

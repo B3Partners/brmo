@@ -29,30 +29,30 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "JaNeeType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "JaNeeType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum JaNeeType {
-    @XmlEnumValue("ja")
-    JA("ja"),
-    @XmlEnumValue("nee")
-    NEE("nee");
-    private final String value;
+  @XmlEnumValue("ja")
+  JA("ja"),
+  @XmlEnumValue("nee")
+  NEE("nee");
+  private final String value;
 
-    JaNeeType(String v) {
-        value = v;
-    }
+  JaNeeType(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static JaNeeType fromValue(String v) {
-        for (JaNeeType c : JaNeeType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static JaNeeType fromValue(String v) {
+    for (JaNeeType c : JaNeeType.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

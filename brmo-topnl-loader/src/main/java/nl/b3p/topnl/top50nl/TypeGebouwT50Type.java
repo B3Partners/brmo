@@ -110,193 +110,192 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeGebouwT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "TypeGebouwT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum TypeGebouwT50Type {
-    @XmlEnumValue("bezoekerscentrum")
-    BEZOEKERSCENTRUM("bezoekerscentrum"),
-    @XmlEnumValue("brandtoren")
-    BRANDTOREN("brandtoren"),
-    @XmlEnumValue("bunker")
-    BUNKER("bunker"),
-    @XmlEnumValue("crematorium")
-    CREMATORIUM("crematorium"),
-    @XmlEnumValue("deelraadsecretarie")
-    DEELRAADSECRETARIE("deelraadsecretarie"),
-    @XmlEnumValue("dok")
-    DOK("dok"),
-    @XmlEnumValue("elektriciteitscentrale")
-    ELEKTRICITEITSCENTRALE("elektriciteitscentrale"),
-    @XmlEnumValue("fabriek")
-    FABRIEK("fabriek"),
-    @XmlEnumValue("fort")
-    FORT("fort"),
-    @XmlEnumValue("gascompressiestation")
-    GASCOMPRESSIESTATION("gascompressiestation"),
-    @XmlEnumValue("gemaal")
-    GEMAAL("gemaal"),
-    @XmlEnumValue("gemeentehuis")
-    GEMEENTEHUIS("gemeentehuis"),
-    @XmlEnumValue("gevangenis")
-    GEVANGENIS("gevangenis"),
-    @XmlEnumValue("grenskantoor")
-    GRENSKANTOOR("grenskantoor"),
-    @XmlEnumValue("hotel")
-    HOTEL("hotel"),
-    @XmlEnumValue("huizenblok")
-    HUIZENBLOK("huizenblok"),
-    @XmlEnumValue("hulpsecretarie")
-    HULPSECRETARIE("hulpsecretarie"),
-    @XmlEnumValue("kapel")
-    KAPEL("kapel"),
-    @XmlEnumValue("kas, warenhuis")
-    KAS_WARENHUIS("kas, warenhuis"),
-    @XmlEnumValue("kasteel")
-    KASTEEL("kasteel"),
-    @XmlEnumValue("kerk")
-    KERK("kerk"),
-    @XmlEnumValue("kerncentrale, kernreactor")
-    KERNCENTRALE_KERNREACTOR("kerncentrale, kernreactor"),
-    @XmlEnumValue("kliniek, inrichting, sanatorium")
-    KLINIEK_INRICHTING_SANATORIUM("kliniek, inrichting, sanatorium"),
-    @XmlEnumValue("klokkentoren")
-    KLOKKENTOREN("klokkentoren"),
-    @XmlEnumValue("klooster, abdij")
-    KLOOSTER_ABDIJ("klooster, abdij"),
-    @XmlEnumValue("koeltoren")
-    KOELTOREN("koeltoren"),
-    @XmlEnumValue("koepel")
-    KOEPEL("koepel"),
-    @XmlEnumValue("kunstijsbaan")
-    KUNSTIJSBAAN("kunstijsbaan"),
-    @XmlEnumValue("lichttoren")
-    LICHTTOREN("lichttoren"),
-    @XmlEnumValue("luchtwachttoren")
-    LUCHTWACHTTOREN("luchtwachttoren"),
-    @XmlEnumValue("manege")
-    MANEGE("manege"),
-    @XmlEnumValue("metrostation")
-    METROSTATION("metrostation"),
-    @XmlEnumValue("militair gebouw")
-    MILITAIR_GEBOUW("militair gebouw"),
-    @XmlEnumValue("motel")
-    MOTEL("motel"),
-    @XmlEnumValue("museum")
-    MUSEUM("museum"),
-    @XmlEnumValue("observatorium")
-    OBSERVATORIUM("observatorium"),
-    @XmlEnumValue("overheidsgebouw")
-    OVERHEIDSGEBOUW("overheidsgebouw"),
-    @XmlEnumValue("paleis")
-    PALEIS("paleis"),
-    @XmlEnumValue("parkeerdak, parkeerdek, parkeergarage")
-    PARKEERDAK_PARKEERDEK_PARKEERGARAGE("parkeerdak, parkeerdek, parkeergarage"),
-    @XmlEnumValue("peilmeetstation")
-    PEILMEETSTATION("peilmeetstation"),
-    @XmlEnumValue("politiebureau")
-    POLITIEBUREAU("politiebureau"),
-    @XmlEnumValue("pompstation")
-    POMPSTATION("pompstation"),
-    @XmlEnumValue("postkantoor")
-    POSTKANTOOR("postkantoor"),
-    @XmlEnumValue("psychiatrisch ziekenhuis, psychiatrisch centrum")
-    PSYCHIATRISCH_ZIEKENHUIS_PSYCHIATRISCH_CENTRUM(
-            "psychiatrisch ziekenhuis, psychiatrisch centrum"),
-    @XmlEnumValue("radarpost")
-    RADARPOST("radarpost"),
-    @XmlEnumValue("radartoren")
-    RADARTOREN("radartoren"),
-    @XmlEnumValue("radiotoren, televisietoren")
-    RADIOTOREN_TELEVISIETOREN("radiotoren, televisietoren"),
-    @XmlEnumValue("recreatiecentrum")
-    RECREATIECENTRUM("recreatiecentrum"),
-    @XmlEnumValue("reddingboothuisje")
-    REDDINGBOOTHUISJE("reddingboothuisje"),
-    @XmlEnumValue("reddinghuisje, schuilhut")
-    REDDINGHUISJE_SCHUILHUT("reddinghuisje, schuilhut"),
-    @XmlEnumValue("religieus gebouw")
-    RELIGIEUS_GEBOUW("religieus gebouw"),
-    @XmlEnumValue("remise")
-    REMISE("remise"),
-    @XmlEnumValue("ru\u00efne")
-    RUÏNE("ru\u00efne"),
-    @XmlEnumValue("schaapskooi")
-    SCHAAPSKOOI("schaapskooi"),
-    @XmlEnumValue("school")
-    SCHOOL("school"),
-    @XmlEnumValue("schoorsteen")
-    SCHOORSTEEN("schoorsteen"),
-    @XmlEnumValue("sporthal")
-    SPORTHAL("sporthal"),
-    @XmlEnumValue("stadion")
-    STADION("stadion"),
-    @XmlEnumValue("stadskantoor")
-    STADSKANTOOR("stadskantoor"),
-    @XmlEnumValue("tank")
-    TANK("tank"),
-    @XmlEnumValue("tankstation")
-    TANKSTATION("tankstation"),
-    @XmlEnumValue("telecommunicatietoren")
-    TELECOMMUNICATIETOREN("telecommunicatietoren"),
-    @XmlEnumValue("toren")
-    TOREN("toren"),
-    @XmlEnumValue("transformatorstation")
-    TRANSFORMATORSTATION("transformatorstation"),
-    @XmlEnumValue("treinstation")
-    TREINSTATION("treinstation"),
-    @XmlEnumValue("uitzichttoren")
-    UITZICHTTOREN("uitzichttoren"),
-    @XmlEnumValue("universiteit")
-    UNIVERSITEIT("universiteit"),
-    @XmlEnumValue("veiling")
-    VEILING("veiling"),
-    @XmlEnumValue("verkeerstoren")
-    VERKEERSTOREN("verkeerstoren"),
-    @XmlEnumValue("vuurtoren")
-    VUURTOREN("vuurtoren"),
-    @XmlEnumValue("waterradmolen")
-    WATERRADMOLEN("waterradmolen"),
-    @XmlEnumValue("watertoren")
-    WATERTOREN("watertoren"),
-    @XmlEnumValue("wegenwachtstation")
-    WEGENWACHTSTATION("wegenwachtstation"),
-    @XmlEnumValue("wegrestaurant")
-    WEGRESTAURANT("wegrestaurant"),
-    @XmlEnumValue("werf")
-    WERF("werf"),
-    @XmlEnumValue("windmolen")
-    WINDMOLEN("windmolen"),
-    @XmlEnumValue("windmolen: korenmolen")
-    WINDMOLEN_KORENMOLEN("windmolen: korenmolen"),
-    @XmlEnumValue("windmolen: watermolen")
-    WINDMOLEN_WATERMOLEN("windmolen: watermolen"),
-    @XmlEnumValue("windturbine")
-    WINDTURBINE("windturbine"),
-    @XmlEnumValue("zendtoren")
-    ZENDTOREN("zendtoren"),
-    @XmlEnumValue("ziekenhuis")
-    ZIEKENHUIS("ziekenhuis"),
-    @XmlEnumValue("zwembad")
-    ZWEMBAD("zwembad"),
-    @XmlEnumValue("overig")
-    OVERIG("overig");
-    private final String value;
+  @XmlEnumValue("bezoekerscentrum")
+  BEZOEKERSCENTRUM("bezoekerscentrum"),
+  @XmlEnumValue("brandtoren")
+  BRANDTOREN("brandtoren"),
+  @XmlEnumValue("bunker")
+  BUNKER("bunker"),
+  @XmlEnumValue("crematorium")
+  CREMATORIUM("crematorium"),
+  @XmlEnumValue("deelraadsecretarie")
+  DEELRAADSECRETARIE("deelraadsecretarie"),
+  @XmlEnumValue("dok")
+  DOK("dok"),
+  @XmlEnumValue("elektriciteitscentrale")
+  ELEKTRICITEITSCENTRALE("elektriciteitscentrale"),
+  @XmlEnumValue("fabriek")
+  FABRIEK("fabriek"),
+  @XmlEnumValue("fort")
+  FORT("fort"),
+  @XmlEnumValue("gascompressiestation")
+  GASCOMPRESSIESTATION("gascompressiestation"),
+  @XmlEnumValue("gemaal")
+  GEMAAL("gemaal"),
+  @XmlEnumValue("gemeentehuis")
+  GEMEENTEHUIS("gemeentehuis"),
+  @XmlEnumValue("gevangenis")
+  GEVANGENIS("gevangenis"),
+  @XmlEnumValue("grenskantoor")
+  GRENSKANTOOR("grenskantoor"),
+  @XmlEnumValue("hotel")
+  HOTEL("hotel"),
+  @XmlEnumValue("huizenblok")
+  HUIZENBLOK("huizenblok"),
+  @XmlEnumValue("hulpsecretarie")
+  HULPSECRETARIE("hulpsecretarie"),
+  @XmlEnumValue("kapel")
+  KAPEL("kapel"),
+  @XmlEnumValue("kas, warenhuis")
+  KAS_WARENHUIS("kas, warenhuis"),
+  @XmlEnumValue("kasteel")
+  KASTEEL("kasteel"),
+  @XmlEnumValue("kerk")
+  KERK("kerk"),
+  @XmlEnumValue("kerncentrale, kernreactor")
+  KERNCENTRALE_KERNREACTOR("kerncentrale, kernreactor"),
+  @XmlEnumValue("kliniek, inrichting, sanatorium")
+  KLINIEK_INRICHTING_SANATORIUM("kliniek, inrichting, sanatorium"),
+  @XmlEnumValue("klokkentoren")
+  KLOKKENTOREN("klokkentoren"),
+  @XmlEnumValue("klooster, abdij")
+  KLOOSTER_ABDIJ("klooster, abdij"),
+  @XmlEnumValue("koeltoren")
+  KOELTOREN("koeltoren"),
+  @XmlEnumValue("koepel")
+  KOEPEL("koepel"),
+  @XmlEnumValue("kunstijsbaan")
+  KUNSTIJSBAAN("kunstijsbaan"),
+  @XmlEnumValue("lichttoren")
+  LICHTTOREN("lichttoren"),
+  @XmlEnumValue("luchtwachttoren")
+  LUCHTWACHTTOREN("luchtwachttoren"),
+  @XmlEnumValue("manege")
+  MANEGE("manege"),
+  @XmlEnumValue("metrostation")
+  METROSTATION("metrostation"),
+  @XmlEnumValue("militair gebouw")
+  MILITAIR_GEBOUW("militair gebouw"),
+  @XmlEnumValue("motel")
+  MOTEL("motel"),
+  @XmlEnumValue("museum")
+  MUSEUM("museum"),
+  @XmlEnumValue("observatorium")
+  OBSERVATORIUM("observatorium"),
+  @XmlEnumValue("overheidsgebouw")
+  OVERHEIDSGEBOUW("overheidsgebouw"),
+  @XmlEnumValue("paleis")
+  PALEIS("paleis"),
+  @XmlEnumValue("parkeerdak, parkeerdek, parkeergarage")
+  PARKEERDAK_PARKEERDEK_PARKEERGARAGE("parkeerdak, parkeerdek, parkeergarage"),
+  @XmlEnumValue("peilmeetstation")
+  PEILMEETSTATION("peilmeetstation"),
+  @XmlEnumValue("politiebureau")
+  POLITIEBUREAU("politiebureau"),
+  @XmlEnumValue("pompstation")
+  POMPSTATION("pompstation"),
+  @XmlEnumValue("postkantoor")
+  POSTKANTOOR("postkantoor"),
+  @XmlEnumValue("psychiatrisch ziekenhuis, psychiatrisch centrum")
+  PSYCHIATRISCH_ZIEKENHUIS_PSYCHIATRISCH_CENTRUM("psychiatrisch ziekenhuis, psychiatrisch centrum"),
+  @XmlEnumValue("radarpost")
+  RADARPOST("radarpost"),
+  @XmlEnumValue("radartoren")
+  RADARTOREN("radartoren"),
+  @XmlEnumValue("radiotoren, televisietoren")
+  RADIOTOREN_TELEVISIETOREN("radiotoren, televisietoren"),
+  @XmlEnumValue("recreatiecentrum")
+  RECREATIECENTRUM("recreatiecentrum"),
+  @XmlEnumValue("reddingboothuisje")
+  REDDINGBOOTHUISJE("reddingboothuisje"),
+  @XmlEnumValue("reddinghuisje, schuilhut")
+  REDDINGHUISJE_SCHUILHUT("reddinghuisje, schuilhut"),
+  @XmlEnumValue("religieus gebouw")
+  RELIGIEUS_GEBOUW("religieus gebouw"),
+  @XmlEnumValue("remise")
+  REMISE("remise"),
+  @XmlEnumValue("ru\u00efne")
+  RUÏNE("ru\u00efne"),
+  @XmlEnumValue("schaapskooi")
+  SCHAAPSKOOI("schaapskooi"),
+  @XmlEnumValue("school")
+  SCHOOL("school"),
+  @XmlEnumValue("schoorsteen")
+  SCHOORSTEEN("schoorsteen"),
+  @XmlEnumValue("sporthal")
+  SPORTHAL("sporthal"),
+  @XmlEnumValue("stadion")
+  STADION("stadion"),
+  @XmlEnumValue("stadskantoor")
+  STADSKANTOOR("stadskantoor"),
+  @XmlEnumValue("tank")
+  TANK("tank"),
+  @XmlEnumValue("tankstation")
+  TANKSTATION("tankstation"),
+  @XmlEnumValue("telecommunicatietoren")
+  TELECOMMUNICATIETOREN("telecommunicatietoren"),
+  @XmlEnumValue("toren")
+  TOREN("toren"),
+  @XmlEnumValue("transformatorstation")
+  TRANSFORMATORSTATION("transformatorstation"),
+  @XmlEnumValue("treinstation")
+  TREINSTATION("treinstation"),
+  @XmlEnumValue("uitzichttoren")
+  UITZICHTTOREN("uitzichttoren"),
+  @XmlEnumValue("universiteit")
+  UNIVERSITEIT("universiteit"),
+  @XmlEnumValue("veiling")
+  VEILING("veiling"),
+  @XmlEnumValue("verkeerstoren")
+  VERKEERSTOREN("verkeerstoren"),
+  @XmlEnumValue("vuurtoren")
+  VUURTOREN("vuurtoren"),
+  @XmlEnumValue("waterradmolen")
+  WATERRADMOLEN("waterradmolen"),
+  @XmlEnumValue("watertoren")
+  WATERTOREN("watertoren"),
+  @XmlEnumValue("wegenwachtstation")
+  WEGENWACHTSTATION("wegenwachtstation"),
+  @XmlEnumValue("wegrestaurant")
+  WEGRESTAURANT("wegrestaurant"),
+  @XmlEnumValue("werf")
+  WERF("werf"),
+  @XmlEnumValue("windmolen")
+  WINDMOLEN("windmolen"),
+  @XmlEnumValue("windmolen: korenmolen")
+  WINDMOLEN_KORENMOLEN("windmolen: korenmolen"),
+  @XmlEnumValue("windmolen: watermolen")
+  WINDMOLEN_WATERMOLEN("windmolen: watermolen"),
+  @XmlEnumValue("windturbine")
+  WINDTURBINE("windturbine"),
+  @XmlEnumValue("zendtoren")
+  ZENDTOREN("zendtoren"),
+  @XmlEnumValue("ziekenhuis")
+  ZIEKENHUIS("ziekenhuis"),
+  @XmlEnumValue("zwembad")
+  ZWEMBAD("zwembad"),
+  @XmlEnumValue("overig")
+  OVERIG("overig");
+  private final String value;
 
-    TypeGebouwT50Type(String v) {
-        value = v;
-    }
+  TypeGebouwT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeGebouwT50Type fromValue(String v) {
-        for (TypeGebouwT50Type c : TypeGebouwT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeGebouwT50Type fromValue(String v) {
+    for (TypeGebouwT50Type c : TypeGebouwT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

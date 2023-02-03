@@ -72,116 +72,116 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeFunctioneelGebiedT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeFunctioneelGebiedT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeFunctioneelGebiedT100Type {
-    @XmlEnumValue("arboretum")
-    ARBORETUM("arboretum"),
-    @XmlEnumValue("bedrijventerrein")
-    BEDRIJVENTERREIN("bedrijventerrein"),
-    @XmlEnumValue("begraafplaats")
-    BEGRAAFPLAATS("begraafplaats"),
-    @XmlEnumValue("bungalowpark")
-    BUNGALOWPARK("bungalowpark"),
-    @XmlEnumValue("camping, kampeerterrein")
-    CAMPING_KAMPEERTERREIN("camping, kampeerterrein"),
-    @XmlEnumValue("circuit")
-    CIRCUIT("circuit"),
-    @XmlEnumValue("crossbaan")
-    CROSSBAAN("crossbaan"),
-    @XmlEnumValue("dierentuin, safaripark")
-    DIERENTUIN_SAFARIPARK("dierentuin, safaripark"),
-    @XmlEnumValue("emplacement")
-    EMPLACEMENT("emplacement"),
-    @XmlEnumValue("erebegraafplaats")
-    EREBEGRAAFPLAATS("erebegraafplaats"),
-    @XmlEnumValue("gaswinning")
-    GASWINNING("gaswinning"),
-    @XmlEnumValue("groeve")
-    GROEVE("groeve"),
-    @XmlEnumValue("haven")
-    HAVEN("haven"),
-    @XmlEnumValue("heemtuin")
-    HEEMTUIN("heemtuin"),
-    @XmlEnumValue("helikopterlandingsterrein")
-    HELIKOPTERLANDINGSTERREIN("helikopterlandingsterrein"),
-    @XmlEnumValue("jachthaven")
-    JACHTHAVEN("jachthaven"),
-    @XmlEnumValue("mijn")
-    MIJN("mijn"),
-    @XmlEnumValue("militair oefengebied, schietterrein")
-    MILITAIR_OEFENGEBIED_SCHIETTERREIN("militair oefengebied, schietterrein"),
-    @XmlEnumValue("mosselbank")
-    MOSSELBANK("mosselbank"),
-    @XmlEnumValue("natuurgebied, natuurreservaat")
-    NATUURGEBIED_NATUURRESERVAAT("natuurgebied, natuurreservaat"),
-    @XmlEnumValue("oliewinning")
-    OLIEWINNING("oliewinning"),
-    @XmlEnumValue("openluchtmuseum")
-    OPENLUCHTMUSEUM("openluchtmuseum"),
-    @XmlEnumValue("openluchttheater")
-    OPENLUCHTTHEATER("openluchttheater"),
-    @XmlEnumValue("park")
-    PARK("park"),
-    @XmlEnumValue("pinetum")
-    PINETUM("pinetum"),
-    @XmlEnumValue("productie-installatie")
-    PRODUCTIE_INSTALLATIE("productie-installatie"),
-    @XmlEnumValue("recreatiegebied")
-    RECREATIEGEBIED("recreatiegebied"),
-    @XmlEnumValue("renbaan")
-    RENBAAN("renbaan"),
-    @XmlEnumValue("skibaan")
-    SKIBAAN("skibaan"),
-    @XmlEnumValue("sluizencomplex")
-    SLUIZENCOMPLEX("sluizencomplex"),
-    @XmlEnumValue("sportterrein, sportcomplex")
-    SPORTTERREIN_SPORTCOMPLEX("sportterrein, sportcomplex"),
-    @XmlEnumValue("stortplaats")
-    STORTPLAATS("stortplaats"),
-    @XmlEnumValue("tennispark")
-    TENNISPARK("tennispark"),
-    @XmlEnumValue("verzorgingsplaats")
-    VERZORGINGSPLAATS("verzorgingsplaats"),
-    @XmlEnumValue("vliegveld, luchthaven")
-    VLIEGVELD_LUCHTHAVEN("vliegveld, luchthaven"),
-    @XmlEnumValue("volkstuinen")
-    VOLKSTUINEN("volkstuinen"),
-    @XmlEnumValue("wildwissel")
-    WILDWISSEL("wildwissel"),
-    @XmlEnumValue("windturbinepark")
-    WINDTURBINEPARK("windturbinepark"),
-    @XmlEnumValue("woonwagencentrum")
-    WOONWAGENCENTRUM("woonwagencentrum"),
-    @XmlEnumValue("zandwinning")
-    ZANDWINNING("zandwinning"),
-    @XmlEnumValue("zenderpark")
-    ZENDERPARK("zenderpark"),
-    @XmlEnumValue("zoutwinning")
-    ZOUTWINNING("zoutwinning"),
-    @XmlEnumValue("zuiveringsinstallatie")
-    ZUIVERINGSINSTALLATIE("zuiveringsinstallatie"),
-    @XmlEnumValue("zweefvliegveldterrein")
-    ZWEEFVLIEGVELDTERREIN("zweefvliegveldterrein"),
-    @XmlEnumValue("ijsbaan")
-    IJSBAAN("ijsbaan");
-    private final String value;
+  @XmlEnumValue("arboretum")
+  ARBORETUM("arboretum"),
+  @XmlEnumValue("bedrijventerrein")
+  BEDRIJVENTERREIN("bedrijventerrein"),
+  @XmlEnumValue("begraafplaats")
+  BEGRAAFPLAATS("begraafplaats"),
+  @XmlEnumValue("bungalowpark")
+  BUNGALOWPARK("bungalowpark"),
+  @XmlEnumValue("camping, kampeerterrein")
+  CAMPING_KAMPEERTERREIN("camping, kampeerterrein"),
+  @XmlEnumValue("circuit")
+  CIRCUIT("circuit"),
+  @XmlEnumValue("crossbaan")
+  CROSSBAAN("crossbaan"),
+  @XmlEnumValue("dierentuin, safaripark")
+  DIERENTUIN_SAFARIPARK("dierentuin, safaripark"),
+  @XmlEnumValue("emplacement")
+  EMPLACEMENT("emplacement"),
+  @XmlEnumValue("erebegraafplaats")
+  EREBEGRAAFPLAATS("erebegraafplaats"),
+  @XmlEnumValue("gaswinning")
+  GASWINNING("gaswinning"),
+  @XmlEnumValue("groeve")
+  GROEVE("groeve"),
+  @XmlEnumValue("haven")
+  HAVEN("haven"),
+  @XmlEnumValue("heemtuin")
+  HEEMTUIN("heemtuin"),
+  @XmlEnumValue("helikopterlandingsterrein")
+  HELIKOPTERLANDINGSTERREIN("helikopterlandingsterrein"),
+  @XmlEnumValue("jachthaven")
+  JACHTHAVEN("jachthaven"),
+  @XmlEnumValue("mijn")
+  MIJN("mijn"),
+  @XmlEnumValue("militair oefengebied, schietterrein")
+  MILITAIR_OEFENGEBIED_SCHIETTERREIN("militair oefengebied, schietterrein"),
+  @XmlEnumValue("mosselbank")
+  MOSSELBANK("mosselbank"),
+  @XmlEnumValue("natuurgebied, natuurreservaat")
+  NATUURGEBIED_NATUURRESERVAAT("natuurgebied, natuurreservaat"),
+  @XmlEnumValue("oliewinning")
+  OLIEWINNING("oliewinning"),
+  @XmlEnumValue("openluchtmuseum")
+  OPENLUCHTMUSEUM("openluchtmuseum"),
+  @XmlEnumValue("openluchttheater")
+  OPENLUCHTTHEATER("openluchttheater"),
+  @XmlEnumValue("park")
+  PARK("park"),
+  @XmlEnumValue("pinetum")
+  PINETUM("pinetum"),
+  @XmlEnumValue("productie-installatie")
+  PRODUCTIE_INSTALLATIE("productie-installatie"),
+  @XmlEnumValue("recreatiegebied")
+  RECREATIEGEBIED("recreatiegebied"),
+  @XmlEnumValue("renbaan")
+  RENBAAN("renbaan"),
+  @XmlEnumValue("skibaan")
+  SKIBAAN("skibaan"),
+  @XmlEnumValue("sluizencomplex")
+  SLUIZENCOMPLEX("sluizencomplex"),
+  @XmlEnumValue("sportterrein, sportcomplex")
+  SPORTTERREIN_SPORTCOMPLEX("sportterrein, sportcomplex"),
+  @XmlEnumValue("stortplaats")
+  STORTPLAATS("stortplaats"),
+  @XmlEnumValue("tennispark")
+  TENNISPARK("tennispark"),
+  @XmlEnumValue("verzorgingsplaats")
+  VERZORGINGSPLAATS("verzorgingsplaats"),
+  @XmlEnumValue("vliegveld, luchthaven")
+  VLIEGVELD_LUCHTHAVEN("vliegveld, luchthaven"),
+  @XmlEnumValue("volkstuinen")
+  VOLKSTUINEN("volkstuinen"),
+  @XmlEnumValue("wildwissel")
+  WILDWISSEL("wildwissel"),
+  @XmlEnumValue("windturbinepark")
+  WINDTURBINEPARK("windturbinepark"),
+  @XmlEnumValue("woonwagencentrum")
+  WOONWAGENCENTRUM("woonwagencentrum"),
+  @XmlEnumValue("zandwinning")
+  ZANDWINNING("zandwinning"),
+  @XmlEnumValue("zenderpark")
+  ZENDERPARK("zenderpark"),
+  @XmlEnumValue("zoutwinning")
+  ZOUTWINNING("zoutwinning"),
+  @XmlEnumValue("zuiveringsinstallatie")
+  ZUIVERINGSINSTALLATIE("zuiveringsinstallatie"),
+  @XmlEnumValue("zweefvliegveldterrein")
+  ZWEEFVLIEGVELDTERREIN("zweefvliegveldterrein"),
+  @XmlEnumValue("ijsbaan")
+  IJSBAAN("ijsbaan");
+  private final String value;
 
-    TypeFunctioneelGebiedT100Type(String v) {
-        value = v;
-    }
+  TypeFunctioneelGebiedT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeFunctioneelGebiedT100Type fromValue(String v) {
-        for (TypeFunctioneelGebiedT100Type c : TypeFunctioneelGebiedT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeFunctioneelGebiedT100Type fromValue(String v) {
+    for (TypeFunctioneelGebiedT100Type c : TypeFunctioneelGebiedT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

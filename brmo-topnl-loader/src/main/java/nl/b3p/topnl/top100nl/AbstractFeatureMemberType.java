@@ -42,28 +42,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({FeatureMemberType.class})
 public abstract class AbstractFeatureMemberType {
 
-    @XmlAttribute(name = "owns")
-    protected Boolean owns;
+  @XmlAttribute(name = "owns")
+  protected Boolean owns;
 
-    /**
-     * Gets the value of the owns property.
-     *
-     * @return possible object is {@link Boolean }
-     */
-    public boolean isOwns() {
-        if (owns == null) {
-            return false;
-        } else {
-            return owns;
-        }
+  /**
+   * Gets the value of the owns property.
+   *
+   * @return possible object is {@link Boolean }
+   */
+  public boolean isOwns() {
+    if (owns == null) {
+      return false;
+    } else {
+      return owns;
     }
+  }
 
-    /**
-     * Sets the value of the owns property.
-     *
-     * @param value allowed object is {@link Boolean }
-     */
-    public void setOwns(Boolean value) {
-        this.owns = value;
-    }
+  /**
+   * Sets the value of the owns property.
+   *
+   * @param value allowed object is {@link Boolean }
+   */
+  public void setOwns(Boolean value) {
+    this.owns = value;
+  }
 }

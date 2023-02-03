@@ -15,33 +15,30 @@ import org.junit.jupiter.api.Test;
  */
 public class CronFormatterTagTest {
 
-    private CronFormatterTag tag;
+  private CronFormatterTag tag;
 
-    @BeforeEach
-    public void setUp() {
-        tag = new CronFormatterTag();
-    }
+  @BeforeEach
+  public void setUp() {
+    tag = new CronFormatterTag();
+  }
 
-    @Test
-    public void testBuildOutputLocale() {
-        tag.setLocale("nl");
-        tag.setCronExpression("0 0 12 1/1 * ? *");
-        assertEquals(
-                "om 12:00 elke dag", tag.buildOutput(), "Tag should output 'om 12:00 elke dag'");
-    }
+  @Test
+  public void testBuildOutputLocale() {
+    tag.setLocale("nl");
+    tag.setCronExpression("0 0 12 1/1 * ? *");
+    assertEquals("om 12:00 elke dag", tag.buildOutput(), "Tag should output 'om 12:00 elke dag'");
+  }
 
-    @Test
-    public void testBuildOutputUKLocale() {
-        tag.setLocale("uk");
-        tag.setCronExpression("0 0 12 1/1 * ? *");
-        assertEquals(
-                "at 12:00 every day", tag.buildOutput(), "Tag should output 'at 12:00 every day'");
-    }
+  @Test
+  public void testBuildOutputUKLocale() {
+    tag.setLocale("uk");
+    tag.setCronExpression("0 0 12 1/1 * ? *");
+    assertEquals("at 12:00 every day", tag.buildOutput(), "Tag should output 'at 12:00 every day'");
+  }
 
-    @Test
-    public void testBuildOutputNoLocale() {
-        tag.setCronExpression("0 0 12 1/1 * ? *");
-        assertEquals(
-                "om 12:00 elke dag", tag.buildOutput(), "Tag should output 'om 12:00 elke dag'");
-    }
+  @Test
+  public void testBuildOutputNoLocale() {
+    tag.setCronExpression("0 0 12 1/1 * ? *");
+    assertEquals("om 12:00 elke dag", tag.buildOutput(), "Tag should output 'om 12:00 elke dag'");
+  }
 }

@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTVlakLijnOfPuntPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"brtVlakLijnOfPunt"})
+    name = "BRTVlakLijnOfPuntPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"brtVlakLijnOfPunt"})
 public class BRTVlakLijnOfPuntPropertyType {
 
-    @XmlElement(name = "BRTVlakLijnOfPunt", required = true)
-    protected BRTVlakLijnOfPuntType brtVlakLijnOfPunt;
+  @XmlElement(name = "BRTVlakLijnOfPunt", required = true)
+  protected BRTVlakLijnOfPuntType brtVlakLijnOfPunt;
 
-    /**
-     * Gets the value of the brtVlakLijnOfPunt property.
-     *
-     * @return possible object is {@link BRTVlakLijnOfPuntType }
-     */
-    public BRTVlakLijnOfPuntType getBRTVlakLijnOfPunt() {
-        return brtVlakLijnOfPunt;
-    }
+  /**
+   * Gets the value of the brtVlakLijnOfPunt property.
+   *
+   * @return possible object is {@link BRTVlakLijnOfPuntType }
+   */
+  public BRTVlakLijnOfPuntType getBRTVlakLijnOfPunt() {
+    return brtVlakLijnOfPunt;
+  }
 
-    /**
-     * Sets the value of the brtVlakLijnOfPunt property.
-     *
-     * @param value allowed object is {@link BRTVlakLijnOfPuntType }
-     */
-    public void setBRTVlakLijnOfPunt(BRTVlakLijnOfPuntType value) {
-        this.brtVlakLijnOfPunt = value;
-    }
+  /**
+   * Sets the value of the brtVlakLijnOfPunt property.
+   *
+   * @param value allowed object is {@link BRTVlakLijnOfPuntType }
+   */
+  public void setBRTVlakLijnOfPunt(BRTVlakLijnOfPuntType value) {
+    this.brtVlakLijnOfPunt = value;
+  }
 }

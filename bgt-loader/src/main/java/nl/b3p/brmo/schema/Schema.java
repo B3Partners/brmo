@@ -12,28 +12,28 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class Schema {
-    public static final String INDEX = "idx";
+  public static final String INDEX = "idx";
 
-    private final Map<String, ObjectType> objectTypes = new HashMap<>();
+  private final Map<String, ObjectType> objectTypes = new HashMap<>();
 
-    protected Schema() {}
+  protected Schema() {}
 
-    protected void addObjectType(ObjectType objectType) {
-        objectTypes.put(objectType.getName(), objectType);
+  protected void addObjectType(ObjectType objectType) {
+    objectTypes.put(objectType.getName(), objectType);
+  }
+
+  protected Map<String, ObjectType> getObjectTypes() {
+    return objectTypes;
+  }
+
+  public Stream<? extends ObjectType> getAllObjectTypes() {
+    return objectTypes.values().stream();
+  }
+
+  public ObjectType getObjectTypeByName(String name) {
+    if (!objectTypes.containsKey(name)) {
+      throw new IllegalArgumentException("Object type \"" + name + "\" not found");
     }
-
-    protected Map<String, ObjectType> getObjectTypes() {
-        return objectTypes;
-    }
-
-    public Stream<? extends ObjectType> getAllObjectTypes() {
-        return objectTypes.values().stream();
-    }
-
-    public ObjectType getObjectTypeByName(String name) {
-        if (!objectTypes.containsKey(name)) {
-            throw new IllegalArgumentException("Object type \"" + name + "\" not found");
-        }
-        return objectTypes.get(name);
-    }
+    return objectTypes.get(name);
+  }
 }

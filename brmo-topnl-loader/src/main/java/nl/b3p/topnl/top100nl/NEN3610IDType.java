@@ -34,70 +34,70 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "NEN3610IDType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"namespace", "lokaalID", "versie"})
+    name = "NEN3610IDType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"namespace", "lokaalID", "versie"})
 public class NEN3610IDType {
 
-    @XmlElement(required = true)
-    protected String namespace;
+  @XmlElement(required = true)
+  protected String namespace;
 
-    @XmlElement(required = true)
-    protected String lokaalID;
+  @XmlElement(required = true)
+  protected String lokaalID;
 
-    protected String versie;
+  protected String versie;
 
-    /**
-     * Gets the value of the namespace property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNamespace() {
-        return namespace;
-    }
+  /**
+   * Gets the value of the namespace property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNamespace() {
+    return namespace;
+  }
 
-    /**
-     * Sets the value of the namespace property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNamespace(String value) {
-        this.namespace = value;
-    }
+  /**
+   * Sets the value of the namespace property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNamespace(String value) {
+    this.namespace = value;
+  }
 
-    /**
-     * Gets the value of the lokaalID property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getLokaalID() {
-        return lokaalID;
-    }
+  /**
+   * Gets the value of the lokaalID property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLokaalID() {
+    return lokaalID;
+  }
 
-    /**
-     * Sets the value of the lokaalID property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setLokaalID(String value) {
-        this.lokaalID = value;
-    }
+  /**
+   * Sets the value of the lokaalID property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLokaalID(String value) {
+    this.lokaalID = value;
+  }
 
-    /**
-     * Gets the value of the versie property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getVersie() {
-        return versie;
-    }
+  /**
+   * Gets the value of the versie property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getVersie() {
+    return versie;
+  }
 
-    /**
-     * Sets the value of the versie property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setVersie(String value) {
-        this.versie = value;
-    }
+  /**
+   * Sets the value of the versie property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setVersie(String value) {
+    this.versie = value;
+  }
 }

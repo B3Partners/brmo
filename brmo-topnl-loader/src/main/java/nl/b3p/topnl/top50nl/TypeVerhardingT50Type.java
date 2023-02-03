@@ -31,34 +31,34 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeVerhardingT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "TypeVerhardingT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum TypeVerhardingT50Type {
-    @XmlEnumValue("verhard")
-    VERHARD("verhard"),
-    @XmlEnumValue("half verhard")
-    HALF_VERHARD("half verhard"),
-    @XmlEnumValue("onverhard")
-    ONVERHARD("onverhard"),
-    @XmlEnumValue("onbekend")
-    ONBEKEND("onbekend");
-    private final String value;
+  @XmlEnumValue("verhard")
+  VERHARD("verhard"),
+  @XmlEnumValue("half verhard")
+  HALF_VERHARD("half verhard"),
+  @XmlEnumValue("onverhard")
+  ONVERHARD("onverhard"),
+  @XmlEnumValue("onbekend")
+  ONBEKEND("onbekend");
+  private final String value;
 
-    TypeVerhardingT50Type(String v) {
-        value = v;
-    }
+  TypeVerhardingT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeVerhardingT50Type fromValue(String v) {
-        for (TypeVerhardingT50Type c : TypeVerhardingT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeVerhardingT50Type fromValue(String v) {
+    for (TypeVerhardingT50Type c : TypeVerhardingT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

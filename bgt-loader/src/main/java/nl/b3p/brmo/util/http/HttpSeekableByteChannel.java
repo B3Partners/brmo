@@ -7,8 +7,6 @@
 
 package nl.b3p.brmo.util.http;
 
-import nl.b3p.brmo.util.ResumingInputStream;
-
 import java.io.IOException;
 import java.net.URI;
 import java.nio.ByteBuffer;
@@ -16,6 +14,7 @@ import java.nio.channels.SeekableByteChannel;
 import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import nl.b3p.brmo.util.ResumingInputStream;
 
 /**
  * A {@code SeekableByteChannel} backed by a HTTP(S) URI that uses the Content-Length response
@@ -71,249 +70,252 @@ import java.util.regex.Pattern;
  * @author Matthijs Laan
  */
 public class HttpSeekableByteChannel implements SeekableByteChannel {
-    private static final int DEFAULT_SEEK_BUFFER_SIZE = 16 * 1024;
-    private static final int DEFAULT_MAX_DISCARD_SIZE = 16 * 1024;
-    private static final int READ_BUFFER_SIZE = 8 * 1024;
+  private static final int DEFAULT_SEEK_BUFFER_SIZE = 16 * 1024;
+  private static final int DEFAULT_MAX_DISCARD_SIZE = 16 * 1024;
+  private static final int READ_BUFFER_SIZE = 8 * 1024;
 
-    private URI uri;
-    private final HttpClientWrapper httpClientWrapper;
-    private final UnaryOperator<ResumingInputStream> resumingInputStreamWrapper;
-    private final int seekBufferSize;
-    private byte[] seekBuffer;
-    private byte[] buffer;
-    private final int maxDiscardSize;
+  private URI uri;
+  private final HttpClientWrapper httpClientWrapper;
+  private final UnaryOperator<ResumingInputStream> resumingInputStreamWrapper;
+  private final int seekBufferSize;
+  private byte[] seekBuffer;
+  private byte[] buffer;
+  private final int maxDiscardSize;
 
-    private long position = 0;
-    private int httpRequestCount = 0;
-    private long bytesRead = 0;
-    private Long newPosition;
-    private Long contentLength;
+  private long position = 0;
+  private int httpRequestCount = 0;
+  private long bytesRead = 0;
+  private Long newPosition;
+  private Long contentLength;
 
-    private ResumingInputStream currentHttpResponseBodyInputStream;
+  private ResumingInputStream currentHttpResponseBodyInputStream;
 
-    private boolean debug = false;
+  private boolean debug = false;
 
-    /**
-     * Creates a read-only seekable byte channel backed by a URI using the default HTTP client,
-     * buffer size and max forward seek discard size.
-     */
-    public HttpSeekableByteChannel(URI uri) {
-        this(uri, HttpClientWrappers.getDefault());
+  /**
+   * Creates a read-only seekable byte channel backed by a URI using the default HTTP client, buffer
+   * size and max forward seek discard size.
+   */
+  public HttpSeekableByteChannel(URI uri) {
+    this(uri, HttpClientWrappers.getDefault());
+  }
+
+  /**
+   * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around a
+   * custom HTTP client implementation using the default buffer size and max forward seek discard
+   * size.
+   */
+  public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper) {
+    this(
+        uri,
+        httpClientWrapper,
+        UnaryOperator.identity(),
+        DEFAULT_SEEK_BUFFER_SIZE,
+        DEFAULT_MAX_DISCARD_SIZE);
+  }
+
+  /**
+   * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around a
+   * custom HTTP client implementation, an optional wrapper for the input stream resuming HTTP
+   * requests after a read fails, and the specified buffer size and max forward seek discard size.
+   */
+  public HttpSeekableByteChannel(
+      URI uri,
+      HttpClientWrapper httpClientWrapper,
+      UnaryOperator<ResumingInputStream> resumingInputStreamWrapper,
+      int seekBufferSize,
+      int maxDiscardSize) {
+    this.uri = uri;
+    this.httpClientWrapper = httpClientWrapper;
+    this.resumingInputStreamWrapper = resumingInputStreamWrapper;
+    this.seekBufferSize = seekBufferSize;
+    this.maxDiscardSize = maxDiscardSize;
+  }
+
+  /**
+   * @return The number of HTTP range requests done.
+   */
+  public int getHttpRequestCount() {
+    return httpRequestCount;
+  }
+
+  /**
+   * @return The total number of bytes read. This may be larger than the size when seeking backwards
+   *     and reading content multiple times.
+   */
+  public long getBytesRead() {
+    return bytesRead;
+  }
+
+  /**
+   * Update the URI to the final redirect target of the original URI, must identify the same entity
+   * as the original URI.
+   *
+   * @param uri The final redirection URI.
+   */
+  public void setURI(URI uri) {
+    this.uri = uri;
+  }
+
+  /**
+   * @param debug Set to enable printing some debugging info to System.out.
+   */
+  public HttpSeekableByteChannel withDebug(boolean debug) {
+    this.debug = debug;
+    return this;
+  }
+
+  @Override
+  public long position() throws IOException {
+    return newPosition != null ? newPosition : position;
+  }
+
+  @Override
+  public SeekableByteChannel position(long newPosition) throws IOException {
+    this.newPosition = newPosition;
+    return this;
+  }
+
+  @Override
+  public long size() throws IOException {
+    if (contentLength == null) {
+      // Do a GET request using zero range instead of a HEAD request, to test for Range header
+      // support and to
+      // avoid HEAD requests to a location that redirects but does not support the HEAD
+      // method.
+
+      HttpResponseWrapper response;
+      try {
+        response = httpClientWrapper.request(uri, "Range", "bytes=0-0");
+      } catch (InterruptedException e) {
+        throw new IOException(e);
+      }
+      if (response.getStatusCode() != 206) {
+        throw new IOException(
+            "Expected 206 Partial Content, but got status code "
+                + response.getStatusCode()
+                + " getting content length for "
+                + uri);
+      }
+      String contentRange = response.getHeader("Content-Range");
+      if (contentRange == null) {
+        throw new IOException(
+            "Missing Content-Range response header getting content length for " + uri);
+      }
+      Matcher m = Pattern.compile("bytes\\s+\\d+-\\d+/(\\d+)").matcher(contentRange);
+      if (!m.matches()) {
+        throw new IOException(
+            "Invalid Content-Range response header value \""
+                + contentRange
+                + "\" getting content length for "
+                + uri);
+      }
+      contentLength = Long.parseLong(m.group(1));
+      if (contentLength < 0) {
+        throw new IOException(
+            "Invalid Content-Range response header value \""
+                + contentRange
+                + "\" getting content length for "
+                + uri);
+      }
     }
+    return contentLength;
+  }
 
-    /**
-     * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around
-     * a custom HTTP client implementation using the default buffer size and max forward seek
-     * discard size.
-     */
-    public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper) {
-        this(
-                uri,
-                httpClientWrapper,
-                UnaryOperator.identity(),
-                DEFAULT_SEEK_BUFFER_SIZE,
-                DEFAULT_MAX_DISCARD_SIZE);
-    }
-
-    /**
-     * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around
-     * a custom HTTP client implementation, an optional wrapper for the input stream resuming HTTP
-     * requests after a read fails, and the specified buffer size and max forward seek discard size.
-     */
-    public HttpSeekableByteChannel(
-            URI uri,
-            HttpClientWrapper httpClientWrapper,
-            UnaryOperator<ResumingInputStream> resumingInputStreamWrapper,
-            int seekBufferSize,
-            int maxDiscardSize) {
-        this.uri = uri;
-        this.httpClientWrapper = httpClientWrapper;
-        this.resumingInputStreamWrapper = resumingInputStreamWrapper;
-        this.seekBufferSize = seekBufferSize;
-        this.maxDiscardSize = maxDiscardSize;
-    }
-
-    /** @return The number of HTTP range requests done. */
-    public int getHttpRequestCount() {
-        return httpRequestCount;
-    }
-
-    /**
-     * @return The total number of bytes read. This may be larger than the size when seeking
-     *     backwards and reading content multiple times.
-     */
-    public long getBytesRead() {
-        return bytesRead;
-    }
-
-    /**
-     * Update the URI to the final redirect target of the original URI, must identify the same
-     * entity as the original URI.
-     *
-     * @param uri The final redirection URI.
-     */
-    public void setURI(URI uri) {
-        this.uri = uri;
-    }
-
-    /** @param debug Set to enable printing some debugging info to System.out. */
-    public HttpSeekableByteChannel withDebug(boolean debug) {
-        this.debug = debug;
-        return this;
-    }
-
-    @Override
-    public long position() throws IOException {
-        return newPosition != null ? newPosition : position;
-    }
-
-    @Override
-    public SeekableByteChannel position(long newPosition) throws IOException {
-        this.newPosition = newPosition;
-        return this;
-    }
-
-    @Override
-    public long size() throws IOException {
-        if (contentLength == null) {
-            // Do a GET request using zero range instead of a HEAD request, to test for Range header
-            // support and to
-            // avoid HEAD requests to a location that redirects but does not support the HEAD
-            // method.
-
-            HttpResponseWrapper response;
-            try {
-                response = httpClientWrapper.request(uri, "Range", "bytes=0-0");
-            } catch (InterruptedException e) {
-                throw new IOException(e);
-            }
-            if (response.getStatusCode() != 206) {
-                throw new IOException(
-                        "Expected 206 Partial Content, but got status code "
-                                + response.getStatusCode()
-                                + " getting content length for "
-                                + uri);
-            }
-            String contentRange = response.getHeader("Content-Range");
-            if (contentRange == null) {
-                throw new IOException(
-                        "Missing Content-Range response header getting content length for " + uri);
-            }
-            Matcher m = Pattern.compile("bytes\\s+\\d+-\\d+/(\\d+)").matcher(contentRange);
-            if (!m.matches()) {
-                throw new IOException(
-                        "Invalid Content-Range response header value \""
-                                + contentRange
-                                + "\" getting content length for "
-                                + uri);
-            }
-            contentLength = Long.parseLong(m.group(1));
-            if (contentLength < 0) {
-                throw new IOException(
-                        "Invalid Content-Range response header value \""
-                                + contentRange
-                                + "\" getting content length for "
-                                + uri);
-            }
-        }
-        return contentLength;
-    }
-
-    @Override
-    public int read(ByteBuffer byteBuffer) throws IOException {
-        if (newPosition != null && newPosition != position) {
-            if (currentHttpResponseBodyInputStream != null) {
-                // Determine if we should close the stream or read and discard
-                if (newPosition > position && newPosition - position <= maxDiscardSize) {
-                    if (debug)
-                        System.out.printf(
-                                " [Discard %d bytes to seek forward from position %d to %d ] ",
-                                newPosition - position, position, newPosition);
-                    if (seekBuffer == null) {
-                        seekBuffer = new byte[seekBufferSize];
-                    }
-                    int remaining = (int) (newPosition - position);
-                    do {
-                        remaining -=
-                                currentHttpResponseBodyInputStream.read(
-                                        seekBuffer, 0, Math.min(remaining, seekBuffer.length));
-                    } while (remaining > 0);
-                    // Input stream is at correct position
-                } else {
-                    try {
-                        currentHttpResponseBodyInputStream.close();
-                    } catch (IOException ignored) {
-                    }
-                    currentHttpResponseBodyInputStream = null;
-                }
-            }
-            position = newPosition;
-            newPosition = null;
-        }
-
-        if (currentHttpResponseBodyInputStream == null) {
-            if (debug) System.out.print(" [GET at position " + position + "] ");
-            httpRequestCount++;
-            currentHttpResponseBodyInputStream =
-                    resumingInputStreamWrapper.apply(
-                            new ResumingInputStream(
-                                    new HttpStartRangeInputStreamProvider(
-                                                    uri, httpClientWrapper, contentLength)
-                                            .assumeAcceptsRanges(true),
-                                    position));
-        }
-
-        int read;
-        if (byteBuffer.hasArray()) {
-            read =
-                    currentHttpResponseBodyInputStream.read(
-                            byteBuffer.array(),
-                            byteBuffer.arrayOffset() + byteBuffer.position(),
-                            byteBuffer.remaining());
-            if (read > 0) {
-                byteBuffer.position(byteBuffer.position() + read);
-            }
+  @Override
+  public int read(ByteBuffer byteBuffer) throws IOException {
+    if (newPosition != null && newPosition != position) {
+      if (currentHttpResponseBodyInputStream != null) {
+        // Determine if we should close the stream or read and discard
+        if (newPosition > position && newPosition - position <= maxDiscardSize) {
+          if (debug)
+            System.out.printf(
+                " [Discard %d bytes to seek forward from position %d to %d ] ",
+                newPosition - position, position, newPosition);
+          if (seekBuffer == null) {
+            seekBuffer = new byte[seekBufferSize];
+          }
+          int remaining = (int) (newPosition - position);
+          do {
+            remaining -=
+                currentHttpResponseBodyInputStream.read(
+                    seekBuffer, 0, Math.min(remaining, seekBuffer.length));
+          } while (remaining > 0);
+          // Input stream is at correct position
         } else {
-            if (buffer == null) {
-                buffer = new byte[READ_BUFFER_SIZE];
-            }
-            read =
-                    currentHttpResponseBodyInputStream.read(
-                            buffer, 0, Math.min(byteBuffer.remaining(), buffer.length));
-            if (read > 0) {
-                byteBuffer.put(buffer, 0, read);
-            }
-        }
-        if (read > 0) {
-            position += read;
-            bytesRead += read;
-        }
-        return read;
-    }
-
-    @Override
-    public boolean isOpen() {
-        return true;
-    }
-
-    @Override
-    public void close() throws IOException {
-        if (currentHttpResponseBodyInputStream != null) {
+          try {
             currentHttpResponseBodyInputStream.close();
-            seekBuffer = null;
-            buffer = null;
+          } catch (IOException ignored) {
+          }
+          currentHttpResponseBodyInputStream = null;
         }
+      }
+      position = newPosition;
+      newPosition = null;
     }
 
-    /** Always throws an {@code UnsupportedOperationException}. */
-    @Override
-    public int write(ByteBuffer byteBuffer) throws IOException {
-        throw new UnsupportedOperationException();
+    if (currentHttpResponseBodyInputStream == null) {
+      if (debug) System.out.print(" [GET at position " + position + "] ");
+      httpRequestCount++;
+      currentHttpResponseBodyInputStream =
+          resumingInputStreamWrapper.apply(
+              new ResumingInputStream(
+                  new HttpStartRangeInputStreamProvider(uri, httpClientWrapper, contentLength)
+                      .assumeAcceptsRanges(true),
+                  position));
     }
 
-    /** Always throws an {@code UnsupportedOperationException}. */
-    @Override
-    public SeekableByteChannel truncate(long l) throws IOException {
-        throw new UnsupportedOperationException();
+    int read;
+    if (byteBuffer.hasArray()) {
+      read =
+          currentHttpResponseBodyInputStream.read(
+              byteBuffer.array(),
+              byteBuffer.arrayOffset() + byteBuffer.position(),
+              byteBuffer.remaining());
+      if (read > 0) {
+        byteBuffer.position(byteBuffer.position() + read);
+      }
+    } else {
+      if (buffer == null) {
+        buffer = new byte[READ_BUFFER_SIZE];
+      }
+      read =
+          currentHttpResponseBodyInputStream.read(
+              buffer, 0, Math.min(byteBuffer.remaining(), buffer.length));
+      if (read > 0) {
+        byteBuffer.put(buffer, 0, read);
+      }
     }
+    if (read > 0) {
+      position += read;
+      bytesRead += read;
+    }
+    return read;
+  }
+
+  @Override
+  public boolean isOpen() {
+    return true;
+  }
+
+  @Override
+  public void close() throws IOException {
+    if (currentHttpResponseBodyInputStream != null) {
+      currentHttpResponseBodyInputStream.close();
+      seekBuffer = null;
+      buffer = null;
+    }
+  }
+
+  /** Always throws an {@code UnsupportedOperationException}. */
+  @Override
+  public int write(ByteBuffer byteBuffer) throws IOException {
+    throw new UnsupportedOperationException();
+  }
+
+  /** Always throws an {@code UnsupportedOperationException}. */
+  @Override
+  public SeekableByteChannel truncate(long l) throws IOException {
+    throw new UnsupportedOperationException();
+  }
 }

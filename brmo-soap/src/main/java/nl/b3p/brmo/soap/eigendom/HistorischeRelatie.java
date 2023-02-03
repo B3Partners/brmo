@@ -8,48 +8,48 @@ import javax.xml.bind.annotation.XmlType;
 /** Java class for HistorischeRelatie. */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "",
-        propOrder = {"identificatienummer", "aard"})
+    name = "",
+    propOrder = {"identificatienummer", "aard"})
 public class HistorischeRelatie {
 
-    @XmlElement(required = true)
-    protected String identificatienummer;
+  @XmlElement(required = true)
+  protected String identificatienummer;
 
-    protected String aard;
+  protected String aard;
 
-    /**
-     * Gets the value of the identificatienummer property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getIdentificatienummer() {
-        return identificatienummer;
-    }
+  /**
+   * Gets the value of the identificatienummer property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdentificatienummer() {
+    return identificatienummer;
+  }
 
-    /**
-     * Sets the value of the identificatienummer property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setIdentificatienummer(String value) {
-        this.identificatienummer = value;
-    }
+  /**
+   * Sets the value of the identificatienummer property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdentificatienummer(String value) {
+    this.identificatienummer = value;
+  }
 
-    /**
-     * Gets the value of the aard property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getAard() {
-        return aard;
-    }
+  /**
+   * Gets the value of the aard property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getAard() {
+    return aard;
+  }
 
-    /**
-     * Sets the value of the aard property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setAard(String value) {
-        this.aard = value;
-    }
+  /**
+   * Sets the value of the aard property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setAard(String value) {
+    this.aard = value;
+  }
 }

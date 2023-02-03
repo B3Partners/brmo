@@ -8,16 +8,14 @@
 
 package nl.b3p.topnl.top10nl;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for RegistratiefGebiedType complex type.
@@ -43,146 +41,146 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "RegistratiefGebiedType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
-        propOrder = {
-            "typeRegistratiefGebied",
-            "naamOfficieel",
-            "naamNL",
-            "naamFries",
-            "nummer",
-            "geometrie"
-        })
+    name = "RegistratiefGebiedType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
+    propOrder = {
+      "typeRegistratiefGebied",
+      "naamOfficieel",
+      "naamNL",
+      "naamFries",
+      "nummer",
+      "geometrie"
+    })
 public class RegistratiefGebiedType extends Top10NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeRegistratiefGebied;
+  @XmlElement(required = true)
+  protected CodeType typeRegistratiefGebied;
 
-    @XmlElement(required = true)
-    protected String naamOfficieel;
+  @XmlElement(required = true)
+  protected String naamOfficieel;
 
-    protected List<String> naamNL;
-    protected List<String> naamFries;
-    protected List<String> nummer;
-    @XmlAnyElement protected Element geometrie;
+  protected List<String> naamNL;
+  protected List<String> naamFries;
+  protected List<String> nummer;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeRegistratiefGebied property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeRegistratiefGebied() {
-        return typeRegistratiefGebied;
+  /**
+   * Gets the value of the typeRegistratiefGebied property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeRegistratiefGebied() {
+    return typeRegistratiefGebied;
+  }
+
+  /**
+   * Sets the value of the typeRegistratiefGebied property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeRegistratiefGebied(CodeType value) {
+    this.typeRegistratiefGebied = value;
+  }
+
+  /**
+   * Gets the value of the naamOfficieel property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamOfficieel() {
+    return naamOfficieel;
+  }
+
+  /**
+   * Sets the value of the naamOfficieel property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamOfficieel(String value) {
+    this.naamOfficieel = value;
+  }
+
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamNL property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamNL().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamNL() {
+    if (naamNL == null) {
+      naamNL = new ArrayList<String>();
     }
+    return this.naamNL;
+  }
 
-    /**
-     * Sets the value of the typeRegistratiefGebied property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeRegistratiefGebied(CodeType value) {
-        this.typeRegistratiefGebied = value;
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamFries property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamFries().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamFries() {
+    if (naamFries == null) {
+      naamFries = new ArrayList<String>();
     }
+    return this.naamFries;
+  }
 
-    /**
-     * Gets the value of the naamOfficieel property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamOfficieel() {
-        return naamOfficieel;
+  /**
+   * Gets the value of the nummer property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the nummer property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNummer().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNummer() {
+    if (nummer == null) {
+      nummer = new ArrayList<String>();
     }
+    return this.nummer;
+  }
 
-    /**
-     * Sets the value of the naamOfficieel property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamOfficieel(String value) {
-        this.naamOfficieel = value;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamNL property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamNL().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamNL() {
-        if (naamNL == null) {
-            naamNL = new ArrayList<String>();
-        }
-        return this.naamNL;
-    }
-
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamFries property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamFries().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamFries() {
-        if (naamFries == null) {
-            naamFries = new ArrayList<String>();
-        }
-        return this.naamFries;
-    }
-
-    /**
-     * Gets the value of the nummer property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the nummer property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNummer().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNummer() {
-        if (nummer == null) {
-            nummer = new ArrayList<String>();
-        }
-        return this.nummer;
-    }
-
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
-
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

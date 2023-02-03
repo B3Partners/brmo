@@ -34,32 +34,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "showType", namespace = "http://www.w3.org/1999/xlink")
 @XmlEnum
 public enum ShowType {
-    @XmlEnumValue("new")
-    NEW("new"),
-    @XmlEnumValue("replace")
-    REPLACE("replace"),
-    @XmlEnumValue("embed")
-    EMBED("embed"),
-    @XmlEnumValue("other")
-    OTHER("other"),
-    @XmlEnumValue("none")
-    NONE("none");
-    private final String value;
+  @XmlEnumValue("new")
+  NEW("new"),
+  @XmlEnumValue("replace")
+  REPLACE("replace"),
+  @XmlEnumValue("embed")
+  EMBED("embed"),
+  @XmlEnumValue("other")
+  OTHER("other"),
+  @XmlEnumValue("none")
+  NONE("none");
+  private final String value;
 
-    ShowType(String v) {
-        value = v;
-    }
+  ShowType(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static ShowType fromValue(String v) {
-        for (ShowType c : ShowType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static ShowType fromValue(String v) {
+    for (ShowType c : ShowType.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

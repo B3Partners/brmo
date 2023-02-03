@@ -8,12 +8,12 @@ package nl.b3p.brmo.schema.mapping;
 
 public class OneToManyColumnMapping extends AttributeColumnMapping {
 
-    public OneToManyColumnMapping(String name) {
-        super(name, null, false, false);
-    }
+  public OneToManyColumnMapping(String name) {
+    super(name, null, false, false);
+  }
 
-    @Override
-    public boolean isDirectAttribute() {
-        return false;
-    }
+  @Override
+  public boolean isDirectAttribute() {
+    return false;
+  }
 }

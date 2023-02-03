@@ -19,7 +19,6 @@ package nl.b3p.brmo.persistence.auth;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,50 +26,52 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/** @author Matthijs Laan */
+/**
+ * @author Matthijs Laan
+ */
 @Entity
 @Table(name = "gebruiker_")
 public class Gebruiker implements Serializable {
 
-    @Id private String gebruikersnaam;
+  @Id private String gebruikersnaam;
 
-    private String wachtwoord;
+  private String wachtwoord;
 
-    @ManyToMany
-    @JoinTable(
-            name = "gebruiker_groepen",
-            joinColumns = @JoinColumn(name = "gebruikersnaam"),
-            inverseJoinColumns = @JoinColumn(name = "groep_"))
-    private Set<Groep> groepen = new HashSet<>();
+  @ManyToMany
+  @JoinTable(
+      name = "gebruiker_groepen",
+      joinColumns = @JoinColumn(name = "gebruikersnaam"),
+      inverseJoinColumns = @JoinColumn(name = "groep_"))
+  private Set<Groep> groepen = new HashSet<>();
 
-    public String getWachtwoord() {
-        return wachtwoord;
-    }
+  public String getWachtwoord() {
+    return wachtwoord;
+  }
 
-    /**
-     * Stel nieuw wachtwoord in. Het versleutelen van het wachtwoord naar een hash dient al
-     * uitgevoerd te zijn en moet conform de geconfigureerde {@code CredentialHandler} van de
-     * security realm gedaan zijn om te kunnen werken.
-     *
-     * @param wachtwoord een versleuteld/gehashed wachtwoord
-     */
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
-    }
+  /**
+   * Stel nieuw wachtwoord in. Het versleutelen van het wachtwoord naar een hash dient al uitgevoerd
+   * te zijn en moet conform de geconfigureerde {@code CredentialHandler} van de security realm
+   * gedaan zijn om te kunnen werken.
+   *
+   * @param wachtwoord een versleuteld/gehashed wachtwoord
+   */
+  public void setWachtwoord(String wachtwoord) {
+    this.wachtwoord = wachtwoord;
+  }
 
-    public Set<Groep> getGroepen() {
-        return groepen;
-    }
+  public Set<Groep> getGroepen() {
+    return groepen;
+  }
 
-    public void setGroepen(Set<Groep> groepen) {
-        this.groepen = groepen;
-    }
+  public void setGroepen(Set<Groep> groepen) {
+    this.groepen = groepen;
+  }
 
-    public String getGebruikersnaam() {
-        return gebruikersnaam;
-    }
+  public String getGebruikersnaam() {
+    return gebruikersnaam;
+  }
 
-    public void setGebruikersnaam(String gebruikersnaam) {
-        this.gebruikersnaam = gebruikersnaam;
-    }
+  public void setGebruikersnaam(String gebruikersnaam) {
+    this.gebruikersnaam = gebruikersnaam;
+  }
 }

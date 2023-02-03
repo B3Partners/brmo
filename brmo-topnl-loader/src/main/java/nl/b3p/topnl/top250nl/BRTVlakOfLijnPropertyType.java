@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTVlakOfLijnPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"brtVlakOfLijn"})
+    name = "BRTVlakOfLijnPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"brtVlakOfLijn"})
 public class BRTVlakOfLijnPropertyType {
 
-    @XmlElement(name = "BRTVlakOfLijn", required = true)
-    protected BRTVlakOfLijnType brtVlakOfLijn;
+  @XmlElement(name = "BRTVlakOfLijn", required = true)
+  protected BRTVlakOfLijnType brtVlakOfLijn;
 
-    /**
-     * Gets the value of the brtVlakOfLijn property.
-     *
-     * @return possible object is {@link BRTVlakOfLijnType }
-     */
-    public BRTVlakOfLijnType getBRTVlakOfLijn() {
-        return brtVlakOfLijn;
-    }
+  /**
+   * Gets the value of the brtVlakOfLijn property.
+   *
+   * @return possible object is {@link BRTVlakOfLijnType }
+   */
+  public BRTVlakOfLijnType getBRTVlakOfLijn() {
+    return brtVlakOfLijn;
+  }
 
-    /**
-     * Sets the value of the brtVlakOfLijn property.
-     *
-     * @param value allowed object is {@link BRTVlakOfLijnType }
-     */
-    public void setBRTVlakOfLijn(BRTVlakOfLijnType value) {
-        this.brtVlakOfLijn = value;
-    }
+  /**
+   * Sets the value of the brtVlakOfLijn property.
+   *
+   * @param value allowed object is {@link BRTVlakOfLijnType }
+   */
+  public void setBRTVlakOfLijn(BRTVlakOfLijnType value) {
+    this.brtVlakOfLijn = value;
+  }
 }

@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTVlakMultivlakOfPuntPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"brtVlakMultivlakOfPunt"})
+    name = "BRTVlakMultivlakOfPuntPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"brtVlakMultivlakOfPunt"})
 public class BRTVlakMultivlakOfPuntPropertyType {
 
-    @XmlElement(name = "BRTVlakMultivlakOfPunt", required = true)
-    protected BRTVlakMultivlakOfPuntType brtVlakMultivlakOfPunt;
+  @XmlElement(name = "BRTVlakMultivlakOfPunt", required = true)
+  protected BRTVlakMultivlakOfPuntType brtVlakMultivlakOfPunt;
 
-    /**
-     * Gets the value of the brtVlakMultivlakOfPunt property.
-     *
-     * @return possible object is {@link BRTVlakMultivlakOfPuntType }
-     */
-    public BRTVlakMultivlakOfPuntType getBRTVlakMultivlakOfPunt() {
-        return brtVlakMultivlakOfPunt;
-    }
+  /**
+   * Gets the value of the brtVlakMultivlakOfPunt property.
+   *
+   * @return possible object is {@link BRTVlakMultivlakOfPuntType }
+   */
+  public BRTVlakMultivlakOfPuntType getBRTVlakMultivlakOfPunt() {
+    return brtVlakMultivlakOfPunt;
+  }
 
-    /**
-     * Sets the value of the brtVlakMultivlakOfPunt property.
-     *
-     * @param value allowed object is {@link BRTVlakMultivlakOfPuntType }
-     */
-    public void setBRTVlakMultivlakOfPunt(BRTVlakMultivlakOfPuntType value) {
-        this.brtVlakMultivlakOfPunt = value;
-    }
+  /**
+   * Sets the value of the brtVlakMultivlakOfPunt property.
+   *
+   * @param value allowed object is {@link BRTVlakMultivlakOfPuntType }
+   */
+  public void setBRTVlakMultivlakOfPunt(BRTVlakMultivlakOfPuntType value) {
+    this.brtVlakMultivlakOfPunt = value;
+  }
 }

@@ -13,10 +13,10 @@ import javax.persistence.Entity;
 @Entity
 public class MaterializedViewRefresh extends AutomatischProces {
 
-    /** de sleutel {@value MVIEW}. */
-    public static final String MVIEW = "mview";
+  /** de sleutel {@value MVIEW}. */
+  public static final String MVIEW = "mview";
 
-    public String getMView() {
-        return ClobElement.nullSafeGet(this.getConfig().get(MVIEW));
-    }
+  public String getMView() {
+    return ClobElement.nullSafeGet(this.getConfig().get(MVIEW));
+  }
 }

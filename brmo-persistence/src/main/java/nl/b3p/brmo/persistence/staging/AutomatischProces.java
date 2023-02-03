@@ -3,13 +3,10 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import org.hibernate.annotations.Type;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
@@ -25,6 +22,7 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
 
 /**
  * Generieke beschrijving van een automatisch proces.
@@ -36,134 +34,136 @@ import javax.persistence.TemporalType;
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 255)
 public abstract class AutomatischProces implements Serializable {
 
-    /** newline string ({@value LOG_NEWLINE}) voor de logberichten en samenvatting. */
-    public static final String LOG_NEWLINE = "\n";
+  /** newline string ({@value LOG_NEWLINE}) voor de logberichten en samenvatting. */
+  public static final String LOG_NEWLINE = "\n";
 
-    public enum ProcessingStatus {
-        PROCESSING("PROCESSING"),
-        WAITING("WAITING"),
-        ONBEKEND("ONBEKEND"),
-        ERROR("ERROR");
+  public enum ProcessingStatus {
+    PROCESSING("PROCESSING"),
+    WAITING("WAITING"),
+    ONBEKEND("ONBEKEND"),
+    ERROR("ERROR");
 
-        private final String status;
+    private final String status;
 
-        ProcessingStatus(String status) {
-            this.status = status;
-        }
+    ProcessingStatus(String status) {
+      this.status = status;
     }
+  }
 
-    @Id @GeneratedValue private Long id;
+  @Id @GeneratedValue private Long id;
 
-    /** @note Tabel "automatisch_proces_config" in de database. */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
-    @MapKeyJoinColumn
-    // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
-    private Map<String, ClobElement> config = new HashMap<>();
+  /**
+   * @note Tabel "automatisch_proces_config" in de database.
+   */
+  @ElementCollection(fetch = FetchType.EAGER)
+  @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
+  @MapKeyJoinColumn
+  // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
+  private Map<String, ClobElement> config = new HashMap<>();
 
-    /** laatste run tijdtip vasthouden ten behoeve van logging en rapportage. */
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastrun;
+  /** laatste run tijdtip vasthouden ten behoeve van logging en rapportage. */
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date lastrun;
 
-    /** status van de laatste run. */
-    @Enumerated(EnumType.STRING)
-    private ProcessingStatus status = ProcessingStatus.WAITING;
+  /** status van de laatste run. */
+  @Enumerated(EnumType.STRING)
+  private ProcessingStatus status = ProcessingStatus.WAITING;
 
-    /** samenvatting van de laatste run. */
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    private String samenvatting;
+  /** samenvatting van de laatste run. */
+  @Lob
+  @Type(type = "org.hibernate.type.TextType")
+  private String samenvatting;
 
-    /** logfile */
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    private String logfile;
+  /** logfile */
+  @Lob
+  @Type(type = "org.hibernate.type.TextType")
+  private String logfile;
 
-    /** cron expressie voor planning. */
-    private String cronExpressie;
+  /** cron expressie voor planning. */
+  private String cronExpressie;
 
-    /**
-     * update samenvatting en logfile in één keer, waarbij de logfile aangevuld wordt met de
-     * samenvatting.
-     *
-     * @param samenvatting de nieuwe samenvatting
-     * @todo auto-truncate van de clob? oracle CLOB is maximaal 4 GB - 1) * DB_BLOCK_SIZE
-     *     (http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm#i287903) ,posgres
-     *     CLOB (text type) is maximaal limitless
-     *     (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
-     */
-    public void updateSamenvattingEnLogfile(String samenvatting) {
-        if (samenvatting == null) {
-            samenvatting = "";
-        }
-        this.setSamenvatting(samenvatting);
-        if (this.logfile == null) {
-            this.setLogfile(samenvatting);
-        } else {
-            this.setLogfile(
-                    this.logfile
-                            + LOG_NEWLINE
-                            // +"----------------"+ LOG_NEWLINE
-                            + samenvatting);
-        }
+  /**
+   * update samenvatting en logfile in één keer, waarbij de logfile aangevuld wordt met de
+   * samenvatting.
+   *
+   * @param samenvatting de nieuwe samenvatting
+   * @todo auto-truncate van de clob? oracle CLOB is maximaal 4 GB - 1) * DB_BLOCK_SIZE
+   *     (http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm#i287903) ,posgres CLOB
+   *     (text type) is maximaal limitless
+   *     (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
+   */
+  public void updateSamenvattingEnLogfile(String samenvatting) {
+    if (samenvatting == null) {
+      samenvatting = "";
     }
-
-    // <editor-fold defaultstate="collapsed" desc="getters and setters">
-    public Map<String, ClobElement> getConfig() {
-        return config;
+    this.setSamenvatting(samenvatting);
+    if (this.logfile == null) {
+      this.setLogfile(samenvatting);
+    } else {
+      this.setLogfile(
+          this.logfile
+              + LOG_NEWLINE
+              // +"----------------"+ LOG_NEWLINE
+              + samenvatting);
     }
+  }
 
-    public void setConfig(Map<String, ClobElement> config) {
-        this.config = config;
-    }
+  // <editor-fold defaultstate="collapsed" desc="getters and setters">
+  public Map<String, ClobElement> getConfig() {
+    return config;
+  }
 
-    public Date getLastrun() {
-        return lastrun;
-    }
+  public void setConfig(Map<String, ClobElement> config) {
+    this.config = config;
+  }
 
-    public void setLastrun(Date lastrun) {
-        this.lastrun = lastrun;
-    }
+  public Date getLastrun() {
+    return lastrun;
+  }
 
-    public ProcessingStatus getStatus() {
-        return status;
-    }
+  public void setLastrun(Date lastrun) {
+    this.lastrun = lastrun;
+  }
 
-    public void setStatus(ProcessingStatus status) {
-        this.status = status;
-    }
+  public ProcessingStatus getStatus() {
+    return status;
+  }
 
-    public String getSamenvatting() {
-        return samenvatting;
-    }
+  public void setStatus(ProcessingStatus status) {
+    this.status = status;
+  }
 
-    public void setSamenvatting(String samenvatting) {
-        this.samenvatting = samenvatting;
-    }
+  public String getSamenvatting() {
+    return samenvatting;
+  }
 
-    public String getLogfile() {
-        return logfile;
-    }
+  public void setSamenvatting(String samenvatting) {
+    this.samenvatting = samenvatting;
+  }
 
-    public void setLogfile(String logfile) {
-        this.logfile = logfile;
-    }
+  public String getLogfile() {
+    return logfile;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setLogfile(String logfile) {
+    this.logfile = logfile;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getCronExpressie() {
-        return cronExpressie;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setCronExpressie(String cronExpressie) {
-        this.cronExpressie = cronExpressie;
-    }
+  public String getCronExpressie() {
+    return cronExpressie;
+  }
 
-    // </editor-fold>
+  public void setCronExpressie(String cronExpressie) {
+    this.cronExpressie = cronExpressie;
+  }
+
+  // </editor-fold>
 }

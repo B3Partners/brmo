@@ -35,34 +35,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "typeType", namespace = "http://www.w3.org/1999/xlink")
 @XmlEnum
 public enum TypeType {
-    @XmlEnumValue("simple")
-    SIMPLE("simple"),
-    @XmlEnumValue("extended")
-    EXTENDED("extended"),
-    @XmlEnumValue("title")
-    TITLE("title"),
-    @XmlEnumValue("resource")
-    RESOURCE("resource"),
-    @XmlEnumValue("locator")
-    LOCATOR("locator"),
-    @XmlEnumValue("arc")
-    ARC("arc");
-    private final String value;
+  @XmlEnumValue("simple")
+  SIMPLE("simple"),
+  @XmlEnumValue("extended")
+  EXTENDED("extended"),
+  @XmlEnumValue("title")
+  TITLE("title"),
+  @XmlEnumValue("resource")
+  RESOURCE("resource"),
+  @XmlEnumValue("locator")
+  LOCATOR("locator"),
+  @XmlEnumValue("arc")
+  ARC("arc");
+  private final String value;
 
-    TypeType(String v) {
-        value = v;
-    }
+  TypeType(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeType fromValue(String v) {
-        for (TypeType c : TypeType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeType fromValue(String v) {
+    for (TypeType c : TypeType.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

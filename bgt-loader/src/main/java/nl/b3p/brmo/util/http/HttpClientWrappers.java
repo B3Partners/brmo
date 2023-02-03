@@ -23,15 +23,15 @@ import nl.b3p.brmo.util.http.wrapper.URLConnectionHttpClientWrapper;
  * @author Matthijs Laan
  */
 public class HttpClientWrappers {
-    public static HttpClientWrapper getDefault() {
-        if ("urlconnection".equals(System.getProperty("httpclientwrapper"))) {
-            return new URLConnectionHttpClientWrapper();
-        }
-        float f = Float.parseFloat(System.getProperty(("java.specification.version")));
-        if (f >= 11.0f) {
-            return new Java11HttpClientWrapper();
-        } else {
-            return new URLConnectionHttpClientWrapper();
-        }
+  public static HttpClientWrapper getDefault() {
+    if ("urlconnection".equals(System.getProperty("httpclientwrapper"))) {
+      return new URLConnectionHttpClientWrapper();
     }
+    float f = Float.parseFloat(System.getProperty(("java.specification.version")));
+    if (f >= 11.0f) {
+      return new Java11HttpClientWrapper();
+    } else {
+      return new URLConnectionHttpClientWrapper();
+    }
+  }
 }

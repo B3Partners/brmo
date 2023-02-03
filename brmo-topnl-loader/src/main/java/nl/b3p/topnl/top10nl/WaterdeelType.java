@@ -8,18 +8,16 @@
 
 package nl.b3p.topnl.top10nl;
 
-import org.w3c.dom.Element;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for WaterdeelType complex type.
@@ -55,359 +53,359 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "WaterdeelType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
-        propOrder = {
-            "typeWater",
-            "breedteklasse",
-            "hoofdafwatering",
-            "fysiekVoorkomen",
-            "voorkomen",
-            "hoogteniveau",
-            "functie",
-            "getijdeinvloed",
-            "vaarwegklasse",
-            "naamOfficieel",
-            "naamNL",
-            "naamFries",
-            "isBAGnaam",
-            "sluisnaam",
-            "brugnaam",
-            "geometrie"
-        })
+    name = "WaterdeelType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0",
+    propOrder = {
+      "typeWater",
+      "breedteklasse",
+      "hoofdafwatering",
+      "fysiekVoorkomen",
+      "voorkomen",
+      "hoogteniveau",
+      "functie",
+      "getijdeinvloed",
+      "vaarwegklasse",
+      "naamOfficieel",
+      "naamNL",
+      "naamFries",
+      "isBAGnaam",
+      "sluisnaam",
+      "brugnaam",
+      "geometrie"
+    })
 public class WaterdeelType extends Top10NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeWater;
+  @XmlElement(required = true)
+  protected CodeType typeWater;
 
-    protected CodeType breedteklasse;
+  protected CodeType breedteklasse;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected BRTJaNeeWaardeType hoofdafwatering;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected BRTJaNeeWaardeType hoofdafwatering;
 
-    protected List<CodeType> fysiekVoorkomen;
-    protected CodeType voorkomen;
+  protected List<CodeType> fysiekVoorkomen;
+  protected CodeType voorkomen;
 
-    @XmlElement(required = true)
-    protected BigInteger hoogteniveau;
+  @XmlElement(required = true)
+  protected BigInteger hoogteniveau;
 
-    @XmlElement(required = true)
-    protected CodeType functie;
+  @XmlElement(required = true)
+  protected CodeType functie;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected BRTJaNeeWaardeType getijdeinvloed;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected BRTJaNeeWaardeType getijdeinvloed;
 
-    protected CodeType vaarwegklasse;
-    protected String naamOfficieel;
-    protected List<String> naamNL;
-    protected List<String> naamFries;
+  protected CodeType vaarwegklasse;
+  protected String naamOfficieel;
+  protected List<String> naamNL;
+  protected List<String> naamFries;
 
-    @XmlSchemaType(name = "string")
-    protected BRTJaNeeWaardeType isBAGnaam;
+  @XmlSchemaType(name = "string")
+  protected BRTJaNeeWaardeType isBAGnaam;
 
-    protected String sluisnaam;
-    protected String brugnaam;
-    @XmlAnyElement protected Element geometrie;
+  protected String sluisnaam;
+  protected String brugnaam;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeWater property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeWater() {
-        return typeWater;
+  /**
+   * Gets the value of the typeWater property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeWater() {
+    return typeWater;
+  }
+
+  /**
+   * Sets the value of the typeWater property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeWater(CodeType value) {
+    this.typeWater = value;
+  }
+
+  /**
+   * Gets the value of the breedteklasse property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getBreedteklasse() {
+    return breedteklasse;
+  }
+
+  /**
+   * Sets the value of the breedteklasse property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setBreedteklasse(CodeType value) {
+    this.breedteklasse = value;
+  }
+
+  /**
+   * Gets the value of the hoofdafwatering property.
+   *
+   * @return possible object is {@link BRTJaNeeWaardeType }
+   */
+  public BRTJaNeeWaardeType getHoofdafwatering() {
+    return hoofdafwatering;
+  }
+
+  /**
+   * Sets the value of the hoofdafwatering property.
+   *
+   * @param value allowed object is {@link BRTJaNeeWaardeType }
+   */
+  public void setHoofdafwatering(BRTJaNeeWaardeType value) {
+    this.hoofdafwatering = value;
+  }
+
+  /**
+   * Gets the value of the fysiekVoorkomen property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getFysiekVoorkomen().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
+   */
+  public List<CodeType> getFysiekVoorkomen() {
+    if (fysiekVoorkomen == null) {
+      fysiekVoorkomen = new ArrayList<CodeType>();
     }
+    return this.fysiekVoorkomen;
+  }
 
-    /**
-     * Sets the value of the typeWater property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeWater(CodeType value) {
-        this.typeWater = value;
-    }
+  /**
+   * Gets the value of the voorkomen property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getVoorkomen() {
+    return voorkomen;
+  }
 
-    /**
-     * Gets the value of the breedteklasse property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getBreedteklasse() {
-        return breedteklasse;
-    }
+  /**
+   * Sets the value of the voorkomen property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setVoorkomen(CodeType value) {
+    this.voorkomen = value;
+  }
 
-    /**
-     * Sets the value of the breedteklasse property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setBreedteklasse(CodeType value) {
-        this.breedteklasse = value;
-    }
+  /**
+   * Gets the value of the hoogteniveau property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    /**
-     * Gets the value of the hoofdafwatering property.
-     *
-     * @return possible object is {@link BRTJaNeeWaardeType }
-     */
-    public BRTJaNeeWaardeType getHoofdafwatering() {
-        return hoofdafwatering;
-    }
+  /**
+   * Sets the value of the hoogteniveau property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setHoogteniveau(BigInteger value) {
+    this.hoogteniveau = value;
+  }
 
-    /**
-     * Sets the value of the hoofdafwatering property.
-     *
-     * @param value allowed object is {@link BRTJaNeeWaardeType }
-     */
-    public void setHoofdafwatering(BRTJaNeeWaardeType value) {
-        this.hoofdafwatering = value;
-    }
+  /**
+   * Gets the value of the functie property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getFunctie() {
+    return functie;
+  }
 
-    /**
-     * Gets the value of the fysiekVoorkomen property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the fysiekVoorkomen property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getFysiekVoorkomen().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link CodeType }
-     */
-    public List<CodeType> getFysiekVoorkomen() {
-        if (fysiekVoorkomen == null) {
-            fysiekVoorkomen = new ArrayList<CodeType>();
-        }
-        return this.fysiekVoorkomen;
-    }
+  /**
+   * Sets the value of the functie property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setFunctie(CodeType value) {
+    this.functie = value;
+  }
 
-    /**
-     * Gets the value of the voorkomen property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getVoorkomen() {
-        return voorkomen;
-    }
+  /**
+   * Gets the value of the getijdeinvloed property.
+   *
+   * @return possible object is {@link BRTJaNeeWaardeType }
+   */
+  public BRTJaNeeWaardeType getGetijdeinvloed() {
+    return getijdeinvloed;
+  }
 
-    /**
-     * Sets the value of the voorkomen property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setVoorkomen(CodeType value) {
-        this.voorkomen = value;
-    }
+  /**
+   * Sets the value of the getijdeinvloed property.
+   *
+   * @param value allowed object is {@link BRTJaNeeWaardeType }
+   */
+  public void setGetijdeinvloed(BRTJaNeeWaardeType value) {
+    this.getijdeinvloed = value;
+  }
 
-    /**
-     * Gets the value of the hoogteniveau property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getHoogteniveau() {
-        return hoogteniveau;
-    }
+  /**
+   * Gets the value of the vaarwegklasse property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getVaarwegklasse() {
+    return vaarwegklasse;
+  }
 
-    /**
-     * Sets the value of the hoogteniveau property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setHoogteniveau(BigInteger value) {
-        this.hoogteniveau = value;
-    }
+  /**
+   * Sets the value of the vaarwegklasse property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setVaarwegklasse(CodeType value) {
+    this.vaarwegklasse = value;
+  }
 
-    /**
-     * Gets the value of the functie property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getFunctie() {
-        return functie;
-    }
+  /**
+   * Gets the value of the naamOfficieel property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamOfficieel() {
+    return naamOfficieel;
+  }
 
-    /**
-     * Sets the value of the functie property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setFunctie(CodeType value) {
-        this.functie = value;
-    }
+  /**
+   * Sets the value of the naamOfficieel property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamOfficieel(String value) {
+    this.naamOfficieel = value;
+  }
 
-    /**
-     * Gets the value of the getijdeinvloed property.
-     *
-     * @return possible object is {@link BRTJaNeeWaardeType }
-     */
-    public BRTJaNeeWaardeType getGetijdeinvloed() {
-        return getijdeinvloed;
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamNL property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamNL().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamNL() {
+    if (naamNL == null) {
+      naamNL = new ArrayList<String>();
     }
+    return this.naamNL;
+  }
 
-    /**
-     * Sets the value of the getijdeinvloed property.
-     *
-     * @param value allowed object is {@link BRTJaNeeWaardeType }
-     */
-    public void setGetijdeinvloed(BRTJaNeeWaardeType value) {
-        this.getijdeinvloed = value;
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamFries property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamFries().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamFries() {
+    if (naamFries == null) {
+      naamFries = new ArrayList<String>();
     }
+    return this.naamFries;
+  }
 
-    /**
-     * Gets the value of the vaarwegklasse property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getVaarwegklasse() {
-        return vaarwegklasse;
-    }
+  /**
+   * Gets the value of the isBAGnaam property.
+   *
+   * @return possible object is {@link BRTJaNeeWaardeType }
+   */
+  public BRTJaNeeWaardeType getIsBAGnaam() {
+    return isBAGnaam;
+  }
 
-    /**
-     * Sets the value of the vaarwegklasse property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setVaarwegklasse(CodeType value) {
-        this.vaarwegklasse = value;
-    }
+  /**
+   * Sets the value of the isBAGnaam property.
+   *
+   * @param value allowed object is {@link BRTJaNeeWaardeType }
+   */
+  public void setIsBAGnaam(BRTJaNeeWaardeType value) {
+    this.isBAGnaam = value;
+  }
 
-    /**
-     * Gets the value of the naamOfficieel property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamOfficieel() {
-        return naamOfficieel;
-    }
+  /**
+   * Gets the value of the sluisnaam property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getSluisnaam() {
+    return sluisnaam;
+  }
 
-    /**
-     * Sets the value of the naamOfficieel property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamOfficieel(String value) {
-        this.naamOfficieel = value;
-    }
+  /**
+   * Sets the value of the sluisnaam property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setSluisnaam(String value) {
+    this.sluisnaam = value;
+  }
 
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamNL property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamNL().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamNL() {
-        if (naamNL == null) {
-            naamNL = new ArrayList<String>();
-        }
-        return this.naamNL;
-    }
+  /**
+   * Gets the value of the brugnaam property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getBrugnaam() {
+    return brugnaam;
+  }
 
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamFries property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamFries().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamFries() {
-        if (naamFries == null) {
-            naamFries = new ArrayList<String>();
-        }
-        return this.naamFries;
-    }
+  /**
+   * Sets the value of the brugnaam property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBrugnaam(String value) {
+    this.brugnaam = value;
+  }
 
-    /**
-     * Gets the value of the isBAGnaam property.
-     *
-     * @return possible object is {@link BRTJaNeeWaardeType }
-     */
-    public BRTJaNeeWaardeType getIsBAGnaam() {
-        return isBAGnaam;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the isBAGnaam property.
-     *
-     * @param value allowed object is {@link BRTJaNeeWaardeType }
-     */
-    public void setIsBAGnaam(BRTJaNeeWaardeType value) {
-        this.isBAGnaam = value;
-    }
-
-    /**
-     * Gets the value of the sluisnaam property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getSluisnaam() {
-        return sluisnaam;
-    }
-
-    /**
-     * Sets the value of the sluisnaam property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setSluisnaam(String value) {
-        this.sluisnaam = value;
-    }
-
-    /**
-     * Gets the value of the brugnaam property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getBrugnaam() {
-        return brugnaam;
-    }
-
-    /**
-     * Sets the value of the brugnaam property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setBrugnaam(String value) {
-        this.brugnaam = value;
-    }
-
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
-
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

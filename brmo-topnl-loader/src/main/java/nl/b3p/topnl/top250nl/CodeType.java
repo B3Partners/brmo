@@ -36,49 +36,49 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "CodeType",
-        propOrder = {"value"})
+    name = "CodeType",
+    propOrder = {"value"})
 public class CodeType {
 
-    @XmlValue protected String value;
+  @XmlValue protected String value;
 
-    @XmlAttribute(name = "codeSpace")
-    @XmlSchemaType(name = "anyURI")
-    protected String codeSpace;
+  @XmlAttribute(name = "codeSpace")
+  @XmlSchemaType(name = "anyURI")
+  protected String codeSpace;
 
-    /**
-     * Gets the value of the value property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getValue() {
-        return value;
-    }
+  /**
+   * Gets the value of the value property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getValue() {
+    return value;
+  }
 
-    /**
-     * Sets the value of the value property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+  /**
+   * Sets the value of the value property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setValue(String value) {
+    this.value = value;
+  }
 
-    /**
-     * Gets the value of the codeSpace property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getCodeSpace() {
-        return codeSpace;
-    }
+  /**
+   * Gets the value of the codeSpace property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCodeSpace() {
+    return codeSpace;
+  }
 
-    /**
-     * Sets the value of the codeSpace property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setCodeSpace(String value) {
-        this.codeSpace = value;
-    }
+  /**
+   * Sets the value of the codeSpace property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCodeSpace(String value) {
+    this.codeSpace = value;
+  }
 }

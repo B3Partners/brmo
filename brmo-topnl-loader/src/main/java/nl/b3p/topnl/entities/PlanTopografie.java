@@ -18,35 +18,37 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/** @author Meine Toonen meinetoonen@b3partners.nl */
+/**
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
 public class PlanTopografie extends TopNLEntity {
 
-    private String typePlanTopografie;
-    private String naam;
+  private String typePlanTopografie;
+  private String naam;
 
-    private Geometry geometrie;
+  private Geometry geometrie;
 
-    public String getTypePlanTopografie() {
-        return typePlanTopografie;
-    }
+  public String getTypePlanTopografie() {
+    return typePlanTopografie;
+  }
 
-    public void setTypePlanTopografie(String typePlanTopografie) {
-        this.typePlanTopografie = typePlanTopografie;
-    }
+  public void setTypePlanTopografie(String typePlanTopografie) {
+    this.typePlanTopografie = typePlanTopografie;
+  }
 
-    public String getNaam() {
-        return naam;
-    }
+  public String getNaam() {
+    return naam;
+  }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
+  public void setNaam(String naam) {
+    this.naam = naam;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 }

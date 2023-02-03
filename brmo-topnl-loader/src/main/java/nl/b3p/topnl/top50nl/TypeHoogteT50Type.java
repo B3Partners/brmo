@@ -35,42 +35,42 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeHoogteT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "TypeHoogteT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum TypeHoogteT50Type {
-    @XmlEnumValue("dieptelijn")
-    DIEPTELIJN("dieptelijn"),
-    @XmlEnumValue("dieptepunt")
-    DIEPTEPUNT("dieptepunt"),
-    @XmlEnumValue("hoogtelijn")
-    HOOGTELIJN("hoogtelijn"),
-    @XmlEnumValue("hoogtepunt")
-    HOOGTEPUNT("hoogtepunt"),
-    @XmlEnumValue("hoogwaterlijn")
-    HOOGWATERLIJN("hoogwaterlijn"),
-    @XmlEnumValue("laagwaterlijn")
-    LAAGWATERLIJN("laagwaterlijn"),
-    @XmlEnumValue("peil:winterpeil")
-    PEIL_WINTERPEIL("peil:winterpeil"),
-    @XmlEnumValue("peil:zomerpeil")
-    PEIL_ZOMERPEIL("peil:zomerpeil");
-    private final String value;
+  @XmlEnumValue("dieptelijn")
+  DIEPTELIJN("dieptelijn"),
+  @XmlEnumValue("dieptepunt")
+  DIEPTEPUNT("dieptepunt"),
+  @XmlEnumValue("hoogtelijn")
+  HOOGTELIJN("hoogtelijn"),
+  @XmlEnumValue("hoogtepunt")
+  HOOGTEPUNT("hoogtepunt"),
+  @XmlEnumValue("hoogwaterlijn")
+  HOOGWATERLIJN("hoogwaterlijn"),
+  @XmlEnumValue("laagwaterlijn")
+  LAAGWATERLIJN("laagwaterlijn"),
+  @XmlEnumValue("peil:winterpeil")
+  PEIL_WINTERPEIL("peil:winterpeil"),
+  @XmlEnumValue("peil:zomerpeil")
+  PEIL_ZOMERPEIL("peil:zomerpeil");
+  private final String value;
 
-    TypeHoogteT50Type(String v) {
-        value = v;
-    }
+  TypeHoogteT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeHoogteT50Type fromValue(String v) {
-        for (TypeHoogteT50Type c : TypeHoogteT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeHoogteT50Type fromValue(String v) {
+    for (TypeHoogteT50Type c : TypeHoogteT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

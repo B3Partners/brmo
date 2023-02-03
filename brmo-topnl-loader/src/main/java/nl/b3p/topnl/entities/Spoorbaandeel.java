@@ -19,134 +19,136 @@ package nl.b3p.topnl.entities;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 
-/** @author Meine Toonen meinetoonen@b3partners.nl */
+/**
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
 public class Spoorbaandeel extends TopNLEntity {
 
-    private String typeInfrastructuur;
-    private String typeSpoorbaan;
-    private String fysiekVoorkomen;
-    private String spoorbreedte;
-    private String aantalSporen;
-    private String vervoerfunctie;
-    private Boolean elektrificatie;
-    private String status;
-    private String brugnaam;
-    private String tunnelnaam;
-    private String baanvaknaam;
-    private Long hoogteniveau;
+  private String typeInfrastructuur;
+  private String typeSpoorbaan;
+  private String fysiekVoorkomen;
+  private String spoorbreedte;
+  private String aantalSporen;
+  private String vervoerfunctie;
+  private Boolean elektrificatie;
+  private String status;
+  private String brugnaam;
+  private String tunnelnaam;
+  private String baanvaknaam;
+  private Long hoogteniveau;
 
-    private LineString geometrie;
-    private Point puntGeometrie;
+  private LineString geometrie;
+  private Point puntGeometrie;
 
-    public String getTypeInfrastructuur() {
-        return typeInfrastructuur;
-    }
+  public String getTypeInfrastructuur() {
+    return typeInfrastructuur;
+  }
 
-    public void setTypeInfrastructuur(String typeInfrastructuur) {
-        this.typeInfrastructuur = typeInfrastructuur;
-    }
+  public void setTypeInfrastructuur(String typeInfrastructuur) {
+    this.typeInfrastructuur = typeInfrastructuur;
+  }
 
-    public String getTypeSpoorbaan() {
-        return typeSpoorbaan;
-    }
+  public String getTypeSpoorbaan() {
+    return typeSpoorbaan;
+  }
 
-    public void setTypeSpoorbaan(String typeSpoorbaan) {
-        this.typeSpoorbaan = typeSpoorbaan;
-    }
+  public void setTypeSpoorbaan(String typeSpoorbaan) {
+    this.typeSpoorbaan = typeSpoorbaan;
+  }
 
-    public String getFysiekVoorkomen() {
-        return fysiekVoorkomen;
-    }
+  public String getFysiekVoorkomen() {
+    return fysiekVoorkomen;
+  }
 
-    public void setFysiekVoorkomen(String fysiekVoorkomen) {
-        this.fysiekVoorkomen = fysiekVoorkomen;
-    }
+  public void setFysiekVoorkomen(String fysiekVoorkomen) {
+    this.fysiekVoorkomen = fysiekVoorkomen;
+  }
 
-    public String getSpoorbreedte() {
-        return spoorbreedte;
-    }
+  public String getSpoorbreedte() {
+    return spoorbreedte;
+  }
 
-    public void setSpoorbreedte(String spoorbreedte) {
-        this.spoorbreedte = spoorbreedte;
-    }
+  public void setSpoorbreedte(String spoorbreedte) {
+    this.spoorbreedte = spoorbreedte;
+  }
 
-    public String getAantalSporen() {
-        return aantalSporen;
-    }
+  public String getAantalSporen() {
+    return aantalSporen;
+  }
 
-    public void setAantalSporen(String aantalSporen) {
-        this.aantalSporen = aantalSporen;
-    }
+  public void setAantalSporen(String aantalSporen) {
+    this.aantalSporen = aantalSporen;
+  }
 
-    public String getVervoerfunctie() {
-        return vervoerfunctie;
-    }
+  public String getVervoerfunctie() {
+    return vervoerfunctie;
+  }
 
-    public void setVervoerfunctie(String vervoerfunctie) {
-        this.vervoerfunctie = vervoerfunctie;
-    }
+  public void setVervoerfunctie(String vervoerfunctie) {
+    this.vervoerfunctie = vervoerfunctie;
+  }
 
-    public Boolean getElektrificatie() {
-        return elektrificatie;
-    }
+  public Boolean getElektrificatie() {
+    return elektrificatie;
+  }
 
-    public void setElektrificatie(Boolean elektrificatie) {
-        this.elektrificatie = elektrificatie;
-    }
+  public void setElektrificatie(Boolean elektrificatie) {
+    this.elektrificatie = elektrificatie;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public String getBrugnaam() {
-        return brugnaam;
-    }
+  public String getBrugnaam() {
+    return brugnaam;
+  }
 
-    public void setBrugnaam(String brugnaam) {
-        this.brugnaam = brugnaam;
-    }
+  public void setBrugnaam(String brugnaam) {
+    this.brugnaam = brugnaam;
+  }
 
-    public String getTunnelnaam() {
-        return tunnelnaam;
-    }
+  public String getTunnelnaam() {
+    return tunnelnaam;
+  }
 
-    public void setTunnelnaam(String tunnelnaam) {
-        this.tunnelnaam = tunnelnaam;
-    }
+  public void setTunnelnaam(String tunnelnaam) {
+    this.tunnelnaam = tunnelnaam;
+  }
 
-    public String getBaanvaknaam() {
-        return baanvaknaam;
-    }
+  public String getBaanvaknaam() {
+    return baanvaknaam;
+  }
 
-    public void setBaanvaknaam(String baanvaknaam) {
-        this.baanvaknaam = baanvaknaam;
-    }
+  public void setBaanvaknaam(String baanvaknaam) {
+    this.baanvaknaam = baanvaknaam;
+  }
 
-    public LineString getGeometrie() {
-        return geometrie;
-    }
+  public LineString getGeometrie() {
+    return geometrie;
+  }
 
-    public void setGeometrie(LineString geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setGeometrie(LineString geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public Long getHoogteniveau() {
-        return hoogteniveau;
-    }
+  public Long getHoogteniveau() {
+    return hoogteniveau;
+  }
 
-    public void setHoogteniveau(Long hoogteniveau) {
-        this.hoogteniveau = hoogteniveau;
-    }
+  public void setHoogteniveau(Long hoogteniveau) {
+    this.hoogteniveau = hoogteniveau;
+  }
 
-    public Point getPuntGeometrie() {
-        return puntGeometrie;
-    }
+  public Point getPuntGeometrie() {
+    return puntGeometrie;
+  }
 
-    public void setPuntGeometrie(Point puntGeometrie) {
-        this.puntGeometrie = puntGeometrie;
-    }
+  public void setPuntGeometrie(Point puntGeometrie) {
+    this.puntGeometrie = puntGeometrie;
+  }
 }

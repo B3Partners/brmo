@@ -18,88 +18,90 @@ package nl.b3p.topnl.entities;
 
 import org.locationtech.jts.geom.Geometry;
 
-/** @author Meine Toonen meinetoonen@b3partners.nl */
+/**
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
 public class Gebouw extends TopNLEntity {
-    private String typeGebouw;
-    private String status;
-    private String fysiekVoorkomen;
-    private String hoogteklasse;
-    private Double hoogte;
-    private String soortnaam;
-    private String naam;
-    private String naamFries;
+  private String typeGebouw;
+  private String status;
+  private String fysiekVoorkomen;
+  private String hoogteklasse;
+  private Double hoogte;
+  private String soortnaam;
+  private String naam;
+  private String naamFries;
 
-    private Geometry geometrie;
+  private Geometry geometrie;
 
-    public String getTypeGebouw() {
-        return typeGebouw;
-    }
+  public String getTypeGebouw() {
+    return typeGebouw;
+  }
 
-    public void setTypeGebouw(String typeGebouw) {
-        this.typeGebouw = typeGebouw;
-    }
+  public void setTypeGebouw(String typeGebouw) {
+    this.typeGebouw = typeGebouw;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public Geometry getGeometrie() {
-        return geometrie;
-    }
+  public Geometry getGeometrie() {
+    return geometrie;
+  }
 
-    public void setGeometrie(Geometry geometrie) {
-        this.geometrie = geometrie;
-    }
+  public void setGeometrie(Geometry geometrie) {
+    this.geometrie = geometrie;
+  }
 
-    public String getFysiekVoorkomen() {
-        return fysiekVoorkomen;
-    }
+  public String getFysiekVoorkomen() {
+    return fysiekVoorkomen;
+  }
 
-    public void setFysiekVoorkomen(String fysiekVoorkomen) {
-        this.fysiekVoorkomen = fysiekVoorkomen;
-    }
+  public void setFysiekVoorkomen(String fysiekVoorkomen) {
+    this.fysiekVoorkomen = fysiekVoorkomen;
+  }
 
-    public String getHoogteklasse() {
-        return hoogteklasse;
-    }
+  public String getHoogteklasse() {
+    return hoogteklasse;
+  }
 
-    public void setHoogteklasse(String hoogteklasse) {
-        this.hoogteklasse = hoogteklasse;
-    }
+  public void setHoogteklasse(String hoogteklasse) {
+    this.hoogteklasse = hoogteklasse;
+  }
 
-    public Double getHoogte() {
-        return hoogte;
-    }
+  public Double getHoogte() {
+    return hoogte;
+  }
 
-    public void setHoogte(Double hoogte) {
-        this.hoogte = hoogte;
-    }
+  public void setHoogte(Double hoogte) {
+    this.hoogte = hoogte;
+  }
 
-    public String getSoortnaam() {
-        return soortnaam;
-    }
+  public String getSoortnaam() {
+    return soortnaam;
+  }
 
-    public void setSoortnaam(String soortnaam) {
-        this.soortnaam = soortnaam;
-    }
+  public void setSoortnaam(String soortnaam) {
+    this.soortnaam = soortnaam;
+  }
 
-    public String getNaam() {
-        return naam;
-    }
+  public String getNaam() {
+    return naam;
+  }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
+  public void setNaam(String naam) {
+    this.naam = naam;
+  }
 
-    public String getNaamFries() {
-        return naamFries;
-    }
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    public void setNaamFries(String naamFries) {
-        this.naamFries = naamFries;
-    }
+  public void setNaamFries(String naamFries) {
+    this.naamFries = naamFries;
+  }
 }

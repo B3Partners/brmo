@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTLijnOfPuntType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"lijnGeometrie"})
+    name = "BRTLijnOfPuntType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"lijnGeometrie"})
 public class BRTLijnOfPuntType {
 
-    @XmlElement(required = true)
-    protected PointPropertyType lijnGeometrie;
+  @XmlElement(required = true)
+  protected PointPropertyType lijnGeometrie;
 
-    /**
-     * Gets the value of the lijnGeometrie property.
-     *
-     * @return possible object is {@link PointPropertyType }
-     */
-    public PointPropertyType getLijnGeometrie() {
-        return lijnGeometrie;
-    }
+  /**
+   * Gets the value of the lijnGeometrie property.
+   *
+   * @return possible object is {@link PointPropertyType }
+   */
+  public PointPropertyType getLijnGeometrie() {
+    return lijnGeometrie;
+  }
 
-    /**
-     * Sets the value of the lijnGeometrie property.
-     *
-     * @param value allowed object is {@link PointPropertyType }
-     */
-    public void setLijnGeometrie(PointPropertyType value) {
-        this.lijnGeometrie = value;
-    }
+  /**
+   * Sets the value of the lijnGeometrie property.
+   *
+   * @param value allowed object is {@link PointPropertyType }
+   */
+  public void setLijnGeometrie(PointPropertyType value) {
+    this.lijnGeometrie = value;
+  }
 }

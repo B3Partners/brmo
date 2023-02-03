@@ -31,34 +31,34 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeRegistratiefGebiedT50Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
+    name = "TypeRegistratiefGebiedT50Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1")
 @XmlEnum
 public enum TypeRegistratiefGebiedT50Type {
-    @XmlEnumValue("land")
-    LAND("land"),
-    @XmlEnumValue("provincie")
-    PROVINCIE("provincie"),
-    @XmlEnumValue("gemeente")
-    GEMEENTE("gemeente"),
-    @XmlEnumValue("enclave")
-    ENCLAVE("enclave");
-    private final String value;
+  @XmlEnumValue("land")
+  LAND("land"),
+  @XmlEnumValue("provincie")
+  PROVINCIE("provincie"),
+  @XmlEnumValue("gemeente")
+  GEMEENTE("gemeente"),
+  @XmlEnumValue("enclave")
+  ENCLAVE("enclave");
+  private final String value;
 
-    TypeRegistratiefGebiedT50Type(String v) {
-        value = v;
-    }
+  TypeRegistratiefGebiedT50Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeRegistratiefGebiedT50Type fromValue(String v) {
-        for (TypeRegistratiefGebiedT50Type c : TypeRegistratiefGebiedT50Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeRegistratiefGebiedT50Type fromValue(String v) {
+    for (TypeRegistratiefGebiedT50Type c : TypeRegistratiefGebiedT50Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

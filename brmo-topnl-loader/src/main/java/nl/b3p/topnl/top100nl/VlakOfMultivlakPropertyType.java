@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "VlakOfMultivlakPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"vlakOfMultivlak"})
+    name = "VlakOfMultivlakPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"vlakOfMultivlak"})
 public class VlakOfMultivlakPropertyType {
 
-    @XmlElement(name = "VlakOfMultivlak", required = true)
-    protected VlakOfMultivlakType vlakOfMultivlak;
+  @XmlElement(name = "VlakOfMultivlak", required = true)
+  protected VlakOfMultivlakType vlakOfMultivlak;
 
-    /**
-     * Gets the value of the vlakOfMultivlak property.
-     *
-     * @return possible object is {@link VlakOfMultivlakType }
-     */
-    public VlakOfMultivlakType getVlakOfMultivlak() {
-        return vlakOfMultivlak;
-    }
+  /**
+   * Gets the value of the vlakOfMultivlak property.
+   *
+   * @return possible object is {@link VlakOfMultivlakType }
+   */
+  public VlakOfMultivlakType getVlakOfMultivlak() {
+    return vlakOfMultivlak;
+  }
 
-    /**
-     * Sets the value of the vlakOfMultivlak property.
-     *
-     * @param value allowed object is {@link VlakOfMultivlakType }
-     */
-    public void setVlakOfMultivlak(VlakOfMultivlakType value) {
-        this.vlakOfMultivlak = value;
-    }
+  /**
+   * Sets the value of the vlakOfMultivlak property.
+   *
+   * @param value allowed object is {@link VlakOfMultivlakType }
+   */
+  public void setVlakOfMultivlak(VlakOfMultivlakType value) {
+    this.vlakOfMultivlak = value;
+  }
 }

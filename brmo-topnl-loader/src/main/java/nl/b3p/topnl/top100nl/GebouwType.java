@@ -8,17 +8,15 @@
 
 package nl.b3p.topnl.top100nl;
 
-import org.w3c.dom.Element;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for GebouwType complex type.
@@ -45,171 +43,171 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "GebouwType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {
-            "fysiekVoorkomen",
-            "geometrie",
-            "hoogte",
-            "hoogteklasse",
-            "naamFries",
-            "naamNL",
-            "typeGebouw"
-        })
+    name = "GebouwType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {
+      "fysiekVoorkomen",
+      "geometrie",
+      "hoogte",
+      "hoogteklasse",
+      "naamFries",
+      "naamNL",
+      "typeGebouw"
+    })
 public class GebouwType extends Top100NlObjectType {
 
-    @XmlSchemaType(name = "string")
-    protected FysiekVoorkomenGebouwT100Type fysiekVoorkomen;
+  @XmlSchemaType(name = "string")
+  protected FysiekVoorkomenGebouwT100Type fysiekVoorkomen;
 
-    @XmlAnyElement protected Element geometrie;
-    protected Double hoogte;
+  @XmlAnyElement protected Element geometrie;
+  protected Double hoogte;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected HoogteklasseGebouwT100Type hoogteklasse;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected HoogteklasseGebouwT100Type hoogteklasse;
 
-    protected List<String> naamFries;
-    protected List<String> naamNL;
+  protected List<String> naamFries;
+  protected List<String> naamNL;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected List<TypeGebouwT100Type> typeGebouw;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected List<TypeGebouwT100Type> typeGebouw;
 
-    /**
-     * Gets the value of the fysiekVoorkomen property.
-     *
-     * @return possible object is {@link FysiekVoorkomenGebouwT100Type }
-     */
-    public FysiekVoorkomenGebouwT100Type getFysiekVoorkomen() {
-        return fysiekVoorkomen;
+  /**
+   * Gets the value of the fysiekVoorkomen property.
+   *
+   * @return possible object is {@link FysiekVoorkomenGebouwT100Type }
+   */
+  public FysiekVoorkomenGebouwT100Type getFysiekVoorkomen() {
+    return fysiekVoorkomen;
+  }
+
+  /**
+   * Sets the value of the fysiekVoorkomen property.
+   *
+   * @param value allowed object is {@link FysiekVoorkomenGebouwT100Type }
+   */
+  public void setFysiekVoorkomen(FysiekVoorkomenGebouwT100Type value) {
+    this.fysiekVoorkomen = value;
+  }
+
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
+
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
+
+  /**
+   * Gets the value of the hoogte property.
+   *
+   * @return possible object is {@link Double }
+   */
+  public Double getHoogte() {
+    return hoogte;
+  }
+
+  /**
+   * Sets the value of the hoogte property.
+   *
+   * @param value allowed object is {@link Double }
+   */
+  public void setHoogte(Double value) {
+    this.hoogte = value;
+  }
+
+  /**
+   * Gets the value of the hoogteklasse property.
+   *
+   * @return possible object is {@link HoogteklasseGebouwT100Type }
+   */
+  public HoogteklasseGebouwT100Type getHoogteklasse() {
+    return hoogteklasse;
+  }
+
+  /**
+   * Sets the value of the hoogteklasse property.
+   *
+   * @param value allowed object is {@link HoogteklasseGebouwT100Type }
+   */
+  public void setHoogteklasse(HoogteklasseGebouwT100Type value) {
+    this.hoogteklasse = value;
+  }
+
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamFries property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamFries().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamFries() {
+    if (naamFries == null) {
+      naamFries = new ArrayList<String>();
     }
+    return this.naamFries;
+  }
 
-    /**
-     * Sets the value of the fysiekVoorkomen property.
-     *
-     * @param value allowed object is {@link FysiekVoorkomenGebouwT100Type }
-     */
-    public void setFysiekVoorkomen(FysiekVoorkomenGebouwT100Type value) {
-        this.fysiekVoorkomen = value;
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the naamNL property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getNaamNL().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getNaamNL() {
+    if (naamNL == null) {
+      naamNL = new ArrayList<String>();
     }
+    return this.naamNL;
+  }
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
+  /**
+   * Gets the value of the typeGebouw property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the typeGebouw property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getTypeGebouw().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link TypeGebouwT100Type }
+   */
+  public List<TypeGebouwT100Type> getTypeGebouw() {
+    if (typeGebouw == null) {
+      typeGebouw = new ArrayList<TypeGebouwT100Type>();
     }
-
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
-
-    /**
-     * Gets the value of the hoogte property.
-     *
-     * @return possible object is {@link Double }
-     */
-    public Double getHoogte() {
-        return hoogte;
-    }
-
-    /**
-     * Sets the value of the hoogte property.
-     *
-     * @param value allowed object is {@link Double }
-     */
-    public void setHoogte(Double value) {
-        this.hoogte = value;
-    }
-
-    /**
-     * Gets the value of the hoogteklasse property.
-     *
-     * @return possible object is {@link HoogteklasseGebouwT100Type }
-     */
-    public HoogteklasseGebouwT100Type getHoogteklasse() {
-        return hoogteklasse;
-    }
-
-    /**
-     * Sets the value of the hoogteklasse property.
-     *
-     * @param value allowed object is {@link HoogteklasseGebouwT100Type }
-     */
-    public void setHoogteklasse(HoogteklasseGebouwT100Type value) {
-        this.hoogteklasse = value;
-    }
-
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamFries property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamFries().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamFries() {
-        if (naamFries == null) {
-            naamFries = new ArrayList<String>();
-        }
-        return this.naamFries;
-    }
-
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the naamNL property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getNaamNL().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link String }
-     */
-    public List<String> getNaamNL() {
-        if (naamNL == null) {
-            naamNL = new ArrayList<String>();
-        }
-        return this.naamNL;
-    }
-
-    /**
-     * Gets the value of the typeGebouw property.
-     *
-     * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
-     * modification you make to the returned list will be present inside the JAXB object. This is
-     * why there is not a <CODE>set</CODE> method for the typeGebouw property.
-     *
-     * <p>For example, to add a new item, do as follows:
-     *
-     * <pre>
-     *    getTypeGebouw().add(newItem);
-     * </pre>
-     *
-     * <p>Objects of the following type(s) are allowed in the list {@link TypeGebouwT100Type }
-     */
-    public List<TypeGebouwT100Type> getTypeGebouw() {
-        if (typeGebouw == null) {
-            typeGebouw = new ArrayList<TypeGebouwT100Type>();
-        }
-        return this.typeGebouw;
-    }
+    return this.typeGebouw;
+  }
 }

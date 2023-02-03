@@ -7,27 +7,27 @@ import javax.xml.bind.annotation.XmlType;
 /** Java class for getEigendomMutaties complex type. */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "getEigendomMutaties",
-        propOrder = {"request"})
+    name = "getEigendomMutaties",
+    propOrder = {"request"})
 public class GetEigendomMutaties {
 
-    protected EigendomMutatieRequest request;
+  protected EigendomMutatieRequest request;
 
-    /**
-     * Gets the value of the request property.
-     *
-     * @return possible object is {@link EigendomMutatieRequest }
-     */
-    public EigendomMutatieRequest getRequest() {
-        return request;
-    }
+  /**
+   * Gets the value of the request property.
+   *
+   * @return possible object is {@link EigendomMutatieRequest }
+   */
+  public EigendomMutatieRequest getRequest() {
+    return request;
+  }
 
-    /**
-     * Sets the value of the request property.
-     *
-     * @param value allowed object is {@link EigendomMutatieRequest }
-     */
-    public void setRequest(EigendomMutatieRequest value) {
-        this.request = value;
-    }
+  /**
+   * Sets the value of the request property.
+   *
+   * @param value allowed object is {@link EigendomMutatieRequest }
+   */
+  public void setRequest(EigendomMutatieRequest value) {
+    this.request = value;
+  }
 }

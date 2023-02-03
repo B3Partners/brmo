@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "VlakOfPuntPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
-        propOrder = {"vlakOfPunt"})
+    name = "VlakOfPuntPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top50nl/1.1.1",
+    propOrder = {"vlakOfPunt"})
 public class VlakOfPuntPropertyType {
 
-    @XmlElement(name = "VlakOfPunt", required = true)
-    protected VlakOfPuntType vlakOfPunt;
+  @XmlElement(name = "VlakOfPunt", required = true)
+  protected VlakOfPuntType vlakOfPunt;
 
-    /**
-     * Gets the value of the vlakOfPunt property.
-     *
-     * @return possible object is {@link VlakOfPuntType }
-     */
-    public VlakOfPuntType getVlakOfPunt() {
-        return vlakOfPunt;
-    }
+  /**
+   * Gets the value of the vlakOfPunt property.
+   *
+   * @return possible object is {@link VlakOfPuntType }
+   */
+  public VlakOfPuntType getVlakOfPunt() {
+    return vlakOfPunt;
+  }
 
-    /**
-     * Sets the value of the vlakOfPunt property.
-     *
-     * @param value allowed object is {@link VlakOfPuntType }
-     */
-    public void setVlakOfPunt(VlakOfPuntType value) {
-        this.vlakOfPunt = value;
-    }
+  /**
+   * Sets the value of the vlakOfPunt property.
+   *
+   * @param value allowed object is {@link VlakOfPuntType }
+   */
+  public void setVlakOfPunt(VlakOfPuntType value) {
+    this.vlakOfPunt = value;
+  }
 }

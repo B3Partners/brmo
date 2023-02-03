@@ -8,13 +8,12 @@
 
 package nl.b3p.topnl.top250nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for HoogteType complex type.
@@ -38,82 +37,82 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "HoogteType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
-        propOrder = {"typeHoogte", "hoogte", "referentievlak", "geometrie"})
+    name = "HoogteType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
+    propOrder = {"typeHoogte", "hoogte", "referentievlak", "geometrie"})
 public class HoogteType extends Top250NlObjectType {
 
-    @XmlElement(required = true)
-    protected CodeType typeHoogte;
+  @XmlElement(required = true)
+  protected CodeType typeHoogte;
 
-    protected double hoogte;
+  protected double hoogte;
 
-    @XmlElement(required = true)
-    protected CodeType referentievlak;
+  @XmlElement(required = true)
+  protected CodeType referentievlak;
 
-    @XmlAnyElement protected Element geometrie;
+  @XmlAnyElement protected Element geometrie;
 
-    /**
-     * Gets the value of the typeHoogte property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getTypeHoogte() {
-        return typeHoogte;
-    }
+  /**
+   * Gets the value of the typeHoogte property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getTypeHoogte() {
+    return typeHoogte;
+  }
 
-    /**
-     * Sets the value of the typeHoogte property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setTypeHoogte(CodeType value) {
-        this.typeHoogte = value;
-    }
+  /**
+   * Sets the value of the typeHoogte property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setTypeHoogte(CodeType value) {
+    this.typeHoogte = value;
+  }
 
-    /** Gets the value of the hoogte property. */
-    public double getHoogte() {
-        return hoogte;
-    }
+  /** Gets the value of the hoogte property. */
+  public double getHoogte() {
+    return hoogte;
+  }
 
-    /** Sets the value of the hoogte property. */
-    public void setHoogte(double value) {
-        this.hoogte = value;
-    }
+  /** Sets the value of the hoogte property. */
+  public void setHoogte(double value) {
+    this.hoogte = value;
+  }
 
-    /**
-     * Gets the value of the referentievlak property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getReferentievlak() {
-        return referentievlak;
-    }
+  /**
+   * Gets the value of the referentievlak property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getReferentievlak() {
+    return referentievlak;
+  }
 
-    /**
-     * Sets the value of the referentievlak property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setReferentievlak(CodeType value) {
-        this.referentievlak = value;
-    }
+  /**
+   * Sets the value of the referentievlak property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setReferentievlak(CodeType value) {
+    this.referentievlak = value;
+  }
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 }

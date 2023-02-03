@@ -28,28 +28,28 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "FunctieReliefT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "FunctieReliefT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum FunctieReliefT100Type {
-    @XmlEnumValue("geluid weren")
-    GELUID_WEREN("geluid weren");
-    private final String value;
+  @XmlEnumValue("geluid weren")
+  GELUID_WEREN("geluid weren");
+  private final String value;
 
-    FunctieReliefT100Type(String v) {
-        value = v;
-    }
+  FunctieReliefT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static FunctieReliefT100Type fromValue(String v) {
-        for (FunctieReliefT100Type c : FunctieReliefT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static FunctieReliefT100Type fromValue(String v) {
+    for (FunctieReliefT100Type c : FunctieReliefT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }

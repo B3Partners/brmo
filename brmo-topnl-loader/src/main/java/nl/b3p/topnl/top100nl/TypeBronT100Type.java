@@ -29,34 +29,34 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeBronT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeBronT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeBronT100Type {
 
-    /** Data afkomstig uit andere bronnen dan TOP10NL */
-    @XmlEnumValue("externe data")
-    EXTERNE_DATA("externe data"),
+  /** Data afkomstig uit andere bronnen dan TOP10NL */
+  @XmlEnumValue("externe data")
+  EXTERNE_DATA("externe data"),
 
-    /** Ontstaan door automatische generalisatie van TOP10NL data */
-    @XmlEnumValue("TOP10NL")
-    TOP_10_NL("TOP10NL");
-    private final String value;
+  /** Ontstaan door automatische generalisatie van TOP10NL data */
+  @XmlEnumValue("TOP10NL")
+  TOP_10_NL("TOP10NL");
+  private final String value;
 
-    TypeBronT100Type(String v) {
-        value = v;
+  TypeBronT100Type(String v) {
+    value = v;
+  }
+
+  public String value() {
+    return value;
+  }
+
+  public static TypeBronT100Type fromValue(String v) {
+    for (TypeBronT100Type c : TypeBronT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
-
-    public String value() {
-        return value;
-    }
-
-    public static TypeBronT100Type fromValue(String v) {
-        for (TypeBronT100Type c : TypeBronT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+    throw new IllegalArgumentException(v);
+  }
 }

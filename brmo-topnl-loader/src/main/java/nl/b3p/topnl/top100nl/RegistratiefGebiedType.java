@@ -8,14 +8,13 @@
 
 package nl.b3p.topnl.top100nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for RegistratiefGebiedType complex type.
@@ -40,107 +39,107 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "RegistratiefGebiedType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"geometrie", "naamFries", "naamNL", "nummer", "typeRegistratiefGebied"})
+    name = "RegistratiefGebiedType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"geometrie", "naamFries", "naamNL", "nummer", "typeRegistratiefGebied"})
 public class RegistratiefGebiedType extends Top100NlObjectType {
 
-    @XmlAnyElement protected Element geometrie;
-    protected String naamFries;
-    protected String naamNL;
-    protected String nummer;
+  @XmlAnyElement protected Element geometrie;
+  protected String naamFries;
+  protected String naamNL;
+  protected String nummer;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected TypeRegistratiefGebiedT100Type typeRegistratiefGebied;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected TypeRegistratiefGebiedT100Type typeRegistratiefGebied;
 
-    /**
-     * Gets the value of the geometrie property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getGeometrie() {
-        return geometrie;
-    }
+  /**
+   * Gets the value of the geometrie property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getGeometrie() {
+    return geometrie;
+  }
 
-    /**
-     * Sets the value of the geometrie property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setGeometrie(Element value) {
-        this.geometrie = value;
-    }
+  /**
+   * Sets the value of the geometrie property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setGeometrie(Element value) {
+    this.geometrie = value;
+  }
 
-    /**
-     * Gets the value of the naamFries property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamFries() {
-        return naamFries;
-    }
+  /**
+   * Gets the value of the naamFries property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamFries() {
+    return naamFries;
+  }
 
-    /**
-     * Sets the value of the naamFries property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamFries(String value) {
-        this.naamFries = value;
-    }
+  /**
+   * Sets the value of the naamFries property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamFries(String value) {
+    this.naamFries = value;
+  }
 
-    /**
-     * Gets the value of the naamNL property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNaamNL() {
-        return naamNL;
-    }
+  /**
+   * Gets the value of the naamNL property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNaamNL() {
+    return naamNL;
+  }
 
-    /**
-     * Sets the value of the naamNL property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNaamNL(String value) {
-        this.naamNL = value;
-    }
+  /**
+   * Sets the value of the naamNL property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNaamNL(String value) {
+    this.naamNL = value;
+  }
 
-    /**
-     * Gets the value of the nummer property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getNummer() {
-        return nummer;
-    }
+  /**
+   * Gets the value of the nummer property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNummer() {
+    return nummer;
+  }
 
-    /**
-     * Sets the value of the nummer property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setNummer(String value) {
-        this.nummer = value;
-    }
+  /**
+   * Sets the value of the nummer property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNummer(String value) {
+    this.nummer = value;
+  }
 
-    /**
-     * Gets the value of the typeRegistratiefGebied property.
-     *
-     * @return possible object is {@link TypeRegistratiefGebiedT100Type }
-     */
-    public TypeRegistratiefGebiedT100Type getTypeRegistratiefGebied() {
-        return typeRegistratiefGebied;
-    }
+  /**
+   * Gets the value of the typeRegistratiefGebied property.
+   *
+   * @return possible object is {@link TypeRegistratiefGebiedT100Type }
+   */
+  public TypeRegistratiefGebiedT100Type getTypeRegistratiefGebied() {
+    return typeRegistratiefGebied;
+  }
 
-    /**
-     * Sets the value of the typeRegistratiefGebied property.
-     *
-     * @param value allowed object is {@link TypeRegistratiefGebiedT100Type }
-     */
-    public void setTypeRegistratiefGebied(TypeRegistratiefGebiedT100Type value) {
-        this.typeRegistratiefGebied = value;
-    }
+  /**
+   * Sets the value of the typeRegistratiefGebied property.
+   *
+   * @param value allowed object is {@link TypeRegistratiefGebiedT100Type }
+   */
+  public void setTypeRegistratiefGebied(TypeRegistratiefGebiedT100Type value) {
+    this.typeRegistratiefGebied = value;
+  }
 }

@@ -8,12 +8,11 @@
 
 package nl.b3p.topnl.top10nl;
 
-import org.w3c.dom.Element;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlType;
+import org.w3c.dom.Element;
 
 /**
  * Java class for BRTHogeEnLageZijdeType complex type.
@@ -35,47 +34,47 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTHogeEnLageZijdeType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"hogeZijde", "lageZijde"})
+    name = "BRTHogeEnLageZijdeType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"hogeZijde", "lageZijde"})
 public class BRTHogeEnLageZijdeType {
 
-    @XmlAnyElement protected Element[] hogeZijde;
-    @XmlAnyElement protected Element lageZijde;
+  @XmlAnyElement protected Element[] hogeZijde;
+  @XmlAnyElement protected Element lageZijde;
 
-    /**
-     * Gets the value of the hogeZijde property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element[] getHogeZijde() {
-        return hogeZijde;
-    }
+  /**
+   * Gets the value of the hogeZijde property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element[] getHogeZijde() {
+    return hogeZijde;
+  }
 
-    /**
-     * Sets the value of the hogeZijde property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setHogeZijde(Element[] value) {
-        this.hogeZijde = value;
-    }
+  /**
+   * Sets the value of the hogeZijde property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setHogeZijde(Element[] value) {
+    this.hogeZijde = value;
+  }
 
-    /**
-     * Gets the value of the lageZijde property.
-     *
-     * @return possible object is {@link Element }
-     */
-    public Element getLageZijde() {
-        return lageZijde;
-    }
+  /**
+   * Gets the value of the lageZijde property.
+   *
+   * @return possible object is {@link Element }
+   */
+  public Element getLageZijde() {
+    return lageZijde;
+  }
 
-    /**
-     * Sets the value of the lageZijde property.
-     *
-     * @param value allowed object is {@link Element }
-     */
-    public void setLageZijde(Element value) {
-        this.lageZijde = value;
-    }
+  /**
+   * Sets the value of the lageZijde property.
+   *
+   * @param value allowed object is {@link Element }
+   */
+  public void setLageZijde(Element value) {
+    this.lageZijde = value;
+  }
 }

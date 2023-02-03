@@ -8,19 +8,19 @@
 package nl.b3p.brmo.schema.mapping;
 
 public class ArrayAttributeMapping extends AttributeColumnMapping {
-    private String tableSuffix;
+  private String tableSuffix;
 
-    public ArrayAttributeMapping(String name, String tableSuffix, String type) {
-        super(name, type, true, false);
-        this.tableSuffix = tableSuffix;
-    }
+  public ArrayAttributeMapping(String name, String tableSuffix, String type) {
+    super(name, type, true, false);
+    this.tableSuffix = tableSuffix;
+  }
 
-    @Override
-    public boolean isDirectAttribute() {
-        return false;
-    }
+  @Override
+  public boolean isDirectAttribute() {
+    return false;
+  }
 
-    public String getTableSuffix() {
-        return tableSuffix;
-    }
+  public String getTableSuffix() {
+    return tableSuffix;
+  }
 }

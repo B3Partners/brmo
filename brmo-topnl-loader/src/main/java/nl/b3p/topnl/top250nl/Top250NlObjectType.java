@@ -10,7 +10,6 @@ package nl.b3p.topnl.top250nl;
 
 import java.math.BigInteger;
 import java.util.Calendar;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -55,196 +54,196 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "_Top250nlObjectType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
-        propOrder = {
-            "identificatie",
-            "brontype",
-            "bronactualiteit",
-            "bronbeschrijving",
-            "bronnauwkeurigheid",
-            "objectBeginTijd",
-            "objectEindTijd",
-            "visualisatieCode"
-        })
+    name = "_Top250nlObjectType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top250nl/1.2.1",
+    propOrder = {
+      "identificatie",
+      "brontype",
+      "bronactualiteit",
+      "bronbeschrijving",
+      "bronnauwkeurigheid",
+      "objectBeginTijd",
+      "objectEindTijd",
+      "visualisatieCode"
+    })
 @XmlSeeAlso({
-    FunctioneelGebiedType.class,
-    GebouwType.class,
-    SpoorbaandeelType.class,
-    WaterdeelType.class,
-    InrichtingselementType.class,
-    PlanTopografieType.class,
-    WegdeelType.class,
-    PlaatsType.class,
-    TerreinType.class,
-    GeografischGebiedType.class,
-    HoogteType.class,
-    RegistratiefGebiedType.class,
-    ReliefType.class
+  FunctioneelGebiedType.class,
+  GebouwType.class,
+  SpoorbaandeelType.class,
+  WaterdeelType.class,
+  InrichtingselementType.class,
+  PlanTopografieType.class,
+  WegdeelType.class,
+  PlaatsType.class,
+  TerreinType.class,
+  GeografischGebiedType.class,
+  HoogteType.class,
+  RegistratiefGebiedType.class,
+  ReliefType.class
 })
 public abstract class Top250NlObjectType extends AbstractFeatureType {
 
-    @XmlElement(required = true)
-    protected Identificatie identificatie;
+  @XmlElement(required = true)
+  protected Identificatie identificatie;
 
-    @XmlElement(required = true)
-    protected CodeType brontype;
+  @XmlElement(required = true)
+  protected CodeType brontype;
 
-    @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter2.class)
-    @XmlSchemaType(name = "date")
-    protected Calendar bronactualiteit;
+  @XmlElement(required = true, type = String.class)
+  @XmlJavaTypeAdapter(Adapter2.class)
+  @XmlSchemaType(name = "date")
+  protected Calendar bronactualiteit;
 
-    @XmlElement(required = true)
-    protected String bronbeschrijving;
+  @XmlElement(required = true)
+  protected String bronbeschrijving;
 
-    protected double bronnauwkeurigheid;
+  protected double bronnauwkeurigheid;
 
-    @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter2.class)
-    @XmlSchemaType(name = "date")
-    protected Calendar objectBeginTijd;
+  @XmlElement(required = true, type = String.class)
+  @XmlJavaTypeAdapter(Adapter2.class)
+  @XmlSchemaType(name = "date")
+  protected Calendar objectBeginTijd;
 
-    @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(Adapter2.class)
-    @XmlSchemaType(name = "date")
-    protected Calendar objectEindTijd;
+  @XmlElement(type = String.class)
+  @XmlJavaTypeAdapter(Adapter2.class)
+  @XmlSchemaType(name = "date")
+  protected Calendar objectEindTijd;
 
-    protected BigInteger visualisatieCode;
+  protected BigInteger visualisatieCode;
 
-    /**
-     * Gets the value of the identificatie property.
-     *
-     * @return possible object is {@link Identificatie }
-     */
-    public Identificatie getIdentificatie() {
-        return identificatie;
-    }
+  /**
+   * Gets the value of the identificatie property.
+   *
+   * @return possible object is {@link Identificatie }
+   */
+  public Identificatie getIdentificatie() {
+    return identificatie;
+  }
 
-    /**
-     * Sets the value of the identificatie property.
-     *
-     * @param value allowed object is {@link Identificatie }
-     */
-    public void setIdentificatie(Identificatie value) {
-        this.identificatie = value;
-    }
+  /**
+   * Sets the value of the identificatie property.
+   *
+   * @param value allowed object is {@link Identificatie }
+   */
+  public void setIdentificatie(Identificatie value) {
+    this.identificatie = value;
+  }
 
-    /**
-     * Gets the value of the brontype property.
-     *
-     * @return possible object is {@link CodeType }
-     */
-    public CodeType getBrontype() {
-        return brontype;
-    }
+  /**
+   * Gets the value of the brontype property.
+   *
+   * @return possible object is {@link CodeType }
+   */
+  public CodeType getBrontype() {
+    return brontype;
+  }
 
-    /**
-     * Sets the value of the brontype property.
-     *
-     * @param value allowed object is {@link CodeType }
-     */
-    public void setBrontype(CodeType value) {
-        this.brontype = value;
-    }
+  /**
+   * Sets the value of the brontype property.
+   *
+   * @param value allowed object is {@link CodeType }
+   */
+  public void setBrontype(CodeType value) {
+    this.brontype = value;
+  }
 
-    /**
-     * Gets the value of the bronactualiteit property.
-     *
-     * @return possible object is {@link String }
-     */
-    public Calendar getBronactualiteit() {
-        return bronactualiteit;
-    }
+  /**
+   * Gets the value of the bronactualiteit property.
+   *
+   * @return possible object is {@link String }
+   */
+  public Calendar getBronactualiteit() {
+    return bronactualiteit;
+  }
 
-    /**
-     * Sets the value of the bronactualiteit property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setBronactualiteit(Calendar value) {
-        this.bronactualiteit = value;
-    }
+  /**
+   * Sets the value of the bronactualiteit property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBronactualiteit(Calendar value) {
+    this.bronactualiteit = value;
+  }
 
-    /**
-     * Gets the value of the bronbeschrijving property.
-     *
-     * @return possible object is {@link String }
-     */
-    public String getBronbeschrijving() {
-        return bronbeschrijving;
-    }
+  /**
+   * Gets the value of the bronbeschrijving property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getBronbeschrijving() {
+    return bronbeschrijving;
+  }
 
-    /**
-     * Sets the value of the bronbeschrijving property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setBronbeschrijving(String value) {
-        this.bronbeschrijving = value;
-    }
+  /**
+   * Sets the value of the bronbeschrijving property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBronbeschrijving(String value) {
+    this.bronbeschrijving = value;
+  }
 
-    /** Gets the value of the bronnauwkeurigheid property. */
-    public double getBronnauwkeurigheid() {
-        return bronnauwkeurigheid;
-    }
+  /** Gets the value of the bronnauwkeurigheid property. */
+  public double getBronnauwkeurigheid() {
+    return bronnauwkeurigheid;
+  }
 
-    /** Sets the value of the bronnauwkeurigheid property. */
-    public void setBronnauwkeurigheid(double value) {
-        this.bronnauwkeurigheid = value;
-    }
+  /** Sets the value of the bronnauwkeurigheid property. */
+  public void setBronnauwkeurigheid(double value) {
+    this.bronnauwkeurigheid = value;
+  }
 
-    /**
-     * Gets the value of the objectBeginTijd property.
-     *
-     * @return possible object is {@link String }
-     */
-    public Calendar getObjectBeginTijd() {
-        return objectBeginTijd;
-    }
+  /**
+   * Gets the value of the objectBeginTijd property.
+   *
+   * @return possible object is {@link String }
+   */
+  public Calendar getObjectBeginTijd() {
+    return objectBeginTijd;
+  }
 
-    /**
-     * Sets the value of the objectBeginTijd property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setObjectBeginTijd(Calendar value) {
-        this.objectBeginTijd = value;
-    }
+  /**
+   * Sets the value of the objectBeginTijd property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setObjectBeginTijd(Calendar value) {
+    this.objectBeginTijd = value;
+  }
 
-    /**
-     * Gets the value of the objectEindTijd property.
-     *
-     * @return possible object is {@link String }
-     */
-    public Calendar getObjectEindTijd() {
-        return objectEindTijd;
-    }
+  /**
+   * Gets the value of the objectEindTijd property.
+   *
+   * @return possible object is {@link String }
+   */
+  public Calendar getObjectEindTijd() {
+    return objectEindTijd;
+  }
 
-    /**
-     * Sets the value of the objectEindTijd property.
-     *
-     * @param value allowed object is {@link String }
-     */
-    public void setObjectEindTijd(Calendar value) {
-        this.objectEindTijd = value;
-    }
+  /**
+   * Sets the value of the objectEindTijd property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setObjectEindTijd(Calendar value) {
+    this.objectEindTijd = value;
+  }
 
-    /**
-     * Gets the value of the visualisatieCode property.
-     *
-     * @return possible object is {@link BigInteger }
-     */
-    public BigInteger getVisualisatieCode() {
-        return visualisatieCode;
-    }
+  /**
+   * Gets the value of the visualisatieCode property.
+   *
+   * @return possible object is {@link BigInteger }
+   */
+  public BigInteger getVisualisatieCode() {
+    return visualisatieCode;
+  }
 
-    /**
-     * Sets the value of the visualisatieCode property.
-     *
-     * @param value allowed object is {@link BigInteger }
-     */
-    public void setVisualisatieCode(BigInteger value) {
-        this.visualisatieCode = value;
-    }
+  /**
+   * Sets the value of the visualisatieCode property.
+   *
+   * @param value allowed object is {@link BigInteger }
+   */
+  public void setVisualisatieCode(BigInteger value) {
+    this.visualisatieCode = value;
+  }
 }

@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "LijnOfPuntPropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
-        propOrder = {"lijnOfPunt"})
+    name = "LijnOfPuntPropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0",
+    propOrder = {"lijnOfPunt"})
 public class LijnOfPuntPropertyType {
 
-    @XmlElement(name = "LijnOfPunt", required = true)
-    protected LijnOfPuntType lijnOfPunt;
+  @XmlElement(name = "LijnOfPunt", required = true)
+  protected LijnOfPuntType lijnOfPunt;
 
-    /**
-     * Gets the value of the lijnOfPunt property.
-     *
-     * @return possible object is {@link LijnOfPuntType }
-     */
-    public LijnOfPuntType getLijnOfPunt() {
-        return lijnOfPunt;
-    }
+  /**
+   * Gets the value of the lijnOfPunt property.
+   *
+   * @return possible object is {@link LijnOfPuntType }
+   */
+  public LijnOfPuntType getLijnOfPunt() {
+    return lijnOfPunt;
+  }
 
-    /**
-     * Sets the value of the lijnOfPunt property.
-     *
-     * @param value allowed object is {@link LijnOfPuntType }
-     */
-    public void setLijnOfPunt(LijnOfPuntType value) {
-        this.lijnOfPunt = value;
-    }
+  /**
+   * Sets the value of the lijnOfPunt property.
+   *
+   * @param value allowed object is {@link LijnOfPuntType }
+   */
+  public void setLijnOfPunt(LijnOfPuntType value) {
+    this.lijnOfPunt = value;
+  }
 }

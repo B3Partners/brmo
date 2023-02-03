@@ -32,29 +32,29 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
-        name = "BRTHogeEnLageZijdePropertyType",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
-        propOrder = {"brtHogeEnLageZijde"})
+    name = "BRTHogeEnLageZijdePropertyType",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/brt-algemeen/1.2.0",
+    propOrder = {"brtHogeEnLageZijde"})
 public class BRTHogeEnLageZijdePropertyType {
 
-    @XmlElement(name = "BRTHogeEnLageZijde", required = true)
-    protected BRTHogeEnLageZijdeType brtHogeEnLageZijde;
+  @XmlElement(name = "BRTHogeEnLageZijde", required = true)
+  protected BRTHogeEnLageZijdeType brtHogeEnLageZijde;
 
-    /**
-     * Gets the value of the brtHogeEnLageZijde property.
-     *
-     * @return possible object is {@link BRTHogeEnLageZijdeType }
-     */
-    public BRTHogeEnLageZijdeType getBRTHogeEnLageZijde() {
-        return brtHogeEnLageZijde;
-    }
+  /**
+   * Gets the value of the brtHogeEnLageZijde property.
+   *
+   * @return possible object is {@link BRTHogeEnLageZijdeType }
+   */
+  public BRTHogeEnLageZijdeType getBRTHogeEnLageZijde() {
+    return brtHogeEnLageZijde;
+  }
 
-    /**
-     * Sets the value of the brtHogeEnLageZijde property.
-     *
-     * @param value allowed object is {@link BRTHogeEnLageZijdeType }
-     */
-    public void setBRTHogeEnLageZijde(BRTHogeEnLageZijdeType value) {
-        this.brtHogeEnLageZijde = value;
-    }
+  /**
+   * Sets the value of the brtHogeEnLageZijde property.
+   *
+   * @param value allowed object is {@link BRTHogeEnLageZijdeType }
+   */
+  public void setBRTHogeEnLageZijde(BRTHogeEnLageZijdeType value) {
+    this.brtHogeEnLageZijde = value;
+  }
 }

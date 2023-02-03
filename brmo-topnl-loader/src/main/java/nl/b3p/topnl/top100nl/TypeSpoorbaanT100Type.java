@@ -31,34 +31,34 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  */
 @XmlType(
-        name = "TypeSpoorbaanT100Type",
-        namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
+    name = "TypeSpoorbaanT100Type",
+    namespace = "http://register.geostandaarden.nl/gmlapplicatieschema/top100nl/1.1.0")
 @XmlEnum
 public enum TypeSpoorbaanT100Type {
-    @XmlEnumValue("trein")
-    TREIN("trein"),
-    @XmlEnumValue("metro")
-    METRO("metro"),
-    @XmlEnumValue("sneltram")
-    SNELTRAM("sneltram"),
-    @XmlEnumValue("tram")
-    TRAM("tram");
-    private final String value;
+  @XmlEnumValue("trein")
+  TREIN("trein"),
+  @XmlEnumValue("metro")
+  METRO("metro"),
+  @XmlEnumValue("sneltram")
+  SNELTRAM("sneltram"),
+  @XmlEnumValue("tram")
+  TRAM("tram");
+  private final String value;
 
-    TypeSpoorbaanT100Type(String v) {
-        value = v;
-    }
+  TypeSpoorbaanT100Type(String v) {
+    value = v;
+  }
 
-    public String value() {
-        return value;
-    }
+  public String value() {
+    return value;
+  }
 
-    public static TypeSpoorbaanT100Type fromValue(String v) {
-        for (TypeSpoorbaanT100Type c : TypeSpoorbaanT100Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+  public static TypeSpoorbaanT100Type fromValue(String v) {
+    for (TypeSpoorbaanT100Type c : TypeSpoorbaanT100Type.values()) {
+      if (c.value.equals(v)) {
+        return c;
+      }
     }
+    throw new IllegalArgumentException(v);
+  }
 }
