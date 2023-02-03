@@ -63,8 +63,7 @@ CREATE UNIQUE INDEX mb_subject_identif ON mb_subject USING btree (subject_identi
 COMMENT ON MATERIALIZED VIEW mb_subject IS
     'commentaar view mb_subject:
     samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * subject_identif: natuurlijke id van subject
     * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
@@ -83,8 +82,7 @@ COMMENT ON MATERIALIZED VIEW mb_subject IS
     * rechtsvorm: -
     * statutaire_zetel: -
     * rsin: -
-    * kvk_nummer: -
-    ';
+    * kvk_nummer: -';
 
 
 CREATE MATERIALIZED VIEW mb_avg_subject
@@ -138,7 +136,7 @@ CREATE INDEX mb_avg_subject_identif ON mb_avg_subject USING btree (subject_ident
 COMMENT ON MATERIALIZED VIEW mb_avg_subject IS
     'commentaar view mb_avg_subject:
     volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * subject_identif: natuurlijke id van subject
     * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
@@ -305,8 +303,7 @@ CREATE INDEX mb_kad_onrrnd_zk_adres_begrenzing_perceel_idx ON mb_kad_onrrnd_zk_a
 COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -345,8 +342,7 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
     * oppervlakte_obj: oppervlak van gebouwd object
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak
-    ';
+    * begrenzing_perceel: perceelvlak';
 
 
 
@@ -429,8 +425,7 @@ CREATE INDEX mb_percelenkaart_begrenzing_perceel_idx ON mb_percelenkaart USING g
 COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     'commentaar view mb_percelenkaart:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -453,8 +448,7 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     * aantekeningen: -,
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak
-    ';
+    * begrenzing_perceel: perceelvlak';
 
 
 
@@ -532,8 +526,7 @@ WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
 COMMENT ON VIEW vb_util_zk_recht IS
     'commentaar view vb_util_zk_recht:
     zakelijk recht met opgezocht aard recht en berekend aandeel
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * zr_identif: natuurlijke id van zakelijk recht
     * ingangsdatum_recht: -
     * aandeel: samenvoeging van teller en noemer (1/2),
@@ -544,8 +537,7 @@ COMMENT ON VIEW vb_util_zk_recht IS
     * indic_betrokken_in_splitsing: -,
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * fk_3avr_aand: code aard recht,
-    * aantekeningen: samenvoeging van alle aantekening op dit recht
-    ';
+    * aantekeningen: samenvoeging van alle aantekening op dit recht';
 
 
 
@@ -615,8 +607,7 @@ CREATE INDEX mb_zr_rechth_identif ON mb_zr_rechth USING btree (zr_identif);
 COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     'commentaar view mb_zr_rechth:
     alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -
@@ -711,8 +702,7 @@ CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth USING btree (zr_identi
 COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
     'commentaar view mb_avg_zr_rechth:
     alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -,
@@ -868,69 +858,67 @@ CREATE UNIQUE INDEX mb_koz_rechth_objectid ON mb_koz_rechth USING btree (objecti
 CREATE INDEX mb_koz_rechth_identif ON mb_koz_rechth USING btree (koz_identif);
 CREATE INDEX mb_koz_rechth_begrenzing_perceel_idx ON mb_koz_rechth USING gist (begrenzing_perceel);
 
-COMMENT ON MATERIALIZED VIEW mb_koz_rechth
-    IS
-        'commentaar view mb_koz_rechth:
-        kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
+COMMENT ON MATERIALIZED VIEW mb_koz_rechth IS
+    'commentaar view mb_koz_rechth:
+    kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
         beschikbare kolommen:
-        * objectid: uniek id bruikbaar voor geoserver/arcgis,
-        * koz_identif: natuurlijke id van perceel of appartementsrecht
-        * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
-        * begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
-        * type: perceel of appartement,
-        * aanduiding: sectie perceelnummer,
-        * aanduiding2: kadgem sectie perceelnummer appartementsindex,
-        * sectie: -,
-        * perceelnummer: -,
-        * appartementsindex: -,
-        * gemeentecode: -,
-        * aand_soort_grootte: -,
-        * grootte_perceel: -,
-        * oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,
-        * deelperceelnummer: -,
-        * omschr_deelperceel: -,
-        * verkoop_datum: laatste datum gevonden akten van verkoop,
-        * aard_cultuur_onbebouwd: -,
-        * bedrag: -,
-        * koopjaar: -,
-        * meer_onroerendgoed: -,
-        * valutasoort: -,
-        * loc_omschr: adres buiten BAG om meegegeven,
-        * zr_identif: natuurlijk id van zakelijk recht,
-        * ingangsdatum_recht: - ,
-        * subject_identif: natuurlijk id van rechthebbende,
-        * aandeel: samenvoeging van teller en noemer (1/2),
-        * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
-        * indic_betrokken_in_splitsing: -,
-        * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
-        * geslachtsnaam: -
-        * voorvoegsel: -
-        * voornamen: -
-        * aand_naamgebruik: -
-        * geslachtsaand: -
-        * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
-        * woonadres: meegeleverd adres buiten BAG koppeling om
-        * geboortedatum: -
-        * geboorteplaats: -
-        * overlijdensdatum: -
-        * bsn: -
-        * organisatie_naam: naam niet natuurlijk subject
-        * rechtsvorm: -
-        * statutaire_zetel: -
-        * rsin: -
-        * kvk_nummer: -
-        * aantekeningen: samenvoeging van alle aantekeningen van dit recht,
-        * gemeente: -,
-        * woonplaats: -,
-        * straatnaam: -,
-        * huisnummer: -,
-        * huisletter: -,
-        * huisnummer_toev: -,
-        * postcode: -,
-        * lon: coordinaat als WSG84,
-        * lon: coordinaat als WSG84,
-        * begrenzing_perceel: perceelvlak
-        ';
+    * objectid: uniek id bruikbaar voor geoserver/arcgis,
+    * koz_identif: natuurlijke id van perceel of appartementsrecht
+    * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+    * type: perceel of appartement,
+    * aanduiding: sectie perceelnummer,
+    * aanduiding2: kadgem sectie perceelnummer appartementsindex,
+    * sectie: -,
+    * perceelnummer: -,
+    * appartementsindex: -,
+    * gemeentecode: -,
+    * aand_soort_grootte: -,
+    * grootte_perceel: -,
+    * oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,
+    * deelperceelnummer: -,
+    * omschr_deelperceel: -,
+    * verkoop_datum: laatste datum gevonden akten van verkoop,
+    * aard_cultuur_onbebouwd: -,
+    * bedrag: -,
+    * koopjaar: -,
+    * meer_onroerendgoed: -,
+    * valutasoort: -,
+    * loc_omschr: adres buiten BAG om meegegeven,
+    * zr_identif: natuurlijk id van zakelijk recht,
+    * ingangsdatum_recht: - ,
+    * subject_identif: natuurlijk id van rechthebbende,
+    * aandeel: samenvoeging van teller en noemer (1/2),
+    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+    * indic_betrokken_in_splitsing: -,
+    * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+    * geslachtsnaam: -
+    * voorvoegsel: -
+    * voornamen: -
+    * aand_naamgebruik: -
+    * geslachtsaand: -
+    * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
+    * woonadres: meegeleverd adres buiten BAG koppeling om
+    * geboortedatum: -
+    * geboorteplaats: -
+    * overlijdensdatum: -
+    * bsn: -
+    * organisatie_naam: naam niet natuurlijk subject
+    * rechtsvorm: -
+    * statutaire_zetel: -
+    * rsin: -
+    * kvk_nummer: -
+    * aantekeningen: samenvoeging van alle aantekeningen van dit recht,
+    * gemeente: -,
+    * woonplaats: -,
+    * straatnaam: -,
+    * huisnummer: -,
+    * huisletter: -,
+    * huisnummer_toev: -,
+    * postcode: -,
+    * lon: coordinaat als WSG84,
+    * lon: coordinaat als WSG84,
+    * begrenzing_perceel: perceelvlak';
 
 
 
@@ -1063,7 +1051,7 @@ CREATE INDEX mb_avg_koz_rechth_begrenzing_perceel_idx ON mb_avg_koz_rechth USING
 COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     'commentaar view mb_avg_koz_rechth:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -1120,8 +1108,7 @@ COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     * postcode: -,
     * lon: coordinaat als WSG84,
     * lat: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak
-    ';
+    * begrenzing_perceel: perceelvlak';
 
 
 
@@ -1223,8 +1210,7 @@ CREATE INDEX mb_kad_onrrnd_zk_archief_overgegaan_in_idx ON mb_kad_onrrnd_zk_arch
 COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_archief IS
     'commentaar view mb_kad_onrrnd_zk_archief:
     Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -1250,7 +1236,6 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_archief IS
     * valutasoort: -,
     * loc_omschr: adres buiten BAG om meegegeven,
     * overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
-    * begrenzing_perceel: perceelvlak
-    ';
+    * begrenzing_perceel: perceelvlak';
 
 

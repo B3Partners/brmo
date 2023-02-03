@@ -57,8 +57,7 @@ SELECT CAST(ROWNUM AS INTEGER)                            AS objectid,
 FROM persoon p
          LEFT JOIN natuurlijkpersoon np on p.identificatie = np.identificatie
          LEFT JOIN nietnatuurlijkpersoon nnp on p.identificatie = nnp.identificatie
-         LEFT JOIN adres a on p.woonlocatie = a.identificatie
-;
+         LEFT JOIN adres a on p.woonlocatie = a.identificatie;
 
 CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject (objectid ASC);
 CREATE INDEX mb_subject_identif ON mb_subject (subject_identif ASC);
@@ -66,8 +65,7 @@ CREATE INDEX mb_subject_identif ON mb_subject (subject_identif ASC);
 COMMENT ON MATERIALIZED VIEW mb_subject IS
     'commentaar view mb_subject:
     samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
-
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * subject_identif: natuurlijke id van subject
     * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
@@ -86,8 +84,7 @@ COMMENT ON MATERIALIZED VIEW mb_subject IS
     * rechtsvorm: -
     * statutaire_zetel: -
     * rsin: -
-    * kvk_nummer: -
-    ';
+    * kvk_nummer: -';
 
 
 CREATE MATERIALIZED VIEW mb_avg_subject
@@ -142,7 +139,7 @@ CREATE INDEX mb_avg_subject_identif ON mb_avg_subject (subject_identif ASC);
 COMMENT ON MATERIALIZED VIEW mb_avg_subject IS
     'commentaar view mb_avg_subject:
     volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * subject_identif: natuurlijke id van subject
     * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
@@ -161,8 +158,7 @@ COMMENT ON MATERIALIZED VIEW mb_avg_subject IS
     * rechtsvorm: -
     * statutaire_zetel: -
     * rsin: -
-    * kvk_nummer: -
-    ';
+    * kvk_nummer: -';
 
 
 
@@ -311,7 +307,7 @@ CREATE INDEX mb_kad_onrrnd_zk_adr_bgrgpidx ON mb_kad_onrrnd_zk_adres (begrenzing
 COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -428,8 +424,7 @@ FROM (SELECT p.identificatie      AS identificatie,
                                       WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
                    FROM recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
-                  ON o.identificatie = aantekeningen.aantekeningkadastraalobject
-;
+                  ON o.identificatie = aantekeningen.aantekeningkadastraalobject;
 
 CREATE UNIQUE INDEX mb_percelenkaart_objectid ON mb_percelenkaart (objectid ASC);
 CREATE INDEX mb_percelenkaart_identif ON mb_percelenkaart (koz_identif ASC);
@@ -442,7 +437,7 @@ CREATE INDEX mb_percelenkaart_bgrgpidx ON mb_percelenkaart (begrenzing_perceel) 
 COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     'commentaar view mb_percelenkaart:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -514,7 +509,7 @@ WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
 COMMENT ON TABLE vb_util_zk_recht IS
     'commentaar view vb_util_zk_recht:
     zakelijk recht met opgezocht aard recht en berekend aandeel
-    beschikbare kolommen:
+        beschikbare kolommen:
     * zr_identif: natuurlijke id van zakelijk recht
     * ingangsdatum_recht: -
     * aandeel: samenvoeging van teller en noemer (1/2),
@@ -598,7 +593,7 @@ CREATE INDEX mb_zr_rechth_identif ON mb_zr_rechth (zr_identif ASC);
 COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     'commentaar view mb_zr_rechth:
     alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -
@@ -694,7 +689,7 @@ CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth (zr_identif ASC);
 COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
     'commentaar view mb_avg_zr_rechth:
     alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -,
@@ -857,7 +852,7 @@ CREATE INDEX mb_koz_rechth_begr_prcl_idx ON mb_koz_rechth (begrenzing_perceel) I
 COMMENT ON MATERIALIZED VIEW mb_koz_rechth IS
     'commentaar view mb_koz_rechth:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -1051,7 +1046,7 @@ CREATE INDEX mb_avg_koz_rechth_begr_p_idx ON mb_avg_koz_rechth (begrenzing_perce
 COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     'commentaar view mb_avg_koz_rechth:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
@@ -1210,7 +1205,7 @@ CREATE INDEX mb_kad_onrr_z_ar_overgeg_idx ON mb_kad_onrrnd_zk_archief (overgegaa
 COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_archief IS
     'commentaar materialized view mb_kad_onrrnd_zk_archief:
     Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie
-    beschikbare kolommen:
+        beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * koz_identif: natuurlijke id van perceel of appartementsrecht
     * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
