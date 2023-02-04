@@ -192,8 +192,8 @@ from (select 'true'                                                             
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
-             (select listagg(vbod.gebruiksdoel, ', ')
-              from verblijfsobject_gebruiksdoel vbod
+             (select listagg(vbod.maaktdeeluitvan, ', ')
+              from verblijfsobject_maaktdeeluitvan vbod
               where (vbod.identificatie = vo.identificatie and vbod.voorkomenidentificatie =
                                                              vo.voorkomenidentificatie))                             as maaktdeeluitvan,
              (select listagg(vg.gebruiksdoel, ', ')
@@ -219,10 +219,10 @@ from (select 'true'                                                             
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
-             (select listagg(vbod.gebruiksdoel, ', ')
-              from verblijfsobject_gebruiksdoel vbod
+             (select listagg(vbod.maaktdeeluitvan, ', ')
+              from verblijfsobject_maaktdeeluitvan vbod
               where (vbod.identificatie = voa.identificatie and vbod.voorkomenidentificatie =
-                                                               voa.voorkomenidentificatie))                             as maaktdeeluitvan,
+                                                             voa.voorkomenidentificatie))                             as maaktdeeluitvan,
              (select listagg(vg.gebruiksdoel, ', ')
               from verblijfsobject_gebruiksdoel vg
               where (vg.identificatie = voa.identificatie and
