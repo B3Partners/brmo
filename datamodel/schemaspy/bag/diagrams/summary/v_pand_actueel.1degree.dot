@@ -1,0 +1,46 @@
+// dot 2.43.0 on Linux 5.15.0-58-generic
+// SchemaSpy rev Unknown
+digraph "v_pand_actueel" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "v_pand_actueel" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">v_pand_actueel</TD></TR>
+      <TR><TD PORT="objectid" COLSPAN="3" ALIGN="LEFT">objectid</TD></TR>
+      <TR><TD PORT="identificatie" COLSPAN="3" ALIGN="LEFT">identificatie</TD></TR>
+      <TR><TD PORT="voorkomenidentificatie" COLSPAN="3" ALIGN="LEFT">voorkomenidentificatie</TD></TR>
+      <TR><TD PORT="begingeldigheid" COLSPAN="3" ALIGN="LEFT">begingeldigheid</TD></TR>
+      <TR><TD PORT="eindgeldigheid" COLSPAN="3" ALIGN="LEFT">eindgeldigheid</TD></TR>
+      <TR><TD PORT="tijdstipregistratie" COLSPAN="3" ALIGN="LEFT">tijdstipregistratie</TD></TR>
+      <TR><TD PORT="eindregistratie" COLSPAN="3" ALIGN="LEFT">eindregistratie</TD></TR>
+      <TR><TD PORT="tijdstipinactief" COLSPAN="3" ALIGN="LEFT">tijdstipinactief</TD></TR>
+      <TR><TD PORT="tijdstipregistratielv" COLSPAN="3" ALIGN="LEFT">tijdstipregistratielv</TD></TR>
+      <TR><TD PORT="tijdstipeindregistratielv" COLSPAN="3" ALIGN="LEFT">tijdstipeindregistratielv</TD></TR>
+      <TR><TD PORT="tijdstipinactieflv" COLSPAN="3" ALIGN="LEFT">tijdstipinactieflv</TD></TR>
+      <TR><TD PORT="documentdatum" COLSPAN="3" ALIGN="LEFT">documentdatum</TD></TR>
+      <TR><TD PORT="documentnummer" COLSPAN="3" ALIGN="LEFT">documentnummer</TD></TR>
+      <TR><TD PORT="geconstateerd" COLSPAN="3" ALIGN="LEFT">geconstateerd</TD></TR>
+      <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
+      <TR><TD PORT="oorspronkelijkbouwjaar" COLSPAN="3" ALIGN="LEFT">oorspronkelijkbouwjaar</TD></TR>
+      <TR><TD PORT="geometrie" COLSPAN="3" ALIGN="LEFT">geometrie</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">view</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/v_pand_actueel.html"
+    tooltip="v_pand_actueel"
+  ];
+}

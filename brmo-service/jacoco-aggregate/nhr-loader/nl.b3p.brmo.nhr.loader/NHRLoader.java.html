@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRLoader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.nhr.loader</a> &gt; <span class="el_source">NHRLoader.java</span></div><h1>NHRLoader.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRLoader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.nhr.loader</a> &gt; <span class="el_source">NHRLoader.java</span></div><h1>NHRLoader.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2022 B3Partners B.V.
  *
  * SPDX-License-Identifier: MIT
@@ -28,58 +28,66 @@ import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 
 <span class="nc" id="L30">public class NHRLoader {</span>
-    // JAXB context used to serialize NHR responses for the BRMO.
-    private static JAXBContext jaxbContext;
-<span class="nc" id="L33">    private static ObjectFactory factory = new ObjectFactory();</span>
+  // JAXB context used to serialize NHR responses for the BRMO.
+  private static JAXBContext jaxbContext;
+<span class="nc" id="L33">  private static ObjectFactory factory = new ObjectFactory();</span>
 
-    /**
-     * Send a single NHR request.
-     */
-    public static void sendSingleRequest(Dataservice dataservice, BrmoFramework brmoFramework, String kvkNummer, String rsin) throws Exception {
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (jaxbContext == null) {</span>
-<span class="nc" id="L40">            jaxbContext = JAXBContext.newInstance(InschrijvingResponseType.class);</span>
-        }
+  /** Send a single NHR request. */
+  public static void sendSingleRequest(
+      Dataservice dataservice, BrmoFramework brmoFramework, String kvkNummer, String rsin)
+      throws Exception {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    if (jaxbContext == null) {</span>
+<span class="nc" id="L40">      jaxbContext = JAXBContext.newInstance(InschrijvingResponseType.class);</span>
+    }
 
-<span class="nc" id="L43">        InschrijvingRequestType request = new InschrijvingRequestType();</span>
-        String description;
-<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (kvkNummer != null) {</span>
-<span class="nc" id="L46">            description = String.format(&quot;KVK nummer %s&quot;, kvkNummer);</span>
-<span class="nc" id="L47">            request.setKvkNummer(kvkNummer);</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        } else if (rsin != null) {</span>
-<span class="nc" id="L49">            description = String.format(&quot;KVK RSIN %s&quot;, rsin);</span>
-<span class="nc" id="L50">            request.setRsin(rsin);</span>
-        } else {
-<span class="nc" id="L52">            throw new IllegalArgumentException(&quot;KVK nummer en RSIN zijn beiden null&quot;);</span>
-        }
+<span class="nc" id="L43">    InschrijvingRequestType request = new InschrijvingRequestType();</span>
+    String description;
+<span class="nc bnc" id="L45" title="All 2 branches missed.">    if (kvkNummer != null) {</span>
+<span class="nc" id="L46">      description = String.format(&quot;KVK nummer %s&quot;, kvkNummer);</span>
+<span class="nc" id="L47">      request.setKvkNummer(kvkNummer);</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">    } else if (rsin != null) {</span>
+<span class="nc" id="L49">      description = String.format(&quot;KVK RSIN %s&quot;, rsin);</span>
+<span class="nc" id="L50">      request.setRsin(rsin);</span>
+    } else {
+<span class="nc" id="L52">      throw new IllegalArgumentException(&quot;KVK nummer en RSIN zijn beiden null&quot;);</span>
+    }
 
-        // Generate the UUID manually, as CXF generates urn:uuid:{uuid}, which is explicitly disallowed.
-<span class="nc" id="L56">        BindingProvider bindingProvider = (BindingProvider)dataservice;</span>
-<span class="nc" id="L57">        AddressingProperties properties = (AddressingProperties)bindingProvider.getRequestContext().get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);</span>
-<span class="nc" id="L58">        AttributedURIType msgid = new AttributedURIType();</span>
-<span class="nc" id="L59">        msgid.setValue(&quot;uuid:&quot; + UUID.randomUUID().toString());</span>
-<span class="nc" id="L60">        properties.setMessageID(msgid);</span>
+    // Generate the UUID manually, as CXF generates urn:uuid:{uuid}, which is explicitly
+    // disallowed.
+<span class="nc" id="L57">    BindingProvider bindingProvider = (BindingProvider) dataservice;</span>
+<span class="nc" id="L58">    AddressingProperties properties =</span>
+        (AddressingProperties)
+<span class="nc" id="L60">            bindingProvider.getRequestContext().get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);</span>
+<span class="nc" id="L61">    AttributedURIType msgid = new AttributedURIType();</span>
+<span class="nc" id="L62">    msgid.setValue(&quot;uuid:&quot; + UUID.randomUUID().toString());</span>
+<span class="nc" id="L63">    properties.setMessageID(msgid);</span>
 
-        // Send the actual request.
-<span class="nc" id="L63">        InschrijvingResponseType response = dataservice.ophalenInschrijving(request);</span>
+    // Send the actual request.
+<span class="nc" id="L66">    InschrijvingResponseType response = dataservice.ophalenInschrijving(request);</span>
 
-<span class="nc" id="L65">        List&lt;MeldingType&gt; errors = response.getMeldingen().getFout();</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (!errors.isEmpty()) {</span>
-<span class="nc" id="L67">            HashMap&lt;String, String&gt; errorMap = new HashMap&lt;&gt;();</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">            for (MeldingType melding : errors) {</span>
-<span class="nc" id="L69">                errorMap.put(melding.getCode(), melding.getOmschrijving());</span>
-<span class="nc" id="L70">            }</span>
+<span class="nc" id="L68">    List&lt;MeldingType&gt; errors = response.getMeldingen().getFout();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">    if (!errors.isEmpty()) {</span>
+<span class="nc" id="L70">      HashMap&lt;String, String&gt; errorMap = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">      for (MeldingType melding : errors) {</span>
+<span class="nc" id="L72">        errorMap.put(melding.getCode(), melding.getOmschrijving());</span>
+<span class="nc" id="L73">      }</span>
 
-<span class="nc" id="L72">            throw new NHRException(errorMap);</span>
-        }
+<span class="nc" id="L75">      throw new NHRException(errorMap);</span>
+    }
 
-        // Serialize the XML into the format expected by BRMO.
-<span class="nc" id="L76">        JAXBElement&lt;InschrijvingResponseType&gt; wrappedResponse = factory.createOphalenInschrijvingResponse(response);</span>
-<span class="nc" id="L77">        Marshaller marshaller = jaxbContext.createMarshaller();</span>
+    // Serialize the XML into the format expected by BRMO.
+<span class="nc" id="L79">    JAXBElement&lt;InschrijvingResponseType&gt; wrappedResponse =</span>
+<span class="nc" id="L80">        factory.createOphalenInschrijvingResponse(response);</span>
+<span class="nc" id="L81">    Marshaller marshaller = jaxbContext.createMarshaller();</span>
 
-<span class="nc" id="L79">        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
-<span class="nc" id="L80">        marshaller.marshal(wrappedResponse, outputStream);</span>
+<span class="nc" id="L83">    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
+<span class="nc" id="L84">    marshaller.marshal(wrappedResponse, outputStream);</span>
 
-<span class="nc" id="L82">        brmoFramework.loadFromStream(BrmoFramework.BR_NHR, new ByteArrayInputStream(outputStream.toByteArray()), String.format(&quot;NHR %s %s&quot;, LocalDateTime.now(), description), (Long) null);</span>
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L86">    brmoFramework.loadFromStream(</span>
+        BrmoFramework.BR_NHR,
+<span class="nc" id="L88">        new ByteArrayInputStream(outputStream.toByteArray()),</span>
+<span class="nc" id="L89">        String.format(&quot;NHR %s %s&quot;, LocalDateTime.now(), description),</span>
+        (Long) null);
+<span class="nc" id="L91">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

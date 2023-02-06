@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="rsgb" schema="bag" type="PostgreSQL - 15.1 (Debian 15.1-1.pgdg110+1)">
+   <tables>
+      <table name="ligplaats" numRows="17985" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <child column="identificatie" foreignKey="ligplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="ligplaats_nevenadres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <child column="voorkomenidentificatie" foreignKey="ligplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="ligplaats_nevenadres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="16" name="heeftalshoofdadres" nullable="true" remarks="" size="16" type="bpchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="ligplaats_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="idx_ligplaats_geometrie" unique="false">
+            <column ascending="true" name="geometrie"/>
+         </index>
+         <index name="ligplaats_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+      <table name="ligplaats_nevenadres" numRows="363" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <parent column="identificatie" foreignKey="ligplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="ligplaats"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <parent column="voorkomenidentificatie" foreignKey="ligplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="ligplaats"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="heeftalsnevenadres" nullable="false" remarks="" size="16" type="bpchar"/>
+         <index name="ligplaats_nevenadres_idx" unique="false">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+      </table>
+      <table name="nummeraanduiding" numRows="12187413" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="huisnummer" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="19" name="typeadresseerbaarobject" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="20" name="ligtin" nullable="true" remarks="" size="4" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="21" name="ligtaan" nullable="true" remarks="" size="16" type="bpchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="nummeraanduiding_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="nummeraanduiding_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+      <table name="openbareruimte" numRows="345651" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="naam" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="verkortenaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="type" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="ligtin" nullable="true" remarks="" size="4" type="bpchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="openbareruimte_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="openbareruimte_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+      <table name="pand" numRows="20846429" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="oorspronkelijkbouwjaar" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="pand_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="idx_pand_geometrie" unique="false">
+            <column ascending="true" name="geometrie"/>
+         </index>
+         <index name="pand_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+      <table name="standplaats" numRows="54200" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <child column="identificatie" foreignKey="standplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="standplaats_nevenadres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <child column="voorkomenidentificatie" foreignKey="standplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="standplaats_nevenadres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="16" name="heeftalshoofdadres" nullable="true" remarks="" size="16" type="bpchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="standplaats_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="idx_standplaats_geometrie" unique="false">
+            <column ascending="true" name="geometrie"/>
+         </index>
+         <index name="standplaats_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+      <table name="standplaats_nevenadres" numRows="126" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <parent column="identificatie" foreignKey="standplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="standplaats"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <parent column="voorkomenidentificatie" foreignKey="standplaats_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="standplaats"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="heeftalsnevenadres" nullable="false" remarks="" size="16" type="bpchar"/>
+         <index name="standplaats_nevenadres_idx" unique="false">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+      </table>
+      <table name="v_ligplaats_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="16" name="heeftalshoofdadres" nullable="true" remarks="" size="16" type="bpchar"/>
+      </table>
+      <table name="v_nummeraanduiding_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="19" name="typeadresseerbaarobject" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="20" name="ligtin" nullable="true" remarks="" size="4" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="21" name="ligtaan" nullable="true" remarks="" size="16" type="bpchar"/>
+      </table>
+      <table name="v_openbareruimte_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="naam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="verkortenaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="type" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="ligtin" nullable="true" remarks="" size="4" type="bpchar"/>
+      </table>
+      <table name="v_pand_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="oorspronkelijkbouwjaar" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="v_standplaats_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="16" name="heeftalshoofdadres" nullable="true" remarks="" size="16" type="bpchar"/>
+      </table>
+      <table name="v_verblijfsobject_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="oppervlakte" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="heeftalshoofdadres" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="v_woonplaats_actueel" numRows="0" remarks="" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="true" remarks="" size="4" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="naam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="vb_adres" numRows="0" remarks="volledig actueel adres zonder locatie" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatienummeraanduiding" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="gemeente" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="woonplaats" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="straatnaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="identificatieopenbareruimte" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="identificatiewoonplaats" nullable="true" remarks="" size="4" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="gemeentecode" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+      <table name="vb_adresseerbaar_object_geometrie" numRows="0" remarks="alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie." schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="ishoofdadres" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="identificatienummeraanduiding" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="nummeraanduidingstatus" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="gemeente" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="woonplaats" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="straatnaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="soort" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="14" name="maaktdeeluitvan" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="15" name="gebruiksdoelen" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="16" name="oppervlakte" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="18" name="geometrie_centroide" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="vb_ligplaats_adres" numRows="0" remarks="ligplaats met adres en puntlocatie" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="ishoofdadres" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="identificatienummeraanduiding" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="nummeraanduidingstatus" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="gemeente" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="woonplaats" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="straatnaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="14" name="geometrie_centroide" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="vb_standplaats_adres" numRows="0" remarks="standplaats met adres en puntlocatie" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="ishoofdadres" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="identificatienummeraanduiding" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="nummeraanduidingstatus" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="gemeente" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="woonplaats" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="straatnaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="14" name="geometrie_centroide" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="vb_verblijfsobject_adres" numRows="0" remarks="verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie" schema="bag" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="ishoofdadres" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="identificatie" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="identificatienummeraanduiding" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="nummeraanduidingstatus" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="gemeente" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="woonplaats" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="straatnaam" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="huisletter" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="huisnummertoevoeging" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="postcode" nullable="true" remarks="" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="maaktdeeluitvan" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="14" name="gebruiksdoelen" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="15" name="oppervlakte" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="17" name="geometrie_centroide" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      </table>
+      <table name="verblijfsobject" numRows="21685089" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <child column="identificatie" foreignKey="verblijfsobject_gebruiksdoel_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject_gebruiksdoel"/>
+            <child column="identificatie" foreignKey="verblijfsobject_maaktdeeluitvan_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject_maaktdeeluitvan"/>
+            <child column="identificatie" foreignKey="verblijfsobject_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject_nevenadres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <child column="voorkomenidentificatie" foreignKey="verblijfsobject_gebruiksdoel_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject_gebruiksdoel"/>
+            <child column="voorkomenidentificatie" foreignKey="verblijfsobject_maaktdeeluitvan_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject_maaktdeeluitvan"/>
+            <child column="voorkomenidentificatie" foreignKey="verblijfsobject_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject_nevenadres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="oppervlakte" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="heeftalshoofdadres" nullable="true" remarks="" size="16" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="verblijfsobject_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="idx_verblijfsobject_geometrie" unique="false">
+            <column ascending="true" name="geometrie"/>
+         </index>
+         <index name="verblijfsobject_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+      <table name="verblijfsobject_gebruiksdoel" numRows="22325372" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <parent column="identificatie" foreignKey="verblijfsobject_gebruiksdoel_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <parent column="voorkomenidentificatie" foreignKey="verblijfsobject_gebruiksdoel_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="gebruiksdoel" nullable="false" remarks="" size="255" type="varchar"/>
+         <index name="verblijfsobject_gebruiksdoel_idx" unique="false">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+      </table>
+      <table name="verblijfsobject_maaktdeeluitvan" numRows="21780007" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <parent column="identificatie" foreignKey="verblijfsobject_maaktdeeluitvan_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <parent column="voorkomenidentificatie" foreignKey="verblijfsobject_maaktdeeluitvan_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="maaktdeeluitvan" nullable="false" remarks="" size="16" type="bpchar"/>
+         <index name="verblijfsobject_maaktdeeluitvan_idx" unique="false">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+      </table>
+      <table name="verblijfsobject_nevenadres" numRows="111308" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="16" type="bpchar">
+            <parent column="identificatie" foreignKey="verblijfsobject_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4">
+            <parent column="voorkomenidentificatie" foreignKey="verblijfsobject_nevenadres_ownedby_fkey" implied="false" onDeleteCascade="true" table="verblijfsobject"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="heeftalsnevenadres" nullable="false" remarks="" size="16" type="bpchar"/>
+         <index name="verblijfsobject_nevenadres_idx" unique="false">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+      </table>
+      <table name="woonplaats" numRows="3969" remarks="" schema="bag" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="identificatie" nullable="false" remarks="" size="4" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="voorkomenidentificatie" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="eindgeldigheid" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="tijdstipregistratie" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="eindregistratie" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="tijdstipinactief" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipregistratielv" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipeindregistratielv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="tijdstipinactieflv" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="documentdatum" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="12" name="documentnummer" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geconstateerd" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="status" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="naam" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="geometrie" nullable="true" remarks="" size="2147483647" type="geometry"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="voorkomenidentificatie" sequenceNumberInPK="2"/>
+         <index name="woonplaats_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="voorkomenidentificatie"/>
+         </index>
+         <index name="idx_woonplaats_geometrie" unique="false">
+            <column ascending="true" name="geometrie"/>
+         </index>
+         <index name="woonplaats_objectid_idx" unique="false">
+            <column ascending="true" name="objectid"/>
+         </index>
+      </table>
+   </tables>
+</database>

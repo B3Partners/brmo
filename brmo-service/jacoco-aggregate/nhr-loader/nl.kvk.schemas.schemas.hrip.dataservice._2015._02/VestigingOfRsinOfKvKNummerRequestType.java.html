@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>VestigingOfRsinOfKvKNummerRequestType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.dataservice._2015._02</a> &gt; <span class="el_source">VestigingOfRsinOfKvKNummerRequestType.java</span></div><h1>VestigingOfRsinOfKvKNummerRequestType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.dataservice._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for VestigingOfRsinOfKvKNummerRequestType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;VestigingOfRsinOfKvKNummerRequestType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02}ProductRequestType&quot;&amp;gt;
+ *       &amp;lt;choice&amp;gt;
+ *         &amp;lt;element name=&quot;vestigingsnummer&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}VestigingsnummerType&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;kvkNummer&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}KvKNummerType&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;rsin&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}RSINummerType&quot;/&amp;gt;
+ *       &amp;lt;/choice&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;VestigingOfRsinOfKvKNummerRequestType&quot;, propOrder = {
+    &quot;vestigingsnummer&quot;,
+    &quot;kvkNummer&quot;,
+    &quot;rsin&quot;
+})
+@XmlSeeAlso({
+    VestigingRequestType.class
+})
+<span class="nc" id="L40">public class VestigingOfRsinOfKvKNummerRequestType</span>
+    extends ProductRequestType
+{
+
+    protected String vestigingsnummer;
+    protected String kvkNummer;
+    protected String rsin;
+
+    /**
+     * Gets the value of the vestigingsnummer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVestigingsnummer() {
+<span class="nc" id="L57">        return vestigingsnummer;</span>
+    }
+
+    /**
+     * Sets the value of the vestigingsnummer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVestigingsnummer(String value) {
+<span class="nc" id="L69">        this.vestigingsnummer = value;</span>
+<span class="nc" id="L70">    }</span>
+
+    /**
+     * Gets the value of the kvkNummer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getKvkNummer() {
+<span class="nc" id="L81">        return kvkNummer;</span>
+    }
+
+    /**
+     * Sets the value of the kvkNummer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setKvkNummer(String value) {
+<span class="nc" id="L93">        this.kvkNummer = value;</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Gets the value of the rsin property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRsin() {
+<span class="nc" id="L105">        return rsin;</span>
+    }
+
+    /**
+     * Sets the value of the rsin property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRsin(String value) {
+<span class="nc" id="L117">        this.rsin = value;</span>
+<span class="nc" id="L118">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

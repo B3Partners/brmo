@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NHRJob.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.jobs</a> &gt; <span class="el_source">NHRJob.java</span></div><h1>NHRJob.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NHRJob.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.jobs</a> &gt; <span class="el_source">NHRJob.java</span></div><h1>NHRJob.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2022 B3Partners B.V.
  */
 package nl.b3p.brmo.service.jobs;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
@@ -13,7 +23,6 @@ import nl.b3p.brmo.nhr.loader.cli.NHRLoadUtils;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.Dataservice;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.DisallowConcurrentExecution;
@@ -22,200 +31,184 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.stripesstuff.stripersist.Stripersist;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.naming.InitialContext;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.sql.DataSource;
-
 @DisallowConcurrentExecution
-<span class="nc" id="L38">public class NHRJob implements Job {</span>
-<span class="nc" id="L39">    private static final Log log = LogFactory.getLog(NHRJob.class);</span>
+<span class="nc" id="L35">public class NHRJob implements Job {</span>
+<span class="nc" id="L36">  private static final Log log = LogFactory.getLog(NHRJob.class);</span>
 
-    private static float averageFetchTime;
-    private static long totalFetchCount;
-    private static long totalFetchErrorCount;
+  private static float averageFetchTime;
+  private static long totalFetchCount;
+  private static long totalFetchErrorCount;
 
-    public static float getAverageFetchTime() {
-<span class="nc" id="L46">        return averageFetchTime;</span>
+  public static float getAverageFetchTime() {
+<span class="nc" id="L43">    return averageFetchTime;</span>
+  }
+
+  public static long getFetchCount() {
+<span class="nc" id="L47">    return totalFetchCount;</span>
+  }
+
+  public static long getFetchErrorCount() {
+<span class="nc" id="L51">    return totalFetchErrorCount;</span>
+  }
+
+  private void fetchOne(Dataservice dataservice, String kvkNummer) throws Exception {
+<span class="nc" id="L55">    BrmoFramework brmo = null;</span>
+    try {
+<span class="nc" id="L57">      DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L58">      brmo = new BrmoFramework(dataSourceStaging, null, null, null, null);</span>
+
+<span class="nc" id="L60">      brmo.setOrderBerichten(false);</span>
+
+<span class="nc" id="L62">      NHRLoader.sendSingleRequest(dataservice, brmo, kvkNummer, null);</span>
+    } finally {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">      if (brmo != null) {</span>
+<span class="nc" id="L65">        brmo.closeBrmoFramework();</span>
+      }
+    }
+<span class="nc" id="L68">  }</span>
+
+  private Dataservice getDataservice() {
+    try {
+<span class="nc" id="L72">      InitialContext ctx = new InitialContext();</span>
+<span class="nc" id="L73">      Boolean isActive = (Boolean) ctx.lookup(&quot;java:comp/env/brmo/nhr/active&quot;);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">      if (!isActive) {</span>
+<span class="nc" id="L75">        return null;</span>
+      }
+
+<span class="nc" id="L78">      NHRCertificateOptions certOptions = new NHRCertificateOptions();</span>
+<span class="nc" id="L79">      certOptions.setKeystore((String) ctx.lookup(&quot;java:comp/env/brmo/nhr/keystorePath&quot;));</span>
+<span class="nc" id="L80">      certOptions.setKeystorePassword(</span>
+<span class="nc" id="L81">          (String) ctx.lookup(&quot;java:comp/env/brmo/nhr/keystorePassword&quot;));</span>
+<span class="nc" id="L82">      certOptions.setKeystoreAlias(null);</span>
+<span class="nc" id="L83">      certOptions.setTruststore((String) ctx.lookup(&quot;java:comp/env/brmo/nhr/truststorePath&quot;));</span>
+<span class="nc" id="L84">      certOptions.setTruststorePassword(</span>
+<span class="nc" id="L85">          (String) ctx.lookup(&quot;java:comp/env/brmo/nhr/truststorePassword&quot;));</span>
+
+<span class="nc" id="L87">      String endpoint = (String) ctx.lookup(&quot;java:comp/env/brmo/nhr/endpoint&quot;);</span>
+<span class="nc" id="L88">      boolean isPreprod = (Boolean) ctx.lookup(&quot;java:comp/env/brmo/nhr/endpointIsPreprod&quot;);</span>
+
+<span class="nc" id="L90">      return NHRLoadUtils.getDataservice(endpoint, isPreprod, certOptions);</span>
+<span class="nc" id="L91">    } catch (Exception e) {</span>
+<span class="nc" id="L92">      throw new Error(&quot;NHR DataService initializeren mislukt&quot;, e);</span>
+    }
+  }
+
+  @Override
+  public void execute(JobExecutionContext context) throws JobExecutionException {
+<span class="nc" id="L98">    Dataservice ds = getDataservice();</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">    if (ds == null) {</span>
+<span class="nc" id="L100">      return;</span>
     }
 
-    public static long getFetchCount() {
-<span class="nc" id="L50">        return totalFetchCount;</span>
-    }
+<span class="nc" id="L103">    Integer secondsBetweenFetches = null;</span>
 
-    public static long getFetchErrorCount() {
-<span class="nc" id="L54">        return totalFetchErrorCount;</span>
-    }
+    try {
+<span class="nc" id="L106">      InitialContext ctx = new InitialContext();</span>
 
-    private void fetchOne(Dataservice dataservice, String kvkNummer) throws Exception {
-<span class="nc" id="L58">        BrmoFramework brmo = null;</span>
+<span class="nc" id="L108">      secondsBetweenFetches = (Integer) ctx.lookup(&quot;java:comp/env/brmo/nhr/secondsBetweenFetches&quot;);</span>
+<span class="nc" id="L109">    } catch (Exception e) {</span>
+
+<span class="nc" id="L111">    }</span>
+
+    while (true) {
+      // Batch requests in groups of 20, to make sure the database doesn't end up too far
+      // behind,
+      // and the user interface stays roughly up to date.
+<span class="nc" id="L117">      Stripersist.requestInit();</span>
+<span class="nc" id="L118">      EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L119">      CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L120">      CriteriaQuery&lt;NHRInschrijving&gt; cq = cb.createQuery(NHRInschrijving.class);</span>
+<span class="nc" id="L121">      Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
+<span class="nc" id="L122">      cq.where(cb.lessThan(from.get(&quot;volgendProberen&quot;), cb.currentTimestamp()));</span>
+<span class="nc" id="L123">      List&lt;NHRInschrijving&gt; procList =</span>
+<span class="nc" id="L124">          entityManager.createQuery(cq).setMaxResults(20).getResultList();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">      if (procList.isEmpty()) break;</span>
+
+<span class="nc bnc" id="L127" title="All 2 branches missed.">      for (NHRInschrijving process : procList) {</span>
+<span class="nc" id="L128">        long fetchStart = Calendar.getInstance().getTimeInMillis();</span>
+<span class="nc" id="L129">        boolean failed = false;</span>
+<span class="nc" id="L130">        Exception exception = null;</span>
         try {
-<span class="nc" id="L60">            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
-<span class="nc" id="L61">            brmo = new BrmoFramework(dataSourceStaging, null, null, null, null);</span>
+<span class="nc" id="L132">          fetchOne(ds, process.getKvkNummer());</span>
+<span class="nc" id="L133">          process.setException(&quot;&quot;);</span>
+<span class="nc" id="L134">        } catch (BrmoDuplicaatLaadprocesException | BrmoLeegBestandException e) {</span>
+          // Non-recoverable error, so consider it &quot;successful&quot;
+<span class="nc" id="L136">          log.info(String.format(&quot;KVK nummer %s ophalen mislukt&quot;, process.getKvkNummer()), e);</span>
+<span class="nc" id="L137">          exception = e;</span>
+<span class="nc" id="L138">        } catch (IllegalStateException e) {</span>
+          // We're likely in a weird spot (web app instance just shut down?), let's just
+          // fail out of this loop.
+          // This will attempt a database flush + retry persistence.
+<span class="nc" id="L142">          break;</span>
+<span class="nc" id="L143">        } catch (NHRException e) {</span>
+<span class="nc" id="L144">          Map&lt;String, String&gt; errors = e.getErrors();</span>
+<span class="nc bnc" id="L145" title="All 4 branches missed.">          if (errors.containsKey(&quot;IPD0004&quot;) || errors.containsKey(&quot;IPD0005&quot;)) {</span>
+<span class="nc" id="L146">            failed = false; // KVK nummer cannot be found. We cannot expect this to work</span>
+            // after a retry.
+          } else {
+<span class="nc" id="L149">            failed = true;</span>
+          }
+<span class="nc" id="L151">          exception = e;</span>
+<span class="nc" id="L152">        } catch (Exception e) {</span>
+<span class="nc" id="L153">          failed = true;</span>
+<span class="nc" id="L154">          exception = e;</span>
+<span class="nc" id="L155">        }</span>
 
-<span class="nc" id="L63">            brmo.setOrderBerichten(false);</span>
-
-<span class="nc" id="L65">            NHRLoader.sendSingleRequest(dataservice, brmo, kvkNummer, null);</span>
-        } finally {
-<span class="nc bnc" id="L67" title="All 2 branches missed.">            if (brmo != null) {</span>
-<span class="nc" id="L68">                brmo.closeBrmoFramework();</span>
-            }
-        }
-<span class="nc" id="L71">    }</span>
-
-    private Dataservice getDataservice() {
-        try {
-<span class="nc" id="L75">            InitialContext ctx = new InitialContext();</span>
-<span class="nc" id="L76">            Boolean isActive = (Boolean) ctx.lookup(&quot;java:comp/env/brmo/nhr/active&quot;);</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">            if (!isActive) {</span>
-<span class="nc" id="L78">                return null;</span>
-            }
-
-<span class="nc" id="L81">            NHRCertificateOptions certOptions = new NHRCertificateOptions();</span>
-<span class="nc" id="L82">            certOptions.setKeystore((String) ctx.lookup(&quot;java:comp/env/brmo/nhr/keystorePath&quot;));</span>
-<span class="nc" id="L83">            certOptions.setKeystorePassword(</span>
-<span class="nc" id="L84">                    (String) ctx.lookup(&quot;java:comp/env/brmo/nhr/keystorePassword&quot;));</span>
-<span class="nc" id="L85">            certOptions.setKeystoreAlias(null);</span>
-<span class="nc" id="L86">            certOptions.setTruststore((String) ctx.lookup(&quot;java:comp/env/brmo/nhr/truststorePath&quot;));</span>
-<span class="nc" id="L87">            certOptions.setTruststorePassword(</span>
-<span class="nc" id="L88">                    (String) ctx.lookup(&quot;java:comp/env/brmo/nhr/truststorePassword&quot;));</span>
-
-<span class="nc" id="L90">            String endpoint = (String) ctx.lookup(&quot;java:comp/env/brmo/nhr/endpoint&quot;);</span>
-<span class="nc" id="L91">            boolean isPreprod = (Boolean) ctx.lookup(&quot;java:comp/env/brmo/nhr/endpointIsPreprod&quot;);</span>
-
-<span class="nc" id="L93">            return NHRLoadUtils.getDataservice(endpoint, isPreprod, certOptions);</span>
-<span class="nc" id="L94">        } catch (Exception e) {</span>
-<span class="nc" id="L95">            throw new Error(&quot;NHR DataService initializeren mislukt&quot;, e);</span>
-        }
-    }
-
-    @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-<span class="nc" id="L101">        Dataservice ds = getDataservice();</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (ds == null) {</span>
-<span class="nc" id="L103">            return;</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (exception != null) {</span>
+<span class="nc" id="L158">          process.setException(exception.toString());</span>
         }
 
-<span class="nc" id="L106">        Integer secondsBetweenFetches = null;</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (failed) {</span>
+<span class="nc" id="L162">          log.error(</span>
+<span class="nc" id="L163">              String.format(</span>
+                  &quot;KVK nummer %s ophalen mislukt (%d keer geprobeerd)&quot;,
+<span class="nc" id="L165">                  process.getKvkNummer(), process.getProbeerAantal()),</span>
+              exception);
+<span class="nc" id="L167">          totalFetchErrorCount += 1;</span>
+<span class="nc" id="L168">          process.setProbeerAantal(process.getProbeerAantal() + 1);</span>
+<span class="nc" id="L169">          Calendar time = Calendar.getInstance();</span>
+<span class="nc" id="L170">          process.setLaatstGeprobeerd(new Date());</span>
+          // Wait for 30 seconds, then 1 minute, 2 minutes, 4 minutes, ...
+<span class="nc" id="L172">          int secondsUntilNextTry =</span>
+<span class="nc" id="L173">              30 * (int) Math.pow(2, Math.min(process.getProbeerAantal() - 1, 10));</span>
 
-        try {
-<span class="nc" id="L109">            InitialContext ctx = new InitialContext();</span>
+          // Make sure that fetches retry at least every two hours.
+          // (This will happen after 9 retries, or two hours in.)
+<span class="nc bnc" id="L177" title="All 2 branches missed.">          if (secondsUntilNextTry &gt; 7200) {</span>
+<span class="nc" id="L178">            secondsUntilNextTry = 7200;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">          } else if (secondsUntilNextTry &lt; 30) {</span>
+<span class="nc" id="L180">            secondsUntilNextTry = 30;</span>
+          }
 
-<span class="nc" id="L111">            secondsBetweenFetches =</span>
-<span class="nc" id="L112">                    (Integer) ctx.lookup(&quot;java:comp/env/brmo/nhr/secondsBetweenFetches&quot;);</span>
-<span class="nc" id="L113">        } catch (Exception e) {</span>
+<span class="nc" id="L183">          time.add(Calendar.SECOND, secondsUntilNextTry);</span>
+<span class="nc" id="L184">          process.setVolgendProberen(time.getTime());</span>
+<span class="nc" id="L185">          entityManager.merge(process);</span>
+<span class="nc" id="L186">        } else {</span>
+<span class="nc bnc" id="L187" title="All 4 branches missed.">          if (secondsBetweenFetches == null || secondsBetweenFetches == 0) {</span>
+<span class="nc" id="L188">            entityManager.remove(process);</span>
+          } else {
+<span class="nc" id="L190">            Calendar time = Calendar.getInstance();</span>
+<span class="nc" id="L191">            time.add(Calendar.SECOND, secondsBetweenFetches);</span>
+<span class="nc" id="L192">            process.setProbeerAantal(0);</span>
+<span class="nc" id="L193">            process.setVolgendProberen(time.getTime());</span>
+<span class="nc" id="L194">            entityManager.merge(process);</span>
+          }
+        }
 
-<span class="nc" id="L115">        }</span>
+<span class="nc" id="L198">        totalFetchCount += 1;</span>
+<span class="nc" id="L199">        averageFetchTime =</span>
+<span class="nc" id="L200">            (averageFetchTime * 9.0f + (Calendar.getInstance().getTimeInMillis() - fetchStart))</span>
+                / 10.0f;
+<span class="nc" id="L202">      }</span>
 
-        while (true) {
-            // Batch requests in groups of 20, to make sure the database doesn't end up too far
-            // behind,
-            // and the user interface stays roughly up to date.
-<span class="nc" id="L121">            Stripersist.requestInit();</span>
-<span class="nc" id="L122">            EntityManager entityManager = Stripersist.getEntityManager();</span>
-<span class="nc" id="L123">            CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
-<span class="nc" id="L124">            CriteriaQuery&lt;NHRInschrijving&gt; cq = cb.createQuery(NHRInschrijving.class);</span>
-<span class="nc" id="L125">            Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
-<span class="nc" id="L126">            cq.where(cb.lessThan(from.get(&quot;volgendProberen&quot;), cb.currentTimestamp()));</span>
-<span class="nc" id="L127">            List&lt;NHRInschrijving&gt; procList =</span>
-<span class="nc" id="L128">                    entityManager.createQuery(cq).setMaxResults(20).getResultList();</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">            if (procList.isEmpty()) break;</span>
+<span class="nc" id="L204">      entityManager.flush();</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">      if (entityManager.getTransaction().isActive()) {</span>
+<span class="nc" id="L206">        entityManager.getTransaction().commit();</span>
+<span class="nc" id="L207">        entityManager.getTransaction().begin();</span>
+      }
+<span class="nc" id="L209">    }</span>
 
-<span class="nc bnc" id="L131" title="All 2 branches missed.">            for (NHRInschrijving process : procList) {</span>
-<span class="nc" id="L132">                long fetchStart = Calendar.getInstance().getTimeInMillis();</span>
-<span class="nc" id="L133">                boolean failed = false;</span>
-<span class="nc" id="L134">                Exception exception = null;</span>
-                try {
-<span class="nc" id="L136">                    fetchOne(ds, process.getKvkNummer());</span>
-<span class="nc" id="L137">                    process.setException(&quot;&quot;);</span>
-<span class="nc" id="L138">                } catch (BrmoDuplicaatLaadprocesException | BrmoLeegBestandException e) {</span>
-                    // Non-recoverable error, so consider it &quot;successful&quot;
-<span class="nc" id="L140">                    log.info(</span>
-<span class="nc" id="L141">                            String.format(&quot;KVK nummer %s ophalen mislukt&quot;, process.getKvkNummer()),</span>
-                            e);
-<span class="nc" id="L143">                    exception = e;</span>
-<span class="nc" id="L144">                } catch (IllegalStateException e) {</span>
-                    // We're likely in a weird spot (web app instance just shut down?), let's just
-                    // fail out of this loop.
-                    // This will attempt a database flush + retry persistence.
-<span class="nc" id="L148">                    break;</span>
-<span class="nc" id="L149">                } catch (NHRException e) {</span>
-<span class="nc" id="L150">                    Map&lt;String, String&gt; errors = e.getErrors();</span>
-<span class="nc bnc" id="L151" title="All 4 branches missed.">                    if (errors.containsKey(&quot;IPD0004&quot;) || errors.containsKey(&quot;IPD0005&quot;)) {</span>
-<span class="nc" id="L152">                        failed = false; // KVK nummer cannot be found. We cannot expect this to work</span>
-                        // after a retry.
-                    } else {
-<span class="nc" id="L155">                        failed = true;</span>
-                    }
-<span class="nc" id="L157">                    exception = e;</span>
-<span class="nc" id="L158">                } catch (Exception e) {</span>
-<span class="nc" id="L159">                    failed = true;</span>
-<span class="nc" id="L160">                    exception = e;</span>
-<span class="nc" id="L161">                }</span>
-
-<span class="nc bnc" id="L163" title="All 2 branches missed.">                if (exception != null) {</span>
-<span class="nc" id="L164">                    process.setException(exception.toString());</span>
-                }
-
-<span class="nc bnc" id="L167" title="All 2 branches missed.">                if (failed) {</span>
-<span class="nc" id="L168">                    log.error(</span>
-<span class="nc" id="L169">                            String.format(</span>
-                                    &quot;KVK nummer %s ophalen mislukt (%d keer geprobeerd)&quot;,
-<span class="nc" id="L171">                                    process.getKvkNummer(), process.getProbeerAantal()),</span>
-                            exception);
-<span class="nc" id="L173">                    totalFetchErrorCount += 1;</span>
-<span class="nc" id="L174">                    process.setProbeerAantal(process.getProbeerAantal() + 1);</span>
-<span class="nc" id="L175">                    Calendar time = Calendar.getInstance();</span>
-<span class="nc" id="L176">                    process.setLaatstGeprobeerd(new Date());</span>
-                    // Wait for 30 seconds, then 1 minute, 2 minutes, 4 minutes, ...
-<span class="nc" id="L178">                    int secondsUntilNextTry =</span>
-<span class="nc" id="L179">                            30 * (int) Math.pow(2, Math.min(process.getProbeerAantal() - 1, 10));</span>
-
-                    // Make sure that fetches retry at least every two hours.
-                    // (This will happen after 9 retries, or two hours in.)
-<span class="nc bnc" id="L183" title="All 2 branches missed.">                    if (secondsUntilNextTry &gt; 7200) {</span>
-<span class="nc" id="L184">                        secondsUntilNextTry = 7200;</span>
-<span class="nc bnc" id="L185" title="All 2 branches missed.">                    } else if (secondsUntilNextTry &lt; 30) {</span>
-<span class="nc" id="L186">                        secondsUntilNextTry = 30;</span>
-                    }
-
-<span class="nc" id="L189">                    time.add(Calendar.SECOND, secondsUntilNextTry);</span>
-<span class="nc" id="L190">                    process.setVolgendProberen(time.getTime());</span>
-<span class="nc" id="L191">                    entityManager.merge(process);</span>
-<span class="nc" id="L192">                } else {</span>
-<span class="nc bnc" id="L193" title="All 4 branches missed.">                    if (secondsBetweenFetches == null || secondsBetweenFetches == 0) {</span>
-<span class="nc" id="L194">                        entityManager.remove(process);</span>
-                    } else {
-<span class="nc" id="L196">                        Calendar time = Calendar.getInstance();</span>
-<span class="nc" id="L197">                        time.add(Calendar.SECOND, secondsBetweenFetches);</span>
-<span class="nc" id="L198">                        process.setProbeerAantal(0);</span>
-<span class="nc" id="L199">                        process.setVolgendProberen(time.getTime());</span>
-<span class="nc" id="L200">                        entityManager.merge(process);</span>
-                    }
-                }
-
-<span class="nc" id="L204">                totalFetchCount += 1;</span>
-<span class="nc" id="L205">                averageFetchTime =</span>
-                        (averageFetchTime * 9.0f
-<span class="nc" id="L207">                                        + (Calendar.getInstance().getTimeInMillis() - fetchStart))</span>
-                                / 10.0f;
-<span class="nc" id="L209">            }</span>
-
-<span class="nc" id="L211">            entityManager.flush();</span>
-<span class="nc bnc" id="L212" title="All 2 branches missed.">            if (entityManager.getTransaction().isActive()) {</span>
-<span class="nc" id="L213">                entityManager.getTransaction().commit();</span>
-<span class="nc" id="L214">                entityManager.getTransaction().begin();</span>
-            }
-<span class="nc" id="L216">        }</span>
-
-<span class="nc" id="L218">        Stripersist.requestComplete();</span>
-<span class="nc" id="L219">    }</span>
+<span class="nc" id="L211">    Stripersist.requestComplete();</span>
+<span class="nc" id="L212">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTLoader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BGTLoader.java</span></div><h1>BGTLoader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.scanner;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTLoader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BGTLoader.java</span></div><h1>BGTLoader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.scanner;
 
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Date;
+import javax.persistence.Transient;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.cli.BGTLoaderMain;
 import nl.b3p.brmo.bgt.loader.cli.CLIOptions;
@@ -18,165 +27,166 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
-import javax.persistence.Transient;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Date;
-
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
-import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
-
 public class BGTLoader extends AbstractExecutableProces {
-<span class="nc" id="L32">    private static final Log LOG = LogFactory.getLog(BGTLoader.class);</span>
-    private final BGTLoaderProces config;
-    @Transient
-    private ProgressUpdateListener listener;
+<span class="nc" id="L31">  private static final Log LOG = LogFactory.getLog(BGTLoader.class);</span>
+  private final BGTLoaderProces config;
+  @Transient private ProgressUpdateListener listener;
 
-<span class="nc" id="L37">    public BGTLoader(BGTLoaderProces config) {</span>
-<span class="nc" id="L38">        this.config = config;</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L35">  public BGTLoader(BGTLoaderProces config) {</span>
+<span class="nc" id="L36">    this.config = config;</span>
+<span class="nc" id="L37">  }</span>
 
-    /**
-     * Voert deze taak eenmalig uit.
-     *
-     * @throws BrmoException als er een fout optreed in het uitvoeren van het
-     *                       proces.
-     */
-    @Override
-    public void execute() throws BrmoException {
-<span class="nc" id="L49">        this.execute(new ProgressUpdateListener() {</span>
-            @Override
-            public void total(long total) {
-<span class="nc" id="L52">            }</span>
+  /**
+   * Voert deze taak eenmalig uit.
+   *
+   * @throws BrmoException als er een fout optreed in het uitvoeren van het proces.
+   */
+  @Override
+  public void execute() throws BrmoException {
+<span class="nc" id="L46">    this.execute(</span>
+<span class="nc" id="L47">        new ProgressUpdateListener() {</span>
+          @Override
+<span class="nc" id="L49">          public void total(long total) {}</span>
 
-            @Override
-            public void progress(long progress) {
-<span class="nc" id="L56">            }</span>
+          @Override
+<span class="nc" id="L52">          public void progress(long progress) {}</span>
 
-            @Override
-            public void exception(Throwable t) {
-<span class="nc" id="L60">                LOG.error(t);</span>
-<span class="nc" id="L61">            }</span>
+          @Override
+          public void exception(Throwable t) {
+<span class="nc" id="L56">            LOG.error(t);</span>
+<span class="nc" id="L57">          }</span>
 
-            @Override
-            public void updateStatus(String status) {
-<span class="nc" id="L65">            }</span>
+          @Override
+<span class="nc" id="L60">          public void updateStatus(String status) {}</span>
 
-            @Override
-            public void addLog(String log) {
-<span class="nc" id="L69">                LOG.info(log);</span>
-<span class="nc" id="L70">            }</span>
+          @Override
+          public void addLog(String log) {
+<span class="nc" id="L64">            LOG.info(log);</span>
+<span class="nc" id="L65">          }</span>
         });
-<span class="nc" id="L72">    }</span>
+<span class="nc" id="L67">  }</span>
 
-    /**
-     * Voert de taak uit en rapporteert de voortgang.
-     *
-     * @param listener voortgangs listener
-     */
-    @Override
-    public void execute(ProgressUpdateListener listener) {
-<span class="nc" id="L81">        this.listener = listener;</span>
-<span class="nc" id="L82">        BGTLoaderMain.configureLogging(false);</span>
+  /**
+   * Voert de taak uit en rapporteert de voortgang.
+   *
+   * @param listener voortgangs listener
+   */
+  @Override
+  public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L76">    this.listener = listener;</span>
+<span class="nc" id="L77">    BGTLoaderMain.configureLogging(false);</span>
 
-<span class="nc bnc" id="L84" title="All 4 branches missed.">        if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (config.getStatus().equals(ERROR)) {</span>
-<span class="nc" id="L86">                listener.addLog(&quot;Vorige run is met ERROR status afgerond, opnieuw proberen&quot;);</span>
-            }
+<span class="nc bnc" id="L79" title="All 4 branches missed.">    if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">      if (config.getStatus().equals(ERROR)) {</span>
+<span class="nc" id="L81">        listener.addLog(&quot;Vorige run is met ERROR status afgerond, opnieuw proberen&quot;);</span>
+      }
 
-<span class="nc" id="L89">            int exitCode = -1;</span>
-            BGTDatabase bgtDatabase;
-<span class="nc" id="L91">            try (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {</span>
+<span class="nc" id="L84">      int exitCode = -1;</span>
+      BGTDatabase bgtDatabase;
+<span class="nc" id="L86">      try (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {</span>
 
-<span class="nc" id="L93">                DatabaseOptions databaseOptions = new DatabaseOptions();</span>
-                // Niet nodig (rsgbbgtConnection wordt gebruikt), maar voor de duidelijkheid
-<span class="nc" id="L95">                databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());</span>
-<span class="nc" id="L96">                Connection connection = rsgbbgtConnection;</span>
-<span class="nc bnc" id="L97" title="All 2 branches missed.">                if (databaseOptions.getConnectionString().startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
-                    // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
-                    // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de PGConnectionUnwrapper kan ook Tomcat JNDI
-                    // connection pool unwrapping aan welke niet met een normale Connection.unwrap() werkt.
-<span class="nc" id="L101">                    connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection);</span>
-<span class="nc" id="L102">                    databaseOptions.setUsePgCopy(true);</span>
-                }
-<span class="nc" id="L104">                bgtDatabase = new BGTDatabase(databaseOptions, connection) {</span>
-                    /**
-                     * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
-                     */
-                    @Override
-                    public void close() {
-<span class="nc" id="L110">                        LOG.debug(&quot;Had de BGT database kunnen sluiten... maar niet gedaan.&quot;);</span>
-<span class="nc" id="L111">                    }</span>
-                };
-
-<span class="nc" id="L114">                LoadOptions loadOptions = new LoadOptions();</span>
-<span class="nc" id="L115">                loadOptions.setIncludeHistory((&quot;true&quot;.equals(ClobElement.nullSafeGet(config.getConfig().get(&quot;include-history&quot;)))));</span>
-<span class="nc" id="L116">                loadOptions.setCreateSchema((&quot;true&quot;.equals(ClobElement.nullSafeGet(config.getConfig().get(&quot;create-schema&quot;)))));</span>
-<span class="nc" id="L117">                loadOptions.setLinearizeCurves(&quot;true&quot;.equals(ClobElement.nullSafeGet(config.getConfig().get(&quot;linearize-curves&quot;))));</span>
-
-<span class="nc" id="L119">                ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();</span>
-<span class="nc" id="L120">                extractSelectionOptions.setGeoFilterWkt(ClobElement.nullSafeGet(config.getConfig().get(&quot;geo-filter&quot;)));</span>
-<span class="nc" id="L121">                boolean noGeoFilter = StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get(&quot;geo-filter&quot;)));</span>
-<span class="nc" id="L122">                String fTypes = ClobElement.nullSafeGet(config.getConfig().get(&quot;feature-types&quot;));</span>
-<span class="nc" id="L123">                extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(&quot;,&quot;)));</span>
-<span class="nc" id="L124">                DownloadCommand downloadCommand = new DownloadCommand();</span>
-<span class="nc" id="L125">                downloadCommand.setBGTDatabase(bgtDatabase);</span>
-
-<span class="nc" id="L127">                listener.updateStatus(PROCESSING.toString());</span>
-<span class="nc" id="L128">                config.setStatus(PROCESSING);</span>
-<span class="nc" id="L129">                Stripersist.getEntityManager().merge(config);</span>
-<span class="nc" id="L130">                Stripersist.getEntityManager().flush();</span>
-
-                String initialLoadDeltaId;
-                try {
-<span class="nc" id="L134">                    initialLoadDeltaId = bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);</span>
-<span class="nc" id="L135">                } catch(SQLException e) {</span>
-                    // Metadata table may not exist
-<span class="nc" id="L137">                    initialLoadDeltaId = null;</span>
-<span class="nc" id="L138">                }</span>
-
-<span class="nc bnc" id="L140" title="All 2 branches missed.">                if (initialLoadDeltaId == null) {</span>
-<span class="nc" id="L141">                    listener.updateStatus(&quot;Ophalen BGT stand...&quot;);</span>
-<span class="nc" id="L142">                    listener.addLog(&quot;Ophalen BGT stand&quot;);</span>
-<span class="nc" id="L143">                    exitCode = downloadCommand.initial(databaseOptions, loadOptions, extractSelectionOptions, noGeoFilter, null, new CLIOptions(), false);</span>
-                    // exitCode 2 = USAGE / config fout
-<span class="nc" id="L145">                    listener.updateStatus(&quot;Einde ophalen BGT stand&quot;);</span>
-<span class="nc" id="L146">                    listener.addLog(&quot;Einde ophalen BGT stand&quot;);</span>
-                } else {
-<span class="nc" id="L148">                    listener.updateStatus(&quot;Ophalen BGT mutaties...&quot;);</span>
-<span class="nc" id="L149">                    listener.addLog(&quot;Ophalen BGT mutaties&quot;);</span>
-<span class="nc" id="L150">                    exitCode = downloadCommand.update(databaseOptions, new CLIOptions(), null, false, false);</span>
-<span class="nc" id="L151">                    listener.updateStatus(&quot;Einde ophalen BGT mutaties&quot;);</span>
-<span class="nc" id="L152">                    listener.addLog(&quot;Einde ophalen BGT mutaties&quot;);</span>
-                }
-
-<span class="nc" id="L155">            } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L156">                LOG.error(e.getLocalizedMessage());</span>
-<span class="nc" id="L157">                listener.exception(e);</span>
-<span class="nc" id="L158">            } catch (BrmoException | SQLException e) {</span>
-<span class="nc" id="L159">                LOG.error(&quot;Fout tijdens benaderen BGT database&quot;, e);</span>
-<span class="nc" id="L160">                listener.exception(e);</span>
-<span class="nc" id="L161">            } catch (Exception e) {</span>
-<span class="nc" id="L162">                LOG.error(&quot;Fout tijdens laden BGT&quot;, e);</span>
-<span class="nc" id="L163">                listener.exception(e);</span>
-            } finally {
-<span class="nc bnc" id="L165" title="All 2 branches missed.">                if (exitCode == 0) {</span>
-<span class="nc" id="L166">                    config.setStatus(WAITING);</span>
-<span class="nc" id="L167">                    config.setLastrun(new Date());</span>
-<span class="nc" id="L168">                    listener.updateStatus(WAITING.toString());</span>
-                } else {
-<span class="nc" id="L170">                    config.setStatus(ERROR);</span>
-<span class="nc" id="L171">                    config.setLastrun(new Date());</span>
-<span class="nc" id="L172">                    listener.updateStatus(ERROR.toString());</span>
-                }
-<span class="nc" id="L174">                listener.addLog(&quot;BGT laden afgerond&quot;);</span>
-<span class="nc" id="L175">                config.setLastrun(new Date());</span>
-<span class="nc" id="L176">                Stripersist.getEntityManager().merge(config);</span>
-<span class="nc" id="L177">                Stripersist.getEntityManager().flush();</span>
-            }
+<span class="nc" id="L88">        DatabaseOptions databaseOptions = new DatabaseOptions();</span>
+        // Niet nodig (rsgbbgtConnection wordt gebruikt), maar voor de duidelijkheid
+<span class="nc" id="L90">        databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());</span>
+<span class="nc" id="L91">        Connection connection = rsgbbgtConnection;</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (databaseOptions.getConnectionString().startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
+          // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
+          // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de
+          // PGConnectionUnwrapper kan ook Tomcat JNDI
+          // connection pool unwrapping aan welke niet met een normale Connection.unwrap()
+          // werkt.
+<span class="nc" id="L98">          connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection);</span>
+<span class="nc" id="L99">          databaseOptions.setUsePgCopy(true);</span>
         }
-<span class="nc" id="L180">    }</span>
+<span class="nc" id="L101">        bgtDatabase =</span>
+<span class="nc" id="L102">            new BGTDatabase(databaseOptions, connection) {</span>
+              /** connectie niet sluiten; dat doen we later als we helemaal klaar zijn */
+              @Override
+              public void close() {
+<span class="nc" id="L106">                LOG.debug(&quot;Had de BGT database kunnen sluiten... maar niet gedaan.&quot;);</span>
+<span class="nc" id="L107">              }</span>
+            };
+
+<span class="nc" id="L110">        LoadOptions loadOptions = new LoadOptions();</span>
+<span class="nc" id="L111">        loadOptions.setIncludeHistory(</span>
+<span class="nc" id="L112">            (&quot;true&quot;.equals(ClobElement.nullSafeGet(config.getConfig().get(&quot;include-history&quot;)))));</span>
+<span class="nc" id="L113">        loadOptions.setCreateSchema(</span>
+<span class="nc" id="L114">            (&quot;true&quot;.equals(ClobElement.nullSafeGet(config.getConfig().get(&quot;create-schema&quot;)))));</span>
+<span class="nc" id="L115">        loadOptions.setLinearizeCurves(</span>
+<span class="nc" id="L116">            &quot;true&quot;.equals(ClobElement.nullSafeGet(config.getConfig().get(&quot;linearize-curves&quot;))));</span>
+
+<span class="nc" id="L118">        ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();</span>
+<span class="nc" id="L119">        extractSelectionOptions.setGeoFilterWkt(</span>
+<span class="nc" id="L120">            ClobElement.nullSafeGet(config.getConfig().get(&quot;geo-filter&quot;)));</span>
+<span class="nc" id="L121">        boolean noGeoFilter =</span>
+<span class="nc" id="L122">            StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get(&quot;geo-filter&quot;)));</span>
+<span class="nc" id="L123">        String fTypes = ClobElement.nullSafeGet(config.getConfig().get(&quot;feature-types&quot;));</span>
+<span class="nc" id="L124">        extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(&quot;,&quot;)));</span>
+<span class="nc" id="L125">        DownloadCommand downloadCommand = new DownloadCommand();</span>
+<span class="nc" id="L126">        downloadCommand.setBGTDatabase(bgtDatabase);</span>
+
+<span class="nc" id="L128">        listener.updateStatus(PROCESSING.toString());</span>
+<span class="nc" id="L129">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L130">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L131">        Stripersist.getEntityManager().flush();</span>
+
+        String initialLoadDeltaId;
+        try {
+<span class="nc" id="L135">          initialLoadDeltaId =</span>
+<span class="nc" id="L136">              bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);</span>
+<span class="nc" id="L137">        } catch (SQLException e) {</span>
+          // Metadata table may not exist
+<span class="nc" id="L139">          initialLoadDeltaId = null;</span>
+<span class="nc" id="L140">        }</span>
+
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (initialLoadDeltaId == null) {</span>
+<span class="nc" id="L143">          listener.updateStatus(&quot;Ophalen BGT stand...&quot;);</span>
+<span class="nc" id="L144">          listener.addLog(&quot;Ophalen BGT stand&quot;);</span>
+<span class="nc" id="L145">          exitCode =</span>
+<span class="nc" id="L146">              downloadCommand.initial(</span>
+                  databaseOptions,
+                  loadOptions,
+                  extractSelectionOptions,
+                  noGeoFilter,
+                  null,
+                  new CLIOptions(),
+                  false);
+          // exitCode 2 = USAGE / config fout
+<span class="nc" id="L155">          listener.updateStatus(&quot;Einde ophalen BGT stand&quot;);</span>
+<span class="nc" id="L156">          listener.addLog(&quot;Einde ophalen BGT stand&quot;);</span>
+        } else {
+<span class="nc" id="L158">          listener.updateStatus(&quot;Ophalen BGT mutaties...&quot;);</span>
+<span class="nc" id="L159">          listener.addLog(&quot;Ophalen BGT mutaties&quot;);</span>
+<span class="nc" id="L160">          exitCode = downloadCommand.update(databaseOptions, new CLIOptions(), null, false, false);</span>
+<span class="nc" id="L161">          listener.updateStatus(&quot;Einde ophalen BGT mutaties&quot;);</span>
+<span class="nc" id="L162">          listener.addLog(&quot;Einde ophalen BGT mutaties&quot;);</span>
+        }
+
+<span class="nc" id="L165">      } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L166">        LOG.error(e.getLocalizedMessage());</span>
+<span class="nc" id="L167">        listener.exception(e);</span>
+<span class="nc" id="L168">      } catch (BrmoException | SQLException e) {</span>
+<span class="nc" id="L169">        LOG.error(&quot;Fout tijdens benaderen BGT database&quot;, e);</span>
+<span class="nc" id="L170">        listener.exception(e);</span>
+<span class="nc" id="L171">      } catch (Exception e) {</span>
+<span class="nc" id="L172">        LOG.error(&quot;Fout tijdens laden BGT&quot;, e);</span>
+<span class="nc" id="L173">        listener.exception(e);</span>
+      } finally {
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (exitCode == 0) {</span>
+<span class="nc" id="L176">          config.setStatus(WAITING);</span>
+<span class="nc" id="L177">          config.setLastrun(new Date());</span>
+<span class="nc" id="L178">          listener.updateStatus(WAITING.toString());</span>
+        } else {
+<span class="nc" id="L180">          config.setStatus(ERROR);</span>
+<span class="nc" id="L181">          config.setLastrun(new Date());</span>
+<span class="nc" id="L182">          listener.updateStatus(ERROR.toString());</span>
+        }
+<span class="nc" id="L184">        listener.addLog(&quot;BGT laden afgerond&quot;);</span>
+<span class="nc" id="L185">        config.setLastrun(new Date());</span>
+<span class="nc" id="L186">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L187">        Stripersist.getEntityManager().flush();</span>
+      }
+    }
+<span class="nc" id="L190">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

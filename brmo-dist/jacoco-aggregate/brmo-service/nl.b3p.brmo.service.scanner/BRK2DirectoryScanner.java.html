@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BRK2DirectoryScanner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BRK2DirectoryScanner.java</span></div><h1>BRK2DirectoryScanner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2022 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+package nl.b3p.brmo.service.scanner;
+
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.persistence.Transient;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.TransformerException;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Brk2Bericht;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.BRK2ScannerProces;
+import nl.b3p.brmo.persistence.staging.Bericht;
+import nl.b3p.brmo.persistence.staging.LaadProces;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.comparator.NameFileComparator;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Directory scanner for BRK 2 berichten in xml formaat.
+ *
+ * @author Mark Prins
+ */
+public class BRK2DirectoryScanner extends AbstractExecutableProces {
+
+<span class="nc" id="L49">  private static final Log log = LogFactory.getLog(BRK2DirectoryScanner.class);</span>
+
+  private final BRK2ScannerProces config;
+
+  @Transient private ProgressUpdateListener listener;
+
+<span class="nc" id="L55">  public BRK2DirectoryScanner(BRK2ScannerProces config) {</span>
+<span class="nc" id="L56">    this.config = config;</span>
+<span class="nc" id="L57">  }</span>
+
+  /**
+   * Leest de xml berichten uit de directory in in de database, indien geconfigureerd worden
+   * bestanden gearchiveerd.
+   *
+   * @throws BrmoException als de directory niet lees/blader/schrijfbaar is
+   */
+  @Override
+  public void execute() throws BrmoException {
+<span class="nc" id="L67">    this.execute(</span>
+<span class="nc" id="L68">        new ProgressUpdateListener() {</span>
+          @Override
+<span class="nc" id="L70">          public void total(long total) {}</span>
+
+          @Override
+<span class="nc" id="L73">          public void progress(long progress) {}</span>
+
+          @Override
+          public void exception(Throwable t) {
+<span class="nc" id="L77">            log.error(t);</span>
+<span class="nc" id="L78">          }</span>
+
+          @Override
+<span class="nc" id="L81">          public void updateStatus(String status) {}</span>
+
+          @Override
+<span class="nc" id="L84">          public void addLog(String log) {}</span>
+        });
+<span class="nc" id="L86">  }</span>
+
+  @Override
+  public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L90">    final EntityManager em = Stripersist.getEntityManager();</span>
+<span class="nc" id="L91">    this.listener = listener;</span>
+<span class="nc" id="L92">    config.setStatus(PROCESSING);</span>
+<span class="nc" id="L93">    StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L94">    String oldLog = config.getLogfile();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">    if (oldLog != null) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">      if (oldLog.length() &gt; OLD_LOG_LENGTH) {</span>
+<span class="nc" id="L97">        sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));</span>
+      } else {
+<span class="nc" id="L99">        sb.append(oldLog);</span>
+      }
+    }
+
+<span class="nc" id="L103">    String msg =</span>
+<span class="nc" id="L104">        String.format(</span>
+            &quot;De BRK 2 scanner met ID %d is gestart op %tc.&quot;,
+<span class="nc" id="L106">            config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L107">    log.info(msg);</span>
+<span class="nc" id="L108">    listener.addLog(msg);</span>
+<span class="nc" id="L109">    sb.append(msg);</span>
+
+    // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
+<span class="nc" id="L112">    final File scanDirectory = new File(this.config.getScanDirectory());</span>
+<span class="nc bnc" id="L113" title="All 4 branches missed.">    if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {</span>
+<span class="nc" id="L114">      config.setStatus(ERROR);</span>
+<span class="nc" id="L115">      msg = String.format(&quot;De scan directory '%s' is geen executable directory&quot;, scanDirectory);</span>
+<span class="nc" id="L116">      config.setLogfile(msg);</span>
+<span class="nc" id="L117">      config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L118">      this.listener.exception(new BrmoException(msg));</span>
+<span class="nc" id="L119">      return;</span>
+    }
+    // validatie archief directory
+<span class="nc" id="L122">    final String aDir = this.config.getArchiefDirectory();</span>
+<span class="nc" id="L123">    File archiefDirectory = null;</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">    if (aDir != null) {</span>
+<span class="nc" id="L125">      archiefDirectory = new File(aDir);</span>
+<span class="nc" id="L126">      archiefDirectory.mkdirs();</span>
+<span class="nc bnc" id="L127" title="All 4 branches missed.">      if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {</span>
+<span class="nc" id="L128">        config.setStatus(ERROR);</span>
+<span class="nc" id="L129">        msg =</span>
+<span class="nc" id="L130">            String.format(</span>
+                &quot;De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.&quot;,
+                archiefDirectory);
+<span class="nc" id="L133">        sb.append(msg);</span>
+<span class="nc" id="L134">        config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L135">        log.error(msg);</span>
+<span class="nc" id="L136">        archiefDirectory = null;</span>
+<span class="nc" id="L137">        this.listener.exception(new BrmoException(msg));</span>
+      }
+<span class="nc bnc" id="L139" title="All 2 branches missed.">      if (!scanDirectory.canWrite()) {</span>
+<span class="nc" id="L140">        config.setStatus(ERROR);</span>
+<span class="nc" id="L141">        msg =</span>
+<span class="nc" id="L142">            String.format(</span>
+                &quot;De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.&quot;,
+                scanDirectory);
+<span class="nc" id="L145">        sb.append(msg);</span>
+<span class="nc" id="L146">        config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L147">        log.error(msg);</span>
+<span class="nc" id="L148">        archiefDirectory = null;</span>
+<span class="nc" id="L149">        this.listener.exception(new BrmoException(msg));</span>
+      }
+    }
+<span class="nc" id="L152">    config.setLogfile(sb.toString());</span>
+
+<span class="nc" id="L154">    File[] files =</span>
+<span class="nc" id="L155">        scanDirectory.listFiles((File dir, String name) -&gt; name.toLowerCase().endsWith(&quot;.xml&quot;));</span>
+<span class="nc" id="L156">    Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);</span>
+
+<span class="nc" id="L158">    processXMLFiles(files, scanDirectory, archiefDirectory, em);</span>
+<span class="nc" id="L159">  }</span>
+
+  /**
+   * verwerk een bestandenlijst.
+   *
+   * @param files array met xml bestanden
+   * @param scanDirectory te scannen directory
+   * @param archiefDirectory waar de gescande files worden neergezet als de archief optie actief is
+   * @param em de te gebruiken EntityManager
+   */
+  private void processXMLFiles(
+      File[] files, File scanDirectory, File archiefDirectory, EntityManager em) {
+<span class="nc" id="L171">    StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());</span>
+    String msg;
+<span class="nc" id="L173">    int filterAlVerwerkt = 0;</span>
+<span class="nc" id="L174">    int aantalGeladen = 0;</span>
+<span class="nc" id="L175">    int progress = 0;</span>
+<span class="nc" id="L176">    SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+
+<span class="nc" id="L178">    listener.total(files.length);</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">    for (File f : files) {</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">      if (f.isDirectory()) {</span>
+<span class="nc" id="L181">        continue;</span>
+      }
+<span class="nc" id="L183">      msg = String.format(&quot;Bestand %s is gevonden in %s.&quot;, f, scanDirectory);</span>
+<span class="nc" id="L184">      log.info(msg);</span>
+<span class="nc" id="L185">      listener.addLog(msg);</span>
+<span class="nc" id="L186">      sb.append(AutomatischProces.LOG_NEWLINE).append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">      if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BRK2)) {</span>
+<span class="nc" id="L188">        msg = String.format(&quot;  Bestand %s is een duplicaat en wordt overgeslagen.&quot;, f);</span>
+<span class="nc" id="L189">        listener.addLog(msg);</span>
+<span class="nc" id="L190">        log.info(msg);</span>
+<span class="nc" id="L191">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L192">        filterAlVerwerkt++;</span>
+      } else {
+        try {
+<span class="nc" id="L195">          LaadProces lp = new LaadProces();</span>
+<span class="nc" id="L196">          lp.setBestand_naam(getBestandsNaam(f));</span>
+<span class="nc" id="L197">          lp.setBestand_datum(getBestandsDatum(f));</span>
+<span class="nc" id="L198">          lp.setSoort(BrmoFramework.BR_BRK2);</span>
+<span class="nc" id="L199">          lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
+<span class="nc" id="L200">          lp.setOpmerking(</span>
+<span class="nc" id="L201">              String.format(</span>
+<span class="nc" id="L202">                  &quot;Bestand geladen van %s op %s&quot;, f.getAbsolutePath(), sdf.format(new Date())));</span>
+<span class="nc" id="L203">          lp.setAutomatischProces(</span>
+<span class="nc" id="L204">              Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));</span>
+
+<span class="nc" id="L206">          Bericht b = new Bericht();</span>
+<span class="nc" id="L207">          b.setLaadprocesid(lp);</span>
+<span class="nc" id="L208">          b.setDatum(lp.getBestand_datum());</span>
+<span class="nc" id="L209">          b.setSoort(BrmoFramework.BR_BRK2);</span>
+<span class="nc" id="L210">          b.setStatus_datum(new Date());</span>
+<span class="nc" id="L211">          String fileContent = FileUtils.readFileToString(f, StandardCharsets.UTF_8);</span>
+<span class="nc" id="L212">          fileContent = fileContent.replaceAll(&quot;\u0000.*&quot;, &quot;&quot;);</span>
+<span class="nc" id="L213">          b.setBr_orgineel_xml(fileContent);</span>
+
+          try {
+<span class="nc" id="L216">            Brk2SnapshotXMLReader reader =</span>
+                new Brk2SnapshotXMLReader(
+                    new ByteArrayInputStream(
+<span class="nc" id="L219">                        b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));</span>
+<span class="nc" id="L220">            Brk2Bericht bericht = reader.next();</span>
+
+<span class="nc bnc" id="L222" title="All 2 branches missed.">            if (bericht.getDatum() != null) {</span>
+<span class="nc" id="L223">              b.setDatum(bericht.getDatum());</span>
+            }
+<span class="nc" id="L225">            b.setBr_xml(bericht.getBrXml());</span>
+<span class="nc" id="L226">            b.setVolgordenummer(bericht.getVolgordeNummer());</span>
+<span class="nc" id="L227">            lp.setBestand_naam_hersteld(</span>
+<span class="nc" id="L228">                bericht.getRestoredFileName(lp.getBestand_datum(), bericht.getVolgordeNummer()));</span>
+
+            // Als objectRef niet opgehaald kan worden,dan kan het
+            //  bericht niet verwerkt worden.
+<span class="nc" id="L232">            String objectRef = bericht.getObjectRef();</span>
+<span class="nc bnc" id="L233" title="All 4 branches missed.">            if (objectRef != null &amp;&amp; !objectRef.isEmpty()) {</span>
+<span class="nc" id="L234">              b.setObject_ref(bericht.getObjectRef());</span>
+<span class="nc" id="L235">              b.setStatus(Bericht.STATUS.STAGING_OK);</span>
+<span class="nc" id="L236">              b.setOpmerking(&quot;Klaar voor verwerking.&quot;);</span>
+            } else {
+<span class="nc" id="L238">              b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L239">              b.setOpmerking(</span>
+                  &quot;Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.&quot;);
+            }
+<span class="nc" id="L242">          } catch (XMLStreamException | TransformerException e) {</span>
+<span class="nc" id="L243">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L244">            StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L245">            e.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L246">            msg = String.format(&quot;Fout bij parsen BRK 2 bericht (bestand %s): %s &quot;, f, sw);</span>
+<span class="nc" id="L247">            b.setOpmerking(msg);</span>
+<span class="nc" id="L248">            log.warn(msg);</span>
+<span class="nc" id="L249">          }</span>
+          try {
+<span class="nc" id="L251">            em.persist(lp);</span>
+<span class="nc" id="L252">            em.persist(b);</span>
+<span class="nc" id="L253">            em.merge(this.config);</span>
+<span class="nc" id="L254">            em.flush();</span>
+<span class="nc" id="L255">            em.getTransaction().commit();</span>
+<span class="nc" id="L256">            em.clear();</span>
+<span class="nc" id="L257">            aantalGeladen++;</span>
+<span class="nc" id="L258">            msg =</span>
+<span class="nc" id="L259">                String.format(</span>
+                    &quot;  Bestand %s is geladen en heeft status: %s. (Leverde bericht id: %s, met status: %s.)&quot;,
+<span class="nc" id="L261">                    f, lp.getStatus(), b.getId(), b.getStatus());</span>
+<span class="nc" id="L262">          } catch (PersistenceException pe) {</span>
+            // insert van bericht of lp is mislukt, waarschijnlijk duplicaat bericht
+            // een laadproces maken met duplicaat status en de xml van het bericht in de
+            // opmerking stoppen
+<span class="nc bnc" id="L266" title="All 2 branches missed.">            if (!em.getTransaction().isActive()) {</span>
+<span class="nc" id="L267">              em.getTransaction().begin();</span>
+            }
+<span class="nc" id="L269">            em.getTransaction().rollback();</span>
+<span class="nc" id="L270">            em.getTransaction().begin();</span>
+<span class="nc" id="L271">            lp.setId(null);</span>
+<span class="nc" id="L272">            log.warn(</span>
+                &quot;Opslaan van bericht uit laadproces &quot;
+<span class="nc" id="L274">                    + lp.getBestand_naam()</span>
+                    + &quot; is mislukt. Object referentie is: &quot;
+<span class="nc" id="L276">                    + b.getObject_ref(),</span>
+                pe);
+<span class="nc" id="L278">            log.warn(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml());</span>
+<span class="nc" id="L279">            lp.setOpmerking(</span>
+<span class="nc" id="L280">                lp.getOpmerking()</span>
+                    + &quot;: Fout, duplicaat bericht. Berichtinhoud: \n\n&quot;
+<span class="nc" id="L282">                    + b.getBr_xml());</span>
+<span class="nc" id="L283">            b = null;</span>
+<span class="nc" id="L284">            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
+<span class="nc" id="L285">            lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));</span>
+<span class="nc" id="L286">            em.merge(this.config);</span>
+<span class="nc" id="L287">            em.persist(lp);</span>
+<span class="nc" id="L288">            em.flush();</span>
+<span class="nc" id="L289">            em.getTransaction().commit();</span>
+<span class="nc" id="L290">            em.clear();</span>
+<span class="nc" id="L291">          }</span>
+<span class="nc" id="L292">          log.info(msg);</span>
+<span class="nc" id="L293">          this.listener.addLog(msg);</span>
+<span class="nc" id="L294">          sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+
+<span class="nc" id="L296">        } catch (IOException io) {</span>
+          // mogelijk bij openen en lezen xml bestand
+<span class="nc" id="L298">          log.error(io.getLocalizedMessage());</span>
+<span class="nc" id="L299">          sb.append(io.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L300">          listener.exception(io);</span>
+<span class="nc" id="L301">        }</span>
+      }
+<span class="nc" id="L303">      listener.progress(++progress);</span>
+
+<span class="nc bnc" id="L305" title="All 2 branches missed.">      if (archiefDirectory != null) {</span>
+        // verplaats naar archief
+        try {
+<span class="nc" id="L308">          FileUtils.copyFileToDirectory(f, archiefDirectory);</span>
+<span class="nc" id="L309">          boolean succes = FileUtils.deleteQuietly(f);</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">          if (succes) {</span>
+<span class="nc" id="L311">            msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst.&quot;, f, archiefDirectory);</span>
+          } else {
+<span class="nc" id="L313">            msg =</span>
+<span class="nc" id="L314">                String.format(</span>
+                    &quot;  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.&quot;,
+                    f, archiefDirectory);
+          }
+<span class="nc" id="L318">        } catch (IOException e) {</span>
+<span class="nc" id="L319">          msg =</span>
+<span class="nc" id="L320">              String.format(</span>
+                  &quot;  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).&quot;,
+<span class="nc" id="L322">                  f, archiefDirectory, e.getLocalizedMessage());</span>
+<span class="nc" id="L323">          log.error(msg);</span>
+<span class="nc" id="L324">        }</span>
+      }
+<span class="nc" id="L326">      log.info(msg);</span>
+<span class="nc" id="L327">      this.listener.addLog(msg);</span>
+<span class="nc" id="L328">      sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+    }
+<span class="nc" id="L330">    msg = String.format(&quot;Klaar met run op %tc&quot;, Calendar.getInstance());</span>
+<span class="nc" id="L331">    log.info(msg);</span>
+<span class="nc" id="L332">    listener.updateStatus(msg);</span>
+<span class="nc" id="L333">    listener.addLog(msg);</span>
+<span class="nc" id="L334">    sb.append(msg);</span>
+
+<span class="nc" id="L336">    listener.addLog(&quot;\n\n**** resultaat ****&quot;);</span>
+<span class="nc" id="L337">    listener.addLog(&quot;\nAantal bestanden die al waren geladen: &quot; + filterAlVerwerkt);</span>
+<span class="nc" id="L338">    listener.addLog(&quot;\nAantal bestanden geladen: &quot; + aantalGeladen + &quot;\n&quot;);</span>
+
+<span class="nc" id="L340">    config.setStatus(WAITING);</span>
+<span class="nc" id="L341">    config.setLogfile(sb.toString());</span>
+<span class="nc" id="L342">    config.setLastrun(new Date());</span>
+<span class="nc" id="L343">    config.updateSamenvattingEnLogfile(</span>
+        &quot;Aantal bestanden die al waren verwerkt: &quot;
+            + filterAlVerwerkt
+            + AutomatischProces.LOG_NEWLINE
+            + &quot;Aantal bestanden geladen: &quot;
+            + aantalGeladen
+            + AutomatischProces.LOG_NEWLINE);
+<span class="nc" id="L350">    em.merge(config);</span>
+<span class="nc" id="L351">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MailRapportage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">MailRapportage.java</span></div><h1>MailRapportage.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MailRapportage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">MailRapportage.java</span></div><h1>MailRapportage.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.service.scanner;
@@ -8,22 +8,12 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import nl.b3p.brmo.persistence.staging.ClobElement;
-import nl.b3p.brmo.persistence.staging.MailRapportageProces;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.stripesstuff.stripersist.Stripersist;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -38,6 +28,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
 
 /**
  * Mailt rapporten.
@@ -46,171 +43,164 @@ import javax.persistence.criteria.Root;
  */
 public class MailRapportage extends AbstractExecutableProces {
 
-<span class="nc" id="L49">    private static final Log log = LogFactory.getLog(MailRapportage.class);</span>
-    private MailRapportageProces config;
+<span class="nc" id="L46">  private static final Log log = LogFactory.getLog(MailRapportage.class);</span>
+  private MailRapportageProces config;
 
-<span class="nc" id="L52">    public MailRapportage(MailRapportageProces config) {</span>
-<span class="nc" id="L53">        this.config = config;</span>
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L49">  public MailRapportage(MailRapportageProces config) {</span>
+<span class="nc" id="L50">    this.config = config;</span>
+<span class="nc" id="L51">  }</span>
 
-    /**
-     * De inhoud van dit bericht bestaat uit de samenvattingen en de status van de geselecteerde
-     * processen, indien niets geselecteerd rapportage van alles behalve het eigen proces.
-     *
-     * @throws BrmoException als er een fout optreed in het opzoeken van de mailserver (indi) of het
-     *     versturen van de mail
-     */
-    @Override
-    public void execute() throws BrmoException {
-<span class="nc" id="L65">        this.active = true;</span>
-<span class="nc" id="L66">        StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L67">        config.setStatus(PROCESSING);</span>
-<span class="nc" id="L68">        String logMsg =</span>
-<span class="nc" id="L69">                String.format(</span>
-                        &quot;De mail rapportage met ID %d is gestart op %tc.&quot;,
-<span class="nc" id="L71">                        config.getId(), Calendar.getInstance());</span>
-<span class="nc" id="L72">        log.info(logMsg);</span>
-<span class="nc" id="L73">        sb.append(logMsg).append(LOG_NEWLINE);</span>
+  /**
+   * De inhoud van dit bericht bestaat uit de samenvattingen en de status van de geselecteerde
+   * processen, indien niets geselecteerd rapportage van alles behalve het eigen proces.
+   *
+   * @throws BrmoException als er een fout optreed in het opzoeken van de mailserver (indi) of het
+   *     versturen van de mail
+   */
+  @Override
+  public void execute() throws BrmoException {
+<span class="nc" id="L62">    this.active = true;</span>
+<span class="nc" id="L63">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L64">    config.setStatus(PROCESSING);</span>
+<span class="nc" id="L65">    String logMsg =</span>
+<span class="nc" id="L66">        String.format(</span>
+            &quot;De mail rapportage met ID %d is gestart op %tc.&quot;,
+<span class="nc" id="L68">            config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L69">    log.info(logMsg);</span>
+<span class="nc" id="L70">    sb.append(logMsg).append(LOG_NEWLINE);</span>
 
-        try {
-<span class="nc" id="L76">            Context init = new InitialContext();</span>
-<span class="nc" id="L77">            Context env = (Context) init.lookup(&quot;java:comp/env&quot;);</span>
-<span class="nc" id="L78">            Session session = (Session) env.lookup(&quot;mail/session&quot;);</span>
-<span class="nc" id="L79">            Message msg = new MimeMessage(session);</span>
-<span class="nc" id="L80">            msg.setFrom(/* 'mail.from' property uit jndi session object */ );</span>
-<span class="nc" id="L81">            msg.setSentDate(new Date());</span>
-            // subject
-            String sForStatus =
-<span class="nc bnc" id="L84" title="All 2 branches missed.">                    (config.getForStatus() == null ? &quot;alle&quot; : config.getForStatus().toString());</span>
-            String sPIDS =
-<span class="nc bnc" id="L86" title="All 2 branches missed.">                    (config.getConfig().get(MailRapportageProces.PIDS) == null</span>
-<span class="nc" id="L87">                            ? &quot;alle&quot;</span>
-<span class="nc" id="L88">                            : config.getConfig().get(MailRapportageProces.PIDS).getValue());</span>
-            String label =
-<span class="nc bnc" id="L90" title="All 2 branches missed.">                    (ClobElement.nullSafeGet(config.getConfig().get(&quot;label&quot;)) == null</span>
-<span class="nc" id="L91">                            ? &quot;&quot;</span>
-<span class="nc" id="L92">                            : config.getConfig().get(&quot;label&quot;).getValue());</span>
-<span class="nc" id="L93">            String subject =</span>
-<span class="nc" id="L94">                    String.format(</span>
-                            &quot;BRMO rapport: %d (%s) voor status: %s (taken: %s)&quot;,
-<span class="nc" id="L96">                            config.getId(), label, sForStatus, sPIDS);</span>
-<span class="nc" id="L97">            msg.setSubject(subject);</span>
+    try {
+<span class="nc" id="L73">      Context init = new InitialContext();</span>
+<span class="nc" id="L74">      Context env = (Context) init.lookup(&quot;java:comp/env&quot;);</span>
+<span class="nc" id="L75">      Session session = (Session) env.lookup(&quot;mail/session&quot;);</span>
+<span class="nc" id="L76">      Message msg = new MimeMessage(session);</span>
+<span class="nc" id="L77">      msg.setFrom(/* 'mail.from' property uit jndi session object */ );</span>
+<span class="nc" id="L78">      msg.setSentDate(new Date());</span>
+      // subject
+      String sForStatus =
+<span class="nc bnc" id="L81" title="All 2 branches missed.">          (config.getForStatus() == null ? &quot;alle&quot; : config.getForStatus().toString());</span>
+      String sPIDS =
+<span class="nc bnc" id="L83" title="All 2 branches missed.">          (config.getConfig().get(MailRapportageProces.PIDS) == null</span>
+<span class="nc" id="L84">              ? &quot;alle&quot;</span>
+<span class="nc" id="L85">              : config.getConfig().get(MailRapportageProces.PIDS).getValue());</span>
+      String label =
+<span class="nc bnc" id="L87" title="All 2 branches missed.">          (ClobElement.nullSafeGet(config.getConfig().get(&quot;label&quot;)) == null</span>
+<span class="nc" id="L88">              ? &quot;&quot;</span>
+<span class="nc" id="L89">              : config.getConfig().get(&quot;label&quot;).getValue());</span>
+<span class="nc" id="L90">      String subject =</span>
+<span class="nc" id="L91">          String.format(</span>
+              &quot;BRMO rapport: %d (%s) voor status: %s (taken: %s)&quot;,
+<span class="nc" id="L93">              config.getId(), label, sForStatus, sPIDS);</span>
+<span class="nc" id="L94">      msg.setSubject(subject);</span>
 
-            // ontvangers
-<span class="nc" id="L100">            String[] adressen = this.config.getMailAdressenArray();</span>
-<span class="nc" id="L101">            InternetAddress[] aanAdr = new InternetAddress[adressen.length];</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">            for (int i = 0; i &lt; adressen.length; i++) {</span>
-<span class="nc" id="L103">                aanAdr[i] = new InternetAddress(adressen[i]);</span>
-            }
-<span class="nc" id="L105">            msg.setRecipients(Message.RecipientType.TO, aanAdr);</span>
+      // ontvangers
+<span class="nc" id="L97">      String[] adressen = this.config.getMailAdressenArray();</span>
+<span class="nc" id="L98">      InternetAddress[] aanAdr = new InternetAddress[adressen.length];</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">      for (int i = 0; i &lt; adressen.length; i++) {</span>
+<span class="nc" id="L100">        aanAdr[i] = new InternetAddress(adressen[i]);</span>
+      }
+<span class="nc" id="L102">      msg.setRecipients(Message.RecipientType.TO, aanAdr);</span>
 
-<span class="nc" id="L107">            StringBuilder mailText = new StringBuilder();</span>
-<span class="nc" id="L108">            List&lt;AutomatischProces&gt; processen = this.getProcessen();</span>
-            // bericht mailText samenstellen
-<span class="nc bnc" id="L110" title="All 2 branches missed.">            for (AutomatischProces p : processen) {</span>
-<span class="nc" id="L111">                logMsg =</span>
-<span class="nc" id="L112">                        String.format(</span>
-<span class="nc" id="L113">                                &quot;Rapportage van taak %d met status: %s&quot;, p.getId(), p.getStatus());</span>
-<span class="nc" id="L114">                log.info(logMsg);</span>
-<span class="nc" id="L115">                sb.append(logMsg).append(LOG_NEWLINE);</span>
+<span class="nc" id="L104">      StringBuilder mailText = new StringBuilder();</span>
+<span class="nc" id="L105">      List&lt;AutomatischProces&gt; processen = this.getProcessen();</span>
+      // bericht mailText samenstellen
+<span class="nc bnc" id="L107" title="All 2 branches missed.">      for (AutomatischProces p : processen) {</span>
+<span class="nc" id="L108">        logMsg = String.format(&quot;Rapportage van taak %d met status: %s&quot;, p.getId(), p.getStatus());</span>
+<span class="nc" id="L109">        log.info(logMsg);</span>
+<span class="nc" id="L110">        sb.append(logMsg).append(LOG_NEWLINE);</span>
 
-<span class="nc" id="L117">                mailText.append(&quot;Rapport van taak: &quot;)</span>
-<span class="nc" id="L118">                        .append(p.getId())</span>
-<span class="nc" id="L119">                        .append(&quot; &quot;)</span>
-<span class="nc" id="L120">                        .append(label)</span>
-<span class="nc" id="L121">                        .append(&quot;, type: &quot;)</span>
-<span class="nc" id="L122">                        .append(p.getClass().getSimpleName())</span>
-<span class="nc" id="L123">                        .append(LOG_NEWLINE);</span>
-<span class="nc" id="L124">                mailText.append(&quot;Status van de taak: &quot;).append(p.getStatus()).append(LOG_NEWLINE);</span>
-<span class="nc" id="L125">                mailText.append(&quot;Samenvatting: &quot;).append(LOG_NEWLINE);</span>
-<span class="nc" id="L126">                mailText.append(p.getSamenvatting()).append(LOG_NEWLINE);</span>
-<span class="nc" id="L127">                mailText.append(&quot;---------------------------------&quot;).append(LOG_NEWLINE);</span>
-<span class="nc" id="L128">            }</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">            if (processen.isEmpty()) {</span>
-<span class="nc" id="L130">                mailText.append(</span>
-                                &quot;Er waren geen automatische processen die voldeden aan de opgegeven voorwaarden: &quot;)
-<span class="nc" id="L132">                        .append(LOG_NEWLINE);</span>
-<span class="nc" id="L133">                mailText.append(&quot; - Status: &quot;).append(sForStatus).append(LOG_NEWLINE);</span>
-<span class="nc" id="L134">                mailText.append(&quot; - Taken: &quot;).append(sPIDS).append(LOG_NEWLINE);</span>
-            }
-<span class="nc" id="L136">            log.debug(mailText.toString());</span>
-<span class="nc" id="L137">            msg.setText(mailText.toString());</span>
-<span class="nc" id="L138">            Transport.send(msg);</span>
+<span class="nc" id="L112">        mailText</span>
+<span class="nc" id="L113">            .append(&quot;Rapport van taak: &quot;)</span>
+<span class="nc" id="L114">            .append(p.getId())</span>
+<span class="nc" id="L115">            .append(&quot; &quot;)</span>
+<span class="nc" id="L116">            .append(label)</span>
+<span class="nc" id="L117">            .append(&quot;, type: &quot;)</span>
+<span class="nc" id="L118">            .append(p.getClass().getSimpleName())</span>
+<span class="nc" id="L119">            .append(LOG_NEWLINE);</span>
+<span class="nc" id="L120">        mailText.append(&quot;Status van de taak: &quot;).append(p.getStatus()).append(LOG_NEWLINE);</span>
+<span class="nc" id="L121">        mailText.append(&quot;Samenvatting: &quot;).append(LOG_NEWLINE);</span>
+<span class="nc" id="L122">        mailText.append(p.getSamenvatting()).append(LOG_NEWLINE);</span>
+<span class="nc" id="L123">        mailText.append(&quot;---------------------------------&quot;).append(LOG_NEWLINE);</span>
+<span class="nc" id="L124">      }</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">      if (processen.isEmpty()) {</span>
+<span class="nc" id="L126">        mailText</span>
+<span class="nc" id="L127">            .append(</span>
+                &quot;Er waren geen automatische processen die voldeden aan de opgegeven voorwaarden: &quot;)
+<span class="nc" id="L129">            .append(LOG_NEWLINE);</span>
+<span class="nc" id="L130">        mailText.append(&quot; - Status: &quot;).append(sForStatus).append(LOG_NEWLINE);</span>
+<span class="nc" id="L131">        mailText.append(&quot; - Taken: &quot;).append(sPIDS).append(LOG_NEWLINE);</span>
+      }
+<span class="nc" id="L133">      log.debug(mailText.toString());</span>
+<span class="nc" id="L134">      msg.setText(mailText.toString());</span>
+<span class="nc" id="L135">      Transport.send(msg);</span>
 
-<span class="nc" id="L140">            logMsg =</span>
-<span class="nc" id="L141">                    String.format(</span>
-<span class="nc" id="L142">                            &quot;Klaar met taak %d op %tc&quot;, config.getId(), Calendar.getInstance());</span>
-<span class="nc" id="L143">            log.info(logMsg);</span>
-<span class="nc" id="L144">            sb.append(logMsg).append(LOG_NEWLINE);</span>
-<span class="nc" id="L145">            config.setStatus(WAITING);</span>
-<span class="nc" id="L146">            config.updateSamenvattingEnLogfile(sb.toString());</span>
-<span class="nc" id="L147">            config.setLastrun(new Date());</span>
-<span class="nc" id="L148">        } catch (MessagingException ex) {</span>
-<span class="nc" id="L149">            log.error(ex);</span>
-<span class="nc" id="L150">            config.setStatus(ERROR);</span>
-<span class="nc" id="L151">            throw new BrmoException(ex);</span>
-<span class="nc" id="L152">        } catch (NamingException ex) {</span>
-<span class="nc" id="L153">            log.error(ex);</span>
-<span class="nc" id="L154">            config.setStatus(ERROR);</span>
-<span class="nc" id="L155">            throw new BrmoException(ex);</span>
-        } finally {
-<span class="nc" id="L157">            this.active = false;</span>
-        }
-<span class="nc" id="L159">    }</span>
-
-    /**
-     * Haalt de lijst met processen op uit de database.
-     *
-     * @return lijst met te rapporten processen
-     * @todo Eventueel andere mail rapportage processen ook uitsluiten?
-     */
-    private List&lt;AutomatischProces&gt; getProcessen() {
-        // unit test in
-        // nl.b3p.brmo.persistence.staging.MailRapportageProcesTest#testRapportageLijst()
-<span class="nc" id="L170">        List&lt;Predicate&gt; predicates = new ArrayList&lt;Predicate&gt;();</span>
-
-<span class="nc" id="L172">        final EntityManager em = Stripersist.getEntityManager();</span>
-<span class="nc" id="L173">        CriteriaBuilder cb = em.getCriteriaBuilder();</span>
-<span class="nc" id="L174">        CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.class);</span>
-<span class="nc" id="L175">        Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.class);</span>
-
-        // where status=... filter
-<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (this.config.getForStatus() != null) {</span>
-<span class="nc" id="L179">            Predicate where = cb.equal(from.get(&quot;status&quot;), this.config.getForStatus());</span>
-<span class="nc" id="L180">            predicates.add(where);</span>
-        }
-        // processen in... filter
-<span class="nc" id="L183">        String pids =</span>
-<span class="nc" id="L184">                ClobElement.nullSafeGet(this.config.getConfig().get(MailRapportageProces.PIDS));</span>
-<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (pids != null) {</span>
-<span class="nc" id="L186">            List&lt;Long&gt; pidLijst = new ArrayList&lt;Long&gt;();</span>
-<span class="nc" id="L187">            Matcher match = (Pattern.compile(&quot;[0-9]+&quot;)).matcher(pids);</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">            while (match.find()) {</span>
-<span class="nc" id="L189">                pidLijst.add(Long.valueOf(match.group()));</span>
-            }
-<span class="nc" id="L191">            Predicate in = from.get(&quot;id&quot;).in(pidLijst);</span>
-<span class="nc" id="L192">            predicates.add(in);</span>
-        }
-        // TODO eventueel filter op dtype
-        // niet het eigen proces rapporteren
-<span class="nc" id="L196">        Predicate notIn = from.get(&quot;id&quot;).in(this.config.getId()).not();</span>
-<span class="nc" id="L197">        predicates.add(notIn);</span>
-
-<span class="nc" id="L199">        cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));</span>
-        // sorteer op status, daarna op datum zodat errors bovenaan staan
-<span class="nc" id="L201">        cq.orderBy(cb.asc(from.get(&quot;status&quot;)));</span>
-<span class="nc" id="L202">        cq.orderBy(cb.asc(from.get(&quot;lastrun&quot;)));</span>
-
-<span class="nc" id="L204">        return em.createQuery(cq).getResultList();</span>
+<span class="nc" id="L137">      logMsg = String.format(&quot;Klaar met taak %d op %tc&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L138">      log.info(logMsg);</span>
+<span class="nc" id="L139">      sb.append(logMsg).append(LOG_NEWLINE);</span>
+<span class="nc" id="L140">      config.setStatus(WAITING);</span>
+<span class="nc" id="L141">      config.updateSamenvattingEnLogfile(sb.toString());</span>
+<span class="nc" id="L142">      config.setLastrun(new Date());</span>
+<span class="nc" id="L143">    } catch (MessagingException | NamingException ex) {</span>
+<span class="nc" id="L144">      log.error(ex);</span>
+<span class="nc" id="L145">      config.setStatus(ERROR);</span>
+<span class="nc" id="L146">      throw new BrmoException(ex);</span>
+    } finally {
+<span class="nc" id="L148">      this.active = false;</span>
     }
+<span class="nc" id="L150">  }</span>
 
-    @Override
-    public void execute(ProgressUpdateListener listener) {
-        try {
-<span class="nc" id="L210">            this.execute();</span>
-<span class="nc" id="L211">        } catch (BrmoException ex) {</span>
-<span class="nc" id="L212">            log.error(ex);</span>
-<span class="nc" id="L213">        }</span>
-<span class="nc" id="L214">    }</span>
+  /**
+   * Haalt de lijst met processen op uit de database.
+   *
+   * @return lijst met te rapporten processen
+   * @todo Eventueel andere mail rapportage processen ook uitsluiten?
+   */
+  private List&lt;AutomatischProces&gt; getProcessen() {
+    // unit test in
+    // nl.b3p.brmo.persistence.staging.MailRapportageProcesTest#testRapportageLijst()
+<span class="nc" id="L161">    List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L163">    final EntityManager em = Stripersist.getEntityManager();</span>
+<span class="nc" id="L164">    CriteriaBuilder cb = em.getCriteriaBuilder();</span>
+<span class="nc" id="L165">    CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.class);</span>
+<span class="nc" id="L166">    Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.class);</span>
+
+    // where status=... filter
+<span class="nc bnc" id="L169" title="All 2 branches missed.">    if (this.config.getForStatus() != null) {</span>
+<span class="nc" id="L170">      Predicate where = cb.equal(from.get(&quot;status&quot;), this.config.getForStatus());</span>
+<span class="nc" id="L171">      predicates.add(where);</span>
+    }
+    // processen in... filter
+<span class="nc" id="L174">    String pids = ClobElement.nullSafeGet(this.config.getConfig().get(MailRapportageProces.PIDS));</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">    if (pids != null) {</span>
+<span class="nc" id="L176">      List&lt;Long&gt; pidLijst = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L177">      Matcher match = (Pattern.compile(&quot;[0-9]+&quot;)).matcher(pids);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">      while (match.find()) {</span>
+<span class="nc" id="L179">        pidLijst.add(Long.valueOf(match.group()));</span>
+      }
+<span class="nc" id="L181">      Predicate in = from.get(&quot;id&quot;).in(pidLijst);</span>
+<span class="nc" id="L182">      predicates.add(in);</span>
+    }
+    // TODO eventueel filter op dtype
+    // niet het eigen proces rapporteren
+<span class="nc" id="L186">    Predicate notIn = from.get(&quot;id&quot;).in(this.config.getId()).not();</span>
+<span class="nc" id="L187">    predicates.add(notIn);</span>
+
+<span class="nc" id="L189">    cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));</span>
+    // sorteer op status, daarna op datum zodat errors bovenaan staan
+<span class="nc" id="L191">    cq.orderBy(cb.asc(from.get(&quot;status&quot;)));</span>
+<span class="nc" id="L192">    cq.orderBy(cb.asc(from.get(&quot;lastrun&quot;)));</span>
+
+<span class="nc" id="L194">    return em.createQuery(cq).getResultList();</span>
+  }
+
+  @Override
+  public void execute(ProgressUpdateListener listener) {
+    try {
+<span class="nc" id="L200">      this.execute();</span>
+<span class="nc" id="L201">    } catch (BrmoException ex) {</span>
+<span class="nc" id="L202">      log.error(ex);</span>
+<span class="nc" id="L203">    }</span>
+<span class="nc" id="L204">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>BerichtenSorter xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -12,23 +12,23 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.builder.CompareToBuilder;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * @author Chris</em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BerichtenSorter" href="../../../../../nl/b3p/brmo/loader/entity/BerichtenSorter.html#BerichtenSorter">BerichtenSorter</a> <strong class="jxr_keyword">implements</strong> Comparator&lt;Bericht&gt; {
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String SQL_ORDER_BY = <span class="jxr_string">"datum, volgordenummer, object_ref"</span>;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compare(<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> one, <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> another) {
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * @author Chris</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BerichtenSorter" href="../../../../../nl/b3p/brmo/loader/entity/BerichtenSorter.html#BerichtenSorter">BerichtenSorter</a> <strong class="jxr_keyword">implements</strong> Comparator&lt;Bericht&gt; {
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String SQL_ORDER_BY = <span class="jxr_string">"datum, volgordenummer, object_ref"</span>;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>    @Override
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> compare(<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> one, <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> another) {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> CompareToBuilder()
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>                  .append(one.getDatum(), another.getDatum())
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>                  .append(one.getVolgordeNummer(), another.getVolgordeNummer())
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>                  .append(one.getObjectRef(), another.getObjectRef())
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>                  .toComparison();
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      }
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> CompareToBuilder()
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>          .append(one.getDatum(), another.getDatum())
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>          .append(one.getVolgordeNummer(), another.getVolgordeNummer())
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>          .append(one.getObjectRef(), another.getObjectRef())
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          .toComparison();
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>    }
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2022 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

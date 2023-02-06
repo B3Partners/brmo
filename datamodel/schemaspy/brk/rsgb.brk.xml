@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="rsgb" schema="brk" type="PostgreSQL - 15.1 (Debian 15.1-1.pgdg110+1)">
+   <tables>
+      <table name="adres" numRows="61820" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="betreft" foreignKey="objectlocatie_betreft_fkey" implied="false" onDeleteCascade="false" table="objectlocatie"/>
+            <child column="postlocatie" foreignKey="persoon_postlocatie_fkey" implied="false" onDeleteCascade="false" table="persoon"/>
+            <child column="woonlocatie" foreignKey="persoon_woonlocatie_fkey" implied="false" onDeleteCascade="false" table="persoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="huisnummer" nullable="true" remarks="Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering." size="5" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="2" name="huisletter" nullable="true" remarks="Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken." size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="huisnummertoevoeging" nullable="true" remarks="Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter." size="4" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="postbusnummer" nullable="true" remarks="Het postbusnummer van een postbuslocatie is het nummer van een postbus." size="6" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="postcode" nullable="true" remarks="De postcode van het gebouw waarin de postbus zich bevindt of de door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer." size="6" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="openbareruimtenaam" nullable="true" remarks="De naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit." size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="woonplaatsnaam" nullable="true" remarks="De woonplaats waarin de postbus zich bevindt of de benaming van een door het gemeentebestuur aangewezen woonplaats." size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="nummeraanduiding" nullable="true" remarks="Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="adresseerbaarobject" nullable="true" remarks="Een adresseerbaar object is een object waaraan adressen ingevolge de basisregistratie adressen kunnen worden toegekend : een verblijfsobject , standplaats of ligplaats." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="verblijfsobject" nullable="true" remarks="Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="standplaats" nullable="true" remarks="Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een standplaats." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="ligplaats" nullable="true" remarks="Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een ligplaats." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="hoofdadres" nullable="true" remarks="Referentie naar de betreffende objectlocatie." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="nevenadres" nullable="true" remarks="Referentie naar de betreffende objectlocatie." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="buitenlandadres" nullable="true" remarks="Het adres is een combinatie van de straat en huisnummer." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="buitenlandwoonplaats" nullable="true" remarks="Woonplaats is de combinatie van een eventuele postcode en woonplaats." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="buitenlandregio" nullable="true" remarks="Regio is de naam van een of meer geografische gebieden als groepering ten behoeve van het adresseren." size="150" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="land" nullable="true" remarks="Land is een topografische - en internationaal rechtserkende eenheid." size="40" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="adres_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="appartementsrecht" numRows="5772" remarks="Een Appartementsrecht is een aandeel in goederen die in een splitsing zijn betrokken, dat de bevoegdheid omvat tot het uitsluitend gebruik van bepaalde gedeelten van het gebouw die blijkens hun inrichting bestemd zijn of worden om als afzonderlijk geheel te worden gebruikt." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="hoofdsplitsing" nullable="false" remarks="Een Hoofdsplitsing is het gesplitste Zakelijk recht van 1 of meer Percelen." size="255" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="appartementsrecht_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="appartementsrecht_archief" numRows="201" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="hoofdsplitsing" nullable="false" remarks="" size="255" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="2"/>
+         <index name="appartementsrecht_archief_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="brmo_metadata" numRows="1" remarks="BRMO metadata en versie gegevens" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="naam" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="waarde" nullable="true" remarks="" size="255" type="varchar"/>
+         <primaryKey column="naam" sequenceNumberInPK="1"/>
+         <index name="brmo_metadata_pkey" unique="true">
+            <column ascending="true" name="naam"/>
+         </index>
+      </table>
+      <table name="natuurlijkpersoon" numRows="33149" remarks="Een natuurlijk persoon is een mens als subject en drager van rechten en plichten." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="betrokkenpartner" foreignKey="recht_betrokkenpartner_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="indicatieoverleden" nullable="true" remarks="Natuurlijk persoon is al dan niet overleden en is niet gekoppeld aan de BRP." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="2" name="indicatieafschermingpersoonsgegevens" nullable="true" remarks="Indicatie Afscherming Persoonsgegevens is een indicatie om aan te geven dat de gegevens van een persoon zijn afgeschermd." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="3" name="bsn" nullable="true" remarks="Het BSN is het burgerservicenummer van de persoon." size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="adellijketitelofpredicaat" nullable="true" remarks="De adellijke titel of het predikaat dat behoort tot de naam van de persoon (bij adellijke titel geslachtsnaam, bij predikaat voornaam)." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="aanduidingnaamgebruik" nullable="true" remarks="Een aanduiding voor de wijze van aanschrijving van de ingeschrevene." size="72" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="landwaarnaarvertrokken" nullable="true" remarks="Het land dat de ingeschrevene opgeeft bij vertrek naar het buitenland." size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="geslachtsnaam" nullable="true" remarks="De geslachtsnaam is de (geslachts)naam waarvan de eventueel aanwezige voorvoegsels en adellijke titel zijn afgesplitst." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="voornamen" nullable="true" remarks="De voornamen zijn de verzameling namen die, gescheiden door spaties, aan de geslachtsnaam voorafgaat. Indien aanwezig, wordt het predikaat afgesplitst." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="voorvoegselsgeslachtsnaam" nullable="true" remarks="Voorvoegselsgeslachtsnaam zijn dat deel van de geslachtsnaam dat voorkomt in Tabel 36 (BRP), Voorvoegseltabel en, gescheiden door een spatie, vooraf gaat aan de rest van de geslachtsnaam." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="geslacht" nullable="true" remarks="De geslachtsaanduiding is een gegeven over het geslacht van de persoon (man, vrouw, of onbekend)." size="8" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="geboortedatum" nullable="true" remarks="De geboortedatum is de datum waarop de persoon is geboren." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="geboorteplaats" nullable="true" remarks="De geboorteplaats is de plaats of een plaatsbepaling, die aangeeft waar de persoon is geboren" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="geboorteland" nullable="true" remarks="Het geboorteland is de naam, die het land aangeeft waar de persoon is geboren." size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="indicatiegeheim" nullable="true" remarks="Een aanduiding die aangeeft dat gegevens van een persoon wel of niet verstrekt mogen worden." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="15" name="datumoverlijden" nullable="true" remarks="Datum overlijden is de datum waarop de persoon overleden is." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="partnergeslachtsnaam" nullable="true" remarks="De geslachtsnaam van de partner is de (geslachts)naam waarvan de eventueel aanwezige voorvoegsels en adellijke titel zijn afgesplitst." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="partnervoornamen" nullable="true" remarks="De voornamen van de partner zijn de verzameling namen die, gescheiden door spaties, aan de geslachtsnaam voorafgaat. Indien aanwezig, wordt het predikaat afgesplitst." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="partnervoorvoegselsgeslachtsnaam" nullable="true" remarks="Dat deel van de geslachtsnaam van de partner dat voorkomt in Tabel 36 (BRP), Voorvoegseltabel en, gescheiden door een spatie, vooraf gaat aan de rest van de geslachtsnaam." size="10" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="natuurlijkpersoon_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="nietnatuurlijkpersoon" numRows="1194" remarks="Een niet-natuurlijk persoon is een rechtspersoon of een samenwerkingsverband zonder rechtspersoonlijkheid." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="bevoegdgezag" foreignKey="publiekrechtelijkebeperking_bevoegdgezag_fkey" implied="false" onDeleteCascade="false" table="publiekrechtelijkebeperking"/>
+            <child column="betrokkengorzenenaanwassen" foreignKey="recht_betrokkengorzenenaanwassen_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="betrokkensamenwerkingsverband" foreignKey="recht_betrokkensamenwerkingsverband_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="heeftverenigingvaneigenaren" foreignKey="recht_heeftverenigingvaneigenaren_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="statutairenaam" nullable="true" remarks="Statutaire naam is de naam van de Niet-Natuurlijk Persoon zoals die statutair is vastgelegd." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="rechtsvorm" nullable="true" remarks="Rechtsvorm is de rechtsvorm van de Rechtspersoon." size="52" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="statutairezetel" nullable="true" remarks="Statutaire zetel is de plaats waar een Rechtspersoon volgens de statuten gevestigd is." size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="rsin" nullable="true" remarks="Het RSIN is het Rechtspersonen Samenwerkingsverbanden Informatie Nummer is een uniek nummer wat iedere rechtspersoon krijgt." size="9" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="kvknummer" nullable="true" remarks="Het KvKNummer is een uniek identificerend administratienummer van een rechtspersoon zijnde een niet-natuurlijk persoon zoals toegewezen door de Kamer van Koophandel." size="8" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="nietnatuurlijkpersoon_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="objectlocatie" numRows="41665" remarks="Een Locatie kadastraal object is een aanduiding voor de locatie van het Kadastraal object in Nederland." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="heeft" nullable="false" remarks="Referentie naar de betreffende onroerende zaak." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="objectlocatie_heeft_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="betreft" nullable="false" remarks="Referentie naar het betreffende adres." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="objectlocatie_betreft_fkey" implied="false" onDeleteCascade="false" table="adres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="koppelingswijze" nullable="true" remarks="Koppelingswijze is de beschrijving van de manier waarop de koppeling tussen het Kadastraalobject (Perceel of Appartementsrecht) met ObjectlocatieBinnenland bepaald is." size="29" type="varchar"/>
+         <primaryKey column="heeft" sequenceNumberInPK="1"/>
+         <primaryKey column="betreft" sequenceNumberInPK="2"/>
+         <index name="objectlocatie_pkey" unique="true">
+            <column ascending="true" name="heeft"/>
+            <column ascending="true" name="betreft"/>
+         </index>
+      </table>
+      <table name="objectlocatie_archief" numRows="1656" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="heeft" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="betreft" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="koppelingswijze" nullable="true" remarks="" size="29" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="heeft" sequenceNumberInPK="1"/>
+         <primaryKey column="betreft" sequenceNumberInPK="2"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="3"/>
+         <index name="objectlocatie_archief_pkey" unique="true">
+            <column ascending="true" name="heeft"/>
+            <column ascending="true" name="betreft"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="onroerendezaak" numRows="35963" remarks="Een onroerende zaak is de grond, de niet gewonnen delfstoffen, de met de grond verenigde beplantingen, alsmede de gebouwen en werken die duurzaam met de grond zijn verenigd, hetzij rechtstreeks, hetzij door vereniging met andere gebouwen of werken." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="heeft" foreignKey="objectlocatie_heeft_fkey" implied="false" onDeleteCascade="false" table="objectlocatie"/>
+            <child column="beperkt" foreignKey="onroerendezaakbeperking_beperkt_fkey" implied="false" onDeleteCascade="false" table="onroerendezaakbeperking"/>
+            <child column="aantekeningkadastraalobject" foreignKey="recht_aantekeningkadastraalobject_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="heefthoofdzaak" foreignKey="recht_heefthoofdzaak_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="rustop" foreignKey="recht_rustop_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="BRMO: metadata tbv archivering, datum van bericht." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="eindegeldigheid" nullable="true" remarks="BRMO: metadata tbv archivering, datum van opvolgend bericht." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="akrkadastralegemeentecode" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="4" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="akrkadastralegemeente" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="kadastralegemeentecode" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="4" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="kadastralegemeente" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="sectie" nullable="true" remarks="Sectie is een onderverdeling van de kadastrale gemeente, bedoeld om het werk van de meetdienst en om de kadastrale kaarten overzichtelijk te houden." size="2" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="perceelnummer" nullable="true" remarks="Het perceelnummer dat een geheel perceel of een complex uniek identificeert binnen de sectie." size="5" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="appartementsrechtvolgnummer" nullable="true" remarks="Nummer dat het kadastraal object uniek identificeert als een appartementsrecht binnen het complex." size="4" type="numeric"/>
+         <column autoUpdated="false" digits="2" id="10" name="landinrichtingsrente_bedrag" nullable="true" remarks="Het bedrag waarmee de Onroerende zaak is belast in het kader van de landinrichtingswet." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="landinrichtingsrente_valuta" nullable="true" remarks="De aanduiding van de valutasoort van het landinrichtingsrente bedrag." size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="landinrichtingsrente_jaar" nullable="true" remarks="Het laatste kalenderjaar waarin de rente in het kader van landinrichtingswet nog verschuldigd is." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="aard_cultuur_onbebouwd" nullable="true" remarks="AardCultuurOnbebouwd is een aanduiding voor aard van het gebruik van een onbebouwde onroerende zaak." size="65" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="aard_cultuur_bebouwd" nullable="true" remarks="AardCultuurBebouwd is een aanduiding voor aard van het gebruik van een bebouwde onroerende zaak." size="65" type="varchar"/>
+         <column autoUpdated="false" digits="2" id="15" name="koopsom_bedrag" nullable="true" remarks="Het in een ter inschrijving aangeboden stuk vermelde bedrag, waarvoor 1 of meer onroerende zaken zijn verkregen." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="16" name="koopsom_valuta" nullable="true" remarks="De aanduiding van de valutasoort van de koopsom." size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="koopsom_koopjaar" nullable="true" remarks="Het jaar waarin het belangrijkste recht van het kadastraal object is verkregen." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="18" name="koopsom_indicatiemeerobjecten" nullable="true" remarks="Geeft aan of de koopsom betrekking heeft op meer dan 1 kadastraal object." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="19" name="toelichtingbewaarder" nullable="true" remarks="Toelichting bewaarder is een toelichtende tekst van de bewaarder bij het kadastraal object." size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="20" name="tijdstipontstaanobject" nullable="true" remarks="Tijdstip onstaan object is datum en (als beschikbaar) het tijdstip waarop een onroerende zaak is ontstaan." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="21" name="oudstdigitaalbekend" nullable="true" remarks="OudstDigitaalBekend is de datum waarop het object voor het eerst vanuit een digitale Kadastrale registratie beschikbaar was." size="29" type="timestamp"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="onroerendezaak_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="onroerendezaak_archief" numRows="791" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="eindegeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="akrkadastralegemeentecode" nullable="true" remarks="" size="4" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="akrkadastralegemeente" nullable="true" remarks="" size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="kadastralegemeentecode" nullable="true" remarks="" size="4" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="kadastralegemeente" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="sectie" nullable="true" remarks="" size="2" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="perceelnummer" nullable="true" remarks="" size="5" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="appartementsrechtvolgnummer" nullable="true" remarks="" size="4" type="numeric"/>
+         <column autoUpdated="false" digits="2" id="10" name="landinrichtingsrente_bedrag" nullable="true" remarks="" size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="landinrichtingsrente_valuta" nullable="true" remarks="" size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="landinrichtingsrente_jaar" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="aard_cultuur_onbebouwd" nullable="true" remarks="" size="65" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="aard_cultuur_bebouwd" nullable="true" remarks="" size="65" type="varchar"/>
+         <column autoUpdated="false" digits="2" id="15" name="koopsom_bedrag" nullable="true" remarks="" size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="16" name="koopsom_valuta" nullable="true" remarks="" size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="koopsom_koopjaar" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="18" name="koopsom_indicatiemeerobjecten" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="19" name="toelichtingbewaarder" nullable="true" remarks="" size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="20" name="tijdstipontstaanobject" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="21" name="oudstdigitaalbekend" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="22" name="ontstaanuit" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="2"/>
+         <index name="onroerendezaak_archief_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="onroerendezaakbeperking" numRows="1682" remarks="OnroerendeZaakBeperking" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="inonderzoek" nullable="true" remarks="Één of meer objecten uit het werkingsgebied van de publiekrechtelijke beperking die overlappen met de onroerende zaak, zijn blijkens hun registratie, inmiddels niet meer actueel. Het bevoegd gezag dient het werkingsgebied opnieuw te beoordelen." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="1" name="beperkt" nullable="false" remarks="De onroerende zaak waarop de beperking is gevestigd." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="onroerendezaakbeperking_beperkt_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="leidttot" nullable="false" remarks="De publiekrechtelijkebeperking." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="onroerendezaakbeperking_leidttot_fkey" implied="false" onDeleteCascade="false" table="publiekrechtelijkebeperking"/>
+         </column>
+         <primaryKey column="beperkt" sequenceNumberInPK="1"/>
+         <primaryKey column="leidttot" sequenceNumberInPK="2"/>
+         <index name="onroerendezaakbeperking_pkey" unique="true">
+            <column ascending="true" name="beperkt"/>
+            <column ascending="true" name="leidttot"/>
+         </index>
+      </table>
+      <table name="onroerendezaakbeperking_archief" numRows="29" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="inonderzoek" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="1" name="beperkt" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="leidttot" nullable="false" remarks="" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="onroerendezaakbeperking_archief_leidttot_fkey" implied="false" onDeleteCascade="false" table="publiekrechtelijkebeperking"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="beperkt" sequenceNumberInPK="1"/>
+         <primaryKey column="leidttot" sequenceNumberInPK="2"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="3"/>
+         <index name="onroerendezaakbeperking_archief_pkey" unique="true">
+            <column ascending="true" name="beperkt"/>
+            <column ascending="true" name="leidttot"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="onroerendezaakfiliatie" numRows="22622" remarks="Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak. Het betreft hier de relatie tussen 2 percelen, 2 Appartementsrechten of 2 leidingnetwerken." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="aard" nullable="false" remarks="Aard is een aanduiding voor de aard van de filiatie. Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere." size="65" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="onroerendezaak" nullable="false" remarks="De ontstane onroerende zaak" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="betreft" nullable="false" remarks="De betreffende (bron) onroerende zaak." size="255" type="varchar"/>
+         <primaryKey column="aard" sequenceNumberInPK="1"/>
+         <primaryKey column="onroerendezaak" sequenceNumberInPK="2"/>
+         <primaryKey column="betreft" sequenceNumberInPK="3"/>
+         <index name="onroerendezaakfiliatie_pkey" unique="true">
+            <column ascending="true" name="aard"/>
+            <column ascending="true" name="onroerendezaak"/>
+            <column ascending="true" name="betreft"/>
+         </index>
+      </table>
+      <table name="perceel" numRows="30191" remarks="Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begrenzing_perceel" nullable="false" remarks="Begrenzing perceel is het geheel van lijnketens waarmee de vlakomtrek van een perceel wordt gevormd." size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="1" id="2" name="kadastralegrootte" nullable="true" remarks="Oppervlak grootte, in vierkante meters." size="9" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="soortgrootte" nullable="true" remarks="Geeft aan of de grootte van het perceel voorlopig, administratief of definitief is vastgesteld." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="1" id="4" name="perceelnummerrotatie" nullable="true" remarks="Rotatie van het perceelnummer, in een hoek tussen de -90 +90 graden ten behoeve van afbeelding op de kaart." size="3" type="numeric"/>
+         <column autoUpdated="false" digits="10" id="5" name="perceelnummer_deltax" nullable="true" remarks="Verschuiving op de X as." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="10" id="6" name="perceelnummer_deltay" nullable="true" remarks="Verschuiving op de Y as." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="plaatscoordinaten" nullable="false" remarks="Betreft de plaatsing van het perceelnummer bij verbeelding op een kaart, om deze op een overzichtelijke plek in de perceel begrenzing te plaatsen." size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="8" name="meettariefverschuldigd" nullable="true" remarks="Meettarief verschuldigd is een indicatie voor het verschuldigd zijn van een meettarief bij overdracht van een perceel." size="1" type="bool"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="perceel_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+         <index name="perceel_begrenzing_perceel" unique="false">
+            <column ascending="true" name="begrenzing_perceel"/>
+         </index>
+         <index name="perceel_plaatscoordinaten" unique="false">
+            <column ascending="true" name="plaatscoordinaten"/>
+         </index>
+      </table>
+      <table name="perceel_archief" numRows="590" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="begrenzing_perceel" nullable="false" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="1" id="3" name="kadastralegrootte" nullable="true" remarks="" size="9" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="soortgrootte" nullable="true" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="1" id="5" name="perceelnummerrotatie" nullable="true" remarks="" size="3" type="numeric"/>
+         <column autoUpdated="false" digits="10" id="6" name="perceelnummer_deltax" nullable="true" remarks="" size="20" type="numeric"/>
+         <column autoUpdated="false" digits="10" id="7" name="perceelnummer_deltay" nullable="true" remarks="" size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="plaatscoordinaten" nullable="false" remarks="" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="9" name="meettariefverschuldigd" nullable="true" remarks="" size="1" type="bool"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="2"/>
+         <index name="perceel_archief_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+         <index name="perceel_archief_begrenzing_perceel" unique="false">
+            <column ascending="true" name="begrenzing_perceel"/>
+         </index>
+         <index name="perceel_archief_plaatscoordinaten" unique="false">
+            <column ascending="true" name="plaatscoordinaten"/>
+         </index>
+      </table>
+      <table name="persoon" numRows="34343" remarks="Een persoon is een natuurlijk persoon of een niet-natuurlijk persoon." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="betrokkenpersoon" foreignKey="recht_betrokkenpersoon_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="tennamevan" foreignKey="recht_tennamevan_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="beschikkingsbevoegdheid" nullable="true" remarks="Beschikkingsbevoegdheid is een aanduiding van de beschikkingsbevoegdheid van een persoon." size="33" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="indicatieniettoonbarediakriet" nullable="true" remarks="Indicatie niet toonbare diakriet geeft aan of de naam van een persoon diakrieten bevat die niet getoond kunnen worden." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="3" name="postlocatie" nullable="true" remarks="Postadres, referentie naar adres" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="persoon_postlocatie_fkey" implied="false" onDeleteCascade="false" table="adres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="woonlocatie" nullable="true" remarks="Woonadres, referentie naar adres" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="persoon_woonlocatie_fkey" implied="false" onDeleteCascade="false" table="adres"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="soort" nullable="true" remarks="tbv. datamodel: om opzoeken van de bijhorende persoonsgegevens in tabel natuurlijkpersoon|nietnatuurlijkpersoon te vergemakkelijken." size="21" type="varchar"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="persoon_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="publiekrechtelijkebeperking" numRows="545" remarks="Publiekrechtelijke beperkingen zijn beperkingen die door de overheid zijn opgelegd." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="leidttot" foreignKey="onroerendezaakbeperking_leidttot_fkey" implied="false" onDeleteCascade="false" table="onroerendezaakbeperking"/>
+            <child column="leidttot" foreignKey="onroerendezaakbeperking_archief_leidttot_fkey" implied="false" onDeleteCascade="false" table="onroerendezaakbeperking_archief"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="grondslag" nullable="true" remarks="De grondslag is een verwijzing naar de wet waar de publiekrechtelijke beperking op gebaseerd is." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="datuminwerking" nullable="true" remarks="datumInWerking wordt overgenomen in het LTO van de PB" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="datumbeeindiging" nullable="true" remarks="datumBeeindiging wordt overgenomen in het LTV van de PB" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="isgebaseerdop" nullable="true" remarks="Het stukdeel onderliggende de beperking." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="publiekrechtelijkebeperking_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="bevoegdgezag" nullable="true" remarks="De niet-natuurlijk persoon die beheerder is." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="publiekrechtelijkebeperking_bevoegdgezag_fkey" implied="false" onDeleteCascade="false" table="nietnatuurlijkpersoon"/>
+         </column>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="publiekrechtelijkebeperking_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="recht" numRows="103243" remarks="Alle rechten uit het BRK model: Zakelijkrecht, Erfpacht, Mandeligheid, AppartementsrechtSplitsing en andere splitsingen, Tenaamstelling, GezamenlijkAandeel, Aantekening." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="betreft" foreignKey="recht_betreft_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="geldtvoor" foreignKey="recht_geldtvoor_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="isbestemdtot" foreignKey="recht_isbestemdtot_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="isbetrokkenbij" foreignKey="recht_isbetrokkenbij_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="isontstaanuit" foreignKey="recht_isontstaanuit_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="van" foreignKey="recht_van_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="aantekening" foreignKey="recht_aantekeningrecht_aantekening_fkey" implied="false" onDeleteCascade="false" table="recht_aantekeningrecht"/>
+            <child column="tenaamstelling" foreignKey="recht_aantekeningrecht_tenaamstelling_fkey" implied="false" onDeleteCascade="false" table="recht_aantekeningrecht"/>
+            <child column="isbelastmet" foreignKey="recht_isbelastmet_isbelastmet_fkey" implied="false" onDeleteCascade="false" table="recht_isbelastmet"/>
+            <child column="zakelijkrecht" foreignKey="recht_isbelastmet_zakelijkrecht_fkey" implied="false" onDeleteCascade="false" table="recht_isbelastmet"/>
+            <child column="zakelijkrecht" foreignKey="recht_isbeperkttot_zakelijkrecht_fkey" implied="false" onDeleteCascade="false" table="recht_isbeperkttot"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="aard" nullable="true" remarks="Een aanduiding voor de aard van het recht of de soort van de aantekening." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="toelichtingbewaarder" nullable="true" remarks="Toelichting bewaarder is een toelichtende tekst van de bewaarder bij het Zakelijk Recht." size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="isgebaseerdop" nullable="true" remarks="Relatie naar het aan het recht onderliggende stukdeel." size="255" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="isgebaseerdop2" nullable="true" remarks="Relatie naar het aan het recht onderliggende stukdeel." size="255" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isgebaseerdop2_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="betreft" nullable="true" remarks="Betreft zakelijk recht." size="255" type="varchar">
+            <parent column="identificatie" foreignKey="recht_betreft_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="rustop" nullable="true" remarks="Relatie van zakelijk recht naar onroerende zaak." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_rustop_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="isontstaanuit" nullable="true" remarks="Relatie van zakelijk recht naar (appartementsrecht) splitsing." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isontstaanuit_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="isbetrokkenbij" nullable="true" remarks="Relatie van zakelijk recht naar (appartementsrecht) splitsing." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isbetrokkenbij_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="isbestemdtot" nullable="true" remarks="Relatie van zakelijk recht naar mandeligheid." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isbestemdtot_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="soort" nullable="true" remarks="Soort is een nadere aanduiding van de erfpachtcanon." size="22" type="varchar"/>
+         <column autoUpdated="false" digits="2" id="11" name="jaarlijksbedrag" nullable="true" remarks="Jaarlijksbedrag is het bedrag dat jaarlijks als erpachtcanon moet worden betaald." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="jaarlijksbedrag_valuta" nullable="true" remarks="De aanduiding van de valutasoort van het jaarlijksbedrag." size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="jaarlijksbedragbetreftmeerdere_oz" nullable="true" remarks="Betreft meer onroerende zaken is een indicatie waarmee wordt aangegeven dat het jaarlijks bedrag van de erfpachtcanon meerdere onroerende zaken betreft." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="einddatumafkoop" nullable="true" remarks="Erfpachtcanon afkoop, dit is niet hetzelfde als de historievelden in Voorkomen." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="15" name="indicatieoudeonroerendezaakbetrokken" nullable="true" remarks="Met deze indicatie wordt aangegeven dat de erfpacht oorspronkelijk gevestigd is bij een perceel dat later is verenigd met een ander perceel." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="16" name="heefthoofdzaak" nullable="true" remarks="Een Hoofdzaak is een onroerende zaak die een (aandeel in) een mandeligheid omvat." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_heefthoofdzaak_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="17" name="heeftverenigingvaneigenaren" nullable="true" remarks="-" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_heeftverenigingvaneigenaren_fkey" implied="false" onDeleteCascade="false" table="nietnatuurlijkpersoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="18" name="aandeel_teller" nullable="true" remarks="Het aantal delen. Aandeel in Recht is het aandeel waarvoor een persoon deelneemt in het Recht." size="32" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="19" name="aandeel_noemer" nullable="true" remarks="De noemer van het deel. Aandeel in Recht is het aandeel waarvoor een persoon deelneemt in het Recht." size="32" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="20" name="burgerlijkestaattentijdevanverkrijging" nullable="true" remarks="Burgerlijke staat tijdens verkrijging is een aanduiding voor de leefvorm van een persoon, zoals deze volgens het brondocument ten tijde van de verkrijging van het recht bestond." size="43" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="21" name="verkregennamenssamenwerkingsverband" nullable="true" remarks="Verkregen namens samenwerkingsverband is de aard van het samenwerkingsverband (zoals Maatschap, VOF of CV) namens welke een natuurlijk persoon deze tenaamstelling heeft verkregen." size="26" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="22" name="van" nullable="true" remarks="Relatie van tenaamstelling naar zakelijk recht" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_van_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="23" name="betrokkenpartner" nullable="true" remarks="Relatie van tenaamstelling naar natuurlijk persoon" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_betrokkenpartner_fkey" implied="false" onDeleteCascade="false" table="natuurlijkpersoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="24" name="geldtvoor" nullable="true" remarks="Relatie van tenaamstelling naar gezamenlijk aandeel" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_geldtvoor_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="25" name="betrokkensamenwerkingsverband" nullable="true" remarks="Relatie van tenaamstelling naar niet-natuurlijk persoon" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_betrokkensamenwerkingsverband_fkey" implied="false" onDeleteCascade="false" table="nietnatuurlijkpersoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="26" name="betrokkengorzenenaanwassen" nullable="true" remarks="Relatie van tenaamstelling naar niet-natuurlijk persoon" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_betrokkengorzenenaanwassen_fkey" implied="false" onDeleteCascade="false" table="nietnatuurlijkpersoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="27" name="tennamevan" nullable="true" remarks="Relatie van tenaamstelling naar persoon" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_tennamevan_fkey" implied="false" onDeleteCascade="false" table="persoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="28" name="omschrijving" nullable="true" remarks="Omschrijving is de nadere beschrijving van de aantekening." size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="29" name="einddatumrecht" nullable="true" remarks="De datum waarop een recht eindigt. Einddatum van een tenaamstelling is niet meer dan een aantekening (een verwijzing naar een stuk waarin iets is vermeld over een (mogelijke) einddatum)." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="30" name="einddatum" nullable="true" remarks="Einddatum is de datum waarop de geldigheid van de aantekening eindigt." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="31" name="betreftgedeeltevanperceel" nullable="true" remarks="BetreftGedeelteVanPerceel is een aanduiding of de aantekening het gehele perceel (nee of niet gevuld) betreft of slechts een gedeelte (ja)." size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="32" name="aantekeningkadastraalobject" nullable="true" remarks="Relatie van aantekening naar onroerende zaak." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_aantekeningkadastraalobject_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="33" name="betrokkenpersoon" nullable="true" remarks="Relatie van aantekening naar persoon" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_betrokkenpersoon_fkey" implied="false" onDeleteCascade="false" table="persoon"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="34" name="begingeldigheid" nullable="false" remarks="BRMO: metadata tbv archivering, datum van bericht." size="13" type="date"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="recht_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="recht_aantekeningrecht" numRows="1735" remarks="Koppeltabel voor aantekeningen bij een tenaamstelling van een recht." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="aantekening" nullable="false" remarks="De aantekening" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_aantekeningrecht_aantekening_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="tenaamstelling" nullable="false" remarks="De aangetekende tenaamstelling" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_aantekeningrecht_tenaamstelling_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <primaryKey column="aantekening" sequenceNumberInPK="1"/>
+         <primaryKey column="tenaamstelling" sequenceNumberInPK="2"/>
+         <index name="recht_aantekeningrecht_pkey" unique="true">
+            <column ascending="true" name="aantekening"/>
+            <column ascending="true" name="tenaamstelling"/>
+         </index>
+      </table>
+      <table name="recht_aantekeningrecht_archief" numRows="62" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="aantekening" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="tenaamstelling" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="aantekening" sequenceNumberInPK="1"/>
+         <primaryKey column="tenaamstelling" sequenceNumberInPK="2"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="3"/>
+         <index name="recht_aantekeningrecht_archief_pkey" unique="true">
+            <column ascending="true" name="aantekening"/>
+            <column ascending="true" name="tenaamstelling"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="recht_archief" numRows="2320" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="aard" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="toelichtingbewaarder" nullable="true" remarks="" size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="isgebaseerdop" nullable="true" remarks="" size="255" type="varchar">
+            <parent column="identificatie" foreignKey="recht_archief_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="isgebaseerdop2" nullable="true" remarks="" size="255" type="varchar">
+            <parent column="identificatie" foreignKey="recht_archief_isgebaseerdop2_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="betreft" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="rustop" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="isontstaanuit" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="isbetrokkenbij" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="isbestemdtot" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="soort" nullable="true" remarks="" size="22" type="varchar"/>
+         <column autoUpdated="false" digits="2" id="11" name="jaarlijksbedrag" nullable="true" remarks="" size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="jaarlijksbedrag_valuta" nullable="true" remarks="" size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="jaarlijksbedragbetreftmeerdere_oz" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="einddatumafkoop" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="15" name="indicatieoudeonroerendezaakbetrokken" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="16" name="heefthoofdzaak" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="heeftverenigingvaneigenaren" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="aandeel_teller" nullable="true" remarks="" size="32" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="19" name="aandeel_noemer" nullable="true" remarks="" size="32" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="20" name="burgerlijkestaattentijdevanverkrijging" nullable="true" remarks="" size="43" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="21" name="verkregennamenssamenwerkingsverband" nullable="true" remarks="" size="26" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="22" name="van" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="23" name="betrokkenpartner" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="24" name="geldtvoor" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="25" name="betrokkensamenwerkingsverband" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="26" name="betrokkengorzenenaanwassen" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="27" name="tennamevan" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="28" name="omschrijving" nullable="true" remarks="" size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="29" name="einddatumrecht" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="30" name="einddatum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="31" name="betreftgedeeltevanperceel" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="32" name="aantekeningkadastraalobject" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="33" name="betrokkenpersoon" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="34" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="35" name="eindegeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="2"/>
+         <index name="recht_archief_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="recht_isbelastmet" numRows="2866" remarks="Koppeltabel voor de relatie van zakelijk recht naar zakelijk recht." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="Het zakelijk recht." size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isbelastmet_zakelijkrecht_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="isbelastmet" nullable="false" remarks="Het belastende zakelijk recht" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isbelastmet_isbelastmet_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <primaryKey column="zakelijkrecht" sequenceNumberInPK="1"/>
+         <primaryKey column="isbelastmet" sequenceNumberInPK="2"/>
+         <index name="recht_isbelastmet_pkey" unique="true">
+            <column ascending="true" name="zakelijkrecht"/>
+            <column ascending="true" name="isbelastmet"/>
+         </index>
+      </table>
+      <table name="recht_isbelastmet_archief" numRows="53" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="isbelastmet" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="zakelijkrecht" sequenceNumberInPK="1"/>
+         <primaryKey column="isbelastmet" sequenceNumberInPK="2"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="3"/>
+         <index name="recht_isbelastmet_archief_pkey" unique="true">
+            <column ascending="true" name="zakelijkrecht"/>
+            <column ascending="true" name="isbelastmet"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="recht_isbeperkttot" numRows="140" remarks="Koppeltabel voor de relatie van zakelijk recht naar tenaamstelling." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="Het zakelijk recht" size="2147483647" type="varchar">
+            <parent column="identificatie" foreignKey="recht_isbeperkttot_zakelijkrecht_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="tenaamstelling" nullable="false" remarks="De beperkte tenaamstelling" size="255" type="varchar"/>
+         <primaryKey column="zakelijkrecht" sequenceNumberInPK="1"/>
+         <primaryKey column="tenaamstelling" sequenceNumberInPK="2"/>
+         <index name="recht_isbeperkttot_pkey" unique="true">
+            <column ascending="true" name="zakelijkrecht"/>
+            <column ascending="true" name="tenaamstelling"/>
+         </index>
+      </table>
+      <table name="recht_isbeperkttot_archief" numRows="4" remarks="" schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="tenaamstelling" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="zakelijkrecht" sequenceNumberInPK="1"/>
+         <primaryKey column="tenaamstelling" sequenceNumberInPK="2"/>
+         <primaryKey column="begingeldigheid" sequenceNumberInPK="3"/>
+         <index name="recht_isbeperkttot_archief_pkey" unique="true">
+            <column ascending="true" name="zakelijkrecht"/>
+            <column ascending="true" name="tenaamstelling"/>
+            <column ascending="true" name="begingeldigheid"/>
+         </index>
+      </table>
+      <table name="stuk" numRows="29983" remarks="Een stuk is een, door het Kadaster als authentiek erkend, document waaruit een wijziging in de BRK blijkt." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="deelvan" foreignKey="stukdeel_deelvan_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="toelichtingbewaarder" nullable="true" remarks="Toelichting bewaarder is een toelichtende tekst van de bewaarder bij een stuk. Een Toelichting Bewaarder wordt opgevoerd wanneer een toelichting bij gegevens in de registratie noodzakelijk is." size="4000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="portefeuillenummer" nullable="true" remarks="Ambtelijk correctie gegeven identificatie" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="deel" nullable="true" remarks="De aanduiding van het deel binnen de reeks in het register, waarin het stuk is geregistreerd." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="nummer" nullable="true" remarks="Het het volgnummer van het stuk binnen het deel van het register." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="reeks" nullable="true" remarks="Verwijzing naar de oorspronkelijke (mogelijk tussentijds vervallen) Kadastervestiging waar het stuk oorspronkelijk is ingeschreven." size="19" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="registercode" nullable="true" remarks="De registercode is de aanduiding van het het register waarin het stuk is ingeschreven." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="soortregister" nullable="true" remarks="Een aanduiding van de hoofdcategorie van een ter inschrijving aangeboden stuk." size="16" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="8" name="tijdstipaanbieding" nullable="true" remarks="TijdstipAanbieding is het tijdstip waarop een ter inschrijving aangeboden stuk is ontvangen met in achtneming van de openingstijden en -dagen van het Kadaster." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="tijdstipondertekening" nullable="true" remarks="Tijdstip ondertekening is het tijdstip waarop een ter inschrijving aangeboden stuk is ondertekend door de opsteller van het stuk." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="10" name="tekeningingeschreven" nullable="true" remarks="Tekening ingeschreven geeft aan dat er is sprake van een appartementstekening (splitsingstekening van appartementen) als bijlage bij het stuk." size="1" type="bool"/>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="stuk_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="stukdeel" numRows="33092" remarks="Een stukdeel is een paragraaf in een akte waarmee een recht gevestigd wordt." schema="brk" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
+            <child column="isgebaseerdop" foreignKey="publiekrechtelijkebeperking_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="publiekrechtelijkebeperking"/>
+            <child column="isgebaseerdop" foreignKey="recht_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="isgebaseerdop2" foreignKey="recht_isgebaseerdop2_fkey" implied="false" onDeleteCascade="false" table="recht"/>
+            <child column="isgebaseerdop" foreignKey="recht_archief_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="recht_archief"/>
+            <child column="isgebaseerdop2" foreignKey="recht_archief_isgebaseerdop2_fkey" implied="false" onDeleteCascade="false" table="recht_archief"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="aard" nullable="true" remarks="Aanduiding aard stukdeel is een aanduiding voor de aard van een rechtsfeit." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="2" id="2" name="bedragtransactiesomlevering" nullable="true" remarks="Bedrag transactiesom levering is het in een ter inschrijving aangeboden stuk vermelde bedrag, waarvoor 1 of meer onroerende zaken zijn verkregen." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="valutatransactiesomlevering" nullable="true" remarks="De aanduiding van de valutasoort." size="42" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="datumkenbaarheidpb" nullable="true" remarks="DatumKenbaarheid is de datum waarop een ter inschrijving aangboden publiekrechtelijke beperking besluit bekend is gemaakt of is geworden." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="deelvan" nullable="false" remarks="Referentie naar het stuk waarvan dit deel uitmaakt." size="255" type="varchar">
+            <parent column="identificatie" foreignKey="stukdeel_deelvan_fkey" implied="false" onDeleteCascade="false" table="stuk"/>
+         </column>
+         <primaryKey column="identificatie" sequenceNumberInPK="1"/>
+         <index name="stukdeel_pkey" unique="true">
+            <column ascending="true" name="identificatie"/>
+         </index>
+      </table>
+      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;    zakelijk recht met opgezocht aard recht en berekend aandeel&#10;        beschikbare kolommen:&#10;    * zr_identif: natuurlijke id van zakelijk recht&#10;    * ingangsdatum_recht: -&#10;    * aandeel: samenvoeging van teller en noemer (1/2),&#10;    * ar_teller: teller van aandeel,&#10;    * ar_noemer: noemer van aandeel,&#10;    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;    * indic_betrokken_in_splitsing: -,&#10;    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,&#10;    * fk_3avr_aand: code aard recht,&#10;    * aantekeningen: samenvoeging van alle aantekening op dit recht" schema="brk" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="ingangsdatum_recht" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="aandeel" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="ar_teller" nullable="true" remarks="" size="32" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="ar_noemer" nullable="true" remarks="" size="32" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="subject_identif" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="koz_identif" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="8" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="fk_3avr_aand" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+   </tables>
+</database>

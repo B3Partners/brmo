@@ -1,19 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">NHRActionBean.java</span></div><h1>NHRActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">NHRActionBean.java</span></div><h1>NHRActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -26,364 +32,379 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.security.KeyStore;
-import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
-<span class="nc" id="L37">public class NHRActionBean implements ActionBean {</span>
-    private ActionBeanContext context;
+<span class="nc" id="L36">public class NHRActionBean implements ActionBean {</span>
+  private ActionBeanContext context;
 
-    private String[] selectedIds;
-    @Validate
-    private int start;
-    @Validate
-    private int limit;
-    @Validate
-    private String sort;
-    @Validate
-    private String dir;
-    @Validate(required = true, on=&quot;upload&quot;)
-    private FileBean file;
+  private String[] selectedIds;
+  @Validate private int start;
+  @Validate private int limit;
+  @Validate private String sort;
+  @Validate private String dir;
 
-    private boolean statusActive;
-    private Date statusCertificateExpiry;
-    private long statusDaysUntilExpiry;
-    private String statusNotification;
-    private String statusEndpoint;
-    private boolean statusEndpointPreprod;
-    private float statusRefetchDays;
+  @Validate(required = true, on = &quot;upload&quot;)
+  private FileBean file;
 
-    public boolean getStatusActive() {
-<span class="nc" id="L61">        return statusActive;</span>
+  private boolean statusActive;
+  private Date statusCertificateExpiry;
+  private long statusDaysUntilExpiry;
+  private String statusNotification;
+  private String statusEndpoint;
+  private boolean statusEndpointPreprod;
+  private float statusRefetchDays;
+
+  public boolean getStatusActive() {
+<span class="nc" id="L57">    return statusActive;</span>
+  }
+
+  public Date getStatusCertificateExpiry() {
+<span class="nc" id="L61">    return statusCertificateExpiry;</span>
+  }
+
+  public long getStatusDaysUntilExpiry() {
+<span class="nc" id="L65">    return statusDaysUntilExpiry;</span>
+  }
+
+  public String getStatusNotification() {
+<span class="nc" id="L69">    return statusNotification;</span>
+  }
+
+  public String getStatusEndpoint() {
+<span class="nc" id="L73">    return statusEndpoint;</span>
+  }
+
+  public boolean getStatusEndpointPreprod() {
+<span class="nc" id="L77">    return statusEndpointPreprod;</span>
+  }
+
+  public float getStatusRefetchDays() {
+<span class="nc" id="L81">    return statusRefetchDays;</span>
+  }
+
+  public long getFetchCount() {
+<span class="nc" id="L85">    return NHRJob.getFetchCount();</span>
+  }
+
+  public long getFetchErrorCount() {
+<span class="nc" id="L89">    return NHRJob.getFetchErrorCount();</span>
+  }
+
+  public float getSecondsPerFetch() {
+<span class="nc" id="L93">    return NHRJob.getAverageFetchTime() / 1000.0f;</span>
+  }
+
+  public String getEstimatedTime() {
+<span class="nc" id="L97">    float totalSeconds = getSecondsPerFetch() * getPendingCount();</span>
+
+<span class="nc" id="L99">    int hours = (int) (totalSeconds / 3600);</span>
+<span class="nc" id="L100">    int minutes = (int) (totalSeconds / 60) % 60;</span>
+<span class="nc" id="L101">    int seconds = (int) totalSeconds % 60;</span>
+
+<span class="nc" id="L103">    return String.format(&quot;%dh %02dm %02ds&quot;, hours, minutes, seconds);</span>
+  }
+
+  private void getCertificateStatus() {
+<span class="nc" id="L107">    statusNotification = &quot;&quot;;</span>
+    try {
+<span class="nc" id="L109">      statusActive = InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/active&quot;);</span>
+<span class="nc" id="L110">    } catch (NamingException e) {</span>
+<span class="nc" id="L111">    } catch (Exception e) {</span>
+<span class="nc" id="L112">      statusNotification += String.format(&quot;nhr/active incorrect: %s\n&quot;, e.getMessage());</span>
+<span class="nc" id="L113">    }</span>
+
+    KeyStore keyStore;
+    try {
+<span class="nc" id="L117">      keyStore = KeyStore.getInstance(&quot;PKCS12&quot;);</span>
+<span class="nc" id="L118">      try (FileInputStream keyStoreFile =</span>
+          new FileInputStream(
+<span class="nc" id="L120">              (String) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/keystorePath&quot;))) {</span>
+<span class="nc" id="L121">        keyStore.load(</span>
+            keyStoreFile,
+<span class="nc" id="L123">            ((String) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/keystorePassword&quot;))</span>
+<span class="nc" id="L124">                .toCharArray());</span>
+      }
+
+<span class="nc" id="L127">      String alias = keyStore.aliases().nextElement();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">      if (alias == null) {</span>
+<span class="nc" id="L129">        statusNotification += &quot;geen bruikbaar certificaat gevonden&quot;;</span>
+      } else {
+<span class="nc" id="L131">        Certificate cert = keyStore.getCertificate(alias);</span>
+<span class="nc" id="L132">        Date now = new Date();</span>
+<span class="nc" id="L133">        statusCertificateExpiry = ((X509Certificate) cert).getNotAfter();</span>
+<span class="nc" id="L134">        statusDaysUntilExpiry =</span>
+<span class="nc" id="L135">            (statusCertificateExpiry.getTime() - now.getTime()) / (60 * 60 * 24);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (statusCertificateExpiry.before(now)) {</span>
+<span class="nc" id="L137">          statusNotification += &quot;certificaat is verlopen!\n&quot;;</span>
+        }
+      }
+<span class="nc" id="L140">    } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L141">      statusNotification += &quot;keystore niet gevonden\n&quot;;</span>
+<span class="nc" id="L142">    } catch (NamingException e) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">      if (statusActive) {</span>
+<span class="nc" id="L144">        statusNotification += String.format(&quot;geen keystore ingesteld: %s\n&quot;, e.getMessage());</span>
+      }
+<span class="nc" id="L146">    } catch (Exception e) {</span>
+<span class="nc" id="L147">      statusNotification += String.format(&quot;keystore incorrect: %s\n&quot;, e.getMessage());</span>
+<span class="nc" id="L148">    }</span>
+
+    try {
+<span class="nc" id="L151">      KeyStore trustStore = KeyStore.getInstance(&quot;PKCS12&quot;);</span>
+<span class="nc" id="L152">      try (FileInputStream trustStoreFile =</span>
+          new FileInputStream(
+<span class="nc" id="L154">              (String) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/truststorePath&quot;))) {</span>
+<span class="nc" id="L155">        trustStore.load(</span>
+            trustStoreFile,
+<span class="nc" id="L157">            ((String) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/truststorePassword&quot;))</span>
+<span class="nc" id="L158">                .toCharArray());</span>
+      }
+<span class="nc" id="L160">    } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L161">      statusNotification += &quot;truststore niet gevonden\n&quot;;</span>
+<span class="nc" id="L162">    } catch (NamingException e) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">      if (statusActive) {</span>
+<span class="nc" id="L164">        statusNotification += String.format(&quot;geen truststore ingesteld: %s\n&quot;, e.getMessage());</span>
+      }
+<span class="nc" id="L166">    } catch (Exception e) {</span>
+<span class="nc" id="L167">      statusNotification += String.format(&quot;truststore incorrect: %s\n&quot;, e.getMessage());</span>
+<span class="nc" id="L168">    }</span>
+
+    try {
+<span class="nc" id="L171">      statusEndpoint = InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/endpoint&quot;);</span>
+<span class="nc" id="L172">      statusEndpointPreprod = InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/endpointIsPreprod&quot;);</span>
+<span class="nc" id="L173">    } catch (Exception e) {</span>
+<span class="nc" id="L174">      statusNotification += String.format(&quot;endpoint incorrect: %s\n&quot;, e.getMessage());</span>
+<span class="nc" id="L175">    }</span>
+
+    try {
+<span class="nc" id="L178">      statusRefetchDays =</span>
+          ((float)
+<span class="nc" id="L180">                  (Integer) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/secondsBetweenFetches&quot;))</span>
+              / (60.0f * 60.0f * 24.0f);
+<span class="nc" id="L182">    } catch (Exception e) {</span>
+<span class="nc" id="L183">      statusNotification += String.format(&quot;secondsBetweenFetches incorrect: %s\n&quot;, e.getMessage());</span>
+<span class="nc" id="L184">    }</span>
+<span class="nc" id="L185">  }</span>
+
+  @DefaultHandler
+  public Resolution list() {
+<span class="nc" id="L189">    getCertificateStatus();</span>
+<span class="nc" id="L190">    return new ForwardResolution(&quot;/WEB-INF/jsp/nhr/list.jsp&quot;);</span>
+  }
+
+  private long getCount() {
+<span class="nc" id="L194">    EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L195">    CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L196">    CriteriaQuery&lt;Long&gt; cq = cb.createQuery(Long.class);</span>
+<span class="nc" id="L197">    Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
+<span class="nc" id="L198">    cq.select(cb.count(from));</span>
+<span class="nc" id="L199">    return entityManager.createQuery(cq).getSingleResult();</span>
+  }
+
+  public long getPendingCount() {
+<span class="nc" id="L203">    EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L204">    CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L205">    CriteriaQuery&lt;Long&gt; cq = cb.createQuery(Long.class);</span>
+<span class="nc" id="L206">    Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
+<span class="nc" id="L207">    cq.select(cb.count(from));</span>
+<span class="nc" id="L208">    cq.where(cb.lessThan(from.get(&quot;volgendProberen&quot;), cb.currentTimestamp()));</span>
+<span class="nc" id="L209">    return entityManager.createQuery(cq).getSingleResult();</span>
+  }
+
+  public Resolution getGridData() throws BrmoException {
+<span class="nc" id="L213">    EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L214">    CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L215">    CriteriaQuery&lt;NHRInschrijving&gt; cq = cb.createQuery(NHRInschrijving.class);</span>
+<span class="nc" id="L216">    Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
+
+<span class="nc bnc" id="L218" title="All 2 branches missed.">    if (sort != null) {</span>
+<span class="nc bnc" id="L219" title="All 4 branches missed.">      if (dir == null || !dir.equalsIgnoreCase(&quot;desc&quot;)) {</span>
+<span class="nc" id="L220">        cq.orderBy(cb.asc(from.get(sort)));</span>
+      } else {
+<span class="nc" id="L222">        cq.orderBy(cb.desc(from.get(sort)));</span>
+      }
     }
-    public Date getStatusCertificateExpiry() {
-<span class="nc" id="L64">        return statusCertificateExpiry;</span>
-    }
-    public long getStatusDaysUntilExpiry() {
-<span class="nc" id="L67">        return statusDaysUntilExpiry;</span>
-    }
-    public String getStatusNotification() {
-<span class="nc" id="L70">        return statusNotification;</span>
-    }
-    public String getStatusEndpoint() {
-<span class="nc" id="L73">        return statusEndpoint;</span>
-    }
-    public boolean getStatusEndpointPreprod() {
-<span class="nc" id="L76">        return statusEndpointPreprod;</span>
-    }
-    public float getStatusRefetchDays() {
-<span class="nc" id="L79">        return statusRefetchDays;</span>
-    }
-    public long getFetchCount() {
-<span class="nc" id="L82">        return NHRJob.getFetchCount();</span>
-    }
-    public long getFetchErrorCount() {
-<span class="nc" id="L85">        return NHRJob.getFetchErrorCount();</span>
-    }
-    public float getSecondsPerFetch() {
-<span class="nc" id="L88">        return NHRJob.getAverageFetchTime() / 1000.0f;</span>
+
+<span class="nc bnc" id="L226" title="All 2 branches missed.">    if (start &lt; 0) {</span>
+<span class="nc" id="L227">      start = 0;</span>
     }
 
-    public String getEstimatedTime() {
-<span class="nc" id="L92">        float totalSeconds = getSecondsPerFetch() * getPendingCount();</span>
-
-<span class="nc" id="L94">        int hours = (int) (totalSeconds / 3600);</span>
-<span class="nc" id="L95">        int minutes = (int) (totalSeconds / 60) % 60;</span>
-<span class="nc" id="L96">        int seconds = (int) totalSeconds % 60;</span>
-
-<span class="nc" id="L98">        return String.format(&quot;%dh %02dm %02ds&quot;, hours, minutes, seconds);</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">    if (limit &lt;= 0) {</span>
+<span class="nc" id="L231">      limit = 40;</span>
     }
 
-    private void getCertificateStatus() {
-<span class="nc" id="L102">            statusNotification = &quot;&quot;;</span>
-            try {
-<span class="nc" id="L104">                statusActive = InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/active&quot;);</span>
-<span class="nc" id="L105">            } catch (NamingException e) {</span>
-<span class="nc" id="L106">            } catch (Exception e) {</span>
-<span class="nc" id="L107">                statusNotification += String.format(&quot;nhr/active incorrect: %s\n&quot;, e.getMessage());</span>
-<span class="nc" id="L108">            }</span>
+<span class="nc" id="L234">    List&lt;NHRInschrijving&gt; procList =</span>
+<span class="nc" id="L235">        entityManager.createQuery(cq).setMaxResults(limit).setFirstResult(start).getResultList();</span>
+<span class="nc" id="L236">    JSONArray jsonBerichten = new JSONArray();</span>
 
-            KeyStore keyStore;
-            try {
-<span class="nc" id="L112">                keyStore = KeyStore.getInstance(&quot;PKCS12&quot;);</span>
-<span class="nc" id="L113">                try (FileInputStream keyStoreFile = new FileInputStream((String) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/keystorePath&quot;))) {</span>
-<span class="nc" id="L114">                    keyStore.load(keyStoreFile, ((String)InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/keystorePassword&quot;)).toCharArray());</span>
-                }
+<span class="nc bnc" id="L238" title="All 2 branches missed.">    for (NHRInschrijving b : procList) {</span>
+<span class="nc" id="L239">      jsonBerichten.put(laadproces2Json(b));</span>
+<span class="nc" id="L240">    }</span>
 
-<span class="nc" id="L117">                String alias = keyStore.aliases().nextElement();</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">                if (alias == null) {</span>
-<span class="nc" id="L119">                    statusNotification += &quot;geen bruikbaar certificaat gevonden&quot;;</span>
-                } else {
-<span class="nc" id="L121">                    Certificate cert = keyStore.getCertificate(alias);</span>
-<span class="nc" id="L122">                    Date now = new Date();</span>
-<span class="nc" id="L123">                    statusCertificateExpiry = ((X509Certificate) cert).getNotAfter();</span>
-<span class="nc" id="L124">                    statusDaysUntilExpiry = (statusCertificateExpiry.getTime() - now.getTime()) / (60 * 60 * 24);</span>
-<span class="nc bnc" id="L125" title="All 2 branches missed.">                    if (statusCertificateExpiry.before(now)) {</span>
-<span class="nc" id="L126">                        statusNotification += &quot;certificaat is verlopen!\n&quot;;</span>
-                    }
-                }
-<span class="nc" id="L129">            } catch (FileNotFoundException e) {</span>
-<span class="nc" id="L130">                statusNotification += &quot;keystore niet gevonden\n&quot;;</span>
-<span class="nc" id="L131">            } catch (NamingException e) {</span>
-<span class="nc bnc" id="L132" title="All 2 branches missed.">                if (statusActive) {</span>
-<span class="nc" id="L133">                    statusNotification += String.format(&quot;geen keystore ingesteld: %s\n&quot;, e.getMessage());</span>
-                }
-<span class="nc" id="L135">            } catch (Exception e) {</span>
-<span class="nc" id="L136">                statusNotification += String.format(&quot;keystore incorrect: %s\n&quot;, e.getMessage());</span>
-<span class="nc" id="L137">            }</span>
+<span class="nc" id="L242">    final JSONObject grid = new JSONObject();</span>
+<span class="nc" id="L243">    grid.put(&quot;total&quot;, getCount());</span>
+<span class="nc" id="L244">    grid.put(&quot;items&quot;, jsonBerichten);</span>
 
-            try {
-<span class="nc" id="L140">                KeyStore trustStore = KeyStore.getInstance(&quot;PKCS12&quot;);</span>
-<span class="nc" id="L141">                try (FileInputStream trustStoreFile = new FileInputStream((String) InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/truststorePath&quot;))) {</span>
-<span class="nc" id="L142">                    trustStore.load(trustStoreFile, ((String)InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/truststorePassword&quot;)).toCharArray());</span>
-                }
-<span class="nc" id="L144">            } catch (FileNotFoundException e) {</span>
-<span class="nc" id="L145">                statusNotification += &quot;truststore niet gevonden\n&quot;;</span>
-<span class="nc" id="L146">            } catch (NamingException e) {</span>
-<span class="nc bnc" id="L147" title="All 2 branches missed.">                if (statusActive) {</span>
-<span class="nc" id="L148">                    statusNotification += String.format(&quot;geen truststore ingesteld: %s\n&quot;, e.getMessage());</span>
-                }
-<span class="nc" id="L150">            } catch (Exception e) {</span>
-<span class="nc" id="L151">                statusNotification += String.format(&quot;truststore incorrect: %s\n&quot;, e.getMessage());</span>
-<span class="nc" id="L152">            }</span>
+<span class="nc" id="L246">    return new StreamingResolution(&quot;application/json&quot;) {</span>
+      @Override
+      public void stream(HttpServletResponse response) throws Exception {
+<span class="nc" id="L249">        response.getWriter().print(grid.toString());</span>
+<span class="nc" id="L250">      }</span>
+    };
+  }
 
-            try {
-<span class="nc" id="L155">                statusEndpoint = InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/endpoint&quot;);</span>
-<span class="nc" id="L156">                statusEndpointPreprod = InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/endpointIsPreprod&quot;);</span>
-<span class="nc" id="L157">            } catch (Exception e) {</span>
-<span class="nc" id="L158">                statusNotification += String.format(&quot;endpoint incorrect: %s\n&quot;, e.getMessage());</span>
-<span class="nc" id="L159">            }</span>
+  public Resolution getLog() {
+<span class="nc" id="L255">    EntityManager entityManager = Stripersist.getEntityManager();</span>
 
-            try {
-<span class="nc" id="L162">                statusRefetchDays = ((float)(Integer)InitialContext.doLookup(&quot;java:comp/env/brmo/nhr/secondsBetweenFetches&quot;)) / (60.0f * 60.0f * 24.0f);</span>
-<span class="nc" id="L163">            } catch (Exception e) {</span>
-<span class="nc" id="L164">                statusNotification += String.format(&quot;secondsBetweenFetches incorrect: %s\n&quot;, e.getMessage());</span>
-<span class="nc" id="L165">            }</span>
-<span class="nc" id="L166">    }</span>
-
-    @DefaultHandler
-    public Resolution list() {
-<span class="nc" id="L170">        getCertificateStatus();</span>
-<span class="nc" id="L171">        return new ForwardResolution(&quot;/WEB-INF/jsp/nhr/list.jsp&quot;);</span>
+    String responseString;
+<span class="nc bnc" id="L258" title="All 4 branches missed.">    if (selectedIds == null || selectedIds.length != 1) {</span>
+<span class="nc" id="L259">      responseString = &quot;kan geen logs ophalen voor 0 of meer dan 1 item&quot;;</span>
+    } else {
+<span class="nc" id="L261">      NHRInschrijving item = entityManager.find(NHRInschrijving.class, selectedIds[0]);</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">      if (item == null) {</span>
+<span class="nc" id="L263">        responseString = String.format(&quot;Log voor KVK nummer %s niet gevonden&quot;, selectedIds[0]);</span>
+      } else {
+<span class="nc" id="L265">        responseString = item.getException();</span>
+      }
     }
 
-    private long getCount() {
-<span class="nc" id="L175">        EntityManager entityManager = Stripersist.getEntityManager();</span>
-<span class="nc" id="L176">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
-<span class="nc" id="L177">        CriteriaQuery&lt;Long&gt; cq = cb.createQuery(Long.class);</span>
-<span class="nc" id="L178">        Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
-<span class="nc" id="L179">        cq.select(cb.count(from));</span>
-<span class="nc" id="L180">        return entityManager.createQuery(cq).getSingleResult();</span>
+<span class="nc" id="L269">    return new StreamingResolution(&quot;text/plain&quot;) {</span>
+      @Override
+      public void stream(HttpServletResponse response) throws Exception {
+<span class="nc" id="L272">        response.getWriter().print(responseString);</span>
+<span class="nc" id="L273">      }</span>
+    };
+  }
+
+  public Resolution runNow() throws BrmoException {
+<span class="nc" id="L278">    EntityManager entityManager = Stripersist.getEntityManager();</span>
+
+<span class="nc" id="L280">    CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L281">    CriteriaQuery&lt;NHRInschrijving&gt; cq = cb.createQuery(NHRInschrijving.class);</span>
+<span class="nc" id="L282">    Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
+
+<span class="nc" id="L284">    CriteriaBuilder.In&lt;String&gt; in = cb.in(from.get(&quot;kvkNummer&quot;));</span>
+<span class="nc bnc" id="L285" title="All 2 branches missed.">    for (String item : selectedIds) {</span>
+<span class="nc" id="L286">      in.value(item);</span>
     }
+<span class="nc" id="L288">    cq.where(in);</span>
 
+<span class="nc" id="L290">    List&lt;NHRInschrijving&gt; procList = entityManager.createQuery(cq).getResultList();</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">    for (NHRInschrijving b : procList) {</span>
+<span class="nc" id="L292">      b.setVolgendProberen(new java.util.Date());</span>
+<span class="nc" id="L293">      b.setProbeerAantal(0);</span>
+<span class="nc" id="L294">    }</span>
 
-    public long getPendingCount() {
-<span class="nc" id="L185">        EntityManager entityManager = Stripersist.getEntityManager();</span>
-<span class="nc" id="L186">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
-<span class="nc" id="L187">        CriteriaQuery&lt;Long&gt; cq = cb.createQuery(Long.class);</span>
-<span class="nc" id="L188">        Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
-<span class="nc" id="L189">        cq.select(cb.count(from));</span>
-<span class="nc" id="L190">        cq.where(cb.lessThan(from.get(&quot;volgendProberen&quot;), cb.currentTimestamp()));</span>
-<span class="nc" id="L191">        return entityManager.createQuery(cq).getSingleResult();</span>
-    }
+<span class="nc" id="L296">    entityManager.getTransaction().commit();</span>
+<span class="nc" id="L297">    return new StreamingResolution(&quot;text/plain&quot;) {</span>
+      @Override
+      public void stream(HttpServletResponse response) throws Exception {
+<span class="nc" id="L300">        response.getWriter().print(&quot;ok&quot;);</span>
+<span class="nc" id="L301">      }</span>
+    };
+  }
 
-    public Resolution getGridData() throws BrmoException {
-<span class="nc" id="L195">        EntityManager entityManager = Stripersist.getEntityManager();</span>
-<span class="nc" id="L196">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
-<span class="nc" id="L197">        CriteriaQuery&lt;NHRInschrijving&gt; cq = cb.createQuery(NHRInschrijving.class);</span>
-<span class="nc" id="L198">        Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
-
-<span class="nc bnc" id="L200" title="All 2 branches missed.">        if (sort != null) {</span>
-<span class="nc bnc" id="L201" title="All 4 branches missed.">            if (dir == null || !dir.equalsIgnoreCase(&quot;desc&quot;)) {</span>
-<span class="nc" id="L202">                cq.orderBy(cb.asc(from.get(sort)));</span>
-            } else {
-<span class="nc" id="L204">                cq.orderBy(cb.desc(from.get(sort)));</span>
-            }
+  public Resolution upload() throws IOException {
+<span class="nc" id="L306">    EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L307">    try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {</span>
+      while (true) {
+<span class="nc" id="L309">        String line = reader.readLine();</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">        if (line == null) {</span>
+<span class="nc" id="L311">          break;</span>
         }
 
-<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (start &lt; 0) {</span>
-<span class="nc" id="L209">            start = 0;</span>
+        // Parse the first column from a CSV, and accept KVK numbers with zeroes trimmed
+        // (e.g. spreadsheet software parsing the number as a decimal)
+<span class="nc" id="L316">        line = line.split(&quot;,&quot;)[0].replaceAll(&quot;\&quot;&quot;, &quot;&quot;);</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        if (line.length() &lt; 8) {</span>
+<span class="nc" id="L318">          line = StringUtils.leftPad(line, 8, &quot;0&quot;);</span>
         }
 
-<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (limit &lt;= 0) {</span>
-<span class="nc" id="L213">            limit = 40;</span>
+        NHRInschrijving proces;
+<span class="nc" id="L322">        proces = entityManager.find(NHRInschrijving.class, line);</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L324">          proces = new NHRInschrijving();</span>
         }
 
-<span class="nc" id="L216">        List&lt;NHRInschrijving&gt; procList = entityManager.createQuery(cq).setMaxResults(limit).setFirstResult(start).getResultList();</span>
-<span class="nc" id="L217">        JSONArray jsonBerichten = new JSONArray();</span>
-
-<span class="nc bnc" id="L219" title="All 2 branches missed.">        for (NHRInschrijving b : procList) {</span>
-<span class="nc" id="L220">            jsonBerichten.put(laadproces2Json(b));</span>
-<span class="nc" id="L221">        }</span>
-
-<span class="nc" id="L223">        final JSONObject grid = new JSONObject();</span>
-<span class="nc" id="L224">        grid.put(&quot;total&quot;, getCount());</span>
-<span class="nc" id="L225">        grid.put(&quot;items&quot;, jsonBerichten);</span>
-
-<span class="nc" id="L227">        return new StreamingResolution(&quot;application/json&quot;) {</span>
-            @Override
-            public void stream(HttpServletResponse response) throws Exception {
-<span class="nc" id="L230">                response.getWriter().print(grid.toString());</span>
-<span class="nc" id="L231">            }</span>
-        };
+<span class="nc" id="L327">        proces.setDatum(new Date());</span>
+<span class="nc" id="L328">        proces.setVolgendProberen(new Date());</span>
+<span class="nc" id="L329">        proces.setProbeerAantal(0);</span>
+<span class="nc" id="L330">        proces.setKvkNummer(line);</span>
+<span class="nc" id="L331">        entityManager.merge(proces);</span>
+<span class="nc" id="L332">      }</span>
     }
 
-    public Resolution getLog() {
-<span class="nc" id="L236">        EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L335">    file.delete();</span>
+<span class="nc" id="L336">    entityManager.getTransaction().commit();</span>
+<span class="nc" id="L337">    return list();</span>
+  }
 
-        String responseString;
-<span class="nc bnc" id="L239" title="All 4 branches missed.">        if (selectedIds == null || selectedIds.length != 1) {</span>
-<span class="nc" id="L240">            responseString = &quot;kan geen logs ophalen voor 0 of meer dan 1 item&quot;;</span>
-        } else {
-<span class="nc" id="L242">            NHRInschrijving item = entityManager.find(NHRInschrijving.class, selectedIds[0]);</span>
-<span class="nc bnc" id="L243" title="All 2 branches missed.">            if (item == null) {</span>
-<span class="nc" id="L244">                responseString = String.format(&quot;Log voor KVK nummer %s niet gevonden&quot;, selectedIds[0]);</span>
-            } else {
-<span class="nc" id="L246">                responseString = item.getException();</span>
-            }
-        }
+  private JSONObject laadproces2Json(NHRInschrijving laadproces) {
+<span class="nc" id="L341">    JSONObject json = new JSONObject();</span>
 
-<span class="nc" id="L250">        return new StreamingResolution(&quot;text/plain&quot;) {</span>
-            @Override
-            public void stream(HttpServletResponse response) throws Exception {
-<span class="nc" id="L253">                response.getWriter().print(responseString);</span>
-<span class="nc" id="L254">            }</span>
-        };
-    }
+<span class="nc" id="L343">    json.put(&quot;datum&quot;, laadproces.getDatum());</span>
+<span class="nc" id="L344">    json.put(&quot;laatstGeprobeerd&quot;, laadproces.getLaatstGeprobeerd());</span>
+<span class="nc" id="L345">    json.put(&quot;volgendProberen&quot;, laadproces.getVolgendProberen());</span>
+<span class="nc" id="L346">    json.put(&quot;probeerAantal&quot;, laadproces.getProbeerAantal());</span>
+<span class="nc" id="L347">    json.put(&quot;kvkNummer&quot;, laadproces.getKvkNummer());</span>
 
-    public Resolution runNow() throws BrmoException {
-<span class="nc" id="L259">        EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L349">    return json;</span>
+  }
 
-<span class="nc" id="L261">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
-<span class="nc" id="L262">        CriteriaQuery&lt;NHRInschrijving&gt; cq = cb.createQuery(NHRInschrijving.class);</span>
-<span class="nc" id="L263">        Root&lt;NHRInschrijving&gt; from = cq.from(NHRInschrijving.class);</span>
+  @Override
+  public ActionBeanContext getContext() {
+<span class="nc" id="L354">    return context;</span>
+  }
 
-<span class="nc" id="L265">        CriteriaBuilder.In&lt;String&gt; in = cb.in(from.get(&quot;kvkNummer&quot;));</span>
-<span class="nc bnc" id="L266" title="All 2 branches missed.">        for (String item : selectedIds) {</span>
-<span class="nc" id="L267">            in.value(item);</span>
-        }
-<span class="nc" id="L269">        cq.where(in);</span>
+  @Override
+  public void setContext(ActionBeanContext context) {
+<span class="nc" id="L359">    this.context = context;</span>
+<span class="nc" id="L360">  }</span>
 
-<span class="nc" id="L271">        List&lt;NHRInschrijving&gt; procList = entityManager.createQuery(cq).getResultList();</span>
-<span class="nc bnc" id="L272" title="All 2 branches missed.">        for (NHRInschrijving b : procList) {</span>
-<span class="nc" id="L273">            b.setVolgendProberen(new java.util.Date());</span>
-<span class="nc" id="L274">            b.setProbeerAantal(0);</span>
-<span class="nc" id="L275">        }</span>
+  public String[] getSelectedIds() {
+<span class="nc" id="L363">    return selectedIds;</span>
+  }
 
-<span class="nc" id="L277">        entityManager.getTransaction().commit();</span>
-<span class="nc" id="L278">        return new StreamingResolution(&quot;text/plain&quot;) {</span>
-            @Override
-            public void stream(HttpServletResponse response) throws Exception {
-<span class="nc" id="L281">                response.getWriter().print(&quot;ok&quot;);</span>
-<span class="nc" id="L282">            }</span>
-        };
-    }
+  public void setSelectedIds(String[] selectedIds) {
+<span class="nc" id="L367">    this.selectedIds = selectedIds;</span>
+<span class="nc" id="L368">  }</span>
 
-    public Resolution upload() throws IOException {
-<span class="nc" id="L287">        EntityManager entityManager = Stripersist.getEntityManager();</span>
-<span class="nc" id="L288">        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {</span>
-            while (true) {
-<span class="nc" id="L290">                String line = reader.readLine();</span>
-<span class="nc bnc" id="L291" title="All 2 branches missed.">                if (line == null) {</span>
-<span class="nc" id="L292">                    break;</span>
-                }
+  public int getStart() {
+<span class="nc" id="L371">    return start;</span>
+  }
 
-                // Parse the first column from a CSV, and accept KVK numbers with zeroes trimmed
-                // (e.g. spreadsheet software parsing the number as a decimal)
-<span class="nc" id="L297">                line = line.split(&quot;,&quot;)[0];</span>
-<span class="nc bnc" id="L298" title="All 2 branches missed.">                if (line.length() &lt; 8) {</span>
-<span class="nc" id="L299">                    line = StringUtils.leftPad(line, 8, &quot;0&quot;);</span>
-                }
+  public void setStart(int start) {
+<span class="nc" id="L375">    this.start = start;</span>
+<span class="nc" id="L376">  }</span>
 
-                NHRInschrijving proces;
-<span class="nc" id="L303">                proces = entityManager.find(NHRInschrijving.class, line);</span>
-<span class="nc bnc" id="L304" title="All 2 branches missed.">                if (proces == null) {</span>
-<span class="nc" id="L305">                    proces = new NHRInschrijving();</span>
-                }
+  public int getLimit() {
+<span class="nc" id="L379">    return limit;</span>
+  }
 
-<span class="nc" id="L308">                proces.setDatum(new Date());</span>
-<span class="nc" id="L309">                proces.setVolgendProberen(new Date());</span>
-<span class="nc" id="L310">                proces.setProbeerAantal(0);</span>
-<span class="nc" id="L311">                proces.setKvkNummer(line);</span>
-<span class="nc" id="L312">                entityManager.merge(proces);</span>
-<span class="nc" id="L313">            }</span>
-        }
+  public void setLimit(int limit) {
+<span class="nc" id="L383">    this.limit = limit;</span>
+<span class="nc" id="L384">  }</span>
 
-<span class="nc" id="L316">        file.delete();</span>
-<span class="nc" id="L317">        entityManager.getTransaction().commit();</span>
-<span class="nc" id="L318">        return list();</span>
-    }
+  public String getSort() {
+<span class="nc" id="L387">    return sort;</span>
+  }
 
-    private JSONObject laadproces2Json(NHRInschrijving laadproces) {
-<span class="nc" id="L322">        JSONObject json = new JSONObject();</span>
+  public void setSort(String sort) {
+<span class="nc" id="L391">    this.sort = sort;</span>
+<span class="nc" id="L392">  }</span>
 
-<span class="nc" id="L324">        json.put(&quot;datum&quot;, laadproces.getDatum());</span>
-<span class="nc" id="L325">        json.put(&quot;laatstGeprobeerd&quot;, laadproces.getLaatstGeprobeerd());</span>
-<span class="nc" id="L326">        json.put(&quot;volgendProberen&quot;, laadproces.getVolgendProberen());</span>
-<span class="nc" id="L327">        json.put(&quot;probeerAantal&quot;, laadproces.getProbeerAantal());</span>
-<span class="nc" id="L328">        json.put(&quot;kvkNummer&quot;, laadproces.getKvkNummer());</span>
+  public String getDir() {
+<span class="nc" id="L395">    return dir;</span>
+  }
 
-<span class="nc" id="L330">        return json;</span>
-    }
+  public void setDir(String dir) {
+<span class="nc" id="L399">    this.dir = dir;</span>
+<span class="nc" id="L400">  }</span>
 
-    public ActionBeanContext getContext() {
-<span class="nc" id="L334">        return context;</span>
-    }
+  public FileBean getFile() {
+<span class="nc" id="L403">    return file;</span>
+  }
 
-    public void setContext(ActionBeanContext context) {
-<span class="nc" id="L338">        this.context = context;</span>
-<span class="nc" id="L339">    }</span>
-
-    public String[] getSelectedIds() {
-<span class="nc" id="L342">        return selectedIds;</span>
-    }
-
-    public void setSelectedIds(String[] selectedIds) {
-<span class="nc" id="L346">        this.selectedIds = selectedIds;</span>
-<span class="nc" id="L347">    }</span>
-
-    public int getStart() {
-<span class="nc" id="L350">        return start;</span>
-    }
-
-    public void setStart(int start) {
-<span class="nc" id="L354">        this.start = start;</span>
-<span class="nc" id="L355">    }</span>
-
-    public int getLimit() {
-<span class="nc" id="L358">        return limit;</span>
-    }
-
-    public void setLimit(int limit) {
-<span class="nc" id="L362">        this.limit = limit;</span>
-<span class="nc" id="L363">    }</span>
-
-    public String getSort() {
-<span class="nc" id="L366">        return sort;</span>
-    }
-
-    public void setSort(String sort) {
-<span class="nc" id="L370">        this.sort = sort;</span>
-<span class="nc" id="L371">    }</span>
-
-    public String getDir() {
-<span class="nc" id="L374">        return dir;</span>
-    }
-
-    public void setDir(String dir) {
-<span class="nc" id="L378">        this.dir = dir;</span>
-<span class="nc" id="L379">    }</span>
-
-    public FileBean getFile() {
-<span class="nc" id="L382">        return file;</span>
-    }
-
-    public void setFile(FileBean file) {
-<span class="nc" id="L386">        this.file = file;</span>
-<span class="nc" id="L387">    }</span>
+  public void setFile(FileBean file) {
+<span class="nc" id="L407">    this.file = file;</span>
+<span class="nc" id="L408">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

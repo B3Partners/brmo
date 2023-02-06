@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AansprakelijkheidRelatieRegistratieType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">AansprakelijkheidRelatieRegistratieType.java</span></div><h1>AansprakelijkheidRelatieRegistratieType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for AansprakelijkheidRelatieRegistratieType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;AansprakelijkheidRelatieRegistratieType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}RelatieRegistratieType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;moeder&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}NietNatuurlijkPersoonRelatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumIntrekking&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DatumIncompleetType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;verklaring&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DeponeringRelatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;intrekking&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DeponeringRelatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;overblijvende&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DeponeringRelatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;AansprakelijkheidRelatieRegistratieType&quot;, propOrder = {
+    &quot;moeder&quot;,
+    &quot;datumIntrekking&quot;,
+    &quot;verklaring&quot;,
+    &quot;intrekking&quot;,
+    &quot;overblijvende&quot;
+})
+<span class="nc" id="L40">public class AansprakelijkheidRelatieRegistratieType</span>
+    extends RelatieRegistratieType
+{
+
+    protected NietNatuurlijkPersoonRelatieType moeder;
+    protected String datumIntrekking;
+    protected DeponeringRelatieType verklaring;
+    protected DeponeringRelatieType intrekking;
+    protected DeponeringRelatieType overblijvende;
+
+    /**
+     * Gets the value of the moeder property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NietNatuurlijkPersoonRelatieType }
+     *     
+     */
+    public NietNatuurlijkPersoonRelatieType getMoeder() {
+<span class="nc" id="L59">        return moeder;</span>
+    }
+
+    /**
+     * Sets the value of the moeder property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NietNatuurlijkPersoonRelatieType }
+     *     
+     */
+    public void setMoeder(NietNatuurlijkPersoonRelatieType value) {
+<span class="nc" id="L71">        this.moeder = value;</span>
+<span class="nc" id="L72">    }</span>
+
+    /**
+     * Gets the value of the datumIntrekking property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDatumIntrekking() {
+<span class="nc" id="L83">        return datumIntrekking;</span>
+    }
+
+    /**
+     * Sets the value of the datumIntrekking property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDatumIntrekking(String value) {
+<span class="nc" id="L95">        this.datumIntrekking = value;</span>
+<span class="nc" id="L96">    }</span>
+
+    /**
+     * Gets the value of the verklaring property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public DeponeringRelatieType getVerklaring() {
+<span class="nc" id="L107">        return verklaring;</span>
+    }
+
+    /**
+     * Sets the value of the verklaring property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public void setVerklaring(DeponeringRelatieType value) {
+<span class="nc" id="L119">        this.verklaring = value;</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * Gets the value of the intrekking property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public DeponeringRelatieType getIntrekking() {
+<span class="nc" id="L131">        return intrekking;</span>
+    }
+
+    /**
+     * Sets the value of the intrekking property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public void setIntrekking(DeponeringRelatieType value) {
+<span class="nc" id="L143">        this.intrekking = value;</span>
+<span class="nc" id="L144">    }</span>
+
+    /**
+     * Gets the value of the overblijvende property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public DeponeringRelatieType getOverblijvende() {
+<span class="nc" id="L155">        return overblijvende;</span>
+    }
+
+    /**
+     * Sets the value of the overblijvende property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public void setOverblijvende(DeponeringRelatieType value) {
+<span class="nc" id="L167">        this.overblijvende = value;</span>
+<span class="nc" id="L168">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

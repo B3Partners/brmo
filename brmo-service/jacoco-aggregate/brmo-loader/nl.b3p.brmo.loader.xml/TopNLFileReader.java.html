@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>TopNLFileReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">TopNLFileReader.java</span></div><h1>TopNLFileReader.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>TopNLFileReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">TopNLFileReader.java</span></div><h1>TopNLFileReader.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2017 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,72 +17,67 @@
 package nl.b3p.brmo.loader.xml;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 
 /**
- *
  * @author Mark Prins
  */
 public class TopNLFileReader extends BrmoXMLReader {
 
-<span class="nc" id="L34">    private long fileSize = 0;</span>
+<span class="nc" id="L30">  private long fileSize = 0;</span>
 
-<span class="nc" id="L36">    public TopNLFileReader(String fileName, String soort) throws Exception {</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (fileName != null) {</span>
-<span class="nc" id="L38">            this.setBestandsNaam(fileName);</span>
-        }
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        this.soort = (soort == null ? BrmoFramework.BR_TOPNL : soort);</span>
-<span class="nc" id="L41">        this.init();</span>
-<span class="nc" id="L42">    }</span>
-
-    /**
-     *
-     * @throws Exception als het bestand niet bestaat of leeg is
-     */
-    @Override
-    public void init() throws Exception {
-<span class="nc" id="L50">        File input = new File(this.getBestandsNaam());</span>
-<span class="nc" id="L51">        fileSize = input.length();</span>
-<span class="nc" id="L52">        this.setBestandsDatum(new Date());</span>
-<span class="nc" id="L53">    }</span>
-
-    public long getFileSize() {
-<span class="nc" id="L56">        return fileSize;</span>
+<span class="nc" id="L32">  public TopNLFileReader(String fileName, String soort) throws Exception {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">    if (fileName != null) {</span>
+<span class="nc" id="L34">      this.setBestandsNaam(fileName);</span>
     }
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    this.soort = (soort == null ? BrmoFramework.BR_TOPNL : soort);</span>
+<span class="nc" id="L37">    this.init();</span>
+<span class="nc" id="L38">  }</span>
 
-    /**
-     * probeer uit de naam af te leiden wat gebied en zoomnivo zijn.
-     *
-     * @param naam naam van de zipfile met gml bestanden.
-     */
-    @Override
-    public void setBestandsNaam(String naam) {
-<span class="nc" id="L66">        super.setBestandsNaam(naam);</span>
-<span class="nc" id="L67">        StringTokenizer parts = new StringTokenizer(</span>
-<span class="nc" id="L68">                naam.substring(naam.lastIndexOf(File.separator) + 1, naam.length()),</span>
-                &quot;_-.&quot;, false);
+  /**
+   * @throws Exception als het bestand niet bestaat of leeg is
+   */
+  @Override
+  public void init() throws Exception {
+<span class="nc" id="L45">    File input = new File(this.getBestandsNaam());</span>
+<span class="nc" id="L46">    fileSize = input.length();</span>
+<span class="nc" id="L47">    this.setBestandsDatum(new Date());</span>
+<span class="nc" id="L48">  }</span>
 
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (parts.countTokens() &gt; 2) {</span>
-<span class="nc" id="L72">            this.setGebied(&quot;&quot; + parts.nextToken() + &quot; blad &quot; + parts.nextToken());</span>
-        } else {
-<span class="nc" id="L74">            this.setGebied(&quot;Nederland&quot;);</span>
-        }
-<span class="nc" id="L76">    }</span>
+  public long getFileSize() {
+<span class="nc" id="L51">    return fileSize;</span>
+  }
 
-    @Override
-    public boolean hasNext() throws Exception {
-<span class="nc" id="L80">        return false;</span>
+  /**
+   * probeer uit de naam af te leiden wat gebied en zoomnivo zijn.
+   *
+   * @param naam naam van de zipfile met gml bestanden.
+   */
+  @Override
+  public void setBestandsNaam(String naam) {
+<span class="nc" id="L61">    super.setBestandsNaam(naam);</span>
+<span class="nc" id="L62">    StringTokenizer parts =</span>
+        new StringTokenizer(
+<span class="nc" id="L64">            naam.substring(naam.lastIndexOf(File.separator) + 1, naam.length()), &quot;_-.&quot;, false);</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (parts.countTokens() &gt; 2) {</span>
+<span class="nc" id="L67">      this.setGebied(&quot;&quot; + parts.nextToken() + &quot; &quot; + parts.nextToken());</span>
+    } else {
+<span class="nc" id="L69">      this.setGebied(&quot;Nederland&quot;);</span>
     }
+<span class="nc" id="L71">  }</span>
 
-    @Override
-    public Bericht next() throws Exception {
-<span class="nc" id="L85">        return null;</span>
-    }
+  @Override
+  public boolean hasNext() throws Exception {
+<span class="nc" id="L75">    return false;</span>
+  }
+
+  @Override
+  public Bericht next() throws Exception {
+<span class="nc" id="L80">    return null;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,23 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StUFBGasynchroon.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.stufbg204</a> &gt; <span class="el_source">StUFBGasynchroon.java</span></div><h1>StUFBGasynchroon.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.stufbg204;
-
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
-import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
-import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
-import nl.egem.stuf.sector.bg._0204.VraagBericht;
-import nl.egem.stuf.stuf0204.BevestigingsBericht;
-import nl.egem.stuf.stuf0204.FoutBericht;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StUFBGasynchroon.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.stufbg204</a> &gt; <span class="el_source">StUFBGasynchroon.java</span></div><h1>StUFBGasynchroon.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.stufbg204;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,7 +9,6 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.sql.DataSource;
@@ -48,227 +28,240 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
+import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
+import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
+import nl.egem.stuf.sector.bg._0204.VraagBericht;
+import nl.egem.stuf.stuf0204.BevestigingsBericht;
+import nl.egem.stuf.stuf0204.FoutBericht;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-/** @author mprins */
+/**
+ * @author mprins
+ */
 @WebService(
-        serviceName = &quot;StUFBGAsynchroon&quot;,
-        portName = &quot;StUFBGAsynchronePort&quot;,
-        endpointInterface = &quot;nl.egem.stuf.sector.bg._0204.StUFBGAsynchroonPortType&quot;,
-        targetNamespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;,
-        wsdlLocation = &quot;WEB-INF/wsdl/bg0204.wsdl&quot;)
+    serviceName = &quot;StUFBGAsynchroon&quot;,
+    portName = &quot;StUFBGAsynchronePort&quot;,
+    endpointInterface = &quot;nl.egem.stuf.sector.bg._0204.StUFBGAsynchroonPortType&quot;,
+    targetNamespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;,
+    wsdlLocation = &quot;WEB-INF/wsdl/bg0204.wsdl&quot;)
 @HandlerChain(file = &quot;/handler-chain.xml&quot;)
-<span class="nc" id="L60">public class StUFBGasynchroon {</span>
+<span class="nc" id="L59">public class StUFBGasynchroon {</span>
 
-<span class="nc" id="L62">    private static final Log LOG = LogFactory.getLog(StUFBGasynchroon.class);</span>
+<span class="nc" id="L61">  private static final Log LOG = LogFactory.getLog(StUFBGasynchroon.class);</span>
 
-    public BevestigingsBericht ontvangAsynchroneVraag(VraagBericht vraag) {
-<span class="nc" id="L65">        LOG.debug(</span>
-                &quot;Er is een vraag ontvangen van soort: &quot;
-<span class="nc" id="L67">                        + vraag.getStuurgegevens().getBerichtsoort());</span>
-<span class="nc" id="L68">        BevestigingsBericht b = new BevestigingsBericht();</span>
-<span class="nc" id="L69">        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));</span>
+  public BevestigingsBericht ontvangAsynchroneVraag(VraagBericht vraag) {
+<span class="nc" id="L64">    LOG.debug(&quot;Er is een vraag ontvangen van soort: &quot; + vraag.getStuurgegevens().getBerichtsoort());</span>
+<span class="nc" id="L65">    BevestigingsBericht b = new BevestigingsBericht();</span>
+<span class="nc" id="L66">    b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(vraag.getStuurgegevens()));</span>
 
-<span class="nc" id="L71">        return b;</span>
+<span class="nc" id="L68">    return b;</span>
+  }
+
+  public BevestigingsBericht ontvangAsynchroonAntwoord(
+      AsynchroonAntwoordBericht asynchroonAntwoord) {
+<span class="nc" id="L73">    LOG.debug(</span>
+        &quot;Er is een antwoord ontvangen van soort: &quot;
+<span class="nc" id="L75">            + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());</span>
+<span class="nc" id="L76">    BevestigingsBericht b = new BevestigingsBericht();</span>
+<span class="nc" id="L77">    b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(asynchroonAntwoord.getStuurgegevens()));</span>
+
+<span class="nc" id="L79">    return b;</span>
+  }
+
+  public BevestigingsBericht ontvangFout(FoutBericht fout) {
+<span class="nc" id="L83">    LOG.debug(&quot;Er is een fout ontvangen van soort: &quot; + fout.getStuurgegevens().getBerichtsoort());</span>
+<span class="nc" id="L84">    BevestigingsBericht b = new BevestigingsBericht();</span>
+<span class="nc" id="L85">    b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(fout.getStuurgegevens()));</span>
+
+<span class="nc" id="L87">    return b;</span>
+  }
+
+  /**
+   * 4.2 Stuurgegevens voor kennisgevingberichten. In paragraaf 2.3 zijn vier varianten binnen een
+   * kennisgevingbericht onderkend:
+   *
+   * &lt;p&gt;&lt;strong&gt;Toevoeging&lt;/strong&gt;
+   *
+   * &lt;p&gt;Bij een toevoeging is in het zendende systeem een occurrence toegevoegd, omdat is
+   * vastgesteld dat in de werkelijkheid een voor het zendende systeem relevant object bestaat.
+   *
+   * &lt;p&gt;&lt;strong&gt;Wijziging&lt;/strong&gt;
+   *
+   * &lt;p&gt;Bij een wijziging is in het zendende systeem een occurrence gewijzigd, omdat is vastgesteld
+   * dat er in de werkelijkheid eigenschappen (gegevens) zijn veranderd van het object waar naar die
+   * occurrence verwijst.
+   *
+   * &lt;p&gt;&lt;strong&gt;Verwijdering&lt;/strong&gt;
+   *
+   * &lt;p&gt;Bij een verwijdering is in het zendende systeem een occurrence verwijderd, omdat is
+   * vastgesteld dat in de werkelijkheid het object waarnaar de occurrence verwijst, niet meer
+   * bestaat of niet meer relevant is voor het zendende systeem.
+   *
+   * &lt;p&gt;&lt;strong&gt;Correctie&lt;/strong&gt;
+   *
+   * &lt;p&gt;Bij een correctie is in het zendende systeem een occurrence gewijzigd, omdat is vastgesteld
+   * dat de vastgelegde waarden niet correct waren. Bij een correctie is het object in de
+   * werkelijkheid waarnaar de occurrence verwijst, zelf niet gewijzigd. Deze verschillende
+   * varianten worden als volgt gecodeerd in het stuurgegeven mutatiesoort:
+   *
+   * &lt;ul&gt;
+   *   &lt;li&gt;‘T’: Toevoeging
+   *   &lt;li&gt;‘W’: Wijziging
+   *   &lt;li&gt;‘V’: Verwijdering
+   *   &lt;li&gt;‘C’: Correctie
+   * &lt;/ul&gt;
+   *
+   * Het is aan het ontvangende systeem om te interpreteren in hoeverre een kennisgeving relevant is
+   * en of de kennisgeving het gevolg is van het ontstaan of verdwijnen van een object c.q. van het
+   * relevant worden of niet meer relevant zijn van het object voor het zendende systeem. Het
+   * kennisgevingbericht bevat geen aanduiding van de gebeurtenis die aanleiding gaf tot de
+   * wijziging van de gegevens (zie paragraaf 2.3). &lt;br&gt;
+   * Naast de mutatiesoort is in een kennisgevingbericht ook relevant hoe het ontvangende systeem
+   * geacht wordt te reageren op het bericht. Een kennisgevingbericht kan puur informatief bedoeld
+   * zijn: het ontvangende systeem mag zelf beslissen of de kennisgeving al dan niet wordt verwerkt
+   * in de eigen gegevens. Daarnaast kan het verplicht zijn voor het ontvangende systeem om de
+   * gegevens over te nemen. Of een kennisgevingbericht informatief is of verplicht over te nemen
+   * geeft het stuurgegeven indicator overname aan met 'I' (informatief) respectievelijk 'V'
+   * (verplicht). Aanvullende afspraken over de omgang met deze rubriek kunnen worden vastgelegd in
+   * het sectormodel.
+   *
+   * @param kennisgeving te verwerken kennisgevingsbericht
+   * @return een bevestiging van de kennisgeving
+   */
+  public BevestigingsBericht ontvangKennisgeving(KennisgevingsBericht kennisgeving) {
+<span class="nc" id="L143">    LOG.debug(</span>
+        &quot;Er is een kennisgeving ontvangen van soort: &quot;
+<span class="nc" id="L145">            + kennisgeving.getStuurgegevens().getBerichtsoort()</span>
+            + &quot; en mutatiesoort &quot;
+<span class="nc" id="L147">            + kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort());</span>
+<span class="nc" id="L148">    BevestigingsBericht b = new BevestigingsBericht();</span>
+<span class="nc" id="L149">    b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));</span>
+
+<span class="nc bnc" id="L151" title="All 3 branches missed.">    switch (kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort()) {</span>
+      case T:
+<span class="nc" id="L153">        saveBericht(</span>
+<span class="nc" id="L154">            kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());</span>
+<span class="nc" id="L155">        break;</span>
+      case W:
+      case C:
+        // dit werkt -nog- niet omdat dit 2 PRS nodes bevat, een was en een wordt...
+<span class="nc" id="L159">        saveBericht(</span>
+<span class="nc" id="L160">            kennisgeving, kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());</span>
+<span class="nc" id="L161">        break;</span>
+      case V:
+      default:
+<span class="nc" id="L164">        LOG.warn(&quot;Onbekende mutatiesoort wordt niet verwerkt.&quot;);</span>
+        break;
     }
+<span class="nc" id="L167">    return b;</span>
+  }
 
-    public BevestigingsBericht ontvangAsynchroonAntwoord(
-            AsynchroonAntwoordBericht asynchroonAntwoord) {
-<span class="nc" id="L76">        LOG.debug(</span>
-                &quot;Er is een antwoord ontvangen van soort: &quot;
-<span class="nc" id="L78">                        + asynchroonAntwoord.getStuurgegevens().getBerichtsoort());</span>
-<span class="nc" id="L79">        BevestigingsBericht b = new BevestigingsBericht();</span>
-<span class="nc" id="L80">        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(asynchroonAntwoord.getStuurgegevens()));</span>
+  private void saveBericht(Object body, String datum) {
+    try {
+<span class="nc" id="L172">      DataSource ds = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L173">      BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
+<span class="nc" id="L174">      InputStream in = getXml(body);</span>
 
-<span class="nc" id="L82">        return b;</span>
+<span class="nc" id="L176">      Date d = StUFbg204Util.sdf.parse(datum);</span>
+<span class="nc" id="L177">      String bestand_naam = &quot;StUF-BG upload op &quot; + StUFbg204Util.sdf.format(new Date());</span>
+
+<span class="nc" id="L179">      brmo.loadFromStream(BrmoFramework.BR_BRP, in, bestand_naam, d, null);</span>
+<span class="nc" id="L180">      brmo.closeBrmoFramework();</span>
+<span class="nc" id="L181">    } catch (BrmoException ex) {</span>
+<span class="nc" id="L182">      LOG.error(&quot;Fout tijdens laden van StUF-BG bericht&quot;, ex);</span>
+<span class="nc" id="L183">    } catch (JAXBException | ParseException ex) {</span>
+<span class="nc" id="L184">      LOG.error(&quot;Fout tijdens parsen van bericht&quot;, ex);</span>
+<span class="nc" id="L185">    }</span>
+<span class="nc" id="L186">  }</span>
+
+  private InputStream getXml(Object o) throws JAXBException {
+
+    try {
+      // maak van POJO een inputstream
+<span class="nc" id="L192">      Marshaller jaxbMarshaller = StUFbg204Util.getStufJaxbContext().createMarshaller();</span>
+<span class="nc" id="L193">      ByteArrayOutputStream baos = new ByteArrayOutputStream();</span>
+<span class="nc" id="L194">      jaxbMarshaller.marshal(o, baos);</span>
+<span class="nc" id="L195">      InputStream in = new ByteArrayInputStream(baos.toByteArray());</span>
+
+      // maak er een document van
+<span class="nc" id="L198">      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L199">      factory.setNamespaceAware(true);</span>
+<span class="nc" id="L200">      DocumentBuilder builder = factory.newDocumentBuilder();</span>
+
+<span class="nc" id="L202">      Document doc = builder.parse(in);</span>
+<span class="nc" id="L203">      List&lt;SimpleEntry&lt;String, String&gt;&gt; prefixes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L204">      getPrefixesRecursive(doc.getDocumentElement(), prefixes);</span>
+      // haal de body eruit met xpath
+<span class="nc" id="L206">      XPathFactory xPathfactory = XPathFactory.newInstance();</span>
+<span class="nc" id="L207">      XPath xpath = xPathfactory.newXPath();</span>
+<span class="nc" id="L208">      XPathExpression expr = xpath.compile(&quot;//*[local-name() = 'body']/*&quot;);</span>
+<span class="nc" id="L209">      NodeList nodelist = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);</span>
+
+<span class="nc" id="L211">      Document newDoc = builder.newDocument();</span>
+<span class="nc" id="L212">      Node root = newDoc.createElement(&quot;root&quot;);</span>
+
+<span class="nc bnc" id="L214" title="All 2 branches missed.">      for (int i = 0; i &lt; nodelist.getLength(); i++) {</span>
+<span class="nc" id="L215">        Node n = nodelist.item(i);</span>
+<span class="nc" id="L216">        Node newNode = newDoc.importNode(n, true);</span>
+<span class="nc" id="L217">        root.appendChild(newNode);</span>
+      }
+
+      // Vertaal xml naar inputstream voor verwerking in brmo framework
+<span class="nc" id="L221">      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
+<span class="nc" id="L222">      Transformer t = TransformerFactory.newInstance().newTransformer();</span>
+<span class="nc" id="L223">      t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
+<span class="nc" id="L224">      t.transform(new DOMSource(root), new StreamResult(outputStream));</span>
+<span class="nc" id="L225">      InputStream is = new ByteArrayInputStream(outputStream.toByteArray());</span>
+
+<span class="nc" id="L227">      return is;</span>
+<span class="nc" id="L228">    } catch (ParserConfigurationException</span>
+        | SAXException
+        | IOException
+        | XPathExpressionException
+        | TransformerException ex) {
+<span class="nc" id="L233">      LOG.error(&quot;Cannot parse body&quot;, ex);</span>
     }
+<span class="nc" id="L235">    return null;</span>
+  }
 
-    public BevestigingsBericht ontvangFout(FoutBericht fout) {
-<span class="nc" id="L86">        LOG.debug(</span>
-<span class="nc" id="L87">                &quot;Er is een fout ontvangen van soort: &quot; + fout.getStuurgegevens().getBerichtsoort());</span>
-<span class="nc" id="L88">        BevestigingsBericht b = new BevestigingsBericht();</span>
-<span class="nc" id="L89">        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(fout.getStuurgegevens()));</span>
+  private static final String XMLNAMESPACE = &quot;xmlns&quot;;
 
-<span class="nc" id="L91">        return b;</span>
+  public static void getPrefixesRecursive(
+      Element element, List&lt;SimpleEntry&lt;String, String&gt;&gt; prefixes) {
+<span class="nc" id="L242">    getPrefixes(element, prefixes);</span>
+<span class="nc" id="L243">    Node parent = element.getParentNode();</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">    if (parent instanceof Element) {</span>
+<span class="nc" id="L245">      getPrefixesRecursive((Element) parent, prefixes);</span>
     }
+<span class="nc" id="L247">  }</span>
 
-    /**
-     * 4.2 Stuurgegevens voor kennisgevingberichten. In paragraaf 2.3 zijn vier varianten binnen een
-     * kennisgevingbericht onderkend:
-     *
-     * &lt;h3&gt;Toevoeging&lt;/h3&gt;
-     *
-     * Bij een toevoeging is in het zendende systeem een occurrence toegevoegd, omdat is vastgesteld
-     * dat in de werkelijkheid een voor het zendende systeem relevant object bestaat.
-     *
-     * &lt;h3&gt;Wijziging&lt;/h3&gt;
-     *
-     * Bij een wijziging is in het zendende systeem een occurrence gewijzigd, omdat is vastgesteld
-     * dat er in de werkelijkheid eigenschappen (gegevens) zijn veranderd van het object waar naar
-     * die occurrence verwijst.
-     *
-     * &lt;h3&gt;Verwijdering&lt;/h3&gt;
-     *
-     * Bij een verwijdering is in het zendende systeem een occurrence verwijderd, omdat is
-     * vastgesteld dat in de werkelijkheid het object waarnaar de occurrence verwijst, niet meer
-     * bestaat of niet meer relevant is voor het zendende systeem.
-     *
-     * &lt;h3&gt;Correctie&lt;/h3&gt;
-     *
-     * Bij een correctie is in het zendende systeem een occurrence gewijzigd, omdat is vastgesteld
-     * dat de vastgelegde waarden niet correct waren. Bij een correctie is het object in de
-     * werkelijkheid waarnaar de occurrence verwijst, zelf niet gewijzigd. Deze verschillende
-     * varianten worden als volgt gecodeerd in het stuurgegeven mutatiesoort:
-     *
-     * &lt;ul&gt;
-     *   &lt;li&gt;‘T’: Toevoeging
-     *   &lt;li&gt;‘W’: Wijziging
-     *   &lt;li&gt;‘V’: Verwijdering
-     *   &lt;li&gt;‘C’: Correctie
-     * &lt;/ul&gt;
-     *
-     * Het is aan het ontvangende systeem om te interpreteren in hoeverre een kennisgeving relevant
-     * is en of de kennisgeving het gevolg is van het ontstaan of verdwijnen van een object c.q. van
-     * het relevant worden of niet meer relevant zijn van het object voor het zendende systeem. Het
-     * kennisgevingbericht bevat geen aanduiding van de gebeurtenis die aanleiding gaf tot de
-     * wijziging van de gegevens (zie paragraaf 2.3). &lt;br&gt;
-     * Naast de mutatiesoort is in een kennisgevingbericht ook relevant hoe het ontvangende systeem
-     * geacht wordt te reageren op het bericht. Een kennisgevingbericht kan puur informatief bedoeld
-     * zijn: het ontvangende systeem mag zelf beslissen of de kennisgeving al dan niet wordt
-     * verwerkt in de eigen gegevens. Daarnaast kan het verplicht zijn voor het ontvangende systeem
-     * om de gegevens over te nemen. Of een kennisgevingbericht informatief is of verplicht over te
-     * nemen geeft het stuurgegeven indicator overname aan met 'I' (informatief) respectievelijk 'V'
-     * (verplicht). Aanvullende afspraken over de omgang met deze rubriek kunnen worden vastgelegd
-     * in het sectormodel.
-     *
-     * @param kennisgeving te verwerken kennisgevingsbericht
-     * @return een bevestiging van de kennisgeving
-     */
-    public BevestigingsBericht ontvangKennisgeving(KennisgevingsBericht kennisgeving) {
-<span class="nc" id="L147">        LOG.debug(</span>
-                &quot;Er is een kennisgeving ontvangen van soort: &quot;
-<span class="nc" id="L149">                        + kennisgeving.getStuurgegevens().getBerichtsoort()</span>
-                        + &quot; en mutatiesoort &quot;
-<span class="nc" id="L151">                        + kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort());</span>
-<span class="nc" id="L152">        BevestigingsBericht b = new BevestigingsBericht();</span>
-<span class="nc" id="L153">        b.setStuurgegevens(StUFbg204Util.maakStuurgegevens(kennisgeving.getStuurgegevens()));</span>
-
-<span class="nc bnc" id="L155" title="All 3 branches missed.">        switch (kennisgeving.getStuurgegevens().getKennisgeving().getMutatiesoort()) {</span>
-            case T:
-<span class="nc" id="L157">                saveBericht(</span>
-                        kennisgeving,
-<span class="nc" id="L159">                        kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());</span>
-<span class="nc" id="L160">                break;</span>
-            case W:
-            case C:
-                // dit werkt -nog- niet omdat dit 2 PRS nodes bevat, een was en een wordt...
-<span class="nc" id="L164">                saveBericht(</span>
-                        kennisgeving,
-<span class="nc" id="L166">                        kennisgeving.getStuurgegevens().getKennisgeving().getTijdstipMutatie());</span>
-<span class="nc" id="L167">                break;</span>
-            case V:
-            default:
-<span class="nc" id="L170">                LOG.warn(&quot;Onbekende mutatiesoort wordt niet verwerkt.&quot;);</span>
-                break;
-        }
-<span class="nc" id="L173">        return b;</span>
+  /**
+   * Get all prefixes defined on this element for the specified namespace.
+   *
+   * @param element dom element
+   * @param prefixes lijst van namespace prefixes
+   */
+  public static void getPrefixes(Element element, List&lt;SimpleEntry&lt;String, String&gt;&gt; prefixes) {
+<span class="nc" id="L256">    NamedNodeMap atts = element.getAttributes();</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">    for (int i = 0; i &lt; atts.getLength(); i++) {</span>
+<span class="nc" id="L258">      Node node = atts.item(i);</span>
+<span class="nc" id="L259">      String name = node.getNodeName();</span>
+<span class="nc bnc" id="L260" title="All 6 branches missed.">      if (name != null &amp;&amp; (XMLNAMESPACE.equals(name) || name.startsWith(XMLNAMESPACE + &quot;:&quot;))) {</span>
+<span class="nc" id="L261">        SimpleEntry s = new SimpleEntry(name, node.getNodeValue());</span>
+<span class="nc" id="L262">        prefixes.add(s);</span>
+      }
     }
-
-    private void saveBericht(Object body, String datum) {
-        try {
-<span class="nc" id="L178">            DataSource ds = ConfigUtil.getDataSourceStaging();</span>
-<span class="nc" id="L179">            BrmoFramework brmo = new BrmoFramework(ds, null, null);</span>
-<span class="nc" id="L180">            InputStream in = getXml(body);</span>
-
-<span class="nc" id="L182">            Date d = StUFbg204Util.sdf.parse(datum);</span>
-<span class="nc" id="L183">            String bestand_naam = &quot;StUF-BG upload op &quot; + StUFbg204Util.sdf.format(new Date());</span>
-
-<span class="nc" id="L185">            brmo.loadFromStream(BrmoFramework.BR_BRP, in, bestand_naam, d, null);</span>
-<span class="nc" id="L186">            brmo.closeBrmoFramework();</span>
-<span class="nc" id="L187">        } catch (BrmoException ex) {</span>
-<span class="nc" id="L188">            LOG.error(&quot;Fout tijdens laden van StUF-BG bericht&quot;, ex);</span>
-<span class="nc" id="L189">        } catch (JAXBException | ParseException ex) {</span>
-<span class="nc" id="L190">            LOG.error(&quot;Fout tijdens parsen van bericht&quot;, ex);</span>
-<span class="nc" id="L191">        }</span>
-<span class="nc" id="L192">    }</span>
-
-    private InputStream getXml(Object o) throws JAXBException {
-
-        try {
-            // maak van POJO een inputstream
-<span class="nc" id="L198">            Marshaller jaxbMarshaller = StUFbg204Util.getStufJaxbContext().createMarshaller();</span>
-<span class="nc" id="L199">            ByteArrayOutputStream baos = new ByteArrayOutputStream();</span>
-<span class="nc" id="L200">            jaxbMarshaller.marshal(o, baos);</span>
-<span class="nc" id="L201">            InputStream in = new ByteArrayInputStream(baos.toByteArray());</span>
-
-            // maak er een document van
-<span class="nc" id="L204">            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
-<span class="nc" id="L205">            factory.setNamespaceAware(true);</span>
-<span class="nc" id="L206">            DocumentBuilder builder = factory.newDocumentBuilder();</span>
-
-<span class="nc" id="L208">            Document doc = builder.parse(in);</span>
-<span class="nc" id="L209">            List&lt;SimpleEntry&lt;String, String&gt;&gt; prefixes = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L210">            getPrefixesRecursive(doc.getDocumentElement(), prefixes);</span>
-            // haal de body eruit met xpath
-<span class="nc" id="L212">            XPathFactory xPathfactory = XPathFactory.newInstance();</span>
-<span class="nc" id="L213">            XPath xpath = xPathfactory.newXPath();</span>
-<span class="nc" id="L214">            XPathExpression expr = xpath.compile(&quot;//*[local-name() = 'body']/*&quot;);</span>
-<span class="nc" id="L215">            NodeList nodelist = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);</span>
-
-<span class="nc" id="L217">            Document newDoc = builder.newDocument();</span>
-<span class="nc" id="L218">            Node root = newDoc.createElement(&quot;root&quot;);</span>
-
-<span class="nc bnc" id="L220" title="All 2 branches missed.">            for (int i = 0; i &lt; nodelist.getLength(); i++) {</span>
-<span class="nc" id="L221">                Node n = nodelist.item(i);</span>
-<span class="nc" id="L222">                Node newNode = newDoc.importNode(n, true);</span>
-<span class="nc" id="L223">                root.appendChild(newNode);</span>
-            }
-
-            // Vertaal xml naar inputstream voor verwerking in brmo framework
-<span class="nc" id="L227">            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
-<span class="nc" id="L228">            Transformer t = TransformerFactory.newInstance().newTransformer();</span>
-<span class="nc" id="L229">            t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
-<span class="nc" id="L230">            t.transform(new DOMSource(root), new StreamResult(outputStream));</span>
-<span class="nc" id="L231">            InputStream is = new ByteArrayInputStream(outputStream.toByteArray());</span>
-
-<span class="nc" id="L233">            return is;</span>
-<span class="nc" id="L234">        } catch (ParserConfigurationException</span>
-                | SAXException
-                | IOException
-                | XPathExpressionException
-                | TransformerException ex) {
-<span class="nc" id="L239">            LOG.error(&quot;Cannot parse body&quot;, ex);</span>
-        }
-<span class="nc" id="L241">        return null;</span>
-    }
-
-    private static final String XMLNAMESPACE = &quot;xmlns&quot;;
-
-    public static void getPrefixesRecursive(
-            Element element, List&lt;SimpleEntry&lt;String, String&gt;&gt; prefixes) {
-<span class="nc" id="L248">        getPrefixes(element, prefixes);</span>
-<span class="nc" id="L249">        Node parent = element.getParentNode();</span>
-<span class="nc bnc" id="L250" title="All 2 branches missed.">        if (parent instanceof Element) {</span>
-<span class="nc" id="L251">            getPrefixesRecursive((Element) parent, prefixes);</span>
-        }
-<span class="nc" id="L253">    }</span>
-
-    /**
-     * Get all prefixes defined on this element for the specified namespace.
-     *
-     * @param element dom element
-     * @param prefixes lijst van namespace prefixes
-     */
-    public static void getPrefixes(Element element, List&lt;SimpleEntry&lt;String, String&gt;&gt; prefixes) {
-<span class="nc" id="L262">        NamedNodeMap atts = element.getAttributes();</span>
-<span class="nc bnc" id="L263" title="All 2 branches missed.">        for (int i = 0; i &lt; atts.getLength(); i++) {</span>
-<span class="nc" id="L264">            Node node = atts.item(i);</span>
-<span class="nc" id="L265">            String name = node.getNodeName();</span>
-<span class="nc bnc" id="L266" title="All 2 branches missed.">            if (name != null</span>
-<span class="nc bnc" id="L267" title="All 4 branches missed.">                    &amp;&amp; (XMLNAMESPACE.equals(name) || name.startsWith(XMLNAMESPACE + &quot;:&quot;))) {</span>
-<span class="nc" id="L268">                SimpleEntry s = new SimpleEntry(name, node.getNodeValue());</span>
-<span class="nc" id="L269">                prefixes.add(s);</span>
-            }
-        }
-<span class="nc" id="L272">    }</span>
+<span class="nc" id="L265">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

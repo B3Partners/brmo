@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Converter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">brmo-topnl-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl.converters</a> &gt; <span class="el_source">Converter.java</span></div><h1>Converter.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Converter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">brmo-topnl-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl.converters</a> &gt; <span class="el_source">Converter.java</span></div><h1>Converter.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2016 - 2017 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,38 +37,63 @@ import nl.b3p.topnl.entities.Wegdeel;
 import org.xml.sax.SAXException;
 
 /**
- *
  * @author Meine Toonen
  */
-<span class="fc" id="L43">public abstract class Converter {</span>
-    
-<span class="fc" id="L45">    protected GeometryConverter gc = new GeometryConverter();</span>
-    
-    public abstract List&lt;TopNLEntity&gt; convert(List jaxbObjects)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    
-    public abstract TopNLEntity convertObject(Object jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException,IllegalArgumentException;
-    
-    public abstract List&lt;TopNLEntity&gt; convertFeatureCollection(List jaxbObject)  throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    
-    public abstract Hoogte convertHoogte(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract FunctioneelGebied convertFunctioneelGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Gebouw convertGebouw(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract GeografischGebied convertGeografischGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Inrichtingselement convertInrichtingselement(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Plaats convertPlaats(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract RegistratiefGebied convertRegistratiefGebied(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Relief convertRelief(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract PlanTopografie convertPlanTopografie(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
+<span class="fc" id="L42">public abstract class Converter {</span>
 
-    /**
-     * @throws ClassCastException Als er een onverwacht type geometrie in de
-     * data zit.
-     */
-    public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject) throws IOException, SAXException,
-            ParserConfigurationException, TransformerException, ClassCastException;
-    public abstract Terrein convertTerrein(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Waterdeel convertWaterdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    public abstract Wegdeel convertWegdeel(Object jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException;
-    
+<span class="fc" id="L44">  protected GeometryConverter gc = new GeometryConverter();</span>
+
+  public abstract List&lt;TopNLEntity&gt; convert(List jaxbObjects)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract TopNLEntity convertObject(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+          IllegalArgumentException;
+
+  public abstract List&lt;TopNLEntity&gt; convertFeatureCollection(List jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Hoogte convertHoogte(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract FunctioneelGebied convertFunctioneelGebied(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Gebouw convertGebouw(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract GeografischGebied convertGeografischGebied(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Inrichtingselement convertInrichtingselement(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Plaats convertPlaats(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract RegistratiefGebied convertRegistratiefGebied(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Relief convertRelief(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract PlanTopografie convertPlanTopografie(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  /**
+   * @throws ClassCastException Als er een onverwacht type geometrie in de data zit.
+   */
+  public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+          ClassCastException;
+
+  public abstract Terrein convertTerrein(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Waterdeel convertWaterdeel(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
+
+  public abstract Wegdeel convertWegdeel(Object jaxbObject)
+      throws IOException, SAXException, ParserConfigurationException, TransformerException;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

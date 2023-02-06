@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRLoadOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.nhr.loader.cli</a> &gt; <span class="el_source">NHRLoadOptions.java</span></div><h1>NHRLoadOptions.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRLoadOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.nhr.loader.cli</a> &gt; <span class="el_source">NHRLoadOptions.java</span></div><h1>NHRLoadOptions.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2022 B3Partners B.V.
  *
  * SPDX-License-Identifier: MIT
@@ -10,26 +10,26 @@ package nl.b3p.brmo.nhr.loader.cli;
 import picocli.CommandLine;
 
 <span class="nc" id="L12">public class NHRLoadOptions {</span>
-    @CommandLine.Option(names=&quot;--location&quot;, description = &quot;Location of the NHR service&quot;)
-    private String location;
+  @CommandLine.Option(names = &quot;--location&quot;, description = &quot;Location of the NHR service&quot;)
+  private String location;
 
-    public String getLocation() {
-<span class="nc" id="L17">        return location;</span>
-    }
+  public String getLocation() {
+<span class="nc" id="L17">    return location;</span>
+  }
 
-    public void setLocation(String location) {
-<span class="nc" id="L21">        this.location = location;</span>
-<span class="nc" id="L22">    }</span>
+  public void setLocation(String location) {
+<span class="nc" id="L21">    this.location = location;</span>
+<span class="nc" id="L22">  }</span>
 
-    @CommandLine.Option(names = &quot;--preprod&quot;, description = &quot;Set to true if targeting preproduction.&quot;)
-    private boolean preprod;
+  @CommandLine.Option(names = &quot;--preprod&quot;, description = &quot;Set to true if targeting preproduction.&quot;)
+  private boolean preprod;
 
-    public boolean getPreprod() {
-<span class="nc" id="L28">        return preprod;</span>
-    }
+  public boolean getPreprod() {
+<span class="nc" id="L28">    return preprod;</span>
+  }
 
-    public void setPreprod(boolean preprod) {
-<span class="nc" id="L32">        this.preprod = preprod;</span>
-<span class="nc" id="L33">    }</span>
+  public void setPreprod(boolean preprod) {
+<span class="nc" id="L32">    this.preprod = preprod;</span>
+<span class="nc" id="L33">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MetExtraElementenMogenlijkheidType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">MetExtraElementenMogenlijkheidType.java</span></div><h1>MetExtraElementenMogenlijkheidType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for MetExtraElementenMogenlijkheidType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;MetExtraElementenMogenlijkheidType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}ExtraElementenType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;MetExtraElementenMogenlijkheidType&quot;, propOrder = {
+    &quot;extraElementen&quot;
+})
+@XmlSeeAlso({
+    BinnenlandsAdresType.class,
+    DeponeringenType.class,
+    ActiviteitenType.class,
+    TelefoonnummerType.class,
+    BuitenlandsAdresType.class,
+    BeperkingInHandelingType.class,
+    BeperkteVolmachtType.class,
+    CommunicatienummerType.class,
+    FusieSplitsingVoorstelType.class,
+    RechterlijkeUitspraakType.class,
+    MonistischeBestuurderType.class,
+    RelatieType.class,
+    DeponeringType.class,
+    BerichtenboxType.class,
+    BasisType.class
+})
+<span class="nc" id="L50">public abstract class MetExtraElementenMogenlijkheidType {</span>
+
+    protected ExtraElementenType extraElementen;
+
+    /**
+     * Gets the value of the extraElementen property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExtraElementenType }
+     *     
+     */
+    public ExtraElementenType getExtraElementen() {
+<span class="nc" id="L63">        return extraElementen;</span>
+    }
+
+    /**
+     * Sets the value of the extraElementen property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExtraElementenType }
+     *     
+     */
+    public void setExtraElementen(ExtraElementenType value) {
+<span class="nc" id="L75">        this.extraElementen = value;</span>
+<span class="nc" id="L76">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

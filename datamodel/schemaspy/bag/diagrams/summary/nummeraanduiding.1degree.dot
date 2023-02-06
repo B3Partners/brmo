@@ -1,0 +1,51 @@
+// dot 2.43.0 on Linux 5.15.0-58-generic
+// SchemaSpy rev Unknown
+digraph "nummeraanduiding" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "nummeraanduiding" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">nummeraanduiding</TD></TR>
+      <TR><TD PORT="objectid" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">objectid</TD></TR>
+      <TR><TD PORT="identificatie" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">identificatie</TD></TR>
+      <TR><TD PORT="voorkomenidentificatie" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">voorkomenidentificatie</TD></TR>
+      <TR><TD PORT="begingeldigheid" COLSPAN="3" ALIGN="LEFT">begingeldigheid</TD></TR>
+      <TR><TD PORT="eindgeldigheid" COLSPAN="3" ALIGN="LEFT">eindgeldigheid</TD></TR>
+      <TR><TD PORT="tijdstipregistratie" COLSPAN="3" ALIGN="LEFT">tijdstipregistratie</TD></TR>
+      <TR><TD PORT="eindregistratie" COLSPAN="3" ALIGN="LEFT">eindregistratie</TD></TR>
+      <TR><TD PORT="tijdstipinactief" COLSPAN="3" ALIGN="LEFT">tijdstipinactief</TD></TR>
+      <TR><TD PORT="tijdstipregistratielv" COLSPAN="3" ALIGN="LEFT">tijdstipregistratielv</TD></TR>
+      <TR><TD PORT="tijdstipeindregistratielv" COLSPAN="3" ALIGN="LEFT">tijdstipeindregistratielv</TD></TR>
+      <TR><TD PORT="tijdstipinactieflv" COLSPAN="3" ALIGN="LEFT">tijdstipinactieflv</TD></TR>
+      <TR><TD PORT="documentdatum" COLSPAN="3" ALIGN="LEFT">documentdatum</TD></TR>
+      <TR><TD PORT="documentnummer" COLSPAN="3" ALIGN="LEFT">documentnummer</TD></TR>
+      <TR><TD PORT="geconstateerd" COLSPAN="3" ALIGN="LEFT">geconstateerd</TD></TR>
+      <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
+      <TR><TD PORT="huisnummer" COLSPAN="3" ALIGN="LEFT">huisnummer</TD></TR>
+      <TR><TD PORT="huisletter" COLSPAN="3" ALIGN="LEFT">huisletter</TD></TR>
+      <TR><TD PORT="huisnummertoevoeging" COLSPAN="3" ALIGN="LEFT">huisnummertoevoeging</TD></TR>
+      <TR><TD PORT="postcode" COLSPAN="3" ALIGN="LEFT">postcode</TD></TR>
+      <TR><TD PORT="typeadresseerbaarobject" COLSPAN="3" ALIGN="LEFT">typeadresseerbaarobject</TD></TR>
+      <TR><TD PORT="ligtin" COLSPAN="3" ALIGN="LEFT">ligtin</TD></TR>
+      <TR><TD PORT="ligtaan" COLSPAN="3" ALIGN="LEFT">ligtaan</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">12,187,413 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/nummeraanduiding.html"
+    tooltip="nummeraanduiding"
+  ];
+}
