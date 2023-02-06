@@ -7,9 +7,8 @@
 | x.x-SNAPSHOT | ❌ (development)        | Current PostgreSQL + PostGIS, Oracle 19c/21c + Spatial, 21 XE | Java 11, Tomcat 9, Docker 23     |
 | 3.0.0        | ✔️                     | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 9, Docker 23     |
 | 3.0.0-rc1    | ❌                      | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 9, Docker 23     |
-| 2.3.3        | ✔️                     | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5/9, Docker 20 |
-| 2.3.x        | :warning: (deprecated) | PostgreSQL 10 - 14 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5/9            |
-| < 2.3.0      | ❌                      | PostgreSQL 10 - 14 + PostGIS 3.2, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5              |
+| 2.3.3        | :warning: (deprecated)   | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5/9, Docker 20 |
+| =< 2.3.2      | ❌                      | PostgreSQL 10 - 14 + PostGIS 3.2, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5              |
 
 _zie ook/see also: https://github.com/B3Partners/brmo/wiki/Systeemeisen 
 
