@@ -294,8 +294,6 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
         "Aantal onroerendezaakbeperking klopt niet");
 
     ITable onroerendezaakfiliatie = rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie");
-    ITable onroerendezaakfiliatie_archief =
-        rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie_archief");
     assertEquals(
         aantalFiliatie,
         onroerendezaakfiliatie.getRowCount(),
@@ -307,12 +305,14 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
           onroerendezaakfiliatie.getValue(i, "onroerendezaak"),
           "onroerendezaakfiliatie.onroerendezaak is niet gelijk aan objectRef");
     }
-    for (int i = 0; i < onroerendezaakfiliatie_archief.getRowCount(); i++) {
-      assertEquals(
-          objectRef,
-          onroerendezaakfiliatie_archief.getValue(i, "onroerendezaak"),
-          "onroerendezaakfiliatie_archief.onroerendezaak is niet gelijk aan objectRef");
-    }
+    //    ITable onroerendezaakfiliatie_archief =
+    //            rsgbBrk.createDataSet().getTable("onroerendezaakfiliatie_archief");
+    //    for (int i = 0; i < onroerendezaakfiliatie_archief.getRowCount(); i++) {
+    //      assertEquals(
+    //          objectRef,
+    //          onroerendezaakfiliatie_archief.getValue(i, "onroerendezaak"),
+    //          "onroerendezaakfiliatie_archief.onroerendezaak is niet gelijk aan objectRef");
+    //    }
 
     ITable perceelOfAppRe;
     ITable perceelOfAppRe_archief;
@@ -350,7 +350,6 @@ class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrat
     // rsgbBrk.createDataSet().getTable("recht_aantekeningrecht");
     //        ITable isbelastmet = rsgbBrk.createDataSet().getTable("recht_isbelastmet");
     //        ITable isbeperkttot = rsgbBrk.createDataSet().getTable("recht_isbeperkttot");
-
     //        ITable recht_archief = rsgbBrk.createDataSet().getTable("recht_archief");
     //        ITable aantekeningrecht_archief =
     // rsgbBrk.createDataSet().getTable("recht_aantekeningrecht_archief");

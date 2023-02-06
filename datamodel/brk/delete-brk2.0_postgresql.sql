@@ -21,7 +21,6 @@ DROP TABLE IF EXISTS stuk CASCADE;
 DROP TABLE IF EXISTS stukdeel CASCADE;
 DROP TABLE IF EXISTS appartementsrecht_archief CASCADE;
 DROP TABLE IF EXISTS onroerendezaak_archief CASCADE;
-DROP TABLE IF EXISTS onroerendezaakfiliatie_archief CASCADE;
 DROP TABLE IF EXISTS perceel_archief CASCADE;
 DROP TABLE IF EXISTS recht_archief CASCADE;
 DROP TABLE IF EXISTS recht_aantekeningrecht_archief CASCADE;

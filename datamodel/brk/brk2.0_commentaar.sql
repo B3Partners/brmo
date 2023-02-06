@@ -153,7 +153,6 @@ COMMENT ON TABLE onroerendezaakfiliatie IS 'Een Onroerende zaak filiatie geeft d
 COMMENT ON COLUMN onroerendezaakfiliatie.aard IS 'Aard is een aanduiding voor de aard van de filiatie. Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere.';
 COMMENT ON COLUMN onroerendezaakfiliatie.onroerendezaak IS 'De ontstane onroerende zaak';
 COMMENT ON COLUMN onroerendezaakfiliatie.betreft IS 'De betreffende (bron) onroerende zaak.';
-COMMENT ON COLUMN onroerendezaakfiliatie.begingeldigheid IS 'BRMO: metadata tbv archivering, datum van bericht.';
 
 
 COMMENT ON TABLE recht IS 'Alle rechten uit het BRK model: Zakelijkrecht, Erfpacht, Mandeligheid, AppartementsrechtSplitsing en andere splitsingen, Tenaamstelling, GezamenlijkAandeel, Aantekening.';
