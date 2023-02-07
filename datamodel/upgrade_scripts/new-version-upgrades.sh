@@ -61,6 +61,7 @@ for DB in Oracle PostgreSQL; do
         if [ "${b}" == "brk" ]; then
           echo $'\n'"CREATE SCHEMA IF NOT EXISTS brk;" >>$DIR/$b.sql
           echo $'\n'"SET search_path = brk,public;" >>$DIR/$b.sql
+          echo $'\n'"SET SCHEMA 'brk';" >>$DIR/$b.sql
         fi
 
         if [ "${b}" == "rsgb" ]; then

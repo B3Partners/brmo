@@ -32,55 +32,59 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-
 /**
- * testcases om te kijken of we de P8 rest api niet stuk maken als er iets aan de views wordt geleuteld.
- * In deze integratie test alleen de niet-data specifieke endpoints testen.
- * <p>
- * deze test los draaien met: {@code mvn -Dit.test=P8RestAPIIntegrationTest verify -Pp8 -pl :datamodel}
+ * testcases om te kijken of we de P8 rest api niet stuk maken als er iets aan de views wordt
+ * geleuteld. In deze integratie test alleen de niet-data specifieke endpoints testen.
+ *
+ * <p>deze test los draaien met: {@code mvn -Dit.test=P8RestAPIIntegrationTest verify -Pp8 -pl
+ * :datamodel}
  *
  * @author mark
  */
 public class P8RestAPIIntegrationTest extends P8TestFramework {
-    private HttpResponse response;
+  private HttpResponse response;
 
-    @Override
-    @AfterEach
-    public void cleanup() {
-    }
+  @Override
+  @AfterEach
+  public void cleanup() {}
 
-    @Override
-    @BeforeEach
-    public void setup() {
-    }
+  @Override
+  @BeforeEach
+  public void setup() {}
 
-    @Test
-    public void testVersion() throws IOException {
-        // https://imkad-b3.p8.nl/web/version.json?_format=json
-        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "version.json")
-                .addParameter("_format", "json")
-                .build();
-        response = client.execute(request);
-        String body = EntityUtils.toString(response.getEntity());
+  @Test
+  public void testVersion() throws IOException {
+    // https://imkad-b3.p8.nl/web/version.json?_format=json
+    HttpUriRequest request =
+        RequestBuilder.get(params.getProperty("p8.baseurl") + "version.json")
+            .addParameter("_format", "json")
+            .build();
+    response = client.execute(request);
+    String body = EntityUtils.toString(response.getEntity());
 
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
-        assertJsonEquals("\"1.9.0\"", body);
-    }
+    assertThat(
+        "Response status is OK.",
+        response.getStatusLine().getStatusCode(),
+        equalTo(HttpStatus.SC_OK));
+    Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+    assertJsonEquals("\"1.9.0\"", body);
+  }
 
-    @Test
-    public void testEndpointstatus() throws IOException {
-        // https://imkad-b3.p8.nl/web/endpointstatus.json?_format=json
-        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "endpointstatus.json")
-                .addParameter("_format", "json")
-                .build();
-        response = client.execute(request);
-        String body = EntityUtils.toString(response.getEntity());
+  @Test
+  public void testEndpointstatus() throws IOException {
+    // https://imkad-b3.p8.nl/web/endpointstatus.json?_format=json
+    HttpUriRequest request =
+        RequestBuilder.get(params.getProperty("p8.baseurl") + "endpointstatus.json")
+            .addParameter("_format", "json")
+            .build();
+    response = client.execute(request);
+    String body = EntityUtils.toString(response.getEntity());
 
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
-        assertJsonEquals("{\"errors\":[]}", body);
-    }
-
-
+    assertThat(
+        "Response status is OK.",
+        response.getStatusLine().getStatusCode(),
+        equalTo(HttpStatus.SC_OK));
+    Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+    assertJsonEquals("{\"errors\":[]}", body);
+  }
 }
