@@ -144,8 +144,8 @@ public class DatabaseUpgradeTest {
     }
     assertTrue(foundVersion, () -> "Update versienummer niet correct voor " + dbName);
 
-      // van rsgbbgt en bag is geen vorige versie
-      assertTrue(foundUpdate, () -> "Update text niet gevonden voor " + dbName);
+    // van rsgbbgt en bag is geen vorige versie
+    assertTrue(foundUpdate, () -> "Update text niet gevonden voor " + dbName);
   }
 
   /**
