@@ -24,10 +24,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static java.lang.System.getProperty;
@@ -108,9 +105,9 @@ public class DatabaseUpgradeTest {
     private void setUpDB(String dbName) throws Exception {
         this.loadProps();
         ds = new BasicDataSource();
-        ds.setUrl(params.getProperty(dbName + ".url"));
-        ds.setUsername(params.getProperty(dbName + ".username"));
-        ds.setPassword(params.getProperty(dbName + ".password"));
+        ds.setUrl(Objects.requireNonNull( params.getProperty(dbName + ".url")));
+        ds.setUsername(Objects.requireNonNull(params.getProperty(dbName + ".username")));
+        ds.setPassword(Objects.requireNonNull(params.getProperty(dbName + ".password")));
         ds.setDefaultSchema(params.getProperty(dbName + ".schema"));
         ds.setAccessToUnderlyingConnectionAllowed(true);
         db = new DatabaseDataSourceConnection(ds,params.getProperty(dbName + ".schema"));
