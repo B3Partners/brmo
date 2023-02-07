@@ -84,7 +84,7 @@ public class WozXMLReader extends BrmoXMLReader {
           return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
         });
 
-    Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
+    Source xsl = new StreamSource(WozXMLReader.class.getResourceAsStream(pathToXsl));
     this.template = tf.newTemplates(xsl);
 
     XPath xpath = xPathfactory.newXPath();

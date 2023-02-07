@@ -84,4 +84,11 @@
         <packageUrl regex="true">^pkg:maven/org\.json/json@.*$</packageUrl>
         <vulnerabilityName>CVE-2022-45688</vulnerabilityName>
     </suppress>
+    <suppress until="2023-03-31+02:00">
+       <notes><![CDATA[
+       file name: postgresql-42.5.3.jar
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/org\.postgresql/postgresql@.*$</packageUrl>
+       <vulnerabilityName>CVE-2022-41862</vulnerabilityName>
+    </suppress>    
 </suppressions>

@@ -86,7 +86,8 @@ public class NhrXMLReader extends BrmoXMLReader {
   private synchronized void initTemplates() throws Exception {
     if (splitTemplates == null) {
       LOG.info("Initializing NHR split XSL templates...");
-      Source xsl = new StreamSource(this.getClass().getResourceAsStream("/xsl/nhr-split-3.0.xsl"));
+      Source xsl =
+          new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/nhr-split-3.0.xsl"));
       TransformerFactory tf = TransformerFactory.newInstance();
       tf.setURIResolver(
           (href, base) -> new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/" + href)));

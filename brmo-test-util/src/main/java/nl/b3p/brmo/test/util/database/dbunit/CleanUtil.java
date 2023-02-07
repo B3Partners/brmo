@@ -142,7 +142,6 @@ public final class CleanUtil {
               new DefaultTable("appartementsrecht_archief"),
               new DefaultTable("objectlocatie_archief"),
               new DefaultTable("onroerendezaak_archief"),
-              new DefaultTable("onroerendezaakfiliatie_archief"),
               new DefaultTable("perceel"),
               new DefaultTable("perceel_archief"),
               new DefaultTable("recht_aantekeningrecht_archief"),
