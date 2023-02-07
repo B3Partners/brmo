@@ -22,11 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -40,7 +36,7 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
  */
 public class BAGViewsTest {
     private static final Log LOG = LogFactory.getLog(BAGViewsTest.class);
-    private static final String dbUrl = System.getProperty("bag.dburl");
+    private static final String dbUrl = Objects.requireNonNull(System.getProperty("bag.dburl"));
     private static final String dbUser = System.getProperty("bag.dbuser", "rsgb");
     private static final String dbPass = System.getProperty("bag.dbpassword", "rsgb");
     private static final String dbSchema = System.getProperty("bag.dbschema", "bag");
