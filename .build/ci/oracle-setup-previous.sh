@@ -36,3 +36,8 @@ docker exec -i oracle_brmo sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@//local
 #docker exec -i oracle_brmo sqlplus -l top50nl/top50nl@//localhost:1521/XE < ./.build/ci/oracle-db-grant-topnl.sql
 #docker exec -i oracle_brmo sqlplus -l top100nl/top100nl@//localhost:1521/XE < ./.build/ci/oracle-db-grant-topnl.sql
 #docker exec -i oracle_brmo sqlplus -l top250nl/top250nl@//localhost:1521/XE < ./.build/ci/oracle-db-grant-topnl.sql
+
+# set up brk tabellen
+docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/XE < ./old/db/brk/brk2.0_oracle.sql
+docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/XE < ./old/db/brk/brk2.0_commentaar.sql
+docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/XE < ./old/db/brk/brk2.0_oracle_views.sql

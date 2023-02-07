@@ -14,3 +14,7 @@ sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./old/db/rsgb/da
 # update geotools metadata
 sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE <<< "update GEOMETRY_COLUMNS set F_TABLE_SCHEMA = 'JENKINS_RSGB';"
 sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE <<< "update GT_PK_METADATA set TABLE_SCHEMA = 'JENKINS_RSGB';"
+
+sqlplus -l -S jenkins_brk/jenkins_brk@//192.168.1.26:15210/XE < ./old/db/brk/brk2.0_oracle.sql
+sqlplus -l -S jenkins_brk/jenkins_brk@//192.168.1.26:15210/XE < ./old/db/brk/brk2.0_commentaar.sql
+sqlplus -l -S jenkins_brk/jenkins_brk@//192.168.1.26:15210/XE < ./old/db/brk/brk2.0_oracle_views.sql
