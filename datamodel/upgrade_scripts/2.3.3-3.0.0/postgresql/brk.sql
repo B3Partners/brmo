@@ -5,6 +5,7 @@
 CREATE SCHEMA IF NOT EXISTS brk;
 
 SET search_path = brk,public;
+SET SCHEMA 'brk';
 
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd

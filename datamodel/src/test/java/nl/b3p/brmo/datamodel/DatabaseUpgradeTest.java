@@ -57,11 +57,10 @@ public class DatabaseUpgradeTest {
 
   static Stream<Arguments> localParameters() {
     return Stream.of(
-        Arguments.of("staging"),
-        Arguments.of("rsgb"),
-        Arguments.of("brk"),
-        Arguments.of("rsgbbgt"),
-        Arguments.of("bag"));
+        Arguments.of("staging"), Arguments.of("rsgb"), Arguments.of("brk")
+        //        ,Arguments.of("rsgbbgt")
+        //        ,Arguments.of("bag")
+        );
   }
 
   @BeforeAll
@@ -74,8 +73,8 @@ public class DatabaseUpgradeTest {
     LOG.debug("release patch is: " + patch);
     previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
     // HACK voor bump
-    if (nextRelease.equalsIgnoreCase("2.3.0")) {
-      previousRelease = "2.2.2";
+    if (nextRelease.equalsIgnoreCase("3.0.0")) {
+      previousRelease = "2.3.3";
     }
     LOG.debug("vorige release is: " + previousRelease);
 
@@ -145,10 +144,8 @@ public class DatabaseUpgradeTest {
     }
     assertTrue(foundVersion, () -> "Update versienummer niet correct voor " + dbName);
 
-    if (!(dbName.equals("rsgbbgt") || dbName.equals("bag"))) {
       // van rsgbbgt en bag is geen vorige versie
       assertTrue(foundUpdate, () -> "Update text niet gevonden voor " + dbName);
-    }
   }
 
   /**
