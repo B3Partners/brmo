@@ -169,23 +169,34 @@ public class DatabaseUpgradeTest {
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
         assertNotNull(viewsFound, "Geen materialized views gevonden");
 
-        List<String> views = Arrays.asList(
-                // bag
-                "mb_adres",
-                "mb_pand",
-                "mb_benoemd_obj_adres",
-                "mb_ben_obj_nevenadres",
-                // brk 1
-                "mb_subject",
-                "mb_avg_subject",
-                "mb_util_app_re_kad_perceel",
-                "mb_kad_onrrnd_zk_adres",
-                "mb_percelenkaart",
-                "mb_zr_rechth",
-                "mb_avg_zr_rechth",
-                "mb_koz_rechth",
-                "mb_avg_koz_rechth",
-                "mb_kad_onrrnd_zk_archief"
+    List<String> views =
+        Arrays.asList(
+            // bag
+            "mb_adres",
+            "mb_pand",
+            "mb_benoemd_obj_adres",
+            "mb_ben_obj_nevenadres",
+            // brk 1
+            "mb_subject",
+            "mb_avg_subject",
+            "mb_util_app_re_kad_perceel",
+            "mb_kad_onrrnd_zk_adres",
+            "mb_percelenkaart",
+            "mb_zr_rechth",
+            "mb_avg_zr_rechth",
+            "mb_koz_rechth",
+            "mb_avg_koz_rechth",
+            "mb_kad_onrrnd_zk_archief",
+            // brk 2
+            "brk.mb_avg_koz_rechth",
+            "brk.mb_avg_subject",
+            "brk.mb_avg_zr_rechth",
+            "brk.mb_kad_onrrnd_zk_adres",
+            "brk.mb_kad_onrrnd_zk_archief",
+            "brk.mb_koz_rechth",
+            "brk.mb_percelenkaart",
+            "brk.mb_subject",
+            "brk.mb_zr_rechth"
         );
 
         // alles lower-case (ORACLE!) en gesorteerd vergelijken
