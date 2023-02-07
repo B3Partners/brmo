@@ -25,6 +25,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.ExpectedToFail;
 
 import java.io.IOException;
 
@@ -53,6 +54,7 @@ public class P8RestAPIIntegrationTest extends P8TestFramework {
   public void setup() {}
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testVersion() throws IOException {
     // https://imkad-b3.p8.nl/web/version.json?_format=json
     HttpUriRequest request =
@@ -71,6 +73,7 @@ public class P8RestAPIIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testEndpointstatus() throws IOException {
     // https://imkad-b3.p8.nl/web/endpointstatus.json?_format=json
     HttpUriRequest request =

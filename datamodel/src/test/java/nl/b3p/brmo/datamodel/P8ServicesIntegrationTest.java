@@ -26,6 +26,7 @@ import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.ExpectedToFail;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -82,6 +83,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testPercelen() throws IOException {
     // https://imkad-b3.p8.nl/web/kadastralepercelen.json?offset=0&limit=3&_format=json
     HttpUriRequest request =
@@ -119,6 +121,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testKadastraalPerceel() throws IOException {
     // https://imkad-b3.p8.nl/web/kadastraalperceel.json?kadperceelcode=VDG00B1708&geoinfo=true&_format=json
     HttpUriRequest request =
@@ -162,6 +165,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testKadastralepercelenadressen() throws IOException {
     // https://imkad-b3.p8.nl/web/kadastralepercelenadressen.json?offset=0&limit=3&_format=json
     HttpUriRequest request =
@@ -196,6 +200,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testKadastralesubjectpercelen() throws IOException {
     // https://imkad-b3.p8.nl/web/kadastralesubjectpercelen.json?offset=0&limit=3&_format=json&subjectid=NL.KAD.Persoon.157450463
     HttpUriRequest request =
@@ -226,6 +231,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testSubject() throws IOException {
     // https://imkad-b3.p8.nl/web/subject.json?subjectid=NL.KAD.Persoon.157450463&_format=json
     HttpUriRequest request =
@@ -252,6 +258,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
   }
 
   @Test
+  @ExpectedToFail("P8 API geeft 404, derhalve is deze test zinloos geworden.")
   public void testSubjecten() throws IOException {
     // https://imkad-b3.p8.nl/web/subjecten.json?offset=0&limit=3&_format=json
     HttpUriRequest request =
