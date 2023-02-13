@@ -35,11 +35,11 @@ categories:
     labels:
       - dependencies
       - 'dependency update'
-  - title: 🚦 Tests and Infrastructure
+  - title: 🚦 Tests en Infrastructuur
     labels:
       - tests
       - infrastructure
-      - 'bouw- en testinfrastructuur'
+      - 'bouw- en testinfrastuctuur'
 
 replacers:
   - search: '/CVE-(\d{4})-(\d+)/g'
