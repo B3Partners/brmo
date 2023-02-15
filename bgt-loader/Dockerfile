@@ -2,11 +2,11 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM eclipse-temurin:11.0.18_10-jre
+FROM eclipse-temurin:11.0.18_10-jre-alpine
 
 LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bgt-citygml-loader
 
-ARG BRMO_VERSION=3.0.0-SNAPSHOT
+ARG BRMO_VERSION=3.0.1-SNAPSHOT
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG TZ="Europe/Amsterdam"
 
@@ -20,27 +20,20 @@ LABEL org.opencontainers.image.authors="support@b3partners.nl" \
 
 RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends locales tzdata \
-    && apt-get install -y dumb-init \
-    && apt-get -y --purge autoremove \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && sed -i 's/# nl_NL.UTF-8 UTF-8/nl_NL.UTF-8 UTF-8/' /etc/locale.gen \
-    && locale-gen "nl_NL.UTF-8"
+    && apk upgrade --update \
+    && apk -U add --no-cache tzdata musl-locales dumb-init \
+    && rm -rf /tmp/* /var/cache/apk/* /var/tmp/*
 
-ENV LANG=nl_NL.UTF-8 LANGUAGE=nl_NL:nl LC_ALL=nl_NL.UTF-8
+ENV LANG=nl_NL.UTF-8 LANGUAGE=nl_NL:nl LC_ALL=nl_NL.UTF-8 TZ=$TZ
 
-RUN useradd --user-group --system user -s /bin/false
+RUN addgroup user && adduser -G user -S -s /bin/false -H user
 
 COPY target/lib/ /app/lib/
-COPY target/bgt-loader-*.jar /app
+COPY target/bgt-loader.jar /app
 
 WORKDIR /app
 RUN chown -R user:user /app
 USER user
-
-RUN ln -s bgt-loader-*.jar bgt-loader.jar
 
 ENTRYPOINT ["dumb-init", "java","-jar","/app/bgt-loader.jar"]
 

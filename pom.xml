@@ -80,7 +80,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-fluido-skin.version>2.0.0-M2</maven-fluido-skin.version>
-        <hibernate.version>5.6.14.Final</hibernate.version>
+        <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>28.1</geotools.version>
         <jdbc-util.version>13.2</jdbc-util.version>
@@ -88,7 +88,7 @@
         <itextpdf.version>7.2.5</itextpdf.version>
         <postgresql.jdbc.version>42.5.3</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2021.1.0</postgresql.postgis-jdbc.version>
-        <oracle.jdbc.version>21.8.0.0</oracle.jdbc.version>
+        <oracle.jdbc.version>21.9.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
@@ -119,7 +119,7 @@
         <test.hsqldb.version>2.7.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.9.2</test.junit-jupiter.version>
-        <maven.surefire.version>3.0.0-M8</maven.surefire.version>
+        <maven.surefire.version>3.0.0-M9</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
@@ -282,7 +282,7 @@
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.4</version>
+                <version>1.5</version>
             </dependency>
             <!-- spatial -->
             <dependency>
@@ -892,7 +892,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M4</version>
+                    <version>4.0.0-M5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -1035,7 +1035,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -1058,7 +1058,7 @@
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven3-plugin</artifactId>
-                    <version>1.10.4</version>
+                    <version>1.10.5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -1090,7 +1090,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>8.0.2</version>
+                    <version>8.1.0</version>
                     <configuration>
                         <enableExperimental>true</enableExperimental>
                         <retirejs>
