@@ -388,7 +388,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 + " van: "
                 + count);
         PreparedStatement ps =
-            conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, (int)offset, batch));
+            conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, offset, batch));
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
           LOG.trace(
