@@ -374,7 +374,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
       this.total(count);
       LOG.info("Aantal te verwerken WOZ berichten: " + count);
 
-      int offset = 0;
+      long offset = 0;
       int batch = 10000;
       final String selectSql =
           "SELECT id, br_orgineel_xml, laadprocesid, datum FROM eerder_geladen_woz";
