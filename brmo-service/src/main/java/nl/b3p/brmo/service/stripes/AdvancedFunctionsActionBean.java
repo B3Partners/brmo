@@ -369,12 +369,12 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
       Number o =
           new QueryRunner(geomToJdbc.isPmdKnownBroken())
               .query(conn, "SELECT count(*) FROM eerder_geladen_woz", new ScalarHandler<>());
-      long count = o.longValue();
+      int count = o.intValue();
 
       this.total(count);
       LOG.info("Aantal te verwerken WOZ berichten: " + count);
 
-      long offset = 0;
+      int offset = 0;
       int batch = 10000;
       final String selectSql =
           "SELECT id, br_orgineel_xml, laadprocesid, datum FROM eerder_geladen_woz";
@@ -388,7 +388,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 + " van: "
                 + count);
         PreparedStatement ps =
-            conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, offset, batch));
+            conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, (int)offset, batch));
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
           LOG.trace(
