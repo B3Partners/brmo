@@ -1,10 +1,13 @@
 # BRMO
 
-BasisRegistratie MidOffice (BRMO) biedt een gegevensmagazijn conform RSGB voor eenmalige opslag en efficiënt gebruik van de basisregistraties. Het gegevensmagazijn ondersteunt zowel geografische als administratieve gegevens en biedt vele mogelijkheden voor het laden en het gebruik van informatie.
+BasisRegistratie MidOffice (BRMO) biedt een gegevensmagazijn conform RSGB voor eenmalige opslag en efficiënt gebruik van de basisregistraties. 
+Het gegevensmagazijn ondersteunt zowel geografische als administratieve gegevens en biedt vele mogelijkheden voor het laden en het gebruik van informatie.
 
 Ga naar de [wiki](https://github.com/B3Partners/brmo/wiki) voor meer informatie.
 
 Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste (en eerdere) releases.
+
+Ga naar de [ontwikkelaarshandleiding](https://b3partners.github.io/brmo/developer-notes.html) voor meer informatie over bouwen van de software.
 
 [![Ubuntu PostgreSQL build](https://github.com/B3Partners/brmo/actions/workflows/linux.yml/badge.svg)](https://github.com/B3Partners/brmo/actions/workflows/linux.yml)
 [![codecov](https://codecov.io/gh/B3Partners/brmo/branch/master/graph/badge.svg)](https://codecov.io/gh/B3Partners/brmo)

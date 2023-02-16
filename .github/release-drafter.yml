@@ -1,0 +1,51 @@
+tag-template: "$NEXT_PATCH_VERSION"
+name-template: v$NEXT_PATCH_VERSION 🎁
+
+version-template: "$MAJOR.$MINOR.$PATCH"
+
+template: |
+  ## Aanpassingen
+
+  $CHANGES
+  
+  ## Upgrade instructies
+  
+  Upgrade instructies voor deze release zijn te vinden op: https://github.com/B3Partners/brmo/wiki/Upgrade-$PREVIOUS_TAG-naar-v$NEXT_PATCH_VERSION
+  
+  ## Docker
+  
+  Beschikbare docker images: https://github.com/orgs/B3Partners/packages?repo_name=brmo
+  
+
+categories:
+  - title: 🚀 Nieuwe functies en verbeteringen
+    labels:
+      - enhancement
+      - feature
+      - 'functie wens'
+  - title: 🐛 Bug Fixes
+    labels:
+      - bug
+      - fix
+      - bugfix
+      - regressie
+      - security
+  - title: ⚠️ Deprecated of verwijderd
+    label: deprecated
+  - title: 📖 Documentatie
+    labels: 
+      - documentation
+      - 'vraag of documentatie'
+  - title: 🔨 Dependency updates
+    labels:
+      - dependencies
+      - 'dependency update'
+  - title: 🚦 Tests en Infrastructuur
+    labels:
+      - tests
+      - infrastructure
+      - 'bouw- en testinfrastuctuur'
+
+replacers:
+  - search: '/CVE-(\d{4})-(\d+)/g'
+    replace: 'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-$1-$2'

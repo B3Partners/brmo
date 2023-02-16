@@ -74,7 +74,7 @@ jobs:
         run: |
           ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
           .build/ci/oracle-setup-bag2_views.sh
-          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*' -DskipQA=true
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest' -DskipQA=true
 
       - name: 'Verify bgt-loader'
         run: ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -DskipQA=true

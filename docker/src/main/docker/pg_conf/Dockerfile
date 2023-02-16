@@ -1,7 +1,7 @@
 FROM postgis/postgis:15-3.3-alpine
 
 ARG TZ="Europe/Amsterdam"
-ARG BRMO_VERSION="3.0.0-SNAPSHOT"
+ARG BRMO_VERSION="3.0.1-SNAPSHOT"
 
 #ENV DB_PASS_RSGB=rsgb
 #ENV DB_PASS_STAGING=staging
@@ -17,10 +17,9 @@ LABEL org.opencontainers.image.authors="support@b3partners.nl" \
       org.opencontainers.image.source="https://github.com/B3Partners/brmo" \
       org.opencontainers.image.version=${BRMO_VERSION}
 
-# get schema export from tailormap persistence
 RUN set -eux; \
-    apk upgrade --update && apk -U add --no-cache tzdata curl unzip \
-    && rm -rf /tmp/*
+    apk upgrade --update && apk -U add --no-cache tzdata unzip \
+    && rm -rf /tmp/* /var/cache/apk/* /var/tmp/*
 
 COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql.sql", \
