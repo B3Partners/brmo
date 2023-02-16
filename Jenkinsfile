@@ -76,7 +76,7 @@ timestamps {
                         }
 
                         stage("datamodel tests"){
-                            sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest,!P8*',!*ViewsTest"
+                            sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest',!*ViewsTest"
                         }
 
                         stage("bgt-loader Integration Test") {
@@ -148,22 +148,6 @@ timestamps {
                             sh "sqlplus -l -S jenkins_bag/jenkins_bag@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                         }
-
-                        configFileProvider([
-                            configFile(
-                                fileId: 'local.P8.properties',
-                                targetLocation: 'datamodel/src/test/resources/local.P8.properties'
-                                )
-                            ]) {
-                            lock('rsgb-p8') {
-                                stage("P8 datamodel Integration Test") {
-                                    sh "mvn -Pp8 process-test-resources -pl 'datamodel'"
-                                    sh "./datamodel/target/pgsql-reinstall-rsgb-views.sh"
-                                    sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae"
-                                }
-                            }
-                        }
-                        /* sh "docker stop oracle-brmo" */
                     }
                 }
             }

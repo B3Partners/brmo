@@ -88,7 +88,7 @@ jobs:
         run: |
           mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
           .build/ci/pgsql-setup-bag2_views.sh
-          mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*' -DskipQA=true
+          mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest' -DskipQA=true
 
       - name: 'Verify bgt-loader'
         run: mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -DskipQA=true

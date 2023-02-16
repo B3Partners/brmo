@@ -39,7 +39,7 @@ jobs:
       - name: 'Test'
         run: |
           mvn --% -e test -B -pl "!brmo-dist" -Dtest.onlyITs=false -DskipQA=true
-          mvn --% resources:testResources compiler:testCompile surefire:test -pl datamodel -Dtest="!*UpgradeTest,!P8*" -DskipQA=true
+          mvn --% resources:testResources compiler:testCompile surefire:test -pl datamodel -Dtest="!*UpgradeTest" -DskipQA=true
 
       - name: 'Verify'
         # no database integration tests; GH does not support linux containers on windows and
