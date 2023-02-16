@@ -18,10 +18,6 @@ template: |
   
 
 categories:
-  - title: 🚨 Removed
-    label: removed
-  - title: ⚠️ Deprecated
-    label: deprecated
   - title: 🚀 Nieuwe functies en verbeteringen
     labels:
       - enhancement
@@ -34,8 +30,12 @@ categories:
       - bugfix
       - regressie
       - security
+  - title: ⚠️ Deprecated of verwijderd
+    label: deprecated
   - title: 📖 Documentatie
-    label: documentation
+    labels: 
+      - documentation
+      - 'vraag of documentatie'
   - title: 🔨 Dependency updates
     labels:
       - dependencies
