@@ -1,4 +1,4 @@
-name: OWASP dependency check
+name: 'OWASP dependency check'
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Java ${{ matrix.java }}
+    name: "Java ${{ matrix.java }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
