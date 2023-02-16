@@ -2,29 +2,25 @@ name: 'OWASP dependency check'
 
 on:
   pull_request:
+  workflow_dispatch:
   schedule:
-    - cron: "17 23 * * 0"
+    - cron: "17 2 * * 1"
 
 jobs:
   build:
-    name: "Java ${{ matrix.java }}"
+    name: 'OWASP dependency check'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ 11 ]
-        java_dist: [ "zulu" ]
-
     steps:
       - uses: actions/checkout@v3
 
       - name: 'Set up JDK'
         uses: actions/setup-java@v3
         with:
-          distribution: ${{ matrix.java_dist }}
-          java-version: ${{ matrix.java }}
+          distribution: temurin
+          java-version: 11
           cache: 'maven'
 
-      - name: 'OWASP Dependency Check'
+      - name: 'Run Check'
         continue-on-error: true
         run: mvn -U package -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true org.owasp:dependency-check-maven:aggregate -fae -B -Dorg.slf4j.simpleLogger.defaultLogLevel=WARN -DfailBuildOnCVSS=5
 
