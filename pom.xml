@@ -79,7 +79,7 @@
         <project.build.outputTimestamp>2023-02-06T15:36:44Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven-fluido-skin.version>2.0.0-M2</maven-fluido-skin.version>
+        <maven-fluido-skin.version>2.0.0-M3</maven-fluido-skin.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>28.1</geotools.version>
@@ -124,7 +124,7 @@
         <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
-        <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
         <modernizer-maven-plugin.version>2.5.0</modernizer-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
@@ -885,7 +885,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M4</version>
+                    <version>4.0.0-M5</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>

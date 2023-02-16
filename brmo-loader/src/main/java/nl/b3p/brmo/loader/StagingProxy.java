@@ -416,7 +416,7 @@ public class StagingProxy {
     if (enablePipeline) {
       processDbXmlPipeline.start();
     }
-    int offset = 0;
+    long offset = 0L;
     int batch = batchCapacity;
     final MutableInt processed = new MutableInt(0);
     final MutableInt lastJid = new MutableInt(0);
