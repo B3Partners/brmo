@@ -46,8 +46,6 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
 
   private static final String NS_BAG_EXTRACT =
       "http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601";
-  private static final String NS_BAG_SELECTIES =
-      "http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20200601";
   private static final String NS_STANDLEVERING =
       "http://www.kadaster.nl/schemas/standlevering-generiek/1.0";
   private static final String NS_GML_32 = "http://www.opengis.net/gml/3.2";
@@ -138,6 +136,12 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
     @Override
     public int hashCode() {
       return Objects.hash(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);
+    }
+
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    @Override
+    public boolean equals(Object o) {
+      return this.equalsExceptGemeenteIdentificaties(o);
     }
 
     @Override
