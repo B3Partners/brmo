@@ -41,7 +41,6 @@ jobs:
 
       - name: 'datamodel Priming build'
         run: |
-          ./.build/ci/oracle-setup-db-properties.sh
           mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am -DskipQA=true
 
       - name: 'Get last release'
