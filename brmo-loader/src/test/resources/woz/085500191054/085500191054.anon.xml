@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-11-15+01:00, zie commentaar in bericht.-->
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+  <env:Header />
+  <env:Body>
+    <dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+      <datumtijdstempelDigilevering>2022-02-01T15:53:38.893Z</datumtijdstempelDigilevering>
+      <datumtijdstempelLV>2022-02-01T15:53:36.000Z</datumtijdstempelLV>
+      <kenmerkDigilevering>1852de8a-6082-4d3f-9bb9-c89aa01d4661@digilevering.nl</kenmerkDigilevering>
+      <kenmerkLV>73d73847-88d3-4cbc-a3b4-14d4bf17e417</kenmerkLV>
+      <versieBerichttype>1.0</versieBerichttype>
+      <abonnement>
+        <naam>WOZ Alles</naam>
+        <versie>1</versie>
+      </abonnement>
+      <basisregistratie>LVWOZ</basisregistratie>
+      <gebeurtenissoort>
+        <naam>wrdSh01-lvwoz</naam>
+        <versie>312</versie>
+      </gebeurtenissoort>
+      <gebeurtenisinhoud>
+        <WOZ:wrdSh01-lvwoz xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301">
+          <WOZ:stuurgegevens>
+            <StUF:berichtcode>Sh01</StUF:berichtcode>
+            <StUF:zender>
+              <StUF:organisatie>00000001001172773000</StUF:organisatie>
+              <StUF:applicatie>Key2WOZ Bronhouders</StUF:applicatie>
+            </StUF:zender>
+            <StUF:ontvanger>
+              <StUF:organisatie>00000001802327497000</StUF:organisatie>
+              <StUF:applicatie>LVWOZ</StUF:applicatie>
+              <StUF:administratie>P</StUF:administratie>
+            </StUF:ontvanger>
+            <StUF:referentienummer>73d73847-88d3-4cbc-a3b4-14d4bf17e417</StUF:referentienummer>
+            <StUF:tijdstipBericht>20220201163930709</StUF:tijdstipBericht>
+            <StUF:entiteittype>WRD</StUF:entiteittype>
+          </WOZ:stuurgegevens>
+          <WOZ:actueel>
+            <WOZ:stuurgegevens>
+              <StUF:berichtcode>Sa01</StUF:berichtcode>
+              <StUF:zender>
+                <StUF:organisatie>00000001001172773000</StUF:organisatie>
+                <StUF:applicatie>Key2WOZ Bronhouders</StUF:applicatie>
+              </StUF:zender>
+              <StUF:ontvanger>
+                <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                <StUF:applicatie>LVWOZ</StUF:applicatie>
+                <StUF:administratie>P</StUF:administratie>
+              </StUF:ontvanger>
+              <StUF:referentienummer>73d73847-88d3-4cbc-a3b4-14d4bf17e417</StUF:referentienummer>
+              <StUF:tijdstipBericht>20220201163930709</StUF:tijdstipBericht>
+              <StUF:entiteittype>WRD</StUF:entiteittype>
+            </WOZ:stuurgegevens>
+            <WOZ:actueel>
+              <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                  <StUF:organisatie>00000001001172773000</StUF:organisatie>
+                  <StUF:applicatie>Key2WOZ Bronhouders</StUF:applicatie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                  <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                  <StUF:applicatie>LVWOZ</StUF:applicatie>
+                  <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>73d73847-88d3-4cbc-a3b4-14d4bf17e417</StUF:referentienummer>
+                <StUF:tijdstipBericht>20220201163930709</StUF:tijdstipBericht>
+                <StUF:entiteittype>WRD</StUF:entiteittype>
+              </WOZ:stuurgegevens>
+              <WOZ:parameters>
+                <StUF:mutatiesoort>T</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+              </WOZ:parameters>
+              <WOZ:object StUF:entiteittype="WRD" StUF:sleutelSynchronisatie="3b517e1d-4f50-4acb-98c8-93aab8910d9d" StUF:verwerkingssoort="T">
+                <WOZ:waardepeildatum>20100101</WOZ:waardepeildatum>
+                <WOZ:toestandspeildatum>20100101</WOZ:toestandspeildatum>
+                <WOZ:vastgesteldeWaarde>161000</WOZ:vastgesteldeWaarde>
+                <WOZ:ingangsdatumWaarde>20110101</WOZ:ingangsdatumWaarde>
+                <WOZ:heffingsmaatstafOZB StUF:noValue="nietGeautoriseerd" xsi:nil="true" />
+                <WOZ:heffingsmaatstafOZBGebruiker StUF:noValue="nietGeautoriseerd" xsi:nil="true" />
+                <StUF:tijdvakGeldigheid>
+                  <StUF:beginGeldigheid>20110920</StUF:beginGeldigheid>
+                  <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20110920074639271</StUF:tijdstipRegistratie>
+                <WOZ:isVoor StUF:entiteittype="WRDWOZ" StUF:sleutelSynchronisatie="90197c39-9466-4d47-a12b-4b515c72a7cc" StUF:verwerkingssoort="T">
+                  <WOZ:gerelateerde StUF:entiteittype="WOZ" StUF:verwerkingssoort="I">
+                    <WOZ:wozObjectNummer>085500191054</WOZ:wozObjectNummer>
+                    <WOZ:aanduidingWOZobject>
+                      <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                      <BG:aoa.postcode>5038NM</BG:aoa.postcode>
+                      <BG:gor.openbareRuimteNaam>Bredaseweg</BG:gor.openbareRuimteNaam>
+                      <BG:aoa.huisnummer>256</BG:aoa.huisnummer>
+                      <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <BG:aoa.huisnummertoevoeging>a</BG:aoa.huisnummertoevoeging>
+                      <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                    </WOZ:aanduidingWOZobject>
+                  </WOZ:gerelateerde>
+                </WOZ:isVoor>
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="138d9aaf-aba0-450a-8122-5583e39d19b1" StUF:verwerkingssoort="T">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>069534393</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>32e97</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>52</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1958-10-13</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000072318</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Korenbloemstraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5025PM</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>45</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>069534393</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>02</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>BUIT 251914</BG:identificatie>
+                    <BG:datum>20120417</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20110920</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakRelatie>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20120417</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakGeldigheid>
+                  <StUF:tijdstipRegistratie>20120417074639276</StUF:tijdstipRegistratie>
+                </WOZ:isBeschiktVoor>
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="fa353ceb-1cdc-46e8-9464-4075c3b158ae" StUF:verwerkingssoort="T">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>738504508</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>4d5b54</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>b2c</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1946-06-06</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000013364</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Bruinissestraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5043AV</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>6</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>738504508</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>02</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>BUIT 251938</BG:identificatie>
+                    <BG:datum>20120417</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20110920</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakRelatie>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20120417</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakGeldigheid>
+                  <StUF:tijdstipRegistratie>20120417074639279</StUF:tijdstipRegistratie>
+                </WOZ:isBeschiktVoor>
+              </WOZ:object>
+            </WOZ:actueel>
+          </WOZ:actueel>
+          
+          <WOZ:historie>
+            <WOZ:oudste>
+              <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                  <StUF:organisatie>00000001001172773000</StUF:organisatie>
+                  <StUF:applicatie>Key2WOZ Bronhouders</StUF:applicatie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                  <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                  <StUF:applicatie>LVWOZ</StUF:applicatie>
+                  <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>73d73847-88d3-4cbc-a3b4-14d4bf17e417</StUF:referentienummer>
+                <StUF:tijdstipBericht>20220201163930709</StUF:tijdstipBericht>
+                <StUF:entiteittype>WRD</StUF:entiteittype>
+              </WOZ:stuurgegevens>
+              <WOZ:parameters>
+                <StUF:mutatiesoort>T</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+              </WOZ:parameters>
+              <WOZ:object StUF:entiteittype="WRD" StUF:sleutelSynchronisatie="3b517e1d-4f50-4acb-98c8-93aab8910d9d" StUF:verwerkingssoort="T">
+                <WOZ:waardepeildatum>20100101</WOZ:waardepeildatum>
+                <WOZ:toestandspeildatum>20100101</WOZ:toestandspeildatum>
+                <WOZ:vastgesteldeWaarde>161000</WOZ:vastgesteldeWaarde>
+                <WOZ:ingangsdatumWaarde>20110101</WOZ:ingangsdatumWaarde>
+                <WOZ:heffingsmaatstafOZB StUF:noValue="nietGeautoriseerd" xsi:nil="true" />
+                <WOZ:heffingsmaatstafOZBGebruiker StUF:noValue="nietGeautoriseerd" xsi:nil="true" />
+                <StUF:tijdvakGeldigheid>
+                  <StUF:beginGeldigheid>20110920</StUF:beginGeldigheid>
+                  <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20110920074639271</StUF:tijdstipRegistratie>
+                <WOZ:isVoor StUF:entiteittype="WRDWOZ" StUF:sleutelSynchronisatie="90197c39-9466-4d47-a12b-4b515c72a7cc" StUF:verwerkingssoort="T">
+                  <WOZ:gerelateerde StUF:entiteittype="WOZ" StUF:verwerkingssoort="I">
+                    <WOZ:wozObjectNummer>085500191054</WOZ:wozObjectNummer>
+                    <WOZ:aanduidingWOZobject>
+                      <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                      <BG:aoa.postcode>5038NM</BG:aoa.postcode>
+                      <BG:gor.openbareRuimteNaam>Bredaseweg</BG:gor.openbareRuimteNaam>
+                      <BG:aoa.huisnummer>256</BG:aoa.huisnummer>
+                      <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <BG:aoa.huisnummertoevoeging>a</BG:aoa.huisnummertoevoeging>
+                      <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                    </WOZ:aanduidingWOZobject>
+                  </WOZ:gerelateerde>
+                </WOZ:isVoor>
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="138d9aaf-aba0-450a-8122-5583e39d19b1" StUF:verwerkingssoort="T">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>069534393</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>32e97</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>52</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1958-10-13</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000072318</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Korenbloemstraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5025PM</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>45</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>069534393</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>01</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>4894861</BG:identificatie>
+                    <BG:datum>20110930</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20110920</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakRelatie>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20110920</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakGeldigheid>
+                  <StUF:tijdstipRegistratie>20110920074639270</StUF:tijdstipRegistratie>
+                </WOZ:isBeschiktVoor>
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="fa353ceb-1cdc-46e8-9464-4075c3b158ae" StUF:verwerkingssoort="T">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>738504508</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>4d5b54</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>b2c</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1946-06-06</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000013364</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Bruinissestraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5043AV</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>6</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>738504508</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>01</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>4894573</BG:identificatie>
+                    <BG:datum>20110930</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20110920</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakRelatie>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20110920</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakGeldigheid>
+                  <StUF:tijdstipRegistratie>20110920074639272</StUF:tijdstipRegistratie>
+                </WOZ:isBeschiktVoor>
+              </WOZ:object>
+            </WOZ:oudste>
+            <WOZ:wijziging>
+              <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                  <StUF:organisatie>00000001001172773000</StUF:organisatie>
+                  <StUF:applicatie>Key2WOZ Bronhouders</StUF:applicatie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                  <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                  <StUF:applicatie>LVWOZ</StUF:applicatie>
+                  <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>73d73847-88d3-4cbc-a3b4-14d4bf17e417</StUF:referentienummer>
+                <StUF:tijdstipBericht>20220201163930709</StUF:tijdstipBericht>
+                <StUF:entiteittype>WRD</StUF:entiteittype>
+              </WOZ:stuurgegevens>
+              <WOZ:parameters>
+                <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+              </WOZ:parameters>
+              <WOZ:object StUF:entiteittype="WRD" StUF:sleutelSynchronisatie="3b517e1d-4f50-4acb-98c8-93aab8910d9d" StUF:verwerkingssoort="I">
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="138d9aaf-aba0-450a-8122-5583e39d19b1" StUF:verwerkingssoort="W">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>069534393</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>32e97</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>52</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1958-10-13</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000072318</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Korenbloemstraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5025PM</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>45</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>069534393</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>01</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>4894861</BG:identificatie>
+                    <BG:datum>20110930</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20110920</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid>20120417</StUF:eindGeldigheid>
+                  </StUF:tijdvakGeldigheid>
+                </WOZ:isBeschiktVoor>
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="fa353ceb-1cdc-46e8-9464-4075c3b158ae" StUF:verwerkingssoort="W">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>738504508</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>4d5b54</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>b2c</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1946-06-06</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000013364</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Bruinissestraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5043AV</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>6</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>738504508</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>01</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>4894573</BG:identificatie>
+                    <BG:datum>20110930</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20110920</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid>20120417</StUF:eindGeldigheid>
+                  </StUF:tijdvakGeldigheid>
+                </WOZ:isBeschiktVoor>
+              </WOZ:object>
+              <WOZ:object StUF:entiteittype="WRD" StUF:sleutelSynchronisatie="3b517e1d-4f50-4acb-98c8-93aab8910d9d" StUF:verwerkingssoort="I">
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="138d9aaf-aba0-450a-8122-5583e39d19b1" StUF:verwerkingssoort="W">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>069534393</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>32e97</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>52</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1958-10-13</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000072318</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Korenbloemstraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5025PM</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>45</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>069534393</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>02</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>BUIT 251914</BG:identificatie>
+                    <BG:datum>20120417</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20120417</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakGeldigheid>
+                  <StUF:tijdstipRegistratie>20120417074639276</StUF:tijdstipRegistratie>
+                </WOZ:isBeschiktVoor>
+                <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:sleutelSynchronisatie="fa353ceb-1cdc-46e8-9464-4075c3b158ae" StUF:verwerkingssoort="W">
+                  <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                      <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                          <BG:inp.bsn>738504508</BG:inp.bsn>
+                          <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                          <BG:geslachtsnaam>4d5b54</BG:geslachtsnaam>
+                          <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true" />
+                          <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:voorletters>b2c</BG:voorletters>
+                          <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.-->
+                          <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                          <BG:geboortedatum>1946-06-06</BG:geboortedatum>
+                          <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.-->
+                          <BG:verblijfsadres>
+                            <BG:aoa.identificatie>0855200000013364</BG:aoa.identificatie>
+                            <BG:wpl.woonplaatsNaam>Tilburg</BG:wpl.woonplaatsNaam>
+                            <BG:gor.openbareRuimteNaam>Bruinissestraat</BG:gor.openbareRuimteNaam>
+                            <BG:aoa.postcode>5043AV</BG:aoa.postcode>
+                            <BG:aoa.huisnummer>6</BG:aoa.huisnummer>
+                            <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true" />
+                            <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true" />
+                          </BG:verblijfsadres>
+                        </WOZ:gerelateerde>
+                      </WOZ:isEen>
+                      <WOZ:soFiNummer>738504508</WOZ:soFiNummer>
+                      <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true" />
+                      <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                      <WOZ:verantwoordelijkeGemeente>0855</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                  </WOZ:gerelateerde>
+                  <WOZ:statusBeschikking>02</WOZ:statusBeschikking>
+                  <WOZ:brondocument StUF:metagegeven="true">
+                    <BG:identificatie>BUIT 251938</BG:identificatie>
+                    <BG:datum>20120417</BG:datum>
+                  </WOZ:brondocument>
+                  <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20120417</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true" />
+                  </StUF:tijdvakGeldigheid>
+                  <StUF:tijdstipRegistratie>20120417074639279</StUF:tijdstipRegistratie>
+                </WOZ:isBeschiktVoor>
+              </WOZ:object>
+            </WOZ:wijziging>
+          </WOZ:historie>
+        </WOZ:wrdSh01-lvwoz>
+      </gebeurtenisinhoud>
+    </dgl:VerstrekkingAanAfnemer>
+  </env:Body>
+</env:Envelope>
