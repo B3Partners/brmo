@@ -23,20 +23,22 @@ categories:
       - enhancement
       - feature
       - 'functie wens'
-  - title: 🐛 Bug Fixes
+- title: 🔨 Security fixes en updates
+    labels:
+      - security
+- title: 🐛 Bug Fixes
     labels:
       - bug
       - fix
       - bugfix
       - regressie
-      - security
   - title: ⚠️ Deprecated of verwijderd
     label: deprecated
   - title: 📖 Documentatie
     labels: 
       - documentation
       - 'vraag of documentatie'
-  - title: 🔨 Dependency updates
+  - title: ♻ Dependency updates
     labels:
       - dependencies
       - 'dependency update'
