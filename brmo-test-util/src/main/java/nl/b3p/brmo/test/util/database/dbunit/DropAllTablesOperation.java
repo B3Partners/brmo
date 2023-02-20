@@ -35,7 +35,15 @@ public class DropAllTablesOperation extends DatabaseOperation {
       throws DatabaseUnitException, SQLException {
     // get ordered list of tables
     ITableFilter filter = new DatabaseSequenceFilter(connection);
-    final String dropStmt = connection.getConfig().getProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY).getClass().getName().contains("Oracle")? DROP_ORACLE : DROP_PGSQL;
+    final String dropStmt =
+        connection
+                .getConfig()
+                .getProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY)
+                .getClass()
+                .getName()
+                .contains("Oracle")
+            ? DROP_ORACLE
+            : DROP_PGSQL;
     IDataSet dataset;
     if (null == dataSet) {
       dataset = new FilteredDataSet(filter, connection.createDataSet());
