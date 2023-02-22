@@ -4,6 +4,13 @@
 
 # From https://api.pdok.nl/lv/bgt/download/v1_0/openapi.json
 # Converted to YAML, removed non useful stuff and added response schema titles to improve generated code
+openapi: 3.0.3
+info:
+  title: BGT Download API
+  version: v1
+servers:
+  - url: https://api.pdok.nl/lv/bgt/download/v1_0
+
 components:
   schemas:
     DeltaCustomDownloadRequest:
@@ -75,7 +82,7 @@ components:
                 van de aanvraag opgehaald kan worden
             download:
               allOf:
-                  - "$ref": "#/components/schemas/HalLink"
+                - "$ref": "#/components/schemas/HalLink"
               description: Absolute path waarop het bestand gedownload kan
                 worden
           type: object
@@ -123,12 +130,9 @@ components:
             - to
           type: object
       type: object
-info:
-  title: BGT Download API
-  version: v1
-openapi: 3.0.0
+
 paths:
-  "/delta":
+  /delta:
     get:
       operationId: GetDeltas
       parameters:
@@ -150,9 +154,7 @@ paths:
           required: false
           schema:
             type: integer
-        - description: 'Aantal resultaten per pagina. Default: 10
-
-          '
+        - description: 'Aantal resultaten per pagina. Default: 10'
           in: query
           name: count
           required: false
@@ -209,7 +211,8 @@ paths:
         worden.
       tags:
         - Delta
-  "/delta/custom":
+
+  /delta/custom:
     post:
       operationId: DeltaCustomDownload
       requestBody:
@@ -271,7 +274,8 @@ paths:
       summary: Met dit endpoint kan een delta custom download aangevraagd worden
       tags:
         - Delta Custom
-  "/delta/custom/{downloadRequestId}/status":
+
+  /delta/custom/{downloadRequestId}/status:
     get:
       operationId: DeltaCustomDownloadStatus
       parameters:
@@ -314,5 +318,3 @@ paths:
         download
       tags:
         - Delta Custom
-servers:
-  - url: https://api.pdok.nl/lv/bgt/download/v1_0

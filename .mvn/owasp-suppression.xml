@@ -39,6 +39,7 @@
         <notes><![CDATA[
                    file name: kernel-7.2.5.jar
                    see: https://github.com/jeremylong/DependencyCheck/issues/4613
+                   DISPUTED
    ]]></notes>
         <gav regex="true">^com\.itextpdf:kernel:7\.2\.5.*$</gav>
         <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
@@ -68,7 +69,7 @@
                    - alleen vertrouwde gegevens verwerken
                    - we zelf geen JXPath gebruiken
 
-                   CVE-2022-41852: rejected
+                   CVE-2022-41852: REJECTED
        ]]></notes>
         <packageUrl regex="true">^pkg:maven/commons\-jxpath/commons\-jxpath@.*$</packageUrl>
         <cve>CVE-2022-41852</cve>
@@ -84,11 +85,4 @@
         <packageUrl regex="true">^pkg:maven/org\.json/json@.*$</packageUrl>
         <vulnerabilityName>CVE-2022-45688</vulnerabilityName>
     </suppress>
-    <suppress until="2023-03-31+02:00">
-       <notes><![CDATA[
-       file name: postgresql-42.5.3.jar
-       ]]></notes>
-       <packageUrl regex="true">^pkg:maven/org\.postgresql/postgresql@.*$</packageUrl>
-       <vulnerabilityName>CVE-2022-41862</vulnerabilityName>
-    </suppress>    
 </suppressions>

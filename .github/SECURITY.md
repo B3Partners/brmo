@@ -6,7 +6,7 @@
 |--------------|------------------------|---------------------------------------------------------------|----------------------------------|
 | x.x-SNAPSHOT | ❌ (development)        | Current PostgreSQL + PostGIS, Oracle 19c/21c + Spatial, 21 XE | Java 11, Tomcat 9, Docker 23     |
 | 3.0.0        | ✔️                     | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 9, Docker 23     |
-| 3.0.0-rc1    | ❌                      | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 9, Docker 23     |
+| 3.0.0-rc1    | ❌ (superceded)        | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 9, Docker 23     |
 | 2.3.3        | :warning: (deprecated) | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5/9, Docker 20 |
 | =< 2.3.2      | ❌                     | PostgreSQL 10 - 14 + PostGIS 3.2, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5              |
 
@@ -14,7 +14,7 @@ _zie ook/see also: https://github.com/B3Partners/brmo/wiki/Systeemeisen
 
 ## Kwetsbaarheid Melden
 
-Neem contact op met het team via `support@b3partners.nl` met alle details van het probleem.
+Neem contact op met het team via support@b3partners.nl met alle details van het probleem.
 Indien u beschikt over een Github account geeft u die AUB ook door. Eventueel kunt u een PR maken met een fix
 van de kwetsbaarheid; gebruik https://github.com/B3Partners/brmo/security/advisories om een private branch te maken.
 
