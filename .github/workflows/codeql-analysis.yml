@@ -3,7 +3,7 @@ name: "CodeQL"
 on:
   push:
     branches: [ master ]
-  pull_request: # The branches below must be a subset of the branches above
+  pull_request:
     branches: [ master ]
     paths-ignore:
       - '**/*.md'
@@ -64,7 +64,7 @@ jobs:
       - name: 'Filter sarif files'
         uses: advanced-security/filter-sarif@v1
         with:
-          # filter out all these files unless they contain a sql-injection vulnerability
+          # filter out all these files
           # https://josh-ops.com/posts/github-codeql-ignore-files/
           patterns: |
             -**/extjs/*.js
