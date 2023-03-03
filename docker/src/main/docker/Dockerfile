@@ -2,7 +2,7 @@ FROM tomcat:9.0.72-jre11-temurin
 
 ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
-ARG BRMO_VERSION="3.0.1-SNAPSHOT"
+ARG BRMO_VERSION="snapshot"
 
 #ENV MAIL_FROM=brmo-no-reply@b3partners.nl
 #ENV MAIL_HOST=mail.b3partners.nl
