@@ -10,7 +10,7 @@
 | 2.3.3        | :warning: (deprecated) | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5/9, Docker 20 |
 | =< 2.3.2      | ❌                     | PostgreSQL 10 - 14 + PostGIS 3.2, Oracle 19c/21c + Spatial    | Java 11, Tomcat 8.5              |
 
-_zie ook/see also: https://github.com/B3Partners/brmo/wiki/Systeemeisen 
+_zie ook/see also: https://github.com/B3Partners/brmo/wiki/Systeemeisen_
 
 ## Kwetsbaarheid Melden
 
