@@ -218,7 +218,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: '5bb7b6ed-2540-4cda-98a6-8aa94a8b12de'
+          project: '03a64fe1-cc60-49ea-95d0-d2f58e20ef54'
           bomfilename: 'brmo-service/target/bom.xml'
 
       - name: 'Deploy brmo-soap SBOM'
@@ -226,7 +226,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: 'e9594496-9c87-4b42-81ca-5912b12455bb'
+          project: '2110673c-88c9-410d-ad2b-fac34ea33975'
           bomfilename: 'brmo-soap/target/bom.xml'
 
       - name: 'Deploy brmo-stufbg204 SBOM'
@@ -234,7 +234,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: 'f4000b3a-91a3-4a8d-a2a3-6bf0c3d62a72'
+          project: 'b0866280-4910-4838-a7bb-9ab56cf42217'
           bomfilename: 'brmo-stufbg204/target/bom.xml'
 
 
