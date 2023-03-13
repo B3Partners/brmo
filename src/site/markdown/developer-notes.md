@@ -6,16 +6,17 @@
 
 - Java 11
 - Maven 3.8.7 of hoger
-- Docker 23.0.x met buildx 0.10 of hoger (dit vereiste kan worden overgeslagen als u geen docker images wilt bouwen of
-  release artifacts wilt bouwen)
+- Docker 23.0.x met buildx 0.10 of hoger (dit vereiste kan worden overgeslagen als je geen docker images wilt bouwen of
+  geen release artifacten wilt bouwen)
 
 ### Basisprocedure
 
 1. doe je ding, als het mogelijk is gebruik `google` styling (voer `mvn fmt:format` uit om alle opmaak te corrigeren)
 2. voer `mvn clean install` uit om te controleren of alle vereiste opmaak is toegepast en of alle tests slagen
 3. commit en push je branch om een pull request te maken, gebruik de **Nederlandse taal** voor commit messages en pull
-   request beschijvingen zodat we consitente release note krijgen. De release notes worden gegenreerd uit de titel van
-   een pull request.
+   request beschijvingen zodat we consistente release notes krijgen. De release notes worden gegenreerd uit de titel van
+   een pull request. Indien er iets gedaan moet worden (bijvoorbeeld views droppen oid.) bij een upgrade naar de 
+   volgende versie dient de PR deze procedure te beschrijven.
 4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
 5. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
 
@@ -52,12 +53,12 @@ bijgewerkt en online gebracht.
 - `mvn -T1 site site:stage`
 - `mvn scm-publish:publish-scm -T1`
 
-_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt.
+_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt; je kunt dan met de hand een commit doen van de staged site in jouw temp directory.
 
 ### nieuwe ontwikkel cyclus
 
 Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory
-gebruiken om upgrade scripts voor de volgende release te maken.
+gebruiken om de initiele upgrade scripts voor de volgende release te maken.
 
 ```
 cd datamodel/upgrade_scripts
@@ -73,7 +74,7 @@ release procedure.
 ```
 git config --add status.displayCommentPrefix true
 export LANG=C
-mvn clean release:prepare
+mvn clean install
 ```
 
 ## Integratie en unit tests
