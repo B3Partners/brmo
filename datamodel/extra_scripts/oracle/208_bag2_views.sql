@@ -21,8 +21,8 @@ select na.objectid,
        null              as gemeentecode
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
-         left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin);
-where na.status = 'Naamgeving ingetrokken'
+         left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
+where na.status = 'Naamgeving ingetrokken';
 comment on table vb_adres is 'volledig actueel adres zonder locatie';
 
 
