@@ -168,6 +168,7 @@ select qry.objectid,
        qry.maaktdeeluitvan,
        qry.gebruiksdoelen,
        qry.oppervlakte,
+       qry.documentnummer,
        qry.geometrie,
        qry.geometrie_centroide
 from (select true                      as ishoofdadres,
@@ -196,6 +197,7 @@ from (select true                      as ishoofdadres,
                              vg.voorkomenidentificatie = vo.voorkomenidentificatie))
                  , ', ')               as gebruiksdoelen,
              vo.oppervlakte,
+             vo.documentnummer,
              st_centroid(vo.geometrie) as geometrie_centroide,
              vo.geometrie
       from v_verblijfsobject_actueel vo
@@ -227,6 +229,7 @@ from (select true                      as ishoofdadres,
                              vg.voorkomenidentificatie = voa.voorkomenidentificatie))
                  , ', ')                as gebruiksdoelen,
              voa.oppervlakte,
+             voa.documentnummer,
              st_centroid(voa.geometrie) as geometrie_centroide,
              voa.geometrie
       from v_verblijfsobject_actueel voa
