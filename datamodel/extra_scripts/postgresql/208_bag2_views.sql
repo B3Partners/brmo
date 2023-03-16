@@ -44,6 +44,7 @@ select qry.objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
+       qry.documentnummer,
        qry.geometrie,
     qry.geometrie_centroide
 from (
@@ -60,6 +61,7 @@ from (
                 a.huisletter,
                 a.huisnummertoevoeging,
                 a.postcode,
+                lp.documentnummer,
                 st_centroid(lp.geometrie) as geometrie_centroide,
                 lp.geometrie
          from v_ligplaats_actueel lp
@@ -78,6 +80,7 @@ from (
                 a.huisletter,
                 a.huisnummertoevoeging,
                 a.postcode,
+                lpa.documentnummer,
                 st_centroid(lpa.geometrie) as geometrie_centroide,
                 lpa.geometrie
          from v_ligplaats_actueel lpa
@@ -105,6 +108,7 @@ select qry.objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
+       qry.documentnummer,
        qry.geometrie,
        qry.geometrie_centroide
 from (select true                      as ishoofdadres,
@@ -120,6 +124,7 @@ from (select true                      as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             sp.documentnummer,
              st_centroid(sp.geometrie) as geometrie_centroide,
              sp.geometrie
       from v_standplaats_actueel sp
@@ -138,6 +143,7 @@ from (select true                      as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             spa.documentnummer,
              st_centroid(spa.geometrie) as geometrie_centroide,
              spa.geometrie
       from v_standplaats_actueel spa
@@ -257,6 +263,7 @@ select qry.objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
+       qry.documentnummer,
        qry.soort,
        qry.maaktdeeluitvan,
        qry.gebruiksdoelen,
@@ -277,6 +284,7 @@ from (
                 vla.huisletter,
                 vla.huisnummertoevoeging,
                 vla.postcode,
+                vla.documentnummer,
                 'ligplaats'   as soort,
                 null          as maaktdeeluitvan,
                 null          as gebruiksdoelen,
@@ -298,6 +306,7 @@ from (
                 vsa.huisletter,
                 vsa.huisnummertoevoeging,
                 vsa.postcode,
+                vsa.documentnummer,
                 'standplaats' as soort,
                 null          as maaktdeeluitvan,
                 null          as gebruiksdoelen,
@@ -319,6 +328,7 @@ from (
                 vva.huisletter,
                 vva.huisnummertoevoeging,
                 vva.postcode,
+                vva.documentnummer,
                 'verblijfsobject' as soort,
                 vva.maaktdeeluitvan,
                 vva.gebruiksdoelen,
