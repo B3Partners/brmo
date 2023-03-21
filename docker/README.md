@@ -18,9 +18,7 @@ mvn clean deploy
 Start een stack met de bijvoorbeeld volgende command line:
 
 ```shell
-docker compose --env-file docker/localhost.env \
-         -f docker/docker-compose.yml \
-         -f docker/docker-compose-ports.yml \
+docker compose --env-file ./localhost.env \
          -p brmo-service up --always-recreate-deps --remove-orphans -d
 ```
 

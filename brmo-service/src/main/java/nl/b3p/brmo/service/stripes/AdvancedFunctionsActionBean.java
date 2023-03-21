@@ -369,7 +369,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
       Number o =
           new QueryRunner(geomToJdbc.isPmdKnownBroken())
               .query(conn, "SELECT count(*) FROM eerder_geladen_woz", new ScalarHandler<>());
-      long count = o.longValue();
+      int count = o.intValue();
 
       this.total(count);
       LOG.info("Aantal te verwerken WOZ berichten: " + count);

@@ -10,28 +10,35 @@ template: |
   
   ## Upgrade instructies
   
-  Upgrade instructies voor deze release zijn te vinden op https://github.com/B3Partners/brmo/wiki/Upgrade-$PREVIOUS_TAG-naar-v$NEXT_PATCH_VERSION
+  Upgrade instructies voor deze release zijn te vinden op: https://github.com/B3Partners/brmo/wiki/Upgrade-$PREVIOUS_TAG-naar-v$NEXT_PATCH_VERSION
+  
+  ## Docker
+  
+  Beschikbare docker images: https://github.com/orgs/B3Partners/packages?repo_name=brmo
+  
 
 categories:
-  - title: 🚨 Removed
-    label: removed
-  - title: ⚠️ Deprecated
-    label: deprecated
   - title: 🚀 Nieuwe functies en verbeteringen
     labels:
       - enhancement
       - feature
       - 'functie wens'
+  - title: 🔨 Security fixes en updates
+    labels:
+      - security
   - title: 🐛 Bug Fixes
     labels:
       - bug
       - fix
       - bugfix
       - regressie
-      - security
+  - title: ⚠️ Deprecated of verwijderd
+    label: deprecated
   - title: 📖 Documentatie
-    label: documentation
-  - title: 🔨 Dependency updates
+    labels: 
+      - documentation
+      - 'vraag of documentatie'
+  - title: ♻ Dependency updates
     labels:
       - dependencies
       - 'dependency update'

@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-05-16+02:00, zie commentaar in bericht.-->
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+   <env:Header/>
+   <env:Body>
+      <dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+         <datumtijdstempelDigilevering>2022-03-15T23:12:31.759Z</datumtijdstempelDigilevering>
+         <datumtijdstempelLV>2022-03-15T23:12:29.000Z</datumtijdstempelLV>
+         <kenmerkDigilevering>af982fd2-00e2-4eaf-8fc5-a03f96a508f5@digilevering.nl</kenmerkDigilevering>
+         <kenmerkLV>f14df582-543c-418b-ada2-af61983767c4</kenmerkLV>
+         <versieBerichttype>1.0</versieBerichttype>
+         <abonnement>
+            <naam>WOZ Alles Waterschap de Dommel</naam>
+            <versie>1</versie>
+         </abonnement>
+         <basisregistratie>LVWOZ</basisregistratie>
+         <gebeurtenissoort>
+            <naam>wozSh01-lvwoz</naam>
+            <versie>312</versie>
+         </gebeurtenissoort>
+         <gebeurtenisinhoud>
+            <WOZ:wozSh01-lvwoz xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312"
+                               xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310"
+                               xmlns:StUF="http://www.egem.nl/StUF/StUF0301"
+                               xmlns:gml="http://www.opengis.net/gml"
+                               xmlns:smil="http://www.w3.org/2001/SMIL20/Language"
+                               xmlns:smil20="http://www.w3.org/2001/SMIL20/"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+               <WOZ:stuurgegevens>
+                  <StUF:berichtcode>Sh01</StUF:berichtcode>
+                  <StUF:zender>
+                     <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                     <StUF:applicatie>Gouw7</StUF:applicatie>
+                     <StUF:administratie>P</StUF:administratie>
+                     <StUF:gebruiker>SYS</StUF:gebruiker>
+                  </StUF:zender>
+                  <StUF:ontvanger>
+                     <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                     <StUF:applicatie>LVWOZ</StUF:applicatie>
+                     <StUF:administratie>P</StUF:administratie>
+                  </StUF:ontvanger>
+                  <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                  <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                  <StUF:entiteittype>WOZ</StUF:entiteittype>
+               </WOZ:stuurgegevens>
+               <WOZ:actueel>
+                  <WOZ:stuurgegevens>
+                     <StUF:berichtcode>Sa01</StUF:berichtcode>
+                     <StUF:zender>
+                        <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                        <StUF:applicatie>Gouw7</StUF:applicatie>
+                        <StUF:administratie>P</StUF:administratie>
+                        <StUF:gebruiker>SYS</StUF:gebruiker>
+                     </StUF:zender>
+                     <StUF:ontvanger>
+                        <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                        <StUF:applicatie>LVWOZ</StUF:applicatie>
+                        <StUF:administratie>P</StUF:administratie>
+                     </StUF:ontvanger>
+                     <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                     <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                     <StUF:entiteittype>WOZ</StUF:entiteittype>
+                  </WOZ:stuurgegevens>
+                  <WOZ:actueel>
+                     <WOZ:stuurgegevens>
+                        <StUF:berichtcode>Lk01</StUF:berichtcode>
+                        <StUF:zender>
+                           <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                           <StUF:applicatie>Gouw7</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                           <StUF:gebruiker>SYS</StUF:gebruiker>
+                        </StUF:zender>
+                        <StUF:ontvanger>
+                           <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                           <StUF:applicatie>LVWOZ</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                        </StUF:ontvanger>
+                        <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                        <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                        <StUF:entiteittype>WOZ</StUF:entiteittype>
+                     </WOZ:stuurgegevens>
+                     <WOZ:parameters>
+                        <StUF:mutatiesoort>T</StUF:mutatiesoort>
+                        <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                     </WOZ:parameters>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="T">
+                        <WOZ:wozObjectNummer>077200029855</WOZ:wozObjectNummer>
+                        <WOZ:aanduidingWOZobject>
+                           <BG:aoa.identificatie>0772200001030924</BG:aoa.identificatie>
+                           <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                           <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                           <BG:gor.straatnaam>St Lutgartstraat</BG:gor.straatnaam>
+                           <BG:aoa.huisnummer>20</BG:aoa.huisnummer>
+                           <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <BG:aoa.huisnummertoevoeging>G13</BG:aoa.huisnummertoevoeging>
+                           <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </WOZ:aanduidingWOZobject>
+                        <WOZ:statusWozObject>0</WOZ:statusWozObject>
+                        <WOZ:grondoppervlakte>18</WOZ:grondoppervlakte>
+                        <WOZ:gebruikscode>12</WOZ:gebruikscode>
+                        <WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+                        <WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <WOZ:ozbVrijstelling StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                        <WOZ:verantwoordelijkeGemeente>
+                           <BG:gemeenteCode>0772</BG:gemeenteCode>
+                        </WOZ:verantwoordelijkeGemeente>
+                        <WOZ:wozObjectGeometrie>
+                           <gml:Polygon srsDimension="2">
+                              <gml:exterior>
+                                 <gml:LinearRing srsDimension="2">
+                                    <gml:posList count="6">162880.522 382023.622 162880.787 382023.386 162884.715 382027.745 162882.506 382029.716 162878.578 382025.357 162880.522 382023.622</gml:posList>
+                                 </gml:LinearRing>
+                              </gml:exterior>
+                           </gml:Polygon>
+                        </WOZ:wozObjectGeometrie>
+                        <WOZ:ingangsdatumObject>19970101</WOZ:ingangsdatumObject>
+                        <WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <StUF:tijdvakGeldigheid>
+                           <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                           <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </StUF:tijdvakGeldigheid>
+                        <StUF:tijdstipRegistratie>20180918182856158</StUF:tijdstipRegistratie>
+                        <WOZ:ontleentAanduidingAan StUF:entiteittype="WOZAOTAND" StUF:sleutelSynchronisatie="0772010001044513"
+                                                   StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                                 <BG:identificatie>0772010001044513</BG:identificatie>
+                                 <BG:adresAanduidingGrp>
+                                    <BG:num.identificatie>0772200001030924</BG:num.identificatie>
+                                    <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                    <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                                    <BG:gor.straatnaam>St Lutgartstraat</BG:gor.straatnaam>
+                                    <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummer>20</BG:aoa.huisnummer>
+                                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummertoevoeging>G13</BG:aoa.huisnummertoevoeging>
+                                 </BG:adresAanduidingGrp>
+                              </BG:verblijfsobject>
+                           </WOZ:gerelateerde>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122534329</StUF:tijdstipRegistratie>
+                        </WOZ:ontleentAanduidingAan>
+                        <WOZ:isVerbondenMet StUF:entiteittype="WOZAOTOND" StUF:sleutelSynchronisatie="0772010001044513"
+                                            StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                                 <BG:identificatie>0772010001044513</BG:identificatie>
+                                 <BG:adresAanduidingGrp>
+                                    <BG:num.identificatie>0772200001030924</BG:num.identificatie>
+                                    <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                    <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                                    <BG:gor.straatnaam>St Lutgartstraat</BG:gor.straatnaam>
+                                    <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummer>20</BG:aoa.huisnummer>
+                                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummertoevoeging>G13</BG:aoa.huisnummertoevoeging>
+                                 </BG:adresAanduidingGrp>
+                              </BG:verblijfsobject>
+                           </WOZ:gerelateerde>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122534329</StUF:tijdstipRegistratie>
+                        </WOZ:isVerbondenMet>
+                        <WOZ:bevatKadastraleObjecten StUF:entiteittype="WOZKOZ" StUF:sleutelSynchronisatie="STM00E4270G0000"
+                                                     StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="I">
+                              <BG:kadastraleIdentificatie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+                              <BG:kadastraleAanduiding>
+                                 <BG:kadastraleGemeentecode>STM00</BG:kadastraleGemeentecode>
+                                 <BG:kadastraleSectie>E</BG:kadastraleSectie>
+                                 <BG:kadastraalPerceelnummer>4270</BG:kadastraalPerceelnummer>
+                                 <BG:kdp.deelperceelNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              </BG:kadastraleAanduiding>
+                           </WOZ:gerelateerde>
+                           <WOZ:toegekendeOppervlakte>18</WOZ:toegekendeOppervlakte>
+                           <WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122556209</StUF:tijdstipRegistratie>
+                        </WOZ:bevatKadastraleObjecten>
+                        <WOZ:heeftAlsAanduiding StUF:entiteittype="WOZNUM" StUF:sleutelSynchronisatie="0772200001030924"
+                                                StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde StUF:entiteittype="NUM" StUF:verwerkingssoort="I">
+                              <BG:identificatie>0772200001030924</BG:identificatie>
+                              <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                              <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                              <BG:huisnummer>20</BG:huisnummer>
+                              <BG:huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <BG:huisnummertoevoeging>G13</BG:huisnummertoevoeging>
+                              <BG:postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </WOZ:gerelateerde>
+                           <WOZ:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122534329</StUF:tijdstipRegistratie>
+                        </WOZ:heeftAlsAanduiding>
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB"
+                                                 StUF:sleutelSynchronisatie="E000050302590 / 0772035360"
+                                                 StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <WOZ:vestiging StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="VESVES" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                       <BG:vestigingsNummer>000050302590</BG:vestigingsNummer>
+                                       <BG:handelsnaam>DCP Invest I B.V.</BG:handelsnaam>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie>0772200001067598</BG:aoa.identificatie>
+                                          <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Ten Hagestraat</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5611EG</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>9</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>863120714</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer>0772035360</WOZ:aanvullingSoFiNummer>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:vestiging>
+                           </WOZ:gerelateerde>
+                           <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                           <WOZ:statusBelang>8</WOZ:statusBelang>
+                           <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20211018</StUF:beginRelatie>
+                              <StUF:eindRelatie>20220302</StUF:eindRelatie>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20220302</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20220315172455461</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E040620372 / null"
+                                                 StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>040620372</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Denis</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:voorletters>JHW</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19350901</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:gor.openbareRuimteNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>040620372</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                           <WOZ:statusBelang>8</WOZ:statusBelang>
+                           <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie>20211018</StUF:eindRelatie>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20211018</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20211108113930251</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E142568727 / null"
+                                                 StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>142568727</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Kuijk</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam>van</BG:voorvoegselGeslachtsnaam>
+                                       <BG:voorletters>FLT</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19690411</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam>Heeze</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Rul</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5591TV</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>15</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>142568727</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                           <WOZ:statusBelang>0</WOZ:statusBelang>
+                           <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20220302</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20220302</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20220315172455461</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                        <WOZ:ligtIn StUF:entiteittype="WOZWSP" StUF:sleutelSynchronisatie="0106"
+                                    StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+                              <WOZ:betrokkenWaterschap>0106</WOZ:betrokkenWaterschap>
+                           </WOZ:gerelateerde>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122556209</StUF:tijdstipRegistratie>
+                        </WOZ:ligtIn>
+                     </WOZ:object>
+                  </WOZ:actueel>
+               </WOZ:actueel>
+               <WOZ:historie>
+                  <WOZ:oudste>
+                     <WOZ:stuurgegevens>
+                        <StUF:berichtcode>Lk01</StUF:berichtcode>
+                        <StUF:zender>
+                           <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                           <StUF:applicatie>Gouw7</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                           <StUF:gebruiker>SYS</StUF:gebruiker>
+                        </StUF:zender>
+                        <StUF:ontvanger>
+                           <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                           <StUF:applicatie>LVWOZ</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                        </StUF:ontvanger>
+                        <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                        <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                        <StUF:entiteittype>WOZ</StUF:entiteittype>
+                     </WOZ:stuurgegevens>
+                     <WOZ:parameters>
+                        <StUF:mutatiesoort>T</StUF:mutatiesoort>
+                        <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                     </WOZ:parameters>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="T">
+                        <WOZ:wozObjectNummer>077200029855</WOZ:wozObjectNummer>
+                        <WOZ:aanduidingWOZobject>
+                           <BG:aoa.identificatie>0772200001030924</BG:aoa.identificatie>
+                           <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                           <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                           <BG:gor.straatnaam>St Lutgartstraat</BG:gor.straatnaam>
+                           <BG:aoa.huisnummer>20</BG:aoa.huisnummer>
+                           <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <BG:aoa.huisnummertoevoeging>G13</BG:aoa.huisnummertoevoeging>
+                           <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </WOZ:aanduidingWOZobject>
+                        <WOZ:statusWozObject>0</WOZ:statusWozObject>
+                        <WOZ:grondoppervlakte>18</WOZ:grondoppervlakte>
+                        <WOZ:gebruikscode>12</WOZ:gebruikscode>
+                        <WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+                        <WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <WOZ:ozbVrijstelling StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                        <WOZ:verantwoordelijkeGemeente>
+                           <BG:gemeenteCode>0772</BG:gemeenteCode>
+                        </WOZ:verantwoordelijkeGemeente>
+                        <WOZ:wozObjectGeometrie>
+                           <gml:Polygon srsDimension="2">
+                              <gml:exterior>
+                                 <gml:LinearRing srsDimension="2">
+                                    <gml:posList count="6">162880.522 382023.622 162880.787 382023.386 162884.715 382027.745 162882.506 382029.716 162878.578 382025.357 162880.522 382023.622</gml:posList>
+                                 </gml:LinearRing>
+                              </gml:exterior>
+                           </gml:Polygon>
+                        </WOZ:wozObjectGeometrie>
+                        <WOZ:ingangsdatumObject>19970101</WOZ:ingangsdatumObject>
+                        <WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <StUF:tijdvakGeldigheid>
+                           <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                           <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </StUF:tijdvakGeldigheid>
+                        <StUF:tijdstipRegistratie>20170630122556209</StUF:tijdstipRegistratie>
+                        <WOZ:ontleentAanduidingAan StUF:entiteittype="WOZAOTAND" StUF:sleutelSynchronisatie="0772010001044513"
+                                                   StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                                 <BG:identificatie>0772010001044513</BG:identificatie>
+                                 <BG:adresAanduidingGrp>
+                                    <BG:num.identificatie>0772200001030924</BG:num.identificatie>
+                                    <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                    <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                                    <BG:gor.straatnaam>St Lutgartstraat</BG:gor.straatnaam>
+                                    <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummer>20</BG:aoa.huisnummer>
+                                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummertoevoeging>G13</BG:aoa.huisnummertoevoeging>
+                                 </BG:adresAanduidingGrp>
+                              </BG:verblijfsobject>
+                           </WOZ:gerelateerde>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122534329</StUF:tijdstipRegistratie>
+                        </WOZ:ontleentAanduidingAan>
+                        <WOZ:isVerbondenMet StUF:entiteittype="WOZAOTOND" StUF:sleutelSynchronisatie="0772010001044513"
+                                            StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                                 <BG:identificatie>0772010001044513</BG:identificatie>
+                                 <BG:adresAanduidingGrp>
+                                    <BG:num.identificatie>0772200001030924</BG:num.identificatie>
+                                    <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                    <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                                    <BG:gor.straatnaam>St Lutgartstraat</BG:gor.straatnaam>
+                                    <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummer>20</BG:aoa.huisnummer>
+                                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummertoevoeging>G13</BG:aoa.huisnummertoevoeging>
+                                 </BG:adresAanduidingGrp>
+                              </BG:verblijfsobject>
+                           </WOZ:gerelateerde>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122534329</StUF:tijdstipRegistratie>
+                        </WOZ:isVerbondenMet>
+                        <WOZ:bevatKadastraleObjecten StUF:entiteittype="WOZKOZ" StUF:sleutelSynchronisatie="STM00E4270G0000"
+                                                     StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="I">
+                              <BG:kadastraleIdentificatie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+                              <BG:kadastraleAanduiding>
+                                 <BG:kadastraleGemeentecode>STM00</BG:kadastraleGemeentecode>
+                                 <BG:kadastraleSectie>E</BG:kadastraleSectie>
+                                 <BG:kadastraalPerceelnummer>4270</BG:kadastraalPerceelnummer>
+                                 <BG:kdp.deelperceelNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              </BG:kadastraleAanduiding>
+                           </WOZ:gerelateerde>
+                           <WOZ:toegekendeOppervlakte>18</WOZ:toegekendeOppervlakte>
+                           <WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122556209</StUF:tijdstipRegistratie>
+                        </WOZ:bevatKadastraleObjecten>
+                        <WOZ:heeftAlsAanduiding StUF:entiteittype="WOZNUM" StUF:sleutelSynchronisatie="0772200001030924"
+                                                StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde StUF:entiteittype="NUM" StUF:verwerkingssoort="I">
+                              <BG:identificatie>0772200001030924</BG:identificatie>
+                              <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                              <BG:gor.openbareRuimteNaam>St Lutgartstraat</BG:gor.openbareRuimteNaam>
+                              <BG:huisnummer>20</BG:huisnummer>
+                              <BG:huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <BG:huisnummertoevoeging>G13</BG:huisnummertoevoeging>
+                              <BG:postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </WOZ:gerelateerde>
+                           <WOZ:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122534329</StUF:tijdstipRegistratie>
+                        </WOZ:heeftAlsAanduiding>
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E040620372 / null"
+                                                 StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>040620372</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Denis</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:voorletters>JHW</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19350901</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:gor.openbareRuimteNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>040620372</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                           <WOZ:statusBelang>0</WOZ:statusBelang>
+                           <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122543729</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                        <WOZ:ligtIn StUF:entiteittype="WOZWSP" StUF:sleutelSynchronisatie="0106"
+                                    StUF:verwerkingssoort="T">
+                           <WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+                              <WOZ:betrokkenWaterschap>0106</WOZ:betrokkenWaterschap>
+                           </WOZ:gerelateerde>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20170630122556209</StUF:tijdstipRegistratie>
+                        </WOZ:ligtIn>
+                     </WOZ:object>
+                  </WOZ:oudste>
+                  <WOZ:wijziging>
+                     <WOZ:stuurgegevens>
+                        <StUF:berichtcode>Lk01</StUF:berichtcode>
+                        <StUF:zender>
+                           <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                           <StUF:applicatie>Gouw7</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                           <StUF:gebruiker>SYS</StUF:gebruiker>
+                        </StUF:zender>
+                        <StUF:ontvanger>
+                           <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                           <StUF:applicatie>LVWOZ</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                        </StUF:ontvanger>
+                        <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                        <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                        <StUF:entiteittype>WOZ</StUF:entiteittype>
+                     </WOZ:stuurgegevens>
+                     <WOZ:parameters>
+                        <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                        <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                     </WOZ:parameters>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E040620372 / null"
+                                                 StUF:verwerkingssoort="W">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>040620372</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Denis</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:voorletters>JHW</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19350901</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:gor.openbareRuimteNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>040620372</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <WOZ:statusBelang>0</WOZ:statusBelang>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20090101</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid>20211018</StUF:eindGeldigheid>
+                           </StUF:tijdvakGeldigheid>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E040620372 / null"
+                                                 StUF:verwerkingssoort="W">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>040620372</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Denis</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:voorletters>JHW</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19350901</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:gor.openbareRuimteNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>040620372</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <WOZ:statusBelang>8</WOZ:statusBelang>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20211018</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20211108113930250</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                  </WOZ:wijziging>
+                  <WOZ:wijziging>
+                     <WOZ:stuurgegevens>
+                        <StUF:berichtcode>Lk01</StUF:berichtcode>
+                        <StUF:zender>
+                           <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                           <StUF:applicatie>Gouw7</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                           <StUF:gebruiker>SYS</StUF:gebruiker>
+                        </StUF:zender>
+                        <StUF:ontvanger>
+                           <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                           <StUF:applicatie>LVWOZ</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                        </StUF:ontvanger>
+                        <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                        <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                        <StUF:entiteittype>WOZ</StUF:entiteittype>
+                     </WOZ:stuurgegevens>
+                     <WOZ:parameters>
+                        <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                        <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                     </WOZ:parameters>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E040620372 / null"
+                                                 StUF:verwerkingssoort="R">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>040620372</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Denis</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:voorletters>JHW</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19350901</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:gor.openbareRuimteNaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>040620372</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20090101</StUF:beginRelatie>
+                              <StUF:eindRelatie>20211018</StUF:eindRelatie>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20211018</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20211108113930251</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB"
+                                                 StUF:sleutelSynchronisatie="E000050302590 / 0772035360"
+                                                 StUF:verwerkingssoort="R">
+                           <WOZ:gerelateerde>
+                              <WOZ:vestiging StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="VESVES" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                       <BG:vestigingsNummer>000050302590</BG:vestigingsNummer>
+                                       <BG:handelsnaam>DCP Invest I B.V.</BG:handelsnaam>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie>0772200001067598</BG:aoa.identificatie>
+                                          <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Ten Hagestraat</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5611EG</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>9</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>863120714</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer>0772035360</WOZ:aanvullingSoFiNummer>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:vestiging>
+                           </WOZ:gerelateerde>
+                           <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                           <WOZ:statusBelang>0</WOZ:statusBelang>
+                           <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20211018</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20211018</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20211108113930251</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                  </WOZ:wijziging>
+                  <WOZ:wijziging>
+                     <WOZ:stuurgegevens>
+                        <StUF:berichtcode>Lk01</StUF:berichtcode>
+                        <StUF:zender>
+                           <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                           <StUF:applicatie>Gouw7</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                           <StUF:gebruiker>SYS</StUF:gebruiker>
+                        </StUF:zender>
+                        <StUF:ontvanger>
+                           <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                           <StUF:applicatie>LVWOZ</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                        </StUF:ontvanger>
+                        <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                        <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                        <StUF:entiteittype>WOZ</StUF:entiteittype>
+                     </WOZ:stuurgegevens>
+                     <WOZ:parameters>
+                        <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                        <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                     </WOZ:parameters>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB"
+                                                 StUF:sleutelSynchronisatie="E000050302590 / 0772035360"
+                                                 StUF:verwerkingssoort="W">
+                           <WOZ:gerelateerde>
+                              <WOZ:vestiging StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="VESVES" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                       <BG:vestigingsNummer>000050302590</BG:vestigingsNummer>
+                                       <BG:handelsnaam>DCP Invest I B.V.</BG:handelsnaam>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie>0772200001067598</BG:aoa.identificatie>
+                                          <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Ten Hagestraat</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5611EG</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>9</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>863120714</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer>0772035360</WOZ:aanvullingSoFiNummer>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:vestiging>
+                           </WOZ:gerelateerde>
+                           <WOZ:statusBelang>0</WOZ:statusBelang>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20211018</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid>20220302</StUF:eindGeldigheid>
+                           </StUF:tijdvakGeldigheid>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB"
+                                                 StUF:sleutelSynchronisatie="E000050302590 / 0772035360"
+                                                 StUF:verwerkingssoort="W">
+                           <WOZ:gerelateerde>
+                              <WOZ:vestiging StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="VESVES" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                       <BG:vestigingsNummer>000050302590</BG:vestigingsNummer>
+                                       <BG:handelsnaam>DCP Invest I B.V.</BG:handelsnaam>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie>0772200001067598</BG:aoa.identificatie>
+                                          <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Ten Hagestraat</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5611EG</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>9</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>863120714</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer>0772035360</WOZ:aanvullingSoFiNummer>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:vestiging>
+                           </WOZ:gerelateerde>
+                           <WOZ:statusBelang>8</WOZ:statusBelang>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20220302</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20220315172455460</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                  </WOZ:wijziging>
+                  <WOZ:wijziging>
+                     <WOZ:stuurgegevens>
+                        <StUF:berichtcode>Lk01</StUF:berichtcode>
+                        <StUF:zender>
+                           <StUF:organisatie>00000001001902763000</StUF:organisatie>
+                           <StUF:applicatie>Gouw7</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                           <StUF:gebruiker>SYS</StUF:gebruiker>
+                        </StUF:zender>
+                        <StUF:ontvanger>
+                           <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                           <StUF:applicatie>LVWOZ</StUF:applicatie>
+                           <StUF:administratie>P</StUF:administratie>
+                        </StUF:ontvanger>
+                        <StUF:referentienummer>f14df582-543c-418b-ada2-af61983767c4</StUF:referentienummer>
+                        <StUF:tijdstipBericht>20220315230555709</StUF:tijdstipBericht>
+                        <StUF:entiteittype>WOZ</StUF:entiteittype>
+                     </WOZ:stuurgegevens>
+                     <WOZ:parameters>
+                        <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                        <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                     </WOZ:parameters>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB"
+                                                 StUF:sleutelSynchronisatie="E000050302590 / 0772035360"
+                                                 StUF:verwerkingssoort="R">
+                           <WOZ:gerelateerde>
+                              <WOZ:vestiging StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="VESVES" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="VES" StUF:verwerkingssoort="I">
+                                       <BG:vestigingsNummer>000050302590</BG:vestigingsNummer>
+                                       <BG:handelsnaam>DCP Invest I B.V.</BG:handelsnaam>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie>0772200001067598</BG:aoa.identificatie>
+                                          <BG:wpl.woonplaatsNaam>Eindhoven</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Ten Hagestraat</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5611EG</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>9</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>863120714</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer>0772035360</WOZ:aanvullingSoFiNummer>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:vestiging>
+                           </WOZ:gerelateerde>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20211018</StUF:beginRelatie>
+                              <StUF:eindRelatie>20220302</StUF:eindRelatie>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20220302</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20220315172455461</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                     <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="077200029855"
+                                 StUF:verwerkingssoort="I">
+                        <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="E142568727 / null"
+                                                 StUF:verwerkingssoort="R">
+                           <WOZ:gerelateerde>
+                              <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                 <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                    <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                       <BG:inp.bsn>142568727</BG:inp.bsn>
+                                       <BG:geslachtsnaam>Kuijk</BG:geslachtsnaam>
+                                       <BG:voorvoegselGeslachtsnaam>van</BG:voorvoegselGeslachtsnaam>
+                                       <BG:voorletters>FLT</BG:voorletters>
+                                       <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                       <BG:geboortedatum>19690411</BG:geboortedatum>
+                                       <BG:verblijfsadres>
+                                          <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:wpl.woonplaatsNaam>Heeze</BG:wpl.woonplaatsNaam>
+                                          <BG:gor.openbareRuimteNaam>Rul</BG:gor.openbareRuimteNaam>
+                                          <BG:aoa.postcode>5591TV</BG:aoa.postcode>
+                                          <BG:aoa.huisnummer>15</BG:aoa.huisnummer>
+                                          <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                          <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       </BG:verblijfsadres>
+                                    </WOZ:gerelateerde>
+                                 </WOZ:isEen>
+                                 <WOZ:soFiNummer>142568727</WOZ:soFiNummer>
+                                 <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                 <WOZ:verantwoordelijkeGemeente>0772</WOZ:verantwoordelijkeGemeente>
+                              </WOZ:natuurlijkPersoon>
+                           </WOZ:gerelateerde>
+                           <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                           <WOZ:statusBelang>0</WOZ:statusBelang>
+                           <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                           <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           <StUF:tijdvakRelatie>
+                              <StUF:beginRelatie>20220302</StUF:beginRelatie>
+                              <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakRelatie>
+                           <StUF:tijdvakGeldigheid>
+                              <StUF:beginGeldigheid>20220302</StUF:beginGeldigheid>
+                              <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                           </StUF:tijdvakGeldigheid>
+                           <StUF:tijdstipRegistratie>20220315172455461</StUF:tijdstipRegistratie>
+                        </WOZ:heeftBelanghebbende>
+                     </WOZ:object>
+                  </WOZ:wijziging>
+               </WOZ:historie>
+            </WOZ:wozSh01-lvwoz>
+         </gebeurtenisinhoud>
+      </dgl:VerstrekkingAanAfnemer>
+   </env:Body>
+</env:Envelope>

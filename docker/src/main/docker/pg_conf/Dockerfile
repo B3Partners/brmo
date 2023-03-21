@@ -1,7 +1,7 @@
 FROM postgis/postgis:15-3.3-alpine
 
 ARG TZ="Europe/Amsterdam"
-ARG BRMO_VERSION="3.0.1-SNAPSHOT"
+ARG BRMO_VERSION="snapshot"
 
 #ENV DB_PASS_RSGB=rsgb
 #ENV DB_PASS_STAGING=staging

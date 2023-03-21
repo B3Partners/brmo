@@ -79,14 +79,14 @@
         <project.build.outputTimestamp>2023-02-06T15:36:44Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven-fluido-skin.version>2.0.0-M2</maven-fluido-skin.version>
+        <maven-fluido-skin.version>2.0.0-M3</maven-fluido-skin.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>28.1</geotools.version>
-        <jdbc-util.version>13.2</jdbc-util.version>
+        <geotools.version>28.2</geotools.version>
+        <jdbc-util.version>13.3</jdbc-util.version>
         <jts.version>1.19.0</jts.version>
         <itextpdf.version>7.2.5</itextpdf.version>
-        <postgresql.jdbc.version>42.5.3</postgresql.jdbc.version>
+        <postgresql.jdbc.version>42.6.0</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2021.1.0</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>21.9.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
@@ -96,14 +96,14 @@
         <apache.cxf.version>3.5.5</apache.cxf.version>
         <apache.poi.version>5.2.3</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
-        <slf4j.version>2.0.6</slf4j.version>
+        <slf4j.version>2.0.7</slf4j.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
-        <jaxb.impl.version>2.3.7</jaxb.impl.version>
+        <jaxb.impl.version>2.3.8</jaxb.impl.version>
         <jackson.version>2.14.2</jackson.version>
         <jackson.databind.version>2.14.2</jackson.databind.version>
         <javax-annotation.version>1.3.2</javax-annotation.version>
         <activation.api.version>1.2.2</activation.api.version>
-        <tomcat.version>9.0.71</tomcat.version>
+        <tomcat.version>9.0.73</tomcat.version>
         <tomcat.http.port>9091</tomcat.http.port>
         <tomcat.localDatasource>false</tomcat.localDatasource>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
@@ -119,12 +119,12 @@
         <test.hsqldb.version>2.7.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.9.2</test.junit-jupiter.version>
-        <maven.surefire.version>3.0.0-M9</maven.surefire.version>
+        <maven.surefire.version>3.0.0</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-        <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.15.0</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
-        <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
         <modernizer-maven-plugin.version>2.5.0</modernizer-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
@@ -143,21 +143,10 @@
         -->
         <dependencies>
             <dependency>
-                <!--
-                override transtive dependency van com.sun.xml.ws:jaxws-rt:jar:2.3.5:compile
-                en org.apache.cxf:cxf-core:jar:3.5.4:compile
-                CVE-2022-40152
-                -->
-                <groupId>com.fasterxml.woodstox</groupId>
-                <artifactId>woodstox-core</artifactId>
-                <version>6.5.0</version>
-            </dependency>
-            <dependency>
                 <groupId>org.gaul</groupId>
                 <artifactId>modernizer-maven-annotations</artifactId>
                 <version>${modernizer-maven-plugin.version}</version>
             </dependency>
-            <!-- logging libs -->
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
@@ -171,9 +160,7 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-to-slf4j</artifactId>
-                <!-- moet gelijk zijn aan de versie van log4j-api in apache poi,
-                zie ook https://github.com/B3Partners/brmo/pull/1470#issuecomment-1177499188 -->
-                <version>2.19.0</version>
+                <version>2.20.0</version>
             </dependency>
             <dependency>
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
@@ -279,12 +266,6 @@
                 <artifactId>commons-text</artifactId>
                 <version>1.10.0</version>
             </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.5</version>
-            </dependency>
-            <!-- spatial -->
             <dependency>
                 <groupId>org.locationtech.jts</groupId>
                 <artifactId>jts-core</artifactId>
@@ -530,12 +511,12 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.15.3</version>
+                <version>1.15.4</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-rt</artifactId>
-                <version>2.3.5</version>
+                <version>2.3.6</version>
                 <exclusions>
                     <!-- deze komen in de Tomcat lib, moeten dus niet in de war file terecht komen -->
                     <exclusion>
@@ -566,7 +547,7 @@
             <dependency>
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
-                <version>20220924</version>
+                <version>20230227</version>
             </dependency>
             <!-- Jackson -->
             <dependency>
@@ -786,7 +767,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.1.1</version>
+                <version>5.2.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -865,13 +846,13 @@
                         <dependency>
                             <groupId>net.sf.saxon</groupId>
                             <artifactId>Saxon-HE</artifactId>
-                            <version>11.4</version>
+                            <version>11.5</version>
                         </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.4.2</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-patch-plugin</artifactId>
@@ -879,7 +860,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.0-M7</version>
+                    <version>3.0.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.cxf</groupId>
@@ -896,7 +877,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.1</version>
+                    <version>3.11.0</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -1058,7 +1039,7 @@
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven3-plugin</artifactId>
-                    <version>1.10.5</version>
+                    <version>1.10.6</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -1085,12 +1066,12 @@
                 <plugin>
                     <groupId>com.sun.xml.ws</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
-                    <version>2.3.5</version>
+                    <version>2.3.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>8.1.0</version>
+                    <version>8.1.2</version>
                     <configuration>
                         <enableExperimental>true</enableExperimental>
                         <retirejs>
@@ -1117,7 +1098,7 @@
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.41.0</version>
+                    <version>0.42.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.openapitools</groupId>
@@ -1306,6 +1287,22 @@
                     <pushChanges>true</pushChanges>
                     <releaseProfiles>release</releaseProfiles>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>2.7.5</version>
+                <configuration>
+                    <projectType>application</projectType>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
