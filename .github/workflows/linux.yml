@@ -216,6 +216,30 @@ jobs:
           mvn -pl docker,datamodel -am -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true -Ddocker.skip=true install
           mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
+      - name: 'Deploy brmo-service SBOM'
+        uses: DependencyTrack/gh-upload-sbom@master
+        with:
+          serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
+          apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
+          project: '03a64fe1-cc60-49ea-95d0-d2f58e20ef54'
+          bomfilename: 'brmo-service/target/bom.xml'
+
+      - name: 'Deploy brmo-soap SBOM'
+        uses: DependencyTrack/gh-upload-sbom@master
+        with:
+          serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
+          apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
+          project: '2110673c-88c9-410d-ad2b-fac34ea33975'
+          bomfilename: 'brmo-soap/target/bom.xml'
+
+      - name: 'Deploy brmo-stufbg204 SBOM'
+        uses: DependencyTrack/gh-upload-sbom@master
+        with:
+          serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
+          apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
+          project: 'b0866280-4910-4838-a7bb-9ab56cf42217'
+          bomfilename: 'brmo-stufbg204/target/bom.xml'
+
 
   cleanup:
     name: 'Maven cache cleanup'
