@@ -83,14 +83,15 @@ public class DBTestBase {
   }
 
   private static IDatabaseTester getDatabaseTester(DatabaseOptions dbOptions, String schema)
-      throws ClassNotFoundException {
-    BGTDatabase db = new BGTDatabase(dbOptions);
-    return new JdbcDatabaseTester(
-        db.getDialect().getDriverClass(),
-        dbOptions.getConnectionString(),
-        dbOptions.getUser(),
-        dbOptions.getPassword(),
-        schema);
+      throws ClassNotFoundException, SQLException {
+    try (BGTDatabase db = new BGTDatabase(dbOptions)) {
+      return new JdbcDatabaseTester(
+          db.getDialect().getDriverClass(),
+          dbOptions.getConnectionString(),
+          dbOptions.getUser(),
+          dbOptions.getPassword(),
+          schema);
+    }
   }
 
   public static String getSchema(BGTDatabase db, DatabaseOptions dbOptions) {
@@ -125,7 +126,7 @@ public class DBTestBase {
         .setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
     if (info.getTestMethod().isPresent()) {
-      if (info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
+      if (info.getTestMethod().orElseThrow().getAnnotation(SkipDropTables.class) == null) {
         try {
           dropTables(
               dbTestConnection.getConnection(),
