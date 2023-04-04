@@ -120,7 +120,7 @@
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.9.2</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0</maven.surefire.version>
-        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.15.0</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.4.2</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
