@@ -135,6 +135,9 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
           brmo.setDataSourceTopNL(ConfigUtil.getDataSourceTopNL());
           t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);
           break;
+        case FOR_UPDATE:
+        default:
+          // do nothing
       }
       if (t != null) {
         t.join();
