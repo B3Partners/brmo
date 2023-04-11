@@ -149,6 +149,8 @@ public class ProgressReporter implements Consumer<ObjectTableWriter.Progress> {
                 loadTimeSeconds > 0 ? progress.getObjectCount() / loadTimeSeconds : 0.0,
                 getBundleString("progress.objects")));
         break;
+      default:
+        // do nothing
     }
   }
 
