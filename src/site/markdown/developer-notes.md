@@ -11,7 +11,8 @@
 
 ### Basisprocedure
 
-1. doe je ding, als het mogelijk is gebruik `google` styling (voer `mvn fmt:format` uit om alle opmaak te corrigeren)
+1. doe je ding, als het mogelijk is gebruik `google` styling (voer `mvn fmt:format sortpom:sort` uit om alle opmaak te corrigeren)
+2. voer `mvn -T1 modernizer:modernizer` uit om te controleren of er geen Java 8 of lagere code-constructies worden gebruikt
 2. voer `mvn clean install` uit om te controleren of alle vereiste opmaak is toegepast en of alle tests slagen
 3. commit en push je branch om een pull request te maken, gebruik de **Nederlandse taal** voor commit messages en pull
    request beschijvingen zodat we consistente release notes krijgen. De release notes worden gegenreerd uit de titel van

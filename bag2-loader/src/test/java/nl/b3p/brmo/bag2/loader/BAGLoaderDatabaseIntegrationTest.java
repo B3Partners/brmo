@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
@@ -79,9 +80,9 @@ public class BAGLoaderDatabaseIntegrationTest {
         "v_verblijfsobject_actueel",
         "v_woonplaats_actueel"
       };
-  private static String dbUrl = System.getProperty("dburl");
-  private static String dbUser = System.getProperty("dbuser", "rsgb");
-  private static String dbPass = System.getProperty("dbpassword", "rsgb");
+  private static final String dbUrl = System.getProperty("dburl");
+  private static final String dbUser = System.getProperty("dbuser", "rsgb");
+  private static final String dbPass = System.getProperty("dbpassword", "rsgb");
 
   private BAG2Database bag2Database;
   private BAG2DatabaseOptions databaseOptions;
@@ -135,7 +136,7 @@ public class BAGLoaderDatabaseIntegrationTest {
     bag2Database = new BAG2Database(databaseOptions);
 
     if (info.getTestMethod().isPresent()) {
-      if (info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
+      if (info.getTestMethod().orElseThrow().getAnnotation(SkipDropTables.class) == null) {
         try {
           dropTables(bag.getConnection(), schema, dbUrl.contains("oracle"));
         } catch (Exception e) {
@@ -167,7 +168,7 @@ public class BAGLoaderDatabaseIntegrationTest {
       }
       try {
         qr.update(connection, "drop sequence objectid_seq");
-      } catch (Exception e) {
+      } catch (Exception ignored) {
       }
       qr.update(connection, "delete from user_sdo_geom_metadata");
     }
@@ -208,10 +209,11 @@ public class BAGLoaderDatabaseIntegrationTest {
     }
     IDataSet expectedDataSet =
         new XmlDataSet(
-            BAGLoaderDatabaseIntegrationTest.class
-                .getResource(
-                    String.format(
-                        "/expected/%s%s.xml", expectedXmlDataSetFileName, expectedXmlDataSetSuffix))
+            Objects.requireNonNull(
+                    BAGLoaderDatabaseIntegrationTest.class.getResource(
+                        String.format(
+                            "/expected/%s%s.xml",
+                            expectedXmlDataSetFileName, expectedXmlDataSetSuffix)))
                 .openStream());
     for (String table : tables) {
       Assertion.assertEqualsIgnoreCols(
@@ -220,7 +222,8 @@ public class BAGLoaderDatabaseIntegrationTest {
   }
 
   private static String getResourceFile(String resource) {
-    return BAGLoaderDatabaseIntegrationTest.class.getResource(resource).getFile();
+    return Objects.requireNonNull(BAGLoaderDatabaseIntegrationTest.class.getResource(resource))
+        .getFile();
   }
 
   @Test

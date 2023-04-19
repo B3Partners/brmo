@@ -77,6 +77,8 @@ public class BAG2ProgressReporter implements Consumer<ObjectTableWriter.Progress
         // currentFileName, splitFileCount, bag2Progress.getObjectCount(),
         // formatTimeSince(currentFileStart)));
         break;
+      default:
+        // do nothing
     }
   }
 
