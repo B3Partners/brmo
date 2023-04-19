@@ -83,7 +83,7 @@
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>29.0</geotools.version>
-        <jdbc-util.version>14.0</jdbc-util.version>
+        <jdbc-util.version>15.0</jdbc-util.version>
         <jts.version>1.19.0</jts.version>
         <itextpdf.version>7.2.5</itextpdf.version>
         <postgresql.jdbc.version>42.6.0</postgresql.jdbc.version>
@@ -698,7 +698,7 @@
             <dependency>
                 <groupId>org.junit-pioneer</groupId>
                 <artifactId>junit-pioneer</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -1284,7 +1284,7 @@
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
-                <version>2.7.6</version>
+                <version>2.7.7</version>
                 <configuration>
                     <projectType>application</projectType>
                 </configuration>
