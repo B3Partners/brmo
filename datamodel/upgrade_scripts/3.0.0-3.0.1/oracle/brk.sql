@@ -16,6 +16,8 @@ END;
 /
 MERGE INTO brmo_metadata USING DUAL ON (naam = 'brmoversie') WHEN NOT MATCHED THEN INSERT (naam) VALUES('brmoversie');
 
+CREATE INDEX recht_aantekeningkadastraalobject ON recht (aantekeningkadastraalobject);
+CREATE INDEX recht_rustop ON recht (rustop);
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_3.0.0_naar_3.0.1','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
