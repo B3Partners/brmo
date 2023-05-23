@@ -37,11 +37,11 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-                   file name: kernel-7.2.5.jar
+                   file name: kernel-*.jar
                    see: https://github.com/jeremylong/DependencyCheck/issues/4613
                    DISPUTED
    ]]></notes>
-        <gav regex="true">^com\.itextpdf:kernel:7\.2\.5.*$</gav>
+        <packageUrl regex="true">^pkg:maven/com\.itextpdf/kernel@.*$</packageUrl>
         <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
     </suppress>
     <suppress>
