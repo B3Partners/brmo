@@ -332,7 +332,7 @@ SPDX-License-Identifier: MIT
                         <configuration>
                             <systemPropertyVariables>
                                 <db.connectionString>jdbc:oracle:thin:@localhost:1521:XE</db.connectionString>
-                                <db.user>jenkins_rsgbbgt</db.user>
+                                <db.user>JENKINS_RSGBBGT</db.user>
                                 <db.password>jenkins_rsgbbgt</db.password>
                             </systemPropertyVariables>
                         </configuration>
