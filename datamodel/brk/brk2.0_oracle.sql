@@ -260,6 +260,7 @@ CREATE TABLE recht
     begingeldigheid                        DATE          NOT NULL
 );
 
+
 -- koppeltabellen voor 1:n (n>1) recht:recht relaties
 CREATE TABLE recht_aantekeningrecht
 (
@@ -417,3 +418,6 @@ CREATE INDEX perceel_begrenzing_perceel ON perceel (begrenzing_perceel) INDEXTYP
 CREATE INDEX perceel_plaatscoordinaten ON perceel (plaatscoordinaten) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=POINT');
 CREATE INDEX perceel_archief_begrenzing_perceel ON perceel_archief (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=MULTIPOLYGON');
 CREATE INDEX perceel_archief_plaatscoordinaten ON perceel_archief (plaatscoordinaten) INDEXTYPE IS MDSYS.SPATIAL_INDEX PARAMETERS ( 'LAYER_GTYPE=POINT');
+
+CREATE INDEX recht_aantekeningkadastraalobject ON recht (aantekeningkadastraalobject);
+CREATE INDEX recht_rustop ON recht (rustop);
