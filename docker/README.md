@@ -34,12 +34,20 @@ apart volume voorzien in de compose file.
 
 Middels het script in `/opt/ssl/generate.sh` in de database container kan een nieuwe private key en certificaat worden
 gegenereerd. Nadat het script is uitgevoerd dient de database container opnieuw te worden gestart.
+Zie verder: 
+- https://www.postgresql.org/docs/current/ssl-tcp.html
 
 De juiste client-connect optie voor self-signed certificaten is `sslmode=require`; de server dwingt geen encryptie
 van de verbinding af. Om encryptie af te dwingen te bewerkstelligen dient de `pg_hba.conf` te worden aangepast eea.
-afhankelijk van oa. netwerk configuratie, zie verder:
+afhankelijk van oa. netwerk configuratie.
+Bijvoorbeeld met het volgende commando:
 
-- https://www.postgresql.org/docs/current/ssl-tcp.html
+```shell
+
+```shell
+vi /var/lib/postgresql/data/pg_hba.conf
+```
+Waarna de laatste regel `host all all all scram-sha-256` naar wens kan kan worden aangepast. Zie verder:
 - https://www.postgresql.org/docs/current/auth-pg-hba-conf.html
 
 ### default password reset
