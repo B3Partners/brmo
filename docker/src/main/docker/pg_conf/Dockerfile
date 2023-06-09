@@ -37,6 +37,4 @@ EXPOSE 5432
 
 USER postgres
 
-HEALTHCHECK --interval=25s --timeout=10s --retries=3 CMD pg_isready || exit 1
-
 COPY pg_conf/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d

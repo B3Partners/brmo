@@ -30,6 +30,11 @@ services:
       DB_PASS_RSGBBGT: ${DB_PASS_RSGBBGT:-rsgbbgt}
       DB_PASS_TOPNL: ${DB_PASS_TOPNL:-topnl}
     restart: unless-stopped
+    healthcheck:
+      test: pg_isready -U postgres -d staging
+      interval: 25s
+      timeout: 10s
+      retries: 3
 
 
   brmo:
@@ -49,3 +54,8 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    healthcheck:
+      test: curl -f http://localhost:8080/brmo-service/ || exit 1
+      interval: 25s
+      timeout: 5s
+      retries: 2
