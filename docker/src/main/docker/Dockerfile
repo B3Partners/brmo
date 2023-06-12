@@ -65,6 +65,4 @@ WORKDIR /usr/local/tomcat
 
 USER www-data:www-data
 
-HEALTHCHECK --interval=25s --timeout=5s --retries=2 CMD curl -f http://localhost:8080/brmo-service/ || exit 1
-
 VOLUME ["/usr/local/tomcat/logs", "/opt/brmo-data"]
