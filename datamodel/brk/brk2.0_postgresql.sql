@@ -730,3 +730,6 @@ CREATE INDEX perceel_begrenzing_perceel ON perceel USING GIST (begrenzing_percee
 CREATE INDEX perceel_plaatscoordinaten ON perceel USING GIST (plaatscoordinaten);
 CREATE INDEX perceel_archief_begrenzing_perceel ON perceel_archief USING GIST (begrenzing_perceel);
 CREATE INDEX perceel_archief_plaatscoordinaten ON perceel_archief USING GIST (plaatscoordinaten);
+
+CREATE INDEX recht_aantekeningkadastraalobject ON recht (aantekeningkadastraalobject);
+CREATE INDEX recht_rustop ON recht (rustop);
