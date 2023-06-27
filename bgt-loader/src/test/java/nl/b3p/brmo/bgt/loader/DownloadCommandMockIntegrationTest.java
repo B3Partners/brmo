@@ -24,12 +24,14 @@ import mockwebserver3.RecordedRequest;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Order;
 
 /** Integrates with loading BGT into a database but mocks the PDOK download service. */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Tag("skip-oracle")
 public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
   @Test
   @Order(1)

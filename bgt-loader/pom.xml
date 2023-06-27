@@ -318,6 +318,7 @@ SPDX-License-Identifier: MIT
                                 <db.user>rsgbbgt</db.user>
                                 <db.password>rsgbbgt</db.password>
                             </systemPropertyVariables>
+                            <excludedGroups>skip-pgsql</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -335,6 +336,7 @@ SPDX-License-Identifier: MIT
                                 <db.user>JENKINS_RSGBBGT</db.user>
                                 <db.password>jenkins_rsgbbgt</db.password>
                             </systemPropertyVariables>
+                            <excludedGroups>skip-oracle</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>
