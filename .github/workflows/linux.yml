@@ -135,8 +135,6 @@ jobs:
           distribution: 'temurin'
           java-version: 11
           cache: 'maven'
-          # this check can be removed when GH runners update to Javan 11.0.18 or higher
-          check-latest: true
 
       - name: 'Javadoc'
         run: mvn compile javadoc:javadoc -DskipQA=true
@@ -195,7 +193,7 @@ jobs:
         with:
           lfs: false
 
-      - name: 'Set up JDK'
+      - name: 'Set up JDK (ghcr.io)'
         uses: actions/setup-java@v3
         with:
           distribution: temurin
@@ -214,7 +212,7 @@ jobs:
           mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
       - name: 'Deploy brmo-service SBOM'
-        uses: DependencyTrack/gh-upload-sbom@master
+        uses: DependencyTrack/gh-upload-sbom@v2
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
@@ -222,7 +220,7 @@ jobs:
           bomfilename: 'brmo-service/target/bom.xml'
 
       - name: 'Deploy brmo-soap SBOM'
-        uses: DependencyTrack/gh-upload-sbom@master
+        uses: DependencyTrack/gh-upload-sbom@v2
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
@@ -230,12 +228,29 @@ jobs:
           bomfilename: 'brmo-soap/target/bom.xml'
 
       - name: 'Deploy brmo-stufbg204 SBOM'
-        uses: DependencyTrack/gh-upload-sbom@master
+        uses: DependencyTrack/gh-upload-sbom@v2
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
           project: 'b0866280-4910-4838-a7bb-9ab56cf42217'
           bomfilename: 'brmo-stufbg204/target/bom.xml'
+
+      - name: 'Set up JDK (repo.b3p.nl)'
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+          cache: 'maven'
+          server-id: 'repo.b3p.nl'
+          server-username: B3P_DEPLOY_ACTOR
+          server-password: B3P_DEPLOY_TOKEN
+
+      - name: 'Deploy Maven artifacts'
+        env:
+          B3P_DEPLOY_ACTOR: ${{ secrets.B3P_DEPLOY_ACTOR }}
+          B3P_DEPLOY_TOKEN: ${{ secrets.B3P_DEPLOY_TOKEN }}
+        run: |
+          mvn -Ddocker.skip=true -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
 
   cleanup:

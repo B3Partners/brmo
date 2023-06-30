@@ -2,6 +2,7 @@ version: '3.9'
 
 volumes:
   brmo-db:
+  brmo-db-ssl:
   brmo-logs:
   brmo-data:
 
@@ -10,21 +11,30 @@ services:
   db:
     image: ghcr.io/b3partners/brmo-service-db:${BRMO_VERSION:-snapshot}
     shm_size: '2gb'
+    volumes:
+      - brmo-db:/var/lib/postgresql/data
+      - brmo-db-ssl:/opt/ssl
     command: >
       -c shared_buffers=8GB
       -c max_connections=200
       -c max_wal_size=3GB
       -c autovacuum_max_workers=4
       -c maintenance_work_mem=2GB
+      -c ssl=${ENABLE_TLS:-on}
+      -c ssl_cert_file=${SSL_CERT_FILE:-/opt/ssl/certs/certificate.pem}
+      -c ssl_key_file=${SSL_KEY_FILE:-/opt/ssl/private/private.key}
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       DB_PASS_RSGB: ${DB_PASS_RSGB:-rsgb}
       DB_PASS_STAGING: ${DB_PASS_STAGING:-staging}
       DB_PASS_RSGBBGT: ${DB_PASS_RSGBBGT:-rsgbbgt}
       DB_PASS_TOPNL: ${DB_PASS_TOPNL:-topnl}
-    volumes:
-      - brmo-db:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: pg_isready -U postgres -d staging
+      interval: 25s
+      timeout: 10s
+      retries: 3
 
 
   brmo:
@@ -44,3 +54,8 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    healthcheck:
+      test: curl -f http://localhost:8080/brmo-service/ || exit 1
+      interval: 25s
+      timeout: 5s
+      retries: 2
