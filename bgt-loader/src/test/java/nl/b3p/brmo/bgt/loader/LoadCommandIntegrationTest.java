@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 import mockwebserver3.MockResponse;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
@@ -27,6 +28,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+@Tag("skip-oracle")
 public class LoadCommandIntegrationTest extends CommandLineTestBase {
 
   @ParameterizedTest(name = "[{index}] {0}")

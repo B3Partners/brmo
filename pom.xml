@@ -82,8 +82,8 @@
         <maven-fluido-skin.version>2.0.0-M6</maven-fluido-skin.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>29.0</geotools.version>
-        <jdbc-util.version>15.0</jdbc-util.version>
+        <geotools.version>29.1</geotools.version>
+        <jdbc-util.version>15.1</jdbc-util.version>
         <jts.version>1.19.0</jts.version>
         <itextpdf.version>8.0.0</itextpdf.version>
         <postgresql.jdbc.version>42.6.0</postgresql.jdbc.version>
@@ -242,7 +242,7 @@
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.15</version>
+                <version>1.16.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-cli</groupId>
@@ -544,7 +544,7 @@
             <dependency>
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
-                <version>20230227</version>
+                <version>20230618</version>
             </dependency>
             <!-- Jackson -->
             <dependency>
@@ -709,6 +709,16 @@
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
                 <version>2.7.3</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.oracle.database.jdbc</groupId>
+                        <artifactId>ojdbc8</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.oracle.database.jdbc</groupId>
+                        <artifactId>ojdbc11</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -764,7 +774,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.3.1</version>
+                <version>5.4.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -838,7 +848,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
-                    <version>1.0.2</version>
+                    <version>1.1.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>net.sf.saxon</groupId>
@@ -971,7 +981,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>3.3.2</version>
+                    <version>3.4.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -1021,7 +1031,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>io.github.git-commit-id</groupId>
