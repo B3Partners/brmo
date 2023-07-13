@@ -164,7 +164,8 @@ public class DBTestBase {
     // this sometimes fails on Oracle with a classcast exception:
     // TypeCast java.lang.ClassCastException:
     // class org.dbunit.ext.oracle.OracleSdoGeometry cannot be cast to
-    // class java.lang.Comparable (org.dbunit.ext.oracle.OracleSdoGeometry is in unnamed module of loader 'app';
+    // class java.lang.Comparable (org.dbunit.ext.oracle.OracleSdoGeometry is in unnamed module of
+    // loader 'app';
     // java.lang.Comparable is in module java.base of loader 'bootstrap')
     Assertion.assertEquals(expectedDataSet, actualDataSet);
   }
