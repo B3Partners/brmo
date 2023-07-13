@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
     <packaging>pom</packaging>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -44,7 +44,7 @@
     <scm>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v3.0.1</tag>
         <url>https://github.com/B3Partners/brmo/</url>
     </scm>
     <issueManagement>
@@ -76,7 +76,7 @@
         <java.version>11</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
-        <project.build.outputTimestamp>2023-02-06T15:36:44Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2023-07-13T08:45:39Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-fluido-skin.version>2.0.0-M7</maven-fluido-skin.version>
