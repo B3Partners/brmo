@@ -148,12 +148,14 @@ import org.apache.commons.logging.LogFactory;
                 counts,
 <span class="nc bnc" id="L149" title="All 2 branches missed.">                loadTimeSeconds &gt; 0 ? progress.getObjectCount() / loadTimeSeconds : 0.0,</span>
 <span class="nc" id="L150">                getBundleString(&quot;progress.objects&quot;)));</span>
-        break;
+<span class="nc" id="L151">        break;</span>
+      default:
+        // do nothing
     }
-<span class="nc" id="L153">  }</span>
+<span class="nc" id="L155">  }</span>
 
   public void reportTotalSummary() {
-<span class="nc" id="L156">    log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
-<span class="nc" id="L157">  }</span>
+<span class="nc" id="L158">    log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
+<span class="nc" id="L159">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

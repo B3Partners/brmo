@@ -76,12 +76,14 @@ import org.apache.commons.logging.LogFactory;
         // log(String.format(&quot;%s: loaded %,d files, %,d total objects in %s&quot;,
         // currentFileName, splitFileCount, bag2Progress.getObjectCount(),
         // formatTimeSince(currentFileStart)));
-        break;
+<span class="nc" id="L79">        break;</span>
+      default:
+        // do nothing
     }
-<span class="nc" id="L81">  }</span>
+<span class="nc" id="L83">  }</span>
 
   public void reportTotalSummary() {
-<span class="nc" id="L84">    log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
-<span class="nc" id="L85">  }</span>
+<span class="nc" id="L86">    log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
+<span class="nc" id="L87">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -369,7 +369,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 <span class="nc" id="L369">      Number o =</span>
 <span class="nc" id="L370">          new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
 <span class="nc" id="L371">              .query(conn, &quot;SELECT count(*) FROM eerder_geladen_woz&quot;, new ScalarHandler&lt;&gt;());</span>
-<span class="nc" id="L372">      long count = o.longValue();</span>
+<span class="nc" id="L372">      int count = o.intValue();</span>
 
 <span class="nc" id="L374">      this.total(count);</span>
 <span class="nc" id="L375">      LOG.info(&quot;Aantal te verwerken WOZ berichten: &quot; + count);</span>
@@ -1440,4 +1440,4 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 <span class="nc" id="L1440">    closeQuietly(conn);</span>
 <span class="nc" id="L1441">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

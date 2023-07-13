@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "oneDegreeRelationshipsDiagram" {
   graph [
@@ -64,7 +64,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="partnergeslachtsnaam" COLSPAN="3" ALIGN="LEFT">partnergeslachtsnaam</TD></TR>
       <TR><TD PORT="partnervoornamen" COLSPAN="3" ALIGN="LEFT">partnervoornamen</TD></TR>
       <TR><TD PORT="partnervoorvoegselsgeslachtsnaam" COLSPAN="3" ALIGN="LEFT">partnervoorvoegselsgeslachtsnaam</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">33,149 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="natuurlijkpersoon.html"
     tooltip="natuurlijkpersoon"
@@ -79,7 +79,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="statutairezetel" COLSPAN="3" ALIGN="LEFT">statutairezetel</TD></TR>
       <TR><TD PORT="rsin" COLSPAN="3" ALIGN="LEFT">rsin</TD></TR>
       <TR><TD PORT="kvknummer" COLSPAN="3" ALIGN="LEFT">kvknummer</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1,194 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
     </TABLE>>
     URL="nietnatuurlijkpersoon.html"
     tooltip="nietnatuurlijkpersoon"
@@ -110,7 +110,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="toelichtingbewaarder" COLSPAN="3" ALIGN="LEFT">toelichtingbewaarder</TD></TR>
       <TR><TD PORT="tijdstipontstaanobject" COLSPAN="3" ALIGN="LEFT">tijdstipontstaanobject</TD></TR>
       <TR><TD PORT="oudstdigitaalbekend" COLSPAN="3" ALIGN="LEFT">oudstdigitaalbekend</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">35,963 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="onroerendezaak.html"
     tooltip="onroerendezaak"
@@ -125,7 +125,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="postlocatie" COLSPAN="3" ALIGN="LEFT">postlocatie</TD></TR>
       <TR><TD PORT="woonlocatie" COLSPAN="3" ALIGN="LEFT">woonlocatie</TD></TR>
       <TR><TD PORT="soort" COLSPAN="3" ALIGN="LEFT">soort</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">34,343 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="persoon.html"
     tooltip="persoon"
@@ -140,7 +140,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="isgebaseerdop" COLSPAN="2" ALIGN="LEFT">isgebaseerdop</TD><TD PORT="isgebaseerdop.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="isgebaseerdop2" COLSPAN="2" ALIGN="LEFT">isgebaseerdop2</TD><TD PORT="isgebaseerdop2.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="betreft" COLSPAN="2" ALIGN="LEFT">betreft</TD><TD PORT="betreft.type" ALIGN="LEFT">varchar[255]</TD></TR>
-      <TR><TD PORT="rustop" COLSPAN="2" ALIGN="LEFT">rustop</TD><TD PORT="rustop.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
+      <TR><TD PORT="rustop" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">rustop</TD><TD PORT="rustop.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="isontstaanuit" COLSPAN="2" ALIGN="LEFT">isontstaanuit</TD><TD PORT="isontstaanuit.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="isbetrokkenbij" COLSPAN="2" ALIGN="LEFT">isbetrokkenbij</TD><TD PORT="isbetrokkenbij.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="isbestemdtot" COLSPAN="2" ALIGN="LEFT">isbestemdtot</TD><TD PORT="isbestemdtot.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
@@ -166,10 +166,10 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="einddatumrecht" COLSPAN="2" ALIGN="LEFT">einddatumrecht</TD><TD PORT="einddatumrecht.type" ALIGN="LEFT">date[13]</TD></TR>
       <TR><TD PORT="einddatum" COLSPAN="2" ALIGN="LEFT">einddatum</TD><TD PORT="einddatum.type" ALIGN="LEFT">date[13]</TD></TR>
       <TR><TD PORT="betreftgedeeltevanperceel" COLSPAN="2" ALIGN="LEFT">betreftgedeeltevanperceel</TD><TD PORT="betreftgedeeltevanperceel.type" ALIGN="LEFT">bool[1]</TD></TR>
-      <TR><TD PORT="aantekeningkadastraalobject" COLSPAN="2" ALIGN="LEFT">aantekeningkadastraalobject</TD><TD PORT="aantekeningkadastraalobject.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
+      <TR><TD PORT="aantekeningkadastraalobject" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">aantekeningkadastraalobject</TD><TD PORT="aantekeningkadastraalobject.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="betrokkenpersoon" COLSPAN="2" ALIGN="LEFT">betrokkenpersoon</TD><TD PORT="betrokkenpersoon.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="begingeldigheid" COLSPAN="2" ALIGN="LEFT">begingeldigheid</TD><TD PORT="begingeldigheid.type" ALIGN="LEFT">date[13]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 17</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">103,243 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">11 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 17</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">11 &gt;</TD></TR>
     </TABLE>>
     URL="recht.html"
     tooltip="recht"
@@ -180,7 +180,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">recht_aantekeningrecht</TD></TR>
       <TR><TD PORT="aantekening" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">aantekening</TD></TR>
       <TR><TD PORT="tenaamstelling" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">tenaamstelling</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1,735 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="recht_aantekeningrecht.html"
     tooltip="recht_aantekeningrecht"
@@ -191,7 +191,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">recht_isbelastmet</TD></TR>
       <TR><TD PORT="zakelijkrecht" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">zakelijkrecht</TD></TR>
       <TR><TD PORT="isbelastmet" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">isbelastmet</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2,866 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="recht_isbelastmet.html"
     tooltip="recht_isbelastmet"
@@ -202,7 +202,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">recht_isbeperkttot</TD></TR>
       <TR><TD PORT="zakelijkrecht" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">zakelijkrecht</TD></TR>
       <TR><TD PORT="tenaamstelling" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">tenaamstelling</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">140 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="recht_isbeperkttot.html"
     tooltip="recht_isbeperkttot"
@@ -217,7 +217,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="valutatransactiesomlevering" COLSPAN="3" ALIGN="LEFT">valutatransactiesomlevering</TD></TR>
       <TR><TD PORT="datumkenbaarheidpb" COLSPAN="3" ALIGN="LEFT">datumkenbaarheidpb</TD></TR>
       <TR><TD PORT="deelvan" COLSPAN="3" ALIGN="LEFT">deelvan</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">33,092 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="stukdeel.html"
     tooltip="stukdeel"

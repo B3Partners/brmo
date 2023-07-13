@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "appartementsrecht" {
   graph [
@@ -23,7 +23,7 @@ digraph "appartementsrecht" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">appartementsrecht</TD></TR>
       <TR><TD PORT="identificatie" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">identificatie</TD></TR>
       <TR><TD PORT="hoofdsplitsing" COLSPAN="3" ALIGN="LEFT">hoofdsplitsing</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5,772 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="tables/appartementsrecht.html"
     tooltip="appartementsrecht"

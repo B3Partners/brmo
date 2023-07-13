@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nl.b3p.brmo.service"},{"l":"nl.b3p.brmo.service.scanner"},{"l":"nl.b3p.brmo.service.stripes"},{"l":"nl.b3p.brmo.service.testutil"},{"l":"nl.b3p.brmo.zip"},{"l":"nl.b3p.web"}]

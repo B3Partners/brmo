@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nl.b3p.brmo.stufbg204"},{"l":"nl.b3p.brmo.stufbg204.util"},{"l":"nl.egem.stuf.sector.bg._0204"},{"l":"nl.egem.stuf.stuf0204"}]

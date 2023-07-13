@@ -18,8 +18,8 @@ BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,ZakelijkeRechten,14,0,2,0,
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,Document,17,0,0,0,7,0,5,0,5,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,BenoemdObject,42,0,2,0,16,0,11,0,10,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,MutatieListRequest,24,0,0,0,10,0,7,0,7,0
-BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,GetEigendomMutaties,10,0,0,0,4,0,3,0,3,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,HistorischeRelatie,17,0,0,0,7,0,5,0,5,0
+BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.eigendom,GetEigendomMutaties,10,0,0,0,4,0,3,0,3,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.db,EigendomInfo,1798,0,149,0,470,0,97,0,22,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.db,BrkInfo,1187,0,96,0,293,0,64,0,15,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,AdresResponse,45,0,0,0,19,0,13,0,13,0
@@ -32,8 +32,8 @@ BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,GetBrkInfoImpl,85,0,8,0,23,0,7,
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,NatuurlijkPersoonResponse,332,0,12,0,102,0,34,0,28,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,RelatiesResponse,20,0,0,0,8,0,5,0,5,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,BrkInfoResponse,43,0,2,0,15,0,9,0,8,0
-BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,KadOnrndZkInfoRequest,38,0,0,0,16,0,11,0,11,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,BrkInfoRequest,78,0,0,0,31,0,19,0,19,0
+BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,KadOnrndZkInfoRequest,38,0,0,0,16,0,11,0,11,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,NietNatuurlijkPersoonResponse,193,0,8,0,60,0,18,0,14,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,KadOnrndZkInfoResponse,495,0,16,0,150,0,52,0,44,0
 BRMO SOAP bevragingsservice,nl.b3p.brmo.soap.brk,HistorischeRelatieResponse,24,0,0,0,10,0,7,0,7,0

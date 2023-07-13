@@ -247,7 +247,7 @@
  <td class='comment detail'>Betreft zakelijk recht.</td>
 </tr>
 <tr class='odd'>
- <td class='detail'>rustop</td>
+ <td class='indexedColumn' title='Indexed'>rustop</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2147483647</td>
  <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
@@ -641,7 +641,7 @@
  <td class='comment detail'>BetreftGedeelteVanPerceel is een aanduiding of de aantekening het gehele perceel (nee of niet gevuld) betreft of slechts een gedeelte (ja).</td>
 </tr>
 <tr class='odd'>
- <td class='detail'>aantekeningkadastraalobject</td>
+ <td class='indexedColumn' title='Indexed'>aantekeningkadastraalobject</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2147483647</td>
  <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
@@ -692,7 +692,7 @@
  <td class='comment detail'>BRMO: metadata tbv archivering, datum van bericht.</td>
 </tr>
 </table>
-<p title='35 columns'>Table contained 103,243 rows at Mon Feb 06 17:27 CET 2023<p/>
+<p title='35 columns'>Table contained 0 rows at Thu Jul 13 11:30 CEST 2023<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -712,6 +712,18 @@
   <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
   <td class='constraint' style='text-align:left;'>recht_pkey</td>
  </tr>
+ <tr>
+  <td class='indexedColumn'>aantekeningkadastraalobject</td>
+  <td class='detail'>Performance</td>
+  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
+  <td class='constraint' style='text-align:left;'>recht_aantekeningkadastraalobject</td>
+ </tr>
+ <tr>
+  <td class='indexedColumn'>rustop</td>
+  <td class='detail'>Performance</td>
+  <td class='detail' style='text-align:left;'><span title='Ascending'>Asc</span></td>
+  <td class='constraint' style='text-align:left;'>recht_rustop</td>
+ </tr>
 </table>
 </div>
 <table width='100%' border='0'><tr><td class='container'>
@@ -725,26 +737,26 @@
 <area shape="rect" id="node5" href="persoon.html" title="persoon" alt="" coords="45,1581,286,1784">
 <area shape="rect" id="node6" href="stukdeel.html" title="stukdeel" alt="" coords="43,5,288,208">
 <area shape="rect" id="node7" href="recht_aantekeningrecht.html" title="recht_aantekeningrecht" alt="" coords="921,153,1124,260">
-<area shape="rect" id="node8" href="recht_isbelastmet.html" title="recht_isbelastmet" alt="" coords="941,277,1105,384">
+<area shape="rect" id="node8" href="recht_isbelastmet.html" title="recht_isbelastmet" alt="" coords="942,277,1103,384">
 <area shape="rect" id="node9" href="recht_isbeperkttot.html" title="recht_isbeperkttot" alt="" coords="941,401,1105,508">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/recht.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="objectlocatie.html" title="objectlocatie" alt="" coords="754,1588,927,1671">
-<area shape="rect" id="node2" href="adres.html" title="adres" alt="" coords="5,1771,179,1853">
-<area shape="rect" id="node3" href="onroerendezaak.html" title="onroerendezaak" alt="" coords="249,539,516,1125">
-<area shape="rect" id="node4" href="onroerendezaakbeperking.html" title="onroerendezaakbeperking" alt="" coords="1139,135,1359,217">
-<area shape="rect" id="node5" href="publiekrechtelijkebeperking.html" title="publiekrechtelijkebeperking" alt="" coords="725,105,956,188">
-<area shape="rect" id="node7" href="nietnatuurlijkpersoon.html" title="nietnatuurlijkpersoon" alt="" coords="290,319,475,521">
-<area shape="rect" id="node8" href="stukdeel.html" title="stukdeel" alt="" coords="260,99,505,301">
-<area shape="rect" id="node6" href="persoon.html" title="persoon" alt="" coords="262,1675,503,1877">
-<area shape="rect" id="node15" href="stuk.html" title="stuk" alt="" coords="5,219,179,301">
-<area shape="rect" id="node9" href="recht.html" title="recht" alt="" coords="587,385,1095,1289">
-<area shape="rect" id="node10" href="natuurlijkpersoon.html" title="natuurlijkpersoon" alt="" coords="223,1143,543,1657">
-<area shape="rect" id="node11" href="recht_aantekeningrecht.html" title="recht_aantekeningrecht" alt="" coords="1147,264,1350,371">
-<area shape="rect" id="node12" href="recht_archief.html" title="recht_archief" alt="" coords="759,5,923,88">
-<area shape="rect" id="node13" href="recht_isbelastmet.html" title="recht_isbelastmet" alt="" coords="1167,388,1331,495">
-<area shape="rect" id="node14" href="recht_isbeperkttot.html" title="recht_isbeperkttot" alt="" coords="1167,512,1331,619">
+<area shape="rect" id="node1" href="objectlocatie.html" title="objectlocatie" alt="" coords="733,1588,865,1671">
+<area shape="rect" id="node2" href="adres.html" title="adres" alt="" coords="5,1771,137,1853">
+<area shape="rect" id="node3" href="onroerendezaak.html" title="onroerendezaak" alt="" coords="208,539,475,1125">
+<area shape="rect" id="node4" href="onroerendezaakbeperking.html" title="onroerendezaakbeperking" alt="" coords="1097,135,1317,217">
+<area shape="rect" id="node5" href="publiekrechtelijkebeperking.html" title="publiekrechtelijkebeperking" alt="" coords="684,105,915,188">
+<area shape="rect" id="node7" href="nietnatuurlijkpersoon.html" title="nietnatuurlijkpersoon" alt="" coords="249,319,434,521">
+<area shape="rect" id="node8" href="stukdeel.html" title="stukdeel" alt="" coords="219,99,464,301">
+<area shape="rect" id="node6" href="persoon.html" title="persoon" alt="" coords="221,1675,462,1877">
+<area shape="rect" id="node15" href="stuk.html" title="stuk" alt="" coords="5,219,137,301">
+<area shape="rect" id="node9" href="recht.html" title="recht" alt="" coords="545,385,1053,1289">
+<area shape="rect" id="node10" href="natuurlijkpersoon.html" title="natuurlijkpersoon" alt="" coords="181,1143,501,1657">
+<area shape="rect" id="node11" href="recht_aantekeningrecht.html" title="recht_aantekeningrecht" alt="" coords="1106,264,1309,371">
+<area shape="rect" id="node12" href="recht_archief.html" title="recht_archief" alt="" coords="733,5,865,88">
+<area shape="rect" id="node13" href="recht_isbelastmet.html" title="recht_isbelastmet" alt="" coords="1127,388,1288,495">
+<area shape="rect" id="node14" href="recht_isbeperkttot.html" title="recht_isbeperkttot" alt="" coords="1125,512,1289,619">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/recht.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

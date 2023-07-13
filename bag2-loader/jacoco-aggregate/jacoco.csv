@@ -4,7 +4,7 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputSt
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTDatabase,420,0,37,0,107,0,36,0,17,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer.new Iterator() {...},66,298,13,43,14,72,13,19,0,4
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream,23,0,0,0,5,0,3,0,3,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ProgressReporter,295,0,19,0,64,0,26,0,15,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ProgressReporter,296,0,19,0,65,0,26,0,15,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer.MutatieInhoud,0,20,0,0,0,6,0,5,0,5
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer,54,516,9,54,12,124,11,37,2,12
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,Utils,68,77,0,8,15,8,8,6,8,2
@@ -36,9 +36,9 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql.dialect,SQLDialect,67,0,8,0,17,0,
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql.dialect,PostGISDialect,91,0,6,0,19,0,10,0,7,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponseLinks,121,0,12,0,29,0,17,0,11,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaTimeWindow,112,0,12,0,25,0,14,0,8,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse,155,0,14,0,36,0,21,0,14,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest,201,0,16,0,46,0,26,0,18,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest.FormatEnum,59,0,4,0,11,0,7,0,5,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse,155,0,14,0,36,0,21,0,14,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponse,121,0,12,0,29,0,17,0,11,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponseLinksDownload,155,0,14,0,36,0,21,0,14,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,GetDeltasResponse,145,0,12,0,35,0,19,0,13,0
@@ -59,7 +59,7 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util.http.wrapper,Java11HttpClientWra
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,DownloadCommand,625,0,50,0,145,0,37,0,12,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,DatabaseOptions,50,0,0,0,20,0,11,0,11,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,ExtractSelectionOptions,10,0,0,0,4,0,3,0,3,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,BGTLoaderMain,819,0,56,0,194,0,46,0,18,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,BGTLoaderMain,818,0,56,0,194,0,46,0,18,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,LoadOptions,87,0,0,0,35,0,19,0,19,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,CustomDownloadProgressReporter,176,0,20,0,37,0,13,0,3,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,ConsoleProgressReporter,154,0,8,0,30,0,9,0,5,0

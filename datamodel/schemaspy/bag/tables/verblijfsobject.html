@@ -83,7 +83,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>objectid</td>
  <td class='detail'>serial</td>
  <td class='detail' align='right'>10</td>
@@ -94,7 +94,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>identificatie</td>
  <td class='detail'>bpchar</td>
  <td class='detail' align='right'>16</td>
@@ -103,19 +103,19 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="verblijfsobject_gebruiksdoel.[identificatie, voorkomenidentificatie] refs verblijfsobject.[identificatie, voorkomenidentificatie] via verblijfsobject_gebruiksdoel_ownedby_fkey"><a href='verblijfsobject_gebruiksdoel.html'>verblijfsobject_gebruiksdoel</a><span class='relatedKey'>.identificatie</span>
     </td>
     <td class='constraint detail'>verblijfsobject_gebruiksdoel_ownedby_fkey<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="verblijfsobject_maaktdeeluitvan.[identificatie, voorkomenidentificatie] refs verblijfsobject.[identificatie, voorkomenidentificatie] via verblijfsobject_maaktdeeluitvan_ownedby_fkey"><a href='verblijfsobject_maaktdeeluitvan.html'>verblijfsobject_maaktdeeluitvan</a><span class='relatedKey'>.identificatie</span>
     </td>
     <td class='constraint detail'>verblijfsobject_maaktdeeluitvan_ownedby_fkey<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="verblijfsobject_nevenadres.[identificatie, voorkomenidentificatie] refs verblijfsobject.[identificatie, voorkomenidentificatie] via verblijfsobject_nevenadres_ownedby_fkey"><a href='verblijfsobject_nevenadres.html'>verblijfsobject_nevenadres</a><span class='relatedKey'>.identificatie</span>
     </td>
     <td class='constraint detail'>verblijfsobject_nevenadres_ownedby_fkey<span title='Cascade on delete:
@@ -126,7 +126,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>voorkomenidentificatie</td>
  <td class='detail'>int4</td>
  <td class='detail' align='right'>10</td>
@@ -135,19 +135,19 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="verblijfsobject_gebruiksdoel.[identificatie, voorkomenidentificatie] refs verblijfsobject.[identificatie, voorkomenidentificatie] via verblijfsobject_gebruiksdoel_ownedby_fkey"><a href='verblijfsobject_gebruiksdoel.html'>verblijfsobject_gebruiksdoel</a><span class='relatedKey'>.voorkomenidentificatie</span>
     </td>
     <td class='constraint detail'>verblijfsobject_gebruiksdoel_ownedby_fkey<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="verblijfsobject_maaktdeeluitvan.[identificatie, voorkomenidentificatie] refs verblijfsobject.[identificatie, voorkomenidentificatie] via verblijfsobject_maaktdeeluitvan_ownedby_fkey"><a href='verblijfsobject_maaktdeeluitvan.html'>verblijfsobject_maaktdeeluitvan</a><span class='relatedKey'>.voorkomenidentificatie</span>
     </td>
     <td class='constraint detail'>verblijfsobject_maaktdeeluitvan_ownedby_fkey<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="verblijfsobject_nevenadres.[identificatie, voorkomenidentificatie] refs verblijfsobject.[identificatie, voorkomenidentificatie] via verblijfsobject_nevenadres_ownedby_fkey"><a href='verblijfsobject_nevenadres.html'>verblijfsobject_nevenadres</a><span class='relatedKey'>.voorkomenidentificatie</span>
     </td>
     <td class='constraint detail'>verblijfsobject_nevenadres_ownedby_fkey<span title='Cascade on delete:
@@ -158,7 +158,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>begingeldigheid</td>
  <td class='detail'>date</td>
  <td class='detail' align='right'>13</td>
@@ -169,7 +169,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>eindgeldigheid</td>
  <td class='detail'>date</td>
  <td class='detail' align='right'>13</td>
@@ -180,7 +180,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>tijdstipregistratie</td>
  <td class='detail'>timestamp</td>
  <td class='detail' align='right'>29,6</td>
@@ -191,7 +191,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>eindregistratie</td>
  <td class='detail'>timestamp</td>
  <td class='detail' align='right'>29,6</td>
@@ -202,7 +202,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>tijdstipinactief</td>
  <td class='detail'>timestamp</td>
  <td class='detail' align='right'>29,6</td>
@@ -213,7 +213,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>tijdstipregistratielv</td>
  <td class='detail'>timestamp</td>
  <td class='detail' align='right'>29,6</td>
@@ -224,7 +224,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>tijdstipeindregistratielv</td>
  <td class='detail'>timestamp</td>
  <td class='detail' align='right'>29,6</td>
@@ -235,7 +235,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>tijdstipinactieflv</td>
  <td class='detail'>timestamp</td>
  <td class='detail' align='right'>29,6</td>
@@ -246,7 +246,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>documentdatum</td>
  <td class='detail'>date</td>
  <td class='detail' align='right'>13</td>
@@ -257,7 +257,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>documentnummer</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -268,7 +268,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>geconstateerd</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -279,7 +279,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>status</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -290,7 +290,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>oppervlakte</td>
  <td class='detail'>int4</td>
  <td class='detail' align='right'>10</td>
@@ -301,7 +301,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>heeftalshoofdadres</td>
  <td class='detail'>bpchar</td>
  <td class='detail' align='right'>16</td>
@@ -312,7 +312,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='indexedColumn' title='Indexed'>geometrie</td>
  <td class='detail'>geometry</td>
  <td class='detail' align='right'>2147483647</td>
@@ -324,7 +324,7 @@
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='18 columns'>Table contained 21,685,089 rows at Mon Feb 06 17:27 CET 2023<p/>
+<p title='18 columns'>Table contained 18,506 rows at Thu Jul 13 11:30 CEST 2023<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

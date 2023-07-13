@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "oneDegreeRelationshipsDiagram" {
   graph [
@@ -47,7 +47,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="toelichtingbewaarder" COLSPAN="3" ALIGN="LEFT">toelichtingbewaarder</TD></TR>
       <TR><TD PORT="tijdstipontstaanobject" COLSPAN="3" ALIGN="LEFT">tijdstipontstaanobject</TD></TR>
       <TR><TD PORT="oudstdigitaalbekend" COLSPAN="3" ALIGN="LEFT">oudstdigitaalbekend</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">35,963 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="onroerendezaak.html"
     tooltip="onroerendezaak"
@@ -59,7 +59,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="inonderzoek" COLSPAN="2" ALIGN="LEFT">inonderzoek</TD><TD PORT="inonderzoek.type" ALIGN="LEFT">bool[1]</TD></TR>
       <TR><TD PORT="beperkt" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">beperkt</TD><TD PORT="beperkt.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="leidttot" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">leidttot</TD><TD PORT="leidttot.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1,682 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
     </TABLE>>
     URL="onroerendezaakbeperking.html"
     tooltip="onroerendezaakbeperking"
@@ -74,7 +74,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="datumbeeindiging" COLSPAN="3" ALIGN="LEFT">datumbeeindiging</TD></TR>
       <TR><TD PORT="isgebaseerdop" COLSPAN="3" ALIGN="LEFT">isgebaseerdop</TD></TR>
       <TR><TD PORT="bevoegdgezag" COLSPAN="3" ALIGN="LEFT">bevoegdgezag</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">545 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="publiekrechtelijkebeperking.html"
     tooltip="publiekrechtelijkebeperking"

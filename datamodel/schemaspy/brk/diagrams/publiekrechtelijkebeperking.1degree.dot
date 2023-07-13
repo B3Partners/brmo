@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "oneDegreeRelationshipsDiagram" {
   graph [
@@ -33,7 +33,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="statutairezetel" COLSPAN="3" ALIGN="LEFT">statutairezetel</TD></TR>
       <TR><TD PORT="rsin" COLSPAN="3" ALIGN="LEFT">rsin</TD></TR>
       <TR><TD PORT="kvknummer" COLSPAN="3" ALIGN="LEFT">kvknummer</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1,194 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4 &gt;</TD></TR>
     </TABLE>>
     URL="nietnatuurlijkpersoon.html"
     tooltip="nietnatuurlijkpersoon"
@@ -45,7 +45,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="inonderzoek" COLSPAN="3" ALIGN="LEFT">inonderzoek</TD></TR>
       <TR><TD PORT="beperkt" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">beperkt</TD></TR>
       <TR><TD PORT="leidttot" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">leidttot</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1,682 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="onroerendezaakbeperking.html"
     tooltip="onroerendezaakbeperking"
@@ -58,7 +58,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="beperkt" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">beperkt</TD></TR>
       <TR><TD PORT="leidttot" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">leidttot</TD></TR>
       <TR><TD PORT="begingeldigheid" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">begingeldigheid</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">29 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="onroerendezaakbeperking_archief.html"
     tooltip="onroerendezaakbeperking_archief"
@@ -73,7 +73,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="datumbeeindiging" COLSPAN="2" ALIGN="LEFT">datumbeeindiging</TD><TD PORT="datumbeeindiging.type" ALIGN="LEFT">date[13]</TD></TR>
       <TR><TD PORT="isgebaseerdop" COLSPAN="2" ALIGN="LEFT">isgebaseerdop</TD><TD PORT="isgebaseerdop.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
       <TR><TD PORT="bevoegdgezag" COLSPAN="2" ALIGN="LEFT">bevoegdgezag</TD><TD PORT="bevoegdgezag.type" ALIGN="LEFT">varchar[2147483647]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">545 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">2 &gt;</TD></TR>
     </TABLE>>
     URL="publiekrechtelijkebeperking.html"
     tooltip="publiekrechtelijkebeperking"
@@ -88,7 +88,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="valutatransactiesomlevering" COLSPAN="3" ALIGN="LEFT">valutatransactiesomlevering</TD></TR>
       <TR><TD PORT="datumkenbaarheidpb" COLSPAN="3" ALIGN="LEFT">datumkenbaarheidpb</TD></TR>
       <TR><TD PORT="deelvan" COLSPAN="3" ALIGN="LEFT">deelvan</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">33,092 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="stukdeel.html"
     tooltip="stukdeel"

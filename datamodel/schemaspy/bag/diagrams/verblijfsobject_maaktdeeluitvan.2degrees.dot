@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "twoDegreesRelationshipsDiagram" {
   graph [
@@ -47,7 +47,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="oppervlakte" COLSPAN="3" ALIGN="LEFT">oppervlakte</TD></TR>
       <TR><TD PORT="heeftalshoofdadres" COLSPAN="3" ALIGN="LEFT">heeftalshoofdadres</TD></TR>
       <TR><TD PORT="geometrie" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">geometrie</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">21,685,089 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">6 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">18,506 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">6 &gt;</TD></TR>
     </TABLE>>
     URL="verblijfsobject.html"
     tooltip="verblijfsobject"
@@ -57,7 +57,7 @@ digraph "twoDegreesRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">verblijfsobject_gebruiksdoel</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">22,325,372 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">19,221 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="verblijfsobject_gebruiksdoel.html"
     tooltip="verblijfsobject_gebruiksdoel"
@@ -69,7 +69,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="identificatie" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">identificatie</TD><TD PORT="identificatie.type" ALIGN="LEFT">bpchar[16]</TD></TR>
       <TR><TD PORT="voorkomenidentificatie" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">voorkomenidentificatie</TD><TD PORT="voorkomenidentificatie.type" ALIGN="LEFT">int4[10]</TD></TR>
       <TR><TD PORT="maaktdeeluitvan" COLSPAN="2" ALIGN="LEFT">maaktdeeluitvan</TD><TD PORT="maaktdeeluitvan.type" ALIGN="LEFT">bpchar[16]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">21,780,007 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">18,562 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
     </TABLE>>
     URL="verblijfsobject_maaktdeeluitvan.html"
     tooltip="verblijfsobject_maaktdeeluitvan"
@@ -79,7 +79,7 @@ digraph "twoDegreesRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">verblijfsobject_nevenadres</TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">111,308 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="verblijfsobject_nevenadres.html"
     tooltip="verblijfsobject_nevenadres"

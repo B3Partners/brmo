@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.service.util","l":"ConfigUtil"},{"p":"nl.b3p.brmo.service.util","l":"DiagnosticsServlet"},{"p":"nl.b3p.brmo.service.util","l":"VersieInfo"}]

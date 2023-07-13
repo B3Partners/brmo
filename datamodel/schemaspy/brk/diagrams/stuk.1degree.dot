@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "oneDegreeRelationshipsDiagram" {
   graph [
@@ -35,7 +35,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="tijdstipaanbieding" COLSPAN="2" ALIGN="LEFT">tijdstipaanbieding</TD><TD PORT="tijdstipaanbieding.type" ALIGN="LEFT">timestamp[29,6]</TD></TR>
       <TR><TD PORT="tijdstipondertekening" COLSPAN="2" ALIGN="LEFT">tijdstipondertekening</TD><TD PORT="tijdstipondertekening.type" ALIGN="LEFT">timestamp[29,6]</TD></TR>
       <TR><TD PORT="tekeningingeschreven" COLSPAN="2" ALIGN="LEFT">tekeningingeschreven</TD><TD PORT="tekeningingeschreven.type" ALIGN="LEFT">bool[1]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">29,983 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
     </TABLE>>
     URL="stuk.html"
     tooltip="stuk"
@@ -50,7 +50,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="valutatransactiesomlevering" COLSPAN="3" ALIGN="LEFT">valutatransactiesomlevering</TD></TR>
       <TR><TD PORT="datumkenbaarheidpb" COLSPAN="3" ALIGN="LEFT">datumkenbaarheidpb</TD></TR>
       <TR><TD PORT="deelvan" COLSPAN="3" ALIGN="LEFT">deelvan</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">33,092 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 &gt;</TD></TR>
     </TABLE>>
     URL="stukdeel.html"
     tooltip="stukdeel"

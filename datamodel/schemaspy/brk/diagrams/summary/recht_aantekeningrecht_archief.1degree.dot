@@ -1,4 +1,4 @@
-// dot 2.43.0 on Linux 5.15.0-58-generic
+// dot 2.43.0 on Linux 5.19.0-46-generic
 // SchemaSpy rev Unknown
 digraph "recht_aantekeningrecht_archief" {
   graph [
@@ -24,7 +24,7 @@ digraph "recht_aantekeningrecht_archief" {
       <TR><TD PORT="aantekening" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">aantekening</TD></TR>
       <TR><TD PORT="tenaamstelling" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">tenaamstelling</TD></TR>
       <TR><TD PORT="begingeldigheid" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">begingeldigheid</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">62 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="tables/recht_aantekeningrecht_archief.html"
     tooltip="recht_aantekeningrecht_archief"

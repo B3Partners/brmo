@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="brk" type="PostgreSQL - 15.1 (Debian 15.1-1.pgdg110+1)">
+<database name="rsgb" schema="brk" type="PostgreSQL - 15.3">
    <tables>
-      <table name="adres" numRows="61820" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
+      <table name="adres" numRows="0" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="betreft" foreignKey="objectlocatie_betreft_fkey" implied="false" onDeleteCascade="false" table="objectlocatie"/>
             <child column="postlocatie" foreignKey="persoon_postlocatie_fkey" implied="false" onDeleteCascade="false" table="persoon"/>
@@ -30,7 +30,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="appartementsrecht" numRows="5772" remarks="Een Appartementsrecht is een aandeel in goederen die in een splitsing zijn betrokken, dat de bevoegdheid omvat tot het uitsluitend gebruik van bepaalde gedeelten van het gebouw die blijkens hun inrichting bestemd zijn of worden om als afzonderlijk geheel te worden gebruikt." schema="brk" type="TABLE">
+      <table name="appartementsrecht" numRows="0" remarks="Een Appartementsrecht is een aandeel in goederen die in een splitsing zijn betrokken, dat de bevoegdheid omvat tot het uitsluitend gebruik van bepaalde gedeelten van het gebouw die blijkens hun inrichting bestemd zijn of worden om als afzonderlijk geheel te worden gebruikt." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="hoofdsplitsing" nullable="false" remarks="Een Hoofdsplitsing is het gesplitste Zakelijk recht van 1 of meer Percelen." size="255" type="varchar"/>
          <primaryKey column="identificatie" sequenceNumberInPK="1"/>
@@ -38,7 +38,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="appartementsrecht_archief" numRows="201" remarks="" schema="brk" type="TABLE">
+      <table name="appartementsrecht_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="2" name="hoofdsplitsing" nullable="false" remarks="" size="255" type="varchar"/>
@@ -57,7 +57,7 @@
             <column ascending="true" name="naam"/>
          </index>
       </table>
-      <table name="natuurlijkpersoon" numRows="33149" remarks="Een natuurlijk persoon is een mens als subject en drager van rechten en plichten." schema="brk" type="TABLE">
+      <table name="natuurlijkpersoon" numRows="0" remarks="Een natuurlijk persoon is een mens als subject en drager van rechten en plichten." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="betrokkenpartner" foreignKey="recht_betrokkenpartner_fkey" implied="false" onDeleteCascade="false" table="recht"/>
          </column>
@@ -84,7 +84,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="nietnatuurlijkpersoon" numRows="1194" remarks="Een niet-natuurlijk persoon is een rechtspersoon of een samenwerkingsverband zonder rechtspersoonlijkheid." schema="brk" type="TABLE">
+      <table name="nietnatuurlijkpersoon" numRows="0" remarks="Een niet-natuurlijk persoon is een rechtspersoon of een samenwerkingsverband zonder rechtspersoonlijkheid." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="bevoegdgezag" foreignKey="publiekrechtelijkebeperking_bevoegdgezag_fkey" implied="false" onDeleteCascade="false" table="publiekrechtelijkebeperking"/>
             <child column="betrokkengorzenenaanwassen" foreignKey="recht_betrokkengorzenenaanwassen_fkey" implied="false" onDeleteCascade="false" table="recht"/>
@@ -101,7 +101,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="objectlocatie" numRows="41665" remarks="Een Locatie kadastraal object is een aanduiding voor de locatie van het Kadastraal object in Nederland." schema="brk" type="TABLE">
+      <table name="objectlocatie" numRows="0" remarks="Een Locatie kadastraal object is een aanduiding voor de locatie van het Kadastraal object in Nederland." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="heeft" nullable="false" remarks="Referentie naar de betreffende onroerende zaak." size="2147483647" type="varchar">
             <parent column="identificatie" foreignKey="objectlocatie_heeft_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
          </column>
@@ -116,7 +116,7 @@
             <column ascending="true" name="betreft"/>
          </index>
       </table>
-      <table name="objectlocatie_archief" numRows="1656" remarks="" schema="brk" type="TABLE">
+      <table name="objectlocatie_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="heeft" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="betreft" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="koppelingswijze" nullable="true" remarks="" size="29" type="varchar"/>
@@ -130,7 +130,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="onroerendezaak" numRows="35963" remarks="Een onroerende zaak is de grond, de niet gewonnen delfstoffen, de met de grond verenigde beplantingen, alsmede de gebouwen en werken die duurzaam met de grond zijn verenigd, hetzij rechtstreeks, hetzij door vereniging met andere gebouwen of werken." schema="brk" type="TABLE">
+      <table name="onroerendezaak" numRows="0" remarks="Een onroerende zaak is de grond, de niet gewonnen delfstoffen, de met de grond verenigde beplantingen, alsmede de gebouwen en werken die duurzaam met de grond zijn verenigd, hetzij rechtstreeks, hetzij door vereniging met andere gebouwen of werken." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="heeft" foreignKey="objectlocatie_heeft_fkey" implied="false" onDeleteCascade="false" table="objectlocatie"/>
             <child column="beperkt" foreignKey="onroerendezaakbeperking_beperkt_fkey" implied="false" onDeleteCascade="false" table="onroerendezaakbeperking"/>
@@ -164,7 +164,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="onroerendezaak_archief" numRows="791" remarks="" schema="brk" type="TABLE">
+      <table name="onroerendezaak_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="2" name="eindegeldigheid" nullable="false" remarks="" size="13" type="date"/>
@@ -195,7 +195,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="onroerendezaakbeperking" numRows="1682" remarks="OnroerendeZaakBeperking" schema="brk" type="TABLE">
+      <table name="onroerendezaakbeperking" numRows="0" remarks="OnroerendeZaakBeperking" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="inonderzoek" nullable="true" remarks="Één of meer objecten uit het werkingsgebied van de publiekrechtelijke beperking die overlappen met de onroerende zaak, zijn blijkens hun registratie, inmiddels niet meer actueel. Het bevoegd gezag dient het werkingsgebied opnieuw te beoordelen." size="1" type="bool"/>
          <column autoUpdated="false" digits="0" id="1" name="beperkt" nullable="false" remarks="De onroerende zaak waarop de beperking is gevestigd." size="2147483647" type="varchar">
             <parent column="identificatie" foreignKey="onroerendezaakbeperking_beperkt_fkey" implied="false" onDeleteCascade="false" table="onroerendezaak"/>
@@ -210,7 +210,7 @@
             <column ascending="true" name="leidttot"/>
          </index>
       </table>
-      <table name="onroerendezaakbeperking_archief" numRows="29" remarks="" schema="brk" type="TABLE">
+      <table name="onroerendezaakbeperking_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="inonderzoek" nullable="true" remarks="" size="1" type="bool"/>
          <column autoUpdated="false" digits="0" id="1" name="beperkt" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="leidttot" nullable="false" remarks="" size="2147483647" type="varchar">
@@ -226,7 +226,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="onroerendezaakfiliatie" numRows="22622" remarks="Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak. Het betreft hier de relatie tussen 2 percelen, 2 Appartementsrechten of 2 leidingnetwerken." schema="brk" type="TABLE">
+      <table name="onroerendezaakfiliatie" numRows="0" remarks="Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak. Het betreft hier de relatie tussen 2 percelen, 2 Appartementsrechten of 2 leidingnetwerken." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aard" nullable="false" remarks="Aard is een aanduiding voor de aard van de filiatie. Het geeft aan waarom het ene kadastrale object gerelateerd is aan het andere." size="65" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="onroerendezaak" nullable="false" remarks="De ontstane onroerende zaak" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="betreft" nullable="false" remarks="De betreffende (bron) onroerende zaak." size="255" type="varchar"/>
@@ -239,7 +239,7 @@
             <column ascending="true" name="betreft"/>
          </index>
       </table>
-      <table name="perceel" numRows="30191" remarks="Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is." schema="brk" type="TABLE">
+      <table name="perceel" numRows="0" remarks="Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="begrenzing_perceel" nullable="false" remarks="Begrenzing perceel is het geheel van lijnketens waarmee de vlakomtrek van een perceel wordt gevormd." size="2147483647" type="geometry"/>
          <column autoUpdated="false" digits="1" id="2" name="kadastralegrootte" nullable="true" remarks="Oppervlak grootte, in vierkante meters." size="9" type="numeric"/>
@@ -260,7 +260,7 @@
             <column ascending="true" name="plaatscoordinaten"/>
          </index>
       </table>
-      <table name="perceel_archief" numRows="590" remarks="" schema="brk" type="TABLE">
+      <table name="perceel_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="2" name="begrenzing_perceel" nullable="false" remarks="" size="2147483647" type="geometry"/>
@@ -284,7 +284,7 @@
             <column ascending="true" name="plaatscoordinaten"/>
          </index>
       </table>
-      <table name="persoon" numRows="34343" remarks="Een persoon is een natuurlijk persoon of een niet-natuurlijk persoon." schema="brk" type="TABLE">
+      <table name="persoon" numRows="0" remarks="Een persoon is een natuurlijk persoon of een niet-natuurlijk persoon." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="betrokkenpersoon" foreignKey="recht_betrokkenpersoon_fkey" implied="false" onDeleteCascade="false" table="recht"/>
             <child column="tennamevan" foreignKey="recht_tennamevan_fkey" implied="false" onDeleteCascade="false" table="recht"/>
@@ -303,7 +303,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="publiekrechtelijkebeperking" numRows="545" remarks="Publiekrechtelijke beperkingen zijn beperkingen die door de overheid zijn opgelegd." schema="brk" type="TABLE">
+      <table name="publiekrechtelijkebeperking" numRows="0" remarks="Publiekrechtelijke beperkingen zijn beperkingen die door de overheid zijn opgelegd." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="leidttot" foreignKey="onroerendezaakbeperking_leidttot_fkey" implied="false" onDeleteCascade="false" table="onroerendezaakbeperking"/>
             <child column="leidttot" foreignKey="onroerendezaakbeperking_archief_leidttot_fkey" implied="false" onDeleteCascade="false" table="onroerendezaakbeperking_archief"/>
@@ -322,7 +322,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="recht" numRows="103243" remarks="Alle rechten uit het BRK model: Zakelijkrecht, Erfpacht, Mandeligheid, AppartementsrechtSplitsing en andere splitsingen, Tenaamstelling, GezamenlijkAandeel, Aantekening." schema="brk" type="TABLE">
+      <table name="recht" numRows="0" remarks="Alle rechten uit het BRK model: Zakelijkrecht, Erfpacht, Mandeligheid, AppartementsrechtSplitsing en andere splitsingen, Tenaamstelling, GezamenlijkAandeel, Aantekening." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="betreft" foreignKey="recht_betreft_fkey" implied="false" onDeleteCascade="false" table="recht"/>
             <child column="geldtvoor" foreignKey="recht_geldtvoor_fkey" implied="false" onDeleteCascade="false" table="recht"/>
@@ -408,8 +408,14 @@
          <index name="recht_pkey" unique="true">
             <column ascending="true" name="identificatie"/>
          </index>
+         <index name="recht_aantekeningkadastraalobject" unique="false">
+            <column ascending="true" name="aantekeningkadastraalobject"/>
+         </index>
+         <index name="recht_rustop" unique="false">
+            <column ascending="true" name="rustop"/>
+         </index>
       </table>
-      <table name="recht_aantekeningrecht" numRows="1735" remarks="Koppeltabel voor aantekeningen bij een tenaamstelling van een recht." schema="brk" type="TABLE">
+      <table name="recht_aantekeningrecht" numRows="0" remarks="Koppeltabel voor aantekeningen bij een tenaamstelling van een recht." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aantekening" nullable="false" remarks="De aantekening" size="2147483647" type="varchar">
             <parent column="identificatie" foreignKey="recht_aantekeningrecht_aantekening_fkey" implied="false" onDeleteCascade="false" table="recht"/>
          </column>
@@ -423,7 +429,7 @@
             <column ascending="true" name="tenaamstelling"/>
          </index>
       </table>
-      <table name="recht_aantekeningrecht_archief" numRows="62" remarks="" schema="brk" type="TABLE">
+      <table name="recht_aantekeningrecht_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aantekening" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="tenaamstelling" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
@@ -436,7 +442,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="recht_archief" numRows="2320" remarks="" schema="brk" type="TABLE">
+      <table name="recht_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="aard" nullable="true" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="toelichtingbewaarder" nullable="true" remarks="" size="4000" type="varchar"/>
@@ -484,7 +490,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="recht_isbelastmet" numRows="2866" remarks="Koppeltabel voor de relatie van zakelijk recht naar zakelijk recht." schema="brk" type="TABLE">
+      <table name="recht_isbelastmet" numRows="0" remarks="Koppeltabel voor de relatie van zakelijk recht naar zakelijk recht." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="Het zakelijk recht." size="2147483647" type="varchar">
             <parent column="identificatie" foreignKey="recht_isbelastmet_zakelijkrecht_fkey" implied="false" onDeleteCascade="false" table="recht"/>
          </column>
@@ -498,7 +504,7 @@
             <column ascending="true" name="isbelastmet"/>
          </index>
       </table>
-      <table name="recht_isbelastmet_archief" numRows="53" remarks="" schema="brk" type="TABLE">
+      <table name="recht_isbelastmet_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="isbelastmet" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
@@ -511,7 +517,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="recht_isbeperkttot" numRows="140" remarks="Koppeltabel voor de relatie van zakelijk recht naar tenaamstelling." schema="brk" type="TABLE">
+      <table name="recht_isbeperkttot" numRows="0" remarks="Koppeltabel voor de relatie van zakelijk recht naar tenaamstelling." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="Het zakelijk recht" size="2147483647" type="varchar">
             <parent column="identificatie" foreignKey="recht_isbeperkttot_zakelijkrecht_fkey" implied="false" onDeleteCascade="false" table="recht"/>
          </column>
@@ -523,7 +529,7 @@
             <column ascending="true" name="tenaamstelling"/>
          </index>
       </table>
-      <table name="recht_isbeperkttot_archief" numRows="4" remarks="" schema="brk" type="TABLE">
+      <table name="recht_isbeperkttot_archief" numRows="0" remarks="" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="zakelijkrecht" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="tenaamstelling" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="begingeldigheid" nullable="false" remarks="" size="13" type="date"/>
@@ -536,7 +542,7 @@
             <column ascending="true" name="begingeldigheid"/>
          </index>
       </table>
-      <table name="stuk" numRows="29983" remarks="Een stuk is een, door het Kadaster als authentiek erkend, document waaruit een wijziging in de BRK blijkt." schema="brk" type="TABLE">
+      <table name="stuk" numRows="0" remarks="Een stuk is een, door het Kadaster als authentiek erkend, document waaruit een wijziging in de BRK blijkt." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="deelvan" foreignKey="stukdeel_deelvan_fkey" implied="false" onDeleteCascade="false" table="stukdeel"/>
          </column>
@@ -555,7 +561,7 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="stukdeel" numRows="33092" remarks="Een stukdeel is een paragraaf in een akte waarmee een recht gevestigd wordt." schema="brk" type="TABLE">
+      <table name="stukdeel" numRows="0" remarks="Een stukdeel is een paragraaf in een akte waarmee een recht gevestigd wordt." schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
             <child column="isgebaseerdop" foreignKey="publiekrechtelijkebeperking_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="publiekrechtelijkebeperking"/>
             <child column="isgebaseerdop" foreignKey="recht_isgebaseerdop_fkey" implied="false" onDeleteCascade="false" table="recht"/>

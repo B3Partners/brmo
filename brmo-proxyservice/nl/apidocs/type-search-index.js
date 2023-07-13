@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.service.proxy","l":"BerichtEndpointFileServlet"},{"p":"nl.b3p.brmo.service.proxy","l":"BerichtEndpointProxyServlet"}]
