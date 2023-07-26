@@ -10,7 +10,7 @@
 -- 
 CREATE TABLE gt_pk_metadata (
     table_schema VARCHAR(32) NOT NULL,
-    table_name VARCHAR(32) NOT NULL,
+    table_name VARCHAR(64) NOT NULL,
     pk_column VARCHAR(32) NOT NULL,
     pk_column_idx INTEGER,
     pk_policy VARCHAR(32),
