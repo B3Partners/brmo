@@ -18,7 +18,11 @@ components:
         deltaId:
           type: string
         featuretypes:
+          minItems: 1
+          type: array
+          uniqueItems: true
           items:
+            type: string
             enum:
               - bak
               - begroeidterreindeel
@@ -56,10 +60,6 @@ components:
               - wegdeel
               - weginrichtingselement
               - wijk
-            type: string
-          minItems: 1
-          type: array
-          uniqueItems: true
         format:
           enum:
             - citygml
