@@ -9,7 +9,7 @@ SPDX-License-Identifier: MIT
     <parent>
         <groupId>nl.b3p</groupId>
         <artifactId>brmo</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.2-SNAPSHOT</version>
     </parent>
     <artifactId>bgt-loader</artifactId>
     <packaging>jar</packaging>
@@ -157,10 +157,11 @@ SPDX-License-Identifier: MIT
                             <invokerPackage>nl.b3p.brmo.bgt.download.client</invokerPackage>
                             <enablePostProcessFile>true</enablePostProcessFile>
                             <configOptions>
-                                <!-- Use JDK 11 HttpClient -->
-                                <libary>native</libary>
                                 <dateLibrary>java8</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <!-- Use JDK 11 HttpClient -->
+                                <library>native</library>
+                                <supportUrlQuery>false</supportUrlQuery>
                                 <openApiNullable>false</openApiNullable>
                             </configOptions>
                         </configuration>
