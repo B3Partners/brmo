@@ -5,9 +5,8 @@
 ### Vereisten
 
 - Java 11
-- Maven 3.8.7 of hoger
-- Docker 23.0.x met buildx 0.10 of hoger (dit vereiste kan worden overgeslagen als je geen docker images wilt bouwen of
-  geen release artifacten wilt bouwen)
+- Maven 3.9.3 of hoger
+- Docker 24.0.x met buildx 0.11.x en compose 2.19.x of hoger (dit vereiste kan worden overgeslagen als je geen docker images wilt bouwen of geen release artifacten wilt bouwen)
 
 ### Basisprocedure
 
@@ -56,6 +55,11 @@ bijgewerkt en online gebracht.
 
 _NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt; je kunt dan met de hand een commit doen van de staged site in jouw temp directory.
 
+### Jira release publiceren
+
+Release de gemaakte versie in Jira: https://b3partners.atlassian.net/projects/BRMO?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page
+en maak evt. de volgende versie aan.
+
 ### nieuwe ontwikkel cyclus
 
 Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory
@@ -66,6 +70,9 @@ cd datamodel/upgrade_scripts
 ./new-version-upgrades.sh
 git push
 ```
+
+Begin met de nieuwe upgrade instructies op de wiki: https://github.com/B3Partners/brmo/wiki/Upgrade-Instructies
+
 
 ### git configuratie
 
