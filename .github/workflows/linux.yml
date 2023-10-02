@@ -35,6 +35,14 @@ jobs:
             # - 13-3.3-alpine
             # - 14-3.3-alpine
             - 15-3.3-alpine
+        include:
+            - java: 17
+              java_dist: "temurin"
+              postgis: 16-3.4-alpine
+            - java: 21
+              java_dist: "temurin"
+              postgis: 16-3.4-alpine
+
 
     steps:
       - uses: actions/checkout@v4
