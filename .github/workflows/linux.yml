@@ -41,7 +41,7 @@ jobs:
             postgis: 16-3.4-alpine
               
           - java: 21
-            java-dist: 'temurin'
+            java-dist: 'zulu'
             postgis: 16-3.4-alpine
 
 
