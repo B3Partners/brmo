@@ -79,7 +79,7 @@
         <project.build.outputTimestamp>2023-07-13T08:53:35Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven-fluido-skin.version>2.0.0-M7</maven-fluido-skin.version>
+        <maven-fluido-skin.version>2.0.0-M8</maven-fluido-skin.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>29.2</geotools.version>
@@ -88,22 +88,22 @@
         <itextpdf.version>8.0.1</itextpdf.version>
         <postgresql.jdbc.version>42.6.0</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2021.1.0</postgresql.postgis-jdbc.version>
-        <oracle.jdbc.version>23.2.0.0</oracle.jdbc.version>
+        <oracle.jdbc.version>23.3.0.23.09</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.7</jakarta.mail.version>
         <apache.cxf.version>3.5.6</apache.cxf.version>
-        <apache.poi.version>5.2.3</apache.poi.version>
+        <apache.poi.version>5.2.4</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
         <slf4j.version>2.0.9</slf4j.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
         <jaxb.impl.version>2.3.8</jaxb.impl.version>
-        <jackson.version>2.15.2</jackson.version>
-        <jackson.databind.version>2.15.2</jackson.databind.version>
+        <jackson.version>2.15.3</jackson.version>
+        <jackson.databind.version>2.15.3</jackson.databind.version>
         <javax-annotation.version>1.3.2</javax-annotation.version>
         <activation.api.version>1.2.2</activation.api.version>
-        <tomcat.version>9.0.80</tomcat.version>
+        <tomcat.version>9.0.82</tomcat.version>
         <tomcat.http.port>9091</tomcat.http.port>
         <tomcat.localDatasource>false</tomcat.localDatasource>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
@@ -121,12 +121,12 @@
         <test.junit-jupiter.version>5.10.0</test.junit-jupiter.version>
         <maven.surefire.version>3.1.2</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-        <versions-maven-plugin.version>2.16.0</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.4.5</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
-        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
-        <modernizer-maven-plugin.version>2.6.0</modernizer-maven-plugin.version>
+        <modernizer-maven-plugin.version>2.7.0</modernizer-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
         <database.upgrade />
@@ -237,7 +237,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.13.0</version>
+                <version>2.14.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -258,6 +258,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
                 <version>1.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.5</version>
             </dependency>
             <dependency>
                 <groupId>org.locationtech.jts</groupId>
@@ -353,7 +358,7 @@
             <dependency>
                 <groupId>commons-dbutils</groupId>
                 <artifactId>commons-dbutils</artifactId>
-                <version>1.8.0</version>
+                <version>1.8.1</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
@@ -544,7 +549,7 @@
             <dependency>
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
-                <version>20230618</version>
+                <version>20231013</version>
             </dependency>
             <!-- Jackson -->
             <dependency>
@@ -575,7 +580,7 @@
             <dependency>
                 <groupId>com.fasterxml.staxmate</groupId>
                 <artifactId>staxmate</artifactId>
-                <version>2.4.0</version>
+                <version>2.4.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
@@ -667,7 +672,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>1.23.0</version>
+                <version>1.24.0</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
@@ -702,7 +707,7 @@
             <dependency>
                 <groupId>org.junit-pioneer</groupId>
                 <artifactId>junit-pioneer</artifactId>
-                <version>2.0.1</version>
+                <version>2.1.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -744,7 +749,7 @@
             <dependency>
                 <groupId>net.javacrumbs.json-unit</groupId>
                 <artifactId>json-unit</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.2</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -774,7 +779,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.5.0</version>
+                <version>5.6.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -880,7 +885,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M9</version>
+                    <version>4.0.0-M10</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -907,7 +912,7 @@
                 <plugin>
                     <groupId>com.spotify.fmt</groupId>
                     <artifactId>fmt-maven-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>2.21.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -1046,7 +1051,7 @@
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven3-plugin</artifactId>
-                    <version>1.10.9</version>
+                    <version>1.10.10</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -1068,7 +1073,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.4.0</version>
+                    <version>3.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.xml.ws</groupId>
@@ -1110,7 +1115,7 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>7.0.0</version>
+                    <version>7.0.1</version>
                 </plugin>
                 <!--                <plugin>-->
                 <!--            deze plugin is stuk op Windows met Java 11.0.15, zie oa. https://stackoverflow.com/questions/71956115 -->
