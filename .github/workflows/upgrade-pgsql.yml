@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        postgis: [ 11-3.3 ]
+        postgis: [ 12-3.4 ]
 
     services:
       postgres:
