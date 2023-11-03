@@ -33,9 +33,9 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMEvent;
 import org.codehaus.staxmate.in.SMInputCursor;
+import org.geotools.api.referencing.FactoryException;
 import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.locationtech.jts.geom.Geometry;
-import org.opengis.referencing.FactoryException;
 
 public class BGTObjectStreamer implements Iterable<BGTObject> {
   private static final Log log = LogFactory.getLog(BGTObjectStreamer.class);
