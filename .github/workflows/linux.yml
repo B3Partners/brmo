@@ -218,7 +218,7 @@ jobs:
           mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
       - name: 'Deploy brmo-service SBOM'
-        uses: DependencyTrack/gh-upload-sbom@v2
+        uses: DependencyTrack/gh-upload-sbom@v3
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
@@ -226,7 +226,7 @@ jobs:
           bomfilename: 'brmo-service/target/bom.xml'
 
       - name: 'Deploy brmo-soap SBOM'
-        uses: DependencyTrack/gh-upload-sbom@v2
+        uses: DependencyTrack/gh-upload-sbom@v3
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
@@ -234,7 +234,7 @@ jobs:
           bomfilename: 'brmo-soap/target/bom.xml'
 
       - name: 'Deploy brmo-stufbg204 SBOM'
-        uses: DependencyTrack/gh-upload-sbom@v2
+        uses: DependencyTrack/gh-upload-sbom@v3
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
