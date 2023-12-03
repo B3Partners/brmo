@@ -25,17 +25,17 @@
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbag" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=disable&amp;reWriteBatchedInserts=true" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=allow&amp;reWriteBatchedInserts=true" username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbgt" password="${DB_PASS_RSGBBGT}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgbbgt?sslmode=disable&amp;reWriteBatchedInserts=true" username="rsgbbgt"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgbbgt?sslmode=allow&amp;reWriteBatchedInserts=true" username="rsgbbgt"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbtopnl" password="${DB_PASS_TOPNL}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/topnl?sslmode=disable&amp;reWriteBatchedInserts=true" username="topnl"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/topnl?sslmode=allow&amp;reWriteBatchedInserts=true" username="topnl"
                   validationQuery="select 1"/>
         <Environment name="brmo/nhr/active" value="false" type="java.lang.Boolean" />
         <Resource name="mail/session"
