@@ -56,7 +56,7 @@ jobs:
             downloads-
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
@@ -136,7 +136,7 @@ jobs:
           lfs: false
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 11
@@ -176,7 +176,7 @@ jobs:
           lfs: false
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: 11
           distribution: 'temurin'
@@ -200,7 +200,7 @@ jobs:
           lfs: false
 
       - name: 'Set up JDK (ghcr.io)'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 11
@@ -242,7 +242,7 @@ jobs:
           bomfilename: 'brmo-stufbg204/target/bom.xml'
 
       - name: 'Set up JDK (repo.b3p.nl)'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 11
