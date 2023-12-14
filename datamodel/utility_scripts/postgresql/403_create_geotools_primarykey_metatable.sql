@@ -50,3 +50,20 @@ INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_kad_eigenarenkaart', 'objecti
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_bd_kad_perceel_met_app_vlak', 'objectid', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_adres_pandvlak', 'objectid', NULL, 'assigned', NULL);
 INSERT INTO gt_pk_metadata VALUES ('brmo_rsgb', 'v_adres_totaal_vlak', 'objectid', NULL, 'assigned', NULL);
+
+-- brk 2.0 materialized views
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_percelenkaart', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_subject', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_avg_subject', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_kad_onrrnd_zk_adres', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_kad_onrrnd_zk_archief', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_zr_rechth', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_avg_zr_rechth', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_koz_rechth', 'objectid', null, 'assigned', null);
+INSERT INTO gt_pk_metadata VALUES ('brk', 'mb_avg_koz_rechth', 'objectid', null, 'assigned', null);
+
+-- brk 2.0 x bag 2.0 materialized views
+insert into gt_pk_metadata values ('public', 'mb_adresseerbaar_object_geometrie_bag', 'objectid', null, 'assigned', null);
+insert into gt_pk_metadata values ('public', 'mb_kadastraleonroerendezakenmetadres', 'objectid', null, 'assigned', null);
+insert into gt_pk_metadata values ('public', 'mb_onroerendezakenmetrechthebbenden', 'objectid', null, 'assigned', null);
+insert into gt_pk_metadata values ('public', 'mb_avg_onroerendezakenmetrechthebbenden', 'objectid', null, 'assigned', null);
