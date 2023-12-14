@@ -481,6 +481,27 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
 --     s2.identificatie = s.deelvan
 -- where r.aard = 'Eigendom (recht van)';
 
+-- fix voor BRMO-336
+CREATE OR REPLACE VIEW 
+    vb_util_zk_recht_op_koz
+            (
+             identificatie,
+             rustop_zak_recht
+            )
+AS 
+SELECT  qry.identificatie,
+        qry.rustop_zak_recht
+FROM    ( 
+            SELECT ribm.isbelastmet AS identificatie,
+                   r.rustop         AS rustop_zak_recht
+            FROM brk.recht_isbelastmet ribm
+            LEFT JOIN brk.recht r ON ribm.zakelijkrecht::text = r.identificatie::text
+            UNION ALL
+            SELECT r.identificatie,
+                   r.rustop         AS rustop_zak_recht
+            FROM brk.recht r) qry
+  WHERE split_part( qry.identificatie, ':', 1) = 'NL.IMKAD.ZakelijkRecht';
+
 CREATE OR REPLACE VIEW
     vb_util_zk_recht
             (
@@ -503,8 +524,10 @@ SELECT zakrecht.identificatie                             AS zr_identif,
        COALESCE(tenaamstelling.aandeel_noemer::text, '0') AS aandeel,
        tenaamstelling.aandeel_teller                      AS ar_teller,
        tenaamstelling.aandeel_noemer                      AS ar_noemer,
-       tenaamstelling.tennamevan                          AS subject_identif,
-       zakrecht.rustop                                    AS koz_identif,
+       -- BRMO-339: samenvoegen van de tennamevan (tenaamstelling) en de heeftverenigingvaneigenaren, zodat de grondpercelen zichtbaar zijn
+       COALESCE (tenaamsteling.tennamevan, '') || coalesce (vve.heeftverenigingvaneigenaren, '') 
+                                                          AS subject_identif,
+       vuzrok.rustop                                      AS koz_identif,
        (zakrecht.isbetrokkenbij is not NULL)::bool        AS indic_betrokken_in_splitsing,
        zakrecht.aard                                      AS omschr_aard_verkregen_recht,
        zakrecht.aard                                      AS fk_3avr_aand,
@@ -517,11 +540,13 @@ SELECT zakrecht.identificatie                             AS zr_identif,
                                   'koz-id: ' || COALESCE(aantekening.aantekeningkadastraalobject, '') || ', ' ||
                                   'subject-id: ' || COALESCE(aantekening.betrokkenpersoon, '') || '; '))
                 FROM recht aantekening
-                WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop),
+                WHERE aantekening.aantekeningkadastraalobject = vuzrok.rustop_zak_recht),
                ' & ')                                     AS aantekeningen
 FROM recht zakrecht
-         JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
-WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
+        LEFT JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
+        LEFT JOIN recht vve on zakrecht.isbetrokkenbij = vve.identificatie
+        LEFT JOIN vb_util_zk_recht_op_koz vuzrok on zakrecht = vuzrok.identificatie
+WHERE split_part( zakrecht.identificatie, ':', 1) = 'NL.IMKAD.ZakelijkRecht';
 
 COMMENT ON VIEW vb_util_zk_recht IS
     'commentaar view vb_util_zk_recht:
