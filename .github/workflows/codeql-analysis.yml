@@ -39,7 +39,7 @@ jobs:
             maven-
 
       - name: 'Initialize CodeQL'
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           # If you wish to specify custom queries, you can do so here or in a config file.
@@ -55,7 +55,7 @@ jobs:
           mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -e -fae -q -DskipQA=true
 
       - name: 'Perform CodeQL Analysis'
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
           upload: false
@@ -74,7 +74,7 @@ jobs:
           output: "sarif-results/${{ matrix.language }}.sarif"
 
       - name: 'Upload sarif files'
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: "sarif-results/${{ matrix.language }}.sarif"
 
