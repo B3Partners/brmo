@@ -63,7 +63,7 @@ jobs:
           sarif_file: "${{ matrix.docker-image }}-trivy-results.sarif"
 
       - name: 'Upload sarif as a Build Artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: steps.check_files.outputs.files_exists == 'true'
         with:
           name: 'sarif-results'
