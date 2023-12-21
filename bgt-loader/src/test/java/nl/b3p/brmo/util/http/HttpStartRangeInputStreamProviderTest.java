@@ -38,14 +38,14 @@ class HttpStartRangeInputStreamProviderTest {
 
   @Test
   void fromStart() throws IOException {
-    mockWebServer.enqueue(new MockResponse().setBody("test").setResponseCode(200));
+    mockWebServer.enqueue(new MockResponse.Builder().body("test").code(200).build());
     String responseBody = IOUtils.toString(provider.get(0, 0, null), Charset.defaultCharset());
     Assertions.assertEquals("test", responseBody);
   }
 
   @Test
   void failedResponse() {
-    mockWebServer.enqueue(new MockResponse().setBody("test").setResponseCode(404));
+    mockWebServer.enqueue(new MockResponse.Builder().body("test").code(404).build());
     Assertions.assertThrows(
         RuntimeException.class,
         () -> {
@@ -56,7 +56,7 @@ class HttpStartRangeInputStreamProviderTest {
 
   @Test
   void requestModifier() throws InterruptedException, IOException {
-    mockWebServer.enqueue(new MockResponse().setBody("test").setResponseCode(200));
+    mockWebServer.enqueue(new MockResponse.Builder().body("test").code(200).build());
     provider =
         new HttpStartRangeInputStreamProvider(
             mockWebServer.url("/").uri(),
@@ -68,12 +68,12 @@ class HttpStartRangeInputStreamProviderTest {
             });
     provider.get(0, 0, null).read();
     RecordedRequest request = mockWebServer.takeRequest();
-    Assertions.assertEquals("Some value", request.getHeader("Test-Header"));
+    Assertions.assertEquals("Some value", request.getHeaders().get("Test-Header"));
   }
 
   @Test
   void noAcceptRanges() throws IOException {
-    mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+    mockWebServer.enqueue(new MockResponse.Builder().code(200).build());
     provider.get(0, 0, null).read();
     Assertions.assertThrows(
         IOException.class,
@@ -85,31 +85,32 @@ class HttpStartRangeInputStreamProviderTest {
 
   @Test
   void rangeHeaderSent() throws IOException, InterruptedException {
-    mockWebServer.enqueue(new MockResponse().setResponseCode(206));
+    mockWebServer.enqueue(new MockResponse.Builder().code(206).build());
     provider.get(123, 0, null).read();
     RecordedRequest request = mockWebServer.takeRequest();
-    Assertions.assertEquals("bytes=123-", request.getHeader("Range"));
+    Assertions.assertEquals("bytes=123-", request.getHeaders().get("Range"));
   }
 
   @Test
   void ifRangeHeaderSent() throws IOException, InterruptedException {
     mockWebServer.enqueue(
-        new MockResponse()
+        new MockResponse.Builder()
             .addHeader("Accept-Ranges", "bytes")
             .addHeader("ETag", "\"something\"")
-            .setResponseCode(200));
-    mockWebServer.enqueue(new MockResponse().setResponseCode(206));
+            .code(200)
+            .build());
+    mockWebServer.enqueue(new MockResponse.Builder().code(206).build());
     provider.get(0, 0, null).read();
     provider.get(123, 0, null).read();
     mockWebServer.takeRequest();
     RecordedRequest request = mockWebServer.takeRequest();
-    Assertions.assertEquals("\"something\"", request.getHeader("If-Range"));
+    Assertions.assertEquals("\"something\"", request.getHeaders().get("If-Range"));
   }
 
   @Test
   void noIfRangePossible() throws IOException {
     mockWebServer.enqueue(
-        new MockResponse().addHeader("Accept-Ranges", "bytes").setResponseCode(200));
+        new MockResponse.Builder().addHeader("Accept-Ranges", "bytes").code(200).build());
     provider.get(0, 0, null).read();
     Assertions.assertThrows(
         IOException.class,
@@ -122,10 +123,11 @@ class HttpStartRangeInputStreamProviderTest {
   @Test
   void weakETag() throws IOException {
     mockWebServer.enqueue(
-        new MockResponse()
+        new MockResponse.Builder()
             .addHeader("Accept-Ranges", "bytes")
             .addHeader("ETag", "W/\"weak etag\"")
-            .setResponseCode(200));
+            .code(200)
+            .build());
     provider.get(0, 0, null).read();
     Assertions.assertThrows(
         IOException.class,
@@ -138,11 +140,12 @@ class HttpStartRangeInputStreamProviderTest {
   @Test
   void noPartialResponse() throws IOException {
     mockWebServer.enqueue(
-        new MockResponse()
+        new MockResponse.Builder()
             .addHeader("Accept-Ranges", "bytes")
             .addHeader("ETag", "\"something\"")
-            .setResponseCode(200));
-    mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+            .code(200)
+            .build());
+    mockWebServer.enqueue(new MockResponse.Builder().code(200).build());
     provider.get(0, 0, null).read();
     Assertions.assertThrows(
         RuntimeException.class,

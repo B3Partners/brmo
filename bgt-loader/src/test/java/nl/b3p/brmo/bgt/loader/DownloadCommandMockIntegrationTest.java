@@ -38,29 +38,34 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
   void downloadInitialCompareThreeRows()
       throws IOException, InterruptedException, SQLException, DatabaseUnitException {
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(
+        new MockResponse.Builder()
+            .body(
                 "{\"_links\":{\"status\":{\"href\":\"/lv/bgt/download/v1_0/delta/custom/d396d842-3963-4377-55e1-0e9a91e1de01/status\"}},\"downloadRequestId\":\"d396d842-3963-4377-55e1-0e9a91e1de01\"}")
-            .setResponseCode(202));
+            .code(202)
+            .build());
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(
+        new MockResponse.Builder()
+            .body(
                 "{\"_links\":{\"self\":{\"href\":\"/lv/bgt/download/v1_0/delta/custom/d396d842-3963-4377-55e1-0e9a91e1de01/status\"}},\"progress\":0,\"status\":\"PENDING\"}")
-            .setResponseCode(200));
+            .code(200)
+            .build());
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(
+        new MockResponse.Builder()
+            .body(
                 "{\"_links\":{\"self\":{\"href\":\"/lv/bgt/download/v1_0/delta/custom/d396d842-3963-4377-55e1-0e9a91e1de01/status\"}},\"progress\":38,\"status\":\"RUNNING\"}")
-            .setResponseCode(200));
+            .code(200)
+            .build());
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(
+        new MockResponse.Builder()
+            .body(
                 "{\"_links\":{\"download\":{\"href\":\"/lv/bgt/download/v1_0/extract/c31c1c7e-a59d-4357-991d-dcc68069d05e/extract.zip\"}},\"progress\":100,\"status\":\"COMPLETED\"}")
-            .setResponseCode(201));
+            .code(201)
+            .build());
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(new Buffer().readFrom(getTestInputStream("extract.zip")))
-            .setResponseCode(200));
+        new MockResponse.Builder()
+            .body(new Buffer().readFrom(getTestInputStream("extract.zip")))
+            .code(200)
+            .build());
     String url = mockWebServer.url("/").toString();
     run(
         "download initial",
@@ -88,9 +93,10 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
   @SkipDropTables
   void downloadUpdate() throws IOException, InterruptedException {
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(new Buffer().readFrom(getTestInputStream("deltas.json")))
-            .setResponseCode(200));
+        new MockResponse.Builder()
+            .body(new Buffer().readFrom(getTestInputStream("deltas.json")))
+            .code(200)
+            .build());
     String url = mockWebServer.url("/").toString();
     run("download update", "--no-http-zip-random-access", "--download-service=" + url);
 
@@ -105,10 +111,11 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
   @Order(3)
   void catchApiException() {
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody("invalid wktString. a polygon ring must have at least 4 points, got 1")
+        new MockResponse.Builder()
+            .body("invalid wktString. a polygon ring must have at least 4 points, got 1")
             .setHeader("Content-Type", "text/plain; charset=utf-8")
-            .setResponseCode(400));
+            .code(400)
+            .build());
     String url = mockWebServer.url("/").toString();
     StringWriter sw = new StringWriter();
     cmd.setErr(new PrintWriter(sw));
