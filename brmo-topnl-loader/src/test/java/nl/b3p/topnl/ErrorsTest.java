@@ -55,8 +55,13 @@ public class ErrorsTest extends TestUtil {
 
   @Test
   public void polygonErrors1Test()
-      throws JAXBException, IOException, SAXException, ParserConfigurationException,
-          TransformerException, ParseException, SQLException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
+          ParseException,
+          SQLException {
     URL in = ErrorsTest.class.getResource("problems/polygonError1.xml");
     TopNLType type = TopNLType.TOP250NL;
     List jaxb = instance.parse(in);
@@ -81,8 +86,13 @@ public class ErrorsTest extends TestUtil {
 
   @Test
   public void polygonErrors2Test()
-      throws JAXBException, IOException, SAXException, ParserConfigurationException,
-          TransformerException, ParseException, SQLException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
+          ParseException,
+          SQLException {
     URL in = ErrorsTest.class.getResource("problems/polygonError2.xml");
     TopNLType type = TopNLType.TOP250NL;
     List jaxb = instance.parse(in);
@@ -107,8 +117,13 @@ public class ErrorsTest extends TestUtil {
 
   @Test
   public void spoorbaanDePunt()
-      throws JAXBException, IOException, SAXException, ParserConfigurationException,
-          TransformerException, ParseException, SQLException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
+          ParseException,
+          SQLException {
     URL in = ErrorsTest.class.getResource("problems/SpoorDePunt.xml");
     TopNLType type = TopNLType.TOP10NL;
     List jaxb = instance.parse(in);

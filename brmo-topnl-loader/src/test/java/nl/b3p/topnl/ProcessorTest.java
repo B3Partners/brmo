@@ -67,8 +67,13 @@ public class ProcessorTest extends TestUtil {
   /** Test of save method, of class Processor. */
   @Test
   public void testSave250()
-      throws JAXBException, IOException, SAXException, TransformerException,
-          ParserConfigurationException, SQLException, ParseException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          TransformerException,
+          ParserConfigurationException,
+          SQLException,
+          ParseException {
     URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
     TopNLType type = TopNLType.TOP250NL;
     List jaxb = instance.parse(in);
@@ -90,11 +95,18 @@ public class ProcessorTest extends TestUtil {
             "NL.TOP250NL.16R09-0000084246");
     assertNotNull(real);
   }
+
   /** Test of save method, of class Processor. */
   @Test
   public void testImportIntoDb250()
-      throws JAXBException, IOException, SAXException, TransformerException,
-          ParserConfigurationException, SQLException, ParseException, JDOMException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          TransformerException,
+          ParserConfigurationException,
+          SQLException,
+          ParseException,
+          JDOMException {
     URL in = ProcessorTest.class.getResource("top250nl_Hoogte.xml");
     TopNLType type = TopNLType.TOP250NL;
     instance.importIntoDb(in, type);
@@ -117,8 +129,13 @@ public class ProcessorTest extends TestUtil {
   /** Test of save method, of class Processor. */
   @Test
   public void testSave250MultipleFeature()
-      throws JAXBException, IOException, SAXException, TransformerException,
-          ParserConfigurationException, SQLException, ParseException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          TransformerException,
+          ParserConfigurationException,
+          SQLException,
+          ParseException {
     URL in = ProcessorTest.class.getResource("top250nl_HoogteMulti.xml");
     TopNLType type = TopNLType.TOP250NL;
     List jaxb = instance.parse(in);
@@ -146,11 +163,17 @@ public class ProcessorTest extends TestUtil {
             "NL.TOP250NL.16R09-0000084247");
     assertNotNull(real2);
   }
+
   /** Test of save method, of class Processor. */
   @Test
   public void testSave100()
-      throws JAXBException, IOException, SAXException, TransformerException,
-          ParserConfigurationException, SQLException, ParseException {
+      throws JAXBException,
+          IOException,
+          SAXException,
+          TransformerException,
+          ParserConfigurationException,
+          SQLException,
+          ParseException {
     URL in = ProcessorTest.class.getResource("top100nl_Hoogte.xml");
     TopNLType type = TopNLType.TOP100NL;
     List jaxb = instance.parse(in);

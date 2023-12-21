@@ -103,7 +103,10 @@ public class Top10NLConverter extends Converter {
 
   @Override
   public TopNLEntity convertObject(Object featureMember)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           IllegalArgumentException {
     TopNLEntity entity = null;
 
@@ -333,7 +336,10 @@ public class Top10NLConverter extends Converter {
 
   @Override
   public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           ClassCastException {
     SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
 

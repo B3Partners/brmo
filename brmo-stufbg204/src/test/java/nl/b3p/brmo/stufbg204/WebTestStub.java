@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeAll;
 public abstract class WebTestStub extends TestStub {
 
   public static final int HTTP_PORT = 9091;
+
   /** the server root url. {@value} */
   public static final String BASE_TEST_URL = "http://localhost:" + HTTP_PORT + "/brmo-stufbg204/";
 

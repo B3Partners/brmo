@@ -89,9 +89,10 @@ public class LoadCommandIntegrationTest extends CommandLineTestBase {
   @Test
   void loadZipFromHttp() throws SQLException, IOException {
     mockWebServer.enqueue(
-        new MockResponse()
-            .setBody(new Buffer().readFrom(getTestInputStream("extract.zip")))
-            .setResponseCode(200));
+        new MockResponse.Builder()
+            .body(new Buffer().readFrom(getTestInputStream("extract.zip")))
+            .code(200)
+            .build());
     String url = mockWebServer.url("/file.zip").toString();
     // MockWebServer does not support partial content
     run(

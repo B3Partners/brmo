@@ -146,6 +146,7 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
   public void setUpdateProcessName(String updateProcessName) {
     this.updateProcessName = updateProcessName;
   }
+
   // </editor-fold>
 
   @Before(stages = LifecycleStage.BindingAndValidation)

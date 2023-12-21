@@ -217,6 +217,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
   public void setAdvancedFunctionProcessName(String advancedFunctionProcessName) {
     this.advancedFunctionProcessName = advancedFunctionProcessName;
   }
+
   // </editor-fold>
 
   @Before(stages = LifecycleStage.BindingAndValidation)
