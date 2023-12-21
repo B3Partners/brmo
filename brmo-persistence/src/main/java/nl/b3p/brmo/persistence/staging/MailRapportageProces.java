@@ -14,8 +14,10 @@ import javax.persistence.Entity;
 public class MailRapportageProces extends AutomatischProces {
 
   public static final String DELIM = ",";
+
   /** de sleutel {@value EMAIL}. */
   public static final String EMAIL = "email";
+
   /** de sleutel {@value PIDS}. */
   public static final String PIDS = "pIDS";
 

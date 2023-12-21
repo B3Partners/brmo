@@ -1,4 +1,5 @@
 package nl.b3p.brmo.stufbg204;
+
 /*
  * Copyright (C) 2016 B3Partners B.V.
  */
@@ -26,6 +27,7 @@ public abstract class TestStub {
   private static boolean haveSetupJNDI = false;
 
   private static final Log LOG = LogFactory.getLog(TestStub.class);
+
   /**
    * properties uit {@code <DB smaak>.properties} en {@code local.<DB smaak>.properties}.
    *

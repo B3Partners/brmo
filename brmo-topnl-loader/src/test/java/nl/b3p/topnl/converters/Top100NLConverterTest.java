@@ -356,7 +356,10 @@ public class Top100NLConverterTest extends TestUtil {
 
    */
   private TopNLEntity getEntity(String file)
-      throws JAXBException, IOException, SAXException, ParserConfigurationException,
+      throws JAXBException,
+          IOException,
+          SAXException,
+          ParserConfigurationException,
           TransformerException {
     URL in = Top100NLConverterTest.class.getResource(file);
     List jaxb = processor.parse(in);

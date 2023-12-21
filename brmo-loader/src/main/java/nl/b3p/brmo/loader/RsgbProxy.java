@@ -73,10 +73,13 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
   // in andere thread als lezen van dbxml van berichten om te verwerken
   private final DataComfortXMLReader oldDbXmlReader = new DataComfortXMLReader();
   private int processed;
+
   /** De status voor BY_STATUS. */
   private Bericht.STATUS status;
+
   /** De bericht ID's voor BY_IDS. */
   private long[] berichtIds;
+
   /** Het ID van het laadproces vor BY_LAADPROCES. */
   private long[] laadprocesIds;
 

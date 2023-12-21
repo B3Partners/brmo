@@ -1028,8 +1028,12 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
   }
 
   private SSLContext createSslContext(KeyManagerFactory kmf)
-      throws KeyStoreException, IOException, CertificateException, NoSuchProviderException,
-          NoSuchAlgorithmException, KeyManagementException {
+      throws KeyStoreException,
+          IOException,
+          CertificateException,
+          NoSuchProviderException,
+          NoSuchAlgorithmException,
+          KeyManagementException {
     final SSLContext sslContext = SSLContext.getInstance("TLS", "SunJSSE");
 
     l.addLog("Loading PKIX Overheid keystore");

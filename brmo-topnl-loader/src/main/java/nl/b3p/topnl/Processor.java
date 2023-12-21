@@ -167,7 +167,10 @@ public class Processor {
    *     een punt ipv een lijn
    */
   public List<TopNLEntity> convert(List listOfJaxbObjects, TopNLType type)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           ClassCastException {
 
     Converter converter = converterFactory.getConverter(type);

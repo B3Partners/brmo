@@ -122,6 +122,7 @@ public class BrkSnapshotXMLReaderTest {
         brkReformatted.getVolgordeNummer(),
         "van beide laatste mutaties moet VolgordeNummer hetzelfde zijn");
   }
+
   /**
    * Test next() methode met xml bestanden in een zip met mutaties.
    *

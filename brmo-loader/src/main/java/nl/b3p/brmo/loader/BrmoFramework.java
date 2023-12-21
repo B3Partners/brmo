@@ -657,6 +657,7 @@ public class BrmoFramework {
       throw new BrmoException(ex);
     }
   }
+
   /**
    * update laadproces (GDS2 afgifte) metadata.
    *
