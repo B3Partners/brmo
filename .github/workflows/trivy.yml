@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: "${{ matrix.java-dist }}"
           java-version: ${{ matrix.java }}
@@ -34,7 +34,7 @@ jobs:
         run: mvn -U package -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true -Dmaven.javadoc.skip=true
 
       - name: "Run Trivy vulnerability scanner on ${{ matrix.docker-image }}"
-        uses: aquasecurity/trivy-action@0.14.0
+        uses: aquasecurity/trivy-action@0.16.0
         # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image ghcr.io/b3partners/brmo-service:snapshot
         with:
           image-ref: "ghcr.io/b3partners/${{ matrix.docker-image }}:snapshot"
@@ -57,13 +57,13 @@ jobs:
           cat "${{ matrix.docker-image }}-trivy-results.sarif" | jq .
 
       - name: 'Upload Trivy scan results to GitHub Security tab'
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         if: steps.check_files.outputs.files_exists == 'true'
         with:
           sarif_file: "${{ matrix.docker-image }}-trivy-results.sarif"
 
       - name: 'Upload sarif as a Build Artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: steps.check_files.outputs.files_exists == 'true'
         with:
           name: 'sarif-results'

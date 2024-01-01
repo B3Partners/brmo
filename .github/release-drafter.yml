@@ -4,18 +4,20 @@ name-template: v$NEXT_PATCH_VERSION 🎁
 version-template: "$MAJOR.$MINOR.$PATCH"
 
 template: |
-  ## Aanpassingen
-
-  $CHANGES
-  
   ## Upgrade instructies
   
   Upgrade instructies voor deze release zijn te vinden op: https://github.com/B3Partners/brmo/wiki/Upgrade-$PREVIOUS_TAG-naar-v$NEXT_PATCH_VERSION
   
-  ## Docker
+  ## Download
+
+  ZIP file met war files en scripts: https://github.com/B3Partners/brmo/releases/download/v$NEXT_PATCH_VERSION/brmo-dist-$NEXT_PATCH_VERSION-bin.zip
+  Beschikbare docker images: https://github.com/orgs/B3Partners/packages?repo_name=brmo 
+
+  ## Aanpassingen
+
+  $CHANGES
   
-  Beschikbare docker images: https://github.com/orgs/B3Partners/packages?repo_name=brmo
-  
+
 
 categories:
   - title: 🚀 Nieuwe functies en verbeteringen

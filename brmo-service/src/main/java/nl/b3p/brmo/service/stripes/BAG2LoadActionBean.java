@@ -216,6 +216,7 @@ public class BAG2LoadActionBean implements ActionBean {
   public void setLoadException(Exception loadException) {
     this.loadException = loadException;
   }
+
   // </editor-fold>
 
   @Before(on = "form")

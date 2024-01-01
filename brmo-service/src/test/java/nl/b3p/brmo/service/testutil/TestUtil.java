@@ -25,6 +25,7 @@ public abstract class TestUtil {
   protected static boolean haveSetupJNDI = false;
 
   private static final Log LOG = LogFactory.getLog(TestUtil.class);
+
   /**
    * properties uit {@code <DB smaak>.properties} en {@code local.<DB smaak>.properties}.
    *

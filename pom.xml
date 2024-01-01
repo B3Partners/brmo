@@ -86,8 +86,8 @@
         <jdbc-util.version>16.1</jdbc-util.version>
         <jts.version>1.19.0</jts.version>
         <itextpdf.version>8.0.2</itextpdf.version>
-        <postgresql.jdbc.version>42.7.0</postgresql.jdbc.version>
-        <postgresql.postgis-jdbc.version>2021.1.0</postgresql.postgis-jdbc.version>
+        <postgresql.jdbc.version>42.7.1</postgresql.jdbc.version>
+        <postgresql.postgis-jdbc.version>2023.1.0</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>23.3.0.23.09</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
         <skip-windows />
@@ -96,14 +96,14 @@
         <apache.cxf.version>3.5.6</apache.cxf.version>
         <apache.poi.version>5.2.5</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
-        <slf4j.version>2.0.9</slf4j.version>
+        <slf4j.version>2.0.10</slf4j.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
         <jaxb.impl.version>2.3.8</jaxb.impl.version>
-        <jackson.version>2.16.0</jackson.version>
-        <jackson.databind.version>2.16.0</jackson.databind.version>
+        <jackson.version>2.16.1</jackson.version>
+        <jackson.databind.version>2.16.1</jackson.databind.version>
         <javax-annotation.version>1.3.2</javax-annotation.version>
         <activation.api.version>1.2.2</activation.api.version>
-        <tomcat.version>9.0.83</tomcat.version>
+        <tomcat.version>9.0.84</tomcat.version>
         <tomcat.http.port>9091</tomcat.http.port>
         <tomcat.localDatasource>false</tomcat.localDatasource>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
@@ -119,12 +119,12 @@
         <test.hsqldb.version>2.7.2</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.10.1</test.junit-jupiter.version>
-        <maven.surefire.version>3.2.2</maven.surefire.version>
+        <maven.surefire.version>3.2.3</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.5.0</maven-project-info-reports-plugin.version>
-        <maven-jxr-plugin.version>3.3.1</maven-jxr-plugin.version>
-        <maven-javadoc-plugin.version>3.6.2</maven-javadoc-plugin.version>
+        <maven-jxr-plugin.version>3.3.2</maven-jxr-plugin.version>
+        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
         <modernizer-maven-plugin.version>2.7.0</modernizer-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
@@ -160,7 +160,7 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-to-slf4j</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.1</version>
             </dependency>
             <dependency>
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
@@ -515,7 +515,7 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.17.1</version>
+                <version>1.17.2</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
@@ -781,13 +781,13 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.7.0</version>
+                <version>5.8.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>mockwebserver3-junit5</artifactId>
-                <version>5.0.0-alpha.11</version>
+                <version>5.0.0-alpha.12</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -887,11 +887,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M12</version>
+                    <version>4.0.0-M13</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.11.0</version>
+                    <version>3.12.1</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -1085,7 +1085,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>9.0.2</version>
+                    <version>9.0.7</version>
                     <configuration>
                         <enableExperimental>true</enableExperimental>
                         <retirejs>
@@ -1117,7 +1117,7 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>7.1.0</version>
+                    <version>7.2.0</version>
                 </plugin>
                 <!--                <plugin>-->
                 <!--            deze plugin is stuk op Windows met Java 11.0.15, zie oa. https://stackoverflow.com/questions/71956115 -->

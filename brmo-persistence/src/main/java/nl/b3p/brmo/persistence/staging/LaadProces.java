@@ -237,6 +237,7 @@ public class LaadProces implements Serializable {
   public void setBestand_naam_hersteld(String bestand_naam_hersteld) {
     this.bestand_naam_hersteld = bestand_naam_hersteld;
   }
+
   // </editor-fold>
 
   @Override
