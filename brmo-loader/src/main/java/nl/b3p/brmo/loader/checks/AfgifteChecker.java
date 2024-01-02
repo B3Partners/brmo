@@ -73,6 +73,7 @@ public class AfgifteChecker {
       log.error("Error querying staging for laadproces for afgifte: " + afgifte.toString(), ex);
     }
   }
+
   /**
    * zoek de status van alle bijbehorende berichten op en leg die vast in de afgifte.
    *

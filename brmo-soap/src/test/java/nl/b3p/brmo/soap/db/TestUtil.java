@@ -31,14 +31,17 @@ public abstract class TestUtil {
 
   private static final Log LOG = LogFactory.getLog(TestUtil.class);
   protected static boolean haveSetupJNDI = false;
+
   /**
    * properties uit {@code <DB smaak>.properties} en {@code local.<DB smaak>.properties}.
    *
    * @see #loadDBprop()
    */
   protected final Properties DBPROPS = new Properties();
+
   /** {@code true} als we met een Oracle database bezig zijn. */
   protected boolean isOracle;
+
   /** {@code true} als we met een Postgis database bezig zijn. */
   protected boolean isPostgis;
 

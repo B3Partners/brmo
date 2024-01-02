@@ -52,6 +52,7 @@ public class BasisregistratieServiceActionBean implements ActionBean {
   public void setBasisregistratie(String basisregistratie) {
     this.basisregistratie = basisregistratie;
   }
+
   // </editor-fold>
 
   private static final int ZIP_HEADER = 0x504b0304;

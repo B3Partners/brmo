@@ -18,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
 @HandlerChain(file = "/handler-chain.xml")
 public class GetBrkInfoImpl {
   private static final Log LOG = LogFactory.getLog(GetBrkInfoImpl.class);
+
   /** Web service operation */
   @WebMethod(operationName = "getBrkInfo")
   @RequestWrapper(className = "nl.b3p.brmo.soap.brk.getBrkInfo")

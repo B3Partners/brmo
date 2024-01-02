@@ -47,7 +47,10 @@ public abstract class Converter {
       throws IOException, SAXException, ParserConfigurationException, TransformerException;
 
   public abstract TopNLEntity convertObject(Object jaxbObject)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           IllegalArgumentException;
 
   public abstract List<TopNLEntity> convertFeatureCollection(List jaxbObject)
@@ -84,7 +87,10 @@ public abstract class Converter {
    * @throws ClassCastException Als er een onverwacht type geometrie in de data zit.
    */
   public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           ClassCastException;
 
   public abstract Terrein convertTerrein(Object jaxbObject)
