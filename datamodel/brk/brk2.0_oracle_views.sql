@@ -463,6 +463,27 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
 
+-- BRMO-336: toevoegen van zakelijke rechten die het eigendomsrecht belasten
+CREATE OR REPLACE VIEW vb_util_zk_recht_op_koz 
+            (
+             identificatie,
+             rustop_zak_recht
+            )
+AS 
+SELECT  qry.identificatie,
+        qry.rustop_zak_recht
+FROM    ( 
+            SELECT ribm.isbelastmet                                     AS identificatie,
+                   zakrecht.rustop                                      AS rustop_zak_recht
+            FROM recht_isbelastmet ribm
+
+            LEFT JOIN recht zakrecht ON ribm.zakelijkrecht = zakrecht.identificatie
+
+            UNION ALL
+            SELECT zakrecht.identificatie,
+                   zakrecht.rustop                                      AS rustop_zak_recht
+            FROM recht zakrecht) qry
+WHERE SUBSTR(qry.identificatie, 1, INSTR(qry.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
 
 
 CREATE OR REPLACE VIEW vb_util_zk_recht
@@ -473,6 +494,7 @@ CREATE OR REPLACE VIEW vb_util_zk_recht
              ar_teller,
              ar_noemer,
              subject_identif,
+             mandeligheid_identif,
              koz_identif,
              indic_betrokken_in_splitsing,
              omschr_aard_verkregenr_recht,
@@ -486,7 +508,12 @@ SELECT zakrecht.identificatie                                            AS zr_i
        COALESCE(TO_CHAR(tenaamstelling.aandeel_noemer), '0')             AS aandeel,
        tenaamstelling.aandeel_teller                                     AS ar_teller,
        tenaamstelling.aandeel_noemer                                     AS ar_noemer,
-       tenaamstelling.tennamevan                                         AS subject_identif,
+       -- BRMO-339: samenvoegen van de tennamevan (tenaamstelling) en de heeftverenigingvaneigenaren, zodat de grondpercelen zichtbaar zijn
+       -- BRMO-340: samenvoegen van de tennamevan (tenaamstelling) op de zakelijke rechten die bestemd zijn tot een mandeligheid
+       COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') || 
+       COALESCE(tenaamstelling2.tennamevan, '')                          AS subject_identif,
+        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.                                                               
+       mandeligheid.identificatie                                        AS mandeligheid_identif,
        zakrecht.rustop                                                   AS koz_identif,
        CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
        zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
@@ -504,8 +531,16 @@ SELECT zakrecht.identificatie                                            AS zr_i
         FROM recht aantekening
         WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop) AS aantekeningen
 FROM recht zakrecht
-         JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
-WHERE zakrecht.identificatie like 'NL.IMKAD.ZakelijkRecht:%';
+        -- tenaamstelling
+        LEFT JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
+        -- vereniging van eigenaren
+        LEFT JOIN recht vve ON zakrecht.isbetrokkenbij = vve.identificatie
+        LEFT JOIN vb_util_zk_recht_op_koz vuzrok ON zakrecht.identificatie = vuzrok.identificatie
+        -- mandeligheid
+        LEFT JOIN recht mandeligheid ON zakrecht.isbestemdtot = mandeligheid.identificatie
+        LEFT JOIN vb_util_zk_recht_op_koz vuzrok2 ON mandeligheid.heefthoofdzaak = vuzrok2.rustop_zak_recht
+        LEFT JOIN recht tenaamstelling2 ON vuzrok2.identificatie = tenaamstelling2.van
+WHERE SUBSTR(r.identificatie, 1, INSTR(r.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
 
 COMMENT ON TABLE vb_util_zk_recht IS
     'commentaar view vb_util_zk_recht:
@@ -517,6 +552,7 @@ COMMENT ON TABLE vb_util_zk_recht IS
     * ar_teller: teller van aandeel,
     * ar_noemer: noemer van aandeel,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * indic_betrokken_in_splitsing: -,
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -530,6 +566,7 @@ CREATE MATERIALIZED VIEW mb_zr_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             mandeligheid_identif,
              koz_identif,
              aandeel,
              omschr_aard_verkregenr_recht,
@@ -560,6 +597,7 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        uzr.zr_identif          as zr_identif,
        uzr.ingangsdatum_recht,
        uzr.subject_identif,
+       uzr.mandeligheid_identif,
        uzr.koz_identif,
        uzr.aandeel,
        uzr.omschr_aard_verkregenr_recht,
@@ -599,6 +637,7 @@ COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -629,6 +668,7 @@ CREATE MATERIALIZED VIEW mb_avg_zr_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             mandeligheid_identif,
              koz_identif,
              aandeel,
              omschr_aard_verkregenr_recht,
@@ -659,6 +699,7 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        uzr.zr_identif          AS zr_identif,
        uzr.ingangsdatum_recht,
        uzr.subject_identif,
+       uzr.mandeligheid_identif,
        uzr.koz_identif,
        uzr.aandeel,
        uzr.omschr_aard_verkregenr_recht,
@@ -695,6 +736,7 @@ COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -747,6 +789,7 @@ CREATE MATERIALIZED VIEW mb_koz_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             mandeligheid_identif,
              aandeel,
              omschr_aard_verkregenr_recht,
              indic_betrokken_in_splitsing,
@@ -808,6 +851,7 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        zrr.zr_identif,
        zrr.ingangsdatum_recht,
        zrr.subject_identif,
+       zrr.mandeligheid_identif,
        zrr.aandeel,
        zrr.omschr_aard_verkregenr_recht,
        zrr.indic_betrokken_in_splitsing,
@@ -880,6 +924,7 @@ COMMENT ON MATERIALIZED VIEW mb_koz_rechth IS
     * zr_identif: natuurlijk id van zakelijk recht,
     * ingangsdatum_recht: - ,
     * subject_identif: natuurlijk id van rechthebbende,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * indic_betrokken_in_splitsing: -,
@@ -941,6 +986,7 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             mandeligheid_identif,
              aandeel,
              omschr_aard_verkregenr_recht,
              indic_betrokken_in_splitsing,
@@ -1002,6 +1048,7 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        zrr.zr_identif,
        zrr.ingangsdatum_recht,
        zrr.subject_identif,
+       zrr.mandeligheid_identif,
        zrr.aandeel,
        zrr.omschr_aard_verkregenr_recht,
        zrr.indic_betrokken_in_splitsing,
@@ -1074,6 +1121,7 @@ COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     * zr_identif: natuurlijk id van zakelijk recht,
     * ingangsdatum_recht: - ,
     * subject_identif: natuurlijk id van rechthebbende,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * indic_betrokken_in_splitsing: -,
