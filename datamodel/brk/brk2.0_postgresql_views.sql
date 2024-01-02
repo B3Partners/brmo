@@ -495,7 +495,7 @@ FROM    (
             SELECT ribm.isbelastmet AS identificatie,
                    r.rustop         AS rustop_zak_recht
             FROM brk.recht_isbelastmet ribm
-            LEFT JOIN brk.recht r ON ribm.zakelijkrecht::text = r.identificatie::text
+            LEFT JOIN brk.recht r ON ribm.zakelijkrecht = r.identificatie
             UNION ALL
             SELECT r.identificatie,
                    r.rustop         AS rustop_zak_recht
@@ -569,31 +569,12 @@ COMMENT ON VIEW vb_util_zk_recht IS
     * ar_teller: teller van aandeel,
     * ar_noemer: noemer van aandeel,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
-    * mandeligheid_identif: identificatie van een mandeligheid, een gesmeenschappelijk eigendom van een onroerende zaak,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * indic_betrokken_in_splitsing: -,
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * fk_3avr_aand: code aard recht,
     * aantekeningen: samenvoeging van alle aantekening op dit recht';
-
-COMMENT ON VIEW vb_util_zk_recht IS
-    'commentaar view vb_util_zk_recht:
-    zakelijk recht met opgezocht aard recht en berekend aandeel
-        beschikbare kolommen:
-    * zr_identif: natuurlijke id van zakelijk recht
-    * ingangsdatum_recht: -
-    * aandeel: samenvoeging van teller en noemer (1/2),
-    * ar_teller: teller van aandeel,
-    * ar_noemer: noemer van aandeel,
-    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
-    * mandeligheid_identif: identificatie van een mandeligheid, een gesmeenschappelijk eigendom van een onroerende zaak,
-    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
-    * indic_betrokken_in_splitsing: -,
-    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
-    * fk_3avr_aand: code aard recht,
-    * aantekeningen: samenvoeging van alle aantekening op dit recht';
-
-
 
 CREATE MATERIALIZED VIEW mb_zr_rechth
             (
