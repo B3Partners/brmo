@@ -42,8 +42,9 @@ SELECT CAST(ROWNUM AS INTEGER)                            AS objectid,
                           COALESCE(np.voorvoegselsgeslachtsnaam, '') || ' ', '  ', ' ') ||
                   COALESCE(np.geslachtsnaam, '')))
            END                                            AS naam,
-       REPLACE(COALESCE(a.openbareruimtenaam, '') || ' ' || COALESCE(TO_CHAR(a.huisnummer), '') ||
+       REPLACE(COALESCE(a.openbareruimtenaam, '') || ' ' || COALESCE(a.huisnummer::text, '') ||
                COALESCE(a.huisletter, '') || COALESCE(a.huisnummertoevoeging, '') || ' ' ||
+               COALESCE(a.postcode, '') || ' ' ||
                COALESCE(a.woonplaatsnaam, ''), '  ', ' ') AS woonadres,
        np.geboortedatum                                   AS geboortedatum,
        np.geboorteplaats                                  AS geboorteplaats,
