@@ -493,13 +493,15 @@ AS
 SELECT  qry.identificatie,
         qry.rustop_zak_recht
 FROM    ( 
-            SELECT ribm.isbelastmet AS identificatie,
-                   r.rustop         AS rustop_zak_recht
+            SELECT ribm.isbelastmet                        AS identificatie,
+                   r.rustop                                AS rustop_zak_recht
             FROM brk.recht_isbelastmet ribm
+
             LEFT JOIN brk.recht r ON ribm.zakelijkrecht = r.identificatie
+
             UNION ALL
             SELECT r.identificatie,
-                   r.rustop         AS rustop_zak_recht
+                   r.rustop                                AS rustop_zak_recht
             FROM brk.recht r) qry
   WHERE split_part( qry.identificatie, ':', 1) = 'NL.IMKAD.ZakelijkRecht';
 
@@ -528,8 +530,8 @@ SELECT zakrecht.identificatie                             AS zr_identif,
        tenaamstelling.aandeel_noemer                      AS ar_noemer,
        -- BRMO-339: samenvoegen van de tennamevan (tenaamstelling) en de heeftverenigingvaneigenaren, zodat de grondpercelen zichtbaar zijn
        -- BRMO-340: samenvoegen van de tennamevan (tenaamstelling) op de zakelijke rechten die bestemd zijn tot een mandeligheid
-       COALESCE (tenaamstelling.tennamevan, '') || coalesce (vve.heeftverenigingvaneigenaren, '') || 
-       COALESCE (tenaamstelling2.tennamevan, '')
+       COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') || 
+       COALESCE(tenaamstelling2.tennamevan, '')
                                                           AS subject_identif,
        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.                                                               
        mandeligheid.identificatie                         AS mandeligheid_identif,
@@ -650,7 +652,7 @@ COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
-    * mandeligheid_identif: identificatie van een mandeligheid, een gesmeenschappelijk eigendom van een onroerende zaak,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -748,7 +750,7 @@ COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
-    * mandeligheid_identif: identificatie van een mandeligheid, een gesmeenschappelijk eigendom van een onroerende zaak,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -932,7 +934,7 @@ COMMENT ON MATERIALIZED VIEW mb_koz_rechth IS
     * zr_identif: natuurlijk id van zakelijk recht,
     * ingangsdatum_recht: - ,
     * subject_identif: natuurlijk id van rechthebbende,
-    * mandeligheid_identif: identificatie van een mandeligheid, een gesmeenschappelijk eigendom van een onroerende zaak,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * indic_betrokken_in_splitsing: -,
@@ -964,8 +966,6 @@ COMMENT ON MATERIALIZED VIEW mb_koz_rechth IS
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
-
-
 
 CREATE MATERIALIZED VIEW mb_avg_koz_rechth
             (
@@ -1125,7 +1125,7 @@ COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     * zr_identif: natuurlijk id van zakelijk recht,
     * ingangsdatum_recht: - ,
     * subject_identif: natuurlijk id van rechthebbende,
-    * mandeligheid_identif: identificatie van een mandeligheid, een gesmeenschappelijk eigendom van een onroerende zaak,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * aandeel: samenvoeging van teller en noemer (1/2),
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * indic_betrokken_in_splitsing: -,
