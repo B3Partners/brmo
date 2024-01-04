@@ -94,29 +94,36 @@ SELECT row_number() OVER ()                                                     
        st_x(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lon,
        st_y(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lat,
        qry.begrenzing_perceel
-   FROM ( SELECT p.identificatie,
-            'perceel' AS type,
-            p.soortgrootte,
-            p.kadastralegrootte,
-            p.begrenzing_perceel,
-            p.plaatscoordinaten
-           FROM brk.perceel p
-          UNION ALL
-          SELECT a.identificatie,
-            'appartement' AS type,
-            NULL AS soortgrootte,
-            NULL::numeric AS kadastralegrootte,
-            p.begrenzing_perceel,
-            NULL::geometry AS plaatscoordinaten
-           FROM brk.appartementsrecht a
-             JOIN brk.recht r ON a.identificatie = r.rustop
-             JOIN brk.recht r2 ON r.isontstaanuit = r2.isbetrokkenbij
-                JOIN brk.perceel p ON p.identificatie = r2.rustop) qry
-LEFT JOIN brk.onroerendezaak o ON qry.identificatie = o.identificatie
-LEFT JOIN brk.objectlocatie o2 ON o2.heeft = o.identificatie
-LEFT JOIN brk.adres a2 ON a2.identificatie = o2.betreft
-LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject
-WITH no DATA;
+   FROM (   SELECT 	p.identificatie, 
+					'perceel' 			                                                               AS type,
+					p.soortgrootte,
+					p.kadastralegrootte,
+					p.begrenzing_perceel,
+					p.plaatscoordinaten
+            FROM  brk.perceel p
+		
+            UNION ALL
+		
+            SELECT  a.identificatie, 
+                    'appartement' 		                                                               AS type,
+                    NULL 				                                                               AS soortgrootte,
+                    NULL 				                                                               AS kadastralegrootte,
+					coalesce(p.begrenzing_perceel, p2.begrenzing_perceel)                              AS begrenzing_perceel,
+					coalesce(p.plaatscoordinaten, p2.plaatscoordinaten)                                AS plaatscoordinaten
+            FROM  brk.appartementsrecht a 
+                LEFT JOIN brk.recht r on a.hoofdsplitsing = r.isbetrokkenbij
+                -- wanneer het zakelijkrecht een eigendomsrecht is
+                LEFT JOIN brk.perceel p on r.rustop = p.identificatie
+                -- [BRMO-342] wanneer het zakelijkrecht een recht is die het eigendomsrecht belast
+                LEFT JOIN brk.recht_isbelastmet ribm on r.identificatie = ribm.isbelastmet
+                LEFT JOIN brk.recht r2 on ribm.zakelijkrecht = r2.identificatie
+                LEFT JOIN brk.perceel p2 on r2.rustop = p2.identificatie
+    ) qry
+    LEFT JOIN brk.onroerendezaak o ON qry.identificatie = o.identificatie
+    LEFT JOIN brk.objectlocatie o2 ON o2.heeft = o.identificatie
+    LEFT JOIN brk.adres a2 ON a2.identificatie = o2.betreft
+    LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject
+WITH NO DATA;
 
 COMMENT ON MATERIALIZED VIEW public.mb_kadastraleonroerendezakenmetadres
     IS 'commentaar view mb_kad_onrrnd_zk_adres:
