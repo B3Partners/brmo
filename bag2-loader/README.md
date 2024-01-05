@@ -67,7 +67,7 @@ bijvoorbeeld `load --help`.
 
 Een database is vereist voordat de BAG kan worden geladen. De volgende databases worden ondersteund:
 - [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 11 t/m versie 15 met PostGIS 3.3
-- Oracle Spatial 21XE en 19c
+- Oracle Spatial 23c, 21c, 19c en 21XE en 23c Free
 
 Let op dat de BAG van heel Nederland niet past binnen de database limiet van 12 GB van de Express Edition van Oracle, 
 maar een enkele gemeente(s) zal wel lukken.
@@ -137,7 +137,7 @@ echo "create user c##bag identified by bag default tablespace users temporary ta
 echo "alter user c##bag quota unlimited on users;";
 echo "grant connect, resource, create view to c##bag;";
 echo "alter user c##bag default role connect, resource;"; 
-} | docker exec -i oracle-xe sqlplus -l system/oracle@//localhost:1521/XE
+} | docker exec -i oracle-xe sqlplus -l system/oracle@//localhost:1521/FREE
 ```
 
 Let op dat de tool niet zelf een schema aanmaakt omdat in Oracle hiervoor een gebruiker nodig is. Gebruik dus
@@ -149,7 +149,7 @@ Het is nodig om de `--connection` en `--user` opties aan de BAG lader mee te gev
 Voorbeeldcommando om de hele BAG te laden in Oracle Spatial:
 
 ```shell
-brmo-bag2-loader load --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bag" https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip
+brmo-bag2-loader load --connection="jdbc:oracle:thin:@localhost:1521/FREE" --user="c##bag" https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip
 ```
 Voor Docker Desktop op Windows of Mac: gebruik `host.docker.internal` in plaats van `localhost`.
 
