@@ -25,6 +25,8 @@ docker compose --env-file ./localhost.env \
          -p brmo-service up --always-recreate-deps --remove-orphans -d
 ```
 
+![deployment diagram](docker-compose.svg)
+
 ### default TLS certificaten
 
 De Docker image komt met een self-signed certificaat (serial no. `415c2f102c71a8e0be04aefaa1197238d1340ff6`,
