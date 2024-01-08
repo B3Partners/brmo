@@ -6,9 +6,9 @@ CREATE MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres
             (
             objectid,
             identificatie,
-            begingeldigheid AS begingeldigheid,
-            begingeldigheid AS begingeldigheid_datum,
-            a2.adresseerbaarobject AS adresseerbaarobject,
+            begingeldigheid,
+            begingeldigheid_datum,
+            adresseerbaarobject,
             type,
             aanduiding,
             aanduiding2,
@@ -108,16 +108,16 @@ SELECT row_number() OVER ()                                                     
                     'appartement' 		                                                               AS type,
                     NULL 				                                                               AS soortgrootte,
                     NULL 				                                                               AS kadastralegrootte,
-					coalesce(p.begrenzing_perceel, p2.begrenzing_perceel)                              AS begrenzing_perceel,
-					coalesce(p.plaatscoordinaten, p2.plaatscoordinaten)                                AS plaatscoordinaten
+					COALESCE(p.begrenzing_perceel, p2.begrenzing_perceel)                              AS begrenzing_perceel,
+					COALESCE(p.plaatscoordinaten, p2.plaatscoordinaten)                                AS plaatscoordinaten
             FROM  brk.appartementsrecht a 
-                LEFT JOIN brk.recht r on a.hoofdsplitsing = r.isbetrokkenbij
+                LEFT JOIN brk.recht r ON a.hoofdsplitsing = r.isbetrokkenbij
                 -- wanneer het zakelijkrecht een eigendomsrecht is
-                LEFT JOIN brk.perceel p on r.rustop = p.identificatie
+                LEFT JOIN brk.perceel p ON r.rustop = p.identificatie
                 -- [BRMO-342] wanneer het zakelijkrecht een recht is die het eigendomsrecht belast
-                LEFT JOIN brk.recht_isbelastmet ribm on r.identificatie = ribm.isbelastmet
-                LEFT JOIN brk.recht r2 on ribm.zakelijkrecht = r2.identificatie
-                LEFT JOIN brk.perceel p2 on r2.rustop = p2.identificatie
+                LEFT JOIN brk.recht_isbelastmet ribm ON r.identificatie = ribm.isbelastmet
+                LEFT JOIN brk.recht r2 ON ribm.zakelijkrecht = r2.identificatie
+                LEFT JOIN brk.perceel p2 ON r2.rustop = p2.identificatie
     ) qry
     LEFT JOIN brk.onroerendezaak o ON qry.identificatie = o.identificatie
     LEFT JOIN brk.objectlocatie o2 ON o2.heeft = o.identificatie
