@@ -156,7 +156,12 @@ public class MaterializedViewsTest {
                 "mb_adresseerbaar_object_geometrie_bag",
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
-                "mb_koz_rechth_bag")
+                "mb_koz_rechth_bag",
+                // bag 2 & brk 2 views Oracle 
+                "mb_kadastraleonroerendezakenmetadres",
+                "mb_onroerendezakenmetrechthebbenden",
+                "mb_avg_onroerendezakenmetrechthebbenden"
+                )
             .collect(Collectors.toList());
 
     if (this.isPostgis) {
@@ -171,7 +176,11 @@ public class MaterializedViewsTest {
               "brk.mb_avg_zr_rechth",
               "brk.mb_koz_rechth",
               "brk.mb_avg_koz_rechth",
-              "brk.mb_kad_onrrnd_zk_archief"));
+              "brk.mb_kad_onrrnd_zk_archief",
+              // bag 2 & brk 2 views 
+              "public.mb_kadastraleonroerendezakenmetadres",
+              "public.mb_onroerendezakenmetrechthebbenden",
+              "public.mb_avg_onroerendezakenmetrechthebbenden"));
     }
 
     // alles lower-case (ORACLE!) en gesorteerd vergelijken
