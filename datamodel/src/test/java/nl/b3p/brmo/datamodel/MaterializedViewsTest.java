@@ -157,7 +157,7 @@ public class MaterializedViewsTest {
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
                 "mb_koz_rechth_bag",
-                // bag 2 & brk 2 views Oracle 
+                // bag 2 & brk 2 views 
                 "mb_kadastraleonroerendezakenmetadres",
                 "mb_onroerendezakenmetrechthebbenden",
                 "mb_avg_onroerendezakenmetrechthebbenden"
@@ -176,11 +176,7 @@ public class MaterializedViewsTest {
               "brk.mb_avg_zr_rechth",
               "brk.mb_koz_rechth",
               "brk.mb_avg_koz_rechth",
-              "brk.mb_kad_onrrnd_zk_archief",
-              // bag 2 & brk 2 views 
-              "public.mb_kadastraleonroerendezakenmetadres",
-              "public.mb_onroerendezakenmetrechthebbenden",
-              "public.mb_avg_onroerendezakenmetrechthebbenden"));
+              "brk.mb_kad_onrrnd_zk_archief"));
     }
 
     // alles lower-case (ORACLE!) en gesorteerd vergelijken
