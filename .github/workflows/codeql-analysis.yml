@@ -81,7 +81,7 @@ jobs:
       - name: 'Upload loc as a Build Artifact'
         uses: actions/upload-artifact@v4
         with:
-          name: 'sarif-results'
+          name: "sarif-results.${{ matrix.language }}"
           path: 'sarif-results'
           retention-days: 1
 
