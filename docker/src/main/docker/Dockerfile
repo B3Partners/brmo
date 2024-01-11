@@ -1,4 +1,4 @@
-FROM tomcat:9.0.84-jre11-temurin
+FROM tomcat:9.0.85-jre11-temurin
 
 ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
