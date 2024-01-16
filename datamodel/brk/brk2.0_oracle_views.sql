@@ -42,7 +42,7 @@ SELECT CAST(ROWNUM AS INTEGER)                            AS objectid,
                           COALESCE(np.voorvoegselsgeslachtsnaam, '') || ' ', '  ', ' ') ||
                   COALESCE(np.geslachtsnaam, '')))
            END                                            AS naam,
-       REPLACE(COALESCE(a.openbareruimtenaam, '') || ' ' || COALESCE(a.huisnummer::text, '') ||
+       REPLACE(COALESCE(a.openbareruimtenaam, '') || ' ' || COALESCE(TO_CHAR(a.huisnummer), '') ||
                COALESCE(a.huisletter, '') || COALESCE(a.huisnummertoevoeging, '') || ' ' ||
                COALESCE(a.postcode, '') || ' ' ||
                COALESCE(a.woonplaatsnaam, ''), '  ', ' ') AS woonadres,
@@ -540,7 +540,7 @@ FROM recht zakrecht
         LEFT JOIN recht mandeligheid ON zakrecht.isbestemdtot = mandeligheid.identificatie
         LEFT JOIN vb_util_zk_recht_op_koz vuzrok2 ON mandeligheid.heefthoofdzaak = vuzrok2.rustop_zak_recht
         LEFT JOIN recht tenaamstelling2 ON vuzrok2.identificatie = tenaamstelling2.van
-WHERE SUBSTR(r.identificatie, 1, INSTR(r.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
+WHERE SUBSTR(zakrecht.identificatie, 1, INSTR(zakrecht.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
 
 COMMENT ON TABLE vb_util_zk_recht IS
     'commentaar view vb_util_zk_recht:
