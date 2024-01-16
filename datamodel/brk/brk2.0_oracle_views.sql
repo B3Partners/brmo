@@ -294,8 +294,7 @@ FROM (SELECT p.identificatie      AS identificatie,
                                       WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
                    FROM recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
-                  ON o.identificatie = aantekeningen.aantekeningkadastraalobject
-;
+                  ON o.identificatie = aantekeningen.aantekeningkadastraalobject;
 
 CREATE UNIQUE INDEX mb_kad_onrrnd_zk_adres_objidx ON mb_kad_onrrnd_zk_adres (objectid ASC);
 CREATE INDEX mb_kad_onrrnd_zk_adres_identif ON mb_kad_onrrnd_zk_adres (koz_identif ASC);

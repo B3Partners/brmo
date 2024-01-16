@@ -1,4 +1,4 @@
--- volgende scripts uitvoeren in public schema
+-- volgende scripts uitvoeren in het public schema
 CREATE MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres
 AS
  SELECT CAST(ROWNUM AS INTEGER)                                                 AS objectid,
@@ -144,9 +144,7 @@ CREATE INDEX mb_kadastraleonroerendezakenmetadres_begrenzing_perceel_idx ON mb_k
 CREATE INDEX mb_kadastraleonroerendezakenmetadres_identif ON mb_kadastraleonroerendezakenmetadres (identificatie);
 CREATE UNIQUE INDEX mb_kadastraleonroerendezakenmetadres_objectid ON mb_kadastraleonroerendezakenmetadres (objectid);
 
---
-
- CREATE MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
+CREATE MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
 AS
 SELECT CAST(ROWNUM AS INTEGER)              AS objectid,
     koz.identificatie                       ,
@@ -284,8 +282,7 @@ CREATE INDEX mb_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON mb_on
 CREATE INDEX mb_onroerendezakenmetrechthebbenden_identif ON mb_onroerendezakenmetrechthebbenden (identificatie);
 CREATE UNIQUE INDEX mb_onroerendezakenmetrechthebbenden_objectid ON mb_onroerendezakenmetrechthebbenden (objectid);    
 
---
- CREATE MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
+CREATE MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
 AS
 SELECT CAST(ROWNUM AS INTEGER)              AS objectid,
     koz.identificatie                       ,
@@ -345,7 +342,7 @@ SELECT CAST(ROWNUM AS INTEGER)              AS objectid,
     koz.lon                                 ,
     koz.lat                                 ,
     koz.begrenzing_perceel
-FROM brmo_brk.mb_avg_zr_rechth zrr       r
+FROM brmo_brk.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
          
     COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
