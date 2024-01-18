@@ -161,8 +161,6 @@ COMMENT ON MATERIALIZED VIEW mb_avg_subject IS
     * rsin: -
     * kvk_nummer: -';
 
-
-
 CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres
             (
              objectid,
@@ -348,7 +346,6 @@ COMMENT ON MATERIALIZED VIEW mb_kad_onrrnd_zk_adres IS
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
 
-
 CREATE MATERIALIZED VIEW mb_percelenkaart
             (
              objectid,
@@ -425,7 +422,6 @@ FROM (SELECT p.identificatie      AS identificatie,
                    FROM recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
                   ON o.identificatie = aantekeningen.aantekeningkadastraalobject;
-
 CREATE UNIQUE INDEX mb_percelenkaart_objectid ON mb_percelenkaart (objectid ASC);
 CREATE INDEX mb_percelenkaart_identif ON mb_percelenkaart (koz_identif ASC);
 INSERT INTO user_sdo_geom_metadata
@@ -475,15 +471,12 @@ FROM    (
             SELECT ribm.isbelastmet                                     AS identificatie,
                    zakrecht.rustop                                      AS rustop_zak_recht
             FROM recht_isbelastmet ribm
-
             LEFT JOIN recht zakrecht ON ribm.zakelijkrecht = zakrecht.identificatie
-
             UNION ALL
             SELECT zakrecht.identificatie,
                    zakrecht.rustop                                      AS rustop_zak_recht
             FROM recht zakrecht) qry
 WHERE SUBSTR(qry.identificatie, 1, INSTR(qry.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
-
 
 CREATE OR REPLACE VIEW vb_util_zk_recht
             (
@@ -557,7 +550,6 @@ COMMENT ON TABLE vb_util_zk_recht IS
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
     * fk_3avr_aand: code aard recht,
     * aantekeningen: samenvoeging van alle aantekening op dit recht';
-
 
 CREATE MATERIALIZED VIEW mb_zr_rechth
             (
@@ -660,7 +652,6 @@ COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     * rsin: -
     * kvk_nummer: -';
 
-
 CREATE MATERIALIZED VIEW mb_avg_zr_rechth
             (
              objectid,
@@ -758,7 +749,6 @@ COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
     * statutaire_zetel: -
     * rsin: -
     * kvk_nummer: -';
-
 
 CREATE MATERIALIZED VIEW mb_koz_rechth
             (
@@ -956,7 +946,6 @@ COMMENT ON MATERIALIZED VIEW mb_koz_rechth IS
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
 
-
 CREATE MATERIALIZED VIEW mb_avg_koz_rechth
             (
              objectid,
@@ -1152,7 +1141,6 @@ COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth IS
     * lon: coordinaat als WSG84,
     * lat: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
-
 
 CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_archief
             (
