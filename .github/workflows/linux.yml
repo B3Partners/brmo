@@ -162,7 +162,7 @@ jobs:
           lfs: false
 
       - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v3
+        uses: actions/dependency-review-action@v4
 
 
   qacheck:
