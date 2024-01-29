@@ -12,7 +12,7 @@ jobs:
     # using https://github.com/marketplace/actions/ghcr-pruning
     steps:
       - name: "brmo-bgt-loader older than 1 week"
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -23,7 +23,7 @@ jobs:
           prune-untagged: true
 
       - name: "brmo-service older than 1 week"
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -34,7 +34,7 @@ jobs:
           prune-untagged: true
 
       - name: "brmo-service-db older than 1 week"
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -46,7 +46,7 @@ jobs:
 
       - name: "brmo-bag2-loader older than 1 week"
         continue-on-error: true
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -57,7 +57,7 @@ jobs:
           prune-untagged: true
 
       - name: "brmo-bgt-loader older than 4 weeks"
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -68,7 +68,7 @@ jobs:
           prune-untagged: true
 
       - name: "brmo-service older than 4 weeks"
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -79,7 +79,7 @@ jobs:
           prune-untagged: true
 
       - name: "brmo-service-db older than 4 weeks"
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
@@ -91,7 +91,7 @@ jobs:
 
       - name: "brmo-bag2-loader older than 4 weeks"
         continue-on-error: true
-        uses: vlaurin/action-ghcr-prune@v0.5.0
+        uses: vlaurin/action-ghcr-prune@v0.6.0
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
