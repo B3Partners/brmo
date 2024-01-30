@@ -45,7 +45,7 @@ jobs:
 
       - name: 'Check file existence'
         id: check_files
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "${{ matrix.docker-image }}-trivy-results.sarif"
 
