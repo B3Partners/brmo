@@ -71,6 +71,32 @@ update gebruiker_ set wachtwoord = '<HASH>' where gebruikersnaam = 'brmo';
 \q
 ```
 
+### HR configuratie
+
+De HR-configuratie heeft een PKI-Overheid certificaat en KvK truststore nodig om te kunnen communiceren met de HR API. 
+Deze certificaten dienen in de directory `/opt/brmo-data/NHR/certificaten/` te worden geplaatst in PFX-formaat.
+Na het kopiëren van de certificaten dient de brmo-service container opnieuw te worden gestart.
+Dat kan met onderstaande commando's:
+
+```shell
+docker cp PKIOkeystore.pfx brmo-service-brmo-1:/opt/brmo-data/NHR/certificaten/klant.keystore.pfx
+docker cp truststore.pfx brmo-service-brmo-1:/opt/brmo-data/NHR/certificaten/kvk.truststore.pfx
+docker restart brmo-service-brmo-1
+```
+_NB. het pad naar de keystore en truststore zijn hard-coded in de `server.xml` en kunnen niet worden aangepast._
+Daarnaast zijn een aantal omgevingvariabelen nodig, welke voor pre-prod en prod HR verschillen.
+- `HR_ACTIVE`: actief of niet `true` of `false`(`false`)
+- `HR_PASS_KEYSTORE`: password voor client keystore (`changeme`)
+- `HR_PASS_TRUSTSTORE`: password voor kvk truststore (`changeme`)
+- `HR_ISPREPROD`: of pre-prod gebruikt wordt`true` of `false` (`true`)
+- `HR_URL`: data service url (prod of pre-prod service url (`https://webservices.preprod.kvk.nl/postbus1`)
+- `HR_IMAP_RESOURCE`: naam van de global jndi resource `brmo/nhr/email` (`disabled`)
+- `HR_IMAP_USER`: imap account (`changeme`)
+- `HR_IMAP_PASS`: wachtwoord voor imap account (`changeme`)
+- `HR_IMAP_HOST`: imap host (`mail.b3partners.nl`)
+Deze variabelen zijn beschreven in de technische documentatie/handleiding.
+
+
 ## data laden
 
 Kopieer grote "stand" files naar het `brmo-service_brmo-data` volume van de brmo container, bijvoorbeeld:
@@ -79,4 +105,4 @@ Kopieer grote "stand" files naar het `brmo-service_brmo-data` volume van de brmo
 docker cp /opt/data/brk/brk2-stand.zip brmo-service-brmo-1:/opt/brmo-data/BRK/brk2-stand.zip
 ``` 
 
-Gebruik daarna de brmo-service webinterface om het bestand in de staging te laden en te transformeren
+Gebruik daarna de brmo-service webinterface om het bestand in de staging te laden en te transformeren.

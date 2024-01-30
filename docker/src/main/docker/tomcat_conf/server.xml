@@ -5,44 +5,67 @@
     <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
     <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
     <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
-
     <GlobalNamingResources>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="2"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/staging" password="${DB_PASS_STAGING}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/staging?sslmode=allow&amp;ApplicationName=brmo-service" username="staging"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/staging?sslmode=allow&amp;ApplicationName=brmo-service"
+                  username="staging"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="0"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgb" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=allow&amp;ApplicationName=brmo-service" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=allow&amp;ApplicationName=brmo-service"
+                  username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="0"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbrk" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?currentSchema=brk&amp;sslmode=allow&amp;ApplicationName=brmo-service" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?currentSchema=brk&amp;sslmode=allow&amp;ApplicationName=brmo-service"
+                  username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="0"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbag" password="${DB_PASS_RSGB}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service" username="rsgb"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgb?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service"
+                  username="rsgb"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="0"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbgt" password="${DB_PASS_RSGBBGT}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgbbgt?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service" username="rsgbbgt"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/rsgbbgt?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service"
+                  username="rsgbbgt"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="0"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbtopnl" password="${DB_PASS_TOPNL}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/topnl?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service" username="topnl"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/topnl?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service"
+                  username="topnl"
                   validationQuery="select 1"/>
-        <Environment name="brmo/nhr/active" value="false" type="java.lang.Boolean" />
+        <Environment type="java.lang.Boolean" name="brmo/nhr/active" value="${HR_ACTIVE}"/>
+        <Environment type="java.lang.Integer" name="brmo/nhr/secondsBetweenFetches" value="0"/>
+        <Environment type="java.lang.String" name="brmo/nhr/keystorePath"
+                     value="/opt/brmo-data/NHR/certificaten/klant.keystore.pfx"/>
+        <Environment type="java.lang.String" name="brmo/nhr/keystorePassword" value="${HR_PASS_KEYSTORE}"/>
+        <Environment type="java.lang.String" name="brmo/nhr/truststorePath"
+                     value="/opt/brmo-data/NHR/certificaten/kvk.truststore.pfx"/>
+        <Environment type="java.lang.String" name="brmo/nhr/truststorePassword" value="${HR_PASS_TRUSTSTORE}"/>
+        <Environment type="java.lang.String" name="brmo/nhr/endpoint" value="${HR_URL}"/>
+        <Environment type="java.lang.Boolean" name="brmo/nhr/endpointIsPreprod" value="${HR_ISPREPROD}"/>
         <Resource name="mail/session"
                   auth="Container"
                   type="javax.mail.Session"
                   mail.smtp.from="${MAIL_FROM}"
                   mail.smtp.host="${MAIL_HOST}"/>
+        <Resource name="${HR_IMAP_RESOURCE}"
+                  auth="Container"
+                  type="javax.mail.Session"
+                  mail.imap.port="993"
+                  mail.imap.ssl.enable="true"
+                  mail.transport.protocol="imap"
+                  mail.user="${HR_IMAP_USER}"
+                  password="${HR_IMAP_PASS}"
+                  mail.imap.host="${HR_IMAP_HOST}"/>
         <Resource name="UserDatabase"
                   auth="Container"
                   type="org.apache.catalina.UserDatabase"
@@ -52,7 +75,7 @@
     </GlobalNamingResources>
     <Service name="Catalina">
         <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443">
-            <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+            <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol"/>
         </Connector>
         <Engine name="Catalina" defaultHost="localhost">
             <Realm className="org.apache.catalina.realm.LockOutRealm">
