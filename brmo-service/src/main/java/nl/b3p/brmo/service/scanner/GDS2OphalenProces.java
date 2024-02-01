@@ -1020,8 +1020,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     Client client = ClientProxy.getClient(gds2);
     HTTPConduit http = (HTTPConduit) client.getConduit();
     TLSClientParameters tlsClientParameters = new TLSClientParameters();
-    tlsClientParameters.setKeyManagers(kmf.getKeyManagers());
-    tlsClientParameters.setSslContext(context);
+    tlsClientParameters.setSSLSocketFactory(context.getSocketFactory());
     http.setTlsClientParameters(tlsClientParameters);
 
     return gds2;

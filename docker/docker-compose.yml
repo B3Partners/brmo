@@ -50,7 +50,23 @@ services:
       DB_PASS_STAGING: ${DB_PASS_STAGING:-staging}
       DB_PASS_RSGBBGT: ${DB_PASS_RSGBBGT:-rsgbbgt}
       DB_PASS_TOPNL: ${DB_PASS_TOPNL:-topnl}
-      CATALINA_OPTS: -DMAIL_FROM=${MAIL_FROM:-brmo-no-reply@b3partners.nl} -DMAIL_HOST=${MAIL_HOST:-mail.b3partners.nl} -DPG_PORT=${PG_PORT:-5432} -DPG_HOST=${PG_HOST:-db} -DDB_PASS_RSGB=${DB_PASS_RSGB} -DDB_PASS_STAGING=${DB_PASS_STAGING} -DDB_PASS_RSGBBGT=${DB_PASS_RSGBBGT} -DDB_PASS_TOPNL=${DB_PASS_TOPNL}
+      CATALINA_OPTS: -DMAIL_FROM=${MAIL_FROM:-brmo-no-reply@b3partners.nl}
+        -DMAIL_HOST=${MAIL_HOST:-mail.b3partners.nl}
+        -DPG_PORT=${PG_PORT:-5432}
+        -DPG_HOST=${PG_HOST:-db}
+        -DDB_PASS_RSGB=${DB_PASS_RSGB}
+        -DDB_PASS_STAGING=${DB_PASS_STAGING}
+        -DDB_PASS_RSGBBGT=${DB_PASS_RSGBBGT}
+        -DDB_PASS_TOPNL=${DB_PASS_TOPNL}
+        -DHR_ACTIVE=${HR_ACTIVE:-false}
+        -DHR_PASS_KEYSTORE=${HR_PASS_KEYSTORE:-changeme}
+        -DHR_PASS_TRUSTSTORE=${HR_PASS_TRUSTSTORE:-changeme}
+        -DHR_ISPREPROD=${HR_ISPREPROD:-true}
+        -DHR_URL=${HR_URL:-https://webservices.preprod.kvk.nl/postbus1}
+        -DHR_IMAP_RESOURCE=${HR_IMAP_RESOURCE:-disabled}
+        -DHR_IMAP_USER=${HR_IMAP_USER:-changeme}
+        -DHR_IMAP_PASS=${HR_IMAP_PASS:-changeme}
+        -DHR_IMAP_HOST=${HR_IMAP_HOST:-mail.b3partners.nl}
     depends_on:
       - db
     restart: unless-stopped
