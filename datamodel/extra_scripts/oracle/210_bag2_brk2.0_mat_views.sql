@@ -1,9 +1,13 @@
--- volgende scripts uitvoeren in het public schema
+-- volgende scripts uitvoeren in het rsgb schema
+ALTER SESSION SET NLS_LENGTH_SEMANTICS='CHAR';
+SET DEFINE OFF;
+WHENEVER SQLERROR EXIT sql.sqlcode;
+
 CREATE MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres
 AS
- SELECT CAST(ROWNUM AS INTEGER)                                                 AS objectid,
-       o.identificatie                                                         ,
-       TO_CHAR(o.begingeldigheid)                                              ,
+SELECT CAST(ROWNUM AS INTEGER)                                                 AS objectid,
+       o.identificatie,
+       TO_CHAR(o.begingeldigheid),
        o.begingeldigheid                                                       AS begingeldigheid_datum,
        -- koppeling met BAG
        CAST(NULL AS VARCHAR2(255 CHAR))                                        AS benoemdobj_identif,
@@ -14,10 +18,10 @@ AS
        ' ' || COALESCE(TO_CHAR(o.appartementsrechtvolgnummer), '')             AS aanduiding2,
        o.sectie                                                                AS sectie,
        o.perceelnummer                                                         AS perceelnummer,
-       o.appartementsrechtvolgnummer                                           ,
-       o.akrkadastralegemeente                                                 ,
-       qry.soortgrootte                                                        ,
-       qry.kadastralegrootte                                                   ,
+       o.appartementsrechtvolgnummer,
+       o.akrkadastralegemeente,
+       qry.soortgrootte,
+       qry.kadastralegrootte,
        SDO_GEOM.SDO_AREA(qry.begrenzing_perceel, 0.1)                          AS oppervlakte_geom,
        -- bestaat niet
        CAST(NULL AS VARCHAR2(4 CHAR))                                          AS deelperceelnummer,
@@ -26,24 +30,24 @@ AS
        -- TODO verkoop datum uit stukdeel via recht
        CAST(NULL AS DATE)                                                      AS verkoop_datum,
        o.aard_cultuur_onbebouwd                                                AS aard_cultuur_onbebouwd,
-       o.koopsom_bedrag                                                        ,
-       o.koopsom_koopjaar                                                      ,
-       o.koopsom_indicatiemeerobjecten                                         ,
-       o.koopsom_valuta                                                        ,
+       o.koopsom_bedrag,
+       o.koopsom_koopjaar,
+       o.koopsom_indicatiemeerobjecten,
+       o.koopsom_valuta,
        -- TODO BRK adres?
        CAST(NULL AS VARCHAR2(255 CHAR))                                        AS loc_omschr,
        aantekeningen.aantekeningen                                             AS aantekeningen,
-	maogb.identificatienummeraanduiding,
-    maogb.nummeraanduidingstatus,
-    maogb.gemeente,
-    maogb.woonplaats,
-    maogb.straatnaam,
-    maogb.huisnummer,
-    maogb.huisletter,
-    maogb.huisnummertoevoeging,
-    maogb.postcode,
-    maogb.gebruiksdoelen,
-    maogb.oppervlakte,
+       maogb.identificatienummeraanduiding,
+       maogb.nummeraanduidingstatus,
+       maogb.gemeente,
+       maogb.woonplaats,
+       maogb.straatnaam,
+       maogb.huisnummer,
+       maogb.huisletter,
+       maogb.huisnummertoevoeging,
+       maogb.postcode,
+       maogb.gebruiksdoelen,
+       maogb.oppervlakte,
        SDO_CS.TRANSFORM((qry.plaatscoordinaten), 4326).SDO_POINT.X             AS lon,
        SDO_CS.TRANSFORM((qry.plaatscoordinaten), 4326).SDO_POINT.Y             AS lat,
        qry.begrenzing_perceel                                                  AS begrenzing_perceel
@@ -59,35 +63,35 @@ FROM (SELECT p.identificatie      AS identificatie,
              'appartement'               AS type,
              CAST(NULL AS VARCHAR2(100)) AS soortgrootte,
              CAST(NULL AS NUMBER)        AS kadastralegrootte,
-             COALESCE(p.begrenzing_perceel, p2.begrenzing_perceel) ,
+             COALESCE(p.begrenzing_perceel, p2.begrenzing_perceel),
              CAST(NULL AS SDO_GEOMETRY)  AS plaatscoordinaten
       FROM BRMO_BRK.appartementsrecht a
-             LEFT JOIN BRMO_BRK.recht r ON (a.hoofdsplitsing = r.isbetrokkenbij)
-             -- wanneer het zakelijkrecht een eigendomsrecht is
-             LEFT JOIN BRMO_BRK.perceel p ON (r.rustop = p.identificatie)
-             -- [BRMO-342] wanneer het zakelijkrecht een recht is die het eigendomsrecht belast
-             LEFT JOIN BRMO_BRK.recht_isbelastmet ribm ON (r.identificatie = ribm.isbelastmet)
-             LEFT JOIN BRMO_BRK.recht r2 ON (ribm.zakelijkrecht = r2.identificatie)
-             LEFT JOIN BRMO_BRK.perceel p2 ON (r2.rustop = p2.identificatie)) qry
+               LEFT JOIN BRMO_BRK.recht r ON (a.hoofdsplitsing = r.isbetrokkenbij)
+          -- wanneer het zakelijkrecht een eigendomsrecht is
+               LEFT JOIN BRMO_BRK.perceel p ON (r.rustop = p.identificatie)
+          -- [BRMO-342] wanneer het zakelijkrecht een recht is die het eigendomsrecht belast
+               LEFT JOIN BRMO_BRK.recht_isbelastmet ribm ON (r.identificatie = ribm.isbelastmet)
+               LEFT JOIN BRMO_BRK.recht r2 ON (ribm.zakelijkrecht = r2.identificatie)
+               LEFT JOIN BRMO_BRK.perceel p2 ON (r2.rustop = p2.identificatie)) qry
          JOIN BRMO_BRK.onroerendezaak o ON qry.identificatie = o.identificatie
          LEFT JOIN(SELECT r.aantekeningkadastraalobject,
                           LISTAGG(
-                                      'id: ' || COALESCE(r.identificatie, '') || ', '
+                                  'id: ' || COALESCE(r.identificatie, '') || ', '
                                       || 'aard: ' || COALESCE(r.aard, '') || ', '
                                       || 'begin: ' || COALESCE(TO_CHAR(r.begingeldigheid), '') || ', '
                                       || 'beschrijving: ' || COALESCE(r.omschrijving, '') || ', '
                                       || 'eind: ' || COALESCE(TO_CHAR(r.einddatum), '') || ', '
                                       || 'koz-id: ' || COALESCE(r.aantekeningkadastraalobject, '') || ', '
                                       || 'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
-                                      TRUNCATE WITH COUNT)
-                                      WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
+                                  TRUNCATE WITH COUNT)
+                                  WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
                    FROM BRMO_BRK.recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
                   ON o.identificatie = aantekeningen.aantekeningkadastraalobject
-                      LEFT JOIN BRMO_BRK.onroerendezaak o ON qry.identificatie = o.identificatie
-    LEFT JOIN BRMO_BRK.objectlocatie o2 ON o2.heeft = o.identificatie
-    LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
-    LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
+         LEFT JOIN BRMO_BRK.onroerendezaak o ON qry.identificatie = o.identificatie
+         LEFT JOIN BRMO_BRK.objectlocatie o2 ON o2.heeft = o.identificatie
+         LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
+         LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
 
 COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
@@ -132,82 +136,83 @@ COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
+
 delete
 from user_sdo_geom_metadata
 where table_name = 'MB_KADASTRALEONROERENDEZAKENMETADRES';
 insert into user_sdo_geom_metadata
 values ('MB_KADASTRALEONROERENDEZAKENMETADRES', 'begrenzing_perceel',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-                            
+        MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+                            MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+
 CREATE INDEX mb_kadastraleonroerendezakenmetadres_begrenzing_perceel_idx ON mb_kadastraleonroerendezakenmetadres (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 CREATE INDEX mb_kadastraleonroerendezakenmetadres_identif ON mb_kadastraleonroerendezakenmetadres (identificatie);
 CREATE UNIQUE INDEX mb_kadastraleonroerendezakenmetadres_objectid ON mb_kadastraleonroerendezakenmetadres (objectid);
 
 CREATE MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
 AS
-SELECT CAST(ROWNUM AS INTEGER)              AS objectid,
-    koz.identificatie                       ,
-    TO_CHAR(koz.begingeldigheid_datum)      AS begingeldigheid,
-    koz.begingeldigheid_datum               ,
-    koz.type                                ,
-    koz.aanduiding                          ,
-    koz.aanduiding2                         ,
-    koz.sectie                              ,
-    koz.perceelnummer                       ,
-    koz.appartementsrechtvolgnummer         ,
-    koz.akrkadastralegemeente               ,
-    koz.soortgrootte                        ,
-    koz.kadastralegrootte                   ,
-    koz.oppervlakte_geom                    ,
-    koz.deelperceelnummer                   ,
-    koz.omschr_deelperceel                  ,
-    koz.verkoop_datum                       ,
-    koz.aard_cultuur_onbebouwd              ,
-    koz.koopsom_bedrag                      ,
-    koz.koopsom_koopjaar                    ,
-    koz.koopsom_indicatiemeerobjecten       ,
-    koz.koopsom_valuta                      ,
-    koz.loc_omschr                          ,
-    zrr.zr_identif                          AS zakelijkrechtidentificatie,
-    zrr.ingangsdatum_recht                  AS zakelijkrechtbegingeldigheid,
-    zrr.subject_identif                     AS tennamevan,
-    zrr.mandeligheid_identif                ,
-    zrr.aandeel                             ,
-    zrr.omschr_aard_verkregen_recht         AS aard,
-    zrr.indic_betrokken_in_splitsing        AS isbetrokkenbij,
-    zrr.soort                               ,
-    zrr.geslachtsnaam                       ,
-    zrr.voorvoegsel                         ,
-    zrr.voornamen                           ,
-    zrr.aand_naamgebruik                    AS aanduidingnaamgebruik,
-    zrr.geslachtsaand                       AS geslacht,
-    zrr.naam                                ,
-    zrr.woonadres                           ,
-    zrr.geboortedatum                       ,
-    zrr.geboorteplaats                      ,
-    zrr.overlijdensdatum                    ,
-    zrr.bsn                                 ,
-    zrr.organisatie_naam                    AS statutairenaam,
-    zrr.rechtsvorm                          ,
-    zrr.statutaire_zetel                    ,
-    zrr.rsin                                ,
-    zrr.kvk_nummer                          AS kvknummer,
-    zrr.aantekeningen                       ,
-    koz.gemeente                            ,
-    koz.woonplaats                          ,
-    koz.straatnaam                          ,
-    koz.huisnummer                          ,
-    koz.huisletter                          ,
-    koz.huisnummertoevoeging                ,
-    koz.postcode                            ,
-    koz.lon                                 ,
-    koz.lat                                 ,
-    koz.begrenzing_perceel
-FROM brmo_brk.mb_zr_rechth zrr
+SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
+       koz.identificatie,
+       TO_CHAR(koz.begingeldigheid_datum) AS begingeldigheid,
+       koz.begingeldigheid_datum,
+       koz.type,
+       koz.aanduiding,
+       koz.aanduiding2,
+       koz.sectie,
+       koz.perceelnummer,
+       koz.appartementsrechtvolgnummer,
+       koz.akrkadastralegemeente,
+       koz.soortgrootte,
+       koz.kadastralegrootte,
+       koz.oppervlakte_geom,
+       koz.deelperceelnummer,
+       koz.omschr_deelperceel,
+       koz.verkoop_datum,
+       koz.aard_cultuur_onbebouwd,
+       koz.koopsom_bedrag,
+       koz.koopsom_koopjaar,
+       koz.koopsom_indicatiemeerobjecten,
+       koz.koopsom_valuta,
+       koz.loc_omschr,
+       zrr.zr_identif                     AS zakelijkrechtidentificatie,
+       zrr.ingangsdatum_recht             AS zakelijkrechtbegingeldigheid,
+       zrr.subject_identif                AS tennamevan,
+       zrr.mandeligheid_identif,
+       zrr.aandeel,
+       zrr.omschr_aard_verkregenr_recht   AS aard,
+       zrr.indic_betrokken_in_splitsing   AS isbetrokkenbij,
+       zrr.soort,
+       zrr.geslachtsnaam,
+       zrr.voorvoegsel,
+       zrr.voornamen,
+       zrr.aand_naamgebruik               AS aanduidingnaamgebruik,
+       zrr.geslachtsaand                  AS geslacht,
+       zrr.naam,
+       zrr.woonadres,
+       zrr.geboortedatum,
+       zrr.geboorteplaats,
+       zrr.overlijdensdatum,
+       zrr.bsn,
+       zrr.organisatie_naam               AS statutairenaam,
+       zrr.rechtsvorm,
+       zrr.statutaire_zetel,
+       zrr.rsin,
+       zrr.kvk_nummer                     AS kvknummer,
+       zrr.aantekeningen,
+       koz.gemeente,
+       koz.woonplaats,
+       koz.straatnaam,
+       koz.huisnummer,
+       koz.huisletter,
+       koz.huisnummertoevoeging,
+       koz.postcode,
+       koz.lon,
+       koz.lat,
+       koz.begrenzing_perceel
+FROM BRMO_BRK.mb_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
-         
-    COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
+
+COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
         beschikbare kolommen:
@@ -269,83 +274,83 @@ FROM brmo_brk.mb_zr_rechth zrr
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
-    
+
 delete
 from user_sdo_geom_metadata
 where table_name = 'MB_ONROERENDEZAKENMETRECHTHEBBENDEN';
 insert into user_sdo_geom_metadata
 values ('mb_onroerendezakenmetrechthebbenden', 'begrenzing_perceel',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-                            
+        MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+                            MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+
 CREATE INDEX mb_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON mb_onroerendezakenmetrechthebbenden (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 CREATE INDEX mb_onroerendezakenmetrechthebbenden_identif ON mb_onroerendezakenmetrechthebbenden (identificatie);
-CREATE UNIQUE INDEX mb_onroerendezakenmetrechthebbenden_objectid ON mb_onroerendezakenmetrechthebbenden (objectid);    
+CREATE UNIQUE INDEX mb_onroerendezakenmetrechthebbenden_objectid ON mb_onroerendezakenmetrechthebbenden (objectid);
 
 CREATE MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
 AS
-SELECT CAST(ROWNUM AS INTEGER)              AS objectid,
-    koz.identificatie                       ,
-    TO_CHAR(koz.begingeldigheid_datum)      AS begingeldigheid,
-    koz.begingeldigheid_datum               ,
-    koz.type                                ,
-    koz.aanduiding                          ,
-    koz.aanduiding2                         ,
-    koz.sectie                              ,
-    koz.perceelnummer                       ,
-    koz.appartementsrechtvolgnummer         ,
-    koz.akrkadastralegemeente               ,
-    koz.soortgrootte                        ,
-    koz.kadastralegrootte                   ,
-    koz.oppervlakte_geom                    ,
-    koz.deelperceelnummer                   ,
-    koz.omschr_deelperceel                  ,
-    koz.verkoop_datum                       ,
-    koz.aard_cultuur_onbebouwd              ,
-    koz.koopsom_bedrag                      ,
-    koz.koopsom_koopjaar                    ,
-    koz.koopsom_indicatiemeerobjecten       ,
-    koz.koopsom_valuta                      ,
-    koz.loc_omschr                          ,
-    zrr.zr_identif                          AS zakelijkrechtidentificatie,
-    zrr.ingangsdatum_recht                  AS zakelijkrechtbegingeldigheid,
-    zrr.subject_identif                     AS tennamevan,
-    zrr.mandeligheid_identif                ,
-    zrr.aandeel                             ,
-    zrr.omschr_aard_verkregen_recht         AS aard,
-    zrr.indic_betrokken_in_splitsing        AS isbetrokkenbij,
-    zrr.soort                               ,
-    zrr.geslachtsnaam                       ,
-    zrr.voorvoegsel                         ,
-    zrr.voornamen                           ,
-    zrr.aand_naamgebruik                    AS aanduidingnaamgebruik,
-    zrr.geslachtsaand                       AS geslacht,
-    zrr.naam                                ,
-    zrr.woonadres                           ,
-    zrr.geboortedatum                       ,
-    zrr.geboorteplaats                      ,
-    zrr.overlijdensdatum                    ,
-    zrr.bsn                                 ,
-    zrr.organisatie_naam                    AS statutairenaam,
-    zrr.rechtsvorm                          ,
-    zrr.statutaire_zetel                    ,
-    zrr.rsin                                ,
-    zrr.kvk_nummer                          AS kvknummer,
-    zrr.aantekeningen                       ,
-    koz.gemeente                            ,
-    koz.woonplaats                          ,
-    koz.straatnaam                          ,
-    koz.huisnummer                          ,
-    koz.huisletter                          ,
-    koz.huisnummertoevoeging                ,
-    koz.postcode                            ,
-    koz.lon                                 ,
-    koz.lat                                 ,
-    koz.begrenzing_perceel
-FROM brmo_brk.mb_avg_zr_rechth zrr
+SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
+       koz.identificatie,
+       TO_CHAR(koz.begingeldigheid_datum) AS begingeldigheid,
+       koz.begingeldigheid_datum,
+       koz.type,
+       koz.aanduiding,
+       koz.aanduiding2,
+       koz.sectie,
+       koz.perceelnummer,
+       koz.appartementsrechtvolgnummer,
+       koz.akrkadastralegemeente,
+       koz.soortgrootte,
+       koz.kadastralegrootte,
+       koz.oppervlakte_geom,
+       koz.deelperceelnummer,
+       koz.omschr_deelperceel,
+       koz.verkoop_datum,
+       koz.aard_cultuur_onbebouwd,
+       koz.koopsom_bedrag,
+       koz.koopsom_koopjaar,
+       koz.koopsom_indicatiemeerobjecten,
+       koz.koopsom_valuta,
+       koz.loc_omschr,
+       zrr.zr_identif                     AS zakelijkrechtidentificatie,
+       zrr.ingangsdatum_recht             AS zakelijkrechtbegingeldigheid,
+       zrr.subject_identif                AS tennamevan,
+       zrr.mandeligheid_identif,
+       zrr.aandeel,
+       zrr.omschr_aard_verkregenr_recht   AS aard,
+       zrr.indic_betrokken_in_splitsing   AS isbetrokkenbij,
+       zrr.soort,
+       zrr.geslachtsnaam,
+       zrr.voorvoegsel,
+       zrr.voornamen,
+       zrr.aand_naamgebruik               AS aanduidingnaamgebruik,
+       zrr.geslachtsaand                  AS geslacht,
+       zrr.naam,
+       zrr.woonadres,
+       zrr.geboortedatum,
+       zrr.geboorteplaats,
+       zrr.overlijdensdatum,
+       zrr.bsn,
+       zrr.organisatie_naam               AS statutairenaam,
+       zrr.rechtsvorm,
+       zrr.statutaire_zetel,
+       zrr.rsin,
+       zrr.kvk_nummer                     AS kvknummer,
+       zrr.aantekeningen,
+       koz.gemeente,
+       koz.woonplaats,
+       koz.straatnaam,
+       koz.huisnummer,
+       koz.huisletter,
+       koz.huisnummertoevoeging,
+       koz.postcode,
+       koz.lon,
+       koz.lat,
+       koz.begrenzing_perceel
+FROM BRMO_BRK.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
-         
-    COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
+
+COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
         beschikbare kolommen:
@@ -407,15 +412,15 @@ FROM brmo_brk.mb_avg_zr_rechth zrr
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
     * begrenzing_perceel: perceelvlak';
-    
+
 delete
 from user_sdo_geom_metadata
 where table_name = 'MB_AVG_ONROERENDEZAKENMETRECHTHEBBENDEN';
 insert into user_sdo_geom_metadata
 values ('mb_avg_onroerendezakenmetrechthebbenden', 'begrenzing_perceel',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-                            
+        MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),
+                            MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
+
 CREATE INDEX mb_avg_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON mb_avg_onroerendezakenmetrechthebbenden (begrenzing_perceel) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 CREATE INDEX mb_avg_onroerendezakenmetrechthebbenden_identif ON mb_avg_onroerendezakenmetrechthebbenden (identificatie);
 CREATE UNIQUE INDEX mb_avg_onroerendezakenmetrechthebbenden_objectid ON mb_avg_onroerendezakenmetrechthebbenden (objectid);
