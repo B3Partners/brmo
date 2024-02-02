@@ -281,15 +281,15 @@ FROM (SELECT p.identificatie      AS identificatie,
          JOIN onroerendezaak o ON qry.identificatie = o.identificatie
          LEFT JOIN(SELECT r.aantekeningkadastraalobject,
                           LISTAGG(
-                                      'id: ' || COALESCE(r.identificatie, '') || ', '
+                                  'id: ' || COALESCE(r.identificatie, '') || ', '
                                       || 'aard: ' || COALESCE(r.aard, '') || ', '
                                       || 'begin: ' || COALESCE(TO_CHAR(r.begingeldigheid), '') || ', '
                                       || 'beschrijving: ' || COALESCE(r.omschrijving, '') || ', '
                                       || 'eind: ' || COALESCE(TO_CHAR(r.einddatum), '') || ', '
                                       || 'koz-id: ' || COALESCE(r.aantekeningkadastraalobject, '') || ', '
                                       || 'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
-                                      TRUNCATE WITH COUNT)
-                                      WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
+                                  TRUNCATE WITH COUNT)
+                                  WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
                    FROM recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
                   ON o.identificatie = aantekeningen.aantekeningkadastraalobject;
@@ -410,15 +410,15 @@ FROM (SELECT p.identificatie      AS identificatie,
          JOIN onroerendezaak o ON qry.identificatie = o.identificatie
          LEFT JOIN(SELECT r.aantekeningkadastraalobject,
                           LISTAGG(
-                                      'id: ' || COALESCE(r.identificatie, '') || ', '
+                                  'id: ' || COALESCE(r.identificatie, '') || ', '
                                       || 'aard: ' || COALESCE(r.aard, '') || ', '
                                       || 'begin: ' || COALESCE(TO_CHAR(r.begingeldigheid), '') || ', '
                                       || 'beschrijving: ' || COALESCE(r.omschrijving, '') || ', '
                                       || 'eind: ' || COALESCE(TO_CHAR(r.einddatum), '') || ', '
                                       || 'koz-id: ' || COALESCE(r.aantekeningkadastraalobject, '') || ', '
                                       || 'subject-id: ' || COALESCE(r.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
-                                      TRUNCATE WITH COUNT)
-                                      WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
+                                  TRUNCATE WITH COUNT)
+                                  WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
                    FROM recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
                   ON o.identificatie = aantekeningen.aantekeningkadastraalobject;
@@ -459,23 +459,22 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
     * begrenzing_perceel: perceelvlak';
 
 -- BRMO-336: toevoegen van zakelijke rechten die het eigendomsrecht belasten
-CREATE OR REPLACE VIEW vb_util_zk_recht_op_koz 
+CREATE OR REPLACE VIEW vb_util_zk_recht_op_koz
             (
              identificatie,
              rustop_zak_recht
-            )
-AS 
-SELECT  qry.identificatie,
-        qry.rustop_zak_recht
-FROM    ( 
-            SELECT ribm.isbelastmet                                     AS identificatie,
-                   zakrecht.rustop                                      AS rustop_zak_recht
-            FROM recht_isbelastmet ribm
-            LEFT JOIN recht zakrecht ON ribm.zakelijkrecht = zakrecht.identificatie
-            UNION ALL
-            SELECT zakrecht.identificatie,
-                   zakrecht.rustop                                      AS rustop_zak_recht
-            FROM recht zakrecht) qry
+                )
+AS
+SELECT qry.identificatie,
+       qry.rustop_zak_recht
+FROM (SELECT ribm.isbelastmet AS identificatie,
+             zakrecht.rustop  AS rustop_zak_recht
+      FROM recht_isbelastmet ribm
+               LEFT JOIN recht zakrecht ON ribm.zakelijkrecht = zakrecht.identificatie
+      UNION ALL
+      SELECT zakrecht.identificatie,
+             zakrecht.rustop AS rustop_zak_recht
+      FROM recht zakrecht) qry
 WHERE SUBSTR(qry.identificatie, 1, INSTR(qry.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
 
 CREATE OR REPLACE VIEW vb_util_zk_recht
@@ -502,36 +501,36 @@ SELECT zakrecht.identificatie                                            AS zr_i
        tenaamstelling.aandeel_noemer                                     AS ar_noemer,
        -- BRMO-339: samenvoegen van de tennamevan (tenaamstelling) en de heeftverenigingvaneigenaren, zodat de grondpercelen zichtbaar zijn
        -- BRMO-340: samenvoegen van de tennamevan (tenaamstelling) op de zakelijke rechten die bestemd zijn tot een mandeligheid
-       COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') || 
+       COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') ||
        COALESCE(tenaamstelling2.tennamevan, '')                          AS subject_identif,
-        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.                                                               
+       -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.
        mandeligheid.identificatie                                        AS mandeligheid_identif,
        zakrecht.rustop                                                   AS koz_identif,
        CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
        zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
        zakrecht.aard                                                     AS fk_3avr_aand,
        (SELECT LISTAGG(
-                           'id: ' || COALESCE(aantekening.identificatie, '') || ', '
+                       'id: ' || COALESCE(aantekening.identificatie, '') || ', '
                            || 'aard: ' || COALESCE(aantekening.aard, '') || ', '
                            || 'begin: ' || COALESCE(TO_CHAR(aantekening.begingeldigheid), '') || ', '
                            || 'beschrijving: ' || COALESCE(aantekening.omschrijving, '') || ', '
                            || 'eind: ' || COALESCE(TO_CHAR(aantekening.einddatum), '') || ', '
                            || 'koz-id: ' || COALESCE(aantekening.aantekeningkadastraalobject, '') || ', '
                            || 'subject-id: ' || COALESCE(aantekening.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
-                           TRUNCATE WITH COUNT)
-                           WITHIN GROUP ( ORDER BY aantekening.aantekeningkadastraalobject ) AS aantekeningen
+                       TRUNCATE WITH COUNT)
+                       WITHIN GROUP ( ORDER BY aantekening.aantekeningkadastraalobject ) AS aantekeningen
         FROM recht aantekening
         WHERE aantekening.aantekeningkadastraalobject = zakrecht.rustop) AS aantekeningen
 FROM recht zakrecht
-        -- tenaamstelling
-        LEFT JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
-        -- vereniging van eigenaren
-        LEFT JOIN recht vve ON zakrecht.isbetrokkenbij = vve.identificatie
-        LEFT JOIN vb_util_zk_recht_op_koz vuzrok ON zakrecht.identificatie = vuzrok.identificatie
-        -- mandeligheid
-        LEFT JOIN recht mandeligheid ON zakrecht.isbestemdtot = mandeligheid.identificatie
-        LEFT JOIN vb_util_zk_recht_op_koz vuzrok2 ON mandeligheid.heefthoofdzaak = vuzrok2.rustop_zak_recht
-        LEFT JOIN recht tenaamstelling2 ON vuzrok2.identificatie = tenaamstelling2.van
+         -- tenaamstelling
+         LEFT JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
+    -- vereniging van eigenaren
+         LEFT JOIN recht vve ON zakrecht.isbetrokkenbij = vve.identificatie
+         LEFT JOIN vb_util_zk_recht_op_koz vuzrok ON zakrecht.identificatie = vuzrok.identificatie
+    -- mandeligheid
+         LEFT JOIN recht mandeligheid ON zakrecht.isbestemdtot = mandeligheid.identificatie
+         LEFT JOIN vb_util_zk_recht_op_koz vuzrok2 ON mandeligheid.heefthoofdzaak = vuzrok2.rustop_zak_recht
+         LEFT JOIN recht tenaamstelling2 ON vuzrok2.identificatie = tenaamstelling2.van
 WHERE SUBSTR(zakrecht.identificatie, 1, INSTR(zakrecht.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
 
 COMMENT ON TABLE vb_util_zk_recht IS
