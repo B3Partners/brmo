@@ -51,9 +51,12 @@ COPY bin_unzipped/drivers/pgsql/*.jar /usr/local/tomcat/lib/
 
 # sla de SQL scripts op in de image om evt. database aan te kunnen maken
 COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
+      "bin_unzipped/db/rsgb/postgresql/209_bag2_rsgb_views.sql", \
+      "bin_unzipped/db/rsgb/postgresql/210_bag2_brk2.0_mat_views.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql_views.sql", \
       "bin_unzipped/db/brk/brk2.0_commentaar.sql", \
+      "bin_unzipped/db/bag/postgresql/208_bag2_views.sql", \
       "bin_unzipped/db/topnl/postgres.sql", \
       "bin_unzipped/db/staging/create-brmo-persistence-postgresql.sql", \
       "/opt/brmo-data/sqlscripts/"]

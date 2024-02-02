@@ -130,6 +130,21 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../${project.basedir}/datamodel/extra_scripts/</directory>
+            <outputDirectory>db/bag</outputDirectory>
+            <includes>
+                <include>**/208_*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../${project.basedir}/datamodel/extra_scripts/</directory>
+            <outputDirectory>db/rsgb</outputDirectory>
+            <includes>
+                <include>**/209_*.sql</include>
+                <include>**/210_*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>
