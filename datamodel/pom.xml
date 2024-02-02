@@ -457,6 +457,7 @@
                                 <bag.dburl>jdbc:oracle:thin:@127.0.0.1:1521:XE?oracle.net.disableOob=true</bag.dburl>
                                 <bag.dbuser>JENKINS_BAG</bag.dbuser>
                                 <bag.dbpassword>jenkins_bag</bag.dbpassword>
+                                <bag.dbschema>jenkins_bag</bag.dbschema>
                             </systemPropertyVariables>
                             <excludedGroups>skip-oracle</excludedGroups>
                             <!--suppress UnresolvedMavenProperty -->
