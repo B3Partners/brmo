@@ -140,7 +140,7 @@ public class MaterializedViewsTest {
                 "mb_pand",
                 "mb_benoemd_obj_adres",
                 "mb_ben_obj_nevenadres",
-                // brk
+                // brk in rsgb/public
                 "mb_subject",
                 "mb_avg_subject",
                 "mb_util_app_re_kad_perceel",
@@ -156,7 +156,12 @@ public class MaterializedViewsTest {
                 "mb_adresseerbaar_object_geometrie_bag",
                 "mb_avg_koz_rechth_bag",
                 "mb_kad_onrrnd_zk_adres_bag",
-                "mb_koz_rechth_bag")
+                "mb_koz_rechth_bag",
+                // bag 2 & brk 2 views in rsgb/public
+                "mb_kadastraleonroerendezakenmetadres",
+                "mb_onroerendezakenmetrechthebbenden",
+                "mb_avg_onroerendezakenmetrechthebbenden"
+                )
             .collect(Collectors.toList());
 
     if (this.isPostgis) {
@@ -173,13 +178,27 @@ public class MaterializedViewsTest {
               "brk.mb_avg_koz_rechth",
               "brk.mb_kad_onrrnd_zk_archief"));
     }
+    if (this.isOracle) {
+      views.addAll(
+          Arrays.asList(
+              // brk 2 / oracle
+              "MB_AVG_KOZ_RECHTH",
+              "MB_AVG_SUBJECT",
+              "MB_AVG_ZR_RECHTH",
+              "MB_KAD_ONRRND_ZK_ADRES",
+              "MB_KAD_ONRRND_ZK_ARCHIEF",
+              "MB_KOZ_RECHTH",
+              "MB_PERCELENKAART",
+              "MB_SUBJECT",
+              "MB_ZR_RECHTH"));
+    }
 
     // alles lower-case (ORACLE!) en gesorteerd vergelijken
     viewsFound.replaceAll(String::toLowerCase);
     views.replaceAll(String::toLowerCase);
     Collections.sort(viewsFound);
     Collections.sort(views);
-    assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
+    assertEquals(views, viewsFound, "De lijsten met materialized views zijn ongelijk");
   }
 
   /**
