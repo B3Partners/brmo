@@ -47,9 +47,10 @@ jobs:
         run: mvn --% -e verify -B -T1 -Dtest.onlyITs=true -pl "!brmo-dist" -DskipQA=true
 
       - name: 'Upload coverage to Codecov'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: 'Cleanup build artifacts en snapshots'
         run: |
