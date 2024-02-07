@@ -18,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
 @HandlerChain(file = &quot;/handler-chain.xml&quot;)
 <span class="nc" id="L19">public class GetBrkInfoImpl {</span>
 <span class="nc" id="L20">  private static final Log LOG = LogFactory.getLog(GetBrkInfoImpl.class);</span>
+
   /** Web service operation */
   @WebMethod(operationName = &quot;getBrkInfo&quot;)
   @RequestWrapper(className = &quot;nl.b3p.brmo.soap.brk.getBrkInfo&quot;)
@@ -25,40 +26,40 @@ import org.apache.commons.logging.LogFactory;
   public BrkInfoResponse getBrkInfo(@WebParam(name = &quot;request&quot;) BrkInfoRequest request)
       throws BrkInfoException {
 
-<span class="nc" id="L28">    Map&lt;String, Object&gt; searchContext = BrkInfo.createSearchContext(request);</span>
-<span class="nc bnc" id="L29" title="All 2 branches missed.">    if (searchContext.isEmpty()) {</span>
-<span class="nc" id="L30">      throw new BrkInfoException(&quot;Request not valid&quot;, &quot;minimaal één zoekterm vereist!&quot;);</span>
+<span class="nc" id="L29">    Map&lt;String, Object&gt; searchContext = BrkInfo.createSearchContext(request);</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">    if (searchContext.isEmpty()) {</span>
+<span class="nc" id="L31">      throw new BrkInfoException(&quot;Request not valid&quot;, &quot;minimaal één zoekterm vereist!&quot;);</span>
     }
 
-<span class="nc" id="L33">    ArrayList&lt;Long&gt; ids = null;</span>
+<span class="nc" id="L34">    ArrayList&lt;Long&gt; ids = null;</span>
     try {
-<span class="nc" id="L35">      ids = BrkInfo.findKozIDs(searchContext);</span>
-<span class="nc" id="L36">    } catch (Exception ex) {</span>
-<span class="nc" id="L37">      LOG.error(ex);</span>
-<span class="nc" id="L38">      throw new BrkInfoException(&quot;Database reported errors&quot;, ex.getLocalizedMessage());</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L36">      ids = BrkInfo.findKozIDs(searchContext);</span>
+<span class="nc" id="L37">    } catch (Exception ex) {</span>
+<span class="nc" id="L38">      LOG.error(ex);</span>
+<span class="nc" id="L39">      throw new BrkInfoException(&quot;Database reported errors&quot;, ex.getLocalizedMessage());</span>
+<span class="nc" id="L40">    }</span>
 
-<span class="nc bnc" id="L41" title="All 4 branches missed.">    if (ids == null || ids.isEmpty()) {</span>
-<span class="nc" id="L42">      throw new BrkInfoException(&quot;Database reported&quot;, &quot;Geen resultaten&quot;);</span>
+<span class="nc bnc" id="L42" title="All 4 branches missed.">    if (ids == null || ids.isEmpty()) {</span>
+<span class="nc" id="L43">      throw new BrkInfoException(&quot;Database reported&quot;, &quot;Geen resultaten&quot;);</span>
     }
 
-<span class="nc bnc" id="L45" title="All 2 branches missed.">    if (ids.size() &gt; (Integer) searchContext.get(BrkInfo.MAXAANTALRESULTATEN)) {</span>
-<span class="nc" id="L46">      throw new BrkInfoException(</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">    if (ids.size() &gt; (Integer) searchContext.get(BrkInfo.MAXAANTALRESULTATEN)) {</span>
+<span class="nc" id="L47">      throw new BrkInfoException(</span>
           &quot;Database reported&quot;,
           &quot;Meer resultaten dan toegestaan: &quot;
-<span class="nc" id="L49">              + (Integer) searchContext.get(BrkInfo.MAXAANTALRESULTATEN)</span>
+<span class="nc" id="L50">              + (Integer) searchContext.get(BrkInfo.MAXAANTALRESULTATEN)</span>
               + &quot;, pas uw voorwaarden aan!&quot;);
     }
 
-<span class="nc" id="L53">    BrkInfoResponse result = null;</span>
+<span class="nc" id="L54">    BrkInfoResponse result = null;</span>
     try {
-<span class="nc" id="L55">      result = BrkInfo.createResponse(ids, searchContext);</span>
-<span class="nc" id="L56">    } catch (Exception ex) {</span>
-<span class="nc" id="L57">      LOG.error(ex);</span>
-<span class="nc" id="L58">      throw new BrkInfoException(&quot;Database reported errors&quot;, ex.getLocalizedMessage());</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L56">      result = BrkInfo.createResponse(ids, searchContext);</span>
+<span class="nc" id="L57">    } catch (Exception ex) {</span>
+<span class="nc" id="L58">      LOG.error(ex);</span>
+<span class="nc" id="L59">      throw new BrkInfoException(&quot;Database reported errors&quot;, ex.getLocalizedMessage());</span>
+<span class="nc" id="L60">    }</span>
 
-<span class="nc" id="L61">    return result;</span>
+<span class="nc" id="L62">    return result;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -318,128 +318,131 @@ import org.xml.sax.SAXException;
 
   @Override
   public Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           ClassCastException {
 
-<span class="fc" id="L324">    SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;</span>
+<span class="fc" id="L327">    SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;</span>
 
-<span class="fc" id="L326">    Spoorbaandeel rg = new Spoorbaandeel();</span>
-<span class="fc" id="L327">    convertTop250NlObjectType(r, rg);</span>
+<span class="fc" id="L329">    Spoorbaandeel rg = new Spoorbaandeel();</span>
+<span class="fc" id="L330">    convertTop250NlObjectType(r, rg);</span>
 
-<span class="fc" id="L329">    rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));</span>
+<span class="fc" id="L332">    rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));</span>
 
-<span class="fc" id="L331">    rg.setTypeInfrastructuur(r.getTypeInfrastructuur().getValue());</span>
-<span class="fc" id="L332">    rg.setTypeSpoorbaan(r.getTypeSpoorbaan().getValue());</span>
-<span class="fc" id="L333">    rg.setFysiekVoorkomen(</span>
-<span class="pc bpc" id="L334" title="1 of 2 branches missed.">        r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);</span>
-<span class="fc" id="L335">    rg.setSpoorbreedte(r.getSpoorbreedte().getValue());</span>
-<span class="fc" id="L336">    rg.setAantalSporen(r.getAantalSporen().getValue());</span>
-<span class="fc" id="L337">    rg.setVervoerfunctie(r.getVervoerfunctie().getValue());</span>
-<span class="pc bpc" id="L338" title="1 of 2 branches missed.">    rg.setElektrificatie(r.getElektrificatie() == BRTJaNeeWaardeType.JA);</span>
-<span class="fc" id="L339">    rg.setStatus(r.getStatus().getValue());</span>
-<span class="fc" id="L340">    rg.setBrugnaam(r.getBrugnaam());</span>
-<span class="fc" id="L341">    rg.setTunnelnaam(r.getTunnelnaam());</span>
-<span class="fc" id="L342">    rg.setBaanvaknaam(r.getBaanvaknaam());</span>
+<span class="fc" id="L334">    rg.setTypeInfrastructuur(r.getTypeInfrastructuur().getValue());</span>
+<span class="fc" id="L335">    rg.setTypeSpoorbaan(r.getTypeSpoorbaan().getValue());</span>
+<span class="fc" id="L336">    rg.setFysiekVoorkomen(</span>
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);</span>
+<span class="fc" id="L338">    rg.setSpoorbreedte(r.getSpoorbreedte().getValue());</span>
+<span class="fc" id="L339">    rg.setAantalSporen(r.getAantalSporen().getValue());</span>
+<span class="fc" id="L340">    rg.setVervoerfunctie(r.getVervoerfunctie().getValue());</span>
+<span class="pc bpc" id="L341" title="1 of 2 branches missed.">    rg.setElektrificatie(r.getElektrificatie() == BRTJaNeeWaardeType.JA);</span>
+<span class="fc" id="L342">    rg.setStatus(r.getStatus().getValue());</span>
+<span class="fc" id="L343">    rg.setBrugnaam(r.getBrugnaam());</span>
+<span class="fc" id="L344">    rg.setTunnelnaam(r.getTunnelnaam());</span>
+<span class="fc" id="L345">    rg.setBaanvaknaam(r.getBaanvaknaam());</span>
 
-<span class="fc" id="L344">    return rg;</span>
+<span class="fc" id="L347">    return rg;</span>
   }
 
   @Override
   public Terrein convertTerrein(Object jaxbObject)
       throws IOException, SAXException, ParserConfigurationException, TransformerException {
-<span class="fc" id="L350">    TerreinType r = (TerreinType) jaxbObject;</span>
+<span class="fc" id="L353">    TerreinType r = (TerreinType) jaxbObject;</span>
 
-<span class="fc" id="L352">    Terrein rg = new Terrein();</span>
-<span class="fc" id="L353">    convertTop250NlObjectType(r, rg);</span>
+<span class="fc" id="L355">    Terrein rg = new Terrein();</span>
+<span class="fc" id="L356">    convertTop250NlObjectType(r, rg);</span>
 
-<span class="fc" id="L355">    rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrieVlak()));</span>
+<span class="fc" id="L358">    rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrieVlak()));</span>
 
-<span class="fc" id="L357">    rg.setNaam(r.getNaam());</span>
-<span class="fc" id="L358">    rg.setTypeLandgebruik(</span>
-<span class="pc bpc" id="L359" title="1 of 2 branches missed.">        r.getTypeLandgebruik() != null ? r.getTypeLandgebruik().getValue() : null);</span>
+<span class="fc" id="L360">    rg.setNaam(r.getNaam());</span>
+<span class="fc" id="L361">    rg.setTypeLandgebruik(</span>
+<span class="pc bpc" id="L362" title="1 of 2 branches missed.">        r.getTypeLandgebruik() != null ? r.getTypeLandgebruik().getValue() : null);</span>
 
-<span class="fc" id="L361">    return rg;</span>
+<span class="fc" id="L364">    return rg;</span>
   }
 
   @Override
   public Waterdeel convertWaterdeel(Object jaxbObject)
       throws IOException, SAXException, ParserConfigurationException, TransformerException {
-<span class="fc" id="L367">    WaterdeelType r = (WaterdeelType) jaxbObject;</span>
+<span class="fc" id="L370">    WaterdeelType r = (WaterdeelType) jaxbObject;</span>
 
-<span class="fc" id="L369">    Waterdeel rg = new Waterdeel();</span>
-<span class="fc" id="L370">    convertTop250NlObjectType(r, rg);</span>
+<span class="fc" id="L372">    Waterdeel rg = new Waterdeel();</span>
+<span class="fc" id="L373">    convertTop250NlObjectType(r, rg);</span>
 
-<span class="fc" id="L372">    rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));</span>
+<span class="fc" id="L375">    rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));</span>
 
-<span class="pc bpc" id="L374" title="1 of 2 branches missed.">    rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);</span>
-<span class="pc bpc" id="L375" title="1 of 2 branches missed.">    rg.setBreedteklasse(r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);</span>
-<span class="fc" id="L376">    rg.setFysiekVoorkomen(</span>
-<span class="pc bpc" id="L377" title="1 of 2 branches missed.">        r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);</span>
-<span class="pc bpc" id="L378" title="1 of 2 branches missed.">    rg.setVoorkomen(r.getVoorkomen() != null ? r.getVoorkomen().getValue() : null);</span>
-<span class="pc bpc" id="L379" title="1 of 2 branches missed.">    rg.setGetijdeinvloed(r.getGetijdeinvloed() == BRTJaNeeWaardeType.JA);</span>
-<span class="pc bpc" id="L380" title="1 of 2 branches missed.">    rg.setVaarwegklasse(r.getVaarwegklasse() != null ? r.getVaarwegklasse().getValue() : null);</span>
-<span class="fc" id="L381">    rg.setNaamOfficieel(r.getNaamOfficieel());</span>
-<span class="fc" id="L382">    rg.setNaamNL(String.join(&quot;,&quot;, r.getNaamNL()));</span>
-<span class="fc" id="L383">    rg.setNaamFries(String.join(&quot;,&quot;, r.getNaamFries()));</span>
-<span class="pc bpc" id="L384" title="1 of 2 branches missed.">    rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);</span>
-<span class="fc" id="L385">    rg.setSluisnaam(r.getSluisnaam());</span>
-<span class="fc" id="L386">    rg.setBrugnaam(r.getBrugnaam());</span>
-<span class="fc" id="L387">    return rg;</span>
+<span class="pc bpc" id="L377" title="1 of 2 branches missed.">    rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);</span>
+<span class="pc bpc" id="L378" title="1 of 2 branches missed.">    rg.setBreedteklasse(r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);</span>
+<span class="fc" id="L379">    rg.setFysiekVoorkomen(</span>
+<span class="pc bpc" id="L380" title="1 of 2 branches missed.">        r.getFysiekVoorkomen() != null ? r.getFysiekVoorkomen().getValue() : null);</span>
+<span class="pc bpc" id="L381" title="1 of 2 branches missed.">    rg.setVoorkomen(r.getVoorkomen() != null ? r.getVoorkomen().getValue() : null);</span>
+<span class="pc bpc" id="L382" title="1 of 2 branches missed.">    rg.setGetijdeinvloed(r.getGetijdeinvloed() == BRTJaNeeWaardeType.JA);</span>
+<span class="pc bpc" id="L383" title="1 of 2 branches missed.">    rg.setVaarwegklasse(r.getVaarwegklasse() != null ? r.getVaarwegklasse().getValue() : null);</span>
+<span class="fc" id="L384">    rg.setNaamOfficieel(r.getNaamOfficieel());</span>
+<span class="fc" id="L385">    rg.setNaamNL(String.join(&quot;,&quot;, r.getNaamNL()));</span>
+<span class="fc" id="L386">    rg.setNaamFries(String.join(&quot;,&quot;, r.getNaamFries()));</span>
+<span class="pc bpc" id="L387" title="1 of 2 branches missed.">    rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);</span>
+<span class="fc" id="L388">    rg.setSluisnaam(r.getSluisnaam());</span>
+<span class="fc" id="L389">    rg.setBrugnaam(r.getBrugnaam());</span>
+<span class="fc" id="L390">    return rg;</span>
   }
 
   @Override
   public Wegdeel convertWegdeel(Object jaxbObject)
       throws IOException, SAXException, ParserConfigurationException, TransformerException {
-<span class="fc" id="L393">    WegdeelType r = (WegdeelType) jaxbObject;</span>
+<span class="fc" id="L396">    WegdeelType r = (WegdeelType) jaxbObject;</span>
 
-<span class="fc" id="L395">    Wegdeel rg = new Wegdeel();</span>
-<span class="fc" id="L396">    convertTop250NlObjectType(r, rg);</span>
+<span class="fc" id="L398">    Wegdeel rg = new Wegdeel();</span>
+<span class="fc" id="L399">    convertTop250NlObjectType(r, rg);</span>
 
-<span class="fc" id="L398">    String types = &quot;&quot;;</span>
-<span class="pc bpc" id="L399" title="1 of 2 branches missed.">    for (CodeType codeType : r.getFysiekVoorkomen()) {</span>
-<span class="nc bnc" id="L400" title="All 2 branches missed.">      if (types.length() != 0) {</span>
-<span class="nc" id="L401">        types += &quot;,&quot;;</span>
+<span class="fc" id="L401">    String types = &quot;&quot;;</span>
+<span class="pc bpc" id="L402" title="1 of 2 branches missed.">    for (CodeType codeType : r.getFysiekVoorkomen()) {</span>
+<span class="nc bnc" id="L403" title="All 2 branches missed.">      if (types.length() != 0) {</span>
+<span class="nc" id="L404">        types += &quot;,&quot;;</span>
       }
-<span class="nc" id="L403">      types += codeType.getValue();</span>
-<span class="nc" id="L404">    }</span>
-<span class="fc" id="L405">    rg.setFysiekVoorkomen(types);</span>
+<span class="nc" id="L406">      types += codeType.getValue();</span>
+<span class="nc" id="L407">    }</span>
+<span class="fc" id="L408">    rg.setFysiekVoorkomen(types);</span>
 
-<span class="fc" id="L407">    rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));</span>
-<span class="fc" id="L408">    rg.setTypeInfrastructuur(</span>
-<span class="pc bpc" id="L409" title="1 of 2 branches missed.">        r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);</span>
-<span class="pc bpc" id="L410" title="1 of 2 branches missed.">    rg.setTypeWeg(r.getTypeWeg() != null ? r.getTypeWeg().getValue() : null);</span>
-<span class="fc" id="L411">    rg.setHoofdverkeersgebruik(</span>
-<span class="pc bpc" id="L412" title="1 of 2 branches missed.">        r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik().getValue() : null);</span>
-<span class="fc" id="L413">    rg.setVerhardingsbreedteklasse(</span>
-<span class="pc bpc" id="L414" title="1 of 2 branches missed.">        r.getVerhardingsbreedteklasse() != null</span>
-<span class="nc" id="L415">            ? r.getVerhardingsbreedteklasse().getValue()</span>
-<span class="fc" id="L416">            : null);</span>
-<span class="pc bpc" id="L417" title="1 of 2 branches missed.">    rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);</span>
-<span class="fc" id="L418">    rg.setVerhardingstype(</span>
-<span class="pc bpc" id="L419" title="1 of 2 branches missed.">        r.getVerhardingstype() != null ? r.getVerhardingstype().getValue() : null);</span>
-<span class="fc" id="L420">    rg.setAantalRijstroken(</span>
-<span class="pc bpc" id="L421" title="1 of 2 branches missed.">        r.getAantalRijstroken() != null ? r.getAantalRijstroken().longValue() : null);</span>
-<span class="pc bpc" id="L422" title="1 of 2 branches missed.">    rg.setStatus(r.getStatus() != null ? r.getStatus().getValue() : null);</span>
-<span class="fc" id="L423">    rg.setNaam(String.join(&quot;,&quot;, r.getNaam()));</span>
-<span class="pc bpc" id="L424" title="1 of 2 branches missed.">    rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);</span>
-<span class="fc" id="L425">    rg.setaWegnummer(String.join(&quot;,&quot;, r.getAWegnummer()));</span>
-<span class="fc" id="L426">    rg.setnWegnummer(String.join(&quot;,&quot;, r.getNWegnummer()));</span>
-<span class="fc" id="L427">    rg.seteWegnummer(String.join(&quot;,&quot;, r.getEWegnummer()));</span>
-<span class="fc" id="L428">    rg.setsWegnummer(String.join(&quot;,&quot;, r.getSWegnummer()));</span>
-<span class="fc" id="L429">    rg.setAfritnummer(r.getAfritnummer());</span>
-<span class="fc" id="L430">    rg.setAfritnaam(r.getAfritnaam());</span>
-<span class="fc" id="L431">    rg.setKnooppuntnaam(r.getKnooppuntnaam());</span>
-<span class="fc" id="L432">    rg.setBrugnaam(r.getBrugnaam());</span>
-<span class="fc" id="L433">    rg.setTunnelnaam(r.getTunnelnaam());</span>
-<span class="fc" id="L434">    return rg;</span>
+<span class="fc" id="L410">    rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));</span>
+<span class="fc" id="L411">    rg.setTypeInfrastructuur(</span>
+<span class="pc bpc" id="L412" title="1 of 2 branches missed.">        r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);</span>
+<span class="pc bpc" id="L413" title="1 of 2 branches missed.">    rg.setTypeWeg(r.getTypeWeg() != null ? r.getTypeWeg().getValue() : null);</span>
+<span class="fc" id="L414">    rg.setHoofdverkeersgebruik(</span>
+<span class="pc bpc" id="L415" title="1 of 2 branches missed.">        r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik().getValue() : null);</span>
+<span class="fc" id="L416">    rg.setVerhardingsbreedteklasse(</span>
+<span class="pc bpc" id="L417" title="1 of 2 branches missed.">        r.getVerhardingsbreedteklasse() != null</span>
+<span class="nc" id="L418">            ? r.getVerhardingsbreedteklasse().getValue()</span>
+<span class="fc" id="L419">            : null);</span>
+<span class="pc bpc" id="L420" title="1 of 2 branches missed.">    rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);</span>
+<span class="fc" id="L421">    rg.setVerhardingstype(</span>
+<span class="pc bpc" id="L422" title="1 of 2 branches missed.">        r.getVerhardingstype() != null ? r.getVerhardingstype().getValue() : null);</span>
+<span class="fc" id="L423">    rg.setAantalRijstroken(</span>
+<span class="pc bpc" id="L424" title="1 of 2 branches missed.">        r.getAantalRijstroken() != null ? r.getAantalRijstroken().longValue() : null);</span>
+<span class="pc bpc" id="L425" title="1 of 2 branches missed.">    rg.setStatus(r.getStatus() != null ? r.getStatus().getValue() : null);</span>
+<span class="fc" id="L426">    rg.setNaam(String.join(&quot;,&quot;, r.getNaam()));</span>
+<span class="pc bpc" id="L427" title="1 of 2 branches missed.">    rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);</span>
+<span class="fc" id="L428">    rg.setaWegnummer(String.join(&quot;,&quot;, r.getAWegnummer()));</span>
+<span class="fc" id="L429">    rg.setnWegnummer(String.join(&quot;,&quot;, r.getNWegnummer()));</span>
+<span class="fc" id="L430">    rg.seteWegnummer(String.join(&quot;,&quot;, r.getEWegnummer()));</span>
+<span class="fc" id="L431">    rg.setsWegnummer(String.join(&quot;,&quot;, r.getSWegnummer()));</span>
+<span class="fc" id="L432">    rg.setAfritnummer(r.getAfritnummer());</span>
+<span class="fc" id="L433">    rg.setAfritnaam(r.getAfritnaam());</span>
+<span class="fc" id="L434">    rg.setKnooppuntnaam(r.getKnooppuntnaam());</span>
+<span class="fc" id="L435">    rg.setBrugnaam(r.getBrugnaam());</span>
+<span class="fc" id="L436">    rg.setTunnelnaam(r.getTunnelnaam());</span>
+<span class="fc" id="L437">    return rg;</span>
   }
 
   @Override
   public PlanTopografie convertPlanTopografie(Object jaxbObject)
       throws IOException, SAXException, ParserConfigurationException, TransformerException {
-<span class="nc" id="L440">    throw new UnsupportedOperationException(</span>
+<span class="nc" id="L443">    throw new UnsupportedOperationException(</span>
         &quot;Not supported yet.&quot;); // To change body of generated methods, choose Tools |
     // Templates.
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

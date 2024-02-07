@@ -84,7 +84,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>identificatie</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -93,19 +93,19 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="objectlocatie.betreft refs adres.identificatie via objectlocatie_betreft_fkey"><a href='objectlocatie.html'>objectlocatie</a><span class='relatedKey'>.betreft</span>
     </td>
     <td class='constraint detail'>objectlocatie_betreft_fkey<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="persoon.postlocatie refs adres.identificatie via persoon_postlocatie_fkey"><a href='persoon.html'>persoon</a><span class='relatedKey'>.postlocatie</span>
     </td>
     <td class='constraint detail'>persoon_postlocatie_fkey<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="persoon.woonlocatie refs adres.identificatie via persoon_woonlocatie_fkey"><a href='persoon.html'>persoon</a><span class='relatedKey'>.woonlocatie</span>
     </td>
     <td class='constraint detail'>persoon_woonlocatie_fkey<span title='Restrict delete:
@@ -116,7 +116,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>huisnummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>5</td>
@@ -127,7 +127,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>huisletter</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>1</td>
@@ -138,7 +138,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>huisnummertoevoeging</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>4</td>
@@ -149,7 +149,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>postbusnummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>6</td>
@@ -160,7 +160,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het postbusnummer van een postbuslocatie is het nummer van een postbus.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>postcode</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>6</td>
@@ -171,7 +171,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De postcode van het gebouw waarin de postbus zich bevindt of de door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>openbareruimtenaam</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>80</td>
@@ -182,7 +182,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>woonplaatsnaam</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>80</td>
@@ -193,7 +193,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De woonplaats waarin de postbus zich bevindt of de benaming van een door het gemeentebestuur aangewezen woonplaats.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>nummeraanduiding</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -204,7 +204,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>adresseerbaarobject</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -215,7 +215,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Een adresseerbaar object is een object waaraan adressen ingevolge de basisregistratie adressen kunnen worden toegekend : een verblijfsobject , standplaats of ligplaats.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>verblijfsobject</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -226,7 +226,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>standplaats</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -237,7 +237,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een standplaats.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>ligplaats</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -248,7 +248,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het nummer van de door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een ligplaats.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>hoofdadres</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -259,7 +259,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Referentie naar de betreffende objectlocatie.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>nevenadres</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>16</td>
@@ -270,7 +270,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Referentie naar de betreffende objectlocatie.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>buitenlandadres</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>200</td>
@@ -281,7 +281,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het adres is een combinatie van de straat en huisnummer.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>buitenlandwoonplaats</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>200</td>
@@ -292,7 +292,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Woonplaats is de combinatie van een eventuele postcode en woonplaats.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>buitenlandregio</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>150</td>
@@ -303,7 +303,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Regio is de naam van een of meer geografische gebieden als groepering ten behoeve van het adresseren.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>land</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>40</td>
@@ -315,7 +315,7 @@
  <td class='comment detail'>Land is een topografische - en internationaal rechtserkende eenheid.</td>
 </tr>
 </table>
-<p title='19 columns'>Table contained 0 rows at Thu Jul 13 11:30 CEST 2023<p/>
+<p title='19 columns'>Table contained 0 rows at Wed Feb 07 11:58 CET 2024<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

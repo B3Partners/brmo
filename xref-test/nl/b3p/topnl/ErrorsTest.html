@@ -63,90 +63,105 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>    @Test
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> polygonErrors1Test()
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>        <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException,
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>            TransformerException, ParseException, SQLException {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      URL in = ErrorsTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"problems/polygonError1.xml"</span>);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      TopNLType type = TopNLType.TOP250NL;
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      List jaxb = instance.parse(in);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      List&lt;TopNLEntity&gt; terrein = instance.convert(jaxb, type);
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      instance.save(terrein.get(0), type);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      ResultSetHandler&lt;Terrein&gt; handler =
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">new</strong> BeanHandler&lt;&gt;(
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>              Terrein.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              <strong class="jxr_keyword">new</strong> BasicRowProcessor(
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>                  <strong class="jxr_keyword">new</strong> DbUtilsGeometryColumnConverter(
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                      GeometryJdbcConverterFactory.getGeometryJdbcConverter(
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>                          datasource.getConnection()))));
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      Terrein real =
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          run.query(
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <span class="jxr_string">"SELECT * FROM top250nl.terrein WHERE identificatie=?"</span>,
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              handler,
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <span class="jxr_string">"NL.TOP250NL.16R09-0000064537"</span>);
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      assertNotNull(real);
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>    }
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>    @Test
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> polygonErrors2Test()
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>        <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException,
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>            TransformerException, ParseException, SQLException {
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      URL in = ErrorsTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"problems/polygonError2.xml"</span>);
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      TopNLType type = TopNLType.TOP250NL;
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      List jaxb = instance.parse(in);
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      List&lt;TopNLEntity&gt; terrein = instance.convert(jaxb, type);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      instance.save(terrein.get(0), type);
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      ResultSetHandler&lt;Terrein&gt; handler =
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">new</strong> BeanHandler&lt;&gt;(
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>              Terrein.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>              <strong class="jxr_keyword">new</strong> BasicRowProcessor(
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>                  <strong class="jxr_keyword">new</strong> DbUtilsGeometryColumnConverter(
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>                      GeometryJdbcConverterFactory.getGeometryJdbcConverter(
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                          datasource.getConnection()))));
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>  
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>     Terrein real =
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         run.query(
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>             <span class="jxr_string">"SELECT * FROM top250nl.terrein WHERE identificatie=?"</span>,
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>             handler,
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>             <span class="jxr_string">"NL.TOP250NL.16R09-0000064539"</span>);
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     assertNotNull(real);
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>   }
-<a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>   @Test
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> spoorbaanDePunt()
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>       <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException,
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>           TransformerException, ParseException, SQLException {
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     URL in = ErrorsTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"problems/SpoorDePunt.xml"</span>);
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>     TopNLType type = TopNLType.TOP10NL;
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     List jaxb = instance.parse(in);
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     List&lt;TopNLEntity&gt; spoorbaandeel = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>       spoorbaandeel = instance.convert(jaxb, type);
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>     } <strong class="jxr_keyword">catch</strong> (ClassCastException e) {
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>       fail(<span class="jxr_string">"Cannot convert spoorbaandeel with point geometry type"</span>);
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>     assertEquals(1, spoorbaandeel.size());
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     instance.save(spoorbaandeel.get(0), type);
-<a class="jxr_linenumber" name="L123" href="#L123">123</a> 
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     ResultSetHandler&lt;Terrein&gt; handler =
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">new</strong> BeanHandler&lt;&gt;(
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>             Terrein.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">new</strong> BasicRowProcessor(
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>                 <strong class="jxr_keyword">new</strong> DbUtilsGeometryColumnConverter(
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>                     GeometryJdbcConverterFactory.getGeometryJdbcConverter(
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                         datasource.getConnection()))));
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>     Terrein real =
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         run.query(
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             <span class="jxr_string">"SELECT * FROM top10nl.spoorbaandeel WHERE identificatie=?"</span>,
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>             handler,
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>             <span class="jxr_string">"NL.TOP10NL.105531727"</span>);
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     assertNotNull(real);
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>   }
-<a class="jxr_linenumber" name="L139" href="#L139">139</a> }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>        <strong class="jxr_keyword">throws</strong> JAXBException,
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>            IOException,
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>            SAXException,
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>            ParserConfigurationException,
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>            TransformerException,
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>            ParseException,
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>            SQLException {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      URL in = ErrorsTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"problems/polygonError1.xml"</span>);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      TopNLType type = TopNLType.TOP250NL;
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      List jaxb = instance.parse(in);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      List&lt;TopNLEntity&gt; terrein = instance.convert(jaxb, type);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      instance.save(terrein.get(0), type);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      ResultSetHandler&lt;Terrein&gt; handler =
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">new</strong> BeanHandler&lt;&gt;(
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>              Terrein.<strong class="jxr_keyword">class</strong>,
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">new</strong> BasicRowProcessor(
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  <strong class="jxr_keyword">new</strong> DbUtilsGeometryColumnConverter(
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>                      GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>                          datasource.getConnection()))));
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      Terrein real =
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          run.query(
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              <span class="jxr_string">"SELECT * FROM top250nl.terrein WHERE identificatie=?"</span>,
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              handler,
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              <span class="jxr_string">"NL.TOP250NL.16R09-0000064537"</span>);
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      assertNotNull(real);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>    }
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>    @Test
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> polygonErrors2Test()
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>        <strong class="jxr_keyword">throws</strong> JAXBException,
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>            IOException,
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>            SAXException,
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>            ParserConfigurationException,
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>            TransformerException,
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>            ParseException,
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>            SQLException {
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      URL in = ErrorsTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"problems/polygonError2.xml"</span>);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      TopNLType type = TopNLType.TOP250NL;
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      List jaxb = instance.parse(in);
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      List&lt;TopNLEntity&gt; terrein = instance.convert(jaxb, type);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>     instance.save(terrein.get(0), type);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>     ResultSetHandler&lt;Terrein&gt; handler =
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">new</strong> BeanHandler&lt;&gt;(
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>             Terrein.<strong class="jxr_keyword">class</strong>,
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>             <strong class="jxr_keyword">new</strong> BasicRowProcessor(
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 <strong class="jxr_keyword">new</strong> DbUtilsGeometryColumnConverter(
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>                     GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>                         datasource.getConnection()))));
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     Terrein real =
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         run.query(
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>             <span class="jxr_string">"SELECT * FROM top250nl.terrein WHERE identificatie=?"</span>,
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>             handler,
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>             <span class="jxr_string">"NL.TOP250NL.16R09-0000064539"</span>);
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     assertNotNull(real);
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>   }
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>   @Test
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> spoorbaanDePunt()
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>       <strong class="jxr_keyword">throws</strong> JAXBException,
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>           IOException,
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>           SAXException,
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>           ParserConfigurationException,
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>           TransformerException,
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>           ParseException,
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>           SQLException {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     URL in = ErrorsTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"problems/SpoorDePunt.xml"</span>);
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     TopNLType type = TopNLType.TOP10NL;
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     List jaxb = instance.parse(in);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     List&lt;TopNLEntity&gt; spoorbaandeel = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>       spoorbaandeel = instance.convert(jaxb, type);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>     } <strong class="jxr_keyword">catch</strong> (ClassCastException e) {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>       fail(<span class="jxr_string">"Cannot convert spoorbaandeel with point geometry type"</span>);
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     }
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     assertEquals(1, spoorbaandeel.size());
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     instance.save(spoorbaandeel.get(0), type);
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> 
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     ResultSetHandler&lt;Terrein&gt; handler =
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         <strong class="jxr_keyword">new</strong> BeanHandler&lt;&gt;(
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>             Terrein.<strong class="jxr_keyword">class</strong>,
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>             <strong class="jxr_keyword">new</strong> BasicRowProcessor(
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>                 <strong class="jxr_keyword">new</strong> DbUtilsGeometryColumnConverter(
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>                     GeometryJdbcConverterFactory.getGeometryJdbcConverter(
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                         datasource.getConnection()))));
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> 
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>     Terrein real =
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         run.query(
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>             <span class="jxr_string">"SELECT * FROM top10nl.spoorbaandeel WHERE identificatie=?"</span>,
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>             handler,
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>             <span class="jxr_string">"NL.TOP10NL.105531727"</span>);
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     assertNotNull(real);
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>   }
+<a class="jxr_linenumber" name="L154" href="#L154">154</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

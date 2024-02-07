@@ -14,7 +14,6 @@
 package nl.b3p.brmo.bgt.download.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Arrays;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadResponseLinks;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -35,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadResponse.JSON_PROPERTY_LINKS,
   DeltaCustomDownloadResponse.JSON_PROPERTY_DOWNLOAD_REQUEST_ID
 })
-@javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
 public class DeltaCustomDownloadResponse {
   public static final String JSON_PROPERTY_LINKS = &quot;_links&quot;;
   private DeltaCustomDownloadResponseLinks links;
@@ -43,12 +41,12 @@ public class DeltaCustomDownloadResponse {
   public static final String JSON_PROPERTY_DOWNLOAD_REQUEST_ID = &quot;downloadRequestId&quot;;
   private String downloadRequestId;
 
-<span class="nc" id="L46">  public DeltaCustomDownloadResponse() { </span>
-<span class="nc" id="L47">  }</span>
+<span class="nc" id="L44">  public DeltaCustomDownloadResponse() { </span>
+<span class="nc" id="L45">  }</span>
 
   public DeltaCustomDownloadResponse links(DeltaCustomDownloadResponseLinks links) {
-<span class="nc" id="L50">    this.links = links;</span>
-<span class="nc" id="L51">    return this;</span>
+<span class="nc" id="L48">    this.links = links;</span>
+<span class="nc" id="L49">    return this;</span>
   }
 
    /**
@@ -56,25 +54,24 @@ public class DeltaCustomDownloadResponse {
    * @return links
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = &quot;&quot;)
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public DeltaCustomDownloadResponseLinks getLinks() {
-<span class="nc" id="L64">    return links;</span>
+<span class="nc" id="L61">    return links;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLinks(DeltaCustomDownloadResponseLinks links) {
-<span class="nc" id="L71">    this.links = links;</span>
-<span class="nc" id="L72">  }</span>
+<span class="nc" id="L68">    this.links = links;</span>
+<span class="nc" id="L69">  }</span>
 
 
   public DeltaCustomDownloadResponse downloadRequestId(String downloadRequestId) {
-<span class="nc" id="L76">    this.downloadRequestId = downloadRequestId;</span>
-<span class="nc" id="L77">    return this;</span>
+<span class="nc" id="L73">    this.downloadRequestId = downloadRequestId;</span>
+<span class="nc" id="L74">    return this;</span>
   }
 
    /**
@@ -82,20 +79,19 @@ public class DeltaCustomDownloadResponse {
    * @return downloadRequestId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = &quot;ID van het gemaakte download request&quot;)
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDownloadRequestId() {
-<span class="nc" id="L90">    return downloadRequestId;</span>
+<span class="nc" id="L86">    return downloadRequestId;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDownloadRequestId(String downloadRequestId) {
-<span class="nc" id="L97">    this.downloadRequestId = downloadRequestId;</span>
-<span class="nc" id="L98">  }</span>
+<span class="nc" id="L93">    this.downloadRequestId = downloadRequestId;</span>
+<span class="nc" id="L94">  }</span>
 
 
   /**
@@ -103,30 +99,30 @@ public class DeltaCustomDownloadResponse {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L106" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L107">      return true;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L103">      return true;</span>
     }
-<span class="nc bnc" id="L109" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L110">      return false;</span>
+<span class="nc bnc" id="L105" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L106">      return false;</span>
     }
-<span class="nc" id="L112">    DeltaCustomDownloadResponse deltaCustomDownloadResponse = (DeltaCustomDownloadResponse) o;</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadResponse.links) &amp;&amp;</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">        Objects.equals(this.downloadRequestId, deltaCustomDownloadResponse.downloadRequestId);</span>
+<span class="nc" id="L108">    DeltaCustomDownloadResponse deltaCustomDownloadResponse = (DeltaCustomDownloadResponse) o;</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadResponse.links) &amp;&amp;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        Objects.equals(this.downloadRequestId, deltaCustomDownloadResponse.downloadRequestId);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L119">    return Objects.hash(links, downloadRequestId);</span>
+<span class="nc" id="L115">    return Objects.hash(links, downloadRequestId);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L124">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L125">    sb.append(&quot;class DeltaCustomDownloadResponse {\n&quot;);</span>
-<span class="nc" id="L126">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L127">    sb.append(&quot;    downloadRequestId: &quot;).append(toIndentedString(downloadRequestId)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L128">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L129">    return sb.toString();</span>
+<span class="nc" id="L120">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L121">    sb.append(&quot;class DeltaCustomDownloadResponse {\n&quot;);</span>
+<span class="nc" id="L122">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L123">    sb.append(&quot;    downloadRequestId: &quot;).append(toIndentedString(downloadRequestId)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L124">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L125">    return sb.toString();</span>
   }
 
   /**
@@ -134,12 +130,11 @@ public class DeltaCustomDownloadResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L137" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L138">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L134">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L140">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L136">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
-
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

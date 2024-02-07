@@ -81,41 +81,42 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>        log.error(<span class="jxr_string">"Error querying staging for laadproces for afgifte: "</span> + afgifte.toString(), ex);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>    }
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">   * zoek de status van alle bijbehorende berichten op en leg die vast in de afgifte.</em>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   * @param afgifte de te controleren afgifte</em>
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   * @param lp het laadproces waar de berichten bij zoeken</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   * @throws SQLException if any</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processFoundLaadprocess(<a name="Afgifte" href="../../../../../nl/b3p/brmo/loader/checks/Afgifte.html#Afgifte">Afgifte</a> afgifte, <a name="LaadProces" href="../../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> lp) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      List&lt;Bericht&gt; berichten = staging.getBerichtByLaadProces(lp);
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      Map&lt;Bericht.STATUS, Integer&gt; counts = afgifte.getStatussen();
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      berichten.stream()
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          .map(
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              (bericht) -&gt; {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>                <strong class="jxr_keyword">if</strong> (!counts.containsKey(bericht.getStatus())) {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  counts.put(bericht.getStatus(), 0);
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>                }
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>                <strong class="jxr_keyword">return</strong> bericht;
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>              })
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          .forEachOrdered(
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>              (bericht) -&gt; counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1));
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>    }
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>    <strong class="jxr_keyword">public</strong> File getResults(String input, String f) <strong class="jxr_keyword">throws</strong> FileNotFoundException {
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>      <strong class="jxr_keyword">return</strong> getResults(input, <strong class="jxr_keyword">new</strong> File(f));
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>   }
-<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>   <strong class="jxr_keyword">public</strong> File getResults(String input, File f) <strong class="jxr_keyword">throws</strong> FileNotFoundException {
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a> reporter = <strong class="jxr_keyword">new</strong> <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a>();
-<a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     reporter.createReport(afgiftes, input, f);
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">return</strong> f;
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>   }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> }
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">   * zoek de status van alle bijbehorende berichten op en leg die vast in de afgifte.</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   * @param afgifte de te controleren afgifte</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   * @param lp het laadproces waar de berichten bij zoeken</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">   * @throws SQLException if any</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> processFoundLaadprocess(<a name="Afgifte" href="../../../../../nl/b3p/brmo/loader/checks/Afgifte.html#Afgifte">Afgifte</a> afgifte, <a name="LaadProces" href="../../../../../nl/b3p/brmo/loader/entity/LaadProces.html#LaadProces">LaadProces</a> lp) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      List&lt;Bericht&gt; berichten = staging.getBerichtByLaadProces(lp);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      Map&lt;Bericht.STATUS, Integer&gt; counts = afgifte.getStatussen();
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      berichten.stream()
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          .map(
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              (bericht) -&gt; {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>                <strong class="jxr_keyword">if</strong> (!counts.containsKey(bericht.getStatus())) {
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>                  counts.put(bericht.getStatus(), 0);
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>                }
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>                <strong class="jxr_keyword">return</strong> bericht;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>              })
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          .forEachOrdered(
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>              (bericht) -&gt; counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1));
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>    }
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>    <strong class="jxr_keyword">public</strong> File getResults(String input, String f) <strong class="jxr_keyword">throws</strong> FileNotFoundException {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>     <strong class="jxr_keyword">return</strong> getResults(input, <strong class="jxr_keyword">new</strong> File(f));
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>   }
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> 
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>   <strong class="jxr_keyword">public</strong> File getResults(String input, File f) <strong class="jxr_keyword">throws</strong> FileNotFoundException {
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a> reporter = <strong class="jxr_keyword">new</strong> <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a>();
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> 
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     reporter.createReport(afgiftes, input, f);
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">return</strong> f;
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>   }
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

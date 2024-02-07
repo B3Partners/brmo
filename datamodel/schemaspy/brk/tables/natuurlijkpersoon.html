@@ -84,7 +84,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>identificatie</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -93,7 +93,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="recht.betrokkenpartner refs natuurlijkpersoon.identificatie via recht_betrokkenpartner_fkey"><a href='recht.html'>recht</a><span class='relatedKey'>.betrokkenpartner</span>
     </td>
     <td class='constraint detail'>recht_betrokkenpartner_fkey<span title='Restrict delete:
@@ -104,7 +104,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>indicatieoverleden</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -115,7 +115,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Natuurlijk persoon is al dan niet overleden en is niet gekoppeld aan de BRP.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>indicatieafschermingpersoonsgegevens</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -126,7 +126,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Indicatie Afscherming Persoonsgegevens is een indicatie om aan te geven dat de gegevens van een persoon zijn afgeschermd.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>bsn</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2147483647</td>
@@ -137,7 +137,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het BSN is het burgerservicenummer van de persoon.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>adellijketitelofpredicaat</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>10</td>
@@ -148,7 +148,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De adellijke titel of het predikaat dat behoort tot de naam van de persoon (bij adellijke titel geslachtsnaam, bij predikaat voornaam).</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>aanduidingnaamgebruik</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>72</td>
@@ -159,7 +159,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Een aanduiding voor de wijze van aanschrijving van de ingeschrevene.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>landwaarnaarvertrokken</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>40</td>
@@ -170,7 +170,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het land dat de ingeschrevene opgeeft bij vertrek naar het buitenland.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>geslachtsnaam</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>200</td>
@@ -181,7 +181,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De geslachtsnaam is de (geslachts)naam waarvan de eventueel aanwezige voorvoegsels en adellijke titel zijn afgesplitst.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>voornamen</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>200</td>
@@ -192,7 +192,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De voornamen zijn de verzameling namen die, gescheiden door spaties, aan de geslachtsnaam voorafgaat. Indien aanwezig, wordt het predikaat afgesplitst.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>voorvoegselsgeslachtsnaam</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>10</td>
@@ -203,7 +203,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Voorvoegselsgeslachtsnaam zijn dat deel van de geslachtsnaam dat voorkomt in Tabel 36 (BRP), Voorvoegseltabel en, gescheiden door een spatie, vooraf gaat aan de rest van de geslachtsnaam.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>geslacht</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>8</td>
@@ -214,7 +214,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De geslachtsaanduiding is een gegeven over het geslacht van de persoon (man, vrouw, of onbekend).</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>geboortedatum</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>10</td>
@@ -225,7 +225,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De geboortedatum is de datum waarop de persoon is geboren.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>geboorteplaats</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>80</td>
@@ -236,7 +236,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De geboorteplaats is de plaats of een plaatsbepaling, die aangeeft waar de persoon is geboren</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>geboorteland</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>40</td>
@@ -247,7 +247,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Het geboorteland is de naam, die het land aangeeft waar de persoon is geboren.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>indicatiegeheim</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -258,7 +258,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Een aanduiding die aangeeft dat gegevens van een persoon wel of niet verstrekt mogen worden.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>datumoverlijden</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>10</td>
@@ -269,7 +269,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Datum overlijden is de datum waarop de persoon overleden is.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>partnergeslachtsnaam</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>200</td>
@@ -280,7 +280,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De geslachtsnaam van de partner is de (geslachts)naam waarvan de eventueel aanwezige voorvoegsels en adellijke titel zijn afgesplitst.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>partnervoornamen</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>200</td>
@@ -291,7 +291,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>De voornamen van de partner zijn de verzameling namen die, gescheiden door spaties, aan de geslachtsnaam voorafgaat. Indien aanwezig, wordt het predikaat afgesplitst.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>partnervoorvoegselsgeslachtsnaam</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>10</td>
@@ -303,7 +303,7 @@
  <td class='comment detail'>Dat deel van de geslachtsnaam van de partner dat voorkomt in Tabel 36 (BRP), Voorvoegseltabel en, gescheiden door een spatie, vooraf gaat aan de rest van de geslachtsnaam.</td>
 </tr>
 </table>
-<p title='19 columns'>Table contained 0 rows at Thu Jul 13 11:30 CEST 2023<p/>
+<p title='19 columns'>Table contained 0 rows at Wed Feb 07 11:58 CET 2024<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

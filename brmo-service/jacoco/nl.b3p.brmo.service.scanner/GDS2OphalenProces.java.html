@@ -1020,50 +1020,53 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 <span class="nc" id="L1020">    Client client = ClientProxy.getClient(gds2);</span>
 <span class="nc" id="L1021">    HTTPConduit http = (HTTPConduit) client.getConduit();</span>
 <span class="nc" id="L1022">    TLSClientParameters tlsClientParameters = new TLSClientParameters();</span>
-<span class="nc" id="L1023">    tlsClientParameters.setKeyManagers(kmf.getKeyManagers());</span>
-<span class="nc" id="L1024">    tlsClientParameters.setSslContext(context);</span>
-<span class="nc" id="L1025">    http.setTlsClientParameters(tlsClientParameters);</span>
+<span class="nc" id="L1023">    tlsClientParameters.setSSLSocketFactory(context.getSocketFactory());</span>
+<span class="nc" id="L1024">    http.setTlsClientParameters(tlsClientParameters);</span>
 
-<span class="nc" id="L1027">    return gds2;</span>
+<span class="nc" id="L1026">    return gds2;</span>
   }
 
   private SSLContext createSslContext(KeyManagerFactory kmf)
-      throws KeyStoreException, IOException, CertificateException, NoSuchProviderException,
-          NoSuchAlgorithmException, KeyManagementException {
-<span class="nc" id="L1033">    final SSLContext sslContext = SSLContext.getInstance(&quot;TLS&quot;, &quot;SunJSSE&quot;);</span>
+      throws KeyStoreException,
+          IOException,
+          CertificateException,
+          NoSuchProviderException,
+          NoSuchAlgorithmException,
+          KeyManagementException {
+<span class="nc" id="L1036">    final SSLContext sslContext = SSLContext.getInstance(&quot;TLS&quot;, &quot;SunJSSE&quot;);</span>
 
-<span class="nc" id="L1035">    l.addLog(&quot;Loading PKIX Overheid keystore&quot;);</span>
-<span class="nc" id="L1036">    KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
-<span class="nc" id="L1037">    ks.load(</span>
-<span class="nc" id="L1038">        nl.b3p.gds2.GDS2Util.class.getResourceAsStream(&quot;/pkioverheid.jks&quot;),</span>
-<span class="nc" id="L1039">        &quot;changeit&quot;.toCharArray());</span>
+<span class="nc" id="L1038">    l.addLog(&quot;Loading PKIX Overheid keystore&quot;);</span>
+<span class="nc" id="L1039">    KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
+<span class="nc" id="L1040">    ks.load(</span>
+<span class="nc" id="L1041">        nl.b3p.gds2.GDS2Util.class.getResourceAsStream(&quot;/pkioverheid.jks&quot;),</span>
+<span class="nc" id="L1042">        &quot;changeit&quot;.toCharArray());</span>
 
-<span class="nc" id="L1041">    l.addLog(&quot;Initializing default TrustManagerFactory&quot;);</span>
+<span class="nc" id="L1044">    l.addLog(&quot;Initializing default TrustManagerFactory&quot;);</span>
     final TrustManagerFactory javaDefaultTrustManager =
-<span class="nc" id="L1043">        TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());</span>
-<span class="nc" id="L1044">    javaDefaultTrustManager.init((KeyStore) null);</span>
-<span class="nc" id="L1045">    X509TrustManager defaultX509TrustManager = null;</span>
-<span class="nc bnc" id="L1046" title="All 2 branches missed.">    for (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {</span>
-<span class="nc bnc" id="L1047" title="All 2 branches missed.">      if (t instanceof X509TrustManager) {</span>
-<span class="nc" id="L1048">        defaultX509TrustManager = (X509TrustManager) t;</span>
-<span class="nc" id="L1049">        break;</span>
+<span class="nc" id="L1046">        TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());</span>
+<span class="nc" id="L1047">    javaDefaultTrustManager.init((KeyStore) null);</span>
+<span class="nc" id="L1048">    X509TrustManager defaultX509TrustManager = null;</span>
+<span class="nc bnc" id="L1049" title="All 2 branches missed.">    for (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {</span>
+<span class="nc bnc" id="L1050" title="All 2 branches missed.">      if (t instanceof X509TrustManager) {</span>
+<span class="nc" id="L1051">        defaultX509TrustManager = (X509TrustManager) t;</span>
+<span class="nc" id="L1052">        break;</span>
       }
     }
-<span class="nc" id="L1052">    l.addLog(&quot;Initializing PKIX TrustManagerFactory&quot;);</span>
-<span class="nc" id="L1053">    final TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(&quot;PKIX&quot;);</span>
-<span class="nc" id="L1054">    customCaTrustManager.init(ks);</span>
+<span class="nc" id="L1055">    l.addLog(&quot;Initializing PKIX TrustManagerFactory&quot;);</span>
+<span class="nc" id="L1056">    final TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(&quot;PKIX&quot;);</span>
+<span class="nc" id="L1057">    customCaTrustManager.init(ks);</span>
 
-<span class="nc" id="L1056">    l.addLog(&quot;Initializing SSLContext&quot;);</span>
-<span class="nc" id="L1057">    sslContext.init(</span>
-<span class="nc" id="L1058">        kmf.getKeyManagers(),</span>
+<span class="nc" id="L1059">    l.addLog(&quot;Initializing SSLContext&quot;);</span>
+<span class="nc" id="L1060">    sslContext.init(</span>
+<span class="nc" id="L1061">        kmf.getKeyManagers(),</span>
         new TrustManager[] {
           new TrustManagerDelegate(
               // customCaTrustManager is PKIX dus altijd X.509 (RFC3280)
-<span class="nc" id="L1062">              (X509TrustManager) customCaTrustManager.getTrustManagers()[0],</span>
+<span class="nc" id="L1065">              (X509TrustManager) customCaTrustManager.getTrustManagers()[0],</span>
               defaultX509TrustManager)
         },
         null);
-<span class="nc" id="L1066">    return sslContext;</span>
+<span class="nc" id="L1069">    return sslContext;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -47,7 +47,10 @@ import org.xml.sax.SAXException;
       throws IOException, SAXException, ParserConfigurationException, TransformerException;
 
   public abstract TopNLEntity convertObject(Object jaxbObject)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           IllegalArgumentException;
 
   public abstract List&lt;TopNLEntity&gt; convertFeatureCollection(List jaxbObject)
@@ -84,7 +87,10 @@ import org.xml.sax.SAXException;
    * @throws ClassCastException Als er een onverwacht type geometrie in de data zit.
    */
   public abstract Spoorbaandeel convertSpoorbaandeel(Object jaxbObject)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           ClassCastException;
 
   public abstract Terrein convertTerrein(Object jaxbObject)
@@ -96,4 +102,4 @@ import org.xml.sax.SAXException;
   public abstract Wegdeel convertWegdeel(Object jaxbObject)
       throws IOException, SAXException, ParserConfigurationException, TransformerException;
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

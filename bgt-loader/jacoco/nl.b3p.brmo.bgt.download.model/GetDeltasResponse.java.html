@@ -14,7 +14,6 @@
 package nl.b3p.brmo.bgt.download.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,9 +21,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import nl.b3p.brmo.bgt.download.model.Delta;
 import nl.b3p.brmo.bgt.download.model.HalLink;
@@ -38,25 +36,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   GetDeltasResponse.JSON_PROPERTY_LINKS,
   GetDeltasResponse.JSON_PROPERTY_DELTAS
 })
-@javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
 public class GetDeltasResponse {
   public static final String JSON_PROPERTY_LINKS = &quot;_links&quot;;
-<span class="nc" id="L44">  private List&lt;HalLink&gt; links = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L42">  private List&lt;HalLink&gt; links = new ArrayList&lt;&gt;();</span>
 
   public static final String JSON_PROPERTY_DELTAS = &quot;deltas&quot;;
-<span class="nc" id="L47">  private List&lt;Delta&gt; deltas = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L45">  private List&lt;Delta&gt; deltas = new ArrayList&lt;&gt;();</span>
 
-<span class="nc" id="L49">  public GetDeltasResponse() { </span>
-<span class="nc" id="L50">  }</span>
+<span class="nc" id="L47">  public GetDeltasResponse() { </span>
+<span class="nc" id="L48">  }</span>
 
   public GetDeltasResponse links(List&lt;HalLink&gt; links) {
-<span class="nc" id="L53">    this.links = links;</span>
-<span class="nc" id="L54">    return this;</span>
+<span class="nc" id="L51">    this.links = links;</span>
+<span class="nc" id="L52">    return this;</span>
   }
 
   public GetDeltasResponse addLinksItem(HalLink linksItem) {
-<span class="nc" id="L58">    this.links.add(linksItem);</span>
-<span class="nc" id="L59">    return this;</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">    if (this.links == null) {</span>
+<span class="nc" id="L57">      this.links = new ArrayList&lt;&gt;();</span>
+    }
+<span class="nc" id="L59">    this.links.add(linksItem);</span>
+<span class="nc" id="L60">    return this;</span>
   }
 
    /**
@@ -64,7 +65,6 @@ public class GetDeltasResponse {
    * @return links
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = &quot;Relatieve links naar volgende / vorige pagina's (indien van toepassing)&quot;)
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -86,8 +86,11 @@ public class GetDeltasResponse {
   }
 
   public GetDeltasResponse addDeltasItem(Delta deltasItem) {
-<span class="nc" id="L89">    this.deltas.add(deltasItem);</span>
-<span class="nc" id="L90">    return this;</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">    if (this.deltas == null) {</span>
+<span class="nc" id="L90">      this.deltas = new ArrayList&lt;&gt;();</span>
+    }
+<span class="nc" id="L92">    this.deltas.add(deltasItem);</span>
+<span class="nc" id="L93">    return this;</span>
   }
 
    /**
@@ -95,20 +98,19 @@ public class GetDeltasResponse {
    * @return deltas
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = &quot;Lijst met delta's. De lijst is gesorteerd in oplopende volgorde (oudste eerst)&quot;)
   @JsonProperty(JSON_PROPERTY_DELTAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List&lt;Delta&gt; getDeltas() {
-<span class="nc" id="L103">    return deltas;</span>
+<span class="nc" id="L105">    return deltas;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_DELTAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeltas(List&lt;Delta&gt; deltas) {
-<span class="nc" id="L110">    this.deltas = deltas;</span>
-<span class="nc" id="L111">  }</span>
+<span class="nc" id="L112">    this.deltas = deltas;</span>
+<span class="nc" id="L113">  }</span>
 
 
   /**
@@ -116,30 +118,30 @@ public class GetDeltasResponse {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L119" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L120">      return true;</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L122">      return true;</span>
     }
-<span class="nc bnc" id="L122" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L123">      return false;</span>
+<span class="nc bnc" id="L124" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L125">      return false;</span>
     }
-<span class="nc" id="L125">    GetDeltasResponse getDeltasResponse = (GetDeltasResponse) o;</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">    return Objects.equals(this.links, getDeltasResponse.links) &amp;&amp;</span>
-<span class="nc bnc" id="L127" title="All 2 branches missed.">        Objects.equals(this.deltas, getDeltasResponse.deltas);</span>
+<span class="nc" id="L127">    GetDeltasResponse getDeltasResponse = (GetDeltasResponse) o;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">    return Objects.equals(this.links, getDeltasResponse.links) &amp;&amp;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        Objects.equals(this.deltas, getDeltasResponse.deltas);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L132">    return Objects.hash(links, deltas);</span>
+<span class="nc" id="L134">    return Objects.hash(links, deltas);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L137">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L138">    sb.append(&quot;class GetDeltasResponse {\n&quot;);</span>
-<span class="nc" id="L139">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L140">    sb.append(&quot;    deltas: &quot;).append(toIndentedString(deltas)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L141">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L142">    return sb.toString();</span>
+<span class="nc" id="L139">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L140">    sb.append(&quot;class GetDeltasResponse {\n&quot;);</span>
+<span class="nc" id="L141">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L142">    sb.append(&quot;    deltas: &quot;).append(toIndentedString(deltas)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L143">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L144">    return sb.toString();</span>
   }
 
   /**
@@ -147,12 +149,11 @@ public class GetDeltasResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L150" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L151">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L153">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L153">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L155">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
-
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

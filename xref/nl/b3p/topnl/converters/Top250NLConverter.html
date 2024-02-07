@@ -326,132 +326,135 @@
 <a class="jxr_linenumber" name="L318" href="#L318">318</a> 
 <a class="jxr_linenumber" name="L319" href="#L319">319</a>   @Override
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>   <strong class="jxr_keyword">public</strong> <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a> convertSpoorbaandeel(Object jaxbObject)
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException,
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>           ClassCastException {
-<a class="jxr_linenumber" name="L323" href="#L323">323</a> 
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>     SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
-<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>     <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a>();
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>       <strong class="jxr_keyword">throws</strong> IOException,
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>           SAXException,
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>           ParserConfigurationException,
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>           TransformerException,
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>           ClassCastException {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> 
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>     SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
 <a class="jxr_linenumber" name="L328" href="#L328">328</a> 
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>     rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> 
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>     rg.setTypeInfrastructuur(r.getTypeInfrastructuur().getValue());
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     rg.setTypeSpoorbaan(r.getTypeSpoorbaan().getValue());
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>     rg.setFysiekVoorkomen(
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         r.getFysiekVoorkomen() != <strong class="jxr_keyword">null</strong> ? r.getFysiekVoorkomen().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>     rg.setSpoorbreedte(r.getSpoorbreedte().getValue());
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>     rg.setAantalSporen(r.getAantalSporen().getValue());
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>     rg.setVervoerfunctie(r.getVervoerfunctie().getValue());
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>     rg.setElektrificatie(r.getElektrificatie() == BRTJaNeeWaardeType.JA);
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>     rg.setStatus(r.getStatus().getValue());
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>     rg.setBrugnaam(r.getBrugnaam());
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>     rg.setTunnelnaam(r.getTunnelnaam());
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>     rg.setBaanvaknaam(r.getBaanvaknaam());
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>     <strong class="jxr_keyword">return</strong> rg;
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>   }
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a>();
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>     rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>     rg.setTypeInfrastructuur(r.getTypeInfrastructuur().getValue());
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>     rg.setTypeSpoorbaan(r.getTypeSpoorbaan().getValue());
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>     rg.setFysiekVoorkomen(
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>         r.getFysiekVoorkomen() != <strong class="jxr_keyword">null</strong> ? r.getFysiekVoorkomen().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>     rg.setSpoorbreedte(r.getSpoorbreedte().getValue());
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>     rg.setAantalSporen(r.getAantalSporen().getValue());
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>     rg.setVervoerfunctie(r.getVervoerfunctie().getValue());
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>     rg.setElektrificatie(r.getElektrificatie() == BRTJaNeeWaardeType.JA);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>     rg.setStatus(r.getStatus().getValue());
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>     rg.setBrugnaam(r.getBrugnaam());
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>     rg.setTunnelnaam(r.getTunnelnaam());
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>     rg.setBaanvaknaam(r.getBaanvaknaam());
 <a class="jxr_linenumber" name="L346" href="#L346">346</a> 
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>   @Override
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>   <strong class="jxr_keyword">public</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a> convertTerrein(Object jaxbObject)
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>     TerreinType r = (TerreinType) jaxbObject;
-<a class="jxr_linenumber" name="L351" href="#L351">351</a> 
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>     <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a> rg = <strong class="jxr_keyword">new</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a>();
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>     <strong class="jxr_keyword">return</strong> rg;
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>   }
+<a class="jxr_linenumber" name="L349" href="#L349">349</a> 
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>   @Override
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>   <strong class="jxr_keyword">public</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a> convertTerrein(Object jaxbObject)
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>     TerreinType r = (TerreinType) jaxbObject;
 <a class="jxr_linenumber" name="L354" href="#L354">354</a> 
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>     rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrieVlak()));
-<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>     rg.setNaam(r.getNaam());
-<a class="jxr_linenumber" name="L358" href="#L358">358</a>     rg.setTypeLandgebruik(
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>         r.getTypeLandgebruik() != <strong class="jxr_keyword">null</strong> ? r.getTypeLandgebruik().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L360" href="#L360">360</a> 
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>     <strong class="jxr_keyword">return</strong> rg;
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>   }
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>     <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a> rg = <strong class="jxr_keyword">new</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a>();
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> 
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>     rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrieVlak()));
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> 
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>     rg.setNaam(r.getNaam());
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>     rg.setTypeLandgebruik(
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>         r.getTypeLandgebruik() != <strong class="jxr_keyword">null</strong> ? r.getTypeLandgebruik().getValue() : <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L363" href="#L363">363</a> 
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>   @Override
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>   <strong class="jxr_keyword">public</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a> convertWaterdeel(Object jaxbObject)
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>     WaterdeelType r = (WaterdeelType) jaxbObject;
-<a class="jxr_linenumber" name="L368" href="#L368">368</a> 
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>     <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a>();
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>     <strong class="jxr_keyword">return</strong> rg;
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>   }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a> 
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>   @Override
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>   <strong class="jxr_keyword">public</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a> convertWaterdeel(Object jaxbObject)
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>     WaterdeelType r = (WaterdeelType) jaxbObject;
 <a class="jxr_linenumber" name="L371" href="#L371">371</a> 
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>     rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
-<a class="jxr_linenumber" name="L373" href="#L373">373</a> 
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>     rg.setTypeWater(r.getTypeWater() != <strong class="jxr_keyword">null</strong> ? r.getTypeWater().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>     rg.setBreedteklasse(r.getBreedteklasse() != <strong class="jxr_keyword">null</strong> ? r.getBreedteklasse().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>     rg.setFysiekVoorkomen(
-<a class="jxr_linenumber" name="L377" href="#L377">377</a>         r.getFysiekVoorkomen() != <strong class="jxr_keyword">null</strong> ? r.getFysiekVoorkomen().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>     rg.setVoorkomen(r.getVoorkomen() != <strong class="jxr_keyword">null</strong> ? r.getVoorkomen().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L379" href="#L379">379</a>     rg.setGetijdeinvloed(r.getGetijdeinvloed() == BRTJaNeeWaardeType.JA);
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>     rg.setVaarwegklasse(r.getVaarwegklasse() != <strong class="jxr_keyword">null</strong> ? r.getVaarwegklasse().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>     rg.setNaamOfficieel(r.getNaamOfficieel());
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>     rg.setNaamNL(String.join(<span class="jxr_string">","</span>, r.getNaamNL()));
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>     rg.setNaamFries(String.join(<span class="jxr_string">","</span>, r.getNaamFries()));
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>     rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>     rg.setSluisnaam(r.getSluisnaam());
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>     rg.setBrugnaam(r.getBrugnaam());
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>     <strong class="jxr_keyword">return</strong> rg;
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>   }
-<a class="jxr_linenumber" name="L389" href="#L389">389</a> 
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>   @Override
-<a class="jxr_linenumber" name="L391" href="#L391">391</a>   <strong class="jxr_keyword">public</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a> convertWegdeel(Object jaxbObject)
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>     WegdeelType r = (WegdeelType) jaxbObject;
-<a class="jxr_linenumber" name="L394" href="#L394">394</a> 
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>     <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a>();
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>     <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a>();
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L374" href="#L374">374</a> 
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>     rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
+<a class="jxr_linenumber" name="L376" href="#L376">376</a> 
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>     rg.setTypeWater(r.getTypeWater() != <strong class="jxr_keyword">null</strong> ? r.getTypeWater().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>     rg.setBreedteklasse(r.getBreedteklasse() != <strong class="jxr_keyword">null</strong> ? r.getBreedteklasse().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>     rg.setFysiekVoorkomen(
+<a class="jxr_linenumber" name="L380" href="#L380">380</a>         r.getFysiekVoorkomen() != <strong class="jxr_keyword">null</strong> ? r.getFysiekVoorkomen().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>     rg.setVoorkomen(r.getVoorkomen() != <strong class="jxr_keyword">null</strong> ? r.getVoorkomen().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>     rg.setGetijdeinvloed(r.getGetijdeinvloed() == BRTJaNeeWaardeType.JA);
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>     rg.setVaarwegklasse(r.getVaarwegklasse() != <strong class="jxr_keyword">null</strong> ? r.getVaarwegklasse().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>     rg.setNaamOfficieel(r.getNaamOfficieel());
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>     rg.setNaamNL(String.join(<span class="jxr_string">","</span>, r.getNaamNL()));
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>     rg.setNaamFries(String.join(<span class="jxr_string">","</span>, r.getNaamFries()));
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>     rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>     rg.setSluisnaam(r.getSluisnaam());
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>     rg.setBrugnaam(r.getBrugnaam());
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>     <strong class="jxr_keyword">return</strong> rg;
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>   }
+<a class="jxr_linenumber" name="L392" href="#L392">392</a> 
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>   @Override
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>   <strong class="jxr_keyword">public</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a> convertWegdeel(Object jaxbObject)
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>     WegdeelType r = (WegdeelType) jaxbObject;
 <a class="jxr_linenumber" name="L397" href="#L397">397</a> 
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>     String types = <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>     <strong class="jxr_keyword">for</strong> (CodeType codeType : r.getFysiekVoorkomen()) {
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>       <strong class="jxr_keyword">if</strong> (types.length() != 0) {
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>         types += <span class="jxr_string">","</span>;
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>       }
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>       types += codeType.getValue();
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>     }
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>     rg.setFysiekVoorkomen(types);
-<a class="jxr_linenumber" name="L406" href="#L406">406</a> 
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>     rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>     rg.setTypeInfrastructuur(
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>         r.getTypeInfrastructuur() != <strong class="jxr_keyword">null</strong> ? r.getTypeInfrastructuur().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>     rg.setTypeWeg(r.getTypeWeg() != <strong class="jxr_keyword">null</strong> ? r.getTypeWeg().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>     rg.setHoofdverkeersgebruik(
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         r.getHoofdverkeersgebruik() != <strong class="jxr_keyword">null</strong> ? r.getHoofdverkeersgebruik().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>     rg.setVerhardingsbreedteklasse(
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>         r.getVerhardingsbreedteklasse() != <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>             ? r.getVerhardingsbreedteklasse().getValue()
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>             : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>     rg.setVerhardingstype(
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>         r.getVerhardingstype() != <strong class="jxr_keyword">null</strong> ? r.getVerhardingstype().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>     rg.setAantalRijstroken(
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>         r.getAantalRijstroken() != <strong class="jxr_keyword">null</strong> ? r.getAantalRijstroken().longValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>     rg.setStatus(r.getStatus() != <strong class="jxr_keyword">null</strong> ? r.getStatus().getValue() : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>     rg.setNaam(String.join(<span class="jxr_string">","</span>, r.getNaam()));
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>     rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>     rg.setaWegnummer(String.join(<span class="jxr_string">","</span>, r.getAWegnummer()));
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>     rg.setnWegnummer(String.join(<span class="jxr_string">","</span>, r.getNWegnummer()));
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>     rg.seteWegnummer(String.join(<span class="jxr_string">","</span>, r.getEWegnummer()));
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>     rg.setsWegnummer(String.join(<span class="jxr_string">","</span>, r.getSWegnummer()));
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>     rg.setAfritnummer(r.getAfritnummer());
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>     rg.setAfritnaam(r.getAfritnaam());
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>     rg.setKnooppuntnaam(r.getKnooppuntnaam());
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>     rg.setBrugnaam(r.getBrugnaam());
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>     rg.setTunnelnaam(r.getTunnelnaam());
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>     <strong class="jxr_keyword">return</strong> rg;
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>   }
-<a class="jxr_linenumber" name="L436" href="#L436">436</a> 
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>   @Override
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>   <strong class="jxr_keyword">public</strong> <a name="PlanTopografie" href="../../../../nl/b3p/topnl/entities/PlanTopografie.html#PlanTopografie">PlanTopografie</a> convertPlanTopografie(Object jaxbObject)
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>         <span class="jxr_string">"Not supported yet."</span>); <em class="jxr_comment">// To change body of generated methods, choose Tools |</em>
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>     <em class="jxr_comment">// Templates.</em>
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>   }
-<a class="jxr_linenumber" name="L444" href="#L444">444</a> }
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>     <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a>();
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>     convertTop250NlObjectType(r, rg);
+<a class="jxr_linenumber" name="L400" href="#L400">400</a> 
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>     String types = <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>     <strong class="jxr_keyword">for</strong> (CodeType codeType : r.getFysiekVoorkomen()) {
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>       <strong class="jxr_keyword">if</strong> (types.length() != 0) {
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>         types += <span class="jxr_string">","</span>;
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>       }
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>       types += codeType.getValue();
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>     }
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>     rg.setFysiekVoorkomen(types);
+<a class="jxr_linenumber" name="L409" href="#L409">409</a> 
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>     rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>     rg.setTypeInfrastructuur(
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>         r.getTypeInfrastructuur() != <strong class="jxr_keyword">null</strong> ? r.getTypeInfrastructuur().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>     rg.setTypeWeg(r.getTypeWeg() != <strong class="jxr_keyword">null</strong> ? r.getTypeWeg().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>     rg.setHoofdverkeersgebruik(
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         r.getHoofdverkeersgebruik() != <strong class="jxr_keyword">null</strong> ? r.getHoofdverkeersgebruik().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     rg.setVerhardingsbreedteklasse(
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>         r.getVerhardingsbreedteklasse() != <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>             ? r.getVerhardingsbreedteklasse().getValue()
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>             : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>     rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == BRTJaNeeWaardeType.JA);
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     rg.setVerhardingstype(
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>         r.getVerhardingstype() != <strong class="jxr_keyword">null</strong> ? r.getVerhardingstype().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>     rg.setAantalRijstroken(
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>         r.getAantalRijstroken() != <strong class="jxr_keyword">null</strong> ? r.getAantalRijstroken().longValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>     rg.setStatus(r.getStatus() != <strong class="jxr_keyword">null</strong> ? r.getStatus().getValue() : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>     rg.setNaam(String.join(<span class="jxr_string">","</span>, r.getNaam()));
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>     rg.setIsBAGnaam(r.getIsBAGnaam() == BRTJaNeeWaardeType.JA);
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>     rg.setaWegnummer(String.join(<span class="jxr_string">","</span>, r.getAWegnummer()));
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>     rg.setnWegnummer(String.join(<span class="jxr_string">","</span>, r.getNWegnummer()));
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>     rg.seteWegnummer(String.join(<span class="jxr_string">","</span>, r.getEWegnummer()));
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>     rg.setsWegnummer(String.join(<span class="jxr_string">","</span>, r.getSWegnummer()));
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>     rg.setAfritnummer(r.getAfritnummer());
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>     rg.setAfritnaam(r.getAfritnaam());
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>     rg.setKnooppuntnaam(r.getKnooppuntnaam());
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>     rg.setBrugnaam(r.getBrugnaam());
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>     rg.setTunnelnaam(r.getTunnelnaam());
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>     <strong class="jxr_keyword">return</strong> rg;
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>   }
+<a class="jxr_linenumber" name="L439" href="#L439">439</a> 
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>   @Override
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>   <strong class="jxr_keyword">public</strong> <a name="PlanTopografie" href="../../../../nl/b3p/topnl/entities/PlanTopografie.html#PlanTopografie">PlanTopografie</a> convertPlanTopografie(Object jaxbObject)
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>       <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException(
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <span class="jxr_string">"Not supported yet."</span>); <em class="jxr_comment">// To change body of generated methods, choose Tools |</em>
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>     <em class="jxr_comment">// Templates.</em>
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>   }
+<a class="jxr_linenumber" name="L447" href="#L447">447</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

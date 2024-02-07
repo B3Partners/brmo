@@ -37,6 +37,7 @@
     * ar_teller: teller van aandeel,
     * ar_noemer: noemer van aandeel,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * indic_betrokken_in_splitsing: -,
     * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -97,7 +98,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>zr_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -108,7 +109,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>ingangsdatum_recht</td>
  <td class='detail'>date</td>
  <td class='detail' align='right'>13</td>
@@ -119,7 +120,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>aandeel</td>
  <td class='detail'>text</td>
  <td class='detail' align='right'>2147483647</td>
@@ -130,7 +131,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>ar_teller</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>32</td>
@@ -141,7 +142,7 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>ar_noemer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>32</td>
@@ -152,10 +153,21 @@
  <td class='detail'> </td>
  <td class='comment detail'></td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>subject_identif</td>
- <td class='detail'>varchar</td>
+ <td class='detail'>text</td>
  <td class='detail' align='right'>2147483647</td>
+ <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
+ <td class='detail' align='center'></td>
+ <td class='detail' align='right'>null</td>
+ <td class='detail'></td>
+ <td class='detail'> </td>
+ <td class='comment detail'></td>
+</tr>
+<tr class='even'>
+ <td class='detail'>mandeligheid_identif</td>
+ <td class='detail'>varchar</td>
+ <td class='detail' align='right'>255</td>
  <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
  <td class='detail' align='center'></td>
  <td class='detail' align='right'>null</td>
@@ -219,7 +231,7 @@
  <td class='comment detail'></td>
 </tr>
 </table>
-<p title='11 columns'>Analyzed at Thu Jul 13 11:30 CEST 2023<p/>
+<p title='12 columns'>Analyzed at Wed Feb 07 11:58 CET 2024<p/>
 </td></tr></table>
 </div>
 </body>

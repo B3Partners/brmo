@@ -1028,54 +1028,57 @@
 <a class="jxr_linenumber" name="L1020" href="#L1020">1020</a>     Client client = ClientProxy.getClient(gds2);
 <a class="jxr_linenumber" name="L1021" href="#L1021">1021</a>     HTTPConduit http = (HTTPConduit) client.getConduit();
 <a class="jxr_linenumber" name="L1022" href="#L1022">1022</a>     TLSClientParameters tlsClientParameters = <strong class="jxr_keyword">new</strong> TLSClientParameters();
-<a class="jxr_linenumber" name="L1023" href="#L1023">1023</a>     tlsClientParameters.setKeyManagers(kmf.getKeyManagers());
-<a class="jxr_linenumber" name="L1024" href="#L1024">1024</a>     tlsClientParameters.setSslContext(context);
-<a class="jxr_linenumber" name="L1025" href="#L1025">1025</a>     http.setTlsClientParameters(tlsClientParameters);
-<a class="jxr_linenumber" name="L1026" href="#L1026">1026</a> 
-<a class="jxr_linenumber" name="L1027" href="#L1027">1027</a>     <strong class="jxr_keyword">return</strong> gds2;
-<a class="jxr_linenumber" name="L1028" href="#L1028">1028</a>   }
-<a class="jxr_linenumber" name="L1029" href="#L1029">1029</a> 
-<a class="jxr_linenumber" name="L1030" href="#L1030">1030</a>   <strong class="jxr_keyword">private</strong> SSLContext createSslContext(KeyManagerFactory kmf)
-<a class="jxr_linenumber" name="L1031" href="#L1031">1031</a>       <strong class="jxr_keyword">throws</strong> KeyStoreException, IOException, CertificateException, NoSuchProviderException,
-<a class="jxr_linenumber" name="L1032" href="#L1032">1032</a>           NoSuchAlgorithmException, KeyManagementException {
-<a class="jxr_linenumber" name="L1033" href="#L1033">1033</a>     <strong class="jxr_keyword">final</strong> SSLContext sslContext = SSLContext.getInstance(<span class="jxr_string">"TLS"</span>, <span class="jxr_string">"SunJSSE"</span>);
-<a class="jxr_linenumber" name="L1034" href="#L1034">1034</a> 
-<a class="jxr_linenumber" name="L1035" href="#L1035">1035</a>     l.addLog(<span class="jxr_string">"Loading PKIX Overheid keystore"</span>);
-<a class="jxr_linenumber" name="L1036" href="#L1036">1036</a>     KeyStore ks = KeyStore.getInstance(<span class="jxr_string">"jks"</span>);
-<a class="jxr_linenumber" name="L1037" href="#L1037">1037</a>     ks.load(
-<a class="jxr_linenumber" name="L1038" href="#L1038">1038</a>         nl.b3p.gds2.GDS2Util.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/pkioverheid.jks"</span>),
-<a class="jxr_linenumber" name="L1039" href="#L1039">1039</a>         <span class="jxr_string">"changeit"</span>.toCharArray());
-<a class="jxr_linenumber" name="L1040" href="#L1040">1040</a> 
-<a class="jxr_linenumber" name="L1041" href="#L1041">1041</a>     l.addLog(<span class="jxr_string">"Initializing default TrustManagerFactory"</span>);
-<a class="jxr_linenumber" name="L1042" href="#L1042">1042</a>     <strong class="jxr_keyword">final</strong> TrustManagerFactory javaDefaultTrustManager =
-<a class="jxr_linenumber" name="L1043" href="#L1043">1043</a>         TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-<a class="jxr_linenumber" name="L1044" href="#L1044">1044</a>     javaDefaultTrustManager.init((KeyStore) <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L1045" href="#L1045">1045</a>     X509TrustManager defaultX509TrustManager = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L1046" href="#L1046">1046</a>     <strong class="jxr_keyword">for</strong> (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {
-<a class="jxr_linenumber" name="L1047" href="#L1047">1047</a>       <strong class="jxr_keyword">if</strong> (t instanceof X509TrustManager) {
-<a class="jxr_linenumber" name="L1048" href="#L1048">1048</a>         defaultX509TrustManager = (X509TrustManager) t;
-<a class="jxr_linenumber" name="L1049" href="#L1049">1049</a>         <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L1050" href="#L1050">1050</a>       }
-<a class="jxr_linenumber" name="L1051" href="#L1051">1051</a>     }
-<a class="jxr_linenumber" name="L1052" href="#L1052">1052</a>     l.addLog(<span class="jxr_string">"Initializing PKIX TrustManagerFactory"</span>);
-<a class="jxr_linenumber" name="L1053" href="#L1053">1053</a>     <strong class="jxr_keyword">final</strong> TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(<span class="jxr_string">"PKIX"</span>);
-<a class="jxr_linenumber" name="L1054" href="#L1054">1054</a>     customCaTrustManager.init(ks);
-<a class="jxr_linenumber" name="L1055" href="#L1055">1055</a> 
-<a class="jxr_linenumber" name="L1056" href="#L1056">1056</a>     l.addLog(<span class="jxr_string">"Initializing SSLContext"</span>);
-<a class="jxr_linenumber" name="L1057" href="#L1057">1057</a>     sslContext.init(
-<a class="jxr_linenumber" name="L1058" href="#L1058">1058</a>         kmf.getKeyManagers(),
-<a class="jxr_linenumber" name="L1059" href="#L1059">1059</a>         <strong class="jxr_keyword">new</strong> TrustManager[] {
-<a class="jxr_linenumber" name="L1060" href="#L1060">1060</a>           <strong class="jxr_keyword">new</strong> <a name="TrustManagerDelegate" href="../../../../../nl/b3p/brmo/service/util/TrustManagerDelegate.html#TrustManagerDelegate">TrustManagerDelegate</a>(
-<a class="jxr_linenumber" name="L1061" href="#L1061">1061</a>               <em class="jxr_comment">// customCaTrustManager is PKIX dus altijd X.509 (RFC3280)</em>
-<a class="jxr_linenumber" name="L1062" href="#L1062">1062</a>               (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
-<a class="jxr_linenumber" name="L1063" href="#L1063">1063</a>               defaultX509TrustManager)
-<a class="jxr_linenumber" name="L1064" href="#L1064">1064</a>         },
-<a class="jxr_linenumber" name="L1065" href="#L1065">1065</a>         <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L1066" href="#L1066">1066</a>     <strong class="jxr_keyword">return</strong> sslContext;
-<a class="jxr_linenumber" name="L1067" href="#L1067">1067</a>   }
-<a class="jxr_linenumber" name="L1068" href="#L1068">1068</a> }
+<a class="jxr_linenumber" name="L1023" href="#L1023">1023</a>     tlsClientParameters.setSSLSocketFactory(context.getSocketFactory());
+<a class="jxr_linenumber" name="L1024" href="#L1024">1024</a>     http.setTlsClientParameters(tlsClientParameters);
+<a class="jxr_linenumber" name="L1025" href="#L1025">1025</a> 
+<a class="jxr_linenumber" name="L1026" href="#L1026">1026</a>     <strong class="jxr_keyword">return</strong> gds2;
+<a class="jxr_linenumber" name="L1027" href="#L1027">1027</a>   }
+<a class="jxr_linenumber" name="L1028" href="#L1028">1028</a> 
+<a class="jxr_linenumber" name="L1029" href="#L1029">1029</a>   <strong class="jxr_keyword">private</strong> SSLContext createSslContext(KeyManagerFactory kmf)
+<a class="jxr_linenumber" name="L1030" href="#L1030">1030</a>       <strong class="jxr_keyword">throws</strong> KeyStoreException,
+<a class="jxr_linenumber" name="L1031" href="#L1031">1031</a>           IOException,
+<a class="jxr_linenumber" name="L1032" href="#L1032">1032</a>           CertificateException,
+<a class="jxr_linenumber" name="L1033" href="#L1033">1033</a>           NoSuchProviderException,
+<a class="jxr_linenumber" name="L1034" href="#L1034">1034</a>           NoSuchAlgorithmException,
+<a class="jxr_linenumber" name="L1035" href="#L1035">1035</a>           KeyManagementException {
+<a class="jxr_linenumber" name="L1036" href="#L1036">1036</a>     <strong class="jxr_keyword">final</strong> SSLContext sslContext = SSLContext.getInstance(<span class="jxr_string">"TLS"</span>, <span class="jxr_string">"SunJSSE"</span>);
+<a class="jxr_linenumber" name="L1037" href="#L1037">1037</a> 
+<a class="jxr_linenumber" name="L1038" href="#L1038">1038</a>     l.addLog(<span class="jxr_string">"Loading PKIX Overheid keystore"</span>);
+<a class="jxr_linenumber" name="L1039" href="#L1039">1039</a>     KeyStore ks = KeyStore.getInstance(<span class="jxr_string">"jks"</span>);
+<a class="jxr_linenumber" name="L1040" href="#L1040">1040</a>     ks.load(
+<a class="jxr_linenumber" name="L1041" href="#L1041">1041</a>         nl.b3p.gds2.GDS2Util.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/pkioverheid.jks"</span>),
+<a class="jxr_linenumber" name="L1042" href="#L1042">1042</a>         <span class="jxr_string">"changeit"</span>.toCharArray());
+<a class="jxr_linenumber" name="L1043" href="#L1043">1043</a> 
+<a class="jxr_linenumber" name="L1044" href="#L1044">1044</a>     l.addLog(<span class="jxr_string">"Initializing default TrustManagerFactory"</span>);
+<a class="jxr_linenumber" name="L1045" href="#L1045">1045</a>     <strong class="jxr_keyword">final</strong> TrustManagerFactory javaDefaultTrustManager =
+<a class="jxr_linenumber" name="L1046" href="#L1046">1046</a>         TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+<a class="jxr_linenumber" name="L1047" href="#L1047">1047</a>     javaDefaultTrustManager.init((KeyStore) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L1048" href="#L1048">1048</a>     X509TrustManager defaultX509TrustManager = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L1049" href="#L1049">1049</a>     <strong class="jxr_keyword">for</strong> (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {
+<a class="jxr_linenumber" name="L1050" href="#L1050">1050</a>       <strong class="jxr_keyword">if</strong> (t instanceof X509TrustManager) {
+<a class="jxr_linenumber" name="L1051" href="#L1051">1051</a>         defaultX509TrustManager = (X509TrustManager) t;
+<a class="jxr_linenumber" name="L1052" href="#L1052">1052</a>         <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L1053" href="#L1053">1053</a>       }
+<a class="jxr_linenumber" name="L1054" href="#L1054">1054</a>     }
+<a class="jxr_linenumber" name="L1055" href="#L1055">1055</a>     l.addLog(<span class="jxr_string">"Initializing PKIX TrustManagerFactory"</span>);
+<a class="jxr_linenumber" name="L1056" href="#L1056">1056</a>     <strong class="jxr_keyword">final</strong> TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(<span class="jxr_string">"PKIX"</span>);
+<a class="jxr_linenumber" name="L1057" href="#L1057">1057</a>     customCaTrustManager.init(ks);
+<a class="jxr_linenumber" name="L1058" href="#L1058">1058</a> 
+<a class="jxr_linenumber" name="L1059" href="#L1059">1059</a>     l.addLog(<span class="jxr_string">"Initializing SSLContext"</span>);
+<a class="jxr_linenumber" name="L1060" href="#L1060">1060</a>     sslContext.init(
+<a class="jxr_linenumber" name="L1061" href="#L1061">1061</a>         kmf.getKeyManagers(),
+<a class="jxr_linenumber" name="L1062" href="#L1062">1062</a>         <strong class="jxr_keyword">new</strong> TrustManager[] {
+<a class="jxr_linenumber" name="L1063" href="#L1063">1063</a>           <strong class="jxr_keyword">new</strong> <a name="TrustManagerDelegate" href="../../../../../nl/b3p/brmo/service/util/TrustManagerDelegate.html#TrustManagerDelegate">TrustManagerDelegate</a>(
+<a class="jxr_linenumber" name="L1064" href="#L1064">1064</a>               <em class="jxr_comment">// customCaTrustManager is PKIX dus altijd X.509 (RFC3280)</em>
+<a class="jxr_linenumber" name="L1065" href="#L1065">1065</a>               (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
+<a class="jxr_linenumber" name="L1066" href="#L1066">1066</a>               defaultX509TrustManager)
+<a class="jxr_linenumber" name="L1067" href="#L1067">1067</a>         },
+<a class="jxr_linenumber" name="L1068" href="#L1068">1068</a>         <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L1069" href="#L1069">1069</a>     <strong class="jxr_keyword">return</strong> sslContext;
+<a class="jxr_linenumber" name="L1070" href="#L1070">1070</a>   }
+<a class="jxr_linenumber" name="L1071" href="#L1071">1071</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

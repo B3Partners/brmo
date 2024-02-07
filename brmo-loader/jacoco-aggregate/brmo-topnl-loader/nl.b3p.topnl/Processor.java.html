@@ -167,23 +167,26 @@ public class Processor {
    *     een punt ipv een lijn
    */
   public List&lt;TopNLEntity&gt; convert(List listOfJaxbObjects, TopNLType type)
-      throws IOException, SAXException, ParserConfigurationException, TransformerException,
+      throws IOException,
+          SAXException,
+          ParserConfigurationException,
+          TransformerException,
           ClassCastException {
 
-<span class="fc" id="L173">    Converter converter = converterFactory.getConverter(type);</span>
-<span class="fc" id="L174">    List&lt;TopNLEntity&gt; entity = converter.convert(listOfJaxbObjects);</span>
-<span class="fc" id="L175">    return entity;</span>
+<span class="fc" id="L176">    Converter converter = converterFactory.getConverter(type);</span>
+<span class="fc" id="L177">    List&lt;TopNLEntity&gt; entity = converter.convert(listOfJaxbObjects);</span>
+<span class="fc" id="L178">    return entity;</span>
   }
 
   public void save(TopNLEntity entity, TopNLType type) throws ParseException, SQLException {
-<span class="fc" id="L179">    database.save(entity);</span>
-<span class="fc" id="L180">  }</span>
+<span class="fc" id="L182">    database.save(entity);</span>
+<span class="fc" id="L183">  }</span>
 
   public void save(List&lt;TopNLEntity&gt; entities, TopNLType type) throws ParseException, SQLException {
-<span class="fc bfc" id="L183" title="All 2 branches covered.">    for (TopNLEntity entity : entities) {</span>
-<span class="fc" id="L184">      save(entity, type);</span>
-<span class="fc" id="L185">    }</span>
-<span class="fc" id="L186">  }</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">    for (TopNLEntity entity : entities) {</span>
+<span class="fc" id="L187">      save(entity, type);</span>
+<span class="fc" id="L188">    }</span>
+<span class="fc" id="L189">  }</span>
 
   /**
    * geeft de verwerkingsstatus. Voorafgaand aan de verwerking moet de status reset worden als er
@@ -192,36 +195,36 @@ public class Processor {
    * @return status van de verwerking
    */
   public STATUS getStatus() {
-<span class="nc" id="L195">    return this.status;</span>
+<span class="nc" id="L198">    return this.status;</span>
   }
 
   /** verwerkingsstatus */
-<span class="fc" id="L199">  public enum STATUS {</span>
-<span class="fc" id="L200">    OK,</span>
-<span class="fc" id="L201">    NOK</span>
+<span class="fc" id="L202">  public enum STATUS {</span>
+<span class="fc" id="L203">    OK,</span>
+<span class="fc" id="L204">    NOK</span>
   }
 
   public void resetStatus() {
-<span class="fc" id="L205">    this.status = STATUS.OK;</span>
-<span class="fc" id="L206">  }</span>
+<span class="fc" id="L208">    this.status = STATUS.OK;</span>
+<span class="fc" id="L209">  }</span>
 
   private static class LocationListener extends Listener {
     private XMLStreamReader xsr;
     private Map&lt;Object, Location&gt; locations;
 
-<span class="fc" id="L212">    public LocationListener(XMLStreamReader xsr) {</span>
-<span class="fc" id="L213">      this.xsr = xsr;</span>
-<span class="fc" id="L214">      this.locations = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L215">    }</span>
+<span class="fc" id="L215">    public LocationListener(XMLStreamReader xsr) {</span>
+<span class="fc" id="L216">      this.xsr = xsr;</span>
+<span class="fc" id="L217">      this.locations = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L218">    }</span>
 
     @Override
     public void beforeUnmarshal(Object target, Object parent) {
-<span class="fc" id="L219">      locations.put(target, xsr.getLocation());</span>
-<span class="fc" id="L220">    }</span>
+<span class="fc" id="L222">      locations.put(target, xsr.getLocation());</span>
+<span class="fc" id="L223">    }</span>
 
     public Location getLocation(Object o) {
-<span class="nc" id="L223">      return locations.get(o);</span>
+<span class="nc" id="L226">      return locations.get(o);</span>
     }
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

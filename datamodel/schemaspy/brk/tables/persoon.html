@@ -84,7 +84,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>identificatie</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -93,13 +93,13 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="recht.betrokkenpersoon refs persoon.identificatie via recht_betrokkenpersoon_fkey"><a href='recht.html'>recht</a><span class='relatedKey'>.betrokkenpersoon</span>
     </td>
     <td class='constraint detail'>recht_betrokkenpersoon_fkey<span title='Restrict delete:
  Parent cannot be deleted if children exist'>&nbsp;R</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="recht.tennamevan refs persoon.identificatie via recht_tennamevan_fkey"><a href='recht.html'>recht</a><span class='relatedKey'>.tennamevan</span>
     </td>
     <td class='constraint detail'>recht_tennamevan_fkey<span title='Restrict delete:
@@ -110,7 +110,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>beschikkingsbevoegdheid</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>33</td>
@@ -121,7 +121,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Beschikkingsbevoegdheid is een aanduiding van de beschikkingsbevoegdheid van een persoon.</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>indicatieniettoonbarediakriet</td>
  <td class='detail'>bool</td>
  <td class='detail' align='right'>1</td>
@@ -132,7 +132,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>Indicatie niet toonbare diakriet geeft aan of de naam van een persoon diakrieten bevat die niet getoond kunnen worden.</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>postlocatie</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2147483647</td>
@@ -142,7 +142,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="persoon.postlocatie refs adres.identificatie via persoon_postlocatie_fkey"><a href='adres.html'>adres</a><span class='relatedKey'>.identificatie</span>
     </td>
     <td class='constraint detail'>persoon_postlocatie_fkey<span title='Restrict delete:
@@ -152,7 +152,7 @@
  </td>
  <td class='comment detail'>Postadres, referentie naar adres</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>woonlocatie</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>2147483647</td>
@@ -162,7 +162,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="persoon.woonlocatie refs adres.identificatie via persoon_woonlocatie_fkey"><a href='adres.html'>adres</a><span class='relatedKey'>.identificatie</span>
     </td>
     <td class='constraint detail'>persoon_woonlocatie_fkey<span title='Restrict delete:
@@ -172,7 +172,7 @@
  </td>
  <td class='comment detail'>Woonadres, referentie naar adres</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>soort</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>21</td>
@@ -184,7 +184,7 @@
  <td class='comment detail'>tbv. datamodel: om opzoeken van de bijhorende persoonsgegevens in tabel natuurlijkpersoon|nietnatuurlijkpersoon te vergemakkelijken.</td>
 </tr>
 </table>
-<p title='6 columns'>Table contained 0 rows at Thu Jul 13 11:30 CEST 2023<p/>
+<p title='6 columns'>Table contained 0 rows at Wed Feb 07 11:58 CET 2024<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

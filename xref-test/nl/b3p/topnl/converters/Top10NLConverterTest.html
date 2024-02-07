@@ -446,29 +446,32 @@
 <a class="jxr_linenumber" name="L438" href="#L438">438</a> 
 <a class="jxr_linenumber" name="L439" href="#L439">439</a> <em class="jxr_comment">   */</em>
 <a class="jxr_linenumber" name="L440" href="#L440">440</a>   <strong class="jxr_keyword">private</strong> TopNLEntity getEntity(String file)
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>       <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException,
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>           TransformerException {
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>     URL in = Top10NLConverterTest.<strong class="jxr_keyword">class</strong>.getResource(file);
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>     List jaxb = processor.parse(in);
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>     <strong class="jxr_keyword">return</strong> instance.convertObject(jaxb.get(0));
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>   }
-<a class="jxr_linenumber" name="L447" href="#L447">447</a> 
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>   <strong class="jxr_keyword">public</strong> TopNLEntity getStandardTestTopNLEntity() <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>     TopNLEntity expected = <strong class="jxr_keyword">new</strong> TopNLEntity() {};
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>       <strong class="jxr_keyword">throws</strong> JAXBException,
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>           IOException,
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>           SAXException,
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>           ParserConfigurationException,
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>           TransformerException {
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>     URL in = Top10NLConverterTest.<strong class="jxr_keyword">class</strong>.getResource(file);
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>     List jaxb = processor.parse(in);
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>     <strong class="jxr_keyword">return</strong> instance.convertObject(jaxb.get(0));
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>   }
 <a class="jxr_linenumber" name="L450" href="#L450">450</a> 
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>     expected.setTopnltype(TopNLType.TOP10NL.getType());
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>     expected.setBrontype(<span class="jxr_string">"luchtfoto"</span>);
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>     expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2015-01-01"</span>));
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>     expected.setBronnauwkeurigheid(100.0);
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>     expected.setBronbeschrijving(
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <span class="jxr_string">"Een orthogerectificeerde fotografische opname van een deel van het aardoppervlak. Gemaakt vanuit een vliegtuig."</span>);
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>     expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2008-11-24"</span>));
-<a class="jxr_linenumber" name="L458" href="#L458">458</a> 
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>     <strong class="jxr_keyword">return</strong> expected;
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>   }
-<a class="jxr_linenumber" name="L461" href="#L461">461</a> }
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>   <strong class="jxr_keyword">public</strong> TopNLEntity getStandardTestTopNLEntity() <strong class="jxr_keyword">throws</strong> ParseException {
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>     TopNLEntity expected = <strong class="jxr_keyword">new</strong> TopNLEntity() {};
+<a class="jxr_linenumber" name="L453" href="#L453">453</a> 
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>     expected.setTopnltype(TopNLType.TOP10NL.getType());
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>     expected.setBrontype(<span class="jxr_string">"luchtfoto"</span>);
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>     expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2015-01-01"</span>));
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>     expected.setBronnauwkeurigheid(100.0);
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>     expected.setBronbeschrijving(
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <span class="jxr_string">"Een orthogerectificeerde fotografische opname van een deel van het aardoppervlak. Gemaakt vanuit een vliegtuig."</span>);
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>     expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2008-11-24"</span>));
+<a class="jxr_linenumber" name="L461" href="#L461">461</a> 
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>     <strong class="jxr_keyword">return</strong> expected;
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>   }
+<a class="jxr_linenumber" name="L464" href="#L464">464</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

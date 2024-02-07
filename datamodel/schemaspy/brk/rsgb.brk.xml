@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="brk" type="PostgreSQL - 15.3">
+<database name="rsgb" schema="brk" type="PostgreSQL - 16.1">
    <tables>
       <table name="adres" numRows="0" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
@@ -581,18 +581,23 @@
             <column ascending="true" name="identificatie"/>
          </index>
       </table>
-      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;    zakelijk recht met opgezocht aard recht en berekend aandeel&#10;        beschikbare kolommen:&#10;    * zr_identif: natuurlijke id van zakelijk recht&#10;    * ingangsdatum_recht: -&#10;    * aandeel: samenvoeging van teller en noemer (1/2),&#10;    * ar_teller: teller van aandeel,&#10;    * ar_noemer: noemer van aandeel,&#10;    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;    * indic_betrokken_in_splitsing: -,&#10;    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,&#10;    * fk_3avr_aand: code aard recht,&#10;    * aantekeningen: samenvoeging van alle aantekening op dit recht" schema="brk" type="VIEW">
+      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;    zakelijk recht met opgezocht aard recht en berekend aandeel&#10;        beschikbare kolommen:&#10;    * zr_identif: natuurlijke id van zakelijk recht&#10;    * ingangsdatum_recht: -&#10;    * aandeel: samenvoeging van teller en noemer (1/2),&#10;    * ar_teller: teller van aandeel,&#10;    * ar_noemer: noemer van aandeel,&#10;    * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;    * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,&#10;    * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;    * indic_betrokken_in_splitsing: -,&#10;    * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,&#10;    * fk_3avr_aand: code aard recht,&#10;    * aantekeningen: samenvoeging van alle aantekening op dit recht" schema="brk" type="VIEW">
          <column autoUpdated="false" digits="0" id="0" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="ingangsdatum_recht" nullable="true" remarks="" size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="2" name="aandeel" nullable="true" remarks="" size="2147483647" type="text"/>
          <column autoUpdated="false" digits="0" id="3" name="ar_teller" nullable="true" remarks="" size="32" type="numeric"/>
          <column autoUpdated="false" digits="0" id="4" name="ar_noemer" nullable="true" remarks="" size="32" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="5" name="subject_identif" nullable="true" remarks="" size="2147483647" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="koz_identif" nullable="true" remarks="" size="2147483647" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="0" id="8" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="fk_3avr_aand" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="subject_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="mandeligheid_identif" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="koz_identif" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="9" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="fk_3avr_aand" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+      <table name="vb_util_zk_recht_op_koz" numRows="0" remarks="" schema="brk" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="rustop_zak_recht" nullable="true" remarks="" size="2147483647" type="varchar"/>
       </table>
    </tables>
 </database>

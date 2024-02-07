@@ -35,11 +35,11 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMEvent;
 import org.codehaus.staxmate.in.SMInputCursor;
+import org.geotools.api.referencing.FactoryException;
 import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.PrecisionModel;
-import org.opengis.referencing.FactoryException;
 
 public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&gt; {
 <span class="fc" id="L45">  private static final Log log = LogFactory.getLog(BAG2GMLMutatieGroepStream.class);</span>
@@ -511,4 +511,4 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
 <span class="fc" id="L511">    values.add(attributeCursor.collectDescendantText().trim());</span>
 <span class="fc" id="L512">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

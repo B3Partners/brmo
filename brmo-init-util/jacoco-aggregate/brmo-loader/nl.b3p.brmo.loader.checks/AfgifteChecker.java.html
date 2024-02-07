@@ -73,6 +73,7 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L73">      log.error(&quot;Error querying staging for laadproces for afgifte: &quot; + afgifte.toString(), ex);</span>
 <span class="nc" id="L74">    }</span>
 <span class="nc" id="L75">  }</span>
+
   /**
    * zoek de status van alle bijbehorende berichten op en leg die vast in de afgifte.
    *
@@ -81,29 +82,29 @@ import org.apache.commons.logging.LogFactory;
    * @throws SQLException if any
    */
   private void processFoundLaadprocess(Afgifte afgifte, LaadProces lp) throws SQLException {
-<span class="nc" id="L84">    List&lt;Bericht&gt; berichten = staging.getBerichtByLaadProces(lp);</span>
-<span class="nc" id="L85">    Map&lt;Bericht.STATUS, Integer&gt; counts = afgifte.getStatussen();</span>
-<span class="nc" id="L86">    berichten.stream()</span>
-<span class="nc" id="L87">        .map(</span>
+<span class="nc" id="L85">    List&lt;Bericht&gt; berichten = staging.getBerichtByLaadProces(lp);</span>
+<span class="nc" id="L86">    Map&lt;Bericht.STATUS, Integer&gt; counts = afgifte.getStatussen();</span>
+<span class="nc" id="L87">    berichten.stream()</span>
+<span class="nc" id="L88">        .map(</span>
             (bericht) -&gt; {
-<span class="nc bnc" id="L89" title="All 2 branches missed.">              if (!counts.containsKey(bericht.getStatus())) {</span>
-<span class="nc" id="L90">                counts.put(bericht.getStatus(), 0);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">              if (!counts.containsKey(bericht.getStatus())) {</span>
+<span class="nc" id="L91">                counts.put(bericht.getStatus(), 0);</span>
               }
-<span class="nc" id="L92">              return bericht;</span>
+<span class="nc" id="L93">              return bericht;</span>
             })
-<span class="nc" id="L94">        .forEachOrdered(</span>
-<span class="nc" id="L95">            (bericht) -&gt; counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1));</span>
-<span class="nc" id="L96">  }</span>
+<span class="nc" id="L95">        .forEachOrdered(</span>
+<span class="nc" id="L96">            (bericht) -&gt; counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1));</span>
+<span class="nc" id="L97">  }</span>
 
   public File getResults(String input, String f) throws FileNotFoundException {
-<span class="nc" id="L99">    return getResults(input, new File(f));</span>
+<span class="nc" id="L100">    return getResults(input, new File(f));</span>
   }
 
   public File getResults(String input, File f) throws FileNotFoundException {
-<span class="nc" id="L103">    AfgiftelijstReport reporter = new AfgiftelijstReport();</span>
+<span class="nc" id="L104">    AfgiftelijstReport reporter = new AfgiftelijstReport();</span>
 
-<span class="nc" id="L105">    reporter.createReport(afgiftes, input, f);</span>
-<span class="nc" id="L106">    return f;</span>
+<span class="nc" id="L106">    reporter.createReport(afgiftes, input, f);</span>
+<span class="nc" id="L107">    return f;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -657,6 +657,7 @@ public class BrmoFramework {
 <span class="nc" id="L657">      throw new BrmoException(ex);</span>
     }
   }
+
   /**
    * update laadproces (GDS2 afgifte) metadata.
    *
@@ -683,7 +684,7 @@ public class BrmoFramework {
       Date beschikbaar_tot)
       throws BrmoException {
     try {
-<span class="nc" id="L686">      stagingProxy.updateLaadProcesMeta(</span>
+<span class="nc" id="L687">      stagingProxy.updateLaadProcesMeta(</span>
           lpId,
           klantafgiftenummer,
           contractafgiftenummer,
@@ -693,22 +694,22 @@ public class BrmoFramework {
           afgiftereferentie,
           bestandsreferentie,
           beschikbaar_tot);
-<span class="nc" id="L696">    } catch (SQLException ex) {</span>
-<span class="nc" id="L697">      throw new BrmoException(ex);</span>
-<span class="nc" id="L698">    }</span>
-<span class="nc" id="L699">  }</span>
+<span class="nc" id="L697">    } catch (SQLException ex) {</span>
+<span class="nc" id="L698">      throw new BrmoException(ex);</span>
+<span class="nc" id="L699">    }</span>
+<span class="nc" id="L700">  }</span>
 
   public File checkAfgiftelijst(String bestandsnaam, String output) throws IOException {
-<span class="nc" id="L702">    File f = new File(bestandsnaam);</span>
-<span class="nc" id="L703">    return checkAfgiftelijst(bestandsnaam, new FileInputStream(f), new File(output));</span>
+<span class="nc" id="L703">    File f = new File(bestandsnaam);</span>
+<span class="nc" id="L704">    return checkAfgiftelijst(bestandsnaam, new FileInputStream(f), new File(output));</span>
   }
 
   public File checkAfgiftelijst(String bestandsnaam, InputStream is, File output)
       throws IOException {
-<span class="nc" id="L708">    AfgifteChecker checker = new AfgifteChecker();</span>
-<span class="nc" id="L709">    checker.init(is, stagingProxy);</span>
-<span class="nc" id="L710">    checker.check();</span>
-<span class="nc" id="L711">    return checker.getResults(bestandsnaam, output);</span>
+<span class="nc" id="L709">    AfgifteChecker checker = new AfgifteChecker();</span>
+<span class="nc" id="L710">    checker.init(is, stagingProxy);</span>
+<span class="nc" id="L711">    checker.check();</span>
+<span class="nc" id="L712">    return checker.getResults(bestandsnaam, output);</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

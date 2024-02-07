@@ -364,27 +364,30 @@
 <a class="jxr_linenumber" name="L356" href="#L356">356</a> 
 <a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_comment">   */</em>
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>   <strong class="jxr_keyword">private</strong> TopNLEntity getEntity(String file)
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>       <strong class="jxr_keyword">throws</strong> JAXBException, IOException, SAXException, ParserConfigurationException,
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>           TransformerException {
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>     URL in = Top100NLConverterTest.<strong class="jxr_keyword">class</strong>.getResource(file);
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>     List jaxb = processor.parse(in);
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>     <strong class="jxr_keyword">return</strong> instance.convertObject(jaxb.get(0));
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>   }
-<a class="jxr_linenumber" name="L365" href="#L365">365</a> 
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>   <strong class="jxr_keyword">public</strong> TopNLEntity getStandardTestTopNLEntity() <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>     TopNLEntity expected = <strong class="jxr_keyword">new</strong> TopNLEntity() {};
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>       <strong class="jxr_keyword">throws</strong> JAXBException,
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>           IOException,
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>           SAXException,
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>           ParserConfigurationException,
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>           TransformerException {
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>     URL in = Top100NLConverterTest.<strong class="jxr_keyword">class</strong>.getResource(file);
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>     List jaxb = processor.parse(in);
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>     <strong class="jxr_keyword">return</strong> instance.convertObject(jaxb.get(0));
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>   }
 <a class="jxr_linenumber" name="L368" href="#L368">368</a> 
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>     expected.setTopnltype(TopNLType.TOP100NL.getType());
-<a class="jxr_linenumber" name="L370" href="#L370">370</a>     expected.setBrontype(<span class="jxr_string">"TOP10NL"</span>);
-<a class="jxr_linenumber" name="L371" href="#L371">371</a>     expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-11-01"</span>));
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>     expected.setBronbeschrijving(<span class="jxr_string">"Automatische generalisatie vanuit TOP10NL"</span>);
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>     expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2016-11-02"</span>));
-<a class="jxr_linenumber" name="L374" href="#L374">374</a> 
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>     <strong class="jxr_keyword">return</strong> expected;
-<a class="jxr_linenumber" name="L376" href="#L376">376</a>   }
-<a class="jxr_linenumber" name="L377" href="#L377">377</a> }
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>   <strong class="jxr_keyword">public</strong> TopNLEntity getStandardTestTopNLEntity() <strong class="jxr_keyword">throws</strong> ParseException {
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>     TopNLEntity expected = <strong class="jxr_keyword">new</strong> TopNLEntity() {};
+<a class="jxr_linenumber" name="L371" href="#L371">371</a> 
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>     expected.setTopnltype(TopNLType.TOP100NL.getType());
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>     expected.setBrontype(<span class="jxr_string">"TOP10NL"</span>);
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>     expected.setBronactualiteit(sdf.parse(<span class="jxr_string">"2016-11-01"</span>));
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>     expected.setBronbeschrijving(<span class="jxr_string">"Automatische generalisatie vanuit TOP10NL"</span>);
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>     expected.setObjectBeginTijd(sdf.parse(<span class="jxr_string">"2016-11-02"</span>));
+<a class="jxr_linenumber" name="L377" href="#L377">377</a> 
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>     <strong class="jxr_keyword">return</strong> expected;
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>   }
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2023 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>
