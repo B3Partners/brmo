@@ -19,6 +19,7 @@
    volgende versie dient de PR deze procedure te beschrijven.
 4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
 5. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
+6. update de upgrade instructies op de wiki: https://github.com/B3Partners/brmo/wiki/Upgrade-Instructies
 
 ## release maken
 
@@ -35,8 +36,18 @@ mvn release:perform -l rel-perform.log -T1
 ```
 
 _NB_ Voor het maken van de database documentatie is een draaiende, up-2-date databases met de betreffende RSGB
-schema's (public, brk, bag) nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`.
+schema's (public, brk, bag) nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`, dat kan met onderstaande commando's:
 Zorg dat de tabellen en views zijn aangemaakt (BAG!).
+```
+export POSTGRES_PASSWORD=postgres
+export POSTGRES_PASSWORD=postgres
+export PGPASSWORD=postgres
+.build/ci/pgsql-start-docker.sh 16-3.4-alpine
+.build/ci/pgsql-create-databases.sh
+.build/ci/pgsql-setup.sh
+mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
+.build/ci/pgsql-setup-bag2_views.sh
+```
 
 Met het commando `mvn release:perform` wordt daarna, op basis van de tag uit de
 stap hierboven, de release gebouwd en gedeployed naar de repository uit de (parent)
