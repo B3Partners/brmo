@@ -35,7 +35,16 @@
         </tr>
         <tr>
             <td><b>Build time:</b></td>
-            <td>${builddetails.build.time}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${fn:contains(version,'SNAPSHOT')}">
+                        ${builddetails.commit.time}
+                    </c:when>
+                    <c:otherwise>
+                        ${builddetails.build.time}
+                    </c:otherwise>
+                </c:choose>
+            </td>
         </tr>
         <tr>
             <td><b>Build by:</b></td>
