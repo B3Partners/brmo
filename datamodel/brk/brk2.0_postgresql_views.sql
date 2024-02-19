@@ -482,7 +482,6 @@ COMMENT ON MATERIALIZED VIEW mb_percelenkaart IS
 --     s2.identificatie = s.deelvan
 -- where r.aard = 'Eigendom (recht van)';
 
--- fix voor BRMO-336; het koppelen van kadastrale objecten daar waar zakelijke rechten andere rechten belasten.
 CREATE OR REPLACE VIEW 
     vb_util_zk_recht_op_koz
             (
@@ -493,16 +492,23 @@ AS
 SELECT  qry.identificatie,
         qry.rustop_zak_recht
 FROM    ( 
+            SELECT  r.identificatie,
+                    r.rustop                               AS rustop_zak_recht
+            FROM    recht r
+            UNION ALL
+            -- [BRMO-336] wanneer een zakelijkrecht een eigendomsrecht belast
             SELECT ribm.isbelastmet                        AS identificatie,
                    r.rustop                                AS rustop_zak_recht
-            FROM brk.recht_isbelastmet ribm
-
-            LEFT JOIN brk.recht r ON ribm.zakelijkrecht = r.identificatie
-
+            FROM recht r
+            LEFT JOIN recht_isbelastmet ribm ON r.identificatie = ribm.zakelijkrecht
             UNION ALL
-            SELECT r.identificatie,
+             -- [BRMO-351] wanneer een zakelijkrecht een ander zakelijkrecht belast
+            SELECT ribm2.isbelastmet                        AS identificatie,
                    r.rustop                                AS rustop_zak_recht
-            FROM brk.recht r) qry
+            FROM recht r
+            LEFT JOIN recht_isbelastmet ribm ON r.identificatie = ribm.zakelijkrecht
+            LEFT JOIN recht_isbelastmet ribm2 ON ribm.isbelastmet = ribm2.zakelijkrecht     
+          ) qry
   WHERE split_part( qry.identificatie, ':', 1) = 'NL.IMKAD.ZakelijkRecht';
 
 CREATE OR REPLACE VIEW
