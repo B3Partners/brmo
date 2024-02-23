@@ -66,6 +66,7 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
       _proces.execute(this);
     } finally {
       completed();
+      proces.updateSamenvattingEnLogfile(this.getLog());
       Stripersist.getEntityManager().merge(proces);
       Stripersist.getEntityManager().getTransaction().commit();
     }
@@ -90,10 +91,19 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
     this.status = status;
   }
 
+  private int logLineCounter = 0;
+
   @Override
   public void addLog(String line) {
+    LOG.info(line);
+    if (this.logLineCounter > 1000) {
+      // trim buffer
+      int i900regels = 100;
+      this.log.delete(0, i900regels);
+      this.log.trimToSize();
+    }
     this.log.append(line).append("\n");
-    LOG.info(log);
+    this.logLineCounter++;
   }
 
   // <editor-fold defaultstate="collapsed" desc="getters en setters">

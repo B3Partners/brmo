@@ -62,6 +62,8 @@ public class BGTLoader extends AbstractExecutableProces {
           @Override
           public void addLog(String log) {
             LOG.info(log);
+            config.updateSamenvattingEnLogfile(log);
+            Stripersist.getEntityManager().merge(config);
           }
         });
   }
@@ -141,7 +143,7 @@ public class BGTLoader extends AbstractExecutableProces {
 
         if (initialLoadDeltaId == null) {
           listener.updateStatus("Ophalen BGT stand...");
-          listener.addLog("Ophalen BGT stand");
+          listener.addLog("Ophalen BGT stand gestart op " + new Date());
           exitCode =
               downloadCommand.initial(
                   databaseOptions,
@@ -156,7 +158,7 @@ public class BGTLoader extends AbstractExecutableProces {
           listener.addLog("Einde ophalen BGT stand");
         } else {
           listener.updateStatus("Ophalen BGT mutaties...");
-          listener.addLog("Ophalen BGT mutaties");
+          listener.addLog("Ophalen BGT mutaties gestart op " + new Date());
           exitCode = downloadCommand.update(databaseOptions, new CLIOptions(), null, false, false);
           listener.updateStatus("Einde ophalen BGT mutaties");
           listener.addLog("Einde ophalen BGT mutaties");
@@ -181,7 +183,7 @@ public class BGTLoader extends AbstractExecutableProces {
           config.setLastrun(new Date());
           listener.updateStatus(ERROR.toString());
         }
-        listener.addLog("BGT laden afgerond");
+        listener.addLog("BGT laden afgerond op " + new Date());
         config.setLastrun(new Date());
         Stripersist.getEntityManager().merge(config);
         Stripersist.getEntityManager().flush();

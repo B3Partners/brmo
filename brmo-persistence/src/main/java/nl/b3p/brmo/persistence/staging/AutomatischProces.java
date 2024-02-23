@@ -100,11 +100,7 @@ public abstract class AutomatischProces implements Serializable {
     if (this.logfile == null) {
       this.setLogfile(samenvatting);
     } else {
-      this.setLogfile(
-          this.logfile
-              + LOG_NEWLINE
-              // +"----------------"+ LOG_NEWLINE
-              + samenvatting);
+      this.setLogfile(this.logfile + LOG_NEWLINE + samenvatting);
     }
   }
 

@@ -21,6 +21,7 @@ import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
 import nl.b3p.brmo.bag2.loader.cli.BAG2MutatiesCommand;
 import nl.b3p.brmo.bag2.loader.cli.BAG2ProgressOptions;
+import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
@@ -66,6 +67,8 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
           @Override
           public void addLog(String log) {
             LOG.info(log);
+            config.updateSamenvattingEnLogfile(log);
+            Stripersist.getEntityManager().merge(config);
           }
         });
   }
@@ -79,7 +82,7 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
   public void execute(ProgressUpdateListener listener) {
     this.listener = listener;
     BAG2LoaderMain.configureLogging(false);
-
+    listener.addLog(String.format("Het BAG2 mutatie proces is gestart op %tc.", new Date()));
     if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {
       if (config.getStatus().equals(ERROR)) {
         listener.addLog("Vorige run is met ERROR status afgerond, opnieuw proberen");
@@ -141,10 +144,23 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
           // moet de default value voor de 'url' config niet ingevuld worden als nu)
           url = BAG2MutatiesCommand.LVBAG_BESTANDEN_API_URL;
         }
-        if (queryParams == null || queryParams.trim().length() == 0) {
+        if (queryParams == null || queryParams.trim().isEmpty()) {
           // Defaultwaarde voor dagmutaties, anders krijg je ook standen er bij...
           queryParams = "artikelnummers=2529";
         }
+        final BAG2ProgressOptions progress = new BAG2ProgressOptions();
+        progress.setCustomProgressReporter(
+            new ProgressReporter() {
+              @Override
+              protected void log(String msg) {
+                listener.addLog(msg);
+              }
+
+              @Override
+              protected void status(String msg) {
+                listener.updateStatus(msg);
+              }
+            });
 
         switch (mode) {
           case "applyFromMirror":
@@ -153,8 +169,7 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
                 String.format(
                     "Verwerken van BAG2 mutatiebestanden van publieke mirror \"%s\"", url));
             exitCode =
-                mutatiesCommand.apply(
-                    dbOptions, new BAG2ProgressOptions(), null, null, url, queryParams, false);
+                mutatiesCommand.apply(dbOptions, progress, null, null, url, queryParams, false);
             listener.addLog("Einde verwerken BAG2 bestanden");
             break;
           case "apply":
@@ -165,13 +180,7 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
                     kadasterUser));
             exitCode =
                 mutatiesCommand.apply(
-                    dbOptions,
-                    new BAG2ProgressOptions(),
-                    kadasterUser,
-                    kadasterPassword,
-                    url,
-                    queryParams,
-                    false);
+                    dbOptions, progress, kadasterUser, kadasterPassword, url, queryParams, false);
             listener.addLog("Einde verwerken BAG2 bestanden");
             break;
           case "download":
@@ -188,13 +197,7 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
           case "load":
             listener.updateStatus("Laden van BAG2 bestanden...");
             listener.addLog("Laden van BAG2 bestanden uit directory " + directory);
-            exitCode =
-                main.load(
-                    dbOptions,
-                    loadOptions,
-                    new BAG2ProgressOptions(),
-                    new String[] {directory},
-                    false);
+            exitCode = main.load(dbOptions, loadOptions, progress, new String[] {directory}, false);
             listener.addLog("Einde laden BAG2 bestanden");
             break;
         }
@@ -211,13 +214,14 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
         if (exitCode == 0) {
           config.setStatus(WAITING);
           config.setLastrun(new Date());
+
           listener.updateStatus(WAITING.toString());
         } else {
           config.setStatus(ERROR);
           config.setLastrun(new Date());
           listener.updateStatus(ERROR.toString());
         }
-        listener.addLog("BAG2 proces afgerond");
+        listener.addLog("BAG2 mutatieproces afgerond op " + new Date());
         config.setLastrun(new Date());
         Stripersist.getEntityManager().merge(config);
         Stripersist.getEntityManager().flush();
