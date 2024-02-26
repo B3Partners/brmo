@@ -5,7 +5,7 @@
 ### Vereisten
 
 - Java 11
-- Maven 3.9.3 of hoger
+- Maven 3.9.5 of hoger
 - Docker 24.0.x met buildx 0.11.x en compose 2.19.x of hoger (dit vereiste kan worden overgeslagen als je geen docker images wilt bouwen of geen release artifacten wilt bouwen)
 
 ### Basisprocedure

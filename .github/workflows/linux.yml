@@ -62,6 +62,11 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
 
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
 
@@ -143,6 +148,11 @@ jobs:
           java-version: 11
           cache: 'maven'
 
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
       - name: 'Javadoc'
         run: mvn compile javadoc:javadoc -DskipQA=true
 
@@ -183,6 +193,11 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
       - name: 'QA build with Maven'
         run: mvn -B -V -fae -DskipQA=false -Dfmt.action=check -Dpom.fmt.action=verify -Ddocker.skip=true -Dtest.onlyITs= -Dmaven.test.skip=true clean package
 
@@ -209,6 +224,11 @@ jobs:
           server-id: 'ghcr.io'
           server-username: GITHUB_ACTOR
           server-password: GITHUB_TOKEN
+
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
 
       - name: 'Build and Push docker images'
         env:
