@@ -20,6 +20,11 @@ jobs:
           java-version: 11
           cache: 'maven'
 
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
       - name: 'Run Check'
         continue-on-error: true
         run: mvn -U package -DnvdApiKey=${{ secrets.NVD_API_KEY }} -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true org.owasp:dependency-check-maven:aggregate -fae -B -Dorg.slf4j.simpleLogger.defaultLogLevel=WARN -DfailBuildOnCVSS=5

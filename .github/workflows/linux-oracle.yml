@@ -45,6 +45,11 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
 
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
 

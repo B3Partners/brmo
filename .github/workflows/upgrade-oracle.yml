@@ -39,6 +39,11 @@ jobs:
           java-version: 11
           cache: 'maven'
 
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
       - name: 'datamodel Priming build'
         run: |
           mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am -DskipQA=true
