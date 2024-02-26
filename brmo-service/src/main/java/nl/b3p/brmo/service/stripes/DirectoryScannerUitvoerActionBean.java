@@ -124,14 +124,14 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
   }
 
   @Override
-  public void addLog(String log) {
+  public void addLog(String line) {
     if (this.logLineCounter > 1000) {
       // trim buffer
       int i900regels = 100;
       this.log.delete(0, i900regels);
       this.log.trimToSize();
     }
-    this.log.append(log).append("\n");
+    this.log.append(line).append("\n");
     this.logLineCounter++;
   }
 
