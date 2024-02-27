@@ -58,15 +58,6 @@ public class MailRapportageProcesTest extends TestUtil {
   /** test filtering op id en status. */
   @Test
   public void testRapportageLijst() {
-    BAGScannerProces p = new BAGScannerProces();
-    p.setScanDirectory(DIR);
-    p.setArchiefDirectory(DIR);
-    p.getConfig().put("isActive", new ClobElement("true"));
-    p.setStatus(AutomatischProces.ProcessingStatus.ERROR);
-    p.setSamenvatting(NAAM_BESCHIJVING);
-    entityManager.persist(p);
-    final long pId = p.getId();
-
     BRK2ScannerProces p2 = new BRK2ScannerProces();
     p2.setScanDirectory(DIR);
     p2.getConfig().put("isActive", new ClobElement("true"));
@@ -86,7 +77,7 @@ public class MailRapportageProcesTest extends TestUtil {
     MailRapportageProces m = new MailRapportageProces();
     m.setMailAdressen(ADRESLIJST);
     m.setForStatus(AutomatischProces.ProcessingStatus.ERROR);
-    m.getConfig().put(MailRapportageProces.PIDS, new ClobElement(pId + "," + pId2 + "," + pId3));
+    m.getConfig().put(MailRapportageProces.PIDS, new ClobElement(pId2 + "," + pId3));
     entityManager.persist(m);
 
     List<Predicate> predicates = new ArrayList<>();
@@ -120,7 +111,7 @@ public class MailRapportageProcesTest extends TestUtil {
     List<AutomatischProces> list = entityManager.createQuery(cq).getResultList();
     assertEquals(2, list.size(), "Het aantal processen met status ERROR.");
 
-    entityManager.remove(p);
+    entityManager.remove(p2);
     entityManager.remove(m);
     entityManager.getTransaction().commit();
   }

@@ -13,7 +13,6 @@
         <class>nl.b3p.brmo.persistence.staging.BRK2ScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
-        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
         <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
         <class>nl.b3p.brmo.persistence.auth.Groep</class>
         <properties>
@@ -43,7 +42,6 @@
         <class>nl.b3p.brmo.persistence.staging.BRK2ScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
-        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
         <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
         <class>nl.b3p.brmo.persistence.auth.Groep</class>
         <properties>
@@ -82,7 +80,6 @@
         <class>nl.b3p.brmo.persistence.staging.BRK2ScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
-        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
         <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
         <class>nl.b3p.brmo.persistence.auth.Groep</class>
         <properties>

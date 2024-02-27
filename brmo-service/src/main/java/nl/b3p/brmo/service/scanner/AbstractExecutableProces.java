@@ -42,8 +42,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     switch (imple) {
       case BAG2MutatieProces:
         return new BAG2MutatieProcesRunner((BAG2MutatieProces) config);
-      case BAGScannerProces:
-        return new BAGDirectoryScanner((BAGScannerProces) config);
       case BRK2ScannerProces:
         return new BRK2DirectoryScanner((BRK2ScannerProces) config);
       case BRKScannerProces:
@@ -56,8 +54,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
         return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
       case BerichtDoorstuurProces:
         return new BerichtDoorsturenProces((BerichtDoorstuurProces) config);
-      case WebMirrorBAGScannerProces:
-        return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);
       case LaadprocesTransformatieProces:
         return new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
       case MaterializedViewRefresh:

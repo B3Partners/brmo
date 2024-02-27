@@ -29,7 +29,6 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
-import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.BRK2ScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
@@ -43,7 +42,6 @@ import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
 import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
-import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
@@ -183,8 +181,6 @@ public class OphaalConfigActionBean implements ActionBean {
     switch (type) {
       case BAG2MutatieProces:
         return new BAG2MutatieProces();
-      case BAGScannerProces:
-        return new BAGScannerProces();
       case BRK2ScannerProces:
         return new BRK2ScannerProces();
       case BRKScannerProces:
@@ -197,8 +193,6 @@ public class OphaalConfigActionBean implements ActionBean {
         return new BerichtTransformatieProces();
       case BerichtDoorstuurProces:
         return new BerichtDoorstuurProces();
-      case WebMirrorBAGScannerProces:
-        return new WebMirrorBAGScannerProces();
       case LaadprocesTransformatieProces:
         return new LaadprocesTransformatieProces();
       case MaterializedViewRefresh:
