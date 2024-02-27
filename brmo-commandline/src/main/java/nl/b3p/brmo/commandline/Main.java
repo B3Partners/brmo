@@ -481,7 +481,7 @@ public class Main {
     if (format.equalsIgnoreCase("json")) {
       System.out.printf(
           "{\"status\":[{\"STAGING_OK\":%s},{\"STAGING_NOK\":%s},{\"RSGB_OK\":%s},{\"RSGB_NOK\":%s},{\"RSGB_OUTDATED\":%s},{\"ARCHIVE\":%s}]}\n",
-          staging_ok, staging_nok, rsgb_ok, rsgb_nok,  rsgb_outdated, archive);
+          staging_ok, staging_nok, rsgb_ok, rsgb_nok, rsgb_outdated, archive);
     } else {
       System.out.println("status, aantal");
       System.out.printf("STAGING_OK,%s\n", staging_ok);
