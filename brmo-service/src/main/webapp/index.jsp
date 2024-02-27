@@ -5,9 +5,7 @@
         <h1>BRMO Service</h1>
         <p>
             Deze service werkt met de RSGB database van B3Partners en kan
-            Basisregistratie berichten laden in deze RSGB database. Deze service
-            kan een eenmalige stand inlezen of mutaties van de BAG, BRK, NHR;
-            andere registraties kunnen worden toegevoegd.
+            Basisregistratie berichten laden in deze RSGB database.
         </p>
         <p>
             Deze service werkt op twee manieren:

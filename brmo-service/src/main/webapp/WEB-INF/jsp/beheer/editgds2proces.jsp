@@ -20,7 +20,6 @@
 </td>
 </tr>
 <tr><td>Contractnummer:</td><td><stripes:text name="config['gds2_contractnummer']" size="10"/></td></tr>
-<!-- 2516 dagelijks bag extract, 2508? maandelijks bag extract -->
 <tr><td>Artikelnummer:</td><td><stripes:text name="config['gds2_artikelnummer']" size="10"/></td></tr>
 <%-- hidden field onderaan de pagina zodat deze niet wordt weggegooid bij opslaan --%>
 <tr><td>Hoogste klantafgiftenummer:</td><td><c:out value="${actionBean.config['hoogste_afgiftenummer']}"/></td></tr>
@@ -29,7 +28,6 @@
     <td><stripes:select name="config['gds2_br_soort']" value="brk2">
             <stripes:option value="brk2">BRK 2</stripes:option>
             <stripes:option value="brk">BRK</stripes:option>
-            <stripes:option value="bag">BAG</stripes:option>
         </stripes:select>
     </td>
 </tr>

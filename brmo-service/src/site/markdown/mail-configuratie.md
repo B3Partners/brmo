@@ -21,7 +21,6 @@ Voor een Tomcat server dient deze resource in de `server.xml` te worden aangemaa
 />
 ```
 Uitgangspunt hierbij is dat de server vrij SMTP kan gebruiken. Daarnaast de juiste mail
-library ([bijvoorbeeld javax.mail-1.5.2.jar](http://search.maven.org/#artifactdetails%7Cjavax.mail%7Cjavax.mail-api%7C1.5.2%7Cjar))
-aan Tomcat toevoegen in de `lib` directory en de server herstarten.
+library aan Tomcat toevoegen in de `lib` directory en de server herstarten.
 
 Jobs kunnen in de BRMO dashboard worden gemaakt.
