@@ -417,26 +417,12 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
   }
 
   public void updateBerichtException(Bericht ber, Throwable e) throws BrmoException {
-    boolean isFKCVbag = false;
-    if (ber.getSoort().equalsIgnoreCase(BrmoFramework.BR_BAG)) {
-      isFKCVbag = geomToJdbc.isFKConstraintViolationMessage(e.getLocalizedMessage());
-      if (isFKCVbag) {
-        ber.setStatus(Bericht.STATUS.RSGB_BAG_NOK);
-      }
-    } else {
-      ber.setStatus(Bericht.STATUS.RSGB_NOK);
-    }
+    ber.setStatus(Bericht.STATUS.RSGB_NOK);
     StringWriter sw = new StringWriter();
     e.printStackTrace(new PrintWriter(sw, true));
     ber.setOpmerking(ber.getOpmerking() + "\nFout: " + sw);
     if (orderBerichten) {
-      if (isFKCVbag) {
-        // log en ga door met transformatie
-        log.warn(
-            String.format(
-                "bag bericht %s, (id: %s) is niet correct verwerkt, controleer de opmerking van het bericht",
-                ber.getObjectRef(), ber.getId()));
-      } else if (errorState != null && errorState.equalsIgnoreCase("ignore")) {
+      if (errorState != null && errorState.equalsIgnoreCase("ignore")) {
         // TODO omdat we te vaak moeten stoppen, later soort exception erbij betrekken.
       } else {
         // volgorde belangrijk dus stoppen

@@ -171,11 +171,6 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
     t.join();
     LOG.debug("Klaar met transformeren berichten naar rsgb DB.");
 
-    assertEquals(
-        aantalBerichten,
-        brmo.getCountBerichten("bag", "RSGB_BAG_NOK"),
-        "Niet alle berichten zijn naar RSGB_BAG_NOK getransformeerd");
-
     ITable gem_openb_rmte = rsgb.createDataSet().getTable("gem_openb_rmte");
     assertEquals(0, gem_openb_rmte.getRowCount(), "Het aantal openbare ruimten klopt niet.");
 
