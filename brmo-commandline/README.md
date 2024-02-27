@@ -40,7 +40,7 @@ Configuratie:
 ```
 De `[format]` optie is optioneel en kan de waarde "json" hebben, de default is tekst output.
 
-De `[archief-directory]` optie is optioneel en kan gebruikt worden om betsanden na laden in een archief directory te plaatsen.
+De `[archief-directory]` optie is optioneel en kan gebruikt worden om bestanden na laden in een archief directory te plaatsen.
 
 De `[error-state]` is optioneel, default is "ignore".
 
@@ -60,17 +60,17 @@ Onderstaand een aantal voorbeelden.
      output:  
      
      ```
-     staging versie: 2.0.3
-     rsgb    versie: 2.0.3
+     staging versie: 3.0.3
+     rsgb    versie: 3.0.3
      ```
      
-  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`
+  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load ./MUT01.xml brk`
   - `java -jar ./bin/brmo-commandline.jar --dbprops conf/commandline-example.properties --list json`
   
      output:  
      `{"aantalprocessen":0}`  
      of:
-     `{"aantalprocessen":1,"processen":[{"id":86,"bestand_naam":"/home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml","bestand_datum":"2016-04-08","soort":"bag","status":"STAGING_OK","contact":"null"}]}`
+     `{"aantalprocessen":1,"processen":[{"id":86,"bestand_naam":"./MUT01.xml","bestand_datum":"2016-04-08","soort":"brk","status":"STAGING_OK","contact":"null"}]}`
 
   - `java -jar ./bin/brmo-commandline.jar --dbprops conf/brmo-db.properties --torsgb`
   - `java -jar ./bin/brmo-commandline.jar --dbprops ./conf/brmo-db.properties -s`
@@ -83,7 +83,6 @@ Onderstaand een aantal voorbeelden.
      STAGING_NOK,0  
      RSGB_OK,0  
      RSGB_NOK,1
-     RSGB_BAG_NOK,123
      RSGB_OUTDATED,0  
      ARCHIVE,0  
 

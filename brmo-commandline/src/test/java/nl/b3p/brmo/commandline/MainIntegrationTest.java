@@ -69,8 +69,6 @@ public class MainIntegrationTest {
       staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
     }
     CleanUtil.cleanSTAGING(staging, false);
-    // omdat de insert van het bag object mislukt vanwege referentie check hoeft er niet
-    // opgeruimd in rsgb
     staging.close();
     dsStaging.close();
   }
@@ -92,7 +90,6 @@ public class MainIntegrationTest {
       strings = {
         "--versieinfo",
         "--versieinfo json",
-        "--load ../../../brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag",
         "-l",
         "--list json",
         "-s",
