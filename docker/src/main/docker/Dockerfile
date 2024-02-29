@@ -4,16 +4,6 @@ ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG BRMO_VERSION="snapshot"
 
-#ENV MAIL_FROM=brmo-no-reply@b3partners.nl
-#ENV MAIL_HOST=mail.b3partners.nl
-#ENV PG_PORT=5432
-#ENV PG_HOST=127.0.0.1
-#ENV DB_PASS_RSGB=rsgb
-#ENV DB_PASS_STAGING=staging
-#ENV DB_PASS_RSGBBGT=rsgbbgt
-#ENV DB_PASS_TOPNL=topnl
-#ENV CATALINA_OPTS="-DMAIL_FROM=${MAIL_FROM:-brmo-no-reply@b3partners.nl} -DMAIL_HOST=${MAIL_HOST:-mail.b3partners.nl} -DPG_PORT=${PG_PORT:-5432} -DPG_HOST=${PG_HOST:-db} -DDB_PASS_RSGB=${DB_PASS_RSGB} -DDB_PASS_STAGING=${DB_PASS_STAGING} -DDB_PASS_RSGBBGT=${DB_PASS_RSGBBGT} -DDB_PASS_TOPNL=${DB_PASS_TOPNL} -DHR_ACTIVE=${HR_ACTIVE:-false} -DHR_PASS_KEYSTORE=${HR_PASS_KEYSTORE:-changeme} -DHR_PASS_TRUSTSTORE=${HR_PASS_TRUSTSTORE:-changeme} -DHR_ISPREPROD=${HR_ISPREPROD:-true} -DHR_URL=${HR_URL:-https://webservices.preprod.kvk.nl/postbus1} -DHR_IMAP_RESOURCE=${HR_IMAP_RESOURCE:-disabled} -DHR_IMAP_USER=${HR_IMAP_USER:-changeme} -DHR_IMAP_PASS=${HR_IMAP_PASS:-changeme} -DHR_IMAP_HOST=${HR_IMAP_HOST:-mail.b3partners.nl}"
-
 LABEL org.opencontainers.image.authors="support@b3partners.nl" \
       org.opencontainers.image.description="BRMO services in Tomcat" \
       org.opencontainers.image.vendor="B3Partners BV" \
@@ -25,7 +15,6 @@ LABEL org.opencontainers.image.authors="support@b3partners.nl" \
 
 SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
 RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-    && mkdir -p /opt/brmo-data/BAG/ \
     && mkdir -p /opt/brmo-data/BGT/ \
     && mkdir -p /opt/brmo-data/NHR/certificaten/ \
     && mkdir -p /opt/brmo-data/BRK/berichtendump \
@@ -36,7 +25,6 @@ RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/t
     && mkdir -p /opt/brmo-data/sqlscripts/ \
     && chown -R www-data:www-data /usr/local/tomcat/webapps \
     && chown -R www-data:www-data /usr/local/tomcat/logs \
-#    && chown -R www-data:www-data /usr/local/tomcat/conf/Catalina/localhost \
     && chown -R www-data:www-data /opt/brmo-data \
     && apt-get update \
     && apt-get install -y --no-install-recommends postgresql-client less \
@@ -45,7 +33,7 @@ RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/t
     && rm -rf /var/lib/apt/lists/*
 
 # kopieer webapp en jdni libs in tomcat directories
-# maven zorgt ervoor dat deze worden neergezet
+# maven zorgt ervoor dat deze worden neergezet/uitgepakt
 COPY bin_unzipped/wars/brmo-service.war /usr/local/tomcat/webapps/ROOT.war
 COPY bin_unzipped/drivers/pgsql/*.jar /usr/local/tomcat/lib/
 
