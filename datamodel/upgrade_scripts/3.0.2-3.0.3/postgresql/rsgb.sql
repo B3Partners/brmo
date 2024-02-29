@@ -4,6 +4,11 @@
 
 set search_path = public,bag,brk;
 
+-- update brk waardelijsten
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('25', 'Huur afhankelijk opstal (recht van)');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('26','Pachtafhankelijk opstal (recht van)');
+INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('25', 'Huur afhankelijk opstal (recht van)');
+INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('26', 'Pachtafhankelijk opstal (recht van)');
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_3.0.2_naar_3.0.3','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';

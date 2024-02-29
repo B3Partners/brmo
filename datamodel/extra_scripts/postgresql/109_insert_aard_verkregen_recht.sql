@@ -22,3 +22,5 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('2
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('22', 'BP-recht');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('23', 'Opstalrecht Nutsvoorzieningen op gedeelte van perceel');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('24', 'Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht op gedeelte van perceel');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('25', 'Huur afhankelijk opstal (recht van)');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('26', 'Pachtafhankelijk opstal (recht van)');
