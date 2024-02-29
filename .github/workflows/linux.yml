@@ -243,7 +243,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: '03a64fe1-cc60-49ea-95d0-d2f58e20ef54'
+          project: 'ae922e6c-e182-46c4-b3fe-272eaeee6d9c'
           bomfilename: 'brmo-service/target/bom.xml'
 
       - name: 'Deploy brmo-soap SBOM'
@@ -251,7 +251,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: '2110673c-88c9-410d-ad2b-fac34ea33975'
+          project: '4352e9e6-86be-497b-a9f6-7dcaa5df5e37'
           bomfilename: 'brmo-soap/target/bom.xml'
 
       - name: 'Deploy brmo-stufbg204 SBOM'
@@ -259,7 +259,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: 'b0866280-4910-4838-a7bb-9ab56cf42217'
+          project: '72254d7c-c584-4821-b1e7-c806ebcd967e'
           bomfilename: 'brmo-stufbg204/target/bom.xml'
 
       - name: 'Set up JDK (repo.b3p.nl)'
