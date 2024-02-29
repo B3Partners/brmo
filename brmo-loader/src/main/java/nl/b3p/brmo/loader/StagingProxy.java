@@ -27,7 +27,6 @@ import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BRPXMLReader;
-import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -852,24 +851,27 @@ public class StagingProxy {
     CountingInputStream cis = new CountingInputStream(stream);
 
     BrmoXMLReader brmoXMLReader;
-    if (type.equals(BrmoFramework.BR_BRK)) {
-      brmoXMLReader = new BrkSnapshotXMLReader(cis);
-    } else if (type.equals(BrmoFramework.BR_BRK2)) {
-      brmoXMLReader = new Brk2SnapshotXMLReader(cis);
-    } else if (type.equals(BrmoFramework.BR_BAG)) {
-      brmoXMLReader = new BagXMLReader(cis);
-    } else if (type.equals(BrmoFramework.BR_NHR)) {
-      brmoXMLReader = new NhrXMLReader(cis);
-    } else if (TopNLType.isTopNLType(type)) {
-      brmoXMLReader = new TopNLFileReader(fileName, type);
-    } else if (type.equals(BrmoFramework.BR_BRP)) {
-      brmoXMLReader = new BRPXMLReader(cis, d, this);
-    } else if (type.equals(BrmoFramework.BR_GBAV)) {
-      brmoXMLReader = new GbavXMLReader(cis);
-    } else if (type.equals(BrmoFramework.BR_WOZ)) {
-      brmoXMLReader = new WozXMLReader(cis, d, this);
-    } else {
-      throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
+    switch (type) {
+      case BrmoFramework.BR_BRK:
+        brmoXMLReader = new BrkSnapshotXMLReader(cis);
+        break;
+      case BrmoFramework.BR_BRK2:
+        brmoXMLReader = new Brk2SnapshotXMLReader(cis);
+        break;
+      case BrmoFramework.BR_NHR:
+        brmoXMLReader = new NhrXMLReader(cis);
+        break;
+      case BrmoFramework.BR_BRP:
+        brmoXMLReader = new BRPXMLReader(cis, d, this);
+        break;
+      case BrmoFramework.BR_GBAV:
+        brmoXMLReader = new GbavXMLReader(cis);
+        break;
+      case BrmoFramework.BR_WOZ:
+        brmoXMLReader = new WozXMLReader(cis, d, this);
+        break;
+      default:
+        throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
     }
 
     if (brmoXMLReader.getBestandsDatum() == null) {
@@ -956,10 +958,6 @@ public class StagingProxy {
             isBerichtGeschreven = true;
           } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
             // als bericht nog niet getransformeerd is, dan overschrijven.
-            // als een BAG bericht inactief wordt gezet dan zal het
-            // oorspronkelijke bericht nog getransformeerd
-            // moeten worden, door overschrijven wordt dit bericht inactief
-            // en zal nooit getransformeerd worden.
             b.setId(existingBericht.getId());
             this.updateBericht(b);
           }

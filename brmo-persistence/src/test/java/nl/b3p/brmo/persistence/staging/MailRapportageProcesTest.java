@@ -109,7 +109,7 @@ public class MailRapportageProcesTest extends TestUtil {
     cq.orderBy(cb.asc(from.get("status")));
 
     List<AutomatischProces> list = entityManager.createQuery(cq).getResultList();
-    assertEquals(2, list.size(), "Het aantal processen met status ERROR.");
+    assertEquals(1, list.size(), "Het aantal processen met status ERROR.");
 
     entityManager.remove(p2);
     entityManager.remove(m);

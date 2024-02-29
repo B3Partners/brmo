@@ -734,9 +734,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         case BrmoFramework.BR_BRK2:
           t = new RsgbTransformer(BrmoFramework.XSL_BRK2);
           break;
-        case BrmoFramework.BR_BAG:
-          t = new RsgbTransformer(BrmoFramework.XSL_BAG);
-          break;
         case BrmoFramework.BR_BRP:
           t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
           break;
