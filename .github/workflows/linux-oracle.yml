@@ -86,9 +86,6 @@ jobs:
       - name: 'Verify brmo-service'
         run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service' -DskipQA=true
 
-      - name: 'Verify brmo-soap'
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-soap' -DskipQA=true
-
       - name: 'Verify brmo-stufbg204'
         run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-stufbg204' -DskipQA=true
 

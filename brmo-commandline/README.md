@@ -60,8 +60,8 @@ Onderstaand een aantal voorbeelden.
      output:  
      
      ```
-     staging versie: 3.0.3
-     rsgb    versie: 3.0.3
+     staging versie: 3.0.2
+     rsgb    versie: 3.0.2
      ```
      
   - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load ./MUT01.xml brk`

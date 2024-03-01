@@ -33,7 +33,6 @@
         </menu>
         <menu name="Handleidingen" inherit="top">
             <item name="BRMO service installatie" href="https://github.com/B3Partners/brmo/wiki/Installatiehandleiding"/>
-            <item name="BRMO SOAP" href="https://github.com/B3Partners/brmo/wiki/BRMO-SOAP-handleiding"/>
             <item name="Handleidingen" href="https://github.com/B3Partners/brmo/wiki/Handleidingen"/>
         </menu>
         <menu ref="modules"/>

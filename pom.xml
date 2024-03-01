@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -34,7 +34,6 @@
         <module>brmo-service</module>
         <module>brmo-proxyservice</module>
         <module>brmo-soap-util</module>
-        <module>brmo-soap</module>
         <module>brmo-stufbg204</module>
         <module>brmo-commandline</module>
         <module>brmo-dist</module>
