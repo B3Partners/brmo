@@ -74,7 +74,7 @@ public class DatabaseUpgradeTest {
     previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
     // HACK voor bump
     if (nextRelease.equalsIgnoreCase("4.0.0")) {
-      previousRelease = "3.0.3";
+      previousRelease = "3.0.2";
     }
     LOG.debug("vorige release is: " + previousRelease);
 
