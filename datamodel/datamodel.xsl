@@ -54,8 +54,10 @@
 				<script>122_idx_gebr_doel.sql</script>
 				<script>123_add_hoofdvestiging.sql</script>
 				<script>124_uitbreiding_woz.sql</script>
-				<script>206_bag_views.sql</script>
+				<!-- BAG 1 is verwijderd in versie 4.0.0
+				 script>206_bag_views.sql</script -->
 				<script>207_brk_views.sql</script>
+				<script>300_drop_bag_tabellen.sql</script>
 			</extra-scripts>
 		</schema>
 	</xsl:template>

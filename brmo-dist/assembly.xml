@@ -145,6 +145,21 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../${project.basedir}/datamodel/extra_scripts/</directory>
+            <outputDirectory>db/upgrade_scripts/3.0.2-4.0.0</outputDirectory>
+            <includes>
+                <include>**/300_*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>../${project.basedir}/datamodel/extra_scripts/</directory>
+            <outputDirectory>db/utility_scripts/3.0.2-4.0.0</outputDirectory>
+            <includes>
+                <include>**/202_*.sql</include>
+                <include>**/1000_*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>

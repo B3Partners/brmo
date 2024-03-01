@@ -151,7 +151,6 @@ create index mb_adresseerbaar_object_geometrie_bag_identificatie on mb_adresseer
 create unique index mb_adresseerbaar_object_geometrie_bag_objectid on mb_adresseerbaar_object_geometrie_bag (objectid);
 
 
---Maakt dezelfde materialized view aan als mb_kad_onrrnd_zk_adres, maar de BAG gegevens worden uit mb_adresseerbaar_object_geometrie_bag gehaald.
 create materialized view mb_kad_onrrnd_zk_adres_bag build deferred refresh on demand as
 select cast(ROWNUM as INTEGER)                                                             as objectid,
        qry.identif                                                                         as koz_identif,
