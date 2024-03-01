@@ -31,12 +31,6 @@
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
-            <artifactId>brmo-soap</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>nl.b3p</groupId>
             <artifactId>brmo-stufbg204</artifactId>
             <version>${project.version}</version>
             <type>war</type>

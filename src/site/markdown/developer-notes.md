@@ -136,7 +136,6 @@ abstracte klasse in verschillende modules.
 |----------------|------------------------------------------|
 | brmo-loader    | `nl.b3p.AbstractDatabaseIntegrationTest` |
 | brmo-service   | `nl.b3p.web.TestUtil`                    |
-| brmo-soap      | `nl.b3p.brmo.soap.db.TestUtil`           |
 | brmo-stufbg204 | `nl.b3p.brmo.stufbg204.TestStub`         |
 
 ### servlet container configuratie

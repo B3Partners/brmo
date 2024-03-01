@@ -110,9 +110,6 @@ jobs:
       - name: 'Verify brmo-service'
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service' -DskipQA=true
 
-      - name: 'Verify brmo-soap'
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap' -DskipQA=true
-
       - name: 'Verify brmo-stufbg204'
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204' -DskipQA=true
 
@@ -245,14 +242,6 @@ jobs:
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
           project: 'ae922e6c-e182-46c4-b3fe-272eaeee6d9c'
           bomfilename: 'brmo-service/target/bom.xml'
-
-      - name: 'Deploy brmo-soap SBOM'
-        uses: DependencyTrack/gh-upload-sbom@v3
-        with:
-          serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
-          apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: '4352e9e6-86be-497b-a9f6-7dcaa5df5e37'
-          bomfilename: 'brmo-soap/target/bom.xml'
 
       - name: 'Deploy brmo-stufbg204 SBOM'
         uses: DependencyTrack/gh-upload-sbom@v3
