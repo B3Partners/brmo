@@ -11,16 +11,16 @@ jobs:
 
       # Only check a few subdirectories for now
       - name: 'REUSE Compliance Check (BGT loader)'
-        uses: fsfe/reuse-action@v2
+        uses: fsfe/reuse-action@v3
         with:
           args: --root bgt-loader lint
 
       - name: 'REUSE Compliance Check (BAG2 loader)'
-        uses: fsfe/reuse-action@v2
+        uses: fsfe/reuse-action@v3
         with:
           args: --root bag2-loader lint
 
       - name: 'REUSE Compliance Check (NHR loader)'
-        uses: fsfe/reuse-action@v2
+        uses: fsfe/reuse-action@v3
         with:
           args: --root nhr-loader lint
