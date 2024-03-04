@@ -851,27 +851,22 @@ public class StagingProxy {
     CountingInputStream cis = new CountingInputStream(stream);
 
     BrmoXMLReader brmoXMLReader;
-    switch (type) {
-      case BrmoFramework.BR_BRK:
-        brmoXMLReader = new BrkSnapshotXMLReader(cis);
-        break;
-      case BrmoFramework.BR_BRK2:
-        brmoXMLReader = new Brk2SnapshotXMLReader(cis);
-        break;
-      case BrmoFramework.BR_NHR:
-        brmoXMLReader = new NhrXMLReader(cis);
-        break;
-      case BrmoFramework.BR_BRP:
-        brmoXMLReader = new BRPXMLReader(cis, d, this);
-        break;
-      case BrmoFramework.BR_GBAV:
-        brmoXMLReader = new GbavXMLReader(cis);
-        break;
-      case BrmoFramework.BR_WOZ:
-        brmoXMLReader = new WozXMLReader(cis, d, this);
-        break;
-      default:
-        throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
+    if (type.equals(BrmoFramework.BR_BRK)) {
+      brmoXMLReader = new BrkSnapshotXMLReader(cis);
+    } else if (type.equals(BrmoFramework.BR_BRK2)) {
+      brmoXMLReader = new Brk2SnapshotXMLReader(cis);
+    } else if (type.equals(BrmoFramework.BR_NHR)) {
+      brmoXMLReader = new NhrXMLReader(cis);
+    } else if (TopNLType.isTopNLType(type)) {
+      brmoXMLReader = new TopNLFileReader(fileName, type);
+    } else if (type.equals(BrmoFramework.BR_BRP)) {
+      brmoXMLReader = new BRPXMLReader(cis, d, this);
+    } else if (type.equals(BrmoFramework.BR_GBAV)) {
+      brmoXMLReader = new GbavXMLReader(cis);
+    } else if (type.equals(BrmoFramework.BR_WOZ)) {
+      brmoXMLReader = new WozXMLReader(cis, d, this);
+    } else {
+      throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
     }
 
     if (brmoXMLReader.getBestandsDatum() == null) {
