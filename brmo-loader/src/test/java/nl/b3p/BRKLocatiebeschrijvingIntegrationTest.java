@@ -129,7 +129,6 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
     dsStaging.close();
 
     CleanUtil.cleanRSGB_BRK(rsgb, true);
-    CleanUtil.cleanRSGB_BAG(rsgb, true);
     rsgb.close();
     dsRsgb.close();
 
