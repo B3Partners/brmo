@@ -97,13 +97,6 @@
                         </stripes:url>
                     </c:when>
 
-                    <c:when test="${actionBean.type eq 'BAGScannerProces'}">
-                        <jsp:include page="editdirscannerproces.jsp" />
-                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
-                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-                        </stripes:url>
-                    </c:when>
-
                     <c:when test="${actionBean.type eq 'BRK2ScannerProces'}">
                         <jsp:include page="editdirscannerproces.jsp" />
                         <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
@@ -113,13 +106,6 @@
 
                     <c:when test="${actionBean.type eq 'BRKScannerProces'}">
                         <jsp:include page="editbrkdirscannerproces.jsp" />
-                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
-                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-                        </stripes:url>
-                    </c:when>
-
-                    <c:when test="${actionBean.type eq 'WebMirrorBAGScannerProces'}">
-                        <jsp:include page="editwebdirscannerproces.jsp" />
                         <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
                             <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
                         </stripes:url>

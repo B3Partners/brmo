@@ -24,15 +24,6 @@
         </init-param>
     </servlet>
     <servlet>
-        <servlet-name>BAG_file</servlet-name>
-        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
-        <init-param>
-            <description>directory waar bestanden terecht komen</description>
-            <param-name>save_dir</param-name>
-            <param-value>/var/opt/brmo/bag</param-value>
-        </init-param>
-    </servlet>
-    <servlet>
         <servlet-name>WOZ_file</servlet-name>
         <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
         <init-param>
@@ -60,15 +51,6 @@
         </init-param>
     </servlet>
     <servlet>
-        <servlet-name>BAG_proxy</servlet-name>
-        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
-        <init-param>
-            <description>BRMO endpoint waarnaartoe door-gepost wordt</description>
-            <param-name>proxy_for_url</param-name>
-            <param-value>http://localhost:8037/brmo-service/post/bag</param-value>
-        </init-param>
-    </servlet>
-    <servlet>
         <servlet-name>WOZ_proxy</servlet-name>
         <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
         <init-param>
@@ -88,16 +70,10 @@
         <url-pattern>/post/brk2</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BAG_file</servlet-name>
-        <!-- <servlet-name>BAG_proxy</servlet-name> -->
-        <url-pattern>/post/bag</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>WOZ_file</servlet-name>
         <!-- <servlet-name>WOZ_proxy</servlet-name> -->
         <url-pattern>/post/woz</url-pattern>
     </servlet-mapping>
-
     <error-page>
         <error-code>400</error-code>
         <location>/error.jsp</location>

@@ -42,8 +42,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     switch (imple) {
       case BAG2MutatieProces:
         return new BAG2MutatieProcesRunner((BAG2MutatieProces) config);
-      case BAGScannerProces:
-        return new BAGDirectoryScanner((BAGScannerProces) config);
       case BRK2ScannerProces:
         return new BRK2DirectoryScanner((BRK2ScannerProces) config);
       case BRKScannerProces:
@@ -56,8 +54,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
         return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
       case BerichtDoorstuurProces:
         return new BerichtDoorsturenProces((BerichtDoorstuurProces) config);
-      case WebMirrorBAGScannerProces:
-        return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);
       case LaadprocesTransformatieProces:
         return new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
       case MaterializedViewRefresh:
@@ -108,7 +104,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
    * <pre>
    * loadFromFile(bericht)
    * 	→ stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
-   * 	→ snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader, Brk2SnapshotXMLReader of BagMutatieXMLReader die bericht voor bericht uitgelezen kunnen worden
+   * 	→ snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of Brk2SnapshotXMLReader die bericht voor bericht uitgelezen kunnen worden
    * 	→ bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
    * 	→ laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
    * 	→ uitlezen xml bericht als

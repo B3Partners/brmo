@@ -27,7 +27,6 @@ import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BRPXMLReader;
-import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
@@ -856,8 +855,6 @@ public class StagingProxy {
       brmoXMLReader = new BrkSnapshotXMLReader(cis);
     } else if (type.equals(BrmoFramework.BR_BRK2)) {
       brmoXMLReader = new Brk2SnapshotXMLReader(cis);
-    } else if (type.equals(BrmoFramework.BR_BAG)) {
-      brmoXMLReader = new BagXMLReader(cis);
     } else if (type.equals(BrmoFramework.BR_NHR)) {
       brmoXMLReader = new NhrXMLReader(cis);
     } else if (TopNLType.isTopNLType(type)) {
@@ -956,10 +953,6 @@ public class StagingProxy {
             isBerichtGeschreven = true;
           } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
             // als bericht nog niet getransformeerd is, dan overschrijven.
-            // als een BAG bericht inactief wordt gezet dan zal het
-            // oorspronkelijke bericht nog getransformeerd
-            // moeten worden, door overschrijven wordt dit bericht inactief
-            // en zal nooit getransformeerd worden.
             b.setId(existingBericht.getId());
             this.updateBericht(b);
           }

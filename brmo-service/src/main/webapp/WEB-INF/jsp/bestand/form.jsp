@@ -14,7 +14,6 @@
                     <td>
                         <stripes:select name="basisregistratie">
                             <stripes:option/>
-                            <stripes:option value="bag">BAG</stripes:option>
                             <stripes:option value="brk2">BRK 2</stripes:option>
                             <stripes:option value="brk">BRK</stripes:option>
                             <stripes:option value="nhr">nHR</stripes:option>
@@ -39,7 +38,6 @@
                     <td>
                         <stripes:select name="basisregistratie">
                             <stripes:option/>
-                            <stripes:option value="bag">BAG</stripes:option>
                             <stripes:option value="brk2">BRK 2</stripes:option>
                             <stripes:option value="brk">BRK</stripes:option>
                             <stripes:option value="nhr">nHR</stripes:option>

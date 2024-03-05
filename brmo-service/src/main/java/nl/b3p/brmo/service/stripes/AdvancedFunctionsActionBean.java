@@ -45,7 +45,6 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
-import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
@@ -239,26 +238,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 BrmoFramework.BR_BRK,
                 Bericht.STATUS.STAGING_NOK.toString()),
             new AdvancedFunctionProcess(
-                "Repareren BAG mutaties met status STAGING_NOK",
-                BrmoFramework.BR_BAG,
-                Bericht.STATUS.STAGING_NOK.toString()),
-            new AdvancedFunctionProcess(
                 "Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden",
                 BrmoFramework.BR_BRK,
-                Bericht.STATUS.RSGB_OK.toString()),
-            new AdvancedFunctionProcess(
-                "Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden",
-                BrmoFramework.BR_BAG,
                 Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(
                 NHR_ARCHIVING, BrmoFramework.BR_NHR, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(
                 "Verwijderen van BRK berichten met status ARCHIVE",
                 BrmoFramework.BR_BRK,
-                Bericht.STATUS.ARCHIVE.toString()),
-            new AdvancedFunctionProcess(
-                "Verwijderen van BAG berichten met status ARCHIVE",
-                BrmoFramework.BR_BAG,
                 Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(
                 NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),
@@ -305,23 +292,14 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         case "Repareren BRK mutaties met status STAGING_NOK":
           repairBRKMutatieBerichten(process.getConfig());
           break;
-        case "Repareren BAG mutaties met status STAGING_NOK":
-          repairBAGMutatieBerichten(process.getConfig());
-          break;
         case "Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden":
           cleanupBerichten(process.getConfig(), "brk");
-          break;
-        case "Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden":
-          cleanupBerichten(process.getConfig(), "bag");
           break;
         case NHR_ARCHIVING:
           cleanupBerichten(process.getConfig(), BrmoFramework.BR_NHR);
           break;
         case "Verwijderen van BRK berichten met status ARCHIVE":
           deleteBerichten(process.getConfig(), "brk");
-          break;
-        case "Verwijderen van BAG berichten met status ARCHIVE":
-          deleteBerichten(process.getConfig(), "bag");
           break;
         case NHR_REMOVAL:
           deleteBerichten(process.getConfig(), BrmoFramework.BR_NHR);
@@ -542,120 +520,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                           }
                         }
 
-                      } catch (Exception e1) {
-                        return e1;
-                      }
-                      processed.increment();
-                    }
-                    return null;
-                  });
-      offset += processed.intValue();
-
-      progress(offset);
-
-      // If handler threw exception processing row, rethrow it
-      if (e != null) {
-        closeQuietly(conn);
-        throw e;
-      }
-    } while (processed.intValue() > 0);
-    closeQuietly(conn);
-  }
-
-  public void repairBAGMutatieBerichten(String config) throws Exception {
-    int offset = 0;
-    int batch = 1000;
-    final MutableInt processed = new MutableInt(0);
-    final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-    final Connection conn = dataSourceStaging.getConnection();
-    final GeometryJdbcConverter geomToJdbc =
-        GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-    final RowProcessor processor = new StagingRowHandler();
-
-    do {
-      LOG.debug(
-          String.format(
-              "Ophalen BAG mutatieberichten batch met offset %d, limit %d", offset, batch));
-      String sql =
-          "select * from "
-              + BrmoFramework.BERICHT_TABLE
-              + " where volgordenummer >= 0 "
-              + " and soort='bag' "
-              + " and status='"
-              + config
-              + "'"
-              + " order by id ";
-      sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
-      LOG.debug("SQL voor ophalen berichten batch: " + sql);
-
-      processed.setValue(0);
-      Exception e =
-          new QueryRunner(geomToJdbc.isPmdKnownBroken())
-              .query(
-                  conn,
-                  sql,
-                  rs -> {
-                    while (rs.next()) {
-                      try {
-                        Bericht bericht = processor.toBean(rs, Bericht.class);
-
-                        StringBuilder message = new StringBuilder();
-                        if (bericht.getBrOrgineelXml() != null
-                            && !bericht.getBrOrgineelXml().isEmpty()) {
-                          message.append(bericht.getBrOrgineelXml());
-                        } else {
-                          if (bericht.getBrXml().startsWith("<?xml version=\"1.0\"")) {
-                            // strip <?xml version="1.0"?>
-                            message.append(bericht.getBrXml().substring(21));
-                          } else {
-                            message.append(bericht.getBrXml());
-                          }
-                        }
-
-                        BagXMLReader reader =
-                            new BagXMLReader(
-                                new ByteArrayInputStream(
-                                    message.toString().getBytes(StandardCharsets.UTF_8)));
-                        reader.hasNext();
-                        Bericht bag = reader.next();
-                        if (bag != null
-                            && bag.getDatum() != null
-                            && bag.getObjectRef() != null
-                            && bag.getVolgordeNummer() != null) {
-                          bericht.setDatum(bag.getDatum());
-                          bericht.setObjectRef(bag.getObjectRef());
-                          bericht.setVolgordeNummer(bag.getVolgordeNummer());
-                        }
-                        if (bag != null
-                            && bag.getDatum() != null
-                            && bag.getObjectRef() != null
-                            && bag.getVolgordeNummer() != null) {
-                          if (bericht.getBrOrgineelXml() != null
-                              && !bericht.getBrOrgineelXml().isEmpty()) {
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                .update(
-                                    conn,
-                                    "update "
-                                        + BrmoFramework.BERICHT_TABLE
-                                        + " set object_ref = ?, datum = ?, volgordenummer = ? where id = ?",
-                                    bericht.getObjectRef(),
-                                    new Timestamp(bericht.getDatum().getTime()),
-                                    bericht.getVolgordeNummer(),
-                                    bericht.getId());
-                          } else {
-                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
-                                .update(
-                                    conn,
-                                    "update "
-                                        + BrmoFramework.BERICHT_TABLE
-                                        + " set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?",
-                                    bericht.getObjectRef(),
-                                    new Timestamp(bericht.getDatum().getTime()),
-                                    bericht.getVolgordeNummer(),
-                                    message.toString(),
-                                    bericht.getId());
-                          }
-                        }
                       } catch (Exception e1) {
                         return e1;
                       }

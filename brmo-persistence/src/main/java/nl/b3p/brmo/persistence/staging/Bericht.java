@@ -72,8 +72,7 @@ public class Bericht implements Serializable {
     RSGB_OK,
     RSGB_OUTDATED,
     RSGB_NOK,
-    ARCHIVE,
-    RSGB_BAG_NOK
+    ARCHIVE
   };
 
   public Bericht() {}

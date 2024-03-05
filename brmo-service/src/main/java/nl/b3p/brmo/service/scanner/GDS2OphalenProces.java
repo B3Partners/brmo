@@ -9,7 +9,6 @@ import static nl.b3p.gds2.GDS2Util.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,9 +48,7 @@ import javax.xml.ws.handler.Handler;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Brk2Bericht;
 import nl.b3p.brmo.loader.entity.BrkBericht;
-import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
@@ -59,7 +56,6 @@ import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadProces;
-import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.service.util.TrustManagerDelegate;
 import nl.b3p.brmo.soap.util.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenType;
@@ -75,8 +71,6 @@ import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenResponse;
 import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.input.CloseShieldInputStream;
-import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
@@ -472,14 +466,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
           this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
       switch (soort) {
         case "brk2":
-          verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
-          break;
         case "brk":
           verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
-          break;
-        case "bag":
-          // bag heeft geen contractnummer
-          verwerkAfgiftes(afgiftes, getAnoniemBaseURL(response.getAntwoord()), soort);
           break;
         default:
           throw new BrmoException("Onbekende basisregistratie soort: " + soort);
@@ -523,131 +511,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     } catch (NoResultException nre) {
       return false;
     }
-  }
-
-  /**
-   * Ophalen en verwerken van BAG mutaties van GDS2. Deze zijn anders dan BRK mutaties omdat de data
-   * in een geneste zip zit en er een paar andere bestanden inzitten waar we (nog) niks mee doen.
-   *
-   * @param a de afgifte uit het soap verzoek
-   * @param url te downloaden bestand
-   * @throws Exception if any
-   * @see #laadAfgifte(AfgifteType, String, String)
-   * @deprecated BAG wordt niet meer via GDS2 aangeboden
-   */
-  @Deprecated
-  private void laadBagAfgifte(AfgifteType a, String url) throws Exception {
-    String msg = "Downloaden " + url;
-    l.updateStatus(msg);
-    l.addLog(msg);
-
-    InputStream input;
-    int attempt = 0;
-    while (true) {
-      try {
-        URLConnection connection = new URL(url).openConnection();
-        if (connection instanceof HttpsURLConnection) {
-          ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
-        }
-        input = (InputStream) connection.getContent();
-        if (log.isDebugEnabled()) {
-          // dump zip bestand naar /tmp/ voordat de xml wordt geparsed
-          File dump =
-              File.createTempFile(
-                  a.getBestand().getBestandsnaam() + "_id-" + a.getAfgifteID(), ".zip");
-          log.debug("Dump BAG mutaties zip naar: " + dump.getAbsolutePath());
-          FileOutputStream archiveFile = new FileOutputStream(dump);
-          input = new TeeInputStream(input, archiveFile, true);
-        }
-        break;
-      } catch (Exception e) {
-        attempt++;
-        if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {
-          l.addLog(
-              "Fout bij laatste poging downloaden afgifte: "
-                  + e.getClass().getName()
-                  + ": "
-                  + e.getMessage());
-          throw e;
-        } else {
-          l.addLog(
-              "Fout bij poging "
-                  + attempt
-                  + " om afgifte te downloaden: "
-                  + e.getClass().getName()
-                  + ": "
-                  + e.getMessage());
-          Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);
-          l.addLog(
-              "Uitvoeren poging " + (attempt + 1) + " om afgifte " + url + " te downloaden...");
-        }
-      }
-    }
-
-    BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null, null);
-
-    ZipInputStream zip = new ZipInputStream(input);
-    ZipEntry entry = zip.getNextEntry();
-    while (entry != null) {
-      log.trace("gevonden " + entry.getName());
-      if (!entry.getName().toLowerCase().startsWith("gem-wpl-relatie")
-          && !entry.getName().equalsIgnoreCase("Leveringsdocument-BAG-Mutaties.xml")) {
-        if (entry.getName().toLowerCase().endsWith(".zip")) {
-          // alleen mutaties oppakken
-          ZipInputStream innerzip = new ZipInputStream(zip);
-          ZipEntry innerentry = innerzip.getNextEntry();
-          String localLpName = "";
-          while (innerentry != null && innerentry.getName().toLowerCase().endsWith(".xml")) {
-            msg =
-                "Verwerken "
-                    + entry.getName()
-                    + "/"
-                    + innerentry.getName()
-                    + " uit "
-                    + getLaadprocesBestandsnaam(a);
-            l.updateStatus(msg);
-            l.addLog(msg);
-            log.debug(msg);
-            try {
-              localLpName =
-                  getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName();
-              brmo.loadFromStream(
-                  BrmoFramework.BR_BAG,
-                  CloseShieldInputStream.wrap(innerzip),
-                  localLpName,
-                  config.getId());
-            } catch (BrmoDuplicaatLaadprocesException d) {
-              msg = "Duplicaat laadproces. " + d.getLocalizedMessage();
-              l.updateStatus(msg);
-              l.addLog(msg);
-              log.warn(msg);
-            } catch (BrmoLeegBestandException e) {
-              msg = "Leeg bestand voor laadproces. " + e.getLocalizedMessage();
-              l.updateStatus(msg);
-              l.addLog(msg);
-              log.info(msg);
-            } finally {
-              brmo.updateLaadProcesMeta(
-                  brmo.getLaadProcesIdByFileName(localLpName),
-                  a.getKlantAfgiftenummer(),
-                  a.getContractAfgiftenummer(),
-                  a.getBestandKenmerken().getArtikelnummer(),
-                  a.getBestandKenmerken().getContractnummer(),
-                  a.getAfgifteID(),
-                  a.getAfgiftereferentie(),
-                  a.getBestand().getBestandsreferentie(),
-                  a.getBeschikbaarTot().toGregorianCalendar().getTime());
-            }
-            innerentry = innerzip.getNextEntry();
-          }
-        } else {
-          log.warn("Overslaan van onbekend bestand in bag mutaties: " + entry.getName());
-        }
-      }
-      entry = zip.getNextEntry();
-    }
-    zip.close();
-    brmo.closeBrmoFramework();
   }
 
   private Bericht laadAfgifte(AfgifteType a, String url, String brkSoort) throws Exception {
@@ -916,9 +779,6 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
       if (null != url && !url.isBlank()) {
         if (isAfgifteAlGeladen(a)) {
           filterAlVerwerkt++;
-        } else if (soort.equalsIgnoreCase(BrmoFramework.BR_BAG)) {
-          laadBagAfgifte(a, url);
-          aantalGeladen++;
         } else {
           Bericht b = laadAfgifte(a, url, soort);
           if (b != null && doorsturenUrl != null) {

@@ -161,21 +161,13 @@ public class DatabaseUpgradeTest {
 
     List<String> views =
         Stream.of(
-                // bag
-                "mb_adres",
-                "mb_pand",
-                "mb_benoemd_obj_adres",
-                "mb_ben_obj_nevenadres",
                 // brk 1
                 "mb_subject",
                 "mb_avg_subject",
                 "mb_util_app_re_kad_perceel",
-                "mb_kad_onrrnd_zk_adres",
                 "mb_percelenkaart",
                 "mb_zr_rechth",
                 "mb_avg_zr_rechth",
-                "mb_koz_rechth",
-                "mb_avg_koz_rechth",
                 "mb_kad_onrrnd_zk_archief")
             .collect(Collectors.toList());
 

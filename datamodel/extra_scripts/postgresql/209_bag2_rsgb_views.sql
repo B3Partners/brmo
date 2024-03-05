@@ -122,7 +122,6 @@ create unique index mb_adresseerbaar_object_geometrie_bag_objectid on mb_adresse
 comment on
     materialized view mb_adresseerbaar_object_geometrie_bag is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
 
---Maakt dezelfde materialized view aan als mb_kad_onrrnd_zk_adres, maar de BAG gegevens worden uit mb_adresseerbaar_object_geometrie_bag gehaald.
 create materialized view mb_kad_onrrnd_zk_adres_bag as
 select (row_number() over ())::integer                                                    as objectid,
        qry.identif                                                                        as koz_identif,
