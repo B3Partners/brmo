@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2024-03-05+01:00, zie commentaar in bericht.-->
+<ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                             xmlns:ns2="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+                             peilmoment="20240207173103275">
+   <meldingen>
+      <informatie>
+         <code>IPD0000</code>
+         <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+         <referentie>39056023</referentie>
+      </informatie>
+   </meldingen>
+   <product>
+      <ns2:maatschappelijkeActiviteit>
+         <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+            <ns2:datumAanvang>19510330</ns2:datumAanvang>
+         </ns2:registratie>
+         <ns2:kvkNummer>39056023</ns2:kvkNummer>
+         <ns2:nonMailing>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:nonMailing>
+         <ns2:incidenteelUitlenenArbeidskrachten>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:incidenteelUitlenenArbeidskrachten>
+         <ns2:bezoekLocatie>
+            <ns2:registratie registratieTijdstip="20211201084644330">
+               <ns2:datumAanvang>20211130</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Ronsseweg</ns2:straatnaam>
+                  <ns2:huisnummer>76</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>2803</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>ZN</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Gouda</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0513200000037760</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0513010013084719</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Ronsseweg 76
+2803ZN Gouda</ns2:volledigAdres>
+         </ns2:bezoekLocatie>
+         <ns2:postLocatie>
+            <ns2:registratie registratieTijdstip="20211201084644330">
+               <ns2:datumAanvang>20211130</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Ronsseweg</ns2:straatnaam>
+                  <ns2:huisnummer>76</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>2803</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>ZN</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Gouda</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0513200000037760</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0513010013084719</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Ronsseweg 76
+2803ZN Gouda</ns2:volledigAdres>
+         </ns2:postLocatie>
+         <ns2:communicatiegegevens>
+            <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>19510330</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:communicatienummer>
+               <ns2:toegangscode>+31</ns2:toegangscode>
+               <ns2:nummer>0321332512</ns2:nummer>
+               <ns2:soort>
+                  <ns2:code>T</ns2:code>
+                  <ns2:omschrijving>Telefoon</ns2:omschrijving>
+               </ns2:soort>
+            </ns2:communicatienummer>
+            <ns2:communicatienummer>
+               <ns2:toegangscode>+32</ns2:toegangscode>
+               <ns2:nummer>89793967</ns2:nummer>
+               <ns2:soort>
+                  <ns2:code>F</ns2:code>
+                  <ns2:omschrijving>Fax</ns2:omschrijving>
+               </ns2:soort>
+            </ns2:communicatienummer>
+            <ns2:emailAdres>hezo@online.be</ns2:emailAdres>
+         </ns2:communicatiegegevens>
+         <ns2:naam>Agentuur- en Commissiehandel Hezo</ns2:naam>
+         <ns2:manifesteertZichAls>
+            <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>19790502</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:onderneming>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>19510330</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:kvkNummer>39056023</ns2:kvkNummer>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20140412034626847">
+                     <ns2:datumAanvang>20140412</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>46699</ns2:code>
+                     <ns2:omschrijving>Groothandel in overige machines, apparaten en toebehoren voor industrie en handel (rest)</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>69203</ns2:code>
+                     <ns2:omschrijving>Boekhoudkantoren</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Agentuur- en Commissiehandel Hezo</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Adviesbureau Hezo</ns2:naam>
+                     <ns2:volgorde>1</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Hezo Assurantiën</ns2:naam>
+                     <ns2:volgorde>2</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:wordtUitgeoefendIn>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19790502</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:commercieleVestiging>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:vestigingsnummer>000002137054</ns2:vestigingsnummer>
+                     <ns2:bezoekLocatie>
+                        <ns2:registratie registratieTijdstip="20211201084644330">
+                           <ns2:datumAanvang>20211130</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:afgeschermd>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:afgeschermd>
+                        <ns2:adres>
+                           <ns2:binnenlandsAdres>
+                              <ns2:straatnaam>Ronsseweg</ns2:straatnaam>
+                              <ns2:huisnummer>76</ns2:huisnummer>
+                              <ns2:postcode>
+                                 <ns2:cijfercombinatie>2803</ns2:cijfercombinatie>
+                                 <ns2:lettercombinatie>ZN</ns2:lettercombinatie>
+                              </ns2:postcode>
+                              <ns2:plaats>Gouda</ns2:plaats>
+                              <ns2:bagId>
+                                 <ns2:identificatieNummeraanduiding>0513200000037760</ns2:identificatieNummeraanduiding>
+                                 <ns2:identificatieAdresseerbaarObject>0513010013084719</ns2:identificatieAdresseerbaarObject>
+                              </ns2:bagId>
+                           </ns2:binnenlandsAdres>
+                        </ns2:adres>
+                        <ns2:volledigAdres>Ronsseweg 76
+2803ZN Gouda</ns2:volledigAdres>
+                     </ns2:bezoekLocatie>
+                     <ns2:communicatiegegevens>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:communicatienummer>
+                           <ns2:toegangscode>+31</ns2:toegangscode>
+                           <ns2:nummer>0321332512</ns2:nummer>
+                           <ns2:soort>
+                              <ns2:code>T</ns2:code>
+                              <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                           </ns2:soort>
+                        </ns2:communicatienummer>
+                        <ns2:communicatienummer>
+                           <ns2:toegangscode>+32</ns2:toegangscode>
+                           <ns2:nummer>89793967</ns2:nummer>
+                           <ns2:soort>
+                              <ns2:code>F</ns2:code>
+                              <ns2:omschrijving>Fax</ns2:omschrijving>
+                           </ns2:soort>
+                        </ns2:communicatienummer>
+                        <ns2:emailAdres>hezo@online.be</ns2:emailAdres>
+                     </ns2:communicatiegegevens>
+                     <ns2:eersteHandelsnaam>Agentuur- en Commissiehandel Hezo</ns2:eersteHandelsnaam>
+                     <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+                     <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+                     <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+                     <ns2:activiteiten>
+                        <ns2:omschrijving>Groothandel in behangers-, meubelmakers- en stoffeerdersfournituren, vulmaterialen en woningtextiel, agentschappen buitenlandse huizen, kleinhandel in artikelen voor de woninginrichting in de ruimste zin des woords en het mede-financieren van soortgelijke bedrijven. Het optreden als erkend verzekeringsagent onder de naam "Hezo Assurantiën"; de import van halffabrikaten ten behoeve van de vervaardiging van relatiegeschenken, de groothandel hierin alsmede de export hiervan onder de naam "Firma Hereco". Administraties economische- en belasting adviezen.</ns2:omschrijving>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>69203</ns2:code>
+                              <ns2:omschrijving>Boekhoudkantoren</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>N</ns2:code>
+                              <ns2:omschrijving>Nee</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20140412034626847">
+                              <ns2:datumAanvang>20140412</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>46699</ns2:code>
+                              <ns2:omschrijving>Groothandel in overige machines, apparaten en toebehoren voor industrie en handel (rest)</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>J</ns2:code>
+                              <ns2:omschrijving>Ja</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:exporteert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:exporteert>
+                        <ns2:importeert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:importeert>
+                     </ns2:activiteiten>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>Agentuur- en Commissiehandel Hezo</ns2:naam>
+                           <ns2:volgorde>0</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>Adviesbureau Hezo</ns2:naam>
+                           <ns2:volgorde>1</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>Hezo Assurantiën</ns2:naam>
+                           <ns2:volgorde>2</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                  </ns2:commercieleVestiging>
+               </ns2:wordtUitgeoefendIn>
+            </ns2:onderneming>
+         </ns2:manifesteertZichAls>
+         <ns2:wordtGeleidVanuit>
+            <ns2:commercieleVestiging>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>19510330</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:vestigingsnummer>000002137054</ns2:vestigingsnummer>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20211201084644330">
+                     <ns2:datumAanvang>20211130</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Ronsseweg</ns2:straatnaam>
+                        <ns2:huisnummer>76</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>2803</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>ZN</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Gouda</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0513200000037760</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0513010013084719</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Ronsseweg 76
+2803ZN Gouda</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+               <ns2:communicatiegegevens>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:communicatienummer>
+                     <ns2:toegangscode>+31</ns2:toegangscode>
+                     <ns2:nummer>0321332512</ns2:nummer>
+                     <ns2:soort>
+                        <ns2:code>T</ns2:code>
+                        <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                     </ns2:soort>
+                  </ns2:communicatienummer>
+                  <ns2:communicatienummer>
+                     <ns2:toegangscode>+32</ns2:toegangscode>
+                     <ns2:nummer>89793967</ns2:nummer>
+                     <ns2:soort>
+                        <ns2:code>F</ns2:code>
+                        <ns2:omschrijving>Fax</ns2:omschrijving>
+                     </ns2:soort>
+                  </ns2:communicatienummer>
+                  <ns2:emailAdres>hezo@online.be</ns2:emailAdres>
+               </ns2:communicatiegegevens>
+               <ns2:eersteHandelsnaam>Agentuur- en Commissiehandel Hezo</ns2:eersteHandelsnaam>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+               <ns2:activiteiten>
+                  <ns2:omschrijving>Groothandel in behangers-, meubelmakers- en stoffeerdersfournituren, vulmaterialen en woningtextiel, agentschappen buitenlandse huizen, kleinhandel in artikelen voor de woninginrichting in de ruimste zin des woords en het mede-financieren van soortgelijke bedrijven. Het optreden als erkend verzekeringsagent onder de naam "Hezo Assurantiën"; de import van halffabrikaten ten behoeve van de vervaardiging van relatiegeschenken, de groothandel hierin alsmede de export hiervan onder de naam "Firma Hereco". Administraties economische- en belasting adviezen.</ns2:omschrijving>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>69203</ns2:code>
+                        <ns2:omschrijving>Boekhoudkantoren</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>N</ns2:code>
+                        <ns2:omschrijving>Nee</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20140412034626847">
+                        <ns2:datumAanvang>20140412</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>46699</ns2:code>
+                        <ns2:omschrijving>Groothandel in overige machines, apparaten en toebehoren voor industrie en handel (rest)</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>J</ns2:code>
+                        <ns2:omschrijving>Ja</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:exporteert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:exporteert>
+                  <ns2:importeert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:importeert>
+               </ns2:activiteiten>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19510330</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Agentuur- en Commissiehandel Hezo</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Adviesbureau Hezo</ns2:naam>
+                     <ns2:volgorde>1</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19950101</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Hezo Assurantiën</ns2:naam>
+                     <ns2:volgorde>2</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+            </ns2:commercieleVestiging>
+         </ns2:wordtGeleidVanuit>
+         <ns2:heeftAlsEigenaar>
+            <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>19790502</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:natuurlijkPersoon>
+               <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">3520</ns2:extraElement>
+               </ns2:extraElementen>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>19471020</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:persoonRechtsvorm>Eenmanszaak</ns2:persoonRechtsvorm>
+               <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>dc84 c75e2 4feff b100</ns2:volledigeNaam>
+               <ns2:uitgebreideRechtsvorm>Eenmanszaak</ns2:uitgebreideRechtsvorm>
+               <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>3520</ns2:geslachtsnaam>
+               <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>0f02 73504 0a065</ns2:voornamen>
+               <ns2:geslachtsaanduiding>
+                  <ns2:code>o</ns2:code>
+                  <ns2:omschrijving>Onbekend</ns2:omschrijving>
+                  <ns2:referentieType>Geslacht</ns2:referentieType>
+               </ns2:geslachtsaanduiding>
+               <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>85978de4089bd</ns2:geboorteplaats>
+               <ns2:geboorteland>
+                  <ns2:code>6030</ns2:code>
+                  <ns2:omschrijving>Nederland</ns2:omschrijving>
+                  <ns2:referentieType>Land</ns2:referentieType>
+               </ns2:geboorteland>
+               <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>19471020</ns2:geboortedatum>
+               <ns2:woonLocatie>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:buitenlandsAdres>
+                        <ns2:straatHuisnummer>Op de Bekker 4</ns2:straatHuisnummer>
+                        <ns2:postcodeWoonplaats>3650 Dilsen-Stokkem</ns2:postcodeWoonplaats>
+                        <ns2:land>
+                           <ns2:code>5010</ns2:code>
+                           <ns2:omschrijving>België</ns2:omschrijving>
+                           <ns2:referentieType>Land</ns2:referentieType>
+                        </ns2:land>
+                     </ns2:buitenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Op de Bekker 4
+3650 Dilsen-Stokkem
+België</ns2:volledigAdres>
+               </ns2:woonLocatie>
+            </ns2:natuurlijkPersoon>
+         </ns2:heeftAlsEigenaar>
+      </ns2:maatschappelijkeActiviteit>
+   </product>
+</ophalenInschrijvingResponse>

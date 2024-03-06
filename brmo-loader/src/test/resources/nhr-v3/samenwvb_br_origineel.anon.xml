@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2024-03-05+01:00, zie commentaar in bericht.-->
+<ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                             xmlns:ns2="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+                             peilmoment="20240207171805702">
+   <meldingen>
+      <informatie>
+         <code>IPD0000</code>
+         <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+         <referentie>24456672</referentie>
+      </informatie>
+   </meldingen>
+   <product>
+      <ns2:maatschappelijkeActiviteit>
+         <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+            <ns2:datumAanvang>20090401</ns2:datumAanvang>
+         </ns2:registratie>
+         <ns2:kvkNummer>24456672</ns2:kvkNummer>
+         <ns2:nonMailing>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:nonMailing>
+         <ns2:incidenteelUitlenenArbeidskrachten>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:incidenteelUitlenenArbeidskrachten>
+         <ns2:bezoekLocatie>
+            <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>20090401</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Blekerssingel</ns2:straatnaam>
+                  <ns2:huisnummer>21</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>2806</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>AA</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Gouda</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0513200000002764</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0513010013056025</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Blekerssingel 21
+2806AA Gouda</ns2:volledigAdres>
+         </ns2:bezoekLocatie>
+         <ns2:postLocatie>
+            <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>20090401</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Blekerssingel</ns2:straatnaam>
+                  <ns2:huisnummer>21</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>2806</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>AA</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Gouda</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0513200000002764</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0513010013056025</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Blekerssingel 21
+2806AA Gouda</ns2:volledigAdres>
+         </ns2:postLocatie>
+         <ns2:communicatiegegevens>
+            <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>20090401</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:communicatienummer>
+               <ns2:toegangscode>+31</ns2:toegangscode>
+               <ns2:nummer>0182582546</ns2:nummer>
+               <ns2:soort>
+                  <ns2:code>T</ns2:code>
+                  <ns2:omschrijving>Telefoon</ns2:omschrijving>
+               </ns2:soort>
+            </ns2:communicatienummer>
+         </ns2:communicatiegegevens>
+         <ns2:naam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:naam>
+         <ns2:manifesteertZichAls>
+            <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>20090401</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:onderneming>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>20090401</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:kvkNummer>24456672</ns2:kvkNummer>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20140412101443393">
+                     <ns2:datumAanvang>20140412</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>86221</ns2:code>
+                     <ns2:omschrijving>Praktijken van medisch specialisten en medische dagbehandelcentra (geen tandheelkunde of psychiatrie)</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:wordtUitgeoefendIn>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:commercieleVestiging>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:vestigingsnummer>000019909101</ns2:vestigingsnummer>
+                     <ns2:bezoekLocatie>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:afgeschermd>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:afgeschermd>
+                        <ns2:adres>
+                           <ns2:binnenlandsAdres>
+                              <ns2:straatnaam>Blekerssingel</ns2:straatnaam>
+                              <ns2:huisnummer>21</ns2:huisnummer>
+                              <ns2:postcode>
+                                 <ns2:cijfercombinatie>2806</ns2:cijfercombinatie>
+                                 <ns2:lettercombinatie>AA</ns2:lettercombinatie>
+                              </ns2:postcode>
+                              <ns2:plaats>Gouda</ns2:plaats>
+                              <ns2:bagId>
+                                 <ns2:identificatieNummeraanduiding>0513200000002764</ns2:identificatieNummeraanduiding>
+                                 <ns2:identificatieAdresseerbaarObject>0513010013056025</ns2:identificatieAdresseerbaarObject>
+                              </ns2:bagId>
+                           </ns2:binnenlandsAdres>
+                        </ns2:adres>
+                        <ns2:volledigAdres>Blekerssingel 21
+2806AA Gouda</ns2:volledigAdres>
+                     </ns2:bezoekLocatie>
+                     <ns2:communicatiegegevens>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:communicatienummer>
+                           <ns2:toegangscode>+31</ns2:toegangscode>
+                           <ns2:nummer>0182582546</ns2:nummer>
+                           <ns2:soort>
+                              <ns2:code>T</ns2:code>
+                              <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                           </ns2:soort>
+                        </ns2:communicatienummer>
+                     </ns2:communicatiegegevens>
+                     <ns2:eersteHandelsnaam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:eersteHandelsnaam>
+                     <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+                     <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+                     <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+                     <ns2:activiteiten>
+                        <ns2:omschrijving>Praktijk voor radiodiagnostiek</ns2:omschrijving>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20140412101443393">
+                              <ns2:datumAanvang>20140412</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>86221</ns2:code>
+                              <ns2:omschrijving>Praktijken van medisch specialisten en medische dagbehandelcentra (geen tandheelkunde of psychiatrie)</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>J</ns2:code>
+                              <ns2:omschrijving>Ja</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:exporteert>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:exporteert>
+                        <ns2:importeert>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:importeert>
+                     </ns2:activiteiten>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:naam>
+                           <ns2:volgorde>0</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                  </ns2:commercieleVestiging>
+               </ns2:wordtUitgeoefendIn>
+            </ns2:onderneming>
+         </ns2:manifesteertZichAls>
+         <ns2:wordtGeleidVanuit>
+            <ns2:commercieleVestiging>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>20090401</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:vestigingsnummer>000019909101</ns2:vestigingsnummer>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Blekerssingel</ns2:straatnaam>
+                        <ns2:huisnummer>21</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>2806</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>AA</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Gouda</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0513200000002764</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0513010013056025</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Blekerssingel 21
+2806AA Gouda</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+               <ns2:communicatiegegevens>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:communicatienummer>
+                     <ns2:toegangscode>+31</ns2:toegangscode>
+                     <ns2:nummer>0182582546</ns2:nummer>
+                     <ns2:soort>
+                        <ns2:code>T</ns2:code>
+                        <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                     </ns2:soort>
+                  </ns2:communicatienummer>
+               </ns2:communicatiegegevens>
+               <ns2:eersteHandelsnaam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:eersteHandelsnaam>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+               <ns2:activiteiten>
+                  <ns2:omschrijving>Praktijk voor radiodiagnostiek</ns2:omschrijving>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20140412101443393">
+                        <ns2:datumAanvang>20140412</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>86221</ns2:code>
+                        <ns2:omschrijving>Praktijken van medisch specialisten en medische dagbehandelcentra (geen tandheelkunde of psychiatrie)</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>J</ns2:code>
+                        <ns2:omschrijving>Ja</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:exporteert>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:exporteert>
+                  <ns2:importeert>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:importeert>
+               </ns2:activiteiten>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+            </ns2:commercieleVestiging>
+         </ns2:wordtGeleidVanuit>
+         <ns2:heeftAlsEigenaar>
+            <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>20090401</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:samenwerkingsverband>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>20090401</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:persoonRechtsvorm>Maatschap</ns2:persoonRechtsvorm>
+               <ns2:volledigeNaam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:volledigeNaam>
+               <ns2:uitgebreideRechtsvorm>Maatschap</ns2:uitgebreideRechtsvorm>
+               <ns2:heeft>
+                  <ns2:aansprakelijke>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="voorvoegsel">95</ns2:extraElement>
+                              <!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">5643ba</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>19890606</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>99574 0e3f8 0b c1f92d</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:binnenlandsAdres>
+                                    <ns2:straatnaam>Blekerssingel</ns2:straatnaam>
+                                    <ns2:huisnummer>21</ns2:huisnummer>
+                                    <ns2:postcode>
+                                       <ns2:cijfercombinatie>2806</ns2:cijfercombinatie>
+                                       <ns2:lettercombinatie>AA</ns2:lettercombinatie>
+                                    </ns2:postcode>
+                                    <ns2:plaats>Gouda</ns2:plaats>
+                                    <ns2:bagId>
+                                       <ns2:identificatieNummeraanduiding>0513200000002764</ns2:identificatieNummeraanduiding>
+                                       <ns2:identificatieAdresseerbaarObject>0513010013056025</ns2:identificatieAdresseerbaarObject>
+                                    </ns2:bagId>
+                                 </ns2:binnenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Blekerssingel 21
+2806AA Gouda</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn>869874219</ns2:bsn>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>5643ba</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voorvoegselGeslachtsnaam>95</ns2:voorvoegselGeslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>fc068 7d869</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>m</ns2:code>
+                              <ns2:omschrijving>Mannelijk</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>0013c01fe</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6030</ns2:code>
+                              <ns2:omschrijving>Nederland</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>19890606</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>15</ns2:code>
+                        <ns2:omschrijving>Maat</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>bb</ns2:code>
+                           <ns2:omschrijving>Beperkt bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:beperkingInEuros>
+                           <ns2:waarde>1000</ns2:waarde>
+                           <ns2:valuta>
+                              <ns2:code>EUR</ns2:code>
+                              <ns2:omschrijving>Euro</ns2:omschrijving>
+                              <ns2:referentieType>Valuta</ns2:referentieType>
+                           </ns2:valuta>
+                        </ns2:beperkingInEuros>
+                        <ns2:overigeBeperking>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:overigeBeperking>
+                     </ns2:bevoegdheid>
+                  </ns2:aansprakelijke>
+               </ns2:heeft>
+               <ns2:heeft>
+                  <ns2:aansprakelijke>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:rechtspersoon>
+                           <ns2:persoonRechtsvorm>Besloten Vennootschap</ns2:persoonRechtsvorm>
+                           <ns2:volledigeNaam>H.M. de Bakker Beheer B.V.</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <ns2:datumAanvang>19921013</ns2:datumAanvang>
+                              </ns2:registratie>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:binnenlandsAdres>
+                                    <ns2:straatnaam>Blekerssingel</ns2:straatnaam>
+                                    <ns2:huisnummer>21</ns2:huisnummer>
+                                    <ns2:postcode>
+                                       <ns2:cijfercombinatie>2806</ns2:cijfercombinatie>
+                                       <ns2:lettercombinatie>AA</ns2:lettercombinatie>
+                                    </ns2:postcode>
+                                    <ns2:plaats>Gouda</ns2:plaats>
+                                    <ns2:bagId>
+                                       <ns2:identificatieNummeraanduiding>0513200000002764</ns2:identificatieNummeraanduiding>
+                                       <ns2:identificatieAdresseerbaarObject>0513010013056025</ns2:identificatieAdresseerbaarObject>
+                                    </ns2:bagId>
+                                 </ns2:binnenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Blekerssingel 21
+2806AA Gouda</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <ns2:isEigenaarVan>
+                              <ns2:maatschappelijkeActiviteit>
+                                 <ns2:kvkNummer>29038611</ns2:kvkNummer>
+                                 <ns2:nonMailing>
+                                    <ns2:code>N</ns2:code>
+                                    <ns2:omschrijving>Nee</ns2:omschrijving>
+                                    <ns2:referentieType>geenRT</ns2:referentieType>
+                                 </ns2:nonMailing>
+                              </ns2:maatschappelijkeActiviteit>
+                           </ns2:isEigenaarVan>
+                           <ns2:rsin>801578024</ns2:rsin>
+                        </ns2:rechtspersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>15</ns2:code>
+                        <ns2:omschrijving>Maat</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>bb</ns2:code>
+                           <ns2:omschrijving>Beperkt bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:beperkingInEuros>
+                           <ns2:waarde>1000</ns2:waarde>
+                           <ns2:valuta>
+                              <ns2:code>EUR</ns2:code>
+                              <ns2:omschrijving>Euro</ns2:omschrijving>
+                              <ns2:referentieType>Valuta</ns2:referentieType>
+                           </ns2:valuta>
+                        </ns2:beperkingInEuros>
+                        <ns2:overigeBeperking>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:overigeBeperking>
+                     </ns2:bevoegdheid>
+                  </ns2:aansprakelijke>
+               </ns2:heeft>
+               <ns2:rsin>820580491</ns2:rsin>
+               <ns2:naamgeving>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:naam>Maatschap De Bakker/H.M. de Bakker Beheer B.V.</ns2:naam>
+               </ns2:naamgeving>
+               <ns2:rechtsvorm>
+                  <ns2:code>MA</ns2:code>
+                  <ns2:omschrijving>Maatschap</ns2:omschrijving>
+                  <ns2:referentieType>Rechtsvorm</ns2:referentieType>
+               </ns2:rechtsvorm>
+               <ns2:duur>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20090401</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:heeftOnbepaaldeDuur>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:heeftOnbepaaldeDuur>
+               </ns2:duur>
+            </ns2:samenwerkingsverband>
+         </ns2:heeftAlsEigenaar>
+      </ns2:maatschappelijkeActiviteit>
+   </product>
+</ophalenInschrijvingResponse>

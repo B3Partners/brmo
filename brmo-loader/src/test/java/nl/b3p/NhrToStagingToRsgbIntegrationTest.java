@@ -6,7 +6,6 @@ package nl.b3p;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.io.File;
@@ -205,7 +204,80 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
               "8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321",
               "8010", "4652", "85592", "6202", "4321"
             },
-            10));
+            10),
+        // EO-78 gevallen
+        arguments(
+            "/nhr-v3/maatschact_br_origineel.anon.xml",
+            // aantalBerichten
+            2,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            2,
+            // aantalSubj
+            1 + 1 + 1,
+            // aantalNiet_nat_prs
+            1,
+            // aantalNat_prs
+            1,
+            // hoofd vestgID
+            "nhr.comVestg.000002137054",
+            // aantalVestg_activiteit
+            2,
+            // kvkNummer v MaatschAct
+            39056023,
+            // sbiCodes,
+            new String[] {"46699", "69203"},
+            // aantalFunctionarissen
+            0),
+        arguments(
+            "/nhr-v3/rechtspersoon_br_origineel.anon.xml",
+            // aantalBerichten
+            28,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            6,
+            // aantalSubj
+            32,
+            // aantalNiet_nat_prs
+            3,
+            // aantalNat_prs
+            3,
+            // hoofd vestgID
+            "nhr.comVestg.000016037251",
+            // aantalVestg_activiteit
+            28,
+            // kvkNummer v MaatschAct
+            29048285,
+            // sbiCodes,
+            new String[] {"88101"},
+            // aantalFunctionarissen
+            4),
+        arguments(
+            "/nhr-v3/samenwvb_br_origineel.anon.xml",
+            // aantalBerichten
+            3,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            4,
+            // aantalSubj
+            5,
+            // aantalNiet_nat_prs
+            3,
+            // aantalNat_prs
+            1,
+            // hoofd vestgID
+            "nhr.comVestg.000019909101",
+            // aantalVestg_activiteit
+            1,
+            // kvkNummer v MaatschAct
+            24456672,
+            // sbiCodes,
+            new String[] {"86221"},
+            // aantalFunctionarissen
+            2));
   }
 
   private static final String BESTANDTYPE = "nhr";
@@ -319,9 +391,9 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
       String[] sbiCodes,
       int aantalFunctionarissen)
       throws Exception {
-    assumeFalse(
-        null == NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam),
-        "Het test bestand moet er zijn.");
+    //    assumeFalse(
+    //        null == NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam),
+    //        "Het test bestand moet er zijn.");
 
     brmo.loadFromFile(
         BESTANDTYPE,
