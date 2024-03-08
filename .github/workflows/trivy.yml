@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 11 ]
+        java: [ 17 ]
         java-dist: [ 'temurin' ]
         docker-image:
           - 'brmo-bag2-loader'
