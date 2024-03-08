@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 11 ]
+        java: [ 17 ]
         java-dist: [ 'temurin' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
@@ -34,10 +34,6 @@ jobs:
             - 15-3.4-alpine
             - 16-3.4-alpine
         include:
-          - java: 17
-            java-dist: 'temurin'
-            postgis: 16-3.4-alpine
-              
           - java: 21
             java-dist: 'temurin'
             postgis: 16-3.4-alpine
@@ -142,7 +138,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 11
+          java-version: 17
           cache: 'maven'
 
       - name: 'Set up Maven'
@@ -186,7 +182,7 @@ jobs:
       - name: 'Set up JDK'
         uses: actions/setup-java@v4
         with:
-          java-version: 11
+          java-version: 17
           distribution: 'temurin'
           cache: 'maven'
 
@@ -216,7 +212,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 11
+          java-version: 17
           cache: 'maven'
           server-id: 'ghcr.io'
           server-username: GITHUB_ACTOR
@@ -255,7 +251,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 11
+          java-version: 17
           cache: 'maven'
           server-id: 'repo.b3p.nl'
           server-username: B3P_DEPLOY_ACTOR

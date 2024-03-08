@@ -99,7 +99,7 @@ updates:
     ignore:
       - dependency-name: "eclipse-temurin"
         versions:
-          - ">= 12"
+          - ">= 18"
 
 
   - package-ecosystem: docker
@@ -120,4 +120,4 @@ updates:
     ignore:
       - dependency-name: "eclipse-temurin"
         versions:
-          - ">= 12"
+          - ">= 18"
