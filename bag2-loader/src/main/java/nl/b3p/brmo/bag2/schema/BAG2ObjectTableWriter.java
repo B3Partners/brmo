@@ -137,7 +137,7 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
                   try {
                     AttributeColumnMapping mapping = objectType.getAttributeByName(pk.getName());
                     Object attribute = object.getAttributes().get(pk.getName());
-                    return mapping.toQueryParameter(attribute);
+                    return mapping.toQueryParameter(attribute, getDialect());
                   } catch (Exception e) {
                     throw new RuntimeException(e);
                   }

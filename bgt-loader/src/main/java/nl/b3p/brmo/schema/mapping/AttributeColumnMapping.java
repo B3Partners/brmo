@@ -6,6 +6,8 @@
 
 package nl.b3p.brmo.schema.mapping;
 
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 public class AttributeColumnMapping {
   private final String name;
   private final String type;
@@ -62,7 +64,7 @@ public class AttributeColumnMapping {
     return isDirectAttribute() && !isUseDefault();
   }
 
-  public Object toQueryParameter(Object value) throws Exception {
+  public Object toQueryParameter(Object value, SQLDialect sqlDialect) throws Exception {
     if (value == null) {
       return null;
     }
