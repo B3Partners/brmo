@@ -15,12 +15,5 @@ public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
     this(name, true);
   }
 
-  @Override
-  public Object toQueryParameter(Object value) {
-    if (value == null) {
-      return null;
-    } else {
-      return Boolean.parseBoolean(value.toString());
-    }
-  }
+  // Do not override toQueryParameter() to set boolean parameter as a Boolean object but as string, so for Oracle 'true' or 'false' for a varchar2 column is set. For PostgreSQL this will still use a boolean column, accepting a string parameter.
 }
