@@ -65,6 +65,7 @@ jobs:
           .build/ci/oracle-execute-upgrades.sh rsgbbgt
           .build/ci/oracle-execute-upgrades.sh bag
           .build/ci/oracle-execute-upgrades.sh brk
+          .build/ci/oracle-execute-upgrades.sh topnl
 
       - name: 'Test'
         run: |
