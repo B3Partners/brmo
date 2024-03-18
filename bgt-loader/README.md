@@ -71,7 +71,7 @@ opties die je kan gebruiken, probeer bijvoorbeeld `download initial --help` of `
 
 Een database is vereist voordat de BGT kan worden geladen. De volgende databases worden ondersteund:
 - [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 11 t/m versie 15 met PostGIS 3.3
-- Oracle Spatial 21XE, 19c en 21c
+- Oracle Spatial 23c, 21c, 19c en 21XE en 23c Free
 
 Andere versies werken mogelijk ook.
 
@@ -126,7 +126,7 @@ echo "alter user c##bgt quota unlimited on users;";
 echo "grant connect to c##bgt;";
 echo "grant resource to c##bgt;";
 echo "alter user c##bgt default role connect, resource;"; 
-} | docker exec -i oracle-xe sqlplus -l system/oracle@//localhost:1521/XE
+} | docker exec -i oracle-xe sqlplus -l system/oracle@//localhost:1521/FREE
 ```
 
 Het is nodig om de `--connection` en `--user` opties aan de BGT lader mee te geven om met Oracle Spatial te verbinden.
@@ -134,7 +134,7 @@ Het is nodig om de `--connection` en `--user` opties aan de BGT lader mee te gev
 Voorbeeldcommando om alleen een paar feature types te laden in Oracle Spatial:
 
 ```shell
-brmo-bgt-loader download initial --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bgt" --feature-types=wijk,buurt --no-geo-filter
+brmo-bgt-loader download initial --connection="jdbc:oracle:thin:@localhost:1521/FREE" --user="c##bgt" --feature-types=wijk,buurt --no-geo-filter
 ```
 Voor Docker Desktop op Windows of Mac: gebruik `host.docker.internal` in plaats van `localhost`.
 

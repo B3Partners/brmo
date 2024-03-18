@@ -40,7 +40,7 @@ public class DBUnitExportRSGB {
 
   // oracle
   // private static final String _driverClass = "oracle.jdbc.OracleDriver";
-  // private static final String _jdbcConnection = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+  // private static final String _jdbcConnection = "jdbc:oracle:thin:@127.0.0.1:1521/FREE";
   // private static final String _user = "rsgbitest";
   // private static final String _passwd = "rsgbitest";
 

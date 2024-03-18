@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    name: 'Oracle XE'
+    name: 'Oracle DB'
     runs-on: ubuntu-22.04
 
     steps:
@@ -52,9 +52,9 @@ jobs:
         run: |
           .build/ci/getlastRelease.sh
 
-      - name: 'Setup Oracle XE'
+      - name: 'Setup Oracle DB'
         run: |
-          ./.build/ci/oracle-start-docker.sh 21.3.0-full
+          ./.build/ci/oracle-start-docker.sh oracle-xe:21.3.0-full
           ./.build/ci/oracle-setup-previous.sh
 
       - name: 'Upgrade databases'
@@ -65,6 +65,7 @@ jobs:
           .build/ci/oracle-execute-upgrades.sh rsgbbgt
           .build/ci/oracle-execute-upgrades.sh bag
           .build/ci/oracle-execute-upgrades.sh brk
+          .build/ci/oracle-execute-upgrades.sh topnl
 
       - name: 'Test'
         run: |

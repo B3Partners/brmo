@@ -333,7 +333,7 @@ SPDX-License-Identifier: MIT
                             <systemPropertyVariables>
                                 <dbuser>JENKINS_BAG</dbuser>
                                 <dbpassword>jenkins_bag</dbpassword>
-                                <dburl>jdbc:oracle:thin:@127.0.0.1:1521:XE?oracle.net.disableOob=true</dburl>
+                                <dburl>jdbc:oracle:thin:@127.0.0.1:1521/FREE</dburl>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>

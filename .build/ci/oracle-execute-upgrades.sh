@@ -18,7 +18,7 @@ echo "Verwerk upgrade script voor:" $1
 #!/usr/bin/env bash
 export SQLPATH=./.build/ci
 # -S voor silent
-docker exec -i oracle_brmo sqlplus -L jenkins_$1/jenkins_$1@//localhost:1521/XE < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql
-docker exec -i oracle_brmo sqlplus -L jenkins_$1/jenkins_$1@//localhost:1521/XE  <<< "select * from brmo_metadata"
+docker exec -i oracle_brmo sqlplus -L jenkins_$1/jenkins_$1@//localhost:1521/FREE < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql
+docker exec -i oracle_brmo sqlplus -L jenkins_$1/jenkins_$1@//localhost:1521/FREE  <<< "select * from brmo_metadata"
 
 echo "Verwerking upgrade script voor: "$1" afgerond"
