@@ -26,10 +26,10 @@ select
 			-- de sbi codes zijn gebruikt om de bedrijfsactiviteit te generaliseren
 			--https://www.kvk.nl/over-het-handelsregister/overzicht-standaard-bedrijfsindeling-sbi-codes-voor-activiteiten/
 			case 
-				when v.fk_sa_sbi_activiteit_sbi_code between '01%' and '03%' then 'Landbouw, bosbouw en visserij'
-				-- hier naar kijken
-				when v.fk_sa_sbi_activiteit_sbi_code between '%6%' and '10%' then 'Winning van delfstoffen'
-				when v.fk_sa_sbi_activiteit_sbi_code between '10%' and '35%' then 'Industrie'
+				when v.fk_sa_sbi_activiteit_sbi_code between '01%' and '04%' then 'Landbouw, bosbouw en visserij'
+				-- regex selectie tussen 06* en 09*
+				when v.fk_sa_sbi_activiteit_sbi_code ~ '^0[6-9]\d+' then 'Winning van delfstoffen'
+				when v.fk_sa_sbi_activiteit_sbi_code between '10%' and '34%' then 'Industrie'
 				when v.fk_sa_sbi_activiteit_sbi_code between '35%' and '36%' then 'Productie en distributie van en handel in elektriciteit, aardgas, stoom en gekoelde lucht '
 				when v.fk_sa_sbi_activiteit_sbi_code between '36%' and '41%' then 'Winning en distributie van water; afval- en afvalwaterbeheer en sanering'
 				when v.fk_sa_sbi_activiteit_sbi_code between '41%' and '45%' then 'Bouwnijverheid'
