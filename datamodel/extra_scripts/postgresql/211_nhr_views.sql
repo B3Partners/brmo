@@ -2,8 +2,8 @@
 create or replace view v_kvk_hoofd_nevenvestiging as 
 select 			s.naam as hoofdvestigingnaam,
 				coalesce(v.fk_15ond_kvk_nummer::text, v.fk_17mac_kvk_nummer::text) as kvknummer,
-				array_to_string(array_agg(distinct s2.naam), ' | ')    as nevenvestigingen,
-				count(v2.*)  								 		   as aantal_nevenvestigingen
+				count(v2.sc_identif)  								 		       as aantal_nevenvestigingen,
+				array_to_string(array_agg(distinct s2.naam), ' | ')    			   as nevenvestigingen
 from vestg v
 join subject s on v.sc_identif = s.identif
 join vestg v2 on coalesce(v.fk_15ond_kvk_nummer, v.fk_17mac_kvk_nummer) = coalesce(v2.fk_15ond_kvk_nummer, v2.fk_17mac_kvk_nummer)
@@ -11,18 +11,16 @@ join subject s2 on v2.sc_identif = s2.identif
 where v.hoofdvestiging = 'Ja' and v2.hoofdvestiging = 'Nee'
 group by hoofdvestigingnaam, coalesce(v.fk_15ond_kvk_nummer::text, v.fk_17mac_kvk_nummer::text);
 
--- koppel kvk-gegevens met bag-gegevens en perceelidentificatie
-create materialized view mb_kvk_pand_perceel as 
+create materialized view mb_kvk_adres as 
 select 		
 			row_number() over ()     		 as objectid,
 			v.sc_identif,
-			p.identificatie as perceelsidentificatie,
-			s.naam,
 			-- fk_15ond_kvk_nummer = kvknummer voor onderneming
 			-- fk_17mac_kvk_nummer = kvknummer voor maatschappelijke activiteit (niet commercieel)
 			coalesce(v.fk_15ond_kvk_nummer::text,v.fk_17mac_kvk_nummer::text)  as kvknummer,
-			zrr.soort,
-			zrr.kvk_nummer as kvknummer_eigenaar,
+			s.naam,
+			v.hoofdvestiging,
+			vhn.hoofdvestigingnaam,
 			-- de sbi codes zijn gebruikt om de bedrijfsactiviteit te generaliseren
 			--https://www.kvk.nl/over-het-handelsregister/overzicht-standaard-bedrijfsindeling-sbi-codes-voor-activiteiten/
 			case 
@@ -53,8 +51,6 @@ select
 			v.fk_sa_sbi_activiteit_sbi_code as sbi_code,
 			sa.omschr,
 			v.activiteit_omschr 	   as omschr_detail,
-			v.hoofdvestiging,
-			vhn.hoofdvestigingnaam,
 			v.typering,
 			-- datum bedrijf
 			v.datum_aanvang,
@@ -74,10 +70,8 @@ select
 			-- adresseerbaarobjectidentificaties
 			v.fk_20aoa_identif 		   as adresseerbaarobjectid,
 			s.fk_15aoa_identif 		   as correspondentie_aoi,
-			-- geometrie
-			a.geometrie_centroide 	   as adresgeometrie,
-			vp.geometrie 			   as pandgeometrie,
-			p.begrenzing_perceel	   as perceelgeometrie
+			a.maaktdeeluitvan,
+			a.geometrie_centroide::geometry(Point,28992)  as geometrie
 from vestg v
 -- koppeling met de hoofdactiviteit van een vestiging. 
 -- Een vestiging kan meerdere activiteiten bevatten, deze staat in de vestg_activiteit tabel. 
@@ -89,16 +83,80 @@ left join subject s on v.sc_identif = s.identif
 left join mb_adresseerbaar_object_geometrie_bag a on v.fk_20aoa_identif = a.identificatie
 -- koppeling met correspondentie adresgegevens en geometrie
 left join mb_adresseerbaar_object_geometrie_bag coa on s.fk_15aoa_identif = coa.identificatie
--- koppel pand geometrie
-left join bag.v_pand_actueel vp on a.maaktdeeluitvan = vp.identificatie 
 -- voeg hoofdvestiging naam toe
-left join v_kvk_hoofd_nevenvestiging vhn on coalesce(v.fk_15ond_kvk_nummer::text,v.fk_17mac_kvk_nummer::text) = vhn.kvknummer
--- koppel BRK gegevens
-left join brk.perceel p on st_contains(p.begrenzing_perceel, a.geometrie)
-left join brk.mb_zr_rechth zrr on p.identificatie = zrr.koz_identif;
+left join v_kvk_hoofd_nevenvestiging vhn on coalesce(v.fk_15ond_kvk_nummer::text,v.fk_17mac_kvk_nummer::text) = vhn.kvknummer;
+-- index voor geometrie van het pand en objectid
+CREATE INDEX mb_kvk_adres_geometrie_idx ON public.mb_kvk_adres USING gist (geometrie);
+CREATE UNIQUE INDEX mb_kvk_adres_objectid ON public.mb_kvk_adres USING btree (objectid);
 
-CREATE INDEX mb_kvk_pand_perceel_adresgeometrie_idx ON public.mb_kvk_pand_perceel USING gist (adresgeometrie);
-CREATE INDEX mb_kvk_pand_perceel_pandgeometrie_idx on public.mb_kvk_pand_perceel USING gist (perceelgeometrie);
-CREATE INDEX mb_kvk_pand_perceel_perceelgeometrie_idx ON public.mb_kvk_pand_perceel USING gist (perceelgeometrie);
-CREATE INDEX mb_kvk_pand_perceel_identif ON public.mb_kvk_pand_perceel USING btree (perceelsidentificatie);
-CREATE UNIQUE INDEX mb_kvk_pand_perceel_objectid ON public.mb_kvk_pand_perceel USING btree (objectid);
+-- koppel kvk-gegevens met bag-gegevens met BAG-geometriëen
+create materialized view mb_kvk_pand
+select  kvk.sc_identif,
+		kvk.kvknummer,
+		kvk.naam,
+		kvk.hoofdvestiging,
+		kvk.hoofdvestigingnaam,
+		kvk.activiteit,
+		kvk.sbi_code,
+		kvk.omschr,
+		kvk.omschr_detail,
+		kvk.typering,
+		kvk.datum_aanvang,
+		kvk.datum_beeindiging,
+		kvk.aantal_werknemers,
+		kvk.aantal_fulltime_werknemers,
+		kvk.parttime_werknemers,
+		kvk.adres,
+		kvk.correspondentieadres,
+		kvk.emailadres,
+		kvk.fax_nummer,
+		kvk.telefoonnummer,
+		kvk.website_url,
+		kvk.adresseerbaarobjectid,
+		kvk.correspondentie_aoi,
+		kvk.maaktdeeluitvan,
+		-- pandgeometrie
+		vp.geometrie
+from mb_kvk_adres kvk
+-- koppel pand geometrie
+join bag.v_pand_actueel vp on kvk.maaktdeeluitvan = vp.identificatie;
+CREATE INDEX mb_kvk_pand_geometrie_idx ON public.mb_kvk_pand USING gist (geometrie);
+CREATE UNIQUE INDEX mb_kvk_pand_objectid ON public.mb_kvk_pand USING btree (objectid);
+
+-- koppel kvk-gegevens met bag-gegevens met BRK-geometriëen
+create materialized view mb_kvk_perceel as 
+select  kvk.sc_identif,
+		kvk.kvknummer,
+		kvk.naam,
+		kvk.hoofdvestiging,
+		kvk.hoofdvestigingnaam,
+		kvk.activiteit,
+		kvk.sbi_code,
+		kvk.omschr,
+		kvk.omschr_detail,
+		kvk.typering,
+		kvk.datum_aanvang,
+		kvk.datum_beeindiging,
+		kvk.aantal_werknemers,
+		kvk.aantal_fulltime_werknemers,
+		kvk.parttime_werknemers,
+		kvk.adres,
+		kvk.correspondentieadres,
+		kvk.emailadres,
+		kvk.fax_nummer,
+		kvk.telefoonnummer,
+		kvk.website_url,
+		kvk.adresseerbaarobjectid,
+		kvk.correspondentie_aoi,
+		-- BRK gegevens
+		p.identificatie as koz_identif, 
+		zrr.soort,
+		zrr.kvk_nummer as kvk_eigenaar, 
+		p.begrenzing_perceel as geometrie
+from mb_kvk_adres kvk
+-- koppel BRK gegevens
+join brk.perceel p on st_contains(p.begrenzing_perceel, kvk.geometrie)
+join brk.mb_zr_rechth zrr on p.identificatie = zrr.koz_identif;
+CREATE INDEX mb_kvk_perceel_geometrie_idx ON public.mb_kvk_perceel USING gist (geometrie);
+CREATE INDEX mb_kvk_perceel_identif ON public.mb_kvk_perceel USING btree (perceelsidentificatie);
+CREATE UNIQUE INDEX mb_kvk_perceel_objectid ON public.mb_kvk_perceel USING btree (objectid);
