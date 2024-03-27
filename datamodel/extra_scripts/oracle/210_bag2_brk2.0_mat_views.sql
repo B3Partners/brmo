@@ -6,7 +6,7 @@ WHENEVER SQLERROR EXIT sql.sqlcode;
 CREATE MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres
 AS
 SELECT CAST(ROWNUM AS INTEGER)                                                 AS objectid,
-       o.identificatie,
+       o.identificatie                                                         AS identificatie,
        TO_CHAR(o.begingeldigheid),
        o.begingeldigheid                                                       AS begingeldigheid_datum,
        -- koppeling met BAG
@@ -88,7 +88,7 @@ FROM (SELECT p.identificatie      AS identificatie,
                    FROM BRMO_BRK.recht r
                    GROUP BY r.aantekeningkadastraalobject) aantekeningen
                   ON o.identificatie = aantekeningen.aantekeningkadastraalobject
-         LEFT JOIN BRMO_BRK.onroerendezaak o ON qry.identificatie = o.identificatie
+         LEFT JOIN BRMO_BRK.onroerendezaak onrnd ON qry.identificatie = onrnd.identificatie
          LEFT JOIN BRMO_BRK.objectlocatie o2 ON o2.heeft = o.identificatie
          LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
          LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
