@@ -1,5 +1,5 @@
 --- koppel nevenvestigingen met hoofdvestiging
-create or replace view v_kvk_hoofd_nevenvestiging as 
+create or replace view v_kvk_hoofd_nevenvestiging as
 select 			s.naam as hoofdvestigingnaam,
 				coalesce(v.fk_15ond_kvk_nummer::text, v.fk_17mac_kvk_nummer::text) as kvknummer,
 				count(v2.sc_identif)  								 		       as aantal_nevenvestigingen,
@@ -90,8 +90,10 @@ CREATE INDEX mb_kvk_adres_geometrie_idx ON public.mb_kvk_adres USING gist (geome
 CREATE UNIQUE INDEX mb_kvk_adres_objectid ON public.mb_kvk_adres USING btree (objectid);
 
 -- koppel kvk-gegevens met bag-gegevens met BAG-geometriëen
-create materialized view mb_kvk_pand
-select  kvk.sc_identif,
+create materialized view mb_kvk_pand as 
+select  
+		row_number() over ()     		 as objectid,
+		kvk.sc_identif,
 		kvk.kvknummer,
 		kvk.naam,
 		kvk.hoofdvestiging,
@@ -125,7 +127,9 @@ CREATE UNIQUE INDEX mb_kvk_pand_objectid ON public.mb_kvk_pand USING btree (obje
 
 -- koppel kvk-gegevens met bag-gegevens met BRK-geometriëen
 create materialized view mb_kvk_perceel as 
-select  kvk.sc_identif,
+select  
+		row_number() over ()     		 as objectid,
+		kvk.sc_identif,
 		kvk.kvknummer,
 		kvk.naam,
 		kvk.hoofdvestiging,
@@ -149,7 +153,7 @@ select  kvk.sc_identif,
 		kvk.adresseerbaarobjectid,
 		kvk.correspondentie_aoi,
 		-- BRK gegevens
-		p.identificatie as koz_identif, 
+		p.identificatie as perceelsidentificatie, 
 		zrr.soort,
 		zrr.kvk_nummer as kvk_eigenaar, 
 		p.begrenzing_perceel as geometrie
