@@ -6,6 +6,8 @@
 
 package nl.b3p.brmo.schema.mapping;
 
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 public class DoubleAttributeColumnMapping extends AttributeColumnMapping {
 
   public DoubleAttributeColumnMapping(String name, boolean notNull) {
@@ -17,7 +19,7 @@ public class DoubleAttributeColumnMapping extends AttributeColumnMapping {
   }
 
   @Override
-  public Object toQueryParameter(Object value) {
+  public Object toQueryParameter(Object value, SQLDialect sqlDialect) {
     if (value == null) {
       return null;
     } else {

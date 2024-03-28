@@ -6,6 +6,8 @@
 
 package nl.b3p.brmo.schema.mapping;
 
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +35,7 @@ public class SimpleDateFormatAttributeColumnMapping extends AttributeColumnMappi
   }
 
   @Override
-  public Object toQueryParameter(Object value) throws ParseException {
+  public Object toQueryParameter(Object value, SQLDialect sqlDialect) throws ParseException {
     if (value == null) {
       return null;
     } else {
