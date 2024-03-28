@@ -502,19 +502,22 @@ CREATE OR REPLACE VIEW vb_util_zk_recht
              aantekeningen
                 )
 AS
-SELECT zakrecht.identificatie                                            AS zr_identif,
-       zakrecht.begingeldigheid                                          AS ingangsdatum_recht,
+SELECT COALESCE(splitsing2.identificatie, zakrecht.identificatie)           AS zr_identif,
+       zakrecht.begingeldigheid                                                AS ingangsdatum_recht,
        COALESCE(TO_CHAR(tenaamstelling.aandeel_teller), '0') || '/' ||
-       COALESCE(TO_CHAR(tenaamstelling.aandeel_noemer), '0')             AS aandeel,
-       tenaamstelling.aandeel_teller                                     AS ar_teller,
-       tenaamstelling.aandeel_noemer                                     AS ar_noemer,
-       -- BRMO-339: samenvoegen van de tennamevan (tenaamstelling) en de heeftverenigingvaneigenaren, zodat de grondpercelen zichtbaar zijn
+       COALESCE(TO_CHAR(tenaamstelling.aandeel_noemer), '0')                AS aandeel,
+       tenaamstelling.aandeel_teller                                        AS ar_teller,
+       tenaamstelling.aandeel_noemer                                        AS ar_noemer,
        -- BRMO-340: samenvoegen van de tennamevan (tenaamstelling) op de zakelijke rechten die bestemd zijn tot een mandeligheid
-       COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') ||
-       COALESCE(tenaamstelling2.tennamevan, '')                          AS subject_identif,
+       COALESCE(tenaamstelling.tennamevan, '') || 
+       -- BRMO-364: wanneer een perceel met appartementsrechten is gesplitst, moet de subject_identif van de natuurlijke persoon worden getoond ipv de vve        
+       -- BRMO-339: samenvoegen van de tennamevan (tenaamstelling) en de heeftverenigingvaneigenaren, zodat de grondpercelen zichtbaar zijn
+       COALESCE(splitsing2_tenaamstelling.tennamevan, COALESCE(vve.heeftverenigingvaneigenaren, '')) ||
+       -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.
+       COALESCE(tenaamstelling2.tennamevan, '')                  AS subject_identif,
        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.
        mandeligheid.identificatie                                        AS mandeligheid_identif,
-       zakrecht.rustop                                                   AS koz_identif,
+       coalesce(zakrecht.rustop , splitsing2.rustop)                                                 AS koz_identif,
        CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
        zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
        zakrecht.aard                                                     AS fk_3avr_aand,
@@ -533,14 +536,20 @@ SELECT zakrecht.identificatie                                            AS zr_i
 FROM recht zakrecht
          -- tenaamstelling
          LEFT JOIN recht tenaamstelling ON zakrecht.identificatie = tenaamstelling.van
-    -- vereniging van eigenaren
+    --  BRMO-339: vereniging van eigenaren
          LEFT JOIN recht vve ON zakrecht.isbetrokkenbij = vve.identificatie
          LEFT JOIN vb_util_zk_recht_op_koz vuzrok ON zakrecht.identificatie = vuzrok.identificatie
-    -- mandeligheid
+    -- BRMO-364: dubbele splitsing perceel
+         -- zakelijke rechten die ontstaan zijn uit een splitsing van een grondperceel
+         LEFT JOIN recht splitsing on zakrecht.isbetrokkenbij = splitsing.isontstaanuit
+         -- zakelijke rechten die ontstaan zijn uit de splitsing van een al eerdere gesplitste perceel
+         LEFT JOIN recht splitsing2 on splitsing.isbetrokkenbij = splitsing2.isontstaanuit
+         LEFT JOIN recht splitsing2_tenaamstelling on splitsing2.identificatie = splitsing2_tenaamstelling.van
+    -- BRMO-340: mandeligheid
          LEFT JOIN recht mandeligheid ON zakrecht.isbestemdtot = mandeligheid.identificatie
          LEFT JOIN vb_util_zk_recht_op_koz vuzrok2 ON mandeligheid.heefthoofdzaak = vuzrok2.rustop_zak_recht
          LEFT JOIN recht tenaamstelling2 ON vuzrok2.identificatie = tenaamstelling2.van
-WHERE SUBSTR(zakrecht.identificatie, 1, INSTR(zakrecht.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht';
+WHERE SUBSTR(zakrecht.identificatie, 1, INSTR(zakrecht.identificatie, ':') - 1) = 'NL.IMKAD.ZakelijkRecht'
 
 COMMENT ON TABLE vb_util_zk_recht IS
     'commentaar view vb_util_zk_recht:
