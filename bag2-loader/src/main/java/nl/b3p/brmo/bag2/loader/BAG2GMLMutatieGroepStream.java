@@ -448,6 +448,11 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
       case "gebruiksdoel":
         parseGebruiksdoel(attribute, objectAttributes);
         break;
+      case "geconstateerd":
+        // Parse 'J' or 'N' to 'true' or 'false'
+        String jn = attribute.collectDescendantText().trim();
+        objectAttributes.put(attributeName, "J".equals(jn) ? "true" : "false");
+        break;
       default:
         // String attribute value as default
 

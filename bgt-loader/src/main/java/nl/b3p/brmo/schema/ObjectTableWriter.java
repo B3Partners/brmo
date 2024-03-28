@@ -371,7 +371,7 @@ public class ObjectTableWriter {
     for (AttributeColumnMapping attributeColumnMapping :
         object.getObjectType().getDirectNonDefaultInsertAttributes()) {
       Object attribute = attributes.get(attributeColumnMapping.getName());
-      params.add(attributeColumnMapping.toQueryParameter(attribute));
+      params.add(attributeColumnMapping.toQueryParameter(attribute, getDialect()));
     }
 
     // The main object batch must be executed before oneToMany and arrayAttribute batches which
@@ -430,7 +430,7 @@ public class ObjectTableWriter {
               .map(
                   key -> {
                     try {
-                      return key.toQueryParameter(object.getAttributes().get(key.getName()));
+                      return key.toQueryParameter(object.getAttributes().get(key.getName()), getDialect());
                     } catch (Exception e) {
                       throw new RuntimeException(e);
                     }
