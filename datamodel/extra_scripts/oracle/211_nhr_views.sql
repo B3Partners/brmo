@@ -1,3 +1,4 @@
+--- koppel nevenvestigingen met hoofdvestiging
 create or replace view v_kvk_hoofd_nevenvestiging as 
 select      s.naam as hoofdvestigingnaam,
             coalesce(v.fk_15ond_kvk_nummer, v.fk_17mac_kvk_nummer)                                 as kvknummer,
@@ -10,6 +11,7 @@ join subject s2 on v2.sc_identif = s2.identif
 where v.hoofdvestiging = 'Ja' and v2.hoofdvestiging = 'Nee'
 group by s.naam, coalesce(v.fk_15ond_kvk_nummer, v.fk_17mac_kvk_nummer);
 
+-- koppel subject en vestg tabel met het adresseerbaarobject
 create materialized view mb_kvk_adres as 
 select  
         cast(rownum as integer)    as objectid,
@@ -97,6 +99,7 @@ values ('mb_kvk_adres', 'geometrie',
 CREATE INDEX mb_kvk_adres_geometrie_idx ON mb_kvk_adres (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 CREATE UNIQUE INDEX mb_kvk_adres_objectid ON mb_kvk_adres (objectid);
 
+-- koppel pandgeometrieën aan de nHr-gegevens
 create materialized view mb_kvk_pand as 
 select  
         cast(rownum as integer)    as objectid,
@@ -141,7 +144,7 @@ values ('mb_kvk_pand', 'geometrie',
 CREATE INDEX mb_kvk_pand_geometrie_idx ON mb_kvk_pand (geometrie) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 CREATE UNIQUE INDEX mb_kvk_pand_objectid ON mb_kvk_pand (objectid);
 
--- koppel kvk-gegevens met bag-gegevens met BRK-geometriëen
+-- koppel BRK-gegevens en perceelgrenzen aan de nHr-gegevens
 create materialized view mb_kvk_perceel as 
 select  
 		cast(rownum as integer)    as objectid,

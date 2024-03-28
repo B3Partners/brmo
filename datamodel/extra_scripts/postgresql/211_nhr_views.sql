@@ -11,6 +11,7 @@ join subject s2 on v2.sc_identif = s2.identif
 where v.hoofdvestiging = 'Ja' and v2.hoofdvestiging = 'Nee'
 group by hoofdvestigingnaam, coalesce(v.fk_15ond_kvk_nummer::text, v.fk_17mac_kvk_nummer::text);
 
+-- koppel subject en vestg tabel met het adresseerbaarobject
 create materialized view mb_kvk_adres as 
 select 		
 			row_number() over ()     		 as objectid,
@@ -73,7 +74,6 @@ select
 			a.maaktdeeluitvan,
 			a.geometrie_centroide::geometry(Point,28992)  as geometrie
 from vestg v
--- koppeling met de hoofdactiviteit van een vestiging. 
 -- Een vestiging kan meerdere activiteiten bevatten, deze staat in de vestg_activiteit tabel. 
 left join sbi_activiteit sa on v.fk_sa_sbi_activiteit_sbi_code = sa.sbi_code
 -- soms staat de naam niet in de vestg_naam tabel. Daarom is het noodzakelijk om de naam van 
@@ -85,11 +85,12 @@ left join mb_adresseerbaar_object_geometrie_bag a on v.fk_20aoa_identif = a.iden
 left join mb_adresseerbaar_object_geometrie_bag coa on s.fk_15aoa_identif = coa.identificatie
 -- voeg hoofdvestiging naam toe
 left join v_kvk_hoofd_nevenvestiging vhn on coalesce(v.fk_15ond_kvk_nummer::text,v.fk_17mac_kvk_nummer::text) = vhn.kvknummer;
+
 -- index voor geometrie van het pand en objectid
 CREATE INDEX mb_kvk_adres_geometrie_idx ON public.mb_kvk_adres USING gist (geometrie);
 CREATE UNIQUE INDEX mb_kvk_adres_objectid ON public.mb_kvk_adres USING btree (objectid);
 
--- koppel kvk-gegevens met bag-gegevens met BAG-geometriëen
+-- koppel pandgeometrieën aan de nHr-gegevens
 create materialized view mb_kvk_pand as 
 select  
 		row_number() over ()     		 as objectid,
@@ -125,7 +126,7 @@ join bag.v_pand_actueel vp on kvk.maaktdeeluitvan = vp.identificatie;
 CREATE INDEX mb_kvk_pand_geometrie_idx ON public.mb_kvk_pand USING gist (geometrie);
 CREATE UNIQUE INDEX mb_kvk_pand_objectid ON public.mb_kvk_pand USING btree (objectid);
 
--- koppel kvk-gegevens met bag-gegevens met BRK-geometriëen
+-- koppel BRK-gegevens en perceelgrenzen aan de nHr-gegevens
 create materialized view mb_kvk_perceel as 
 select  
 		row_number() over ()     		 as objectid,
