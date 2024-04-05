@@ -1,5 +1,4 @@
-version: '3.9'
-
+# Description: Docker compose file voor BRMO service met database
 volumes:
   brmo-db:
   brmo-db-ssl:
@@ -15,11 +14,12 @@ services:
       - brmo-db:/var/lib/postgresql/data
       - brmo-db-ssl:/opt/ssl
     command: >
-      -c shared_buffers=8GB
       -c max_connections=200
+      -c shared_buffers=4GB
+      -c maintenance_work_mem=2GB
+      -c work_mem=16MB
       -c max_wal_size=3GB
       -c autovacuum_max_workers=4
-      -c maintenance_work_mem=2GB
       -c ssl=${ENABLE_TLS:-on}
       -c ssl_cert_file=${SSL_CERT_FILE:-/opt/ssl/certs/certificate.pem}
       -c ssl_key_file=${SSL_KEY_FILE:-/opt/ssl/private/private.key}
