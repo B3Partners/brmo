@@ -6,11 +6,10 @@
 
 package nl.b3p.brmo.schema.mapping;
 
-import nl.b3p.brmo.sql.dialect.SQLDialect;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
 
 public class SimpleDateFormatAttributeColumnMapping extends AttributeColumnMapping {
   public static final String PATTERN_XML_DATE = "yyyy-MM-dd";
