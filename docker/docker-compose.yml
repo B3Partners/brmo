@@ -17,7 +17,7 @@ services:
       -c max_connections=200
       -c shared_buffers=4GB
       -c maintenance_work_mem=2GB
-      -c work_mem=2GB
+      -c work_mem=16MB
       -c max_wal_size=3GB
       -c autovacuum_max_workers=4
       -c ssl=${ENABLE_TLS:-on}
