@@ -430,7 +430,8 @@ public class ObjectTableWriter {
               .map(
                   key -> {
                     try {
-                      return key.toQueryParameter(object.getAttributes().get(key.getName()), getDialect());
+                      return key.toQueryParameter(
+                          object.getAttributes().get(key.getName()), getDialect());
                     } catch (Exception e) {
                       throw new RuntimeException(e);
                     }
