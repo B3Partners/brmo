@@ -376,7 +376,7 @@ public class BrmoFramework {
           CountingInputStream zipCis =
               new CountingInputStream(new FileInputStream(f)) {
                 @Override
-                protected synchronized void afterRead(int n) {
+                protected synchronized void afterRead(int n) throws IOException {
                   super.afterRead(n);
                   if (listener != null) {
                     listener.progress(getByteCount());
