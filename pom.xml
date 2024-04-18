@@ -778,7 +778,7 @@
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>mockwebserver3-junit5</artifactId>
-                <version>5.0.0-alpha.12</version>
+                <version>5.0.0-alpha.14</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
