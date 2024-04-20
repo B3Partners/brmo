@@ -108,8 +108,7 @@ public class NHRLoadUtils {
     context.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
 
     TLSClientParameters tlsClientParameters = new TLSClientParameters();
-    tlsClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());
-    tlsClientParameters.setSslContext(context);
+    tlsClientParameters.setSSLSocketFactory(context.getSocketFactory());
     http.setTlsClientParameters(tlsClientParameters);
 
     Map<String, Object> props = new HashMap<>();
