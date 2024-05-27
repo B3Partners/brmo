@@ -77,7 +77,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <maven-fluido-skin.version>2.0.0-M8</maven-fluido-skin.version>
+        <maven-fluido-skin.version>2.0.0-M9</maven-fluido-skin.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>31.0</geotools.version>
