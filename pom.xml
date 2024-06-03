@@ -1144,14 +1144,7 @@
                                     <excludes>
                                         <exclude>junit:junit</exclude>
                                         <exclude>org.hamcrest:hamcrest-core</exclude>
-                                        <!-- helaas is er een transitieve dependency naar joda-time in wss4j-ws-security-common,
-                                             dus kunnen we die niet uitsluiten.
-
-                                             [INFO] |  +- org.apache.wss4j:wss4j-ws-security-common:jar:2.4.1:compile
-                                             [INFO] |  |  +- joda-time:joda-time:jar:2.10.10:compile
-
-                                         <exclude>joda-time:joda-time</exclude>
-                                         -->
+                                        <exclude>joda-time:joda-time</exclude>
                                     </excludes>
                                 </bannedDependencies>
                             </rules>
