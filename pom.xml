@@ -511,7 +511,7 @@
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-rt</artifactId>
-                <version>2.3.6</version>
+                <version>2.3.7</version>
                 <exclusions>
                     <!-- deze komen in de Tomcat lib, moeten dus niet in de war file terecht komen -->
                     <exclusion>
