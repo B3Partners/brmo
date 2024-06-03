@@ -48,7 +48,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.6'
+          maven-version: '3.9.7'
 
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
