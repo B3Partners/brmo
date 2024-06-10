@@ -39,7 +39,7 @@ jobs:
         run: mvn -U package -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true -Dmaven.javadoc.skip=true
 
       - name: "Run Trivy vulnerability scanner on ${{ matrix.docker-image }}"
-        uses: aquasecurity/trivy-action@0.21.0
+        uses: aquasecurity/trivy-action@0.22.0
         # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image ghcr.io/b3partners/brmo-service:snapshot
         with:
           image-ref: "ghcr.io/b3partners/${{ matrix.docker-image }}:snapshot"
