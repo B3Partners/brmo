@@ -45,7 +45,11 @@ updates:
 
 
   - package-ecosystem: docker
-    directory: "/docker/src/main/docker"
+    directories:
+      - "/docker/src/main/docker"
+      - "/docker/src/main/docker/pg_conf"
+      - "/bgt-loader"
+      - "/bag2-loader"
     schedule:
       interval: weekly
       day: monday
@@ -63,61 +67,6 @@ updates:
       - dependency-name: "tomcat"
         versions:
           - ">= 10"
-
-
-  - package-ecosystem: docker
-    directory: "/docker/src/main/docker/pg_conf"
-    schedule:
-      interval: weekly
-      day: monday
-      time: "21:00"
-      timezone: Europe/Amsterdam
-    open-pull-requests-limit: 25
-    target-branch: master
-    reviewers:
-      - mprins
-    assignees:
-      - mprins
-    labels:
-      - "bouw- en testinfrastuctuur"
-
-  - package-ecosystem: docker
-    directory: "/bgt-loader"
-    schedule:
-      interval: weekly
-      day: monday
-      time: "21:00"
-      timezone: Europe/Amsterdam
-    open-pull-requests-limit: 25
-    target-branch: master
-    reviewers:
-      - matthijsln
-    assignees:
-      - matthijsln
-    labels:
-      - "bouw- en testinfrastuctuur"
-    ignore:
-      - dependency-name: "eclipse-temurin"
-        versions:
-          - ">= 18"
-
-
-  - package-ecosystem: docker
-    directory: "/bag2-loader"
-    schedule:
-      interval: weekly
-      day: monday
-      time: "21:10"
-      timezone: Europe/Amsterdam
-    open-pull-requests-limit: 25
-    target-branch: master
-    reviewers:
-      - matthijsln
-    assignees:
-      - matthijsln
-    labels:
-      - "bouw- en testinfrastuctuur"
-    ignore:
       - dependency-name: "eclipse-temurin"
         versions:
           - ">= 18"
