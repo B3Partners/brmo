@@ -31,7 +31,9 @@ updates:
       - dependency-name: org.apache.tomcat.embed:*
         versions:
           - ">= 10"
-
+      - dependency-name: org.apache.cxf:*
+        versions:
+          - ">= 4"
 
   - package-ecosystem: "github-actions"
     directory: "/"
