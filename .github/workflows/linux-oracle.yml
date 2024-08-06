@@ -23,7 +23,7 @@ jobs:
       matrix:
         java: [ 17 ]
         java-dist: [ 'temurin' ]
-        oracle: [ 'oracle-xe:21.3.0-full', 'oracle-free:23.4-full' ]
+        oracle: [ 'oracle-xe:21.3.0-full', 'oracle-free:23.5-full' ]
 
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.7'
+          maven-version: '3.9.8'
 
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
