@@ -26,8 +26,8 @@ COMMENT ON COLUMN stukdeel.deelvan IS 'Referentie naar het stuk waarvan dit deel
 
 COMMENT ON TABLE onroerendezaak IS 'Een onroerende zaak is de grond, de niet gewonnen delfstoffen, de met de grond verenigde beplantingen, alsmede de gebouwen en werken die duurzaam met de grond zijn verenigd, hetzij rechtstreeks, hetzij door vereniging met andere gebouwen of werken.';
 COMMENT ON COLUMN onroerendezaak.identificatie IS 'Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.';
-COMMENT ON COLUMN onroerendezaak.begingeldigheid IS 'BRMO: metadata tbv archivering, datum van bericht.';
-COMMENT ON COLUMN onroerendezaak.eindegeldigheid IS 'BRMO: metadata tbv archivering, datum van opvolgend bericht.';
+COMMENT ON COLUMN onroerendezaak.begingeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het bericht.';
+COMMENT ON COLUMN onroerendezaak.eindegeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het opvolgende bericht.';
 COMMENT ON COLUMN onroerendezaak.akrkadastralegemeentecode IS 'De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak.';
 COMMENT ON COLUMN onroerendezaak.akrkadastralegemeente IS 'De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak.';
 COMMENT ON COLUMN onroerendezaak.kadastralegemeentecode IS 'De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak.';
@@ -190,7 +190,7 @@ COMMENT ON COLUMN recht.einddatum IS 'Einddatum is de datum waarop de geldigheid
 COMMENT ON COLUMN recht.betreftgedeeltevanperceel IS 'BetreftGedeelteVanPerceel is een aanduiding of de aantekening het gehele perceel (nee of niet gevuld) betreft of slechts een gedeelte (ja).';
 COMMENT ON COLUMN recht.aantekeningkadastraalobject IS 'Relatie van aantekening naar onroerende zaak.';
 COMMENT ON COLUMN recht.betrokkenpersoon IS 'Relatie van aantekening naar persoon';
-COMMENT ON COLUMN recht.begingeldigheid IS 'BRMO: metadata tbv archivering, datum van bericht.';
+COMMENT ON COLUMN recht.begingeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het bericht.';
 
 
 COMMENT ON TABLE recht_aantekeningrecht IS 'Koppeltabel voor aantekeningen bij een tenaamstelling van een recht.';
