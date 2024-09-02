@@ -121,6 +121,7 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
 
         // Use defaults
         BAG2LoadOptions loadOptions = new BAG2LoadOptions();
+        loadOptions.setGeoFilter(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
         BAG2DatabaseOptions dbOptions = new BAG2DatabaseOptions();
 
         listener.updateStatus(PROCESSING.toString());

@@ -113,6 +113,19 @@
             <brmo:formatCron cronExpression="${actionBean.proces.cronExpressie}"/>
         </td>
     </tr>
+    <tr>
+        <td colspan="2"><b>WKT van geografisch filter</b>
+            <br>
+            Optioneel: een geometrie (zoals een WKT POLYGON) om records mee te filteren.<br>
+            Na het inladen van mutaties worden records die niet snijden met deze geometrie verwijderd.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <stripes:textarea rows="10" cols="130" name="config['geo-filter']" style="width: 63em;"/>
+            <p></p>
+        </td>
+    </tr>
 
     <script>
         console.log('test');
