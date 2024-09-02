@@ -46,10 +46,8 @@ import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.schema.ObjectType;
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
-import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
-import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpClientWrapper;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
@@ -61,7 +59,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
-import org.geotools.geometry.jts.WKTReader2;
 import org.geotools.util.logging.Logging;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.WKTReader;
@@ -148,12 +145,13 @@ public class BAG2LoaderMain implements IVersionProvider {
 
   @Command(name = "apply-geo-filter", sortOptions = false)
   public int applyGeoFilterCommand(
-      @Mixin BAG2DatabaseOptions dbOptions
+      @Mixin BAG2DatabaseOptions dbOptions,
+      @CommandLine.Option(names = "--geo-filter", paramLabel = "<wkt>") String geoFilter
   ) throws Exception {
     log.info(BAG2LoaderUtils.getUserAgent());
 
     try (BAG2Database db = getBAG2Database(dbOptions)) {
-      applyGeoFilter(db);
+      applyGeoFilter(db, new BAG2LoadOptions().setGeoFilter(geoFilter));
       return ExitCode.OK;
     }
   }
@@ -298,11 +296,10 @@ public class BAG2LoaderMain implements IVersionProvider {
 
         updateMetadata(
             db, loadOptions, true, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
-
-        applyGeoFilter(db);
       }
-
       db.getConnection().commit();
+
+      applyGeoFilter(db, loadOptions);
     } finally {
       progressReporter.reportTotalSummary();
     }
@@ -395,7 +392,6 @@ public class BAG2LoaderMain implements IVersionProvider {
       currentTechnischeDatum =
           new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
       updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
-      applyGeoFilter(db);
       db.getConnection().commit();
       // Duplicates need only be checked for mutaties for a single from date, clear cache to
       // reduce memory usage
@@ -403,6 +399,7 @@ public class BAG2LoaderMain implements IVersionProvider {
       log.info("Mutaties verwerkt, huidige stand technische datum: " + currentTechnischeDatum);
 
     } while (true);
+    applyGeoFilter(db, loadOptions);
   }
 
   private void applyNLMutaties(
@@ -446,18 +443,34 @@ public class BAG2LoaderMain implements IVersionProvider {
       currentTechnischeDatum =
           new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
       updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
-      applyGeoFilter(db);
       db.getConnection().commit();
       log.info("Mutaties verwerkt, huidige stand technische datum: " + currentTechnischeDatum);
     } while (true);
+    applyGeoFilter(db, loadOptions);
   }
 
   private static final int SRID = 28992;
 
   private void applyGeoFilter(
-      BAG2Database db)
+      BAG2Database db,
+      BAG2LoadOptions loadOptions)
       throws Exception {
-    String filterMetadata = db.getMetadata(FILTER_GEOMETRIE);
+
+    String filterMetadata;
+
+    if (loadOptions.getGeoFilter() != null) {
+      filterMetadata = loadOptions.getGeoFilter();
+      try {
+        new WKTReader().read(filterMetadata);
+      } catch(Exception e) {
+        log.error("Ongeldige WKT gespecificeerd voor geometrie-filter", e);
+        return;
+      }
+      db.setMetadataValue(FILTER_GEOMETRIE, filterMetadata);
+    } else {
+      filterMetadata = db.getMetadata(FILTER_GEOMETRIE);
+    }
+
     if (filterMetadata == null) {
       return;
     }
@@ -468,18 +481,20 @@ public class BAG2LoaderMain implements IVersionProvider {
     } catch (Exception e) {
       log.error(
           String.format(
-              "Geo filter not applied, error parsing %s as WKT, value: \"%s\"",
+              "Geometrie-filter niet toegepast, fout bij parsen %s als WKT, waarde: \"%s\"",
               FILTER_GEOMETRIE, filterMetadata),
           e);
       return;
     }
-    log.info("Removing records not intersecting with geometry filter");
+    log.info("Verwijderen records die niet binnen geometrie-filter vallen...");
     if (!(db.getDialect() instanceof PostGISDialect)) {
       throw new UnsupportedOperationException("Not implemented");
     }
 
     BAG2SchemaMapper schemaMapper = BAG2SchemaMapper.getInstance();
     BAG2Schema bag2Schema = BAG2Schema.getInstance();
+
+    db.getConnection().setAutoCommit(false);
 
     String[] objectTypes = new String[] { "Ligplaats", "Standplaats", "Pand", "Verblijfsobject", "Woonplaats" };
 
@@ -499,7 +514,7 @@ public class BAG2LoaderMain implements IVersionProvider {
       try(QueryBatch queryBatch =
           new GeometryHandlingPreparedStatementBatch(
               db.getConnection(), sql, 1, db.getDialect(), new Boolean[] {true}, false)) {
-        log.info("Removing records for " + objectType.getName());
+        log.info("Verwijderen van records voor " + objectType.getName());
         queryBatch.addBatch(new Object[] {geometry});
       }
     }
@@ -515,18 +530,18 @@ public class BAG2LoaderMain implements IVersionProvider {
         and not exists (select 1 from standplaats_nevenadres sn where sn.heeftalsnevenadres = n.identificatie)
         """;
     try(PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
-      log.info("Removing unreferenced records for nummeraanduiding");
+      log.info("Verwijderen niet-gerefereerde nummeraanduiding-records");
       ps.executeUpdate();
     }
     sql = """
         delete from openbareruimte o where not exists (select 1 from nummeraanduiding where ligtaan = o.identificatie)
         """;
     try(PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
-      log.info("Removing unreferenced records for openbareruimte");
+      log.info("Verwijderen niet-gerefereerde openbareruimte-records");
       ps.executeUpdate();
     }
-
-    log.info("Finished removing records not matching geometry filter");
+    db.getConnection().commit();
+    log.info("Klaar met verwijderen records buiten geometrie-filter");
   }
 
   private void createKeysAndIndexes(
