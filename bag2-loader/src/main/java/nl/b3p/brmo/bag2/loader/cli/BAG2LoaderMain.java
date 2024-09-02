@@ -9,7 +9,7 @@ package nl.b3p.brmo.bag2.loader.cli;
 
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM;
-import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.FILTER_MUTATIES_WOONPLAATS;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.FILTER_GEOMETRIE;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.GEMEENTE_CODES;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TIME;
@@ -25,6 +25,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -42,7 +43,13 @@ import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
+import nl.b3p.brmo.schema.ObjectType;
+import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
+import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
+import nl.b3p.brmo.sql.QueryBatch;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpClientWrapper;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
@@ -54,7 +61,10 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
+import org.geotools.geometry.jts.WKTReader2;
 import org.geotools.util.logging.Logging;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.WKTReader;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
@@ -132,6 +142,18 @@ public class BAG2LoaderMain implements IVersionProvider {
               : new BAG2ProgressReporter();
 
       loadFiles(db, dbOptions, loadOptions, progressReporter, filenames, null);
+      return ExitCode.OK;
+    }
+  }
+
+  @Command(name = "apply-geo-filter", sortOptions = false)
+  public int applyGeoFilterCommand(
+      @Mixin BAG2DatabaseOptions dbOptions
+  ) throws Exception {
+    log.info(BAG2LoaderUtils.getUserAgent());
+
+    try (BAG2Database db = getBAG2Database(dbOptions)) {
+      applyGeoFilter(db);
       return ExitCode.OK;
     }
   }
@@ -276,6 +298,8 @@ public class BAG2LoaderMain implements IVersionProvider {
 
         updateMetadata(
             db, loadOptions, true, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
+
+        applyGeoFilter(db);
       }
 
       db.getConnection().commit();
@@ -371,6 +395,7 @@ public class BAG2LoaderMain implements IVersionProvider {
       currentTechnischeDatum =
           new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
       updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
+      applyGeoFilter(db);
       db.getConnection().commit();
       // Duplicates need only be checked for mutaties for a single from date, clear cache to
       // reduce memory usage
@@ -421,9 +446,87 @@ public class BAG2LoaderMain implements IVersionProvider {
       currentTechnischeDatum =
           new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
       updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
+      applyGeoFilter(db);
       db.getConnection().commit();
       log.info("Mutaties verwerkt, huidige stand technische datum: " + currentTechnischeDatum);
     } while (true);
+  }
+
+  private static final int SRID = 28992;
+
+  private void applyGeoFilter(
+      BAG2Database db)
+      throws Exception {
+    String filterMetadata = db.getMetadata(FILTER_GEOMETRIE);
+    if (filterMetadata == null) {
+      return;
+    }
+    Geometry geometry;
+    try {
+      geometry = new WKTReader().read(filterMetadata);
+      geometry.setSRID(SRID);
+    } catch (Exception e) {
+      log.error(
+          String.format(
+              "Geo filter not applied, error parsing %s as WKT, value: \"%s\"",
+              FILTER_GEOMETRIE, filterMetadata),
+          e);
+      return;
+    }
+    log.info("Removing records not intersecting with geometry filter");
+    if (!(db.getDialect() instanceof PostGISDialect)) {
+      throw new UnsupportedOperationException("Not implemented");
+    }
+
+    BAG2SchemaMapper schemaMapper = BAG2SchemaMapper.getInstance();
+    BAG2Schema bag2Schema = BAG2Schema.getInstance();
+
+    String[] objectTypes = new String[] { "Ligplaats", "Standplaats", "Pand", "Verblijfsobject", "Woonplaats" };
+
+    for(String objectTypeName: objectTypes) {
+      ObjectType objectType = bag2Schema.getObjectTypeByName(objectTypeName);
+      String tableName = schemaMapper.getTableNameForObjectType(objectType, "");
+      String sql =
+          String.format(
+              """
+                delete from %s
+                where identificatie in (
+                  select identificatie from %s
+                  where eindgeldigheid is null and tijdstipinactief is null
+                  and not st_intersects(geometrie, ?)
+                )""",
+              tableName, tableName);
+      try(QueryBatch queryBatch =
+          new GeometryHandlingPreparedStatementBatch(
+              db.getConnection(), sql, 1, db.getDialect(), new Boolean[] {true}, false)) {
+        log.info("Removing records for " + objectType.getName());
+        queryBatch.addBatch(new Object[] {geometry});
+      }
+    }
+
+    // Don't use getObjectTypeByName(), because heeftAlsNevenadres join tables need to be directly in sql literal anyway
+    String sql = """
+        delete from nummeraanduiding n
+        where not exists (select 1 from verblijfsobject v where v.heeftalshoofdadres = n.identificatie)
+        and not exists (select 1 from verblijfsobject_nevenadres vn where vn.heeftalsnevenadres = n.identificatie)
+        and not exists (select 1 from ligplaats l where l.heeftalshoofdadres = n.identificatie)
+        and not exists (select 1 from ligplaats_nevenadres ln where ln.heeftalsnevenadres = n.identificatie)
+        and not exists (select 1 from standplaats s where s.heeftalshoofdadres = n.identificatie)
+        and not exists (select 1 from standplaats_nevenadres sn where sn.heeftalsnevenadres = n.identificatie)
+        """;
+    try(PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
+      log.info("Removing unreferenced records for nummeraanduiding");
+      ps.executeUpdate();
+    }
+    sql = """
+        delete from openbareruimte o where not exists (select 1 from nummeraanduiding where ligtaan = o.identificatie)
+        """;
+    try(PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
+      log.info("Removing unreferenced records for openbareruimte");
+      ps.executeUpdate();
+    }
+
+    log.info("Finished removing records not matching geometry filter");
   }
 
   private void createKeysAndIndexes(
@@ -633,7 +736,6 @@ public class BAG2LoaderMain implements IVersionProvider {
           STAND_LOAD_TIME, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
       db.setMetadataValue(STAND_LOAD_TECHNISCHE_DATUM, df.format(standTechnischeDatum));
       db.setMetadataValue(GEMEENTE_CODES, String.join(",", gemeenteIdentificaties));
-      db.setMetadataValue(FILTER_MUTATIES_WOONPLAATS, "false");
     }
     db.setMetadataValue(CURRENT_TECHNISCHE_DATUM, df.format(standTechnischeDatum));
   }

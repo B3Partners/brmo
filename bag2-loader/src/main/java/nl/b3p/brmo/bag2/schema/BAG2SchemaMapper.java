@@ -29,7 +29,7 @@ public class BAG2SchemaMapper extends SchemaSQLMapper {
     STAND_LOAD_TECHNISCHE_DATUM,
     CURRENT_TECHNISCHE_DATUM,
     GEMEENTE_CODES,
-    FILTER_MUTATIES_WOONPLAATS;
+    FILTER_GEOMETRIE;
 
     public String getDbKey() {
       return "bag2_" + this.name().toLowerCase();
