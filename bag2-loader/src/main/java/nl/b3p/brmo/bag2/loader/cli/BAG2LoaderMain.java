@@ -487,9 +487,6 @@ public class BAG2LoaderMain implements IVersionProvider {
       return;
     }
     log.info("Verwijderen records die niet binnen geometrie-filter vallen...");
-    if (!(db.getDialect() instanceof PostGISDialect)) {
-      throw new UnsupportedOperationException("Not implemented");
-    }
 
     BAG2SchemaMapper schemaMapper = BAG2SchemaMapper.getInstance();
     BAG2Schema bag2Schema = BAG2Schema.getInstance();
