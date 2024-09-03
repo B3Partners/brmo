@@ -47,6 +47,7 @@ import nl.b3p.brmo.schema.ObjectType;
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.QueryBatch;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpClientWrapper;
@@ -498,6 +499,9 @@ public class BAG2LoaderMain implements IVersionProvider {
     for(String objectTypeName: objectTypes) {
       ObjectType objectType = bag2Schema.getObjectTypeByName(objectTypeName);
       String tableName = schemaMapper.getTableNameForObjectType(objectType, "");
+      String geoCondition = db.getDialect() instanceof OracleDialect
+          ? "not st_intersects(geometrie, ?)" // Also works for Oracle 23c, not < 23c
+          : "st_intersects(geometrie, ?) = 0";
       String sql =
           String.format(
               """
@@ -505,9 +509,9 @@ public class BAG2LoaderMain implements IVersionProvider {
                 where identificatie in (
                   select identificatie from %s
                   where eindgeldigheid is null and tijdstipinactief is null
-                  and not st_intersects(geometrie, ?)
+                  and %s
                 )""",
-              tableName, tableName);
+              tableName, tableName, geoCondition);
       try(QueryBatch queryBatch =
           new GeometryHandlingPreparedStatementBatch(
               db.getConnection(), sql, 1, db.getDialect(), new Boolean[] {true}, false)) {
