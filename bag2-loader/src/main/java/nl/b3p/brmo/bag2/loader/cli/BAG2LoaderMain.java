@@ -48,7 +48,6 @@ import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpClientWrapper;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
@@ -147,8 +146,8 @@ public class BAG2LoaderMain implements IVersionProvider {
   @Command(name = "apply-geo-filter", sortOptions = false)
   public int applyGeoFilterCommand(
       @Mixin BAG2DatabaseOptions dbOptions,
-      @CommandLine.Option(names = "--geo-filter", paramLabel = "<wkt>") String geoFilter
-  ) throws Exception {
+      @CommandLine.Option(names = "--geo-filter", paramLabel = "<wkt>") String geoFilter)
+      throws Exception {
     log.info(BAG2LoaderUtils.getUserAgent());
 
     try (BAG2Database db = getBAG2Database(dbOptions)) {
@@ -452,10 +451,7 @@ public class BAG2LoaderMain implements IVersionProvider {
 
   private static final int SRID = 28992;
 
-  public void applyGeoFilter(
-      BAG2Database db,
-      BAG2LoadOptions loadOptions)
-      throws Exception {
+  public void applyGeoFilter(BAG2Database db, BAG2LoadOptions loadOptions) throws Exception {
 
     String filterMetadata;
 
@@ -463,7 +459,7 @@ public class BAG2LoaderMain implements IVersionProvider {
       filterMetadata = loadOptions.getGeoFilter();
       try {
         new WKTReader().read(filterMetadata);
-      } catch(Exception e) {
+      } catch (Exception e) {
         log.error("Ongeldige WKT gespecificeerd voor geometrie-filter", e);
         return;
       }
@@ -494,9 +490,10 @@ public class BAG2LoaderMain implements IVersionProvider {
 
     db.getConnection().setAutoCommit(false);
 
-    String[] objectTypes = new String[] { "Ligplaats", "Standplaats", "Pand", "Verblijfsobject", "Woonplaats" };
+    String[] objectTypes =
+        new String[] {"Ligplaats", "Standplaats", "Pand", "Verblijfsobject", "Woonplaats"};
 
-    for(String objectTypeName: objectTypes) {
+    for (String objectTypeName : objectTypes) {
       ObjectType objectType = bag2Schema.getObjectTypeByName(objectTypeName);
       String tableName = schemaMapper.getTableNameForObjectType(objectType, "");
       String geoCondition =
@@ -513,7 +510,7 @@ public class BAG2LoaderMain implements IVersionProvider {
                   and %s
                 )""",
               tableName, tableName, geoCondition);
-      try(QueryBatch queryBatch =
+      try (QueryBatch queryBatch =
           new GeometryHandlingPreparedStatementBatch(
               db.getConnection(), sql, 1, db.getDialect(), new Boolean[] {true}, false)) {
         log.info("Verwijderen van records voor " + objectType.getName());
@@ -521,8 +518,10 @@ public class BAG2LoaderMain implements IVersionProvider {
       }
     }
 
-    // Don't use getObjectTypeByName(), because heeftAlsNevenadres join tables need to be directly in sql literal anyway
-    String sql = """
+    // Don't use getObjectTypeByName(), because heeftAlsNevenadres join tables need to be directly
+    // in sql literal anyway
+    String sql =
+        """
         delete from nummeraanduiding n
         where not exists (select 1 from verblijfsobject v where v.heeftalshoofdadres = n.identificatie)
         and not exists (select 1 from verblijfsobject_nevenadres vn where vn.heeftalsnevenadres = n.identificatie)
@@ -531,14 +530,15 @@ public class BAG2LoaderMain implements IVersionProvider {
         and not exists (select 1 from standplaats s where s.heeftalshoofdadres = n.identificatie)
         and not exists (select 1 from standplaats_nevenadres sn where sn.heeftalsnevenadres = n.identificatie)
         """;
-    try(PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
+    try (PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
       log.info("Verwijderen niet-gerefereerde nummeraanduiding-records");
       ps.executeUpdate();
     }
-    sql = """
+    sql =
+        """
         delete from openbareruimte o where not exists (select 1 from nummeraanduiding where ligtaan = o.identificatie)
         """;
-    try(PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
+    try (PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
       log.info("Verwijderen niet-gerefereerde openbareruimte-records");
       ps.executeUpdate();
     }

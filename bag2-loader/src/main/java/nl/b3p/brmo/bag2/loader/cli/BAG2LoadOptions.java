@@ -24,7 +24,6 @@ public class BAG2LoadOptions {
   @CommandLine.Option(names = "--max-objects", paramLabel = "<number>", hidden = true)
   Integer maxObjects;
 
-
   @CommandLine.Option(
       names = {"--no-multithreading"},
       negatable = true,
