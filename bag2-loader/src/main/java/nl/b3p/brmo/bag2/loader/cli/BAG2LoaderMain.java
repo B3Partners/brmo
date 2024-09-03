@@ -499,9 +499,10 @@ public class BAG2LoaderMain implements IVersionProvider {
     for(String objectTypeName: objectTypes) {
       ObjectType objectType = bag2Schema.getObjectTypeByName(objectTypeName);
       String tableName = schemaMapper.getTableNameForObjectType(objectType, "");
-      String geoCondition = db.getDialect() instanceof OracleDialect
-          ? "not st_intersects(geometrie, ?)" // Also works for Oracle 23c, not < 23c
-          : "st_intersects(geometrie, ?) = 0";
+      String geoCondition =
+          db.getDialect() instanceof OracleDialect
+              ? "st_intersects(?, geometrie) = 'FALSE'"
+              : "not st_intersects(geometrie, ?)"; // Also works for Oracle 23c, not < 23c
       String sql =
           String.format(
               """
