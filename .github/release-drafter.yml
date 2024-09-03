@@ -13,7 +13,7 @@ template: |
   ZIP file met war files en scripts: https://github.com/B3Partners/brmo/releases/download/v$NEXT_PATCH_VERSION/brmo-dist-$NEXT_PATCH_VERSION-bin.zip
   Beschikbare docker images: https://github.com/orgs/B3Partners/packages?repo_name=brmo 
 
-  ## Aanpassingen
+  ## 🛠 Aanpassingen
 
   $CHANGES
   
