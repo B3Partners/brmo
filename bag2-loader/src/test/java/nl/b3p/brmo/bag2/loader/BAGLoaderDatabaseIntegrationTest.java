@@ -6,6 +6,7 @@
  */
 package nl.b3p.brmo.bag2.loader;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
@@ -15,11 +16,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Objects;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
+import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -241,22 +245,81 @@ public class BAGLoaderDatabaseIntegrationTest {
     compareDataSet(new String[] {"woonplaats"}, "bag2-woonplaats-gemuteerd");
   }
 
+  private void assertRowCountEquals(Map<String,Integer> expectedRowCountsByTable) throws SQLException {
+    for(Map.Entry<String,Integer> entry : expectedRowCountsByTable.entrySet()) {
+      String table = entry.getKey();
+      Integer count = entry.getValue();
+      assertEquals(count.intValue(), bag.getRowCount(tableQualifierPrefix + table), "Table " + table);
+    }
+  }
+
+  @Test
+  @Order(3)
+  void testLoadGemeenteStand() throws Exception {
+    loadBAGResourceFile(testFileName);
+
+    assertRowCountEquals(Map.ofEntries(
+        Map.entry("ligplaats", 432),
+        Map.entry("ligplaats_nevenadres", 43),
+        Map.entry("standplaats", 54),
+        Map.entry("standplaats_nevenadres", 1),
+        Map.entry("verblijfsobject", 18506),
+        Map.entry("verblijfsobject_nevenadres", 1),
+        Map.entry("verblijfsobject_maaktdeeluitvan", 18562),
+        Map.entry("verblijfsobject_gebruiksdoel", 19221),
+        Map.entry("pand", 10000),
+        Map.entry("nummeraanduiding", 10005),
+        Map.entry("openbareruimte", 761),
+        Map.entry("woonplaats", 14)));
+  }
+
+  @Test
+  @Order(4)
+  @SkipDropTables
+  void testFilterStandGeographicFilter() throws Exception {
+    try {
+      String geoFilter = "Polygon ((128193 464844, 128500 464913, 128515 464915, 128520 464917, 129239 465079, 130329 465177, 130354 465421, 130965 465408, 131033 465015, 129235 464729, 129419 464062, 129103 463870, 128825 463998, 128291 463720, 128193 464844))";
+      new BAG2LoaderMain().applyGeoFilter(
+          bag2Database,
+          new BAG2LoadOptions().setGeoFilter(geoFilter));
+    } catch (Exception e) {
+      fail("Toepassen geografisch filter op BAG is mislukt", e);
+    }
+
+    assertRowCountEquals(Map.ofEntries(
+        Map.entry("ligplaats", 3),
+        Map.entry("ligplaats_nevenadres", 0),
+        Map.entry("standplaats", 6),
+        Map.entry("standplaats_nevenadres", 0),
+        Map.entry("verblijfsobject", 1900),
+        Map.entry("verblijfsobject_nevenadres", 0),
+        Map.entry("verblijfsobject_maaktdeeluitvan", 1912),
+        Map.entry("verblijfsobject_gebruiksdoel", 1952),
+        Map.entry("pand", 2595),
+        Map.entry("nummeraanduiding", 838),
+        Map.entry("openbareruimte", 32),
+        Map.entry("woonplaats", 1)));
+  }
+
   // Leave this as last integration test case, so the BAG tables loaded by it can be used to test
   // the create view scripts
   @Test
   @Order(Integer.MAX_VALUE)
   void testStandAllTablesAndViewsHaveRows() throws Exception {
+    if (bag2Database.getDialect() instanceof PostGISDialect) {
+      // For Oracle, BRMO_METADATA table will have been dropped, for PostGIS not because it's in public schema
+      bag2Database.setMetadataValue(BAG2SchemaMapper.Metadata.FILTER_GEOMETRIE, null);
+    }
     loadBAGResourceFile(testFileName);
 
     // check tables
     for (String t : BAGTABLES) {
       // omdat sommige BAG tabellen ook in RSGB schema zitten bag qualifier gebruiken
-      t = tableQualifierPrefix + t;
-      assertTrue(bag.getRowCount(t) > 0, "Onverwacht lege tabel: " + t);
+      assertTrue(bag.getRowCount(tableQualifierPrefix +t) > 0, "Onverwacht lege tabel: " + t);
     }
     // check views
     for (String t : BAGACTUEELVIEWS) {
-      assertTrue(bag.getRowCount(t) > 0, "Onverwacht lege view: " + t);
+      assertTrue(bag.getRowCount(tableQualifierPrefix + t) > 0, "Onverwacht lege view: " + t);
     }
   }
 }

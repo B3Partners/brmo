@@ -451,7 +451,7 @@ public class BAG2LoaderMain implements IVersionProvider {
 
   private static final int SRID = 28992;
 
-  private void applyGeoFilter(
+  public void applyGeoFilter(
       BAG2Database db,
       BAG2LoadOptions loadOptions)
       throws Exception {
