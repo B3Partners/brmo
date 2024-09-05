@@ -18,6 +18,9 @@ public class BAG2LoadOptions {
       negatable = true)
   boolean dropIfExists;
 
+  @CommandLine.Option(names = "--geo-filter", paramLabel = "<wkt>")
+  String geoFilter;
+
   @CommandLine.Option(names = "--max-objects", paramLabel = "<number>", hidden = true)
   Integer maxObjects;
 
@@ -43,6 +46,15 @@ public class BAG2LoadOptions {
 
   public void setDropIfExists(boolean dropIfExists) {
     this.dropIfExists = dropIfExists;
+  }
+
+  public String getGeoFilter() {
+    return geoFilter;
+  }
+
+  public BAG2LoadOptions setGeoFilter(String geoFilter) {
+    this.geoFilter = geoFilter;
+    return this;
   }
 
   public Integer getMaxObjects() {

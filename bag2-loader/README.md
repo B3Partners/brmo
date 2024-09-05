@@ -182,6 +182,27 @@ Let op! Bij het inladen van meerdere gemeentes moeten deze _tegelijkertijd_ opge
 objecten die op de gemeentegrens liggen en dus in meerdere extracten voorkomen slechts &eacute;&eacute;n keer in te 
 laden.
 
+#### Geografisch filter toepassen
+
+Met de `--geo-filter` optie kan een geometrie worden opgegeven in WKT formaat. Na het inladen van een stand of het 
+verwerken van mutaties worden dan records die niet snijden met deze geometrie verwijderd en worden records van 
+niet-geografische objecttypen (nummeraanduiding en openbareruimte) waarnaar niet meer gerefereerd wordt verwijderd.
+
+Het geografisch filter wordt opgeslagen in de `brmo_metadata` tabel. Zo kan bij het verwerken van mutaties het 
+geografisch filter ook worden toegepast als de `--geo-filter` optie niet is opgegeven. 
+
+Deze functie is nuttig bij het toepassen van de dagelijkse mutaties die alleen voor heel Nederland beschikbaar zijn, 
+terwijl je alleen geïnteresseerd bent in de BAG van een bepaald gebied.
+
+Het is mogelijk dit filter te gebruiken na het inladen van de stand van heel Nederland. Voor PostGIS zal op een redelijk
+snelle server het verwijderen van records enkele uren kunnen duren, dus hou hier rekening mee. Mogelijk dat het met 
+Oracle te lang duurt. Het is in dat geval verstandig om bij het Kadaster een stand van de gemeentes waarvan de 
+gemeentegrens snijdt met je gewenste geografisch filter te bestellen en in te laden.
+
+Als na het inladen van een stand veel records zijn verwijderd door het geografisch filter, is het verstandig om 
+onderhoud uit te voeren op de BAG tabellen zodat deze geoptimaliseerd zijn door verwijderde records ook fysiek te 
+verwijderen. Met PostGIS kan dit met het `VACUUM` statement, alhoewel dit ook automatisch op de achtergrond plaatsvindt.
+
 ## Database schema
 
 De tabellen die worden aangemaakt bevat historische en toekomstig geldige voorkomens. Gebruik de views zoals 
