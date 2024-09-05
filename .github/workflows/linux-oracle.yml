@@ -13,6 +13,7 @@ concurrency: # cancel on PR pushes
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.oracle -Djava.security.egd=file:/dev/./urandom
+  MAVEN_VERSION: '3.9.9'
 
 jobs:
   build:
@@ -48,7 +49,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet

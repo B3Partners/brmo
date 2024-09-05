@@ -102,20 +102,6 @@ jobs:
           prune-untagged: true
 
 
-#  workflows:
-#    runs-on: ubuntu-latest
-#    name: "Cleanup old workflow runs"
-#    steps:
-#      - name: Delete workflow runs
-#        uses: Mattraks/delete-workflow-runs@v2
-#        with:
-#          token: ${{ github.token }}
-#          repository: ${{ github.repository }}
-#          retain_days: 60
-#          keep_minimum_runs: 0
-#          delete_workflow_pattern: 'all'
-
-
   otherworkflows:
     runs-on: ubuntu-latest
     name: "Cleanup all old workflow runs"
