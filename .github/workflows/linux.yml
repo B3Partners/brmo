@@ -16,6 +16,7 @@ env:
   PGPASSWORD: postgres
   PGUSER: postgres
   PGDATABASE: postgres
+  MAVEN_VERSION: '3.9.9'
 
 jobs:
   build:
@@ -28,11 +29,11 @@ jobs:
         java-dist: [ 'temurin' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
-        postgis: 
-            # t/m november 2024
-            - 12-3.4-alpine
-            - 15-3.4-alpine
-            - 16-3.4-alpine
+        postgis:
+          # t/m november 2024
+          - 12-3.4-alpine
+          - 15-3.4-alpine
+          - 16-3.4-alpine
         include:
           - java: 21
             java-dist: 'temurin'
@@ -61,7 +62,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Install extra software'
         run: sudo apt install -y --no-install-recommends xmlstarlet
@@ -144,7 +145,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Javadoc'
         run: mvn compile javadoc:javadoc -DskipQA=true
@@ -189,7 +190,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'QA build with Maven'
         run: mvn -B -V -fae -DskipQA=false -Dfmt.action=check -Dpom.fmt.action=verify -Ddocker.skip=true -Dtest.onlyITs= -Dmaven.test.skip=true clean package
@@ -198,7 +199,7 @@ jobs:
   deploy:
     name: 'Deploy docker images'
     if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/master' && github.event_name == 'push' }}
-    needs: [build, qacheck]
+    needs: [ build, qacheck ]
     runs-on: ubuntu-22.04
     permissions:
       contents: read
@@ -221,7 +222,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Build and Push docker images'
         env:

@@ -11,6 +11,9 @@ on:
   schedule:
     - cron: '0 22 * * 6'
 
+env:
+  MAVEN_VERSION: '3.9.9'
+
 jobs:
   analyze:
     name: 'Analyze'
@@ -60,7 +63,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Build'
         run: |

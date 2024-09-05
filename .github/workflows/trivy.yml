@@ -6,6 +6,9 @@ on:
     - cron: "17 23 * * 0"
   workflow_dispatch:
 
+env:
+  MAVEN_VERSION: '3.9.9'
+
 jobs:
   build:
     name: "Trivy Scan ${{ matrix.docker-image }}"
@@ -33,7 +36,7 @@ jobs:
       - name: 'Set up Maven'
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: '3.9.8'
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: "Build Java ${{ matrix.java }}"
         run: mvn -U package -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true -Dmaven.javadoc.skip=true
