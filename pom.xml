@@ -80,8 +80,8 @@
         <maven-fluido-skin.version>2.0.0-M10</maven-fluido-skin.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>31.3</geotools.version>
-        <jdbc-util.version>17.3</jdbc-util.version>
+        <geotools.version>32-SNAPSHOT</geotools.version>
+        <jdbc-util.version>18.0-SNAPSHOT</jdbc-util.version>
         <jts.version>1.20.0</jts.version>
         <itextpdf.version>8.0.5</itextpdf.version>
         <postgresql.jdbc.version>42.7.4</postgresql.jdbc.version>
