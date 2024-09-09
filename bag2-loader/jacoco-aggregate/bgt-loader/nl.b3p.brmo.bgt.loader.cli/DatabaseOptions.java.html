@@ -8,16 +8,16 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import picocli.CommandLine.Option;
 
-<span class="nc" id="L11">public class DatabaseOptions {</span>
-<span class="nc" id="L12">  @Option(</span>
+<span class="fc" id="L11">public class DatabaseOptions {</span>
+<span class="fc" id="L12">  @Option(</span>
       names = {&quot;-c&quot;, &quot;--connection&quot;},
       paramLabel = &quot;&lt;string&gt;&quot;)
   String connectionString = &quot;jdbc:postgresql:bgt?sslmode=disable&amp;reWriteBatchedInserts=true&quot;;
 
-<span class="nc" id="L17">  @Option(names = {&quot;-u&quot;, &quot;--user&quot;})</span>
+<span class="fc" id="L17">  @Option(names = {&quot;-u&quot;, &quot;--user&quot;})</span>
   String user = &quot;bgt&quot;;
 
-<span class="nc" id="L20">  @Option(</span>
+<span class="fc" id="L20">  @Option(</span>
       names = {&quot;-p&quot;, &quot;--password&quot;},
       interactive = true,
       arity = &quot;0..1&quot;)
@@ -26,38 +26,38 @@ import picocli.CommandLine.Option;
   @Option(names = &quot;--batch-size&quot;, paramLabel = &quot;number&quot;, hidden = true)
   Integer batchSize;
 
-<span class="nc" id="L29">  @Option(</span>
+<span class="fc" id="L29">  @Option(</span>
       names = {&quot;--no-pg-copy&quot;},
       negatable = true,
       hidden = true)
   boolean usePgCopy = true;
 
   public String getConnectionString() {
-<span class="nc" id="L36">    return connectionString;</span>
+<span class="fc" id="L36">    return connectionString;</span>
   }
 
   public void setConnectionString(String connectionString) {
-<span class="nc" id="L40">    this.connectionString = connectionString;</span>
-<span class="nc" id="L41">  }</span>
+<span class="fc" id="L40">    this.connectionString = connectionString;</span>
+<span class="fc" id="L41">  }</span>
 
   public String getUser() {
-<span class="nc" id="L44">    return user;</span>
+<span class="fc" id="L44">    return user;</span>
   }
 
   public void setUser(String user) {
-<span class="nc" id="L48">    this.user = user;</span>
-<span class="nc" id="L49">  }</span>
+<span class="fc" id="L48">    this.user = user;</span>
+<span class="fc" id="L49">  }</span>
 
   public String getPassword() {
-<span class="nc" id="L52">    return password;</span>
+<span class="fc" id="L52">    return password;</span>
   }
 
   public void setPassword(String password) {
-<span class="nc" id="L56">    this.password = password;</span>
-<span class="nc" id="L57">  }</span>
+<span class="fc" id="L56">    this.password = password;</span>
+<span class="fc" id="L57">  }</span>
 
   public Integer getBatchSize() {
-<span class="nc" id="L60">    return batchSize;</span>
+<span class="fc" id="L60">    return batchSize;</span>
   }
 
   public void setBatchSize(Integer batchSize) {
@@ -65,11 +65,11 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L65">  }</span>
 
   public boolean isUsePgCopy() {
-<span class="nc" id="L68">    return usePgCopy;</span>
+<span class="fc" id="L68">    return usePgCopy;</span>
   }
 
   public void setUsePgCopy(boolean usePgCopy) {
 <span class="nc" id="L72">    this.usePgCopy = usePgCopy;</span>
 <span class="nc" id="L73">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

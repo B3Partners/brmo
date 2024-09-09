@@ -8,12 +8,12 @@ import nl.b3p.brmo.loader.BerichtenHandler;
 public class ProcessDbXmlPipeline extends BerichtPipelineThread {
 
   public ProcessDbXmlPipeline(BerichtenHandler handler, int capacity, String stopwatchPrefix) {
-<span class="nc" id="L11">    super(handler, capacity, stopwatchPrefix + &quot;.processdbxml&quot;);</span>
-<span class="nc" id="L12">  }</span>
+<span class="fc" id="L11">    super(handler, capacity, stopwatchPrefix + &quot;.processdbxml&quot;);</span>
+<span class="fc" id="L12">  }</span>
 
   @Override
   void work(BerichtWorkUnit workUnit) throws Exception {
 <span class="nc" id="L16">    handler.handle(workUnit.getBericht(), workUnit.getTableData(), true);</span>
 <span class="nc" id="L17">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

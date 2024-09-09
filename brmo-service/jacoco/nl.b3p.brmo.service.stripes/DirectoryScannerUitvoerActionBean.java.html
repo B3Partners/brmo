@@ -124,14 +124,14 @@ import org.stripesstuff.stripersist.Stripersist;
 <span class="nc" id="L124">  }</span>
 
   @Override
-  public void addLog(String log) {
+  public void addLog(String line) {
 <span class="nc bnc" id="L128" title="All 2 branches missed.">    if (this.logLineCounter &gt; 1000) {</span>
       // trim buffer
 <span class="nc" id="L130">      int i900regels = 100;</span>
 <span class="nc" id="L131">      this.log.delete(0, i900regels);</span>
 <span class="nc" id="L132">      this.log.trimToSize();</span>
     }
-<span class="nc" id="L134">    this.log.append(log).append(&quot;\n&quot;);</span>
+<span class="nc" id="L134">    this.log.append(line).append(&quot;\n&quot;);</span>
 <span class="nc" id="L135">    this.logLineCounter++;</span>
 <span class="nc" id="L136">  }</span>
 
@@ -233,4 +233,4 @@ import org.stripesstuff.stripersist.Stripersist;
 <span class="nc" id="L233">    this.exceptionStacktrace = exceptionStacktrace;</span>
 <span class="nc" id="L234">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nl.b3p.brmo.persistence"},{"l":"nl.b3p.brmo.persistence.auth"},{"l":"nl.b3p.brmo.persistence.staging"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"nl.b3p.brmo.persistence"},{"l":"nl.b3p.brmo.persistence.auth"},{"l":"nl.b3p.brmo.persistence.staging"}];updateSearchResults();

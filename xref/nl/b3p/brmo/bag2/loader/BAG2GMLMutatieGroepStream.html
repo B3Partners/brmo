@@ -456,71 +456,76 @@
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>       <strong class="jxr_keyword">case</strong> <span class="jxr_string">"gebruiksdoel"</span>:
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>         parseGebruiksdoel(attribute, objectAttributes);
 <a class="jxr_linenumber" name="L450" href="#L450">450</a>         <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>       <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <em class="jxr_comment">// String attribute value as default</em>
-<a class="jxr_linenumber" name="L453" href="#L453">453</a> 
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         <em class="jxr_comment">// This also works for ligtIn en ligtAan</em>
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         objectAttributes.put(attributeName, attribute.collectDescendantText().trim());
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>     }
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>   }
-<a class="jxr_linenumber" name="L459" href="#L459">459</a> 
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseVoorkomen(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException, FactoryException, IOException {
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>     attributeCursor =
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         attributeCursor
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             .childElementCursor(<strong class="jxr_keyword">new</strong> QName(NS_HISTORIE, <span class="jxr_string">"Voorkomen"</span>))
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>             .advance()
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>             .childElementCursor();
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>       parseAttribute(attributeCursor, objectAttributes);
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>     }
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>   }
-<a class="jxr_linenumber" name="L471" href="#L471">471</a> 
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseBeschikbaarLV(
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException, FactoryException, IOException {
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>     attributeCursor = attributeCursor.childElementCursor();
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>       parseAttribute(attributeCursor, objectAttributes);
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>     }
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>   }
-<a class="jxr_linenumber" name="L480" href="#L480">480</a> 
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseNevenadres(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException {
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>     Set&lt;String&gt; values = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>     attributeCursor =
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>         attributeCursor.childElementCursor(<strong class="jxr_keyword">new</strong> QName(NS_OBJECTEN_REF, <span class="jxr_string">"NummeraanduidingRef"</span>));
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>       values.add(attributeCursor.collectDescendantText().trim());
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>     }
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>     objectAttributes.put(<span class="jxr_string">"heeftAlsNevenadres"</span>, values);
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>   }
-<a class="jxr_linenumber" name="L491" href="#L491">491</a> 
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseMaaktDeelUitVan(
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException {
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>     Set&lt;String&gt; values = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>     attributeCursor = attributeCursor.childElementCursor(<strong class="jxr_keyword">new</strong> QName(NS_OBJECTEN_REF, <span class="jxr_string">"PandRef"</span>));
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>       values.add(attributeCursor.collectDescendantText().trim());
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>     }
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>     objectAttributes.put(<span class="jxr_string">"maaktDeelUitVan"</span>, values);
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>   }
-<a class="jxr_linenumber" name="L502" href="#L502">502</a> 
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseGebruiksdoel(
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException {
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>     Set&lt;String&gt; values = (Set&lt;String&gt;) objectAttributes.get(<span class="jxr_string">"gebruiksdoel"</span>);
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>     <strong class="jxr_keyword">if</strong> (values == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>       values = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>       objectAttributes.put(<span class="jxr_string">"gebruiksdoel"</span>, values);
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>     }
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>     values.add(attributeCursor.collectDescendantText().trim());
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>   }
-<a class="jxr_linenumber" name="L513" href="#L513">513</a> }
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>       <strong class="jxr_keyword">case</strong> <span class="jxr_string">"geconstateerd"</span>:
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <em class="jxr_comment">// Parse 'J' or 'N' to 'true' or 'false'</em>
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         String jn = attribute.collectDescendantText().trim();
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         objectAttributes.put(attributeName, <span class="jxr_string">"J"</span>.equals(jn) ? <span class="jxr_string">"true"</span> : <span class="jxr_string">"false"</span>);
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>       <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>         <em class="jxr_comment">// String attribute value as default</em>
+<a class="jxr_linenumber" name="L458" href="#L458">458</a> 
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <em class="jxr_comment">// This also works for ligtIn en ligtAan</em>
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>         objectAttributes.put(attributeName, attribute.collectDescendantText().trim());
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>         <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>     }
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>   }
+<a class="jxr_linenumber" name="L464" href="#L464">464</a> 
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseVoorkomen(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException, FactoryException, IOException {
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>     attributeCursor =
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>         attributeCursor
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>             .childElementCursor(<strong class="jxr_keyword">new</strong> QName(NS_HISTORIE, <span class="jxr_string">"Voorkomen"</span>))
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>             .advance()
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>             .childElementCursor();
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>       parseAttribute(attributeCursor, objectAttributes);
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>     }
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>   }
+<a class="jxr_linenumber" name="L476" href="#L476">476</a> 
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseBeschikbaarLV(
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException, FactoryException, IOException {
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>     attributeCursor = attributeCursor.childElementCursor();
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>       parseAttribute(attributeCursor, objectAttributes);
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>     }
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>   }
+<a class="jxr_linenumber" name="L485" href="#L485">485</a> 
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseNevenadres(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException {
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>     Set&lt;String&gt; values = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>     attributeCursor =
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>         attributeCursor.childElementCursor(<strong class="jxr_keyword">new</strong> QName(NS_OBJECTEN_REF, <span class="jxr_string">"NummeraanduidingRef"</span>));
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>       values.add(attributeCursor.collectDescendantText().trim());
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>     }
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>     objectAttributes.put(<span class="jxr_string">"heeftAlsNevenadres"</span>, values);
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>   }
+<a class="jxr_linenumber" name="L496" href="#L496">496</a> 
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseMaaktDeelUitVan(
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException {
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>     Set&lt;String&gt; values = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>     attributeCursor = attributeCursor.childElementCursor(<strong class="jxr_keyword">new</strong> QName(NS_OBJECTEN_REF, <span class="jxr_string">"PandRef"</span>));
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>     <strong class="jxr_keyword">while</strong> (attributeCursor.getNext() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>       values.add(attributeCursor.collectDescendantText().trim());
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>     }
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>     objectAttributes.put(<span class="jxr_string">"maaktDeelUitVan"</span>, values);
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>   }
+<a class="jxr_linenumber" name="L507" href="#L507">507</a> 
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> parseGebruiksdoel(
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>       <strong class="jxr_keyword">throws</strong> XMLStreamException {
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>     Set&lt;String&gt; values = (Set&lt;String&gt;) objectAttributes.get(<span class="jxr_string">"gebruiksdoel"</span>);
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>     <strong class="jxr_keyword">if</strong> (values == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>       values = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>       objectAttributes.put(<span class="jxr_string">"gebruiksdoel"</span>, values);
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>     }
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>     values.add(attributeCursor.collectDescendantText().trim());
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>   }
+<a class="jxr_linenumber" name="L518" href="#L518">518</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>

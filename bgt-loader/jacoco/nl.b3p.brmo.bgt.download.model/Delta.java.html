@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Delta.JSON_PROPERTY_ID,
   Delta.JSON_PROPERTY_TIME_WINDOW
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.8.0&quot;)
 public class Delta {
   public static final String JSON_PROPERTY_ID = &quot;id&quot;;
   private String id;
@@ -52,44 +52,42 @@ public class Delta {
 <span class="nc" id="L52">    this.id = id;</span>
 <span class="nc" id="L53">  }</span>
 
-   /**
+  /**
    * Get id
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public String getId() {
-<span class="nc" id="L64">    return id;</span>
+<span class="nc" id="L63">    return id;</span>
   }
 
 
 
 
   public Delta timeWindow(DeltaTimeWindow timeWindow) {
-<span class="nc" id="L71">    this.timeWindow = timeWindow;</span>
-<span class="nc" id="L72">    return this;</span>
+<span class="nc" id="L70">    this.timeWindow = timeWindow;</span>
+<span class="nc" id="L71">    return this;</span>
   }
 
-   /**
+  /**
    * Get timeWindow
    * @return timeWindow
-  **/
+   */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public DeltaTimeWindow getTimeWindow() {
-<span class="nc" id="L84">    return timeWindow;</span>
+<span class="nc" id="L82">    return timeWindow;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeWindow(DeltaTimeWindow timeWindow) {
-<span class="nc" id="L91">    this.timeWindow = timeWindow;</span>
-<span class="nc" id="L92">  }</span>
+<span class="nc" id="L89">    this.timeWindow = timeWindow;</span>
+<span class="nc" id="L90">  }</span>
 
 
   /**
@@ -97,30 +95,30 @@ public class Delta {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L100" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L101">      return true;</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L99">      return true;</span>
     }
-<span class="nc bnc" id="L103" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L104">      return false;</span>
+<span class="nc bnc" id="L101" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L102">      return false;</span>
     }
-<span class="nc" id="L106">    Delta delta = (Delta) o;</span>
-<span class="nc bnc" id="L107" title="All 2 branches missed.">    return Objects.equals(this.id, delta.id) &amp;&amp;</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        Objects.equals(this.timeWindow, delta.timeWindow);</span>
+<span class="nc" id="L104">    Delta delta = (Delta) o;</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    return Objects.equals(this.id, delta.id) &amp;&amp;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        Objects.equals(this.timeWindow, delta.timeWindow);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L113">    return Objects.hash(id, timeWindow);</span>
+<span class="nc" id="L111">    return Objects.hash(id, timeWindow);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L118">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L119">    sb.append(&quot;class Delta {\n&quot;);</span>
-<span class="nc" id="L120">    sb.append(&quot;    id: &quot;).append(toIndentedString(id)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L121">    sb.append(&quot;    timeWindow: &quot;).append(toIndentedString(timeWindow)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L122">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L123">    return sb.toString();</span>
+<span class="nc" id="L116">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L117">    sb.append(&quot;class Delta {\n&quot;);</span>
+<span class="nc" id="L118">    sb.append(&quot;    id: &quot;).append(toIndentedString(id)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L119">    sb.append(&quot;    timeWindow: &quot;).append(toIndentedString(timeWindow)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L120">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L121">    return sb.toString();</span>
   }
 
   /**
@@ -128,11 +126,11 @@ public class Delta {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L131" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L132">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L130">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L134">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L132">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

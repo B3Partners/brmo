@@ -19,16 +19,16 @@ public abstract class BerichtPipelineThread extends Thread {
   final BerichtenHandler handler;
   private final String stopwatchPrefix;
 
-<span class="nc" id="L22">  private boolean stopWhenQueueEmpty = false;</span>
-<span class="nc" id="L23">  private boolean abort = false;</span>
-<span class="nc" id="L24">  private Exception qe = null;</span>
+<span class="fc" id="L22">  private boolean stopWhenQueueEmpty = false;</span>
+<span class="fc" id="L23">  private boolean abort = false;</span>
+<span class="fc" id="L24">  private Exception qe = null;</span>
 
-<span class="nc" id="L26">  public BerichtPipelineThread(BerichtenHandler handler, int capacity, String stopwatchPrefix) {</span>
-<span class="nc" id="L27">    log = LogFactory.getLog(this.getClass());</span>
-<span class="nc" id="L28">    this.queue = new LinkedBlockingQueue(capacity);</span>
-<span class="nc" id="L29">    this.handler = handler;</span>
-<span class="nc" id="L30">    this.stopwatchPrefix = stopwatchPrefix;</span>
-<span class="nc" id="L31">  }</span>
+<span class="fc" id="L26">  public BerichtPipelineThread(BerichtenHandler handler, int capacity, String stopwatchPrefix) {</span>
+<span class="fc" id="L27">    log = LogFactory.getLog(this.getClass());</span>
+<span class="fc" id="L28">    this.queue = new LinkedBlockingQueue(capacity);</span>
+<span class="fc" id="L29">    this.handler = handler;</span>
+<span class="fc" id="L30">    this.stopwatchPrefix = stopwatchPrefix;</span>
+<span class="fc" id="L31">  }</span>
 
   public void stopWhenQueueEmpty() {
 <span class="nc" id="L34">    this.stopWhenQueueEmpty = true;</span>
@@ -96,4 +96,4 @@ public abstract class BerichtPipelineThread extends Thread {
 <span class="nc" id="L96">    }</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

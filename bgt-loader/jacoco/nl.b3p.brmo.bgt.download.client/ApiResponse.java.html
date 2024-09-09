@@ -21,6 +21,7 @@ import java.util.Map;
  *
  * @param &lt;T&gt; The type of data that is deserialized from response body
  */
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.8.0&quot;)
 public class ApiResponse&lt;T&gt; {
     final private int statusCode;
     final private Map&lt;String, List&lt;String&gt;&gt; headers;
@@ -31,30 +32,30 @@ public class ApiResponse&lt;T&gt; {
      * @param headers The headers of HTTP response
      */
     public ApiResponse(int statusCode, Map&lt;String, List&lt;String&gt;&gt; headers) {
-<span class="nc" id="L34">        this(statusCode, headers, null);</span>
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L35">        this(statusCode, headers, null);</span>
+<span class="nc" id="L36">    }</span>
 
     /**
      * @param statusCode The status code of HTTP response
      * @param headers The headers of HTTP response
      * @param data The object deserialized from response bod
      */
-<span class="nc" id="L42">    public ApiResponse(int statusCode, Map&lt;String, List&lt;String&gt;&gt; headers, T data) {</span>
-<span class="nc" id="L43">        this.statusCode = statusCode;</span>
-<span class="nc" id="L44">        this.headers = headers;</span>
-<span class="nc" id="L45">        this.data = data;</span>
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L43">    public ApiResponse(int statusCode, Map&lt;String, List&lt;String&gt;&gt; headers, T data) {</span>
+<span class="nc" id="L44">        this.statusCode = statusCode;</span>
+<span class="nc" id="L45">        this.headers = headers;</span>
+<span class="nc" id="L46">        this.data = data;</span>
+<span class="nc" id="L47">    }</span>
 
     public int getStatusCode() {
-<span class="nc" id="L49">        return statusCode;</span>
+<span class="nc" id="L50">        return statusCode;</span>
     }
 
     public Map&lt;String, List&lt;String&gt;&gt; getHeaders() {
-<span class="nc" id="L53">        return headers;</span>
+<span class="nc" id="L54">        return headers;</span>
     }
 
     public T getData() {
-<span class="nc" id="L57">        return data;</span>
+<span class="nc" id="L58">        return data;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

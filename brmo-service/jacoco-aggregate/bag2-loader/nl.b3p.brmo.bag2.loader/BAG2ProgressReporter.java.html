@@ -17,10 +17,10 @@ import nl.b3p.brmo.schema.ObjectTableWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-<span class="nc" id="L20">public class BAG2ProgressReporter implements Consumer&lt;ObjectTableWriter.Progress&gt; {</span>
-<span class="nc" id="L21">  private static final Log log = LogFactory.getLog(BAG2ProgressReporter.class);</span>
+<span class="fc" id="L20">public class BAG2ProgressReporter implements Consumer&lt;ObjectTableWriter.Progress&gt; {</span>
+<span class="fc" id="L21">  private static final Log log = LogFactory.getLog(BAG2ProgressReporter.class);</span>
 
-<span class="nc" id="L23">  private final Instant start = Instant.now();</span>
+<span class="fc" id="L23">  private final Instant start = Instant.now();</span>
 
   protected String currentFileName;
   protected Instant currentFileStart;
@@ -28,62 +28,62 @@ import org.apache.commons.logging.LogFactory;
   protected int splitFileCount;
 
   protected void log(String msg) {
-<span class="nc" id="L31">    log.info(msg);</span>
-<span class="nc" id="L32">  }</span>
+<span class="fc" id="L31">    log.info(msg);</span>
+<span class="fc" id="L32">  }</span>
 
   protected void status(String msg) {
 <span class="nc" id="L35">    log.debug(msg);</span>
 <span class="nc" id="L36">  }</span>
 
   public void startNewFile(String name) {
-<span class="nc" id="L39">    this.currentFileName = name;</span>
-<span class="nc" id="L40">    this.currentFileStart = Instant.now();</span>
-<span class="nc" id="L41">    this.splitFileCount = 0;</span>
-<span class="nc" id="L42">  }</span>
+<span class="fc" id="L39">    this.currentFileName = name;</span>
+<span class="fc" id="L40">    this.currentFileStart = Instant.now();</span>
+<span class="fc" id="L41">    this.splitFileCount = 0;</span>
+<span class="fc" id="L42">  }</span>
 
   public void startNextSplitFile(String entry) {
-<span class="nc" id="L45">    this.splitFileCount++;</span>
-<span class="nc" id="L46">  }</span>
+<span class="fc" id="L45">    this.splitFileCount++;</span>
+<span class="fc" id="L46">  }</span>
 
   @Override
   public void accept(ObjectTableWriter.Progress progress) {
-<span class="nc" id="L50">    BAG2ObjectTableWriter.BAG2Progress bag2Progress = (BAG2ObjectTableWriter.BAG2Progress) progress;</span>
+<span class="fc" id="L50">    BAG2ObjectTableWriter.BAG2Progress bag2Progress = (BAG2ObjectTableWriter.BAG2Progress) progress;</span>
 
-<span class="nc bnc" id="L52" title="All 5 branches missed.">    switch (progress.getStage()) {</span>
+<span class="fc bfc" id="L52" title="All 5 branches covered.">    switch (progress.getStage()) {</span>
       case LOAD_OBJECTS:
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (progress.getObjectCount() == 0) {</span>
-<span class="nc" id="L55">          log(getMessageFormattedString(&quot;progress.loading&quot;, currentFileName));</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (progress.getObjectCount() == 0) {</span>
+<span class="fc" id="L55">          log(getMessageFormattedString(&quot;progress.loading&quot;, currentFileName));</span>
         }
         break;
       case CREATE_PRIMARY_KEY:
-<span class="nc" id="L59">        log(</span>
-<span class="nc" id="L60">            getMessageFormattedString(</span>
-<span class="nc" id="L61">                &quot;progress.create_primary_key&quot;, bag2Progress.getCurrentObjectType().getName()));</span>
-<span class="nc" id="L62">        break;</span>
+<span class="fc" id="L59">        log(</span>
+<span class="fc" id="L60">            getMessageFormattedString(</span>
+<span class="fc" id="L61">                &quot;progress.create_primary_key&quot;, bag2Progress.getCurrentObjectType().getName()));</span>
+<span class="fc" id="L62">        break;</span>
       case CREATE_GEOMETRY_INDEX:
-<span class="nc" id="L64">        log(</span>
-<span class="nc" id="L65">            getMessageFormattedString(</span>
-<span class="nc" id="L66">                &quot;progress.create_geometry_indexes&quot;, bag2Progress.getCurrentObjectType().getName()));</span>
-<span class="nc" id="L67">        break;</span>
+<span class="fc" id="L64">        log(</span>
+<span class="fc" id="L65">            getMessageFormattedString(</span>
+<span class="fc" id="L66">                &quot;progress.create_geometry_indexes&quot;, bag2Progress.getCurrentObjectType().getName()));</span>
+<span class="fc" id="L67">        break;</span>
       case FINISHED:
-<span class="nc" id="L69">        log(</span>
-<span class="nc" id="L70">            getMessageFormattedString(</span>
+<span class="fc" id="L69">        log(</span>
+<span class="fc" id="L70">            getMessageFormattedString(</span>
                 &quot;progress.finished_file&quot;,
                 currentFileName,
-<span class="nc" id="L73">                splitFileCount,</span>
-<span class="nc" id="L74">                bag2Progress.getObjectCount(),</span>
-<span class="nc" id="L75">                formatTimeSince(currentFileStart)));</span>
+<span class="fc" id="L73">                splitFileCount,</span>
+<span class="fc" id="L74">                bag2Progress.getObjectCount(),</span>
+<span class="fc" id="L75">                formatTimeSince(currentFileStart)));</span>
         // log(String.format(&quot;%s: loaded %,d files, %,d total objects in %s&quot;,
         // currentFileName, splitFileCount, bag2Progress.getObjectCount(),
         // formatTimeSince(currentFileStart)));
-<span class="nc" id="L79">        break;</span>
+<span class="fc" id="L79">        break;</span>
       default:
         // do nothing
     }
-<span class="nc" id="L83">  }</span>
+<span class="fc" id="L83">  }</span>
 
   public void reportTotalSummary() {
-<span class="nc" id="L86">    log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
-<span class="nc" id="L87">  }</span>
+<span class="fc" id="L86">    log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
+<span class="fc" id="L87">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

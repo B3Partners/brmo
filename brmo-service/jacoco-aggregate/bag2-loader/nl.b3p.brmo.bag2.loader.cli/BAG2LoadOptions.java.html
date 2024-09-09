@@ -9,7 +9,7 @@ package nl.b3p.brmo.bag2.loader.cli;
 
 import picocli.CommandLine;
 
-<span class="nc" id="L12">public class BAG2LoadOptions {</span>
+<span class="fc" id="L12">public class BAG2LoadOptions {</span>
   @CommandLine.Option(names = &quot;--no-create-schema&quot;, negatable = true)
   boolean noCreateSchema;
 
@@ -18,55 +18,67 @@ import picocli.CommandLine;
       negatable = true)
   boolean dropIfExists;
 
+  @CommandLine.Option(names = &quot;--geo-filter&quot;, paramLabel = &quot;&lt;wkt&gt;&quot;)
+  String geoFilter;
+
   @CommandLine.Option(names = &quot;--max-objects&quot;, paramLabel = &quot;&lt;number&gt;&quot;, hidden = true)
   Integer maxObjects;
 
-<span class="nc" id="L24">  @CommandLine.Option(</span>
+<span class="fc" id="L27">  @CommandLine.Option(</span>
       names = {&quot;--no-multithreading&quot;},
       negatable = true,
       hidden = true)
   boolean multithreading = true;
 
-<span class="nc" id="L30">  boolean ignoreDuplicates = false;</span>
+<span class="fc" id="L33">  boolean ignoreDuplicates = false;</span>
 
   public boolean isNoCreateSchema() {
-<span class="nc" id="L33">    return noCreateSchema;</span>
+<span class="nc" id="L36">    return noCreateSchema;</span>
   }
 
   public void setNoCreateSchema(boolean noCreateSchema) {
-<span class="nc" id="L37">    this.noCreateSchema = noCreateSchema;</span>
-<span class="nc" id="L38">  }</span>
+<span class="nc" id="L40">    this.noCreateSchema = noCreateSchema;</span>
+<span class="nc" id="L41">  }</span>
 
   public boolean isDropIfExists() {
-<span class="nc" id="L41">    return dropIfExists;</span>
+<span class="fc" id="L44">    return dropIfExists;</span>
   }
 
   public void setDropIfExists(boolean dropIfExists) {
-<span class="nc" id="L45">    this.dropIfExists = dropIfExists;</span>
-<span class="nc" id="L46">  }</span>
+<span class="nc" id="L48">    this.dropIfExists = dropIfExists;</span>
+<span class="nc" id="L49">  }</span>
+
+  public String getGeoFilter() {
+<span class="fc" id="L52">    return geoFilter;</span>
+  }
+
+  public BAG2LoadOptions setGeoFilter(String geoFilter) {
+<span class="fc" id="L56">    this.geoFilter = geoFilter;</span>
+<span class="fc" id="L57">    return this;</span>
+  }
 
   public Integer getMaxObjects() {
-<span class="nc" id="L49">    return maxObjects;</span>
+<span class="fc" id="L61">    return maxObjects;</span>
   }
 
   public void setMaxObjects(Integer maxObjects) {
-<span class="nc" id="L53">    this.maxObjects = maxObjects;</span>
-<span class="nc" id="L54">  }</span>
+<span class="nc" id="L65">    this.maxObjects = maxObjects;</span>
+<span class="nc" id="L66">  }</span>
 
   public boolean isMultithreading() {
-<span class="nc" id="L57">    return multithreading;</span>
+<span class="fc" id="L69">    return multithreading;</span>
   }
 
   public void setMultithreading(boolean multithreading) {
-<span class="nc" id="L61">    this.multithreading = multithreading;</span>
-<span class="nc" id="L62">  }</span>
+<span class="nc" id="L73">    this.multithreading = multithreading;</span>
+<span class="nc" id="L74">  }</span>
 
   public boolean isIgnoreDuplicates() {
-<span class="nc" id="L65">    return ignoreDuplicates;</span>
+<span class="fc" id="L77">    return ignoreDuplicates;</span>
   }
 
   public void setIgnoreDuplicates(boolean ignoreDuplicates) {
-<span class="nc" id="L69">    this.ignoreDuplicates = ignoreDuplicates;</span>
-<span class="nc" id="L70">  }</span>
+<span class="fc" id="L81">    this.ignoreDuplicates = ignoreDuplicates;</span>
+<span class="fc" id="L82">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

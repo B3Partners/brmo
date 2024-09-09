@@ -415,7 +415,7 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
       throws XMLStreamException, FactoryException, IOException {
 <span class="fc" id="L416">    String attributeName = attribute.getLocalName();</span>
 
-<span class="fc bfc" id="L418" title="All 7 branches covered.">    switch (attributeName) {</span>
+<span class="fc bfc" id="L418" title="All 8 branches covered.">    switch (attributeName) {</span>
       case &quot;geometrie&quot;:
         // Position cursor at child element
 <span class="fc" id="L421">        SMInputCursor geomCursor = attribute.childElementCursor().advance();</span>
@@ -448,67 +448,72 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
       case &quot;gebruiksdoel&quot;:
 <span class="fc" id="L449">        parseGebruiksdoel(attribute, objectAttributes);</span>
 <span class="fc" id="L450">        break;</span>
+      case &quot;geconstateerd&quot;:
+        // Parse 'J' or 'N' to 'true' or 'false'
+<span class="fc" id="L453">        String jn = attribute.collectDescendantText().trim();</span>
+<span class="fc bfc" id="L454" title="All 2 branches covered.">        objectAttributes.put(attributeName, &quot;J&quot;.equals(jn) ? &quot;true&quot; : &quot;false&quot;);</span>
+<span class="fc" id="L455">        break;</span>
       default:
         // String attribute value as default
 
         // This also works for ligtIn en ligtAan
-<span class="fc" id="L455">        objectAttributes.put(attributeName, attribute.collectDescendantText().trim());</span>
+<span class="fc" id="L460">        objectAttributes.put(attributeName, attribute.collectDescendantText().trim());</span>
         break;
     }
-<span class="fc" id="L458">  }</span>
+<span class="fc" id="L463">  }</span>
 
   private void parseVoorkomen(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
       throws XMLStreamException, FactoryException, IOException {
-<span class="fc" id="L462">    attributeCursor =</span>
+<span class="fc" id="L467">    attributeCursor =</span>
         attributeCursor
-<span class="fc" id="L464">            .childElementCursor(new QName(NS_HISTORIE, &quot;Voorkomen&quot;))</span>
-<span class="fc" id="L465">            .advance()</span>
-<span class="fc" id="L466">            .childElementCursor();</span>
-<span class="fc bfc" id="L467" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
-<span class="fc" id="L468">      parseAttribute(attributeCursor, objectAttributes);</span>
+<span class="fc" id="L469">            .childElementCursor(new QName(NS_HISTORIE, &quot;Voorkomen&quot;))</span>
+<span class="fc" id="L470">            .advance()</span>
+<span class="fc" id="L471">            .childElementCursor();</span>
+<span class="fc bfc" id="L472" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L473">      parseAttribute(attributeCursor, objectAttributes);</span>
     }
-<span class="fc" id="L470">  }</span>
+<span class="fc" id="L475">  }</span>
 
   private void parseBeschikbaarLV(
       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
       throws XMLStreamException, FactoryException, IOException {
-<span class="fc" id="L475">    attributeCursor = attributeCursor.childElementCursor();</span>
-<span class="fc bfc" id="L476" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
-<span class="fc" id="L477">      parseAttribute(attributeCursor, objectAttributes);</span>
+<span class="fc" id="L480">    attributeCursor = attributeCursor.childElementCursor();</span>
+<span class="fc bfc" id="L481" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L482">      parseAttribute(attributeCursor, objectAttributes);</span>
     }
-<span class="fc" id="L479">  }</span>
+<span class="fc" id="L484">  }</span>
 
   private void parseNevenadres(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
       throws XMLStreamException {
-<span class="fc" id="L483">    Set&lt;String&gt; values = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L484">    attributeCursor =</span>
-<span class="fc" id="L485">        attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, &quot;NummeraanduidingRef&quot;));</span>
-<span class="fc bfc" id="L486" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
-<span class="fc" id="L487">      values.add(attributeCursor.collectDescendantText().trim());</span>
+<span class="fc" id="L488">    Set&lt;String&gt; values = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L489">    attributeCursor =</span>
+<span class="fc" id="L490">        attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, &quot;NummeraanduidingRef&quot;));</span>
+<span class="fc bfc" id="L491" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L492">      values.add(attributeCursor.collectDescendantText().trim());</span>
     }
-<span class="fc" id="L489">    objectAttributes.put(&quot;heeftAlsNevenadres&quot;, values);</span>
-<span class="fc" id="L490">  }</span>
+<span class="fc" id="L494">    objectAttributes.put(&quot;heeftAlsNevenadres&quot;, values);</span>
+<span class="fc" id="L495">  }</span>
 
   private void parseMaaktDeelUitVan(
       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
       throws XMLStreamException {
-<span class="fc" id="L495">    Set&lt;String&gt; values = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L496">    attributeCursor = attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, &quot;PandRef&quot;));</span>
-<span class="fc bfc" id="L497" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
-<span class="fc" id="L498">      values.add(attributeCursor.collectDescendantText().trim());</span>
+<span class="fc" id="L500">    Set&lt;String&gt; values = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L501">    attributeCursor = attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, &quot;PandRef&quot;));</span>
+<span class="fc bfc" id="L502" title="All 2 branches covered.">    while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L503">      values.add(attributeCursor.collectDescendantText().trim());</span>
     }
-<span class="fc" id="L500">    objectAttributes.put(&quot;maaktDeelUitVan&quot;, values);</span>
-<span class="fc" id="L501">  }</span>
+<span class="fc" id="L505">    objectAttributes.put(&quot;maaktDeelUitVan&quot;, values);</span>
+<span class="fc" id="L506">  }</span>
 
   private void parseGebruiksdoel(
       SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes)
       throws XMLStreamException {
-<span class="fc" id="L506">    Set&lt;String&gt; values = (Set&lt;String&gt;) objectAttributes.get(&quot;gebruiksdoel&quot;);</span>
-<span class="fc bfc" id="L507" title="All 2 branches covered.">    if (values == null) {</span>
-<span class="fc" id="L508">      values = new HashSet&lt;&gt;();</span>
-<span class="fc" id="L509">      objectAttributes.put(&quot;gebruiksdoel&quot;, values);</span>
+<span class="fc" id="L511">    Set&lt;String&gt; values = (Set&lt;String&gt;) objectAttributes.get(&quot;gebruiksdoel&quot;);</span>
+<span class="fc bfc" id="L512" title="All 2 branches covered.">    if (values == null) {</span>
+<span class="fc" id="L513">      values = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L514">      objectAttributes.put(&quot;gebruiksdoel&quot;, values);</span>
     }
-<span class="fc" id="L511">    values.add(attributeCursor.collectDescendantText().trim());</span>
-<span class="fc" id="L512">  }</span>
+<span class="fc" id="L516">    values.add(attributeCursor.collectDescendantText().trim());</span>
+<span class="fc" id="L517">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

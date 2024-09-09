@@ -108,23 +108,22 @@ import org.apache.wss4j.dom.handler.WSHandlerConstants;
 <span class="nc" id="L108">    context.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);</span>
 
 <span class="nc" id="L110">    TLSClientParameters tlsClientParameters = new TLSClientParameters();</span>
-<span class="nc" id="L111">    tlsClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());</span>
-<span class="nc" id="L112">    tlsClientParameters.setSslContext(context);</span>
-<span class="nc" id="L113">    http.setTlsClientParameters(tlsClientParameters);</span>
+<span class="nc" id="L111">    tlsClientParameters.setSSLSocketFactory(context.getSocketFactory());</span>
+<span class="nc" id="L112">    http.setTlsClientParameters(tlsClientParameters);</span>
 
-<span class="nc" id="L115">    Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L114">    Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();</span>
 
-<span class="nc" id="L117">    props.put(</span>
+<span class="nc" id="L116">    props.put(</span>
         WSHandlerConstants.ACTION,
         WSHandlerConstants.TIMESTAMP + &quot; &quot; + WSHandlerConstants.SIGNATURE);
-<span class="nc" id="L120">    props.put(WSHandlerConstants.INCLUDE_SIGNATURE_TOKEN, &quot;true&quot;);</span>
-<span class="nc" id="L121">    props.put(WSHandlerConstants.SIG_KEY_ID, &quot;DirectReference&quot;);</span>
-<span class="nc" id="L122">    props.put(WSHandlerConstants.USE_SINGLE_CERTIFICATE, &quot;false&quot;);</span>
+<span class="nc" id="L119">    props.put(WSHandlerConstants.INCLUDE_SIGNATURE_TOKEN, &quot;true&quot;);</span>
+<span class="nc" id="L120">    props.put(WSHandlerConstants.SIG_KEY_ID, &quot;DirectReference&quot;);</span>
+<span class="nc" id="L121">    props.put(WSHandlerConstants.USE_SINGLE_CERTIFICATE, &quot;false&quot;);</span>
 
-<span class="nc" id="L124">    props.put(WSHandlerConstants.SIG_PROP_REF_ID, &quot;signatureProperties&quot;);</span>
-<span class="nc" id="L125">    props.put(&quot;signatureProperties&quot;, getCryptoProperties(certificateOptions, alias));</span>
+<span class="nc" id="L123">    props.put(WSHandlerConstants.SIG_PROP_REF_ID, &quot;signatureProperties&quot;);</span>
+<span class="nc" id="L124">    props.put(&quot;signatureProperties&quot;, getCryptoProperties(certificateOptions, alias));</span>
 
-<span class="nc" id="L127">    props.put(</span>
+<span class="nc" id="L126">    props.put(</span>
         WSHandlerConstants.SIGNATURE_PARTS,
         &quot;{}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;&quot;
             + &quot;{}{http://schemas.xmlsoap.org/soap/envelope/}Body;&quot;
@@ -133,47 +132,47 @@ import org.apache.wss4j.dom.handler.WSHandlerConstants;
             + &quot;{}{http://www.w3.org/2005/08/addressing}MessageID;&quot;
             + &quot;{}{http://www.w3.org/2005/08/addressing}Action&quot;);
 
-<span class="nc" id="L136">    props.put(WSHandlerConstants.USER, alias);</span>
-<span class="nc" id="L137">    props.put(</span>
+<span class="nc" id="L135">    props.put(WSHandlerConstants.USER, alias);</span>
+<span class="nc" id="L136">    props.put(</span>
         WSHandlerConstants.PW_CALLBACK_REF,
         (CallbackHandler)
             callbacks -&gt; {
-<span class="nc bnc" id="L141" title="All 2 branches missed.">              for (Callback callback : callbacks) {</span>
-<span class="nc" id="L142">                ((WSPasswordCallback) callback)</span>
-<span class="nc" id="L143">                    .setPassword(certificateOptions.getKeystorePassword());</span>
-<span class="nc" id="L144">                return;</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">              for (Callback callback : callbacks) {</span>
+<span class="nc" id="L141">                ((WSPasswordCallback) callback)</span>
+<span class="nc" id="L142">                    .setPassword(certificateOptions.getKeystorePassword());</span>
+<span class="nc" id="L143">                return;</span>
               }
-<span class="nc" id="L146">            });</span>
+<span class="nc" id="L145">            });</span>
 
-<span class="nc" id="L148">    WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(props);</span>
-<span class="nc" id="L149">    endpoint.getOutInterceptors().add(wssOut);</span>
+<span class="nc" id="L147">    WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(props);</span>
+<span class="nc" id="L148">    endpoint.getOutInterceptors().add(wssOut);</span>
 
     // Set up necessary WS-Addressing fields.
-<span class="nc" id="L152">    AddressingProperties maps = new AddressingProperties();</span>
-<span class="nc" id="L153">    EndpointReferenceType anonref = new EndpointReferenceType();</span>
-<span class="nc" id="L154">    AttributedURIType anonymous = new AttributedURIType();</span>
-<span class="nc" id="L155">    anonymous.setValue(&quot;http://www.w3.org/2005/08/addressing/anonymous&quot;);</span>
-<span class="nc" id="L156">    anonref.setAddress(anonymous);</span>
-<span class="nc" id="L157">    maps.setReplyTo(anonref);</span>
-<span class="nc" id="L158">    maps.setFaultTo(anonref);</span>
+<span class="nc" id="L151">    AddressingProperties maps = new AddressingProperties();</span>
+<span class="nc" id="L152">    EndpointReferenceType anonref = new EndpointReferenceType();</span>
+<span class="nc" id="L153">    AttributedURIType anonymous = new AttributedURIType();</span>
+<span class="nc" id="L154">    anonymous.setValue(&quot;http://www.w3.org/2005/08/addressing/anonymous&quot;);</span>
+<span class="nc" id="L155">    anonref.setAddress(anonymous);</span>
+<span class="nc" id="L156">    maps.setReplyTo(anonref);</span>
+<span class="nc" id="L157">    maps.setFaultTo(anonref);</span>
 
     // &lt;wsa:To&gt; needs to point at a predefined value.
-<span class="nc" id="L161">    EndpointReferenceType toval = new EndpointReferenceType();</span>
-<span class="nc" id="L162">    AttributedURIType target = new AttributedURIType();</span>
-<span class="nc" id="L163">    target.setValue(</span>
-<span class="nc bnc" id="L164" title="All 2 branches missed.">        preprod</span>
-<span class="nc" id="L165">            ? &quot;http://es.kvk.nl/kvk-DataservicePP/2015/02&quot;</span>
-<span class="nc" id="L166">            : &quot;http://es.kvk.nl/kvk-Dataservice/2015/02&quot;);</span>
-<span class="nc" id="L167">    toval.setAddress(target);</span>
-<span class="nc" id="L168">    maps.setTo(toval);</span>
+<span class="nc" id="L160">    EndpointReferenceType toval = new EndpointReferenceType();</span>
+<span class="nc" id="L161">    AttributedURIType target = new AttributedURIType();</span>
+<span class="nc" id="L162">    target.setValue(</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        preprod</span>
+<span class="nc" id="L164">            ? &quot;http://es.kvk.nl/kvk-DataservicePP/2015/02&quot;</span>
+<span class="nc" id="L165">            : &quot;http://es.kvk.nl/kvk-Dataservice/2015/02&quot;);</span>
+<span class="nc" id="L166">    toval.setAddress(target);</span>
+<span class="nc" id="L167">    maps.setTo(toval);</span>
 
-<span class="nc" id="L170">    BindingProvider bindingProvider = (BindingProvider) dataService;</span>
-<span class="nc" id="L171">    bindingProvider</span>
-<span class="nc" id="L172">        .getRequestContext()</span>
-<span class="nc" id="L173">        .put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, targetLocation);</span>
-<span class="nc" id="L174">    bindingProvider.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);</span>
+<span class="nc" id="L169">    BindingProvider bindingProvider = (BindingProvider) dataService;</span>
+<span class="nc" id="L170">    bindingProvider</span>
+<span class="nc" id="L171">        .getRequestContext()</span>
+<span class="nc" id="L172">        .put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, targetLocation);</span>
+<span class="nc" id="L173">    bindingProvider.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);</span>
 
-<span class="nc" id="L176">    return dataService;</span>
+<span class="nc" id="L175">    return dataService;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

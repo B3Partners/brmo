@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>rsgb.public</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="bower/admin-lte/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="bower/ionicons/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="bower/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="bower/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+        <!-- Code Mirror -->
+        <link rel="stylesheet" href="bower/codemirror/codemirror.css">
+        <!-- Fonts -->
+        <link href='fonts/indieflower/indie-flower.css' rel='stylesheet' type='text/css'>
+        <link href='fonts/source-sans-pro/source-sans-pro.css' rel='stylesheet' type='text/css'>
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/AdminLTE.min.css">
+        <!-- Salvattore -->
+        <link rel="stylesheet" href="bower/salvattore/salvattore.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/skins/_all-skins.min.css">
+        <!-- SchemaSpy -->
+        <link rel="stylesheet" href="schemaSpy.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="bower/html5shiv/html5shiv.min.js"></script>
+        <script src="bower/respond/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+    <body class="hold-transition skin-blue layout-top-nav">
+        <div class="wrapper">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="../index.html" class="navbar-brand"><b>rsgb</b></a><span class="navbar-brand" style="padding-left: 0">.public</span>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="index.html">Tables <span class="sr-only">(current)</span></a></li>
+                                <li><a href="columns.html" title="All of the columns in the schema">Columns</a></li>
+                                <li><a href="constraints.html" title="Useful for diagnosing error messages that just give constraint name or number">Constraints</a></li>
+                                <li><a href="relationships.html" title="Diagram of table relationships">Relationships</a></li>
+                                <li><a href="orphans.html" title="View of tables with neither parents nor children">Orphan&nbsp;Tables</a></li>
+                                <li><a href="anomalies.html" title="Things that might not be quite right">Anomalies</a></li>
+                                <li><a href="routines.html" title="Procedures and functions">Routines</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <!-- Navbar Right Menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Main content -->
+            <!-- Full Width Column -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>Utility Tables</h1>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-code-fork"></i>
+                            <h3 class="box-title">Orphan Tables</h3>
+                        </div>
+                        <div class="box-body">
+                            <div id="grid" data-columns>
+                                <div class="item">
+<img id="orphans" src="diagrams/orphans/orphans.png" usemap="#orphans" style="max-width:100%;" border="0" align="top">
+<map id="orphans" name="orphans">
+<area shape="rect" id="node1" href="tables/aard_verkregen_recht.html" target="_top" title="aard_verkregen_recht" alt="" coords="49,15889,456,16017">
+<area shape="rect" id="node2" href="tables/app_re_archief.html" target="_top" title="app_re_archief" alt="" coords="81,15597,424,15872">
+<area shape="rect" id="node3" href="tables/app_re_kad_perceel_archief.html" target="_top" title="app_re_kad_perceel_archief" alt="" coords="55,15423,450,15580">
+<area shape="rect" id="node4" href="tables/begr_terr_dl_archief.html" target="_top" title="begr_terr_dl_archief" alt="" coords="32,15043,473,15405">
+<area shape="rect" id="node5" href="tables/begr_terreinvakonderd_archief.html" target="_top" title="begr_terreinvakonderd_archief" alt="" coords="49,14868,456,15025">
+<area shape="rect" id="node6" href="tables/brmo_metadata.html" target="_top" title="brmo_metadata" alt="" coords="110,14723,395,14851">
+<area shape="rect" id="node7" href="tables/brondocument.html" target="_top" title="brondocument" alt="" coords="101,14431,404,14705">
+<area shape="rect" id="node8" href="tables/brugconstructie_elemen_archief.html" target="_top" title="brugconstructie_elemen_archief" alt="" coords="45,14256,461,14413">
+<area shape="rect" id="node9" href="tables/buurt.html" target="_top" title="buurt" alt="" coords="55,13935,450,14239">
+<area shape="rect" id="node10" href="tables/buurt_archief.html" target="_top" title="buurt_archief" alt="" coords="55,13613,450,13917">
+<area shape="rect" id="node11" href="tables/functioneel_gebied.html" target="_top" title="functioneel_gebied" alt="" coords="55,13292,450,13596">
+<area shape="rect" id="node12" href="tables/functioneel_gebied_archief.html" target="_top" title="functioneel_gebied_archief" alt="" coords="27,12971,478,13275">
+<area shape="rect" id="node13" href="tables/gebouwinstallatie.html" target="_top" title="gebouwinstallatie" alt="" coords="55,12679,450,12953">
+<area shape="rect" id="node14" href="tables/gebouwinstallatie_archief.html" target="_top" title="gebouwinstallatie_archief" alt="" coords="31,12387,474,12661">
+<area shape="rect" id="node15" href="tables/gemeente_archief.html" target="_top" title="gemeente_archief" alt="" coords="57,12124,448,12369">
+<area shape="rect" id="node16" href="tables/gemeente_gemeente_archief.html" target="_top" title="gemeente_gemeente_archief" alt="" coords="63,11949,443,12107">
+<area shape="rect" id="node17" href="tables/herkomst_metadata.html" target="_top" title="herkomst_metadata" alt="" coords="79,11716,427,11932">
+<area shape="rect" id="node18" href="tables/huishouden_archief.html" target="_top" title="huishouden_archief" alt="" coords="98,11395,407,11699">
+<area shape="rect" id="node19" href="tables/inrichtingselement.html" target="_top" title="inrichtingselement" alt="" coords="55,11073,450,11377">
+<area shape="rect" id="node20" href="tables/inrichtingselement_archief.html" target="_top" title="inrichtingselement_archief" alt="" coords="27,10752,478,11056">
+<area shape="rect" id="node21" href="tables/kad_onrrnd_zk_aantek_archief.html" target="_top" title="kad_onrrnd_zk_aantek_archief" alt="" coords="53,10460,453,10735">
+<area shape="rect" id="node22" href="tables/kad_onrrnd_zk_archief.html" target="_top" title="kad_onrrnd_zk_archief" alt="" coords="45,9699,460,10443">
+<area shape="rect" id="node23" href="tables/kad_onrrnd_zk_kad_onrr_archief.html" target="_top" title="kad_onrrnd_zk_kad_onrr_archief" alt="" coords="49,9524,457,9681">
+<area shape="rect" id="node24" href="tables/kad_perceel_archief.html" target="_top" title="kad_perceel_archief" alt="" coords="29,9085,477,9507">
+<area shape="rect" id="node25" href="tables/kunstwerkdeel_archief.html" target="_top" title="kunstwerkdeel_archief" alt="" coords="43,8764,462,9068">
+<area shape="rect" id="node26" href="tables/meta_enumeratie.html" target="_top" title="meta_enumeratie" alt="" coords="103,8589,403,8747">
+<area shape="rect" id="node27" href="tables/meta_enumeratie_waardes.html" target="_top" title="meta_enumeratie_waardes" alt="" coords="65,8444,440,8572">
+<area shape="rect" id="node28" href="tables/meta_referentielijsten.html" target="_top" title="meta_referentielijsten" alt="" coords="84,8269,421,8427">
+<area shape="rect" id="node29" href="tables/onbegr_terr_dl_archief.html" target="_top" title="onbegr_terr_dl_archief" alt="" coords="22,7889,483,8252">
+<area shape="rect" id="node30" href="tables/onbegr_terreinvakonder_archief.html" target="_top" title="onbegr_terreinvakonder_archief" alt="" coords="45,7715,461,7872">
+<area shape="rect" id="node31" href="tables/ondersteunend_wegdeel.html" target="_top" title="ondersteunend_wegdeel" alt="" coords="37,7393,469,7697">
+<area shape="rect" id="node32" href="tables/ondersteunend_wegdeel_archief.html" target="_top" title="ondersteunend_wegdeel_archief" alt="" coords="5,7072,500,7376">
+<area shape="rect" id="node33" href="tables/ovrg_scheiding.html" target="_top" title="ovrg_scheiding" alt="" coords="55,6780,450,7055">
+<area shape="rect" id="node34" href="tables/ovrg_scheiding_archief.html" target="_top" title="ovrg_scheiding_archief" alt="" coords="44,6488,461,6763">
+<area shape="rect" id="node35" href="tables/scheiding.html" target="_top" title="scheiding" alt="" coords="55,6196,450,6471">
+<area shape="rect" id="node36" href="tables/scheiding_archief.html" target="_top" title="scheiding_archief" alt="" coords="55,5904,450,6179">
+<area shape="rect" id="node37" href="tables/spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="111,5671,394,5887">
+<area shape="rect" id="node38" href="tables/spoor.html" target="_top" title="spoor" alt="" coords="55,5379,450,5653">
+<area shape="rect" id="node39" href="tables/spoor_archief.html" target="_top" title="spoor_archief" alt="" coords="55,5087,450,5361">
+<area shape="rect" id="node40" href="tables/stadsdeel.html" target="_top" title="stadsdeel" alt="" coords="55,4795,450,5069">
+<area shape="rect" id="node41" href="tables/stadsdeel_archief.html" target="_top" title="stadsdeel_archief" alt="" coords="55,4503,450,4777">
+<area shape="rect" id="node42" href="tables/verblijfstitel_archief.html" target="_top" title="verblijfstitel_archief" alt="" coords="93,4299,412,4485">
+<area shape="rect" id="node43" href="tables/vrijstaand_vegetatie_o_archief.html" target="_top" title="vrijstaand_vegetatie_o_archief" alt="" coords="13,4007,492,4281">
+<area shape="rect" id="node44" href="tables/vrijstaand_vegetatie_obj.html" target="_top" title="vrijstaand_vegetatie_obj" alt="" coords="37,3715,468,3989">
+<area shape="rect" id="node45" href="tables/waterdeel_archief.html" target="_top" title="waterdeel_archief" alt="" coords="55,3335,450,3697">
+<area shape="rect" id="node46" href="tables/waterschap.html" target="_top" title="waterschap" alt="" coords="55,3043,450,3317">
+<area shape="rect" id="node47" href="tables/waterschap_archief.html" target="_top" title="waterschap_archief" alt="" coords="55,2751,450,3025">
+<area shape="rect" id="node48" href="tables/watervakonderdeel_archief.html" target="_top" title="watervakonderdeel_archief" alt="" coords="64,2576,441,2733">
+<area shape="rect" id="node49" href="tables/wegdeel_archief.html" target="_top" title="wegdeel_archief" alt="" coords="55,2196,450,2559">
+<area shape="rect" id="node50" href="tables/wegvakonderdeel_archief.html" target="_top" title="wegvakonderdeel_archief" alt="" coords="71,2021,435,2179">
+<area shape="rect" id="node51" href="tables/wijk.html" target="_top" title="wijk" alt="" coords="55,1700,450,2004">
+<area shape="rect" id="node52" href="tables/wijk_archief.html" target="_top" title="wijk_archief" alt="" coords="55,1379,450,1683">
+<area shape="rect" id="node53" href="tables/woz_deelobj_archief.html" target="_top" title="woz_deelobj_archief" alt="" coords="67,1057,439,1361">
+<area shape="rect" id="node54" href="tables/woz_obj_archief.html" target="_top" title="woz_obj_archief" alt="" coords="47,619,458,1040">
+<area shape="rect" id="node55" href="tables/woz_waarde_archief.html" target="_top" title="woz_waarde_archief" alt="" coords="93,385,413,601">
+<area shape="rect" id="node56" href="tables/zak_recht_archief.html" target="_top" title="zak_recht_archief" alt="" coords="59,5,447,368">
+</map>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div>
+                    <div class="pull-right hidden-xs">
+                        <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
+                        <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
+                    </div>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.2.4</a></strong>
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 2.2.3 -->
+        <script src="bower/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="bower/admin-lte/plugins/jQueryUI/jquery-ui.min.js"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="bower/admin-lte/bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="bower/datatables.net/jquery.dataTables.min.js"></script>
+        <script src="bower/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/dataTables.buttons.min.js"></script>
+        <script src="bower/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.html5.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.print.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.colVis.min.js"></script>
+        <!-- SheetJS -->
+        <script src="bower/js-xlsx/xlsx.full.min.js"></script>
+        <!-- pdfmake -->
+        <script src="bower/pdfmake/pdfmake.min.js"></script>
+        <script src="bower/pdfmake/vfs_fonts.js"></script>
+        <!-- SlimScroll -->
+        <script src="bower/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="bower/admin-lte/plugins/fastclick/fastclick.js"></script>
+        <!-- Salvattore -->
+        <script src="bower/salvattore/salvattore.min.js"></script>
+        <!-- AnchorJS -->
+        <script src="bower/anchor-js/anchor.min.js"></script>
+        <!-- CodeMirror -->
+        <script src="bower/codemirror/codemirror.js"></script>
+        <script src="bower/codemirror/sql.js"></script>
+        <!-- AdminLTE App -->
+        <script src="bower/admin-lte/dist/js/app.min.js"></script>
+        <script src=""></script>
+        <script src="schemaSpy.js"></script>
+    </body>
+</html>

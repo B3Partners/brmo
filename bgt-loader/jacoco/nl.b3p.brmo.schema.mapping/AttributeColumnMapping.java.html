@@ -6,6 +6,8 @@
 
 package nl.b3p.brmo.schema.mapping;
 
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 public class AttributeColumnMapping {
   private final String name;
   private final String type;
@@ -14,59 +16,59 @@ public class AttributeColumnMapping {
   private final boolean useDefault;
 
   public AttributeColumnMapping(
-<span class="fc" id="L17">      String name, String type, boolean notNull, boolean primaryKey, boolean useDefault) {</span>
-<span class="fc" id="L18">    this.name = name;</span>
-<span class="fc" id="L19">    this.type = type;</span>
-<span class="fc" id="L20">    this.notNull = notNull;</span>
-<span class="fc" id="L21">    this.primaryKey = primaryKey;</span>
-<span class="fc" id="L22">    this.useDefault = useDefault;</span>
-<span class="fc" id="L23">  }</span>
+<span class="fc" id="L19">      String name, String type, boolean notNull, boolean primaryKey, boolean useDefault) {</span>
+<span class="fc" id="L20">    this.name = name;</span>
+<span class="fc" id="L21">    this.type = type;</span>
+<span class="fc" id="L22">    this.notNull = notNull;</span>
+<span class="fc" id="L23">    this.primaryKey = primaryKey;</span>
+<span class="fc" id="L24">    this.useDefault = useDefault;</span>
+<span class="fc" id="L25">  }</span>
 
   public AttributeColumnMapping(String name, String type, boolean notNull, boolean primaryKey) {
-<span class="fc" id="L26">    this(name, type, notNull, primaryKey, false);</span>
-<span class="fc" id="L27">  }</span>
+<span class="fc" id="L28">    this(name, type, notNull, primaryKey, false);</span>
+<span class="fc" id="L29">  }</span>
 
   public AttributeColumnMapping(String name, String type, boolean notNull) {
-<span class="fc" id="L30">    this(name, type, notNull, false, false);</span>
-<span class="fc" id="L31">  }</span>
+<span class="fc" id="L32">    this(name, type, notNull, false, false);</span>
+<span class="fc" id="L33">  }</span>
 
   public AttributeColumnMapping(String name) {
-<span class="fc" id="L34">    this(name, &quot;varchar(255)&quot;, true, false);</span>
-<span class="fc" id="L35">  }</span>
+<span class="fc" id="L36">    this(name, &quot;varchar(255)&quot;, true, false);</span>
+<span class="fc" id="L37">  }</span>
 
   public String getName() {
-<span class="nc" id="L38">    return name;</span>
+<span class="nc" id="L40">    return name;</span>
   }
 
   public String getType() {
-<span class="nc" id="L42">    return type;</span>
+<span class="nc" id="L44">    return type;</span>
   }
 
   public boolean isNotNull() {
-<span class="nc" id="L46">    return notNull;</span>
+<span class="nc" id="L48">    return notNull;</span>
   }
 
   public boolean isPrimaryKey() {
-<span class="fc" id="L50">    return primaryKey;</span>
+<span class="fc" id="L52">    return primaryKey;</span>
   }
 
   public boolean isUseDefault() {
-<span class="fc" id="L54">    return useDefault;</span>
+<span class="fc" id="L56">    return useDefault;</span>
   }
 
   public boolean isDirectAttribute() {
-<span class="fc" id="L58">    return true;</span>
+<span class="fc" id="L60">    return true;</span>
   }
 
   public boolean isDirectNonDefaultAttribute() {
-<span class="pc bpc" id="L62" title="1 of 4 branches missed.">    return isDirectAttribute() &amp;&amp; !isUseDefault();</span>
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">    return isDirectAttribute() &amp;&amp; !isUseDefault();</span>
   }
 
-  public Object toQueryParameter(Object value) throws Exception {
-<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (value == null) {</span>
-<span class="nc" id="L67">      return null;</span>
+  public Object toQueryParameter(Object value, SQLDialect sqlDialect) throws Exception {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">    if (value == null) {</span>
+<span class="nc" id="L69">      return null;</span>
     }
-<span class="nc" id="L69">    return value.toString();</span>
+<span class="nc" id="L71">    return value.toString();</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

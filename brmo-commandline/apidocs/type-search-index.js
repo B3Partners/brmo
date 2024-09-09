@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.commandline","l":"Main"},{"p":"nl.b3p.brmo.commandline","l":"Main.sysexits"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nl.b3p.brmo.commandline","l":"Main"},{"p":"nl.b3p.brmo.commandline","l":"Main.sysexits"}];updateSearchResults();

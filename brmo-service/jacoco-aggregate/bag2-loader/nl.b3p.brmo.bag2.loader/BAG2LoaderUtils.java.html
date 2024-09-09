@@ -55,7 +55,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
   }
 
   public static String getBundleString(String key) {
-<span class="nc" id="L58">    return bundle.getString(key);</span>
+<span class="fc" id="L58">    return bundle.getString(key);</span>
   }
 
   public static String getMessageFormattedString(String key, Object... args) {
@@ -64,7 +64,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
   }
 
   public static String getLoaderVersion() {
-<span class="nc" id="L67">    return getBundleString(&quot;app.version&quot;);</span>
+<span class="fc" id="L67">    return getBundleString(&quot;app.version&quot;);</span>
   }
 
   public static String getBrmoVersion() {
@@ -73,7 +73,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
   public static BAGExtractSelectie getBAGExtractSelectieFromZip(String zipFileName)
       throws IOException {
-<span class="nc bnc" id="L76" title="All 4 branches missed.">    if (zipFileName.startsWith(&quot;http://&quot;) || zipFileName.startsWith(&quot;https://&quot;)) {</span>
+<span class="pc bpc" id="L76" title="2 of 4 branches missed.">    if (zipFileName.startsWith(&quot;http://&quot;) || zipFileName.startsWith(&quot;https://&quot;)) {</span>
       // Try to parse filename in URL to avoid having to download the ZIP and extract the
       // leveringsdocument --
       // because this may happen many times to check whether a mutatie ZIP is applicable
@@ -86,7 +86,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 <span class="nc" id="L86">        return getBAGExtractSelectieFromHttpZip(URI.create(zipFileName));</span>
       }
     } else {
-<span class="nc" id="L89">      return getBAGExtractSelectieFromZipFile(new File(zipFileName));</span>
+<span class="fc" id="L89">      return getBAGExtractSelectieFromZipFile(new File(zipFileName));</span>
     }
   }
 
@@ -123,7 +123,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 <span class="fc" id="L123">      Enumeration&lt;? extends ZipEntry&gt; entries = zf.entries();</span>
 <span class="pc bpc" id="L124" title="1 of 2 branches missed.">      while (entries.hasMoreElements()) {</span>
 <span class="fc" id="L125">        ZipEntry entry = entries.nextElement();</span>
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if (LEVERINGSDOCUMENT_FILENAME.equals(entry.getName())) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (LEVERINGSDOCUMENT_FILENAME.equals(entry.getName())) {</span>
 <span class="fc" id="L127">          message = getMessageFormattedString(&quot;load.leveringsdocument.unmarshal&quot;, zipFileName);</span>
 <span class="fc" id="L128">          JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);</span>
 <span class="fc" id="L129">          Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();</span>
@@ -132,7 +132,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 <span class="fc" id="L132">            return new BAGExtractSelectieFromLeveringsdocument(levering);</span>
           }
         }
-<span class="nc" id="L135">      }</span>
+<span class="fc" id="L135">      }</span>
 <span class="pc" id="L136">    } catch (Exception e) {</span>
 <span class="nc" id="L137">      throw new IOException(message, e);</span>
 <span class="nc" id="L138">    }</span>
@@ -254,22 +254,22 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
     @Override
     public boolean isStand() {
-<span class="pc bpc" id="L257" title="1 of 2 branches missed.">      return levering.getSelectieGegevens().getLVCExtract() != null;</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">      return levering.getSelectieGegevens().getLVCExtract() != null;</span>
     }
 
     @Override
     public boolean isGebiedNLD() {
-<span class="pc bpc" id="L262" title="1 of 2 branches missed.">      return levering.getSelectieGegevens().getGebiedRegistratief().getGebiedNLD() != null;</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">      return levering.getSelectieGegevens().getGebiedRegistratief().getGebiedNLD() != null;</span>
     }
 
     @Override
     public LocalDate getMutatiesFrom() {
-<span class="nc" id="L267">      XMLGregorianCalendar xmlGregorianCalendar =</span>
-<span class="nc" id="L268">          levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumVanaf();</span>
-<span class="nc" id="L269">      return LocalDate.of(</span>
-<span class="nc" id="L270">          xmlGregorianCalendar.getYear(),</span>
-<span class="nc" id="L271">          xmlGregorianCalendar.getMonth(),</span>
-<span class="nc" id="L272">          xmlGregorianCalendar.getDay());</span>
+<span class="fc" id="L267">      XMLGregorianCalendar xmlGregorianCalendar =</span>
+<span class="fc" id="L268">          levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumVanaf();</span>
+<span class="fc" id="L269">      return LocalDate.of(</span>
+<span class="fc" id="L270">          xmlGregorianCalendar.getYear(),</span>
+<span class="fc" id="L271">          xmlGregorianCalendar.getMonth(),</span>
+<span class="fc" id="L272">          xmlGregorianCalendar.getDay());</span>
     }
 
     @Override
@@ -296,4 +296,4 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
     }
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

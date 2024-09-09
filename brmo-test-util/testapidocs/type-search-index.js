@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.test.util.database.dbunit","l":"DBUnitExportRSGB"},{"p":"nl.b3p.brmo.test.util.database.dbunit","l":"DBUnitExportStaging"},{"p":"nl.b3p.brmo.test.util","l":"WebXmlTestTest"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nl.b3p.brmo.test.util.database.dbunit","l":"DBUnitExportRSGB"},{"p":"nl.b3p.brmo.test.util.database.dbunit","l":"DBUnitExportStaging"},{"p":"nl.b3p.brmo.test.util","l":"WebXmlTestTest"}];updateSearchResults();

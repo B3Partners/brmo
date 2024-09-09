@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 16.1">
+<database name="rsgb" schema="public" type="PostgreSQL - 16.4">
    <tables>
-      <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
+      <table name="aard_recht_verkort" numRows="26" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">
             <child column="fk_2aard_recht_verkort_aand" foreignKey="fk_zkr_rl_2" implied="false" onDeleteCascade="true" table="zak_recht"/>
          </column>
@@ -11,7 +11,7 @@
             <column ascending="true" name="aand"/>
          </index>
       </table>
-      <table name="aard_verkregen_recht" numRows="24" remarks="RSGB referentielijst AARD VERKREGEN RECHT" schema="public" type="TABLE">
+      <table name="aard_verkregen_recht" numRows="26" remarks="RSGB referentielijst AARD VERKREGEN RECHT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD VERKREGEN RECHT.Aanduiding aard verkregen recht - Aanduiding aard verkregen recht" size="6" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="omschr_aard_verkregenr_recht" nullable="true" remarks="Referentielijst property AARD VERKREGEN RECHT.Omschrijving aard verkregenr recht - Omschrijving aard verkregenr recht" size="200" type="varchar"/>
          <primaryKey column="aand" sequenceNumberInPK="1"/>
@@ -30,45 +30,6 @@
          <primaryKey column="code" sequenceNumberInPK="1"/>
          <index name="academische_titel_pk" unique="true">
             <column ascending="true" name="code"/>
-         </index>
-      </table>
-      <table name="addresseerb_obj_aand" numRows="0" remarks="RSGB class ADRESSEERBAAR OBJECT AANDUIDING. Directe superclass van: NUMMERAANDUIDING, OVERIGE ADRESSEERBAAR OBJECT AANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] AN16 - Identificatie adresseerbaar object aanduiding" size="16" type="varchar">
-            <child column="sc_identif" foreignKey="fk_nra_sc" implied="false" onDeleteCascade="true" table="nummeraand"/>
-            <child column="sc_identif" foreignKey="fk_oao_sc" implied="false" onDeleteCascade="true" table="ovrg_addresseerb_obj_aand"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="2" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="dat_eind_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid addresserbaar object aanduiding" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="huisletter" nullable="true" remarks="AN1 - Huisletter" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="huinummer" nullable="true" remarks="N5 - Huisnummer" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="6" name="huinummertoevoeging" nullable="true" remarks="AN4 - Huisnummertoevoeging" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="postcode" nullable="true" remarks="AN6 - Postcode" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="fk_6wpl_identif" nullable="true" remarks="[FK] AN4, FK naar wnplts.identif: &quot;ligt in&quot;" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="fk_7opr_identifcode" nullable="true" remarks="[FK] AN16, FK naar openb_rmte.identifcode: &quot;ligt aan&quot;" size="16" type="varchar">
-            <parent column="identifcode" foreignKey="fk_aoa_as_7" implied="false" onDeleteCascade="true" table="openb_rmte"/>
-         </column>
-         <primaryKey column="identif" sequenceNumberInPK="1"/>
-         <index name="addresseerb_obj_aand_pk" unique="true">
-            <column ascending="true" name="identif"/>
-         </index>
-      </table>
-      <table name="addresseerb_obj_aand_archief" numRows="0" remarks="RSGB class ADRESSEERBAAR OBJECT AANDUIDING. Directe superclass van: NUMMERAANDUIDING, OVERIGE ADRESSEERBAAR OBJECT AANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid addresserbaar object aanduiding" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] AN16 - Identificatie adresseerbaar object aanduiding" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="dat_eind_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid addresserbaar object aanduiding" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="huisletter" nullable="true" remarks="AN1 - Huisletter" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="huinummer" nullable="true" remarks="N5 - Huisnummer" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="6" name="huinummertoevoeging" nullable="true" remarks="AN4 - Huisnummertoevoeging" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="postcode" nullable="true" remarks="AN6 - Postcode" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="fk_6wpl_identif" nullable="true" remarks="[FK] AN4, FK naar wnplts.identif: &quot;ligt in&quot;" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="fk_7opr_identifcode" nullable="true" remarks="[FK] AN16, FK naar openb_rmte.identifcode: &quot;ligt aan&quot;" size="16" type="varchar"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="identif" sequenceNumberInPK="2"/>
-         <index name="ar_addresseerb_obj_aand_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="identif"/>
          </index>
       </table>
       <table name="ander_btnlnds_niet_nat_prs" numRows="0" remarks="RSGB class ANDER BUITENLANDS NIET-NATUURLIJK PERSOON. Subclass van: NIET-NATUURLIJK PERSOON -&gt; PERSOON -&gt; SUBJECT" schema="public" type="TABLE">
@@ -224,17 +185,6 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="benoemd_obj" numRows="0" remarks="RSGB class BENOEMD OBJECT. Directe superclass van: BENOEMD TERREIN, GEBOUWD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="identif" nullable="false" remarks="[PK] AN16 - Benoemd object identificatie" size="16" type="varchar">
-            <child column="sc_identif" foreignKey="fk_btr_sc" implied="false" onDeleteCascade="true" table="benoemd_terrein"/>
-            <child column="sc_identif" foreignKey="fk_gbo_sc" implied="false" onDeleteCascade="true" table="gebouwd_obj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <primaryKey column="identif" sequenceNumberInPK="1"/>
-         <index name="benoemd_obj_pk" unique="true">
-            <column ascending="true" name="identif"/>
-         </index>
-      </table>
       <table name="benoemd_obj_kad_onrrnd_zk" numRows="0" remarks="N - N relatie: BENOEMD OBJECT &quot;staat op of heeft ruimtelijke overlap met&quot; KADASTRALE ONROERENDE ZAAK" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_tgo_identif" nullable="false" remarks="[FK] AN16, FK naar benoemd_obj.identif" size="16" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="fk_nn_rh_koz_kad_identif" nullable="false" remarks="[FK] N15, FK naar kad_onrrnd_zk.kad_identif" size="15" type="numeric">
@@ -245,71 +195,6 @@
          <index name="benoemd_obj_kad_onrrnd_zk_pk" unique="true">
             <column ascending="true" name="fk_nn_lh_tgo_identif"/>
             <column ascending="true" name="fk_nn_rh_koz_kad_identif"/>
-         </index>
-      </table>
-      <table name="benoemd_terrein" numRows="0" remarks="RSGB class BENOEMD TERREIN. Subclass van: BENOEMD OBJECT. Directe superclass van: LIGPLAATS, OVERIG TERREIN, STANDPLAATS" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_obj.identif - Benoemd object identificatie" size="16" type="varchar">
-            <child column="fk_nn_lh_btr_sc_identif" foreignKey="fk_btr_btr_nn_lh" implied="false" onDeleteCascade="true" table="benoemd_terrein_benoemd_terrei"/>
-            <child column="fk_nn_rh_btr_sc_identif" foreignKey="fk_btr_btr_nn_rh" implied="false" onDeleteCascade="true" table="benoemd_terrein_benoemd_terrei"/>
-            <child column="sc_identif" foreignKey="fk_lpl_sc" implied="false" onDeleteCascade="true" table="ligplaats"/>
-            <child column="sc_identif" foreignKey="fk_otr_sc" implied="false" onDeleteCascade="true" table="overig_terrein"/>
-            <child column="sc_identif" foreignKey="fk_spl_sc" implied="false" onDeleteCascade="true" table="standplaats"/>
-            <parent column="identif" foreignKey="fk_btr_sc" implied="false" onDeleteCascade="true" table="benoemd_obj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="2" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid benoemd terrein" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="geom" nullable="true" remarks="GM_Surface - Benoemd terrein geometrie" size="2147483647" type="geometry"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="benoemd_terrein_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-         <index name="benoemd_terrein_geom_idx" unique="false">
-            <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="benoemd_terrein_archief" numRows="0" remarks="RSGB class BENOEMD TERREIN. Subclass van: BENOEMD OBJECT. Directe superclass van: LIGPLAATS, OVERIG TERREIN, STANDPLAATS" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid benoemd terrein" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_obj.identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid benoemd terrein" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="geom" nullable="true" remarks="GM_Surface - Benoemd terrein geometrie" size="2147483647" type="geometry"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_benoemd_terrein_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-         <index name="benoemd_terrein_archief_geom_idx" unique="false">
-            <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="benoemd_terrein_benoem_archief" numRows="0" remarks="N - N relatie: BENOEMD TERREIN &quot;is ontstaan uit / overgegaan in&quot; BENOEMD TERREIN" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_btr_sc_identif" nullable="false" remarks="[FK] AN16, FK naar benoemd_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_btr_dat_beg_geldh" nullable="false" remarks="[FK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_btr_sc_identif" nullable="false" remarks="[FK] AN16, FK naar benoemd_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar"/>
-         <primaryKey column="fk_nn_lh_btr_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_lh_btr_dat_beg_geldh" sequenceNumberInPK="2"/>
-         <primaryKey column="fk_nn_rh_btr_sc_identif" sequenceNumberInPK="3"/>
-         <index name="ar_benoemd_terrein_benoemd__pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_btr_sc_identif"/>
-            <column ascending="true" name="fk_nn_lh_btr_dat_beg_geldh"/>
-            <column ascending="true" name="fk_nn_rh_btr_sc_identif"/>
-         </index>
-      </table>
-      <table name="benoemd_terrein_benoemd_terrei" numRows="0" remarks="N - N relatie: BENOEMD TERREIN &quot;is ontstaan uit / overgegaan in&quot; BENOEMD TERREIN" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_btr_sc_identif" nullable="false" remarks="[FK] AN16, FK naar benoemd_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_btr_btr_nn_lh" implied="false" onDeleteCascade="true" table="benoemd_terrein"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_btr_dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_btr_sc_identif" nullable="false" remarks="[FK] AN16, FK naar benoemd_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_btr_btr_nn_rh" implied="false" onDeleteCascade="true" table="benoemd_terrein"/>
-         </column>
-         <primaryKey column="fk_nn_lh_btr_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_btr_sc_identif" sequenceNumberInPK="2"/>
-         <index name="benoemd_terrein_benoemd_ter_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_btr_sc_identif"/>
-            <column ascending="true" name="fk_nn_rh_btr_sc_identif"/>
          </index>
       </table>
       <table name="brmo_metadata" numRows="7" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
@@ -473,74 +358,6 @@
             <column ascending="true" name="geom"/>
          </index>
       </table>
-      <table name="gebouwd_obj" numRows="0" remarks="RSGB class GEBOUWD OBJECT. Subclass van: BENOEMD OBJECT. Directe superclass van: OVERIG GEBOUWD OBJECT, VERBLIJFSOBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_obj.identif - Benoemd object identificatie" size="16" type="varchar">
-            <child column="fk_gbo_sc_identif" foreignKey="fk_gbo7" implied="false" onDeleteCascade="true" table="gebouwd_obj_gebruiksdoel"/>
-            <child column="sc_identif" foreignKey="fk_ogo_sc" implied="false" onDeleteCascade="true" table="overig_gebouwd_obj"/>
-            <child column="sc_identif" foreignKey="fk_vbo_sc" implied="false" onDeleteCascade="true" table="verblijfsobj"/>
-            <parent column="identif" foreignKey="fk_gbo_sc" implied="false" onDeleteCascade="true" table="benoemd_obj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="2" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="bouwk_best_act" nullable="true" remarks="[Enumeratie] - Bouwkundige bestemming actueel" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="bruto_inhoud" nullable="true" remarks="N6 - Bruto inhoud" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="5" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid gebouwd object" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="inwwijze_oppervlakte" nullable="true" remarks="AN24 - Inwinningswijze oppervlakte" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="oppervlakte_obj" nullable="true" remarks="N6 - Oppervlakte (verblijfs)object" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="status_voortgang_bouw" nullable="true" remarks="long - Status voortgang bouw" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="9" name="vlakgeom" nullable="true" remarks="GM_Surface - Gebouwd object vlakgeometrie" size="2147483647" type="geometry"/>
-         <column autoUpdated="false" digits="0" id="10" name="puntgeom" nullable="true" remarks="GM_Point - Gebouwd objectpuntgeometrie" size="2147483647" type="geometry"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="gebouwd_obj_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-         <index name="gebouwd_obj_puntgeom_idx" unique="false">
-            <column ascending="true" name="puntgeom"/>
-         </index>
-         <index name="gebouwd_obj_vlakgeom_idx" unique="false">
-            <column ascending="true" name="vlakgeom"/>
-         </index>
-      </table>
-      <table name="gebouwd_obj_archief" numRows="0" remarks="RSGB class GEBOUWD OBJECT. Subclass van: BENOEMD OBJECT. Directe superclass van: OVERIG GEBOUWD OBJECT, VERBLIJFSOBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid gebouwd object" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_obj.identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="bouwk_best_act" nullable="true" remarks="[Enumeratie] - Bouwkundige bestemming actueel" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="bruto_inhoud" nullable="true" remarks="N6 - Bruto inhoud" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="5" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid gebouwd object" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="inwwijze_oppervlakte" nullable="true" remarks="AN24 - Inwinningswijze oppervlakte" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="oppervlakte_obj" nullable="true" remarks="N6 - Oppervlakte (verblijfs)object" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="status_voortgang_bouw" nullable="true" remarks="long - Status voortgang bouw" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="9" name="vlakgeom" nullable="true" remarks="GM_Surface - Gebouwd object vlakgeometrie" size="2147483647" type="geometry"/>
-         <column autoUpdated="false" digits="0" id="10" name="puntgeom" nullable="true" remarks="GM_Point - Gebouwd objectpuntgeometrie" size="2147483647" type="geometry"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_gebouwd_obj_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-         <index name="gebouwd_obj_archief_puntgeom_idx" unique="false">
-            <column ascending="true" name="puntgeom"/>
-         </index>
-         <index name="gebouwd_obj_archief_vlakgeom_idx" unique="false">
-            <column ascending="true" name="vlakgeom"/>
-         </index>
-      </table>
-      <table name="gebouwd_obj_gebruiksdoel" numRows="0" remarks="RSGB class voor een-op-meer kolom GEBOUWD OBJECT Gebruiksdoel gebouwd object" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="gebruiksdoel_gebouwd_obj" nullable="false" remarks="AN80 - Gebruiksdoel gebouwd object" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_gbo_sc_identif" nullable="false" remarks="[FK] AN16, FK naar gebouwd_obj.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_gbo7" implied="false" onDeleteCascade="true" table="gebouwd_obj"/>
-         </column>
-         <primaryKey column="gebruiksdoel_gebouwd_obj" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_gbo_sc_identif" sequenceNumberInPK="2"/>
-         <index name="pk_geb_obj_gebr_doel" unique="true">
-            <column ascending="true" name="gebruiksdoel_gebouwd_obj"/>
-            <column ascending="true" name="fk_gbo_sc_identif"/>
-         </index>
-         <index name="idx_gebrdoel" unique="false">
-            <column ascending="true" name="fk_gbo_sc_identif"/>
-         </index>
-      </table>
       <table name="gebouwinstallatie" numRows="0" remarks="RSGB class GEBOUWINSTALLATIE" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] NEN3610ID - Identificatie gebouwinstallatie" size="255" type="varchar"/>
@@ -575,46 +392,11 @@
             <column ascending="true" name="geom"/>
          </index>
       </table>
-      <table name="gem_openb_rmte" numRows="0" remarks="RSGB class GEMEENTELIJKE OPENBARE RUIMTE" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identifcode" nullable="false" remarks="[PK] AN16 - Identificatiecode gemeentelijke openbare ruimte" size="16" type="varchar">
-            <child column="fk_nn_rh_gor_identifcode" foreignKey="fk_opr_gor_nn_rh" implied="false" onDeleteCascade="true" table="openb_rmte_gem_openb_rmte"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid gemeentelijke openbare ruimte" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="indic_geconst_openb_rmte" nullable="true" remarks="AN1 - Indicatie geconstateerde openbare ruimte" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="naam_openb_rmte" nullable="true" remarks="AN80 - Naam openbare ruimte" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="status_openb_rmte" nullable="true" remarks="AN80 - Status openbare ruimte" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="straatnaam" nullable="true" remarks="AN24 - Straatnaam" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="type_openb_rmte" nullable="true" remarks="AN40 - Type openbare ruimte" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="fk_7gem_code" nullable="true" remarks="[FK] N4, FK naar gemeente.code: &quot;ligt in&quot;" size="4" type="numeric"/>
-         <primaryKey column="identifcode" sequenceNumberInPK="1"/>
-         <index name="gem_openb_rmte_pk" unique="true">
-            <column ascending="true" name="identifcode"/>
-         </index>
-      </table>
-      <table name="gem_openb_rmte_archief" numRows="0" remarks="RSGB class GEMEENTELIJKE OPENBARE RUIMTE" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid gemeentelijke openbare ruimte" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identifcode" nullable="false" remarks="[PK] AN16 - Identificatiecode gemeentelijke openbare ruimte" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid gemeentelijke openbare ruimte" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="indic_geconst_openb_rmte" nullable="true" remarks="AN1 - Indicatie geconstateerde openbare ruimte" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="naam_openb_rmte" nullable="true" remarks="AN80 - Naam openbare ruimte" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="status_openb_rmte" nullable="true" remarks="AN80 - Status openbare ruimte" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="straatnaam" nullable="true" remarks="AN24 - Straatnaam" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="type_openb_rmte" nullable="true" remarks="AN40 - Type openbare ruimte" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="fk_7gem_code" nullable="true" remarks="[FK] N4, FK naar gemeente.code: &quot;ligt in&quot;" size="4" type="numeric"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="identifcode" sequenceNumberInPK="2"/>
-         <index name="ar_gem_openb_rmte_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="identifcode"/>
-         </index>
-      </table>
       <table name="gemeente" numRows="345" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="[PK] N4 - Gemeentecode" size="4" type="numeric">
             <child column="fk_nn_lh_gem_code" foreignKey="fk_gem_gem_nn_lh" implied="false" onDeleteCascade="true" table="gemeente_gemeente"/>
             <child column="fk_nn_rh_gem_code" foreignKey="fk_gem_gem_nn_rh" implied="false" onDeleteCascade="true" table="gemeente_gemeente"/>
-            <child column="fk_7gem_code" foreignKey="fk_wpl_as_7" implied="false" onDeleteCascade="false" table="wnplts"/>
          </column>
          <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid gemeente" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="3" name="naam" nullable="true" remarks="AN40 - Gemeentenaam" size="40" type="varchar"/>
@@ -1197,62 +979,6 @@
             <column ascending="true" name="code_iso"/>
          </index>
       </table>
-      <table name="ligplaats" numRows="0" remarks="RSGB class LIGPLAATS. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_terrein.sc_identif - Benoemd object identificatie" size="16" type="varchar">
-            <child column="fk_nn_lh_lpl_sc_identif" foreignKey="fk_lpl_nra_nn_lh" implied="false" onDeleteCascade="true" table="ligplaats_nummeraand"/>
-            <parent column="sc_identif" foreignKey="fk_lpl_sc" implied="false" onDeleteCascade="true" table="benoemd_terrein"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde ligplaats" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="AN80 - Ligplaatsstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="fk_4nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als hoofdadres&quot;" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_lpl_as_4" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="ligplaats_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="ligplaats_archief" numRows="0" remarks="RSGB class LIGPLAATS. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh - Datum begin geldigheid benoemd terrein" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_terrein.sc_identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde ligplaats" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="status" nullable="true" remarks="AN80 - Ligplaatsstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="fk_4nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als hoofdadres&quot;" size="16" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_ligplaats_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="ligplaats_nummeraand" numRows="0" remarks="N - N relatie: LIGPLAATS &quot;heeft als nevenadressen&quot; NUMMERAANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_lpl_sc_identif" nullable="false" remarks="[FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_lpl_nra_nn_lh" implied="false" onDeleteCascade="true" table="ligplaats"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_lpl_sc_dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_nra_sc_identif" nullable="false" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_lpl_nra_nn_rh" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <primaryKey column="fk_nn_lh_lpl_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_nra_sc_identif" sequenceNumberInPK="2"/>
-         <index name="ligplaats_nummeraand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_lpl_sc_identif"/>
-            <column ascending="true" name="fk_nn_rh_nra_sc_identif"/>
-         </index>
-      </table>
-      <table name="ligplaats_nummeraand_archief" numRows="0" remarks="N - N relatie: LIGPLAATS &quot;heeft als nevenadressen&quot; NUMMERAANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_lpl_sc_identif" nullable="false" remarks="[FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_lpl_sc_dat_beg_geldh" nullable="false" remarks="[FK] OnvolledigeDatum, FK naar ligplaats.sc_dat_beg_geldh (is FK naar superclass BENOEMD TERREIN)" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_nra_sc_identif" nullable="false" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)" size="16" type="varchar"/>
-         <primaryKey column="fk_nn_lh_lpl_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_lh_lpl_sc_dat_beg_geldh" sequenceNumberInPK="2"/>
-         <primaryKey column="fk_nn_rh_nra_sc_identif" sequenceNumberInPK="3"/>
-         <index name="ar_ligplaats_nummeraand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_lpl_sc_identif"/>
-            <column ascending="true" name="fk_nn_lh_lpl_sc_dat_beg_geldh"/>
-            <column ascending="true" name="fk_nn_rh_nra_sc_identif"/>
-         </index>
-      </table>
       <table name="locaand_adres" numRows="0" remarks="RSGB superclass LOCATIEAANDUIDING ADRES" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="fk_sc_lh_aoa_identif" nullable="false" remarks="[FK] AN16, FK naar addresseerb_obj_aand.identif" size="16" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="fk_sc_rh_woz_nummer" nullable="false" remarks="[FK] N12, FK naar woz_obj.nummer" size="12" type="numeric">
@@ -1395,38 +1121,6 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="nummeraand" numRows="0" remarks="RSGB class NUMMERAANDUIDING. Subclass van: ADRESSEERBAAR OBJECT AANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar addresseerb_obj_aand.identif - Identificatie adresseerbaar object aanduiding" size="16" type="varchar">
-            <child column="fk_4nra_sc_identif" foreignKey="fk_lpl_as_4" implied="false" onDeleteCascade="true" table="ligplaats"/>
-            <child column="fk_nn_rh_nra_sc_identif" foreignKey="fk_lpl_nra_nn_rh" implied="false" onDeleteCascade="true" table="ligplaats_nummeraand"/>
-            <child column="fk_5nra_sc_identif" foreignKey="fk_ogo_as_5" implied="false" onDeleteCascade="true" table="overig_gebouwd_obj"/>
-            <child column="fk_4nra_sc_identif" foreignKey="fk_spl_as_4" implied="false" onDeleteCascade="true" table="standplaats"/>
-            <child column="fk_nn_rh_nra_sc_identif" foreignKey="fk_spl_nra_nn_rh" implied="false" onDeleteCascade="true" table="standplaats_nummeraand"/>
-            <child column="fk_11nra_sc_identif" foreignKey="fk_vbo_as_11" implied="false" onDeleteCascade="true" table="verblijfsobj"/>
-            <child column="fk_nn_rh_nra_sc_identif" foreignKey="fk_vbo_nra_nn_rh" implied="false" onDeleteCascade="true" table="verblijfsobj_nummeraand"/>
-            <parent column="identif" foreignKey="fk_nra_sc" implied="false" onDeleteCascade="true" table="addresseerb_obj_aand"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde nummeraanduiding" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="indic_hoofdadres" nullable="true" remarks="boolean - Indicatie hoofdadres" size="1" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="status" nullable="true" remarks="AN80 - Nummeraanduidingstatus" size="80" type="varchar"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="nummeraand_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="nummeraand_archief" numRows="0" remarks="RSGB class NUMMERAANDUIDING. Subclass van: ADRESSEERBAAR OBJECT AANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar addresseerb_obj_aand.dat_beg_geldh - Datum begin geldigheid addresserbaar object aanduiding" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar addresseerb_obj_aand.identif - Identificatie adresseerbaar object aanduiding" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde nummeraanduiding" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="indic_hoofdadres" nullable="true" remarks="boolean - Indicatie hoofdadres" size="1" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="status" nullable="true" remarks="AN80 - Nummeraanduidingstatus" size="80" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_nummeraand_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
       <table name="onbegr_terr_dl" numRows="0" remarks="RSGB class ONBEGROEID TERREINDEEL. Directe superclass van: ONBEGROEID TERREINVAKONDERDEEL" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] NEN3610ID - Identificatie onbegroeid terreindeel" size="255" type="varchar">
@@ -1554,50 +1248,6 @@
             <column ascending="true" name="kvk_nummer"/>
          </index>
       </table>
-      <table name="openb_rmte" numRows="0" remarks="RSGB class OPENBARE RUIMTE" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="identifcode" nullable="false" remarks="[PK] AN16 - Identificatiecode openbare ruimte" size="16" type="varchar">
-            <child column="fk_7opr_identifcode" foreignKey="fk_aoa_as_7" implied="false" onDeleteCascade="true" table="addresseerb_obj_aand"/>
-            <child column="fk_nn_lh_opr_identifcode" foreignKey="fk_opr_gor_nn_lh" implied="false" onDeleteCascade="true" table="openb_rmte_gem_openb_rmte"/>
-            <child column="fk_nn_lh_opr_identifcode" foreignKey="fk_opr_wpl_nn_lh" implied="false" onDeleteCascade="true" table="openb_rmte_wnplts"/>
-            <child column="fk_6opr_identifcode" foreignKey="fk_ogo_as_6" implied="false" onDeleteCascade="true" table="overig_gebouwd_obj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="huisnrrange_on_even_nummers" nullable="true" remarks="AN11 (NNNNN-NNNNN) - Huisnummerrange even en oneven nummers" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="huisnrrange_even_nummers" nullable="true" remarks="AN11 (NNNNN-NNNNN) - Huisnummerrange even nummers" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="huisnrrange_oneven_nummers" nullable="true" remarks="AN11 (NNNNN-NNNNN) - Huisnummerrange oneven nummers" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="identif_bgtopr" nullable="true" remarks="NEN3610ID - Identificatie BGTOPR" size="255" type="varchar"/>
-         <primaryKey column="identifcode" sequenceNumberInPK="1"/>
-         <index name="openb_rmte_pk" unique="true">
-            <column ascending="true" name="identifcode"/>
-         </index>
-      </table>
-      <table name="openb_rmte_gem_openb_rmte" numRows="0" remarks="N - N relatie: OPENBARE RUIMTE &quot;maakt deel uit van&quot; GEMEENTELIJKE OPENBARE RUIMTE" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_opr_identifcode" nullable="false" remarks="[FK] AN16, FK naar openb_rmte.identifcode" size="16" type="varchar">
-            <parent column="identifcode" foreignKey="fk_opr_gor_nn_lh" implied="false" onDeleteCascade="true" table="openb_rmte"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_rh_gor_identifcode" nullable="false" remarks="[FK] AN16, FK naar gem_openb_rmte.identifcode" size="16" type="varchar">
-            <parent column="identifcode" foreignKey="fk_opr_gor_nn_rh" implied="false" onDeleteCascade="true" table="gem_openb_rmte"/>
-         </column>
-         <primaryKey column="fk_nn_lh_opr_identifcode" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_gor_identifcode" sequenceNumberInPK="2"/>
-         <index name="openb_rmte_gem_openb_rmte_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_opr_identifcode"/>
-            <column ascending="true" name="fk_nn_rh_gor_identifcode"/>
-         </index>
-      </table>
-      <table name="openb_rmte_wnplts" numRows="0" remarks="N - N relatie: OPENBARE RUIMTE &quot;ligt in&quot; WOONPLAATS" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_opr_identifcode" nullable="false" remarks="[FK] AN16, FK naar openb_rmte.identifcode" size="16" type="varchar">
-            <parent column="identifcode" foreignKey="fk_opr_wpl_nn_lh" implied="false" onDeleteCascade="true" table="openb_rmte"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_rh_wpl_identif" nullable="false" remarks="[FK] AN4, FK naar wnplts.identif" size="4" type="varchar">
-            <parent column="identif" foreignKey="fk_opr_wpl_nn_rh" implied="false" onDeleteCascade="false" table="wnplts"/>
-         </column>
-         <primaryKey column="fk_nn_lh_opr_identifcode" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_wpl_identif" sequenceNumberInPK="2"/>
-         <index name="openb_rmte_wnplts_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_opr_identifcode"/>
-            <column ascending="true" name="fk_nn_rh_wpl_identif"/>
-         </index>
-      </table>
       <table name="ouder_kind_rel" numRows="0" remarks="RSGB superclass OUDER-KIND-RELATIE" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="fk_sc_lh_inp_sc_identif" nullable="false" remarks="[FK] AN32, FK naar ingeschr_nat_prs.sc_identif (is FK naar superclass SUBJECT)" size="255" type="varchar">
             <parent column="sc_identif" foreignKey="fk_ouder_kind_rel_sc_lh" implied="false" onDeleteCascade="true" table="ingeschr_nat_prs"/>
@@ -1613,128 +1263,6 @@
          <index name="ouder_kind_rel_pk" unique="true">
             <column ascending="true" name="fk_sc_lh_inp_sc_identif"/>
             <column ascending="true" name="fk_sc_rh_inp_sc_identif"/>
-         </index>
-      </table>
-      <table name="overig_bouwwerk" numRows="0" remarks="RSGB class OVERIG BOUWWERK" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] NEN3610ID - Identificatie overig bouwwerk" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid overig bouwwerk" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="relve_hoogteligging" nullable="true" remarks="N1 - Relatieve hoogteligging overig bouwwerk" size="1" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="status" nullable="true" remarks="A8 - Status overig bouwwerk" size="8" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="type" nullable="true" remarks="AN40 - Type overig bouwwerk" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="geom" nullable="true" remarks="GM_Surface - Geometrie overig bouwwerk" size="2147483647" type="geometry"/>
-         <primaryKey column="identif" sequenceNumberInPK="1"/>
-         <index name="overig_bouwwerk_pk" unique="true">
-            <column ascending="true" name="identif"/>
-         </index>
-         <index name="overig_bouwwerk_geom_idx" unique="false">
-            <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="overig_bouwwerk_archief" numRows="0" remarks="RSGB class OVERIG BOUWWERK" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid overig bouwwerk" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] NEN3610ID - Identificatie overig bouwwerk" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid overig bouwwerk" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="relve_hoogteligging" nullable="true" remarks="N1 - Relatieve hoogteligging overig bouwwerk" size="1" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="status" nullable="true" remarks="A8 - Status overig bouwwerk" size="8" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="type" nullable="true" remarks="AN40 - Type overig bouwwerk" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="geom" nullable="true" remarks="GM_Surface - Geometrie overig bouwwerk" size="2147483647" type="geometry"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="identif" sequenceNumberInPK="2"/>
-         <index name="ar_overig_bouwwerk_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="identif"/>
-         </index>
-         <index name="overig_bouwwerk_archief_geom_idx" unique="false">
-            <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="overig_gebouwd_obj" numRows="0" remarks="RSGB class OVERIG GEBOUWD OBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar gebouwd_obj.sc_identif - Benoemd object identificatie" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_ogo_sc" implied="false" onDeleteCascade="true" table="gebouwd_obj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="bouwjaar" nullable="true" remarks="N4 - Bouwjaar" size="4" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="loc_aand" nullable="true" remarks="AN40 - Overig gebouwd object locatie-aanduiding" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="type" nullable="true" remarks="AN40 - Overig gebouwd object type" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="fk_4oao_sc_identif" nullable="true" remarks="[FK] AN16, FK naar ovrg_addresseerb_obj_aand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als officieel adres&quot;" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_ogo_as_4" implied="false" onDeleteCascade="true" table="ovrg_addresseerb_obj_aand"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="5" name="fk_5nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft locatie-adres i.c.m.&quot;" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_ogo_as_5" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="6" name="fk_6opr_identifcode" nullable="true" remarks="[FK] AN16, FK naar openb_rmte.identifcode: &quot;heeft straatadres i.c.m.&quot;" size="16" type="varchar">
-            <parent column="identifcode" foreignKey="fk_ogo_as_6" implied="false" onDeleteCascade="true" table="openb_rmte"/>
-         </column>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="overig_gebouwd_obj_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="overig_gebouwd_obj_archief" numRows="0" remarks="RSGB class OVERIG GEBOUWD OBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar gebouwd_obj.dat_beg_geldh - Datum begin geldigheid gebouwd object" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar gebouwd_obj.sc_identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="bouwjaar" nullable="true" remarks="N4 - Bouwjaar" size="4" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="3" name="loc_aand" nullable="true" remarks="AN40 - Overig gebouwd object locatie-aanduiding" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="type" nullable="true" remarks="AN40 - Overig gebouwd object type" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="fk_4oao_sc_identif" nullable="true" remarks="[FK] AN16, FK naar ovrg_addresseerb_obj_aand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als officieel adres&quot;" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="fk_5nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft locatie-adres i.c.m.&quot;" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="fk_6opr_identifcode" nullable="true" remarks="[FK] AN16, FK naar openb_rmte.identifcode: &quot;heeft straatadres i.c.m.&quot;" size="16" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_overig_gebouwd_obj_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="overig_terrein" numRows="0" remarks="RSGB class OVERIG TERREIN. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_terrein.sc_identif - Benoemd object identificatie" size="16" type="varchar">
-            <child column="fk_otr_sc_identif" foreignKey="fk_otr1" implied="false" onDeleteCascade="true" table="overig_terrein_gebruiksdoel"/>
-            <parent column="sc_identif" foreignKey="fk_otr_sc" implied="false" onDeleteCascade="true" table="benoemd_terrein"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_2oao_sc_identif" nullable="true" remarks="[FK] AN16, FK naar ovrg_addresseerb_obj_aand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als officieel adres&quot;" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_otr_as_2" implied="false" onDeleteCascade="true" table="ovrg_addresseerb_obj_aand"/>
-         </column>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="overig_terrein_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="overig_terrein_archief" numRows="0" remarks="RSGB class OVERIG TERREIN. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh - Datum begin geldigheid benoemd terrein" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_terrein.sc_identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_2oao_sc_identif" nullable="true" remarks="[FK] AN16, FK naar ovrg_addresseerb_obj_aand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als officieel adres&quot;" size="16" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_overig_terrein_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="overig_terrein_gebruiksdoel" numRows="0" remarks="RSGB class voor een-op-meer kolom OVERIG TERREIN Gebruiksdoel overig terrein" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="gebruiksdoel_overig_terrein" nullable="true" remarks="AN80 - Gebruiksdoel overig terrein" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_otr_sc_identif" nullable="true" remarks="[FK] AN16, FK naar overig_terrein.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_otr1" implied="false" onDeleteCascade="true" table="overig_terrein"/>
-         </column>
-      </table>
-      <table name="ovrg_addresseerb_obj_a_archief" numRows="0" remarks="RSGB class OVERIGE ADRESSEERBAAR OBJECT AANDUIDING. Subclass van: ADRESSEERBAAR OBJECT AANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar addresseerb_obj_aand.dat_beg_geldh - Datum begin geldigheid addresserbaar object aanduiding" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar addresseerb_obj_aand.identif - Identificatie adresseerbaar object aanduiding" size="16" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_ovrg_addresseerb_obj_aan_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="ovrg_addresseerb_obj_aand" numRows="0" remarks="RSGB class OVERIGE ADRESSEERBAAR OBJECT AANDUIDING. Subclass van: ADRESSEERBAAR OBJECT AANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar addresseerb_obj_aand.identif - Identificatie adresseerbaar object aanduiding" size="16" type="varchar">
-            <child column="fk_4oao_sc_identif" foreignKey="fk_ogo_as_4" implied="false" onDeleteCascade="true" table="overig_gebouwd_obj"/>
-            <child column="fk_2oao_sc_identif" foreignKey="fk_otr_as_2" implied="false" onDeleteCascade="true" table="overig_terrein"/>
-            <parent column="identif" foreignKey="fk_oao_sc" implied="false" onDeleteCascade="true" table="addresseerb_obj_aand"/>
-         </column>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="ovrg_addresseerb_obj_aand_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
          </index>
       </table>
       <table name="ovrg_scheiding" numRows="0" remarks="RSGB class OVERIGE SCHEIDING" schema="public" type="TABLE">
@@ -1769,68 +1297,6 @@
          </index>
          <index name="ovrg_scheiding_archief_geom_idx" unique="false">
             <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="pand" numRows="0" remarks="RSGB class PAND" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] AN16 - Pandidentificatie" size="16" type="varchar">
-            <child column="fk_nn_rh_pnd_identif" foreignKey="fk_vbo_pnd_nn_rh" implied="false" onDeleteCascade="true" table="verblijfsobj_pand"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="2" name="bruto_inhoud" nullable="true" remarks="N6 - Bruto inhoud pand" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid pand" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="hoogste_bouwlaag" nullable="true" remarks="N3 - Hoogste bouwlaag pand" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="5" name="identif_bgtpnd" nullable="true" remarks="NEN3610ID - Identificatie BGTPND" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="indic_geconstateerd" nullable="true" remarks="AN1 - Indicatie geconstateerd pand" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="inwwijze_geom_bovenaanzicht" nullable="true" remarks="AN24 - Inwinningswijze geometrie bovenaanzicht" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="inwwijze_geom_maaiveld" nullable="true" remarks="AN24 - Inwinningswijze geometrie maaiveld" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="laagste_bouwlaag" nullable="true" remarks="N3 - Laagste bouwlaag pand" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="10" name="oorspronkelijk_bouwjaar" nullable="true" remarks="N4 - Oorspronkelijk bouwjaar pand" size="4" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="11" name="oppervlakte" nullable="true" remarks="N6 - Oppervlakte pand" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="12" name="status" nullable="true" remarks="AN80 - Pandstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="relve_hoogteligging" nullable="true" remarks="N1 - Relatieve hoogteligging pand" size="1" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="14" name="status_voortgang_bouw" nullable="true" remarks="AN24 - Status voortgang bouw" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="geom_bovenaanzicht" nullable="true" remarks="GM_Surface - Pandgeometrie bovenaanzicht" size="2147483647" type="geometry"/>
-         <column autoUpdated="false" digits="0" id="16" name="geom_maaiveld" nullable="true" remarks="GM_MultiSurface - Pandgeometrie maaiveld" size="2147483647" type="geometry"/>
-         <primaryKey column="identif" sequenceNumberInPK="1"/>
-         <index name="pand_pk" unique="true">
-            <column ascending="true" name="identif"/>
-         </index>
-         <index name="pand_geom_bovenaanzicht_idx" unique="false">
-            <column ascending="true" name="geom_bovenaanzicht"/>
-         </index>
-         <index name="pand_geom_maaiveld_idx" unique="false">
-            <column ascending="true" name="geom_maaiveld"/>
-         </index>
-      </table>
-      <table name="pand_archief" numRows="0" remarks="RSGB class PAND" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid pand" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] AN16 - Pandidentificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="bruto_inhoud" nullable="true" remarks="N6 - Bruto inhoud pand" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid pand" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="hoogste_bouwlaag" nullable="true" remarks="N3 - Hoogste bouwlaag pand" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="5" name="identif_bgtpnd" nullable="true" remarks="NEN3610ID - Identificatie BGTPND" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="indic_geconstateerd" nullable="true" remarks="AN1 - Indicatie geconstateerd pand" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="inwwijze_geom_bovenaanzicht" nullable="true" remarks="AN24 - Inwinningswijze geometrie bovenaanzicht" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="inwwijze_geom_maaiveld" nullable="true" remarks="AN24 - Inwinningswijze geometrie maaiveld" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="laagste_bouwlaag" nullable="true" remarks="N3 - Laagste bouwlaag pand" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="10" name="oorspronkelijk_bouwjaar" nullable="true" remarks="N4 - Oorspronkelijk bouwjaar pand" size="4" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="11" name="oppervlakte" nullable="true" remarks="N6 - Oppervlakte pand" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="12" name="status" nullable="true" remarks="AN80 - Pandstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="relve_hoogteligging" nullable="true" remarks="N1 - Relatieve hoogteligging pand" size="1" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="14" name="status_voortgang_bouw" nullable="true" remarks="AN24 - Status voortgang bouw" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="geom_bovenaanzicht" nullable="true" remarks="GM_Surface - Pandgeometrie bovenaanzicht" size="2147483647" type="geometry"/>
-         <column autoUpdated="false" digits="0" id="16" name="geom_maaiveld" nullable="true" remarks="GM_MultiSurface - Pandgeometrie maaiveld" size="2147483647" type="geometry"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="identif" sequenceNumberInPK="2"/>
-         <index name="ar_pand_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="identif"/>
-         </index>
-         <index name="pand_archief_geom_bovenaanzicht_idx" unique="false">
-            <column ascending="true" name="geom_bovenaanzicht"/>
-         </index>
-         <index name="pand_archief_geom_maaiveld_idx" unique="false">
-            <column ascending="true" name="geom_maaiveld"/>
          </index>
       </table>
       <table name="prs" numRows="0" remarks="RSGB class PERSOON. Subclass van: SUBJECT. Directe superclass van: NATUURLIJK PERSOON, NIET-NATUURLIJK PERSOON" schema="public" type="TABLE">
@@ -2021,62 +1487,6 @@
             <column ascending="true" name="geom"/>
          </index>
       </table>
-      <table name="standplaats" numRows="0" remarks="RSGB class STANDPLAATS. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_terrein.sc_identif - Benoemd object identificatie" size="16" type="varchar">
-            <child column="fk_nn_lh_spl_sc_identif" foreignKey="fk_spl_nra_nn_lh" implied="false" onDeleteCascade="true" table="standplaats_nummeraand"/>
-            <parent column="sc_identif" foreignKey="fk_spl_sc" implied="false" onDeleteCascade="true" table="benoemd_terrein"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde standplaats" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="status" nullable="true" remarks="AN80 - Standplaatsstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="fk_4nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als hoofdadres&quot;" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_spl_as_4" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="standplaats_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="standplaats_archief" numRows="0" remarks="RSGB class STANDPLAATS. Subclass van: BENOEMD TERREIN -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar benoemd_terrein.dat_beg_geldh - Datum begin geldigheid benoemd terrein" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar benoemd_terrein.sc_identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde standplaats" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="status" nullable="true" remarks="AN80 - Standplaatsstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="fk_4nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als hoofdadres&quot;" size="16" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_standplaats_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="standplaats_nummeraand" numRows="0" remarks="N - N relatie: STANDPLAATS &quot;heeft als nevenadressen&quot; NUMMERAANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_spl_sc_identif" nullable="false" remarks="[FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_spl_nra_nn_lh" implied="false" onDeleteCascade="true" table="standplaats"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_spl_sc_dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_nra_sc_identif" nullable="false" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_spl_nra_nn_rh" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <primaryKey column="fk_nn_lh_spl_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_nra_sc_identif" sequenceNumberInPK="2"/>
-         <index name="standplaats_nummeraand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_spl_sc_identif"/>
-            <column ascending="true" name="fk_nn_rh_nra_sc_identif"/>
-         </index>
-      </table>
-      <table name="standplaats_nummeraand_archief" numRows="0" remarks="N - N relatie: STANDPLAATS &quot;heeft als nevenadressen&quot; NUMMERAANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_spl_sc_identif" nullable="false" remarks="[FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_spl_sc_dat_beg_geldh" nullable="false" remarks="[FK] OnvolledigeDatum, FK naar standplaats.sc_dat_beg_geldh (is FK naar superclass BENOEMD TERREIN)" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_nra_sc_identif" nullable="false" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)" size="16" type="varchar"/>
-         <primaryKey column="fk_nn_lh_spl_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_lh_spl_sc_dat_beg_geldh" sequenceNumberInPK="2"/>
-         <primaryKey column="fk_nn_rh_nra_sc_identif" sequenceNumberInPK="3"/>
-         <index name="ar_standplaats_nummeraand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_spl_sc_identif"/>
-            <column ascending="true" name="fk_nn_lh_spl_sc_dat_beg_geldh"/>
-            <column ascending="true" name="fk_nn_rh_nra_sc_identif"/>
-         </index>
-      </table>
       <table name="subject" numRows="0" remarks="RSGB class SUBJECT. Directe superclass van: PERSOON, VESTIGING" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identif" nullable="false" remarks="[PK] AN32 - Identificatie" size="255" type="varchar">
             <child column="sc_identif" foreignKey="fk_pes_sc" implied="false" onDeleteCascade="true" table="prs"/>
@@ -2111,38 +1521,6 @@
             <column ascending="true" name="identif"/>
          </index>
       </table>
-      <table name="vb_ligplaats_adres" numRows="0" remarks="commentaar view vb_ligplaats_adres:&#10;ligplaats met adres en puntlocatie&#10;&#10;beschikbare kolommen:&#10;* lpl_identif: natuurlijke id van ligplaats      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="lpl_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid_datum" nullable="true" remarks="" size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="3" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="na_status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="9" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_standplaats_adres" numRows="0" remarks="commentaar view vb_standplaats_adres:&#10;standplaats met adres en puntlocatie&#10;&#10;beschikbare kolommen:&#10;* spl_identif: natuurlijke id van standplaats      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="spl_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid_datum" nullable="true" remarks="" size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="3" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="na_status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="9" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
       <table name="vb_util_app_re_parent" numRows="0" remarks="" schema="public" type="VIEW">
          <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
          <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="2147483647" type="text"/>
@@ -2171,122 +1549,6 @@
          <column autoUpdated="false" digits="0" id="8" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="200" type="varchar"/>
          <column autoUpdated="false" digits="0" id="9" name="fk_3avr_aand" nullable="true" remarks="" size="6" type="varchar"/>
          <column autoUpdated="false" digits="0" id="10" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
-      </table>
-      <table name="vb_vbo_adres" numRows="0" remarks="commentaar view vb_vbo_adres:&#10;vbo met adres, puntlocatie en referentie naar pand&#10;&#10;beschikbare kolommen:&#10;* vbo_identif: natuurlijke id van vbo      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="vbo_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid_datum" nullable="true" remarks="" size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="3" name="pand_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="na_status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="10" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="gebruiksdoelen" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="15" name="oppervlakte_obj" nullable="true" remarks="" size="6" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="16" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="verblijfsobj" numRows="0" remarks="RSGB class VERBLIJFSOBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar gebouwd_obj.sc_identif - Benoemd object identificatie" size="16" type="varchar">
-            <child column="fk_nn_lh_vbo_sc_identif" foreignKey="fk_vbo_nra_nn_lh" implied="false" onDeleteCascade="true" table="verblijfsobj_nummeraand"/>
-            <child column="fk_nn_lh_vbo_sc_identif" foreignKey="fk_vbo_pnd_nn_lh" implied="false" onDeleteCascade="true" table="verblijfsobj_pand"/>
-            <parent column="sc_identif" foreignKey="fk_vbo_sc" implied="false" onDeleteCascade="true" table="gebouwd_obj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="aantal_kamers" nullable="true" remarks="N2 - Aantal kamers" size="2" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="hoogste_bouwlaag" nullable="true" remarks="N3 - Hoogste bouwlaag verblijfsobject" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="3" name="indic_geconstateerd" nullable="true" remarks="AN1 - Indicatie geconstateerd verblijfsobject" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="laagste_bouwlaag" nullable="true" remarks="N3 - Laagste bouwlaag verblijfsobject" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="5" name="ontsluiting_verdieping" nullable="true" remarks="AN3 - Ontsluiting verdieping" size="3" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="soort_woonobj" nullable="true" remarks="N1 - Soort woonobject" size="1" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="7" name="toegang_bouwlaag" nullable="true" remarks="N3 - Toegang bouwlaag verblijfsobject" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="status" nullable="true" remarks="AN80 - Verblijfsobjectstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="fk_11nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als hoofdadres&quot;" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_vbo_as_11" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
-         <index name="verblijfsobj_pk" unique="true">
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="verblijfsobj_archief" numRows="0" remarks="RSGB class VERBLIJFSOBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar gebouwd_obj.dat_beg_geldh - Datum begin geldigheid gebouwd object" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar gebouwd_obj.sc_identif - Benoemd object identificatie" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="aantal_kamers" nullable="true" remarks="N2 - Aantal kamers" size="2" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="3" name="hoogste_bouwlaag" nullable="true" remarks="N3 - Hoogste bouwlaag verblijfsobject" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="indic_geconstateerd" nullable="true" remarks="AN1 - Indicatie geconstateerd verblijfsobject" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="laagste_bouwlaag" nullable="true" remarks="N3 - Laagste bouwlaag verblijfsobject" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="6" name="ontsluiting_verdieping" nullable="true" remarks="AN3 - Ontsluiting verdieping" size="3" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="soort_woonobj" nullable="true" remarks="N1 - Soort woonobject" size="1" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="toegang_bouwlaag" nullable="true" remarks="N3 - Toegang bouwlaag verblijfsobject" size="3" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="9" name="status" nullable="true" remarks="AN80 - Verblijfsobjectstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="fk_11nra_sc_identif" nullable="true" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): &quot;heeft als hoofdadres&quot;" size="16" type="varchar"/>
-         <primaryKey column="sc_dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="sc_identif" sequenceNumberInPK="2"/>
-         <index name="ar_verblijfsobj_pk" unique="true">
-            <column ascending="true" name="sc_dat_beg_geldh"/>
-            <column ascending="true" name="sc_identif"/>
-         </index>
-      </table>
-      <table name="verblijfsobj_nummeraan_archief" numRows="0" remarks="N - N relatie: VERBLIJFSOBJECT &quot;heeft als nevenadres(sen)&quot; NUMMERAANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_vbo_sc_identif" nullable="false" remarks="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_vbo_sc_dat_beg_geldh" nullable="false" remarks="[FK] OnvolledigeDatum, FK naar verblijfsobj.sc_dat_beg_geldh (is FK naar superclass GEBOUWD OBJECT)" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_nra_sc_identif" nullable="false" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)" size="16" type="varchar"/>
-         <primaryKey column="fk_nn_lh_vbo_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_lh_vbo_sc_dat_beg_geldh" sequenceNumberInPK="2"/>
-         <primaryKey column="fk_nn_rh_nra_sc_identif" sequenceNumberInPK="3"/>
-         <index name="ar_verblijfsobj_nummeraand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_vbo_sc_identif"/>
-            <column ascending="true" name="fk_nn_lh_vbo_sc_dat_beg_geldh"/>
-            <column ascending="true" name="fk_nn_rh_nra_sc_identif"/>
-         </index>
-      </table>
-      <table name="verblijfsobj_nummeraand" numRows="0" remarks="N - N relatie: VERBLIJFSOBJECT &quot;heeft als nevenadres(sen)&quot; NUMMERAANDUIDING" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_vbo_sc_identif" nullable="false" remarks="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_vbo_nra_nn_lh" implied="false" onDeleteCascade="true" table="verblijfsobj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_vbo_sc_dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_nra_sc_identif" nullable="false" remarks="[FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_vbo_nra_nn_rh" implied="false" onDeleteCascade="true" table="nummeraand"/>
-         </column>
-         <primaryKey column="fk_nn_lh_vbo_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_nra_sc_identif" sequenceNumberInPK="2"/>
-         <index name="verblijfsobj_nummeraand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_vbo_sc_identif"/>
-            <column ascending="true" name="fk_nn_rh_nra_sc_identif"/>
-         </index>
-      </table>
-      <table name="verblijfsobj_pand" numRows="0" remarks="N - N relatie: VERBLIJFSOBJECT &quot;maakt deel uit van&quot; PAND" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_vbo_sc_identif" nullable="false" remarks="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar">
-            <parent column="sc_identif" foreignKey="fk_vbo_pnd_nn_lh" implied="false" onDeleteCascade="true" table="verblijfsobj"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_vbo_sc_dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_pnd_identif" nullable="false" remarks="[FK] AN16, FK naar pand.identif" size="16" type="varchar">
-            <parent column="identif" foreignKey="fk_vbo_pnd_nn_rh" implied="false" onDeleteCascade="true" table="pand"/>
-         </column>
-         <primaryKey column="fk_nn_lh_vbo_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_rh_pnd_identif" sequenceNumberInPK="2"/>
-         <index name="verblijfsobj_pand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_vbo_sc_identif"/>
-            <column ascending="true" name="fk_nn_rh_pnd_identif"/>
-         </index>
-      </table>
-      <table name="verblijfsobj_pand_archief" numRows="0" remarks="N - N relatie: VERBLIJFSOBJECT &quot;maakt deel uit van&quot; PAND" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="fk_nn_lh_vbo_sc_identif" nullable="false" remarks="[FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT)" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="fk_nn_lh_vbo_sc_dat_beg_geldh" nullable="false" remarks="[FK] OnvolledigeDatum, FK naar verblijfsobj.sc_dat_beg_geldh (is FK naar superclass GEBOUWD OBJECT)" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="fk_nn_rh_pnd_identif" nullable="false" remarks="[FK] AN16, FK naar pand.identif" size="16" type="varchar"/>
-         <primaryKey column="fk_nn_lh_vbo_sc_identif" sequenceNumberInPK="1"/>
-         <primaryKey column="fk_nn_lh_vbo_sc_dat_beg_geldh" sequenceNumberInPK="2"/>
-         <primaryKey column="fk_nn_rh_pnd_identif" sequenceNumberInPK="3"/>
-         <index name="ar_verblijfsobj_pand_pk" unique="true">
-            <column ascending="true" name="fk_nn_lh_vbo_sc_identif"/>
-            <column ascending="true" name="fk_nn_lh_vbo_sc_dat_beg_geldh"/>
-            <column ascending="true" name="fk_nn_rh_pnd_identif"/>
-         </index>
       </table>
       <table name="verblijfstitel" numRows="0" remarks="RSGB class VERBLIJFSTITEL" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="[PK] N2 - Aanduiding verblijfstitel" size="2" type="numeric">
@@ -2626,48 +1888,6 @@
             <column ascending="true" name="code"/>
          </index>
          <index name="wijk_archief_geom_idx" unique="false">
-            <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="wnplts" numRows="0" remarks="RSGB class WOONPLAATS" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] AN4 - Woonplaatsidentificatie" size="4" type="varchar">
-            <child column="fk_nn_rh_wpl_identif" foreignKey="fk_opr_wpl_nn_rh" implied="false" onDeleteCascade="false" table="openb_rmte_wnplts"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid woonplaats" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde woonplaats" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="naam" nullable="true" remarks="AN80 - Woonplaatsnaam" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="naam_nen" nullable="true" remarks="AN24 - Woonplaatsnaam NEN" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="status" nullable="true" remarks="AN80 - Woonplaatsstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="fk_7gem_code" nullable="true" remarks="[FK] N4, FK naar gemeente.code: &quot;ligt in&quot;" size="4" type="numeric">
-            <parent column="code" foreignKey="fk_wpl_as_7" implied="false" onDeleteCascade="false" table="gemeente"/>
-         </column>
-         <column autoUpdated="false" digits="0" id="8" name="geom" nullable="true" remarks="GM_Surface - Woonplaatsgeometrie" size="2147483647" type="geometry"/>
-         <primaryKey column="identif" sequenceNumberInPK="1"/>
-         <index name="wnplts_pk" unique="true">
-            <column ascending="true" name="identif"/>
-         </index>
-         <index name="wnplts_geom_idx" unique="false">
-            <column ascending="true" name="geom"/>
-         </index>
-      </table>
-      <table name="wnplts_archief" numRows="0" remarks="RSGB class WOONPLAATS" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid woonplaats" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="identif" nullable="false" remarks="[PK] AN4 - Woonplaatsidentificatie" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid woonplaats" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="indic_geconst" nullable="true" remarks="AN1 - Indicatie geconstateerde woonplaats" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="naam" nullable="true" remarks="AN80 - Woonplaatsnaam" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="naam_nen" nullable="true" remarks="AN24 - Woonplaatsnaam NEN" size="24" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="status" nullable="true" remarks="AN80 - Woonplaatsstatus" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="fk_7gem_code" nullable="true" remarks="[FK] N4, FK naar gemeente.code: &quot;ligt in&quot;" size="4" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="geom" nullable="true" remarks="GM_Surface - Woonplaatsgeometrie" size="2147483647" type="geometry"/>
-         <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
-         <primaryKey column="identif" sequenceNumberInPK="2"/>
-         <index name="ar_wnplts_pk" unique="true">
-            <column ascending="true" name="dat_beg_geldh"/>
-            <column ascending="true" name="identif"/>
-         </index>
-         <index name="wnplts_archief_geom_idx" unique="false">
             <column ascending="true" name="geom"/>
          </index>
       </table>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PreparedStatementQueryBatch.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.sql</a> &gt; <span class="el_source">PreparedStatementQueryBatch.java</span></div><h1>PreparedStatementQueryBatch.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.sql;
+
+import java.sql.Connection;
+import java.sql.ParameterMetaData;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class PreparedStatementQueryBatch implements QueryBatch {
+<span class="fc" id="L18">  private static final Log LOG = LogFactory.getLog(PreparedStatementQueryBatch.class);</span>
+
+  protected final Connection c;
+  private final String sql;
+  private final int batchSize;
+
+<span class="fc" id="L24">  private int count = 0;</span>
+
+  protected PreparedStatement ps;
+  private int[] parameterTypes;
+
+<span class="fc" id="L29">  public PreparedStatementQueryBatch(Connection c, String sql, int batchSize) throws SQLException {</span>
+<span class="fc" id="L30">    this.c = c;</span>
+<span class="fc" id="L31">    this.sql = sql;</span>
+<span class="fc" id="L32">    this.batchSize = batchSize;</span>
+<span class="fc" id="L33">    initializePreparedStatement();</span>
+<span class="fc" id="L34">  }</span>
+
+  private void initializePreparedStatement() throws SQLException {
+<span class="fc" id="L37">    ps = c.prepareStatement(sql);</span>
+<span class="fc" id="L38">    parameterTypes = null;</span>
+    try {
+<span class="fc" id="L40">      ParameterMetaData pmd = ps.getParameterMetaData();</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">      if (pmd != null) {</span>
+<span class="fc" id="L42">        parameterTypes = new int[pmd.getParameterCount()];</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (int i = 0; i &lt; pmd.getParameterCount(); i++) {</span>
+<span class="fc" id="L44">          parameterTypes[i] = pmd.getParameterType(i + 1);</span>
+        }
+      }
+<span class="nc" id="L47">    } catch (Exception e) {</span>
+      // May fail, for example if Oracle table is in NOLOGGING mode. Ignore.
+<span class="fc" id="L49">    }</span>
+<span class="fc" id="L50">  }</span>
+
+  /**
+   * Add a batch and execute if batch size reached.
+   *
+   * @param params The parameters for the row to insert
+   * @return Whether the batch was executed
+   */
+  @Override
+  public boolean addBatch(Object[] params) throws Exception {
+<span class="fc bfc" id="L60" title="All 2 branches covered.">    for (int i = 0; i &lt; params.length; i++) {</span>
+<span class="fc" id="L61">      int parameterIndex = i + 1;</span>
+      try {
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;</span>
+<span class="fc" id="L64">        setPreparedStatementParameter(parameterIndex, pmdType, params[i]);</span>
+<span class="nc" id="L65">      } catch (Exception e) {</span>
+<span class="nc" id="L66">        throw new Exception(</span>
+<span class="nc" id="L67">            String.format(</span>
+                &quot;Exception setting parameter %s to value %s for insert SQL \&quot;%s\&quot;&quot;,
+<span class="nc" id="L69">                i, params[i], sql),</span>
+            e);
+<span class="fc" id="L71">      }</span>
+    }
+<span class="fc" id="L73">    ps.addBatch();</span>
+
+<span class="fc" id="L75">    count++;</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (count == batchSize) {</span>
+<span class="fc" id="L78">      this.executeBatch();</span>
+<span class="fc" id="L79">      return true;</span>
+    } else {
+<span class="fc" id="L81">      return false;</span>
+    }
+  }
+
+  @Override
+  public void executeBatch() throws Exception {
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">    if (count &gt; 0) {</span>
+<span class="fc" id="L88">      LOG.debug(String.format(&quot;execute batch, size %d, sql: %s&quot;, count, sql));</span>
+<span class="fc" id="L89">      ps.executeBatch();</span>
+<span class="fc" id="L90">      this.count = 0;</span>
+    }
+<span class="fc" id="L92">  }</span>
+
+  @Override
+  public void close() throws SQLException {
+<span class="fc" id="L96">    ps.close();</span>
+<span class="fc" id="L97">  }</span>
+
+  protected void setPreparedStatementParameter(
+      int oneBasedParameterIndex, int parameterMetadataType, Object parameter) throws SQLException {
+<span class="fc bfc" id="L101" title="All 2 branches covered.">    if (parameter != null) {</span>
+<span class="fc" id="L102">      ps.setObject(oneBasedParameterIndex, parameter);</span>
+    } else {
+<span class="fc" id="L104">      ps.setNull(oneBasedParameterIndex, parameterMetadataType);</span>
+    }
+<span class="fc" id="L106">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

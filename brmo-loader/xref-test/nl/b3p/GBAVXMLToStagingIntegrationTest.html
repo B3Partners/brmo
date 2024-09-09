@@ -176,99 +176,98 @@
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>     brmo.closeBrmoFramework();
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>     CleanUtil.cleanSTAGING(staging, false);
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     CleanUtil.cleanRSGB_BAG(rsgb, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     CleanUtil.cleanRSGB_BRP(rsgb);
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>     rsgb.close();
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>     dsRsgb.close();
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     staging.close();
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     dsStaging.close();
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     sequential.unlock();
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>   }
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> 
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>   @DisplayName(<span class="jxr_string">"insertOntbrekendeKlantAfgiftenummers"</span>)
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>   @ParameterizedTest(name = <span class="jxr_string">"{index}: type: {0}, bestand: {1}"</span>)
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>   @MethodSource(<span class="jxr_string">"argumentsProvider"</span>)
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGbavBerichtToStagingToRsgb(
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>       String bestandType,
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>       String bestandNaam,
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>       <strong class="jxr_keyword">long</strong> aantalBerichten,
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>       <strong class="jxr_keyword">long</strong> aantalProcessen,
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>       <strong class="jxr_keyword">long</strong> aantalSubject,
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>       String aNummer,
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>       String bsnNummer,
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>       String achterNaam,
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>       String aandNaamgebruik,
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>       String geslacht)
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>       <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>       brmo.loadFromFile(
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>           bestandType,
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>           GBAVXMLToStagingIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(),
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>           <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>     } <strong class="jxr_keyword">catch</strong> (BrmoLeegBestandException blbe) {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>       LOG.debug(<span class="jxr_string">"Er is een bestand zonder berichten geladen (kan voorkomen...)."</span>);
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>     }
-<a class="jxr_linenumber" name="L204" href="#L204">204</a> 
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>     assertEquals(
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>         aantalBerichten,
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>         brmo.getCountBerichten(bestandType, <span class="jxr_string">"STAGING_OK"</span>),
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>         <span class="jxr_string">"Verwacht aantal berichten"</span>);
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>     assertEquals(
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         aantalProcessen,
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>         brmo.getCountLaadProcessen(bestandType, <span class="jxr_string">"STAGING_OK"</span>),
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         <span class="jxr_string">"Verwacht aantal laadprocessen"</span>);
-<a class="jxr_linenumber" name="L213" href="#L213">213</a> 
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>     LOG.debug(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>     brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>     Thread t = brmo.toRsgb();
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     t.join();
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> 
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     assertEquals(
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>         aantalBerichten,
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>         brmo.getCountBerichten(bestandType, <span class="jxr_string">"RSGB_OK"</span>),
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         <span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>);
-<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>     <strong class="jxr_keyword">for</strong> (Bericht b : brmo.listBerichten()) {
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>       Assertions.assertNotNull(b, <span class="jxr_string">"Bericht is 'null'"</span>);
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>       Assertions.assertNotNull(b.getDbXml(), <span class="jxr_string">"'db-xml' van bericht is 'null'"</span>);
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>     }
-<a class="jxr_linenumber" name="L228" href="#L228">228</a> 
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>     ITable subject = rsgb.createDataSet().getTable(<span class="jxr_string">"subject"</span>);
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>     assertEquals(aantalSubject, subject.getRowCount(), <span class="jxr_string">"Het aantal 'subject' klopt niet"</span>);
-<a class="jxr_linenumber" name="L231" href="#L231">231</a> 
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>     ITable prs = rsgb.createDataSet().getTable(<span class="jxr_string">"prs"</span>);
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>     assertEquals(aantalSubject, prs.getRowCount(), <span class="jxr_string">"Het aantal 'prs' klopt niet"</span>);
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>     ITable nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"nat_prs"</span>);
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>     assertEquals(aantalSubject, nat_prs.getRowCount(), <span class="jxr_string">"Het aantal 'nat_prs' klopt niet"</span>);
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>     <strong class="jxr_keyword">int</strong> rowNum = (<strong class="jxr_keyword">int</strong>) (aantalSubject - 1);
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>     assertEquals(
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         aandNaamgebruik,
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>         nat_prs.getValue(rowNum, <span class="jxr_string">"aand_naamgebruik"</span>),
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <span class="jxr_string">"Aanduiding naamgebruik komt niet overeen"</span>);
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>     assertEquals(
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>         geslacht,
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>         nat_prs.getValue(rowNum, <span class="jxr_string">"geslachtsaand"</span>),
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>         <span class="jxr_string">"Geslachtsaanduiding komt niet overeen"</span>);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>     assertEquals(
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>         achterNaam, nat_prs.getValue(rowNum, <span class="jxr_string">"nm_geslachtsnaam"</span>), <span class="jxr_string">"Achternaam komt niet overeen"</span>);
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     ITable ingeschr_nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"ingeschr_nat_prs"</span>);
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>     assertEquals(
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         aantalSubject, ingeschr_nat_prs.getRowCount(), <span class="jxr_string">"Het aantal 'ingeschr_nat_prs' klopt niet"</span>);
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>     assertEquals(
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">new</strong> BigDecimal(bsnNummer),
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         ingeschr_nat_prs.getValue(rowNum, <span class="jxr_string">"bsn"</span>),
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <span class="jxr_string">"BSN komt niet overeen"</span>);
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>     assertEquals(
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>         <strong class="jxr_keyword">new</strong> BigDecimal(aNummer),
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>         ingeschr_nat_prs.getValue(rowNum, <span class="jxr_string">"a_nummer"</span>),
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         <span class="jxr_string">"A-nummer komt niet overeen"</span>);
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>   }
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> }
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     CleanUtil.cleanRSGB_BRP(rsgb);
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     rsgb.close();
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     dsRsgb.close();
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     staging.close();
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     dsStaging.close();
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     sequential.unlock();
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>   }
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> 
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>   @DisplayName(<span class="jxr_string">"insertOntbrekendeKlantAfgiftenummers"</span>)
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>   @ParameterizedTest(name = <span class="jxr_string">"{index}: type: {0}, bestand: {1}"</span>)
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>   @MethodSource(<span class="jxr_string">"argumentsProvider"</span>)
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGbavBerichtToStagingToRsgb(
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>       String bestandType,
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>       String bestandNaam,
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>       <strong class="jxr_keyword">long</strong> aantalBerichten,
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>       <strong class="jxr_keyword">long</strong> aantalProcessen,
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>       <strong class="jxr_keyword">long</strong> aantalSubject,
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>       String aNummer,
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>       String bsnNummer,
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>       String achterNaam,
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>       String aandNaamgebruik,
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>       String geslacht)
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>       <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>       brmo.loadFromFile(
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>           bestandType,
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>           GBAVXMLToStagingIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(),
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>           <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>     } <strong class="jxr_keyword">catch</strong> (BrmoLeegBestandException blbe) {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>       LOG.debug(<span class="jxr_string">"Er is een bestand zonder berichten geladen (kan voorkomen...)."</span>);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>     }
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     assertEquals(
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>         aantalBerichten,
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         brmo.getCountBerichten(bestandType, <span class="jxr_string">"STAGING_OK"</span>),
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>         <span class="jxr_string">"Verwacht aantal berichten"</span>);
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>     assertEquals(
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         aantalProcessen,
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         brmo.getCountLaadProcessen(bestandType, <span class="jxr_string">"STAGING_OK"</span>),
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>         <span class="jxr_string">"Verwacht aantal laadprocessen"</span>);
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>     LOG.debug(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     Thread t = brmo.toRsgb();
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>     t.join();
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>     assertEquals(
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>         aantalBerichten,
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         brmo.getCountBerichten(bestandType, <span class="jxr_string">"RSGB_OK"</span>),
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         <span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>);
+<a class="jxr_linenumber" name="L222" href="#L222">222</a> 
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>     <strong class="jxr_keyword">for</strong> (Bericht b : brmo.listBerichten()) {
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>       Assertions.assertNotNull(b, <span class="jxr_string">"Bericht is 'null'"</span>);
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>       Assertions.assertNotNull(b.getDbXml(), <span class="jxr_string">"'db-xml' van bericht is 'null'"</span>);
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>     }
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> 
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>     ITable subject = rsgb.createDataSet().getTable(<span class="jxr_string">"subject"</span>);
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>     assertEquals(aantalSubject, subject.getRowCount(), <span class="jxr_string">"Het aantal 'subject' klopt niet"</span>);
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>     ITable prs = rsgb.createDataSet().getTable(<span class="jxr_string">"prs"</span>);
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>     assertEquals(aantalSubject, prs.getRowCount(), <span class="jxr_string">"Het aantal 'prs' klopt niet"</span>);
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>     ITable nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"nat_prs"</span>);
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>     assertEquals(aantalSubject, nat_prs.getRowCount(), <span class="jxr_string">"Het aantal 'nat_prs' klopt niet"</span>);
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">int</strong> rowNum = (<strong class="jxr_keyword">int</strong>) (aantalSubject - 1);
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>     assertEquals(
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         aandNaamgebruik,
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         nat_prs.getValue(rowNum, <span class="jxr_string">"aand_naamgebruik"</span>),
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>         <span class="jxr_string">"Aanduiding naamgebruik komt niet overeen"</span>);
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     assertEquals(
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         geslacht,
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         nat_prs.getValue(rowNum, <span class="jxr_string">"geslachtsaand"</span>),
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>         <span class="jxr_string">"Geslachtsaanduiding komt niet overeen"</span>);
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>     assertEquals(
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         achterNaam, nat_prs.getValue(rowNum, <span class="jxr_string">"nm_geslachtsnaam"</span>), <span class="jxr_string">"Achternaam komt niet overeen"</span>);
+<a class="jxr_linenumber" name="L247" href="#L247">247</a> 
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     ITable ingeschr_nat_prs = rsgb.createDataSet().getTable(<span class="jxr_string">"ingeschr_nat_prs"</span>);
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>     assertEquals(
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         aantalSubject, ingeschr_nat_prs.getRowCount(), <span class="jxr_string">"Het aantal 'ingeschr_nat_prs' klopt niet"</span>);
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     assertEquals(
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">new</strong> BigDecimal(bsnNummer),
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>         ingeschr_nat_prs.getValue(rowNum, <span class="jxr_string">"bsn"</span>),
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         <span class="jxr_string">"BSN komt niet overeen"</span>);
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>     assertEquals(
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">new</strong> BigDecimal(aNummer),
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         ingeschr_nat_prs.getValue(rowNum, <span class="jxr_string">"a_nummer"</span>),
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <span class="jxr_string">"A-nummer komt niet overeen"</span>);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>   }
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>

@@ -24,41 +24,41 @@ import org.jdom2.JDOMException;
  */
 public class TopNLRsgbTransformer implements Runnable {
 
-<span class="nc" id="L27">  private static final Log LOG = LogFactory.getLog(TopNLRsgbTransformer.class);</span>
+<span class="fc" id="L27">  private static final Log LOG = LogFactory.getLog(TopNLRsgbTransformer.class);</span>
   private final StagingProxy stagingProxy;
   private final DataSource dataSourceTopNL;
   private final ProgressUpdateListener listener;
   private final long[] lpIDs;
-<span class="nc" id="L32">  private Processor processor = null;</span>
+<span class="fc" id="L32">  private Processor processor = null;</span>
 
   public TopNLRsgbTransformer(
       DataSource dataSourceTopNL,
       StagingProxy stagingProxy,
       long[] lpIDs,
       ProgressUpdateListener listener)
-<span class="nc" id="L39">      throws JAXBException, SQLException {</span>
-<span class="nc" id="L40">    this.stagingProxy = stagingProxy;</span>
-<span class="nc" id="L41">    this.dataSourceTopNL = dataSourceTopNL;</span>
-<span class="nc" id="L42">    this.lpIDs = lpIDs;</span>
-<span class="nc" id="L43">    this.listener = listener;</span>
-<span class="nc" id="L44">    this.processor = new Processor(this.dataSourceTopNL);</span>
-<span class="nc" id="L45">  }</span>
+<span class="fc" id="L39">      throws JAXBException, SQLException {</span>
+<span class="fc" id="L40">    this.stagingProxy = stagingProxy;</span>
+<span class="fc" id="L41">    this.dataSourceTopNL = dataSourceTopNL;</span>
+<span class="fc" id="L42">    this.lpIDs = lpIDs;</span>
+<span class="fc" id="L43">    this.listener = listener;</span>
+<span class="fc" id="L44">    this.processor = new Processor(this.dataSourceTopNL);</span>
+<span class="fc" id="L45">  }</span>
 
   private void transform(long lpID) throws SQLException {
     STATUS status;
     String opmerkingen;
-<span class="nc" id="L50">    LaadProces lp = stagingProxy.getLaadProcesById(lpID);</span>
+<span class="fc" id="L50">    LaadProces lp = stagingProxy.getLaadProcesById(lpID);</span>
 
-<span class="nc bnc" id="L52" title="All 4 branches missed.">    if (TopNLType.isTopNLType(lp.getSoort()) &amp;&amp; lp.getStatus() == STATUS.STAGING_OK) {</span>
-<span class="nc" id="L53">      stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_TOPNL_WAITING, &quot;Transformatie loopt...&quot;);</span>
-<span class="nc" id="L54">      File gml = new File(lp.getBestandNaam());</span>
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">    if (TopNLType.isTopNLType(lp.getSoort()) &amp;&amp; lp.getStatus() == STATUS.STAGING_OK) {</span>
+<span class="fc" id="L53">      stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_TOPNL_WAITING, &quot;Transformatie loopt...&quot;);</span>
+<span class="fc" id="L54">      File gml = new File(lp.getBestandNaam());</span>
       try {
-<span class="nc" id="L56">        processor.importIntoDb(gml.toURI().toURL(), TopNLType.valueOf(lp.getSoort().toUpperCase()));</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        switch (processor.getStatus()) {</span>
+<span class="fc" id="L56">        processor.importIntoDb(gml.toURI().toURL(), TopNLType.valueOf(lp.getSoort().toUpperCase()));</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        switch (processor.getStatus()) {</span>
           case OK:
-<span class="nc" id="L59">            status = STATUS.RSGB_TOPNL_OK;</span>
-<span class="nc" id="L60">            opmerkingen = &quot;Geen fouten bij inladen.&quot;;</span>
-<span class="nc" id="L61">            break;</span>
+<span class="fc" id="L59">            status = STATUS.RSGB_TOPNL_OK;</span>
+<span class="fc" id="L60">            opmerkingen = &quot;Geen fouten bij inladen.&quot;;</span>
+<span class="fc" id="L61">            break;</span>
           case NOK:
           default:
 <span class="nc" id="L64">            status = STATUS.RSGB_TOPNL_NOK;</span>
@@ -66,14 +66,14 @@ public class TopNLRsgbTransformer implements Runnable {
                 &quot;Er zijn herstelbare fouten bij inladen opgetreden. Waarschijnlijk is niet alle data geladen van bestand &quot;
                     + gml;
         }
-<span class="nc" id="L69">        stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);</span>
+<span class="fc" id="L69">        stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);</span>
 <span class="nc" id="L70">      } catch (JDOMException | MalformedURLException ex) {</span>
 <span class="nc" id="L71">        LOG.debug(&quot;Error loading gml file&quot;, ex);</span>
 <span class="nc" id="L72">        opmerkingen = &quot;Laden van bestand &quot; + gml + &quot; is mislukt: &quot; + ex.getLocalizedMessage();</span>
 <span class="nc" id="L73">        status = STATUS.RSGB_TOPNL_NOK;</span>
 <span class="nc" id="L74">        stagingProxy.updateLaadProcesStatus(lp, status, opmerkingen);</span>
-<span class="nc" id="L75">      }</span>
-<span class="nc" id="L76">    } else {</span>
+<span class="fc" id="L75">      }</span>
+<span class="fc" id="L76">    } else {</span>
 <span class="nc" id="L77">      LOG.warn(</span>
           &quot;LaadProces &quot;
 <span class="nc" id="L79">              + lp.getId()</span>
@@ -83,7 +83,7 @@ public class TopNLRsgbTransformer implements Runnable {
 <span class="nc" id="L83">              + lp.getStatus()</span>
               + &quot; is overgeslagen.&quot;);
     }
-<span class="nc" id="L86">  }</span>
+<span class="fc" id="L86">  }</span>
 
   public void init() throws SQLException {
     /* geomjdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSourceTopNL.getConnection());
@@ -95,22 +95,22 @@ public class TopNLRsgbTransformer implements Runnable {
     gmlLoader.setDbConnProps(params);
     gmlLoader.setBijwerkDatum(new Date());
     gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains(&quot;oracle&quot;));*/
-<span class="nc" id="L98">  }</span>
+<span class="fc" id="L98">  }</span>
 
   @Override
   public void run() {
     try {
-<span class="nc" id="L103">      init();</span>
-<span class="nc" id="L104">      int count = 0;</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">      if (listener != null) {</span>
-<span class="nc" id="L106">        listener.total(lpIDs.length);</span>
-<span class="nc" id="L107">        listener.progress(count);</span>
+<span class="fc" id="L103">      init();</span>
+<span class="fc" id="L104">      int count = 0;</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">      if (listener != null) {</span>
+<span class="fc" id="L106">        listener.total(lpIDs.length);</span>
+<span class="fc" id="L107">        listener.progress(count);</span>
       }
-<span class="nc bnc" id="L109" title="All 2 branches missed.">      for (long id : lpIDs) {</span>
-<span class="nc" id="L110">        this.transform(id);</span>
-<span class="nc" id="L111">        count++;</span>
-<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (listener != null) {</span>
-<span class="nc" id="L113">          listener.progress(count);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">      for (long id : lpIDs) {</span>
+<span class="fc" id="L110">        this.transform(id);</span>
+<span class="fc" id="L111">        count++;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (listener != null) {</span>
+<span class="fc" id="L113">          listener.progress(count);</span>
         }
       }
 <span class="nc" id="L116">    } catch (Exception e) {</span>
@@ -118,7 +118,7 @@ public class TopNLRsgbTransformer implements Runnable {
 <span class="nc bnc" id="L118" title="All 2 branches missed.">      if (listener != null) {</span>
 <span class="nc" id="L119">        listener.exception(e);</span>
       }
-<span class="nc" id="L121">    }</span>
-<span class="nc" id="L122">  }</span>
+<span class="fc" id="L121">    }</span>
+<span class="fc" id="L122">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

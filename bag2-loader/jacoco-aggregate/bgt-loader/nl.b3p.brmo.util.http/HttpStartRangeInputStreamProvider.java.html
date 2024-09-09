@@ -60,8 +60,8 @@ public class HttpStartRangeInputStreamProvider
 <span class="fc" id="L60">  }</span>
 
   public HttpStartRangeInputStreamProvider assumeAcceptsRanges(boolean assumeAcceptsRanges) {
-<span class="nc" id="L63">    this.assumeAcceptsRanges = assumeAcceptsRanges;</span>
-<span class="nc" id="L64">    return this;</span>
+<span class="fc" id="L63">    this.assumeAcceptsRanges = assumeAcceptsRanges;</span>
+<span class="fc" id="L64">    return this;</span>
   }
 
   public boolean isAssumeAcceptsRanges() {
@@ -96,7 +96,7 @@ public class HttpStartRangeInputStreamProvider
 <span class="fc bfc" id="L96" title="All 2 branches covered.">    if (position &gt; 0) {</span>
 <span class="fc" id="L97">      headers.add(</span>
           new String[] {
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            &quot;Range&quot;, &quot;bytes=&quot; + position + &quot;-&quot; + (contentLength != null ? contentLength - 1 : &quot;&quot;)</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            &quot;Range&quot;, &quot;bytes=&quot; + position + &quot;-&quot; + (contentLength != null ? contentLength - 1 : &quot;&quot;)</span>
           });
     }
 <span class="fc" id="L102">    first = false;</span>
@@ -140,4 +140,4 @@ public class HttpStartRangeInputStreamProvider
 <span class="fc" id="L140">    return response.getResponseBody();</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

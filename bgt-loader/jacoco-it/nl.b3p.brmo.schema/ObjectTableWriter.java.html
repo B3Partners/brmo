@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectTableWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.schema</a> &gt; <span class="el_source">ObjectTableWriter.java</span></div><h1>ObjectTableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.schema;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
+import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
+import nl.b3p.brmo.sql.QueryBatch;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class ObjectTableWriter {
+<span class="fc" id="L42">  private static final Log log = LogFactory.getLog(ObjectTableWriter.class);</span>
+
+<span class="fc" id="L44">  public enum Stage {</span>
+<span class="fc" id="L45">    PARSE_INPUT,</span>
+<span class="fc" id="L46">    LOAD_OBJECTS,</span>
+<span class="fc" id="L47">    CREATE_PRIMARY_KEY,</span>
+<span class="fc" id="L48">    CREATE_GEOMETRY_INDEX,</span>
+<span class="fc" id="L49">    FINISHED,</span>
+  }
+
+  private final Connection connection;
+  private final SQLDialect dialect;
+  private final SchemaSQLMapper schemaSQLMapper;
+
+<span class="fc" id="L56">  private int batchSize = 100;</span>
+<span class="fc" id="L57">  private boolean multithreading = true;</span>
+<span class="fc" id="L58">  private boolean usePgCopy = true;</span>
+<span class="fc" id="L59">  private Integer objectLimit = null;</span>
+<span class="fc" id="L60">  private boolean linearizeCurves = false;</span>
+<span class="fc" id="L61">  private boolean createSchema = false;</span>
+<span class="fc" id="L62">  private boolean dropIfExists = true;</span>
+<span class="fc" id="L63">  private boolean createKeysAndIndexes = true;</span>
+<span class="fc" id="L64">  private String tablePrefix = &quot;&quot;;</span>
+
+  private Consumer&lt;ObjectTableWriter.Progress&gt; progressUpdater;
+
+<span class="fc" id="L68">  private ObjectTableWriter.Progress progress = null;</span>
+
+  public class Progress {
+<span class="fc" id="L71">    private Map&lt;ObjectType, QueryBatch&gt; insertBatches = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L72">    private Map&lt;Pair&lt;ObjectType, ArrayAttributeMapping&gt;, QueryBatch&gt; arrayAttributeInsertBatches =</span>
+        new HashMap&lt;&gt;();
+
+<span class="fc" id="L75">    private boolean initialLoad = true;</span>
+
+<span class="fc" id="L77">    private boolean firstObject = true;</span>
+
+    // If we are only inserting into a single table, we can use the faster Postgres COPY
+<span class="fc" id="L80">    private boolean singleTableInserts = false;</span>
+
+    private final BlockingQueue&lt;SchemaObjectInstance&gt; objectsToWrite;
+
+<span class="fc" id="L84">    private Stage stage = Stage.PARSE_INPUT;</span>
+<span class="fc" id="L85">    private long objectCount = 0;</span>
+<span class="fc" id="L86">    private Instant lastProgressUpdate = null;</span>
+
+<span class="fc" id="L88">    protected Progress() {</span>
+<span class="fc" id="L89">      int batchSize = getBatchSize();</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">      if (batchSize &lt;= 0) {</span>
+<span class="nc" id="L91">        batchSize = 2500;</span>
+      }
+<span class="fc" id="L93">      objectsToWrite = new ArrayBlockingQueue&lt;&gt;(batchSize);</span>
+<span class="fc" id="L94">    }</span>
+
+    public void setSingleTableInserts(boolean singleTableInserts) {
+<span class="fc" id="L97">      this.singleTableInserts = singleTableInserts;</span>
+<span class="fc" id="L98">    }</span>
+
+    public void setInitialLoad(boolean initialLoad) {
+<span class="fc" id="L101">      this.initialLoad = initialLoad;</span>
+<span class="fc" id="L102">    }</span>
+
+    public ObjectTableWriter getWriter() {
+<span class="nc" id="L105">      return ObjectTableWriter.this;</span>
+    }
+
+    public Stage getStage() {
+<span class="fc" id="L109">      return stage;</span>
+    }
+
+    public long getObjectCount() {
+<span class="fc" id="L113">      return objectCount;</span>
+    }
+
+    public void setObjectCount(long objectCount) {
+<span class="nc" id="L117">      this.objectCount = objectCount;</span>
+<span class="nc" id="L118">    }</span>
+
+    public void incrementObjectCount() {
+<span class="fc" id="L121">      this.objectCount++;</span>
+<span class="fc" id="L122">    }</span>
+  }
+
+  public ObjectTableWriter(
+<span class="fc" id="L126">      Connection connection, SQLDialect dialect, SchemaSQLMapper schemaSQLMapper) {</span>
+<span class="fc" id="L127">    this.connection = connection;</span>
+<span class="fc" id="L128">    this.dialect = dialect;</span>
+<span class="fc" id="L129">    this.schemaSQLMapper = schemaSQLMapper;</span>
+<span class="fc" id="L130">  }</span>
+
+  public Connection getConnection() {
+<span class="fc" id="L133">    return connection;</span>
+  }
+
+  public SQLDialect getDialect() {
+<span class="fc" id="L137">    return dialect;</span>
+  }
+
+  public SchemaSQLMapper getSchemaSQLMapper() {
+<span class="nc" id="L141">    return schemaSQLMapper;</span>
+  }
+
+  public int getBatchSize() {
+<span class="fc" id="L145">    return batchSize;</span>
+  }
+
+  public void setBatchSize(int batchSize) {
+<span class="fc" id="L149">    this.batchSize = batchSize;</span>
+<span class="fc" id="L150">  }</span>
+
+  public boolean isMultithreading() {
+<span class="nc" id="L153">    return multithreading;</span>
+  }
+
+  public void setMultithreading(boolean multithreading) {
+<span class="fc" id="L157">    this.multithreading = multithreading;</span>
+<span class="fc" id="L158">  }</span>
+
+  public boolean isUsePgCopy() {
+<span class="nc" id="L161">    return usePgCopy;</span>
+  }
+
+  public void setUsePgCopy(boolean usePgCopy) {
+<span class="fc" id="L165">    this.usePgCopy = usePgCopy;</span>
+<span class="fc" id="L166">  }</span>
+
+  public Integer getObjectLimit() {
+<span class="fc" id="L169">    return objectLimit;</span>
+  }
+
+  public void setObjectLimit(Integer objectLimit) {
+<span class="fc" id="L173">    this.objectLimit = objectLimit;</span>
+<span class="fc" id="L174">  }</span>
+
+  public boolean isLinearizeCurves() {
+<span class="nc" id="L177">    return linearizeCurves;</span>
+  }
+
+  public void setLinearizeCurves(boolean linearizeCurves) {
+<span class="fc" id="L181">    this.linearizeCurves = linearizeCurves;</span>
+<span class="fc" id="L182">  }</span>
+
+  public boolean isCreateSchema() {
+<span class="fc" id="L185">    return createSchema;</span>
+  }
+
+  public void setCreateSchema(boolean createSchema) {
+<span class="fc" id="L189">    this.createSchema = createSchema;</span>
+<span class="fc" id="L190">  }</span>
+
+  public boolean isDropIfExists() {
+<span class="nc" id="L193">    return dropIfExists;</span>
+  }
+
+  public void setDropIfExists(boolean dropIfExists) {
+<span class="fc" id="L197">    this.dropIfExists = dropIfExists;</span>
+<span class="fc" id="L198">  }</span>
+
+  public boolean isCreateKeysAndIndexes() {
+<span class="fc" id="L201">    return createKeysAndIndexes;</span>
+  }
+
+  public void setCreateKeysAndIndexes(boolean createKeysAndIndexes) {
+<span class="nc" id="L205">    this.createKeysAndIndexes = createKeysAndIndexes;</span>
+<span class="nc" id="L206">  }</span>
+
+  public String getTablePrefix() {
+<span class="nc" id="L209">    return tablePrefix;</span>
+  }
+
+  public void setTablePrefix(String tablePrefix) {
+<span class="fc" id="L213">    this.tablePrefix = tablePrefix;</span>
+<span class="fc" id="L214">  }</span>
+
+  public Consumer&lt;Progress&gt; getProgressUpdater() {
+<span class="fc" id="L217">    return progressUpdater;</span>
+  }
+
+  public void setProgressUpdater(Consumer&lt;Progress&gt; progressUpdater) {
+<span class="fc" id="L221">    this.progressUpdater = progressUpdater;</span>
+<span class="fc" id="L222">  }</span>
+
+  public Progress getProgress() {
+<span class="fc" id="L225">    return progress;</span>
+  }
+
+  public void setProgress(Progress progress) {
+<span class="nc" id="L229">    this.progress = progress;</span>
+<span class="nc" id="L230">  }</span>
+
+  protected void prepareDatabaseForObject(SchemaObjectInstance object) throws Exception {
+    // Do creation of QueryBatch on main thread, so exceptions stop processing immediately
+    // This creates/truncates the table
+<span class="fc" id="L235">    getInsertBatch(object);</span>
+<span class="fc" id="L236">  }</span>
+
+  protected synchronized QueryBatch getInsertBatch(SchemaObjectInstance object) throws Exception {
+<span class="fc" id="L239">    Map&lt;ObjectType, QueryBatch&gt; insertBatches = progress.insertBatches;</span>
+<span class="fc bfc" id="L240" title="All 2 branches covered.">    if (insertBatches.isEmpty()) {</span>
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">      if (progress.initialLoad) {</span>
+<span class="pc bpc" id="L242" title="1 of 2 branches missed.">        if (isCreateSchema()) {</span>
+<span class="fc" id="L243">          QueryRunner qr = new LoggingQueryRunner();</span>
+          for (String sql :
+<span class="fc" id="L245">              Stream.concat(</span>
+<span class="fc" id="L246">                      schemaSQLMapper.getCreateTableStatements(</span>
+<span class="fc" id="L247">                          object.getObjectType(), dialect, tablePrefix, dropIfExists),</span>
+<span class="fc" id="L248">                      schemaSQLMapper.getCreateGeometryMetadataStatements(</span>
+<span class="fc" id="L249">                          object.getObjectType(), dialect, tablePrefix))</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">                  .collect(Collectors.toList())) {</span>
+<span class="fc" id="L251">            qr.update(connection, sql);</span>
+<span class="fc" id="L252">          }</span>
+<span class="fc" id="L253">        } else {</span>
+<span class="nc" id="L254">          truncateTable(connection, object.getObjectType());</span>
+          for (ObjectType oneToManyObjectType :
+<span class="nc bnc" id="L256" title="All 2 branches missed.">              object.getObjectType().getOneToManyAttributeObjectTypes()) {</span>
+<span class="nc" id="L257">            truncateTable(connection, oneToManyObjectType);</span>
+<span class="nc" id="L258">          }</span>
+        }
+      }
+    }
+
+<span class="fc bfc" id="L263" title="All 2 branches covered.">    if (!insertBatches.containsKey(object.getObjectType())) {</span>
+      QueryBatch queryBatch;
+<span class="pc bpc" id="L265" title="1 of 4 branches missed.">      if (this.dialect instanceof PostGISDialect &amp;&amp; this.usePgCopy) {</span>
+<span class="fc" id="L266">        String sql = buildPgCopySql(object, progress.initialLoad);</span>
+        // Using Postgres COPY while buffering the copy stream is not faster than using
+        // batched inserts with the
+        // reWriteBatchedInserts=true connection parameter. Buffering is required when a
+        // one-to-many attribute
+        // exists, because simultaneous COPY statements (even with separate connections) are
+        // not supported by
+        // the JDBC driver
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">        boolean bufferCopy = !progress.singleTableInserts;</span>
+<span class="fc" id="L275">        queryBatch =</span>
+            new PostGISCopyInsertBatch(
+                connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
+<span class="fc" id="L278">      } else {</span>
+<span class="fc" id="L279">        String sql = buildInsertSql(object);</span>
+<span class="fc" id="L280">        Boolean[] parameterIsGeometry =</span>
+<span class="fc" id="L281">            object.getObjectType().getDirectNonDefaultInsertAttributes().stream()</span>
+<span class="fc" id="L282">                .map(</span>
+                    attributeColumnMapping -&gt;
+<span class="fc" id="L284">                        attributeColumnMapping instanceof GeometryAttributeColumnMapping)</span>
+<span class="fc" id="L285">                .toArray(Boolean[]::new);</span>
+<span class="fc" id="L286">        queryBatch =</span>
+            new GeometryHandlingPreparedStatementBatch(
+                connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
+      }
+<span class="fc" id="L290">      insertBatches.put(object.getObjectType(), queryBatch);</span>
+    }
+<span class="fc" id="L292">    return insertBatches.get(object.getObjectType());</span>
+  }
+
+  protected synchronized QueryBatch getArrayAttributeInsertBatch(
+      SchemaObjectInstance object, ArrayAttributeMapping attribute) throws Exception {
+<span class="nc" id="L297">    Map&lt;Pair&lt;ObjectType, ArrayAttributeMapping&gt;, QueryBatch&gt; insertBatches =</span>
+        progress.arrayAttributeInsertBatches;
+
+<span class="nc" id="L300">    Pair&lt;ObjectType, ArrayAttributeMapping&gt; batchKey =</span>
+<span class="nc" id="L301">        ImmutablePair.of(object.getObjectType(), attribute);</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">    if (!insertBatches.containsKey(batchKey)) {</span>
+      QueryBatch queryBatch;
+      /*            if (this.dialect instanceof PostGISDialect &amp;&amp; this.usePgCopy) {
+          String sql = buildPgCopySql(object, progress.initialLoad);
+          // Using Postgres COPY while buffering the copy stream is not faster than using batched inserts with the
+          // reWriteBatchedInserts=true connection parameter. Buffering is required when a one-to-many attribute
+          // exists, because simultaneous COPY statements (even with separate connections) are not supported by
+          // the JDBC driver
+          boolean bufferCopy = !progress.singleTableInserts;
+          queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
+      } else {*/
+<span class="nc" id="L313">      String sql = buildInsertSql(object.getObjectType(), attribute);</span>
+<span class="nc" id="L314">      Boolean[] parameterIsGeometry =</span>
+<span class="nc" id="L315">          object.getObjectType().getDirectNonDefaultInsertAttributes().stream()</span>
+<span class="nc" id="L316">              .map(</span>
+                  attributeColumnMapping -&gt;
+<span class="nc" id="L318">                      attributeColumnMapping instanceof GeometryAttributeColumnMapping)</span>
+<span class="nc" id="L319">              .toArray(Boolean[]::new);</span>
+<span class="nc" id="L320">      queryBatch =</span>
+          new GeometryHandlingPreparedStatementBatch(
+              connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
+      //            }
+<span class="nc" id="L324">      insertBatches.put(batchKey, queryBatch);</span>
+    }
+<span class="nc" id="L326">    return insertBatches.get(batchKey);</span>
+  }
+
+  protected void addObjectToBatch(SchemaObjectInstance object) throws Exception {
+    // Determine if we can use only a single table COPY without buffering
+<span class="fc bfc" id="L331" title="All 2 branches covered.">    if (progress.firstObject) {</span>
+<span class="pc bpc" id="L332" title="1 of 2 branches missed.">      progress.setSingleTableInserts(</span>
+<span class="fc bfc" id="L333" title="All 2 branches covered.">          progress.initialLoad &amp;&amp; object.getObjectType().hasOnlyDirectAttributes());</span>
+<span class="fc" id="L334">      progress.firstObject = false;</span>
+    }
+
+    try {
+<span class="fc" id="L338">      addObjectToBatch(object, false);</span>
+<span class="nc" id="L339">    } catch (Throwable e) {</span>
+<span class="nc" id="L340">      String message = &quot;Exception writing object to database, object: &quot;;</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">      if (getBatchSize() &gt; 1) {</span>
+<span class="nc" id="L342">        message =</span>
+            &quot;Exception adding parameters to database write batch, may be caused by previous batches. Object: &quot;;
+      }
+<span class="nc" id="L345">      throw new Exception(message + object, e);</span>
+<span class="fc" id="L346">    }</span>
+<span class="fc" id="L347">  }</span>
+
+  private void addObjectToBatch(SchemaObjectInstance object, boolean fromWorkerThread)
+      throws Throwable {
+
+<span class="fc bfc" id="L352" title="All 4 branches covered.">    if (multithreading &amp;&amp; !fromWorkerThread) {</span>
+<span class="pc bpc" id="L353" title="1 of 2 branches missed.">      while (exceptionFromWorkerThread == null) {</span>
+        // We can't use the blocking put() method because the worker thread may be
+        // interrupted because of an
+        // exception and never drain the full queue
+<span class="fc bfc" id="L357" title="All 2 branches covered.">        if (progress.objectsToWrite.offer(object, 500, TimeUnit.MILLISECONDS)) {</span>
+<span class="fc" id="L358">          return;</span>
+        }
+      }
+<span class="nc" id="L361">      throw exceptionFromWorkerThread;</span>
+    }
+
+    // This always returns a value without creating the table because it has been called before
+    // (so no table
+    // creation in worker thread)
+<span class="fc" id="L367">    QueryBatch batch = getInsertBatch(object);</span>
+
+<span class="fc" id="L369">    Map&lt;String, Object&gt; attributes = object.getAttributes();</span>
+<span class="fc" id="L370">    List&lt;Object&gt; params = new ArrayList&lt;&gt;();</span>
+    for (AttributeColumnMapping attributeColumnMapping :
+<span class="fc bfc" id="L372" title="All 2 branches covered.">        object.getObjectType().getDirectNonDefaultInsertAttributes()) {</span>
+<span class="fc" id="L373">      Object attribute = attributes.get(attributeColumnMapping.getName());</span>
+<span class="fc" id="L374">      params.add(attributeColumnMapping.toQueryParameter(attribute, getDialect()));</span>
+<span class="fc" id="L375">    }</span>
+
+    // The main object batch must be executed before oneToMany and arrayAttribute batches which
+    // reference the main
+    // object when foreign key constraints are in place. During &quot;stand&quot; loading this is
+    // deferrered to after all
+    // batches are fully executed so we don't need to care about order. For BAG2 mutaties batch
+    // size is set to 1 to
+    // correctly order all batches for foreign key integrity
+<span class="fc" id="L384">    batch.addBatch(params.toArray());</span>
+
+    for (ObjectType oneToManyAttribute :
+<span class="fc bfc" id="L387" title="All 2 branches covered.">        object.getObjectType().getOneToManyAttributeObjectTypes()) {</span>
+<span class="fc" id="L388">      List&lt;SchemaObjectInstance&gt; objects =</span>
+<span class="fc" id="L389">          (List&lt;SchemaObjectInstance&gt;) attributes.get(oneToManyAttribute.getName());</span>
+<span class="pc bpc" id="L390" title="1 of 4 branches missed.">      if (objects != null &amp;&amp; !objects.isEmpty()) {</span>
+<span class="fc bfc" id="L391" title="All 2 branches covered.">        for (int i = 0; i &lt; objects.size(); i++) {</span>
+<span class="fc" id="L392">          SchemaObjectInstance oneToMany = objects.get(i);</span>
+          // Add FK and index
+<span class="fc" id="L394">          String tableName = schemaSQLMapper.getTableNameForObjectType(object.getObjectType(), &quot;&quot;);</span>
+<span class="fc" id="L395">          String idColumnName = object.getObjectType().getPrimaryKeys().get(0).getName();</span>
+<span class="fc" id="L396">          oneToMany</span>
+<span class="fc" id="L397">              .getAttributes()</span>
+<span class="fc" id="L398">              .put(</span>
+<span class="fc" id="L399">                  schemaSQLMapper.getColumnNameForObjectType(</span>
+<span class="fc" id="L400">                      oneToMany.getObjectType(), tableName + idColumnName),</span>
+<span class="fc" id="L401">                  object.getAttributes().get(idColumnName));</span>
+<span class="fc" id="L402">          oneToMany.getAttributes().put(Schema.INDEX, i);</span>
+          // TODO call overridable method to add attributes to one to many
+<span class="fc" id="L404">          Object eindRegistratie = object.getAttributes().get(&quot;eindRegistratie&quot;);</span>
+<span class="fc" id="L405">          oneToMany</span>
+<span class="fc" id="L406">              .getAttributes()</span>
+<span class="fc" id="L407">              .put(</span>
+<span class="fc bfc" id="L408" title="All 2 branches covered.">                  schemaSQLMapper.getColumnNameForObjectType(</span>
+<span class="fc" id="L409">                      oneToMany.getObjectType(), tableName + &quot;eindRegistratie&quot;),</span>
+<span class="fc" id="L410">                  eindRegistratie != null);</span>
+<span class="fc" id="L411">          addObjectToBatch(oneToMany, fromWorkerThread);</span>
+        }
+      }
+<span class="fc" id="L414">    }</span>
+
+<span class="pc bpc" id="L416" title="1 of 2 branches missed.">    for (ArrayAttributeMapping arrayAttribute : object.getObjectType().getArrayAttributes()) {</span>
+<span class="nc" id="L417">      insertArrayAttribute(object, arrayAttribute);</span>
+<span class="nc" id="L418">    }</span>
+
+<span class="fc" id="L420">    updateProgress();</span>
+<span class="fc" id="L421">  }</span>
+
+  private void insertArrayAttribute(SchemaObjectInstance object, ArrayAttributeMapping attribute)
+      throws Exception {
+<span class="nc" id="L425">    Set values = (Set) object.getAttributes().get(attribute.getName());</span>
+<span class="nc bnc" id="L426" title="All 4 branches missed.">    if (values != null &amp;&amp; !values.isEmpty()) {</span>
+<span class="nc" id="L427">      QueryBatch insertBatch = getArrayAttributeInsertBatch(object, attribute);</span>
+<span class="nc" id="L428">      Object[] keys =</span>
+<span class="nc" id="L429">          object.getObjectType().getPrimaryKeys().stream()</span>
+<span class="nc" id="L430">              .map(</span>
+                  key -&gt; {
+                    try {
+<span class="nc" id="L433">                      return key.toQueryParameter(</span>
+<span class="nc" id="L434">                          object.getAttributes().get(key.getName()), getDialect());</span>
+<span class="nc" id="L435">                    } catch (Exception e) {</span>
+<span class="nc" id="L436">                      throw new RuntimeException(e);</span>
+                    }
+                  })
+<span class="nc" id="L439">              .toArray();</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">      for (Object value : values) {</span>
+<span class="nc" id="L441">        Object[] params = new Object[keys.length + 1];</span>
+<span class="nc" id="L442">        System.arraycopy(keys, 0, params, 0, keys.length);</span>
+<span class="nc" id="L443">        params[params.length - 1] = value;</span>
+<span class="nc" id="L444">        insertBatch.addBatch(params);</span>
+<span class="nc" id="L445">      }</span>
+    }
+<span class="nc" id="L447">  }</span>
+
+<span class="fc" id="L449">  private Throwable exceptionFromWorkerThread = null;</span>
+
+  private synchronized Throwable getExceptionFromWorkerThread() {
+<span class="nc" id="L452">    return exceptionFromWorkerThread;</span>
+  }
+
+  private synchronized void setExceptionFromWorkerThread(Throwable exceptionFromWorkerThread) {
+<span class="nc" id="L456">    this.exceptionFromWorkerThread = exceptionFromWorkerThread;</span>
+<span class="nc" id="L457">  }</span>
+
+  public void abortWorkerThread() throws Exception {
+<span class="nc bnc" id="L460" title="All 2 branches missed.">    if (workerThread != null) {</span>
+      // Remove all objects already queued
+<span class="nc" id="L462">      progress.objectsToWrite.clear();</span>
+<span class="nc" id="L463">      endOfObjects();</span>
+    }
+<span class="nc" id="L465">  }</span>
+
+<span class="fc" id="L467">  private final Runnable worker =</span>
+      () -&gt; {
+        try {
+          while (true) {
+<span class="fc" id="L471">            List&lt;SchemaObjectInstance&gt; objects = new ArrayList&lt;&gt;(progress.objectsToWrite.size());</span>
+<span class="fc" id="L472">            objects.add(progress.objectsToWrite.take());</span>
+<span class="fc" id="L473">            progress.objectsToWrite.drainTo(objects);</span>
+<span class="fc bfc" id="L474" title="All 2 branches covered.">            for (SchemaObjectInstance object : objects) {</span>
+              // Check for end of objects marker
+<span class="fc bfc" id="L476" title="All 2 branches covered.">              if (object.getObjectType() == null) {</span>
+<span class="fc" id="L477">                return;</span>
+              }
+<span class="fc" id="L479">              addObjectToBatch(object, true);</span>
+<span class="fc" id="L480">            }</span>
+<span class="fc" id="L481">          }</span>
+<span class="nc" id="L482">        } catch (InterruptedException e) {</span>
+<span class="nc" id="L483">          Thread.currentThread().interrupt();</span>
+<span class="nc" id="L484">        } catch (Throwable e) {</span>
+<span class="nc" id="L485">          log.error(&quot;Exception in object writing thread&quot;, e);</span>
+<span class="nc" id="L486">          setExceptionFromWorkerThread(e);</span>
+<span class="nc" id="L487">        }</span>
+<span class="nc" id="L488">      };</span>
+
+  protected void updateProgress(Stage stage) {
+<span class="pc bpc" id="L491" title="1 of 2 branches missed.">    if (this.progress != null) {</span>
+<span class="fc" id="L492">      this.progress.stage = stage;</span>
+<span class="fc" id="L493">      updateProgress(true);</span>
+    }
+<span class="fc" id="L495">  }</span>
+
+  protected void updateProgress() {
+<span class="fc" id="L498">    updateProgress(false);</span>
+<span class="fc" id="L499">  }</span>
+
+  private void updateProgress(boolean always) {
+<span class="fc bfc" id="L502" title="All 2 branches covered.">    if (progressUpdater == null) {</span>
+<span class="fc" id="L503">      return;</span>
+    }
+<span class="fc bfc" id="L505" title="All 4 branches covered.">    boolean timeForProgress =</span>
+        progress.lastProgressUpdate == null
+            || (progress.objectCount % 500 == 0
+<span class="fc bfc" id="L508" title="All 2 branches covered.">                &amp;&amp; Duration.between(progress.lastProgressUpdate, Instant.now()).getNano() &gt; 250e6);</span>
+<span class="fc bfc" id="L509" title="All 4 branches covered.">    if (always || timeForProgress) {</span>
+<span class="fc" id="L510">      progressUpdater.accept(progress);</span>
+<span class="fc" id="L511">      progress.lastProgressUpdate = Instant.now();</span>
+    }
+<span class="fc" id="L513">  }</span>
+
+  private void truncateTable(Connection c, ObjectType objectType) throws SQLException {
+    // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
+<span class="nc" id="L517">    new LoggingQueryRunner()</span>
+<span class="nc" id="L518">        .execute(</span>
+            c,
+<span class="nc" id="L520">            String.format(</span>
+                &quot;truncate table %s&quot;,
+<span class="nc" id="L522">                schemaSQLMapper.getTableNameForObjectType(objectType, tablePrefix)));</span>
+<span class="nc" id="L523">  }</span>
+
+  private String buildInsertSql(SchemaObjectInstance object) {
+<span class="fc" id="L526">    StringBuilder sql = new StringBuilder(&quot;insert into &quot;);</span>
+<span class="fc" id="L527">    String tableName =</span>
+<span class="fc" id="L528">        schemaSQLMapper.getTableNameForObjectType(object.getObjectType(), tablePrefix);</span>
+<span class="fc" id="L529">    sql.append(tableName).append(&quot;(&quot;);</span>
+<span class="fc" id="L530">    sql.append(buildColumnList(object.getObjectType()));</span>
+<span class="fc" id="L531">    sql.append(&quot;) values (&quot;);</span>
+<span class="fc" id="L532">    String paramPlaceholders =</span>
+<span class="fc" id="L533">        object.getObjectType().getDirectNonDefaultInsertAttributes().stream()</span>
+<span class="fc" id="L534">            .map(c -&gt; &quot;?&quot;)</span>
+<span class="fc" id="L535">            .collect(Collectors.joining(&quot;, &quot;));</span>
+<span class="fc" id="L536">    sql.append(paramPlaceholders).append(&quot;)&quot;);</span>
+<span class="fc" id="L537">    return sql.toString();</span>
+  }
+
+  private String buildInsertSql(ObjectType objectType, ArrayAttributeMapping attribute) {
+<span class="nc" id="L541">    String referencingKeys =</span>
+<span class="nc" id="L542">        objectType.getPrimaryKeys().stream()</span>
+<span class="nc" id="L543">            .map(pk -&gt; schemaSQLMapper.getColumnNameForObjectType(objectType, pk.getName()))</span>
+<span class="nc" id="L544">            .collect(Collectors.joining(&quot;, &quot;));</span>
+<span class="nc" id="L545">    return String.format(</span>
+        &quot;insert into %s (%s, %s) values (%s)&quot;,
+<span class="nc" id="L547">        schemaSQLMapper.getTableNameForArrayAttribute(objectType, attribute, tablePrefix),</span>
+        referencingKeys,
+<span class="nc" id="L549">        schemaSQLMapper.getColumnNameForObjectType(objectType, attribute.getName()),</span>
+<span class="nc" id="L550">        String.join(&quot;, &quot;, Collections.nCopies(objectType.getPrimaryKeys().size() + 1, &quot;?&quot;)));</span>
+  }
+
+  private String buildPgCopySql(SchemaObjectInstance object, boolean initialLoad) {
+<span class="fc" id="L554">    String tableName =</span>
+<span class="fc" id="L555">        schemaSQLMapper.getTableNameForObjectType(object.getObjectType(), tablePrefix);</span>
+<span class="fc" id="L556">    String copySql =</span>
+<span class="fc" id="L557">        &quot;copy &quot; + tableName + &quot;(&quot; + buildColumnList(object.getObjectType()) + &quot;) from stdin&quot;;</span>
+<span class="pc bpc" id="L558" title="1 of 2 branches missed.">    return copySql + (initialLoad ? &quot; with freeze&quot; : &quot;&quot;);</span>
+  }
+
+  private String buildColumnList(ObjectType objectType) {
+<span class="fc" id="L562">    return objectType.getDirectNonDefaultInsertAttributes().stream()</span>
+<span class="fc" id="L563">        .map(column -&gt; schemaSQLMapper.getColumnNameForObjectType(objectType, column.getName()))</span>
+<span class="fc" id="L564">        .collect(Collectors.joining(&quot;, &quot;));</span>
+  }
+
+<span class="fc" id="L567">  private Thread workerThread = null;</span>
+
+  protected void start(Progress progress) throws SQLException {
+<span class="fc" id="L570">    this.progress = progress;</span>
+
+<span class="fc" id="L572">    getConnection().setAutoCommit(false);</span>
+
+<span class="fc bfc" id="L574" title="All 2 branches covered.">    if (multithreading) {</span>
+<span class="fc" id="L575">      workerThread = new Thread(worker);</span>
+<span class="fc" id="L576">      workerThread.start();</span>
+    }
+<span class="fc" id="L578">  }</span>
+
+  protected void endOfObjects() throws Exception {
+<span class="fc bfc" id="L581" title="All 2 branches covered.">    if (workerThread != null) {</span>
+      // Signal end of objects to thread
+<span class="fc" id="L583">      progress.objectsToWrite.put(new SchemaObjectInstance(null, Collections.emptyMap()));</span>
+<span class="fc" id="L584">      workerThread.join();</span>
+    }
+<span class="fc" id="L586">  }</span>
+
+  protected void complete() throws Exception {
+<span class="fc bfc" id="L589" title="All 2 branches covered.">    for (QueryBatch batch : progress.insertBatches.values()) {</span>
+<span class="fc" id="L590">      batch.executeBatch();</span>
+<span class="fc" id="L591">    }</span>
+
+<span class="pc bpc" id="L593" title="1 of 2 branches missed.">    for (QueryBatch batch : progress.arrayAttributeInsertBatches.values()) {</span>
+<span class="nc" id="L594">      batch.executeBatch();</span>
+<span class="nc" id="L595">    }</span>
+
+<span class="pc bpc" id="L597" title="3 of 6 branches missed.">    if (isCreateSchema() &amp;&amp; isCreateKeysAndIndexes() &amp;&amp; progress.initialLoad) {</span>
+<span class="fc bfc" id="L598" title="All 2 branches covered.">      for (ObjectType objectType : progress.insertBatches.keySet()) {</span>
+<span class="fc" id="L599">        createKeys(objectType);</span>
+<span class="fc" id="L600">      }</span>
+<span class="fc bfc" id="L601" title="All 2 branches covered.">      for (ObjectType objectType : progress.insertBatches.keySet()) {</span>
+<span class="fc" id="L602">        createIndexes(objectType);</span>
+<span class="fc" id="L603">      }</span>
+    }
+
+<span class="fc" id="L606">    connection.commit();</span>
+<span class="fc" id="L607">    updateProgress(Stage.FINISHED);</span>
+<span class="fc" id="L608">  }</span>
+
+  public void createKeys(ObjectType objectType) throws Exception {
+<span class="fc" id="L611">    QueryRunner qr = new LoggingQueryRunner();</span>
+<span class="fc" id="L612">    updateProgress(Stage.CREATE_PRIMARY_KEY);</span>
+    // XXX why includeOneToMany is false here?
+    for (String sql :
+        schemaSQLMapper
+<span class="fc" id="L616">            .getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, false)</span>
+<span class="fc bfc" id="L617" title="All 2 branches covered.">            .collect(Collectors.toList())) {</span>
+<span class="fc" id="L618">      qr.update(connection, sql);</span>
+<span class="fc" id="L619">    }</span>
+<span class="fc" id="L620">  }</span>
+
+  public void createIndexes(ObjectType objectType) throws Exception {
+<span class="fc" id="L623">    QueryRunner qr = new LoggingQueryRunner();</span>
+<span class="fc" id="L624">    updateProgress(Stage.CREATE_GEOMETRY_INDEX);</span>
+    // XXX why includeOneToMany is false here?
+    for (String sql :
+        schemaSQLMapper
+<span class="fc" id="L628">            .getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, false)</span>
+<span class="fc bfc" id="L629" title="All 2 branches covered.">            .collect(Collectors.toList())) {</span>
+<span class="fc" id="L630">      qr.update(connection, sql);</span>
+<span class="fc" id="L631">    }</span>
+<span class="fc" id="L632">  }</span>
+
+  protected void closeBatches() {
+<span class="fc" id="L635">    progress.insertBatches.values().forEach(QueryBatch::closeQuietly);</span>
+<span class="fc" id="L636">    progress.arrayAttributeInsertBatches.values().forEach(QueryBatch::closeQuietly);</span>
+<span class="fc" id="L637">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

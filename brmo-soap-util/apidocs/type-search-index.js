@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.soap.util","l":"LogMessageHandler"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nl.b3p.brmo.soap.util","l":"LogMessageHandler"}];updateSearchResults();

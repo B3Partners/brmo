@@ -70,135 +70,137 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>            @Override
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>            <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addLog(String log) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>              LOG.info(log);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>            }
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          });
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>    }
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">   * Voert de taak uit en rapporteert de voortgang.</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">   * @param listener voortgangs listener</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>    @Override
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener) {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">this</strong>.listener = listener;
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      BGTLoaderMain.configureLogging(false);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">if</strong> (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>        <strong class="jxr_keyword">if</strong> (config.getStatus().equals(ERROR)) {
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          listener.addLog(<span class="jxr_string">"Vorige run is met ERROR status afgerond, opnieuw proberen"</span>);
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>        }
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>        <strong class="jxr_keyword">int</strong> exitCode = -1;
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>        <a name="BGTDatabase" href="../../../../../nl/b3p/brmo/bgt/loader/BGTDatabase.html#BGTDatabase">BGTDatabase</a> bgtDatabase;
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>        <strong class="jxr_keyword">try</strong> (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <a name="DatabaseOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DatabaseOptions.html#DatabaseOptions">DatabaseOptions</a> databaseOptions = <strong class="jxr_keyword">new</strong> <a name="DatabaseOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DatabaseOptions.html#DatabaseOptions">DatabaseOptions</a>();
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          <em class="jxr_comment">// Niet nodig (rsgbbgtConnection wordt gebruikt), maar voor de duidelijkheid</em>
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          Connection connection = rsgbbgtConnection;
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>          <strong class="jxr_keyword">if</strong> (databaseOptions.getConnectionString().startsWith(<span class="jxr_string">"jdbc:postgresql:"</span>)) {
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>            <em class="jxr_comment">// Voor gebruik van pgCopy is unwrappen van de connectie nodig.</em>
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>            <em class="jxr_comment">// Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de</em>
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>            <em class="jxr_comment">// PGConnectionUnwrapper kan ook Tomcat JNDI</em>
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>            <em class="jxr_comment">// connection pool unwrapping aan welke niet met een normale Connection.unwrap()</em>
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>            <em class="jxr_comment">// werkt.</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>            connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection);
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>            databaseOptions.setUsePgCopy(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         }
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         bgtDatabase =
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>             <strong class="jxr_keyword">new</strong> <a name="BGTDatabase" href="../../../../../nl/b3p/brmo/bgt/loader/BGTDatabase.html#BGTDatabase">BGTDatabase</a>(databaseOptions, connection) {
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>               <em class="jxr_javadoccomment">/** connectie niet sluiten; dat doen we later als we helemaal klaar zijn */</em>
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>               @Override
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>               <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> close() {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 LOG.debug(<span class="jxr_string">"Had de BGT database kunnen sluiten... maar niet gedaan."</span>);
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>               }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>             };
-<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>         <a name="LoadOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/LoadOptions.html#LoadOptions">LoadOptions</a> loadOptions = <strong class="jxr_keyword">new</strong> <a name="LoadOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/LoadOptions.html#LoadOptions">LoadOptions</a>();
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         loadOptions.setIncludeHistory(
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>             (<span class="jxr_string">"true"</span>.equals(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"include-history"</span>)))));
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         loadOptions.setCreateSchema(
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>             (<span class="jxr_string">"true"</span>.equals(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"create-schema"</span>)))));
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         loadOptions.setLinearizeCurves(
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>             <span class="jxr_string">"true"</span>.equals(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"linearize-curves"</span>))));
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>         <a name="ExtractSelectionOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/ExtractSelectionOptions.html#ExtractSelectionOptions">ExtractSelectionOptions</a> extractSelectionOptions = <strong class="jxr_keyword">new</strong> <a name="ExtractSelectionOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/ExtractSelectionOptions.html#ExtractSelectionOptions">ExtractSelectionOptions</a>();
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         extractSelectionOptions.setGeoFilterWkt(
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>             ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"geo-filter"</span>)));
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">boolean</strong> noGeoFilter =
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>             StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"geo-filter"</span>)));
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>         String fTypes = ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"feature-types"</span>));
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(<span class="jxr_string">","</span>)));
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         <a name="DownloadCommand" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DownloadCommand.html#DownloadCommand">DownloadCommand</a> downloadCommand = <strong class="jxr_keyword">new</strong> <a name="DownloadCommand" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DownloadCommand.html#DownloadCommand">DownloadCommand</a>();
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         downloadCommand.setBGTDatabase(bgtDatabase);
-<a class="jxr_linenumber" name="L127" href="#L127">127</a> 
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         listener.updateStatus(PROCESSING.toString());
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         config.setStatus(PROCESSING);
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         Stripersist.getEntityManager().merge(config);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         Stripersist.getEntityManager().flush();
-<a class="jxr_linenumber" name="L132" href="#L132">132</a> 
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         String initialLoadDeltaId;
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>           initialLoadDeltaId =
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>               bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         } <strong class="jxr_keyword">catch</strong> (SQLException e) {
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>           <em class="jxr_comment">// Metadata table may not exist</em>
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>           initialLoadDeltaId = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>         }
-<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">if</strong> (initialLoadDeltaId == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>           listener.updateStatus(<span class="jxr_string">"Ophalen BGT stand..."</span>);
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>           listener.addLog(<span class="jxr_string">"Ophalen BGT stand"</span>);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>           exitCode =
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>               downloadCommand.initial(
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>                   databaseOptions,
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>                   loadOptions,
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>                   extractSelectionOptions,
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>                   noGeoFilter,
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>                   <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>                   <strong class="jxr_keyword">new</strong> <a name="CLIOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/CLIOptions.html#CLIOptions">CLIOptions</a>(),
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>                   false);
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>           <em class="jxr_comment">// exitCode 2 = USAGE / config fout</em>
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>           listener.updateStatus(<span class="jxr_string">"Einde ophalen BGT stand"</span>);
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>           listener.addLog(<span class="jxr_string">"Einde ophalen BGT stand"</span>);
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>           listener.updateStatus(<span class="jxr_string">"Ophalen BGT mutaties..."</span>);
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>           listener.addLog(<span class="jxr_string">"Ophalen BGT mutaties"</span>);
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>           exitCode = downloadCommand.update(databaseOptions, <strong class="jxr_keyword">new</strong> <a name="CLIOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/CLIOptions.html#CLIOptions">CLIOptions</a>(), <strong class="jxr_keyword">null</strong>, false, false);
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>           listener.updateStatus(<span class="jxr_string">"Einde ophalen BGT mutaties"</span>);
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>           listener.addLog(<span class="jxr_string">"Einde ophalen BGT mutaties"</span>);
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         }
-<a class="jxr_linenumber" name="L164" href="#L164">164</a> 
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>       } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         LOG.error(e.getLocalizedMessage());
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         listener.exception(e);
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>       } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> | SQLException e) {
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         LOG.error(<span class="jxr_string">"Fout tijdens benaderen BGT database"</span>, e);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         listener.exception(e);
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>       } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         LOG.error(<span class="jxr_string">"Fout tijdens laden BGT"</span>, e);
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         listener.exception(e);
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>       } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">if</strong> (exitCode == 0) {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>           config.setStatus(WAITING);
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>           config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>           listener.updateStatus(WAITING.toString());
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>           config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>           config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>           listener.updateStatus(ERROR.toString());
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         }
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         listener.addLog(<span class="jxr_string">"BGT laden afgerond"</span>);
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         Stripersist.getEntityManager().merge(config);
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         Stripersist.getEntityManager().flush();
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>       }
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>     }
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>   }
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> }
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>              config.updateSamenvattingEnLogfile(log);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>              Stripersist.getEntityManager().merge(config);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>            }
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          });
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>    }
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">   * Voert de taak uit en rapporteert de voortgang.</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">   * @param listener voortgangs listener</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>    @Override
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">this</strong>.listener = listener;
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      BGTLoaderMain.configureLogging(false);
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">if</strong> (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>        <strong class="jxr_keyword">if</strong> (config.getStatus().equals(ERROR)) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          listener.addLog(<span class="jxr_string">"Vorige run is met ERROR status afgerond, opnieuw proberen"</span>);
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>        }
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>        <strong class="jxr_keyword">int</strong> exitCode = -1;
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>        <a name="BGTDatabase" href="../../../../../nl/b3p/brmo/bgt/loader/BGTDatabase.html#BGTDatabase">BGTDatabase</a> bgtDatabase;
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>        <strong class="jxr_keyword">try</strong> (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <a name="DatabaseOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DatabaseOptions.html#DatabaseOptions">DatabaseOptions</a> databaseOptions = <strong class="jxr_keyword">new</strong> <a name="DatabaseOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DatabaseOptions.html#DatabaseOptions">DatabaseOptions</a>();
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <em class="jxr_comment">// Niet nodig (rsgbbgtConnection wordt gebruikt), maar voor de duidelijkheid</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          Connection connection = rsgbbgtConnection;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">if</strong> (databaseOptions.getConnectionString().startsWith(<span class="jxr_string">"jdbc:postgresql:"</span>)) {
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>            <em class="jxr_comment">// Voor gebruik van pgCopy is unwrappen van de connectie nodig.</em>
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>            <em class="jxr_comment">// Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>            <em class="jxr_comment">// PGConnectionUnwrapper kan ook Tomcat JNDI</em>
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>            <em class="jxr_comment">// connection pool unwrapping aan welke niet met een normale Connection.unwrap()</em>
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>            <em class="jxr_comment">// werkt.</em>
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>           connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>           databaseOptions.setUsePgCopy(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         }
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         bgtDatabase =
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>             <strong class="jxr_keyword">new</strong> <a name="BGTDatabase" href="../../../../../nl/b3p/brmo/bgt/loader/BGTDatabase.html#BGTDatabase">BGTDatabase</a>(databaseOptions, connection) {
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>               <em class="jxr_javadoccomment">/** connectie niet sluiten; dat doen we later als we helemaal klaar zijn */</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>               @Override
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>               <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> close() {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>                 LOG.debug(<span class="jxr_string">"Had de BGT database kunnen sluiten... maar niet gedaan."</span>);
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>               }
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>             };
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> 
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         <a name="LoadOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/LoadOptions.html#LoadOptions">LoadOptions</a> loadOptions = <strong class="jxr_keyword">new</strong> <a name="LoadOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/LoadOptions.html#LoadOptions">LoadOptions</a>();
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         loadOptions.setIncludeHistory(
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>             (<span class="jxr_string">"true"</span>.equals(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"include-history"</span>)))));
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         loadOptions.setCreateSchema(
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>             (<span class="jxr_string">"true"</span>.equals(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"create-schema"</span>)))));
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         loadOptions.setLinearizeCurves(
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>             <span class="jxr_string">"true"</span>.equals(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"linearize-curves"</span>))));
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> 
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         <a name="ExtractSelectionOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/ExtractSelectionOptions.html#ExtractSelectionOptions">ExtractSelectionOptions</a> extractSelectionOptions = <strong class="jxr_keyword">new</strong> <a name="ExtractSelectionOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/ExtractSelectionOptions.html#ExtractSelectionOptions">ExtractSelectionOptions</a>();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         extractSelectionOptions.setGeoFilterWkt(
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"geo-filter"</span>)));
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         <strong class="jxr_keyword">boolean</strong> noGeoFilter =
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"geo-filter"</span>)));
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>         String fTypes = ClobElement.nullSafeGet(config.getConfig().get(<span class="jxr_string">"feature-types"</span>));
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(<span class="jxr_string">","</span>)));
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <a name="DownloadCommand" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DownloadCommand.html#DownloadCommand">DownloadCommand</a> downloadCommand = <strong class="jxr_keyword">new</strong> <a name="DownloadCommand" href="../../../../../nl/b3p/brmo/bgt/loader/cli/DownloadCommand.html#DownloadCommand">DownloadCommand</a>();
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         downloadCommand.setBGTDatabase(bgtDatabase);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> 
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         listener.updateStatus(PROCESSING.toString());
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         config.setStatus(PROCESSING);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         Stripersist.getEntityManager().merge(config);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         Stripersist.getEntityManager().flush();
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>         String initialLoadDeltaId;
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>           initialLoadDeltaId =
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>               bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         } <strong class="jxr_keyword">catch</strong> (SQLException e) {
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>           <em class="jxr_comment">// Metadata table may not exist</em>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>           initialLoadDeltaId = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         }
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> 
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>         <strong class="jxr_keyword">if</strong> (initialLoadDeltaId == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>           listener.updateStatus(<span class="jxr_string">"Ophalen BGT stand..."</span>);
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>           listener.addLog(<span class="jxr_string">"Ophalen BGT stand gestart op "</span> + <strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>           exitCode =
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>               downloadCommand.initial(
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>                   databaseOptions,
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>                   loadOptions,
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>                   extractSelectionOptions,
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>                   noGeoFilter,
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>                   <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>                   <strong class="jxr_keyword">new</strong> <a name="CLIOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/CLIOptions.html#CLIOptions">CLIOptions</a>(),
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>                   false);
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>           <em class="jxr_comment">// exitCode 2 = USAGE / config fout</em>
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>           listener.updateStatus(<span class="jxr_string">"Einde ophalen BGT stand"</span>);
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>           listener.addLog(<span class="jxr_string">"Einde ophalen BGT stand"</span>);
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>           listener.updateStatus(<span class="jxr_string">"Ophalen BGT mutaties..."</span>);
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>           listener.addLog(<span class="jxr_string">"Ophalen BGT mutaties gestart op "</span> + <strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>           exitCode = downloadCommand.update(databaseOptions, <strong class="jxr_keyword">new</strong> <a name="CLIOptions" href="../../../../../nl/b3p/brmo/bgt/loader/cli/CLIOptions.html#CLIOptions">CLIOptions</a>(), <strong class="jxr_keyword">null</strong>, false, false);
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>           listener.updateStatus(<span class="jxr_string">"Einde ophalen BGT mutaties"</span>);
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>           listener.addLog(<span class="jxr_string">"Einde ophalen BGT mutaties"</span>);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         }
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> 
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>       } <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         LOG.error(e.getLocalizedMessage());
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         listener.exception(e);
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>       } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> | SQLException e) {
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         LOG.error(<span class="jxr_string">"Fout tijdens benaderen BGT database"</span>, e);
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         listener.exception(e);
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>       } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         LOG.error(<span class="jxr_string">"Fout tijdens laden BGT"</span>, e);
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         listener.exception(e);
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>       } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">if</strong> (exitCode == 0) {
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>           config.setStatus(WAITING);
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>           config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>           listener.updateStatus(WAITING.toString());
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>           config.setStatus(ERROR);
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>           config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>           listener.updateStatus(ERROR.toString());
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         }
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         listener.addLog(<span class="jxr_string">"BGT laden afgerond op "</span> + <strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         Stripersist.getEntityManager().merge(config);
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         Stripersist.getEntityManager().flush();
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>       }
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>   }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>

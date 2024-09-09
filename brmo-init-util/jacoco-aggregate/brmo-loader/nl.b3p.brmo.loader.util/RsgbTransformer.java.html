@@ -33,34 +33,34 @@ public class RsgbTransformer {
   protected final DocumentBuilder db;
 
   public RsgbTransformer(String pathToXsl)
-<span class="nc" id="L36">      throws TransformerConfigurationException, ParserConfigurationException {</span>
+<span class="fc" id="L36">      throws TransformerConfigurationException, ParserConfigurationException {</span>
 
-<span class="nc" id="L38">    Source xsl = new StreamSource(RsgbTransformer.class.getResourceAsStream(pathToXsl));</span>
-<span class="nc" id="L39">    TransformerFactory tf = TransformerFactory.newInstance();</span>
-<span class="nc" id="L40">    tf.setURIResolver(</span>
+<span class="fc" id="L38">    Source xsl = new StreamSource(RsgbTransformer.class.getResourceAsStream(pathToXsl));</span>
+<span class="fc" id="L39">    TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="fc" id="L40">    tf.setURIResolver(</span>
         (href, base) -&gt;
-<span class="nc" id="L42">            new StreamSource(RsgbTransformer.class.getResourceAsStream(&quot;/xsl/&quot; + href)));</span>
-<span class="nc" id="L43">    this.t = tf.newTemplates(xsl);</span>
+<span class="fc" id="L42">            new StreamSource(RsgbTransformer.class.getResourceAsStream(&quot;/xsl/&quot; + href)));</span>
+<span class="fc" id="L43">    this.t = tf.newTemplates(xsl);</span>
 
-<span class="nc" id="L45">    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span>
-<span class="nc" id="L46">    dbf.setNamespaceAware(true);</span>
-<span class="nc" id="L47">    this.db = dbf.newDocumentBuilder();</span>
-<span class="nc" id="L48">  }</span>
+<span class="fc" id="L45">    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L46">    dbf.setNamespaceAware(true);</span>
+<span class="fc" id="L47">    this.db = dbf.newDocumentBuilder();</span>
+<span class="fc" id="L48">  }</span>
 
   public String transformToDbXml(Bericht bericht)
       throws SAXException, IOException, TransformerException {
-<span class="nc" id="L52">    StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L53">    Document d = db.parse(new InputSource(new StringReader(bericht.getBrXml())));</span>
-<span class="nc" id="L54">    Transformer transformer = t.newTransformer();</span>
-<span class="nc" id="L55">    transformer.setParameter(</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        &quot;objectRef&quot;, bericht.getObjectRef() == null ? &quot;&quot; : bericht.getObjectRef());</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">    transformer.setParameter(&quot;datum&quot;, bericht.getDatum() == null ? &quot;&quot; : bericht.getDatum());</span>
-<span class="nc" id="L58">    transformer.setParameter(</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        &quot;volgordeNummer&quot;, bericht.getVolgordeNummer() == null ? &quot;&quot; : bericht.getVolgordeNummer());</span>
-<span class="nc bnc" id="L60" title="All 2 branches missed.">    transformer.setParameter(&quot;soort&quot;, bericht.getSoort() == null ? &quot;&quot; : bericht.getSoort());</span>
-<span class="nc" id="L61">    transformer.transform(new DOMSource(d), new StreamResult(sw));</span>
+<span class="fc" id="L52">    StringWriter sw = new StringWriter();</span>
+<span class="fc" id="L53">    Document d = db.parse(new InputSource(new StringReader(bericht.getBrXml())));</span>
+<span class="fc" id="L54">    Transformer transformer = t.newTransformer();</span>
+<span class="fc" id="L55">    transformer.setParameter(</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        &quot;objectRef&quot;, bericht.getObjectRef() == null ? &quot;&quot; : bericht.getObjectRef());</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">    transformer.setParameter(&quot;datum&quot;, bericht.getDatum() == null ? &quot;&quot; : bericht.getDatum());</span>
+<span class="fc" id="L58">    transformer.setParameter(</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        &quot;volgordeNummer&quot;, bericht.getVolgordeNummer() == null ? &quot;&quot; : bericht.getVolgordeNummer());</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">    transformer.setParameter(&quot;soort&quot;, bericht.getSoort() == null ? &quot;&quot; : bericht.getSoort());</span>
+<span class="fc" id="L61">    transformer.transform(new DOMSource(d), new StreamResult(sw));</span>
 
-<span class="nc" id="L63">    return sw.toString();</span>
+<span class="fc" id="L63">    return sw.toString();</span>
   }
 
   public Node transformToDbXmlNode(Bericht bericht)
@@ -71,4 +71,4 @@ public class RsgbTransformer {
 <span class="nc" id="L71">    return r.getNode();</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

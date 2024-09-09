@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="brk" type="PostgreSQL - 16.1">
+<database name="rsgb" schema="brk" type="PostgreSQL - 16.4">
    <tables>
       <table name="adres" numRows="0" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar">
@@ -138,8 +138,8 @@
             <child column="heefthoofdzaak" foreignKey="recht_heefthoofdzaak_fkey" implied="false" onDeleteCascade="false" table="recht"/>
             <child column="rustop" foreignKey="recht_rustop_fkey" implied="false" onDeleteCascade="false" table="recht"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="BRMO: metadata tbv archivering, datum van bericht." size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="2" name="eindegeldigheid" nullable="true" remarks="BRMO: metadata tbv archivering, datum van opvolgend bericht." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="1" name="begingeldigheid" nullable="false" remarks="BRMO: metadata tbv archivering, de toestandsdatum van het bericht." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="eindegeldigheid" nullable="true" remarks="BRMO: metadata tbv archivering, de toestandsdatum van het opvolgende bericht." size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="3" name="akrkadastralegemeentecode" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="4" type="numeric"/>
          <column autoUpdated="false" digits="0" id="4" name="akrkadastralegemeente" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="5" type="varchar"/>
          <column autoUpdated="false" digits="0" id="5" name="kadastralegemeentecode" nullable="true" remarks="De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak." size="4" type="numeric"/>
@@ -403,7 +403,7 @@
          <column autoUpdated="false" digits="0" id="33" name="betrokkenpersoon" nullable="true" remarks="Relatie van aantekening naar persoon" size="2147483647" type="varchar">
             <parent column="identificatie" foreignKey="recht_betrokkenpersoon_fkey" implied="false" onDeleteCascade="false" table="persoon"/>
          </column>
-         <column autoUpdated="false" digits="0" id="34" name="begingeldigheid" nullable="false" remarks="BRMO: metadata tbv archivering, datum van bericht." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="34" name="begingeldigheid" nullable="false" remarks="BRMO: metadata tbv archivering, de toestandsdatum van het bericht." size="13" type="date"/>
          <primaryKey column="identificatie" sequenceNumberInPK="1"/>
          <index name="recht_pkey" unique="true">
             <column ascending="true" name="identificatie"/>

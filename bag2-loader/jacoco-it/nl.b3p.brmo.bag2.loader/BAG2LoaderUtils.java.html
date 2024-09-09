@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BAG2LoaderUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader</a> &gt; <span class="el_source">BAG2LoaderUtils.java</span></div><h1>BAG2LoaderUtils.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Path;
+import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
+import nl.b3p.brmo.bag2.xml.leveringsdocument.BAGExtractLevering;
+import nl.b3p.brmo.bag2.xml.leveringsdocument.Gemeente;
+import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+
+<span class="nc" id="L34">public class BAG2LoaderUtils {</span>
+
+  public static final String BUNDLE_NAME = &quot;BAG2Loader&quot;;
+
+  public static final String LEVERINGSDOCUMENT_FILENAME = &quot;Leveringsdocument-BAG-Extract.xml&quot;;
+
+<span class="fc" id="L40">  static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);</span>
+
+  public static String getUserAgent() {
+<span class="nc" id="L43">    return String.format(</span>
+        &quot;%s, %s (%s)/%s, %s/%s&quot;,
+<span class="nc" id="L45">        getBundleString(&quot;app.user-agent&quot;),</span>
+<span class="nc" id="L46">        System.getProperty(&quot;os.name&quot;),</span>
+<span class="nc" id="L47">        System.getProperty(&quot;os.arch&quot;),</span>
+<span class="nc" id="L48">        System.getProperty(&quot;os.version&quot;),</span>
+<span class="nc" id="L49">        System.getProperty(&quot;java.vm.name&quot;),</span>
+<span class="nc" id="L50">        System.getProperty(&quot;java.vm.version&quot;));</span>
+  }
+
+  public static ResourceBundle getBundle() {
+<span class="fc" id="L54">    return bundle;</span>
+  }
+
+  public static String getBundleString(String key) {
+<span class="fc" id="L58">    return bundle.getString(key);</span>
+  }
+
+  public static String getMessageFormattedString(String key, Object... args) {
+<span class="fc" id="L62">    ResourceBundle bundle = getBundle();</span>
+<span class="fc" id="L63">    return new MessageFormat(bundle.getString(key), bundle.getLocale()).format(args);</span>
+  }
+
+  public static String getLoaderVersion() {
+<span class="fc" id="L67">    return getBundleString(&quot;app.version&quot;);</span>
+  }
+
+  public static String getBrmoVersion() {
+<span class="nc" id="L71">    return getBundleString(&quot;brmo.version&quot;);</span>
+  }
+
+  public static BAGExtractSelectie getBAGExtractSelectieFromZip(String zipFileName)
+      throws IOException {
+<span class="pc bpc" id="L76" title="2 of 4 branches missed.">    if (zipFileName.startsWith(&quot;http://&quot;) || zipFileName.startsWith(&quot;https://&quot;)) {</span>
+      // Try to parse filename in URL to avoid having to download the ZIP and extract the
+      // leveringsdocument --
+      // because this may happen many times to check whether a mutatie ZIP is applicable
+      try {
+<span class="nc" id="L81">        return BAGExtractSelectieFromFilename.parse(zipFileName);</span>
+<span class="nc" id="L82">      } catch (IllegalArgumentException iae) {</span>
+        // Could not parse BAG2 extract selection from filename, use HTTP random access to
+        // parse only
+        // leveringsdocument without downloading/streaming the entire ZIP file
+<span class="nc" id="L86">        return getBAGExtractSelectieFromHttpZip(URI.create(zipFileName));</span>
+      }
+    } else {
+<span class="fc" id="L89">      return getBAGExtractSelectieFromZipFile(new File(zipFileName));</span>
+    }
+  }
+
+  private static BAGExtractSelectie getBAGExtractSelectieFromHttpZip(URI uri) throws IOException {
+<span class="nc" id="L94">    String message = getMessageFormattedString(&quot;load.leveringsdocument.readzip&quot;, uri);</span>
+<span class="nc" id="L95">    try (HttpSeekableByteChannel channel = new HttpSeekableByteChannel(uri);</span>
+<span class="nc" id="L96">        org.apache.commons.compress.archivers.zip.ZipFile zipFile =</span>
+            new org.apache.commons.compress.archivers.zip.ZipFile(
+<span class="nc" id="L98">                channel, uri.toString(), &quot;UTF8&quot;, false, true)) {</span>
+<span class="nc" id="L99">      message = getMessageFormattedString(&quot;load.leveringsdocument.zipentries&quot;, uri);</span>
+<span class="nc" id="L100">      Iterator&lt;ZipArchiveEntry&gt; iterator =</span>
+<span class="nc" id="L101">          zipFile.getEntries(LEVERINGSDOCUMENT_FILENAME).iterator();</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">      if (!iterator.hasNext()) {</span>
+<span class="nc" id="L103">        throw new IOException(getMessageFormattedString(&quot;load.leveringsdocument.notfound&quot;, uri));</span>
+      }
+<span class="nc" id="L105">      message = getMessageFormattedString(&quot;load.leveringsdocument.unmarshal&quot;, uri);</span>
+<span class="nc" id="L106">      JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);</span>
+<span class="nc" id="L107">      Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();</span>
+<span class="nc" id="L108">      try (InputStream in = zipFile.getInputStream(iterator.next())) {</span>
+<span class="nc" id="L109">        BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);</span>
+<span class="nc" id="L110">        return new BAGExtractSelectieFromLeveringsdocument(levering);</span>
+      }
+<span class="nc" id="L112">    } catch (Exception e) {</span>
+<span class="nc" id="L113">      throw new IOException(message, e);</span>
+    }
+  }
+
+  public static BAGExtractSelectie getBAGExtractSelectieFromZipFile(File zipFile)
+      throws IOException {
+<span class="fc" id="L119">    String zipFileName = zipFile.getName();</span>
+<span class="fc" id="L120">    String message = getMessageFormattedString(&quot;load.leveringsdocument.readzip&quot;, zipFileName);</span>
+<span class="fc" id="L121">    try (ZipFile zf = new ZipFile(zipFile)) {</span>
+<span class="fc" id="L122">      message = getMessageFormattedString(&quot;load.leveringsdocument.zipentries&quot;, zipFileName);</span>
+<span class="fc" id="L123">      Enumeration&lt;? extends ZipEntry&gt; entries = zf.entries();</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">      while (entries.hasMoreElements()) {</span>
+<span class="fc" id="L125">        ZipEntry entry = entries.nextElement();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (LEVERINGSDOCUMENT_FILENAME.equals(entry.getName())) {</span>
+<span class="fc" id="L127">          message = getMessageFormattedString(&quot;load.leveringsdocument.unmarshal&quot;, zipFileName);</span>
+<span class="fc" id="L128">          JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);</span>
+<span class="fc" id="L129">          Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();</span>
+<span class="fc" id="L130">          try (InputStream in = zf.getInputStream(entry)) {</span>
+<span class="fc" id="L131">            BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);</span>
+<span class="fc" id="L132">            return new BAGExtractSelectieFromLeveringsdocument(levering);</span>
+          }
+        }
+<span class="fc" id="L135">      }</span>
+<span class="pc" id="L136">    } catch (Exception e) {</span>
+<span class="nc" id="L137">      throw new IOException(message, e);</span>
+<span class="nc" id="L138">    }</span>
+<span class="nc" id="L139">    throw new IOException(</span>
+<span class="nc" id="L140">        getMessageFormattedString(&quot;load.leveringsdocument.notfound&quot;, zipFileName));</span>
+  }
+
+  public interface BAGExtractSelectie {
+    boolean isStand();
+
+    boolean isGebiedNLD();
+
+    LocalDate getMutatiesFrom();
+
+    LocalDate getMutatiesTot();
+
+    Set&lt;String&gt; getGemeenteCodes();
+  }
+
+<span class="nc" id="L155">  public static class BAGExtractSelectieFromFilename implements BAGExtractSelectie {</span>
+    private String name;
+    private boolean isStand;
+    private boolean isGebiedNLD;
+    private String gemeenteCode;
+    private LocalDate mutatiesFrom;
+    private LocalDate mutatiesTot;
+
+    /**
+     * @param name BAG2 filename to parse, can be URL or full path.
+     * @throws IllegalArgumentException If the filename is not a BAG2 filename (outer zip only)
+     */
+    public static BAGExtractSelectie parse(String name) throws IllegalArgumentException {
+
+<span class="nc bnc" id="L169" title="All 4 branches missed.">      if (name.startsWith(&quot;http://&quot;) || name.startsWith(&quot;https://&quot;)) {</span>
+<span class="nc" id="L170">        URI uri = URI.create(name);</span>
+<span class="nc" id="L171">        String[] parts = uri.getPath().split(&quot;/&quot;);</span>
+<span class="nc" id="L172">        name = parts[parts.length - 1];</span>
+      }
+<span class="nc bnc" id="L174" title="All 2 branches missed.">      if (name.contains(File.separator)) {</span>
+<span class="nc" id="L175">        Path p = Path.of(name);</span>
+<span class="nc" id="L176">        name = p.getFileName().toString();</span>
+      }
+
+<span class="nc" id="L179">      BAGExtractSelectieFromFilename selectie = new BAGExtractSelectieFromFilename();</span>
+<span class="nc" id="L180">      selectie.name = name;</span>
+
+<span class="nc bnc" id="L182" title="All 4 branches missed.">      if (name.equals(&quot;lvbag-extract-nl.zip&quot;) || name.matches(&quot;BAGNLDL-\\d{8}\\.zip&quot;)) {</span>
+<span class="nc" id="L183">        selectie.isStand = true;</span>
+<span class="nc" id="L184">        selectie.isGebiedNLD = true;</span>
+<span class="nc" id="L185">        return selectie;</span>
+      }
+
+<span class="nc bnc" id="L188" title="All 2 branches missed.">      if (name.matches(&quot;BAGGEM\\d{4}L-\\d{8}\\.zip&quot;)) {</span>
+<span class="nc" id="L189">        selectie.isStand = true;</span>
+<span class="nc" id="L190">        selectie.isGebiedNLD = false;</span>
+<span class="nc" id="L191">        selectie.gemeenteCode = name.substring(6, 10);</span>
+<span class="nc" id="L192">        return selectie;</span>
+      }
+
+<span class="nc" id="L195">      DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;ddMMyyyy&quot;);</span>
+
+<span class="nc bnc" id="L197" title="All 2 branches missed.">      if (name.matches(&quot;BAGGEM\\d{4}M-\\d{8}-\\d{8}\\.zip&quot;)) {</span>
+<span class="nc" id="L198">        selectie.isStand = false;</span>
+<span class="nc" id="L199">        selectie.isGebiedNLD = false;</span>
+<span class="nc" id="L200">        selectie.gemeenteCode = name.substring(6, 10);</span>
+        // Gemeente can only have monthly updates
+<span class="nc" id="L202">        selectie.mutatiesFrom = LocalDate.parse(name.substring(12, 20), dtf);</span>
+<span class="nc" id="L203">        selectie.mutatiesTot = LocalDate.parse(name.substring(21, 29), dtf);</span>
+<span class="nc" id="L204">        return selectie;</span>
+      }
+
+<span class="nc bnc" id="L207" title="All 2 branches missed.">      if (name.matches(&quot;BAGNLDM-\\d{8}-\\d{8}\\.zip&quot;)) {</span>
+<span class="nc" id="L208">        selectie.isStand = false;</span>
+<span class="nc" id="L209">        selectie.isGebiedNLD = true;</span>
+<span class="nc" id="L210">        selectie.mutatiesFrom = LocalDate.parse(name.substring(8, 16), dtf);</span>
+<span class="nc" id="L211">        selectie.mutatiesTot = LocalDate.parse(name.substring(17, 25), dtf);</span>
+<span class="nc" id="L212">        return selectie;</span>
+      }
+
+<span class="nc" id="L215">      throw new IllegalArgumentException(&quot;Ongeldige BAG2 bestandsnaam: &quot; + name);</span>
+    }
+
+    public String getName() {
+<span class="nc" id="L219">      return name;</span>
+    }
+
+    @Override
+    public boolean isStand() {
+<span class="nc" id="L224">      return isStand;</span>
+    }
+
+    @Override
+    public boolean isGebiedNLD() {
+<span class="nc" id="L229">      return isGebiedNLD;</span>
+    }
+
+    @Override
+    public Set&lt;String&gt; getGemeenteCodes() {
+<span class="nc" id="L234">      return Collections.singleton(gemeenteCode);</span>
+    }
+
+    @Override
+    public LocalDate getMutatiesFrom() {
+<span class="nc" id="L239">      return mutatiesFrom;</span>
+    }
+
+    @Override
+    public LocalDate getMutatiesTot() {
+<span class="nc" id="L244">      return mutatiesTot;</span>
+    }
+  }
+
+  public static class BAGExtractSelectieFromLeveringsdocument implements BAGExtractSelectie {
+    BAGExtractLevering levering;
+
+<span class="fc" id="L251">    private BAGExtractSelectieFromLeveringsdocument(BAGExtractLevering levering) {</span>
+<span class="fc" id="L252">      this.levering = levering;</span>
+<span class="fc" id="L253">    }</span>
+
+    @Override
+    public boolean isStand() {
+<span class="fc bfc" id="L257" title="All 2 branches covered.">      return levering.getSelectieGegevens().getLVCExtract() != null;</span>
+    }
+
+    @Override
+    public boolean isGebiedNLD() {
+<span class="fc bfc" id="L262" title="All 2 branches covered.">      return levering.getSelectieGegevens().getGebiedRegistratief().getGebiedNLD() != null;</span>
+    }
+
+    @Override
+    public LocalDate getMutatiesFrom() {
+<span class="fc" id="L267">      XMLGregorianCalendar xmlGregorianCalendar =</span>
+<span class="fc" id="L268">          levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumVanaf();</span>
+<span class="fc" id="L269">      return LocalDate.of(</span>
+<span class="fc" id="L270">          xmlGregorianCalendar.getYear(),</span>
+<span class="fc" id="L271">          xmlGregorianCalendar.getMonth(),</span>
+<span class="fc" id="L272">          xmlGregorianCalendar.getDay());</span>
+    }
+
+    @Override
+    public LocalDate getMutatiesTot() {
+<span class="nc" id="L277">      XMLGregorianCalendar xmlGregorianCalendar =</span>
+<span class="nc" id="L278">          levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumTot();</span>
+<span class="nc" id="L279">      return LocalDate.of(</span>
+<span class="nc" id="L280">          xmlGregorianCalendar.getYear(),</span>
+<span class="nc" id="L281">          xmlGregorianCalendar.getMonth(),</span>
+<span class="nc" id="L282">          xmlGregorianCalendar.getDay());</span>
+    }
+
+    @Override
+    public Set&lt;String&gt; getGemeenteCodes() {
+<span class="fc" id="L287">      return levering</span>
+<span class="fc" id="L288">          .getSelectieGegevens()</span>
+<span class="fc" id="L289">          .getGebiedRegistratief()</span>
+<span class="fc" id="L290">          .getGebiedGEM()</span>
+<span class="fc" id="L291">          .getGemeenteCollectie()</span>
+<span class="fc" id="L292">          .getGemeente()</span>
+<span class="fc" id="L293">          .stream()</span>
+<span class="fc" id="L294">          .map(Gemeente::getGemeenteIdentificatie)</span>
+<span class="fc" id="L295">          .collect(Collectors.toSet());</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

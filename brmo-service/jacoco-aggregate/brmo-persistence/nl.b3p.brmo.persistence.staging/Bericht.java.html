@@ -72,131 +72,130 @@ public class Bericht implements Serializable {
 <span class="fc" id="L72">    RSGB_OK,</span>
 <span class="fc" id="L73">    RSGB_OUTDATED,</span>
 <span class="fc" id="L74">    RSGB_NOK,</span>
-<span class="fc" id="L75">    ARCHIVE,</span>
-<span class="fc" id="L76">    RSGB_BAG_NOK</span>
+<span class="fc" id="L75">    ARCHIVE</span>
   };
 
-<span class="fc" id="L79">  public Bericht() {}</span>
+<span class="fc" id="L78">  public Bericht() {}</span>
 
-<span class="nc" id="L81">  public Bericht(String br_xml) {</span>
-<span class="nc" id="L82">    this.br_xml = br_xml;</span>
-<span class="nc" id="L83">  }</span>
+<span class="nc" id="L80">  public Bericht(String br_xml) {</span>
+<span class="nc" id="L81">    this.br_xml = br_xml;</span>
+<span class="nc" id="L82">  }</span>
 
   // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
   public Long getId() {
-<span class="nc" id="L87">    return id;</span>
+<span class="nc" id="L86">    return id;</span>
   }
 
   public void setId(Long id) {
-<span class="nc" id="L91">    this.id = id;</span>
-<span class="nc" id="L92">  }</span>
+<span class="nc" id="L90">    this.id = id;</span>
+<span class="nc" id="L91">  }</span>
 
   public LaadProces getLaadprocesid() {
-<span class="nc" id="L95">    return laadprocesid;</span>
+<span class="nc" id="L94">    return laadprocesid;</span>
   }
 
   public void setLaadprocesid(LaadProces laadprocesid) {
-<span class="fc" id="L99">    this.laadprocesid = laadprocesid;</span>
-<span class="fc" id="L100">  }</span>
+<span class="fc" id="L98">    this.laadprocesid = laadprocesid;</span>
+<span class="fc" id="L99">  }</span>
 
   public Date getDatum() {
-<span class="nc" id="L103">    return datum;</span>
+<span class="nc" id="L102">    return datum;</span>
   }
 
   public void setDatum(Date datum) {
-<span class="nc" id="L107">    this.datum = datum;</span>
-<span class="nc" id="L108">  }</span>
+<span class="nc" id="L106">    this.datum = datum;</span>
+<span class="nc" id="L107">  }</span>
 
   public String getObject_ref() {
-<span class="nc" id="L111">    return object_ref;</span>
+<span class="nc" id="L110">    return object_ref;</span>
   }
 
   public void setObject_ref(String object_ref) {
-<span class="nc" id="L115">    this.object_ref = object_ref;</span>
-<span class="nc" id="L116">  }</span>
+<span class="nc" id="L114">    this.object_ref = object_ref;</span>
+<span class="nc" id="L115">  }</span>
 
   public Integer getVolgordenummer() {
-<span class="nc" id="L119">    return volgordenummer;</span>
+<span class="nc" id="L118">    return volgordenummer;</span>
   }
 
   public void setVolgordenummer(Integer volgordenummer) {
-<span class="nc" id="L123">    this.volgordenummer = volgordenummer;</span>
-<span class="nc" id="L124">  }</span>
+<span class="nc" id="L122">    this.volgordenummer = volgordenummer;</span>
+<span class="nc" id="L123">  }</span>
 
   public String getSoort() {
-<span class="nc" id="L127">    return soort;</span>
+<span class="nc" id="L126">    return soort;</span>
   }
 
   public void setSoort(String soort) {
-<span class="nc" id="L131">    this.soort = soort;</span>
-<span class="nc" id="L132">  }</span>
+<span class="nc" id="L130">    this.soort = soort;</span>
+<span class="nc" id="L131">  }</span>
 
   public String getOpmerking() {
-<span class="nc" id="L135">    return opmerking;</span>
+<span class="nc" id="L134">    return opmerking;</span>
   }
 
   public void setOpmerking(String opmerking) {
-<span class="nc" id="L139">    this.opmerking = opmerking;</span>
-<span class="nc" id="L140">  }</span>
+<span class="nc" id="L138">    this.opmerking = opmerking;</span>
+<span class="nc" id="L139">  }</span>
 
   public STATUS getStatus() {
-<span class="nc" id="L143">    return status;</span>
+<span class="nc" id="L142">    return status;</span>
   }
 
   public void setStatus(STATUS status) {
-<span class="fc" id="L147">    this.status = status;</span>
-<span class="fc" id="L148">  }</span>
+<span class="fc" id="L146">    this.status = status;</span>
+<span class="fc" id="L147">  }</span>
 
   public Date getStatus_datum() {
-<span class="nc" id="L151">    return status_datum;</span>
+<span class="nc" id="L150">    return status_datum;</span>
   }
 
   public void setStatus_datum(Date status_datum) {
-<span class="nc" id="L155">    this.status_datum = status_datum;</span>
-<span class="nc" id="L156">  }</span>
+<span class="nc" id="L154">    this.status_datum = status_datum;</span>
+<span class="nc" id="L155">  }</span>
 
   public String getJob_id() {
-<span class="nc" id="L159">    return job_id;</span>
+<span class="nc" id="L158">    return job_id;</span>
   }
 
   public void setJob_id(String job_id) {
-<span class="nc" id="L163">    this.job_id = job_id;</span>
-<span class="nc" id="L164">  }</span>
+<span class="nc" id="L162">    this.job_id = job_id;</span>
+<span class="nc" id="L163">  }</span>
 
   public String getBr_xml() {
-<span class="nc" id="L167">    return br_xml;</span>
+<span class="nc" id="L166">    return br_xml;</span>
   }
 
   public void setBr_xml(String br_xml) {
-<span class="nc" id="L171">    this.br_xml = br_xml;</span>
-<span class="nc" id="L172">  }</span>
+<span class="nc" id="L170">    this.br_xml = br_xml;</span>
+<span class="nc" id="L171">  }</span>
 
   public String getBr_orgineel_xml() {
-<span class="nc" id="L175">    return br_orgineel_xml;</span>
+<span class="nc" id="L174">    return br_orgineel_xml;</span>
   }
 
   public void setBr_orgineel_xml(String br_orgineel_xml) {
-<span class="nc" id="L179">    this.br_orgineel_xml = br_orgineel_xml;</span>
-<span class="nc" id="L180">  }</span>
+<span class="nc" id="L178">    this.br_orgineel_xml = br_orgineel_xml;</span>
+<span class="nc" id="L179">  }</span>
 
   public String getDb_xml() {
     // als lengte in bytes precies 8000 is dan kan oracle
     // dit waarde niet lezen uit database zonde \o toe te voegen
     // TODO gaan we hier iets aan doen?
-<span class="nc" id="L186">    return db_xml;</span>
+<span class="nc" id="L185">    return db_xml;</span>
   }
 
   public void setDb_xml(String db_xml) {
-<span class="nc" id="L190">    this.db_xml = db_xml;</span>
-<span class="nc" id="L191">  }</span>
+<span class="nc" id="L189">    this.db_xml = db_xml;</span>
+<span class="nc" id="L190">  }</span>
 
   public String getXsl_version() {
-<span class="nc" id="L194">    return xsl_version;</span>
+<span class="nc" id="L193">    return xsl_version;</span>
   }
 
   public void setXsl_version(String xsl_version) {
-<span class="nc" id="L198">    this.xsl_version = xsl_version;</span>
-<span class="nc" id="L199">  }</span>
+<span class="nc" id="L197">    this.xsl_version = xsl_version;</span>
+<span class="nc" id="L198">  }</span>
   // &lt;/editor-fold&gt;
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

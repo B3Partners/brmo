@@ -21,35 +21,35 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 class CustomDownloadProgressReporter implements Consumer&lt;CustomDownloadProgress&gt; {
-<span class="nc" id="L24">  private static final Log log = LogFactory.getLog(CustomDownloadProgressReporter.class);</span>
+<span class="fc" id="L24">  private static final Log log = LogFactory.getLog(CustomDownloadProgressReporter.class);</span>
 
   private final boolean printProgress;
 
   private DeltaCustomDownloadStatusResponse.StatusEnum lastStatus;
 
-<span class="nc" id="L30">  private Instant lastProgress = null;</span>
+<span class="fc" id="L30">  private Instant lastProgress = null;</span>
 
-<span class="nc" id="L32">  public CustomDownloadProgressReporter(boolean printProgress) {</span>
-<span class="nc" id="L33">    this.printProgress = printProgress;</span>
-<span class="nc" id="L34">  }</span>
+<span class="fc" id="L32">  public CustomDownloadProgressReporter(boolean printProgress) {</span>
+<span class="fc" id="L33">    this.printProgress = printProgress;</span>
+<span class="fc" id="L34">  }</span>
 
   @Override
   public void accept(CustomDownloadProgress progress) {
-<span class="nc bnc" id="L38" title="All 4 branches missed.">    if (progress.getStatusApiCalls() == 0 &amp;&amp; progress.getDownloadRequestId() != null) {</span>
-<span class="nc" id="L39">      log.debug(getMessageFormattedString(&quot;download.request_id&quot;, progress.getDownloadRequestId()));</span>
-<span class="nc" id="L40">      log.info(getBundleString(&quot;download.requesting_status&quot;));</span>
+<span class="pc bpc" id="L38" title="1 of 4 branches missed.">    if (progress.getStatusApiCalls() == 0 &amp;&amp; progress.getDownloadRequestId() != null) {</span>
+<span class="fc" id="L39">      log.debug(getMessageFormattedString(&quot;download.request_id&quot;, progress.getDownloadRequestId()));</span>
+<span class="fc" id="L40">      log.info(getBundleString(&quot;download.requesting_status&quot;));</span>
     } else {
-<span class="nc" id="L42">      DeltaCustomDownloadStatusResponse.StatusEnum status =</span>
-<span class="nc" id="L43">          progress.getStatusResponse().getStatus();</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">      if (!printProgress) {</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (lastStatus != status) {</span>
-<span class="nc" id="L46">          log.info(getMessageFormattedString(&quot;download.extract_status&quot;, status));</span>
+<span class="fc" id="L42">      DeltaCustomDownloadStatusResponse.StatusEnum status =</span>
+<span class="fc" id="L43">          progress.getStatusResponse().getStatus();</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">      if (!printProgress) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (lastStatus != status) {</span>
+<span class="fc" id="L46">          log.info(getMessageFormattedString(&quot;download.extract_status&quot;, status));</span>
         }
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (status == RUNNING) {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (status == RUNNING) {</span>
           // Log progress in logfile every 5 minutes
-<span class="nc bnc" id="L50" title="All 2 branches missed.">          if (lastProgress == null) {</span>
-<span class="nc" id="L51">            lastProgress = Instant.now();</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">          } else if (Duration.between(lastProgress, Instant.now()).getSeconds() &gt; 300) {</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">          if (lastProgress == null) {</span>
+<span class="fc" id="L51">            lastProgress = Instant.now();</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">          } else if (Duration.between(lastProgress, Instant.now()).getSeconds() &gt; 300) {</span>
 <span class="nc" id="L53">            log.info(</span>
 <span class="nc" id="L54">                getMessageFormattedString(</span>
                     &quot;download.extract_status&quot;,
@@ -77,8 +77,8 @@ class CustomDownloadProgressReporter implements Consumer&lt;CustomDownloadProgre
 <span class="nc" id="L77">          System.out.printf(&quot;\r%s\r&quot;, &quot; &quot;.repeat(30));</span>
         }
       }
-<span class="nc" id="L80">      lastStatus = status;</span>
+<span class="fc" id="L80">      lastStatus = status;</span>
     }
-<span class="nc" id="L82">  }</span>
+<span class="fc" id="L82">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

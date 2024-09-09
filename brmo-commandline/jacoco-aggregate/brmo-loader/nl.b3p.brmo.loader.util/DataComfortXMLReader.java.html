@@ -48,7 +48,7 @@ import org.locationtech.jts.geom.Polygon;
 <span class="pc bpc" id="L48" title="1 of 2 branches missed.">    while (xer.hasNext()) {</span>
 <span class="fc" id="L49">      xer.nextTag();</span>
 <span class="fc" id="L50">      String tag = xer.getLocalName();</span>
-<span class="pc bpc" id="L51" title="2 of 6 branches missed.">      switch (level) {</span>
+<span class="pc bpc" id="L51" title="1 of 6 branches missed.">      switch (level) {</span>
         case LEVEL_ROOT:
 <span class="fc bfc" id="L53" title="All 2 branches covered.">          if (&quot;data&quot;.equals(tag)) {</span>
 <span class="fc" id="L54">            level = LEVEL_DATA;</span>
@@ -71,11 +71,11 @@ import org.locationtech.jts.geom.Polygon;
 <span class="fc" id="L71">            level = LEVEL_COMFORT;</span>
 <span class="fc" id="L72">            inComfortData = true;</span>
 <span class="fc" id="L73">            inDeleteData = false;</span>
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">          } else if (&quot;delete&quot;.equals(tag)) {</span>
-<span class="nc" id="L75">            data = new TableData();</span>
-<span class="nc" id="L76">            level = LEVEL_DELETE;</span>
-<span class="nc" id="L77">            inComfortData = false;</span>
-<span class="nc" id="L78">            inDeleteData = true;</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">          } else if (&quot;delete&quot;.equals(tag)) {</span>
+<span class="fc" id="L75">            data = new TableData();</span>
+<span class="fc" id="L76">            level = LEVEL_DELETE;</span>
+<span class="fc" id="L77">            inComfortData = false;</span>
+<span class="fc" id="L78">            inDeleteData = true;</span>
           } else {
 <span class="fc" id="L80">            row = new TableRow();</span>
 <span class="fc" id="L81">            row.setTable(tag);</span>
@@ -105,21 +105,21 @@ import org.locationtech.jts.geom.Polygon;
           }
 <span class="fc" id="L106">          break;</span>
         case LEVEL_DELETE:
-<span class="nc bnc" id="L108" title="All 4 branches missed.">          if (xer.isEndElement() &amp;&amp; &quot;delete&quot;.equals(tag)) {</span>
-<span class="nc" id="L109">            level = LEVEL_DATA;</span>
+<span class="pc bpc" id="L108" title="1 of 4 branches missed.">          if (xer.isEndElement() &amp;&amp; &quot;delete&quot;.equals(tag)) {</span>
+<span class="fc" id="L109">            level = LEVEL_DATA;</span>
           } else {
-<span class="nc" id="L111">            row = new TableRow();</span>
-<span class="nc" id="L112">            row.setTable(tag);</span>
-<span class="nc" id="L113">            data.addRow(row);</span>
-<span class="nc" id="L114">            level = LEVEL_TABLE;</span>
+<span class="fc" id="L111">            row = new TableRow();</span>
+<span class="fc" id="L112">            row.setTable(tag);</span>
+<span class="fc" id="L113">            data.addRow(row);</span>
+<span class="fc" id="L114">            level = LEVEL_TABLE;</span>
           }
-<span class="nc" id="L116">          break;</span>
+<span class="fc" id="L116">          break;</span>
         case LEVEL_TABLE:
 <span class="fc bfc" id="L118" title="All 2 branches covered.">          if (xer.isEndElement()) {</span>
 <span class="fc bfc" id="L119" title="All 2 branches covered.">            if (inComfortData) {</span>
 <span class="fc" id="L120">              level = LEVEL_COMFORT;</span>
-<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            } else if (inDeleteData) {</span>
-<span class="nc" id="L122">              level = LEVEL_DELETE;</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">            } else if (inDeleteData) {</span>
+<span class="fc" id="L122">              level = LEVEL_DELETE;</span>
             } else {
 <span class="fc" id="L124">              level = LEVEL_DATA;</span>
             }
@@ -141,8 +141,8 @@ import org.locationtech.jts.geom.Polygon;
 <span class="fc" id="L141">                  SimonManager.getStopwatch(&quot;b3p.util.datacomfortxmlreader.parsegml&quot;).start();</span>
 <span class="fc" id="L142">              Geometry geom = geometryReader.readGeometry();</span>
               // TODO/HACK force polygon to multi-polygon
-<span class="pc bpc" id="L144" title="1 of 2 branches missed.">              if (geom instanceof Polygon) {</span>
-<span class="nc" id="L145">                geom = new MultiPolygon(new Polygon[] {(Polygon) geom}, geom.getFactory());</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">              if (geom instanceof Polygon) {</span>
+<span class="fc" id="L145">                geom = new MultiPolygon(new Polygon[] {(Polygon) geom}, geom.getFactory());</span>
               }
               // Note: this linearizes curves, we could use a WKTWriter2 instead!
 <span class="fc" id="L148">              row.getValues().add(geom.toString());</span>
@@ -170,4 +170,4 @@ import org.locationtech.jts.geom.Polygon;
 <span class="fc" id="L170">    return list;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

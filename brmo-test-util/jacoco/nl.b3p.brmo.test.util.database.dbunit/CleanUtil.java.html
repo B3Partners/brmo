@@ -203,75 +203,6 @@ public final class CleanUtil {
 <span class="nc" id="L203">  }</span>
 
   /**
-   * leegt de BAG tabellen in het RSGB schema. kan worden gebruikt in een {@code @After} van een
-   * test case.
-   *
-   * @param rsgb database welke geleegd moet worden
-   * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd moeten worden
-   * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
-   * @throws java.sql.SQLException als er iets misgaat in de database
-   */
-  public static void cleanRSGB_BAG(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
-      throws DatabaseUnitException, SQLException {
-
-<span class="nc bnc" id="L217" title="All 2 branches missed.">    if (deleteBrondocument) {</span>
-<span class="nc" id="L218">      DatabaseOperation.DELETE_ALL.execute(</span>
-          rsgb, new DefaultDataSet(new DefaultTable[] {new DefaultTable(&quot;brondocument&quot;)}));
-    }
-    // cleanup doet deletes in omgekeerde volgorde dan in onderstaande array met tabellen
-<span class="nc" id="L222">    DatabaseOperation.DELETE_ALL.execute(</span>
-        rsgb,
-        new DefaultDataSet(
-            new DefaultTable[] {
-              // TODO volgorde van de tabellen aanpassen aan constraints
-              new DefaultTable(&quot;addresseerb_obj_aand&quot;),
-              new DefaultTable(&quot;addresseerb_obj_aand_archief&quot;),
-              new DefaultTable(&quot;benoemd_obj&quot;),
-              new DefaultTable(&quot;benoemd_terrein&quot;),
-              new DefaultTable(&quot;benoemd_terrein_archief&quot;),
-              new DefaultTable(&quot;benoemd_terrein_benoem_archief&quot;),
-              new DefaultTable(&quot;benoemd_terrein_benoemd_terrei&quot;),
-              new DefaultTable(&quot;gebouwd_obj&quot;),
-              new DefaultTable(&quot;gebouwd_obj_archief&quot;),
-              new DefaultTable(&quot;gebouwd_obj_gebruiksdoel&quot;),
-              new DefaultTable(&quot;gem_openb_rmte&quot;),
-              new DefaultTable(&quot;gem_openb_rmte_archief&quot;),
-              new DefaultTable(&quot;ligplaats&quot;),
-              new DefaultTable(&quot;ligplaats_archief&quot;),
-              new DefaultTable(&quot;ligplaats_nummeraand&quot;),
-              new DefaultTable(&quot;ligplaats_nummeraand_archief&quot;),
-              new DefaultTable(&quot;nummeraand&quot;),
-              new DefaultTable(&quot;nummeraand_archief&quot;),
-              new DefaultTable(&quot;openb_rmte&quot;),
-              new DefaultTable(&quot;openb_rmte_gem_openb_rmte&quot;),
-              new DefaultTable(&quot;openb_rmte_wnplts&quot;),
-              new DefaultTable(&quot;overig_bouwwerk&quot;),
-              new DefaultTable(&quot;overig_bouwwerk_archief&quot;),
-              new DefaultTable(&quot;overig_gebouwd_obj&quot;),
-              new DefaultTable(&quot;overig_gebouwd_obj_archief&quot;),
-              new DefaultTable(&quot;overig_terrein&quot;),
-              new DefaultTable(&quot;overig_terrein_archief&quot;),
-              new DefaultTable(&quot;overig_terrein_gebruiksdoel&quot;),
-              new DefaultTable(&quot;ovrg_addresseerb_obj_a_archief&quot;),
-              new DefaultTable(&quot;ovrg_addresseerb_obj_aand&quot;),
-              new DefaultTable(&quot;pand&quot;),
-              new DefaultTable(&quot;pand_archief&quot;),
-              new DefaultTable(&quot;standplaats&quot;),
-              new DefaultTable(&quot;standplaats_archief&quot;),
-              new DefaultTable(&quot;standplaats_nummeraand&quot;),
-              new DefaultTable(&quot;standplaats_nummeraand_archief&quot;),
-              new DefaultTable(&quot;verblijfsobj&quot;),
-              new DefaultTable(&quot;verblijfsobj_archief&quot;),
-              new DefaultTable(&quot;verblijfsobj_nummeraan_archief&quot;),
-              new DefaultTable(&quot;verblijfsobj_nummeraand&quot;),
-              new DefaultTable(&quot;verblijfsobj_pand&quot;),
-              new DefaultTable(&quot;verblijfsobj_pand_archief&quot;),
-              new DefaultTable(&quot;wnplts&quot;),
-              new DefaultTable(&quot;wnplts_archief&quot;)
-            }));
-<span class="nc" id="L272">  }</span>
-
-  /**
    * ruimt personen en kvk tabellen op.
    *
    * @param rsgb database welke opgeruimd moet worden
@@ -280,8 +211,8 @@ public final class CleanUtil {
    */
   public static void cleanRSGB_NHR(final IDatabaseConnection rsgb)
       throws DatabaseUnitException, SQLException {
-<span class="nc" id="L283">    cleanRSGB_NHR(rsgb, true);</span>
-<span class="nc" id="L284">  }</span>
+<span class="nc" id="L214">    cleanRSGB_NHR(rsgb, true);</span>
+<span class="nc" id="L215">  }</span>
 
   /**
    * ruimt personen en kvk tabellen op (en ook BRP tabellen).
@@ -295,7 +226,7 @@ public final class CleanUtil {
   public static void cleanRSGB_NHR(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
       throws DatabaseUnitException, SQLException {
 
-<span class="nc" id="L298">    DatabaseOperation.DELETE_ALL.execute(</span>
+<span class="nc" id="L229">    DatabaseOperation.DELETE_ALL.execute(</span>
         rsgb,
         new DefaultDataSet(
             new DefaultTable[] {
@@ -308,8 +239,8 @@ public final class CleanUtil {
               new DefaultTable(&quot;vestg_naam&quot;),
               new DefaultTable(&quot;ander_btnlnds_niet_nat_prs&quot;),
             }));
-<span class="nc" id="L311">    cleanRSGB_BRP(rsgb, deleteBrondocument);</span>
-<span class="nc" id="L312">  }</span>
+<span class="nc" id="L242">    cleanRSGB_BRP(rsgb, deleteBrondocument);</span>
+<span class="nc" id="L243">  }</span>
 
   /**
    * ruimt WOZ en subject tabellen op (dus ook BRP tabellen).
@@ -323,7 +254,7 @@ public final class CleanUtil {
   public static void cleanRSGB_WOZ(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
       throws DatabaseUnitException, SQLException {
 
-<span class="nc" id="L326">    DatabaseOperation.DELETE_ALL.execute(</span>
+<span class="nc" id="L257">    DatabaseOperation.DELETE_ALL.execute(</span>
         rsgb,
         new DefaultDataSet(
             new DefaultTable[] {
@@ -339,8 +270,8 @@ public final class CleanUtil {
               new DefaultTable(&quot;locaand_openb_rmte&quot;),
             }));
     // WOZ bevat ook vestigingen, NHR leegt ook BRP
-<span class="nc" id="L342">    cleanRSGB_NHR(rsgb, deleteBrondocument);</span>
-<span class="nc" id="L343">  }</span>
+<span class="nc" id="L273">    cleanRSGB_NHR(rsgb, deleteBrondocument);</span>
+<span class="nc" id="L274">  }</span>
 
   /**
    * leegt de bericht, laadproces en job tabellen en de automatsiche processen in het staging
@@ -354,8 +285,8 @@ public final class CleanUtil {
    */
   public static void cleanSTAGING(final IDatabaseConnection staging, final boolean includeProcessen)
       throws DatabaseUnitException, SQLException {
-<span class="nc bnc" id="L357" title="All 2 branches missed.">    if (includeProcessen) {</span>
-<span class="nc" id="L358">      DatabaseOperation.DELETE_ALL.execute(</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">    if (includeProcessen) {</span>
+<span class="nc" id="L289">      DatabaseOperation.DELETE_ALL.execute(</span>
           staging,
           new DefaultDataSet(
               new DefaultTable[] {
@@ -363,12 +294,12 @@ public final class CleanUtil {
                 new DefaultTable(&quot;automatisch_proces_config&quot;)
               }));
     }
-<span class="nc" id="L366">    DatabaseOperation.DELETE_ALL.execute(</span>
+<span class="nc" id="L297">    DatabaseOperation.DELETE_ALL.execute(</span>
         staging,
         new DefaultDataSet(
             new DefaultTable[] {
               new DefaultTable(&quot;laadproces&quot;), new DefaultTable(&quot;bericht&quot;), new DefaultTable(&quot;job&quot;)
             }));
-<span class="nc" id="L372">  }</span>
+<span class="nc" id="L303">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

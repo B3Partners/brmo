@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nl.b3p.topnl"},{"l":"nl.b3p.topnl.converters"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"nl.b3p.topnl"},{"l":"nl.b3p.topnl.converters"}];updateSearchResults();

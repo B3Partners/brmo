@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BRMO distributie/brmo-proxyservice,nl.b3p.brmo.service.proxy,BerichtEndpointProxyServlet,127,0,4,0,31,0,6,0,4,0
-BRMO distributie/brmo-proxyservice,nl.b3p.brmo.service.proxy,BerichtEndpointFileServlet,33,111,4,6,7,28,4,6,0,5
+BRMO distributie/brmo-proxyservice,nl.b3p.brmo.service.proxy,BerichtEndpointFileServlet,38,106,5,5,8,27,5,5,0,5
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BAG2LoadActionBean,375,0,14,0,120,0,51,0,44,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BerichtenActionBean,402,0,28,0,105,0,41,0,27,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
@@ -8,17 +8,17 @@ BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.n
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BerichtDoorsturenUitvoerActionBean,206,0,6,0,69,0,36,0,33,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BAG2MutatieProcesUitvoerenActionBean,188,0,2,0,59,0,29,0,28,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BAG2MutatieProcesUitvoerenActionBean,216,0,4,0,66,0,30,0,28,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadprocesStatusRapportActionBean,116,0,2,0,36,0,18,0,17,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BasisregistratieFileUploadActionBean,333,0,30,0,94,0,25,0,10,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new HashMap() {...},26,0,0,0,6,0,1,0,1,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadprocesTransformatieUitvoerActionBean,281,0,10,0,83,0,39,0,34,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,OphaalConfigActionBean,492,0,37,0,120,0,49,0,23,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,OphaalConfigActionBean,484,0,35,0,118,0,47,0,23,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BerichtstatusRapportActionBean,116,0,2,0,36,0,18,0,17,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},16,0,0,0,3,0,2,0,2,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BGTLoaderUitvoerenActionBean,172,0,2,0,55,0,27,0,26,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BGTLoaderUitvoerenActionBean,200,0,4,0,62,0,28,0,26,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BasisregistratieFileUploadActionBean.new ProgressUpdateListener() {...},21,0,0,0,5,0,4,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,NHRActionBean.new StreamingResolution() {...},16,0,0,0,3,0,2,0,2,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,NHRActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
@@ -30,7 +30,7 @@ BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BasisregistratieBigFil
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BAG2LoadActionBean.new BAG2Database() {...},12,0,0,0,3,0,2,0,2,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,LaadProcesActionBean,476,0,30,0,119,0,43,0,28,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,BasisregistratieServiceActionBean,231,0,20,0,53,0,18,0,8,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean,2898,0,197,0,724,0,151,0,46,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean,2575,0,162,0,645,0,130,0,44,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,NHRActionBean,797,0,36,0,179,0,53,0,35,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,GDS2OphalenUitvoerActionBean,262,0,10,0,78,0,39,0,34,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,UpdatesActionBean,412,0,24,0,93,0,40,0,28,0
@@ -41,42 +41,38 @@ BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,ControleActionBean.new
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripes,MViewRefreshActionBean,116,0,2,0,36,0,18,0,17,0
 BRMO distributie/brmo-service,nl.b3p.brmo.web.geotools,GeotoolsContextListener,13,0,0,0,8,0,3,0,3,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.stripersist,DynamicStripersistInitializer,101,0,6,0,29,0,7,0,4,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner.new ProgressUpdateListener() {...},17,0,0,0,8,0,6,0,6,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner.new ProgressUpdateListener() {...},28,0,0,0,10,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,MaterializedViewRefreshUitvoeren.new ProgressUpdateListener() {...},17,0,0,0,8,0,6,0,6,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAGDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,LaadprocesStatusRapport.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BRKDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner.new BAG2Database() {...},12,0,0,0,3,0,2,0,2,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner.new ProgressReporter() {...},19,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtTransformatieUitvoeren,380,0,20,0,92,0,16,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,AfgifteNummerScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner,667,0,26,0,163,0,19,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtstatusRapport,258,0,8,0,59,0,8,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BRK2DirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtDoorsturenProces.new ProgressUpdateListener() {...},21,0,0,0,9,0,6,0,6,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner.new ProgressUpdateListener() {...},31,0,0,0,7,0,4,0,4,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BGTLoader,302,0,12,0,78,0,10,0,4,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,GDS2OphalenProces,2257,0,167,0,593,0,99,0,13,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,ProcesExecutable.ProcessingImple,164,0,0,0,17,0,1,0,1,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner,372,0,21,0,89,0,16,0,4,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BGTLoader,311,0,12,0,78,0,10,0,4,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,GDS2OphalenProces,1960,0,145,0,506,0,86,0,12,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,ProcesExecutable.ProcessingImple,87,0,0,0,15,0,1,0,1,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner,402,0,21,0,92,0,16,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BRKDirectoryScanner,801,0,34,0,190,0,23,0,6,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,TopNLDirectoryScanner,649,0,28,0,128,0,22,0,8,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,TopNLDirectoryScanner,645,0,28,0,128,0,22,0,8,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtTransformatieUitvoeren.new ProgressUpdateListener() {...},46,0,0,0,13,0,4,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,LaadprocesTransformatieUitvoeren.new ProgressUpdateListener() {...},18,0,0,0,8,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,LaadprocesTransformatieUitvoeren.new ProgressUpdateListener() {...},46,0,0,0,13,0,4,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtDoorsturenProces,259,0,16,0,65,0,13,0,5,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,LaadprocesTransformatieUitvoeren,370,0,22,0,92,0,15,0,4,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BAGDirectoryScanner,633,0,32,0,153,0,20,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,GDS2OphalenProces.new ProgressUpdateListener() {...},17,0,0,0,8,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtTransformatieUitvoeren.new ProgressUpdateListener() {...},18,0,0,0,8,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,LaadprocesStatusRapport,258,0,8,0,59,0,8,0,4,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,MaterializedViewRefreshUitvoeren,229,0,6,0,63,0,8,0,5,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BGTLoader.new BGTDatabase() {...},12,0,0,0,3,0,2,0,2,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BGTLoader.new ProgressUpdateListener() {...},17,0,0,0,8,0,6,0,6,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BGTLoader.new ProgressUpdateListener() {...},28,0,0,0,10,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,TopNLDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,MailRapportage,492,0,18,0,101,0,14,0,5,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BRK2DirectoryScanner,800,0,34,0,190,0,23,0,6,0
-BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,AbstractExecutableProces,215,0,21,0,47,0,27,0,9,0
+BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,AbstractExecutableProces,203,0,19,0,45,0,25,0,9,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,AfgifteNummerScanner,596,0,36,0,157,0,26,0,8,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.scanner,BerichtstatusRapport.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO distributie/brmo-service,nl.b3p.web.stripes,DirectResponseResolution,45,0,0,0,16,0,5,0,5,0
@@ -86,44 +82,6 @@ BRMO distributie/brmo-service,nl.b3p.brmo.service.jobs,AutomatischProcesJob,131,
 BRMO distributie/brmo-service,nl.b3p.brmo.service.jobs,GeplandeTakenContextListener,60,0,12,0,19,0,9,0,3,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.jobs,NHRJob,372,0,28,0,106,0,22,0,8,0
 BRMO distributie/brmo-service,nl.b3p.brmo.service.util,TrustManagerDelegate,39,0,0,0,15,0,4,0,4,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,GetMutatieListResponse,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,Brondocumenten,14,0,2,0,4,0,3,0,2,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,AddreseerbaarObjectAanduiding,52,0,0,0,22,0,15,0,15,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,ZakelijkRecht,38,0,0,0,16,0,11,0,11,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,EigendomMutatieRequest,17,0,0,0,7,0,5,0,5,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,EigendomMutatieResponse,21,0,2,0,7,0,5,0,4,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,MutatieListResponse,21,0,2,0,7,0,5,0,4,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,HistorischeRelaties,14,0,2,0,4,0,3,0,2,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,EigendomMutatieService,15,0,0,0,5,0,3,0,3,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,EigendomMutatie,441,0,0,0,136,0,20,0,20,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,GetEigendomMutatiesResponse,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,BenoemdObjecten,14,0,2,0,4,0,3,0,2,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,MutatieEntry,31,0,0,0,13,0,9,0,9,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,EigendomMutatieException,10,0,0,0,4,0,2,0,2,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,GetMutatieList,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,ZakelijkeRechten,14,0,2,0,4,0,3,0,2,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,Document,17,0,0,0,7,0,5,0,5,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,BenoemdObject,42,0,2,0,16,0,11,0,10,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,MutatieListRequest,24,0,0,0,10,0,7,0,7,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,HistorischeRelatie,17,0,0,0,7,0,5,0,5,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.eigendom,GetEigendomMutaties,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.db,EigendomInfo,1798,0,149,0,470,0,97,0,22,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.db,BrkInfo,1187,0,96,0,293,0,64,0,15,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,AdresResponse,45,0,0,0,19,0,13,0,13,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,AdressenResponse,300,0,10,0,84,0,13,0,8,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,RechtenResponse,253,0,18,0,76,0,17,0,8,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,BrkInfoException,10,0,0,0,4,0,2,0,2,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,ZakelijkRechtResponse,47,0,0,0,19,0,13,0,13,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,PerceelAdresInfoRequest,31,0,0,0,13,0,9,0,9,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,GetBrkInfoImpl,85,0,8,0,23,0,7,0,3,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,NatuurlijkPersoonResponse,332,0,12,0,102,0,34,0,28,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,RelatiesResponse,20,0,0,0,8,0,5,0,5,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,BrkInfoResponse,43,0,2,0,15,0,9,0,8,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,BrkInfoRequest,78,0,0,0,31,0,19,0,19,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,KadOnrndZkInfoRequest,38,0,0,0,16,0,11,0,11,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,NietNatuurlijkPersoonResponse,193,0,8,0,60,0,18,0,14,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,KadOnrndZkInfoResponse,495,0,16,0,150,0,52,0,44,0
-BRMO distributie/brmo-soap,nl.b3p.brmo.soap.brk,HistorischeRelatieResponse,24,0,0,0,10,0,7,0,7,0
 BRMO distributie/brmo-stufbg204,nl.b3p.brmo.stufbg204.util,StUFbg204Util,86,0,4,0,26,0,7,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOVraag,53,0,4,0,19,0,13,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOVraag.VBOSUBGBR,17,0,0,0,7,0,5,0,5,0
@@ -150,7 +108,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BTKTabel,64,0,2,0,2
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund,335,0,8,0,138,0,92,0,88,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,R04Tabel,78,0,2,0,33,0,22,0,21,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZAntwoord.WOZSUBGBR,17,0,0,0,7,0,5,0,5,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingIndicatieMogelijk,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingIndicatieMogelijk,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSFund.CodeGemeenteVanInschrijving,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.AantalWoonvertrekken,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,R02Tabel.Straatcode,43,0,4,0,17,0,11,0,9,0
@@ -179,7 +137,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOAntwoord,80,0,14
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.AantalRuimten,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOAntwoord.KDOPRB,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSKerngegevens.ANummer,43,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BestemmingsplanHerziening,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BestemmingsplanHerziening,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,SPBTabel.Omschrijving,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KennisgevingsBericht,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,GEMTabel.Gemeentenaam,43,0,4,0,17,0,11,0,9,0
@@ -191,11 +149,11 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.AantalWerkz
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZKennisgeving,68,0,8,0,22,0,15,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOFund.KadastraleSectie,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,MNATabel.Code,43,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,SoortVerbintenis,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,SoortVerbintenis,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZKennisgeving.WOZSUBEIG,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VraagBericht.Body,399,0,72,0,109,0,73,0,37,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPKennisgeving.NNPNNPNVN,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,FiliatiecodeAdres,65,0,4,0,11,0,6,0,4,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,FiliatiecodeAdres,56,0,4,0,11,0,6,0,4,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.LaagsteBouwlaag,42,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,SRVTabel,50,0,2,0,21,0,14,0,13,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BSGKerngegevens.NaamBestemmingsplan,43,0,4,0,17,0,11,0,9,0
@@ -203,7 +161,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,R04Tabel.Deelgemeen
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOKerngegevens.KadastraleSectie,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KGMTabel.KadastraleGemeenteCode,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,SIBTabel.Soort,43,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AdellijkeTitelSoort,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AdellijkeTitelSoort,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BRTTabel.Buurtnaam,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,GEMTabel.GemeenteWaarinIsOvergegaan,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZFund.VastgesteldeWaarde,42,0,4,0,17,0,11,0,9,0
@@ -244,7 +202,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,R04Tabel.Gemeenteco
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRKerngegevens,162,0,2,0,69,0,46,0,45,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBTTabel.Code,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BRTTabel.Gemeentecode,43,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingBijzonderNederlanderschap,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingBijzonderNederlanderschap,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.SoortWoonObject,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.IndicatieHoofdVestiging,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OBWFund,85,0,2,0,36,0,24,0,23,0
@@ -253,7 +211,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOZKRRel,134,0,2,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOFund.AanduidingErfdienstbaarheid,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZVraag.WOZOBW,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.SubjectnrAKR,30,0,2,0,12,0,8,0,7,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingNaamgebruik,50,0,0,0,7,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingNaamgebruik,33,0,0,0,7,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSKerngegevens.Geslachtsaanduiding,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSVraag.PRSNAT,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZFund.ActiviteitFeitelijk,30,0,2,0,12,0,8,0,7,0
@@ -287,7 +245,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSNATRel,85,0,2,0,
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRKerngegevens.AanduidingBijHuisnummer,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOAntwoord.KDOSUBVZG,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOZKRRel.KoopsomZakelijkRechtEuro,30,0,2,0,12,0,8,0,7,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AcademischeTitelPositieTovNaam,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AcademischeTitelPositieTovNaam,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRFund.Straatnaam,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRKerngegevens.Huisletter,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOKennisgeving.KDOSUBVZG,17,0,0,0,7,0,5,0,5,0
@@ -318,7 +276,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSAntwoord.PRSPRSH
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRKerngegevens.Postbusnummer,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOFund.KadastraleGemeentecode,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,HHDAntwoord.HDDWOZ,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieZakelijkRechtMetMeerZknVerkr,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieZakelijkRechtMetMeerZknVerkr,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,HHDVraag,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WYKTabel.Gemeentecode,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOVraag.KDOPRB,10,0,0,0,4,0,3,0,3,0
@@ -345,7 +303,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRKerngegevens.Woo
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,SRVTabel.Omschrijving,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OBWKerngegevens.OmschrijvingOverigBouwwerk,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.EMailAdres,30,0,2,0,12,0,8,0,7,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieOppervlakteGeschat,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieOppervlakteGeschat,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOFund.Koopjaar,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.FrontBreedte,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,RTBTabel,64,0,2,0,27,0,18,0,17,0
@@ -372,7 +330,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOVraag.VBOVBOOSU,
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSFund.Faxnummer,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOAntwoord.KDOKDOFIL,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,HHDFund.SoortHuishouden,43,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanUitBouw,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanUitBouw,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,StUFFout,18,0,0,0,7,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OBWKerngegevens,71,0,2,0,30,0,20,0,19,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPAntwoord.NNPNNPNVN,10,0,0,0,4,0,3,0,3,0
@@ -394,7 +352,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WYKTabel.Wijkcode,4
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOKennisgeving.KDOSUBZKR,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZFund,124,0,4,0,51,0,34,0,32,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZFund.VastgesteldeWaardeEuro,42,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieHoofdVestiging,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieHoofdVestiging,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSPRSHUWRel.DatumSluiting,16,0,2,0,6,0,4,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOKerngegevens.KadastraalObjectIndexNummer,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRFund.Huisnummertoevoeging,55,0,6,0,22,0,14,0,11,0
@@ -410,7 +368,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KennisgevingsBerich
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BRTTabel,78,0,2,0,33,0,22,0,21,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOKDOFILRel,78,0,2,0,33,0,22,0,21,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZKennisgeving.WOZSUBGBR,17,0,0,0,7,0,5,0,5,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,Geslachtsaanduiding,40,0,0,0,6,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,Geslachtsaanduiding,27,0,0,0,6,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRBFund.Ingangsdatum,16,0,2,0,6,0,4,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOZKRRel.KoopsomZakelijkRecht,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOFund.KadastraalPerceelnummer,55,0,6,0,22,0,14,0,11,0
@@ -418,7 +376,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOVBOOSURel.Filiat
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSGerelateerde,3,0,0,0,1,0,1,0,1,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.OnbebouwdeTerreinOppervlakte,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,Relatie,71,0,2,0,30,0,20,0,19,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieSurseanceVanBetaling,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieSurseanceVanBetaling,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPKerngegevens.AanvullingSoFiNummer,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.AanvullingSoFiNummer,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OBWFund.OverigBouwwerkNummer,43,0,4,0,17,0,11,0,9,0
@@ -478,7 +436,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRVraag,10,0,0,0,4
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BSGKerngegevens.OmschrijvingBestemmingsgebied,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BTKTabel.Code,43,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOZKRRel.IngangsDatumZakelijkRecht,16,0,2,0,6,0,4,0,3,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingErfdienstbaarheid,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingErfdienstbaarheid,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.GemiddeldeBreedte,42,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,R03Tabel.Woonplaatsnaam,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.CodeRedenToevoegingBeeindiging,30,0,2,0,12,0,8,0,7,0
@@ -497,12 +455,12 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPKennisgeving.NNP
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSKennisgeving.PRSIDB,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AsynchroonAntwoordBericht,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OHTTabel,64,0,2,0,27,0,18,0,17,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KadastraalObjectIndexLetter,60,0,0,0,8,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KadastraalObjectIndexLetter,39,0,0,0,8,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSKerngegevens.Voorletters,55,0,6,0,22,0,14,0,11,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.HandelsRegisternummer,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.GemiddeldeHoogte,42,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.Lifttype,30,0,2,0,12,0,8,0,7,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieFaillisement,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieFaillisement,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZFund.Huurprijs,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSFund.AanduidingBijzonderNederlanderschap,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZAntwoord,91,0,16,0,25,0,17,0,9,0
@@ -548,7 +506,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOAntwoord.KDOSUBZ
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,HHDVraag.HHDPRS,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.AantalWerkzameMannenFullTime,42,0,4,0,17,0,11,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,R03Tabel.Gemeentecode,43,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieVervallen,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,IndicatieVervallen,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,VBOFund.BouwjaarKlasse,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOSTabel,64,0,2,0,27,0,18,0,17,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,BHVTabel.Code,43,0,4,0,17,0,11,0,9,0
@@ -565,7 +523,7 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,PRSFund.Omschrijvin
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OBWAntwoord.OBWBSG,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,OBWAntwoord.OBWKDO,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,KDOKerngegevens.KadastraalObjectIndexLetter,55,0,6,0,22,0,14,0,11,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingBijHuisnummer,65,0,4,0,11,0,6,0,4,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,AanduidingBijHuisnummer,56,0,4,0,11,0,6,0,4,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,NNPFund.SoortNietNatuurlijkPersoon,30,0,2,0,12,0,8,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,WOZKerngegevens.WOZADRHFD,16,0,2,0,6,0,4,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,ADRFund.Locatieomschrijving,55,0,6,0,22,0,14,0,11,0
@@ -603,13 +561,13 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.sector.bg._0204,StUFBGSynchroon,87,
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,TijdvakGeldigheid,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,StUFBerichtenSet,14,0,2,0,4,0,3,0,2,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,TijdvakRelatie,17,0,0,0,7,0,5,0,5,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Verwerkingssoort,80,0,0,0,10,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Verwerkingssoort,51,0,0,0,10,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Systeem,31,0,0,0,13,0,9,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,ExtraElement,37,0,2,0,15,0,10,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,BevestigingsBericht,10,0,0,0,4,0,3,0,3,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,IndicatorOvername,30,0,0,0,5,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,IndicatorOvername,21,0,0,0,5,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,DatumMetIndicator,42,0,4,0,17,0,11,0,9,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,IndOnvolledigeDatum,40,0,0,0,6,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,IndOnvolledigeDatum,27,0,0,0,6,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,FoutBericht.Body,24,0,0,0,10,0,7,0,7,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,ObjectFactory,142,0,0,0,29,0,24,0,24,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,ExtraElementen,14,0,2,0,4,0,3,0,2,0
@@ -617,16 +575,16 @@ BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Stuurgegevens.Vraag,38,0,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Stuurgegevens.Antwoord,31,0,0,0,13,0,9,0,9,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,FoutBericht,17,0,0,0,7,0,5,0,5,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Stuurgegevens.Kennisgeving,24,0,0,0,10,0,7,0,7,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,FoutPlek,65,0,4,0,11,0,6,0,4,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Mutatiesoort,50,0,0,0,7,0,3,0,3,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,FoutPlek,56,0,4,0,11,0,6,0,4,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Mutatiesoort,33,0,0,0,7,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,DatumMetIndicatorKerngegeven,16,0,2,0,6,0,4,0,3,0
-BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,NoValue,87,0,4,0,13,0,6,0,4,0
+BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,NoValue,70,0,4,0,13,0,6,0,4,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Stuurgegevens.Bevestiging,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Stuurgegevens,101,0,0,0,43,0,29,0,29,0
 BRMO distributie/brmo-stufbg204,nl.egem.stuf.stuf0204,Stuurgegevens.Fout,10,0,0,0,4,0,3,0,3,0
 BRMO distributie/brmo-stufbg204,nl.b3p.brmo.stufbg204,StUFBGasynchroon,322,0,15,0,84,0,18,0,10,0
 BRMO distributie/brmo-stufbg204,nl.b3p.brmo.stufbg204,CriteriaParser,1048,0,86,0,218,0,48,0,5,0
-BRMO distributie/brmo-stufbg204,nl.b3p.brmo.stufbg204,StUFBGsynchroon,371,0,24,0,103,0,24,0,10,0
+BRMO distributie/brmo-stufbg204,nl.b3p.brmo.stufbg204,StUFBGsynchroon,371,0,24,0,104,0,24,0,10,0
 BRMO distributie/brmo-stufbg204,nl.b3p.brmo.stufbg204,AntwoordBodyFactory,1280,0,98,0,336,0,64,0,15,0
-BRMO distributie/brmo-commandline,nl.b3p.brmo.commandline,Main.sysexits,78,0,0,0,10,0,2,0,2,0
-BRMO distributie/brmo-commandline,nl.b3p.brmo.commandline,Main,1801,0,87,0,464,0,71,0,27,0
+BRMO distributie/brmo-commandline,nl.b3p.brmo.commandline,Main.sysexits,53,0,0,0,10,0,2,0,2,0
+BRMO distributie/brmo-commandline,nl.b3p.brmo.commandline,Main,1779,0,87,0,462,0,71,0,27,0

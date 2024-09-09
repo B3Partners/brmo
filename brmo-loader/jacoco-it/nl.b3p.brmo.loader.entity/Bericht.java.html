@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bericht.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.entity</a> &gt; <span class="el_source">Bericht.java</span></div><h1>Bericht.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.entity;
+
+import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
+
+import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+/**
+ * @author Boy de Wit
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Bericht {
+  private Long id;
+  private Long laadProcesId;
+
+  @XmlElement(namespace = NS_BRMO_BERICHT, name = &quot;object_ref&quot;)
+  protected String objectRef;
+
+  @XmlElement(namespace = NS_BRMO_BERICHT)
+  @XmlJavaTypeAdapter(NhrPeildatumAdapter.class)
+  protected Date datum;
+
+  private Integer volgordeNummer;
+  private String soort;
+  private String opmerking;
+  private Bericht.STATUS status;
+  private String jobId;
+  private Date statusDatum;
+  private String brXml;
+  private String brOrgineelXml;
+  private String dbXml;
+  private String xslVersion;
+
+  public static final String GEEN_OBJECT_REF_MSG =
+      &quot;Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.&quot;;
+
+<span class="fc" id="L40">  public static enum STATUS {</span>
+    // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en
+    // /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
+<span class="fc" id="L43">    STAGING_OK,</span>
+<span class="fc" id="L44">    STAGING_NOK,</span>
+<span class="fc" id="L45">    STAGING_FORWARDED,</span>
+<span class="fc" id="L46">    RSGB_WAITING,</span>
+<span class="fc" id="L47">    RSGB_PROCESSING,</span>
+<span class="fc" id="L48">    RSGB_OK,</span>
+<span class="fc" id="L49">    RSGB_OUTDATED,</span>
+<span class="fc" id="L50">    RSGB_NOK,</span>
+<span class="fc" id="L51">    ARCHIVE</span>
+  };
+
+<span class="fc" id="L54">  public Bericht(String brXml) {</span>
+<span class="fc" id="L55">    this.brXml = brXml;</span>
+<span class="fc" id="L56">  }</span>
+
+  public Long getId() {
+<span class="fc" id="L59">    return id;</span>
+  }
+
+  public void setId(Long id) {
+<span class="fc" id="L63">    this.id = id;</span>
+<span class="fc" id="L64">  }</span>
+
+  public Long getLaadProcesId() {
+<span class="fc" id="L67">    return laadProcesId;</span>
+  }
+
+  public void setLaadProcesId(Long laadProcesId) {
+<span class="fc" id="L71">    this.laadProcesId = laadProcesId;</span>
+<span class="fc" id="L72">  }</span>
+
+  public String getObjectRef() {
+<span class="fc" id="L75">    return objectRef;</span>
+  }
+
+  public void setObjectRef(String objectRef) {
+<span class="fc" id="L79">    this.objectRef = objectRef;</span>
+<span class="fc" id="L80">  }</span>
+
+  public Date getDatum() {
+<span class="fc" id="L83">    return datum;</span>
+  }
+
+  public void setDatum(Date datum) {
+<span class="fc" id="L87">    this.datum = datum;</span>
+<span class="fc" id="L88">  }</span>
+
+  public Integer getVolgordeNummer() {
+<span class="fc" id="L91">    return volgordeNummer;</span>
+  }
+
+  public void setVolgordeNummer(Integer volgordeNummer) {
+<span class="fc" id="L95">    this.volgordeNummer = volgordeNummer;</span>
+<span class="fc" id="L96">  }</span>
+
+  public String getSoort() {
+<span class="fc" id="L99">    return soort;</span>
+  }
+
+  public void setSoort(String soort) {
+<span class="fc" id="L103">    this.soort = soort;</span>
+<span class="fc" id="L104">  }</span>
+
+  public String getOpmerking() {
+<span class="fc" id="L107">    return opmerking;</span>
+  }
+
+  public void setOpmerking(String opmerking) {
+<span class="fc" id="L111">    this.opmerking = opmerking;</span>
+<span class="fc" id="L112">  }</span>
+
+  public STATUS getStatus() {
+<span class="fc" id="L115">    return status;</span>
+  }
+
+  public void setStatus(STATUS status) {
+<span class="fc" id="L119">    this.status = status;</span>
+<span class="fc" id="L120">  }</span>
+
+  public String getJobId() {
+<span class="nc" id="L123">    return jobId;</span>
+  }
+
+  public void setJobId(String jobId) {
+<span class="fc" id="L127">    this.jobId = jobId;</span>
+<span class="fc" id="L128">  }</span>
+
+  public Date getStatusDatum() {
+<span class="fc" id="L131">    return statusDatum;</span>
+  }
+
+  public void setStatusDatum(Date statusDatum) {
+<span class="fc" id="L135">    this.statusDatum = statusDatum;</span>
+<span class="fc" id="L136">  }</span>
+
+  public String getBrXml() {
+<span class="fc" id="L139">    return brXml;</span>
+  }
+
+  public void setBrXml(String brXml) {
+<span class="fc" id="L143">    this.brXml = brXml;</span>
+<span class="fc" id="L144">  }</span>
+
+  public String getBrOrgineelXml() {
+<span class="fc" id="L147">    return brOrgineelXml;</span>
+  }
+
+  public void setBrOrgineelXml(String brOrgineelXml) {
+<span class="fc" id="L151">    this.brOrgineelXml = brOrgineelXml;</span>
+<span class="fc" id="L152">  }</span>
+
+  public String getDbXml() {
+<span class="fc" id="L155">    return dbXml;</span>
+  }
+
+  public void setDbXml(String dbXml) {
+<span class="fc" id="L159">    this.dbXml = dbXml;</span>
+<span class="fc" id="L160">  }</span>
+
+  public String getXslVersion() {
+<span class="fc" id="L163">    return xslVersion;</span>
+  }
+
+  public void setXslVersion(String xslVersion) {
+<span class="fc" id="L167">    this.xslVersion = xslVersion;</span>
+<span class="fc" id="L168">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L172">    return &quot;Bericht{&quot;</span>
+        + &quot;id=&quot;
+        + id
+        + &quot;, objectRef=&quot;
+        + objectRef
+        + &quot;, datum=&quot;
+        + datum
+        + &quot;, volgordeNummer=&quot;
+        + volgordeNummer
+        + &quot;, soort=&quot;
+        + soort
+        + &quot;, status=&quot;
+        + status
+        + &quot;, statusDatum=&quot;
+        + statusDatum
+        + &quot;, laadProcesId=&quot;
+        + laadProcesId
+        + &quot; (lengte brOrgineelXml=&quot;
+<span class="fc bfc" id="L190" title="All 2 branches covered.">        + (brOrgineelXml == null ? null : brOrgineelXml.length())</span>
+        + &quot; (lengte brXml=&quot;
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">        + (brXml == null ? null : brXml.length())</span>
+        + &quot; (lengte dbXml=&quot;
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        + (dbXml == null ? null : dbXml.length())</span>
+        + &quot; (lengte opmerking=&quot;
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        + (opmerking == null ? null : opmerking.length())</span>
+        + &quot;, xslVersion='&quot;
+        + xslVersion
+        + &quot;, jobId=&quot;
+        + jobId
+        + '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

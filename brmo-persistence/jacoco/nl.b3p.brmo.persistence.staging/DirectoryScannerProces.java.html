@@ -29,7 +29,7 @@ package nl.b3p.brmo.persistence.staging;
    * @return de naam van de directory voor deze configuratie of null
    */
   public String getArchiefDirectory() {
-<span class="fc" id="L32">    return ClobElement.nullSafeGet(this.getConfig().get(ARCHIEF_DIRECTORY));</span>
+<span class="nc" id="L32">    return ClobElement.nullSafeGet(this.getConfig().get(ARCHIEF_DIRECTORY));</span>
   }
 
   /**
@@ -51,11 +51,11 @@ package nl.b3p.brmo.persistence.staging;
    * @param archiefDirectory te gebruiken archief directory
    */
   public void setArchiefDirectory(String archiefDirectory) {
-<span class="pc bpc" id="L54" title="1 of 2 branches missed.">    if (archiefDirectory == null) {</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (archiefDirectory == null) {</span>
 <span class="nc" id="L55">      this.getConfig().put(ARCHIEF_DIRECTORY, null);</span>
     } else {
-<span class="fc" id="L57">      this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));</span>
+<span class="nc" id="L57">      this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));</span>
     }
-<span class="fc" id="L59">  }</span>
+<span class="nc" id="L59">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -41,36 +41,36 @@ import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 
 @Command(name = &quot;download&quot;, mixinStandardHelpOptions = true)
-<span class="nc" id="L44">public class DownloadCommand {</span>
-<span class="nc" id="L45">  private static final Log log = LogFactory.getLog(DownloadCommand.class);</span>
+<span class="fc" id="L44">public class DownloadCommand {</span>
+<span class="fc" id="L45">  private static final Log log = LogFactory.getLog(DownloadCommand.class);</span>
 
   private static final String PREDEFINED_FULL_DELTA_URI =
       &quot;https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip&quot;;
 
   /** zodat we een JNDI database kunne gebruiken. */
-<span class="nc" id="L51">  private BGTDatabase bgtDatabase = null;</span>
+<span class="fc" id="L51">  private BGTDatabase bgtDatabase = null;</span>
 
   public static ApiClient getApiClient(URI baseUri) {
-<span class="nc" id="L54">    ApiClient client = new ApiClient();</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">    if (baseUri != null) {</span>
-<span class="nc" id="L56">      client.updateBaseUri(baseUri.toString());</span>
+<span class="fc" id="L54">    ApiClient client = new ApiClient();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    if (baseUri != null) {</span>
+<span class="fc" id="L56">      client.updateBaseUri(baseUri.toString());</span>
     }
-<span class="nc" id="L58">    client.setRequestInterceptor(builder -&gt; builder.headers(&quot;User-Agent&quot;, getUserAgent()));</span>
-<span class="nc" id="L59">    return client;</span>
+<span class="fc" id="L58">    client.setRequestInterceptor(builder -&gt; builder.headers(&quot;User-Agent&quot;, getUserAgent()));</span>
+<span class="fc" id="L59">    return client;</span>
   }
 
   private BGTObjectTableWriter createWriter(
       BGTDatabase db, DatabaseOptions dbOptions, LoadOptions loadOptions, CLIOptions cliOptions)
       throws SQLException {
-<span class="nc" id="L65">    BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);</span>
+<span class="fc" id="L65">    BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);</span>
     ProgressReporter progressReporter;
-<span class="nc bnc" id="L67" title="All 2 branches missed.">    if (cliOptions.isConsoleProgressEnabled()) {</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    if (cliOptions.isConsoleProgressEnabled()) {</span>
 <span class="nc" id="L68">      progressReporter = new ConsoleProgressReporter();</span>
     } else {
-<span class="nc" id="L70">      progressReporter = new ProgressReporter();</span>
+<span class="fc" id="L70">      progressReporter = new ProgressReporter();</span>
     }
-<span class="nc" id="L72">    writer.setProgressUpdater(progressReporter);</span>
-<span class="nc" id="L73">    return writer;</span>
+<span class="fc" id="L72">    writer.setProgressUpdater(progressReporter);</span>
+<span class="fc" id="L73">    return writer;</span>
   }
 
   @Command(name = &quot;initial&quot;, sortOptions = false)
@@ -87,53 +87,53 @@ import picocli.CommandLine.Option;
           boolean showHelp)
       throws Exception {
 
-<span class="nc bnc" id="L90" title="All 4 branches missed.">    if (extractSelectionOptions.getGeoFilterWkt() == null &amp;&amp; !noGeoFilter) {</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">    if (extractSelectionOptions.getGeoFilterWkt() == null &amp;&amp; !noGeoFilter) {</span>
 <span class="nc" id="L91">      log.error(getBundleString(&quot;download.no_geo_filter&quot;));</span>
 <span class="nc" id="L92">      return ExitCode.USAGE;</span>
     }
 
-<span class="nc" id="L95">    log.info(getUserAgent());</span>
+<span class="fc" id="L95">    log.info(getUserAgent());</span>
 
-<span class="nc" id="L97">    try (BGTDatabase db = this.getBGTdatabase(dbOptions)) {</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">      if (loadOptions.createSchema) {</span>
-<span class="nc" id="L99">        db.createMetadataTable(loadOptions);</span>
+<span class="fc" id="L97">    try (BGTDatabase db = this.getBGTdatabase(dbOptions)) {</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">      if (loadOptions.createSchema) {</span>
+<span class="fc" id="L99">        db.createMetadataTable(loadOptions);</span>
       } else {
 <span class="nc" id="L101">        log.info(getBundleString(&quot;download.connect_db&quot;));</span>
       }
 
-<span class="nc" id="L104">      db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());</span>
-<span class="nc" id="L105">      db.setMetadataValue(Metadata.BRMOVERSIE, getBrmoVersion());</span>
-<span class="nc" id="L106">      db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());</span>
-<span class="nc" id="L107">      db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + &quot;&quot;);</span>
-<span class="nc" id="L108">      db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + &quot;&quot;);</span>
-<span class="nc" id="L109">      db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);</span>
+<span class="fc" id="L104">      db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());</span>
+<span class="fc" id="L105">      db.setMetadataValue(Metadata.BRMOVERSIE, getBrmoVersion());</span>
+<span class="fc" id="L106">      db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());</span>
+<span class="fc" id="L107">      db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + &quot;&quot;);</span>
+<span class="fc" id="L108">      db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + &quot;&quot;);</span>
+<span class="fc" id="L109">      db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);</span>
 
-<span class="nc" id="L111">      Instant start = null;</span>
+<span class="fc" id="L111">      Instant start = null;</span>
       URI uri;
-<span class="nc bnc" id="L113" title="All 2 branches missed.">      if (noGeoFilter) {</span>
-<span class="nc" id="L114">        uri = new URI(PREDEFINED_FULL_DELTA_URI);</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">      if (noGeoFilter) {</span>
+<span class="fc" id="L114">        uri = new URI(PREDEFINED_FULL_DELTA_URI);</span>
       } else {
         // Close connection while waiting for extract
-<span class="nc" id="L117">        db.close();</span>
-<span class="nc" id="L118">        start = Instant.now(); // Record total time waiting for extract</span>
-<span class="nc" id="L119">        uri =</span>
-<span class="nc" id="L120">            getCustomDownloadURI(</span>
+<span class="fc" id="L117">        db.close();</span>
+<span class="fc" id="L118">        start = Instant.now(); // Record total time waiting for extract</span>
+<span class="fc" id="L119">        uri =</span>
+<span class="fc" id="L120">            getCustomDownloadURI(</span>
                 downloadServiceURI,
                 extractSelectionOptions,
-<span class="nc" id="L123">                new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));</span>
+<span class="fc" id="L123">                new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));</span>
       }
-<span class="nc" id="L125">      BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);</span>
-<span class="nc" id="L126">      loadZipFromURI(uri, db, writer, extractSelectionOptions, loadOptions, noGeoFilter, start);</span>
+<span class="fc" id="L125">      BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);</span>
+<span class="fc" id="L126">      loadZipFromURI(uri, db, writer, extractSelectionOptions, loadOptions, noGeoFilter, start);</span>
 
-<span class="nc" id="L128">      db.setMetadataValue(Metadata.DELTA_TIME_TO, null);</span>
+<span class="fc" id="L128">      db.setMetadataValue(Metadata.DELTA_TIME_TO, null);</span>
       // Do not set geom filter from MutatieInhoud, a custom download without geo filter will
       // have gebied
       // &quot;POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000
       // 200000))&quot;
-<span class="nc" id="L133">      db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());</span>
+<span class="fc" id="L133">      db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());</span>
 
-<span class="nc" id="L135">      db.getConnection().commit();</span>
-<span class="nc" id="L136">      return ExitCode.OK;</span>
+<span class="fc" id="L135">      db.getConnection().commit();</span>
+<span class="fc" id="L136">      return ExitCode.OK;</span>
     }
   }
 
@@ -148,8 +148,8 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L148">  }</span>
 
   private BGTDatabase getBGTdatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {
-<span class="nc bnc" id="L151" title="All 2 branches missed.">    if (null == this.bgtDatabase) {</span>
-<span class="nc" id="L152">      return new BGTDatabase(dbOptions);</span>
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">    if (null == this.bgtDatabase) {</span>
+<span class="fc" id="L152">      return new BGTDatabase(dbOptions);</span>
 <span class="nc" id="L153">    } else return this.bgtDatabase;</span>
   }
 
@@ -159,13 +159,13 @@ import picocli.CommandLine.Option;
       Consumer&lt;CustomDownloadProgress&gt; progressConsumer)
       throws ApiException, InterruptedException {
     try {
-<span class="nc" id="L162">      log.info(getBundleString(&quot;download.create&quot;));</span>
-<span class="nc" id="L163">      ApiClient client = getApiClient(downloadServiceURI);</span>
-<span class="nc" id="L164">      return DownloadApiUtils.getCustomDownloadURL(</span>
+<span class="fc" id="L162">      log.info(getBundleString(&quot;download.create&quot;));</span>
+<span class="fc" id="L163">      ApiClient client = getApiClient(downloadServiceURI);</span>
+<span class="fc" id="L164">      return DownloadApiUtils.getCustomDownloadURL(</span>
           client, null, extractSelectionOptions, progressConsumer);
-<span class="nc" id="L166">    } catch (ApiException apiException) {</span>
-<span class="nc" id="L167">      printApiException(apiException);</span>
-<span class="nc" id="L168">      throw apiException;</span>
+<span class="fc" id="L166">    } catch (ApiException apiException) {</span>
+<span class="fc" id="L167">      printApiException(apiException);</span>
+<span class="fc" id="L168">      throw apiException;</span>
     }
   }
 
@@ -181,77 +181,77 @@ import picocli.CommandLine.Option;
               usageHelp = true)
           boolean showHelp)
       throws Exception {
-<span class="nc" id="L184">    log.info(getUserAgent());</span>
+<span class="fc" id="L184">    log.info(getUserAgent());</span>
 
-<span class="nc" id="L186">    ApiClient client = getApiClient(downloadServiceURI);</span>
+<span class="fc" id="L186">    ApiClient client = getApiClient(downloadServiceURI);</span>
 
-<span class="nc" id="L188">    log.info(getBundleString(&quot;download.connect_db&quot;));</span>
-<span class="nc" id="L189">    try (BGTDatabase db = getBGTdatabase(dbOptions)) {</span>
-<span class="nc" id="L190">      String deltaId = db.getMetadata(Metadata.DELTA_ID);</span>
-<span class="nc" id="L191">      OffsetDateTime deltaIdTimeTo = null;</span>
-<span class="nc" id="L192">      String s = db.getMetadata(Metadata.DELTA_TIME_TO);</span>
-<span class="nc bnc" id="L193" title="All 4 branches missed.">      if (s != null &amp;&amp; s.length() &gt; 0) {</span>
+<span class="fc" id="L188">    log.info(getBundleString(&quot;download.connect_db&quot;));</span>
+<span class="fc" id="L189">    try (BGTDatabase db = getBGTdatabase(dbOptions)) {</span>
+<span class="fc" id="L190">      String deltaId = db.getMetadata(Metadata.DELTA_ID);</span>
+<span class="fc" id="L191">      OffsetDateTime deltaIdTimeTo = null;</span>
+<span class="fc" id="L192">      String s = db.getMetadata(Metadata.DELTA_TIME_TO);</span>
+<span class="pc bpc" id="L193" title="3 of 4 branches missed.">      if (s != null &amp;&amp; s.length() &gt; 0) {</span>
 <span class="nc" id="L194">        deltaIdTimeTo = OffsetDateTime.parse(s);</span>
       }
-<span class="nc bnc" id="L196" title="All 2 branches missed.">      if (deltaId == null) {</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">      if (deltaId == null) {</span>
 <span class="nc" id="L197">        log.error(getBundleString(&quot;download.no_delta_id&quot;));</span>
 <span class="nc" id="L198">        return ExitCode.SOFTWARE;</span>
       }
-<span class="nc" id="L200">      ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();</span>
-<span class="nc" id="L201">      extractSelectionOptions.setGeoFilterWkt(db.getMetadata(Metadata.GEOM_FILTER));</span>
-<span class="nc bnc" id="L202" title="All 2 branches missed.">      if (extractSelectionOptions.getGeoFilterWkt() != null</span>
-<span class="nc bnc" id="L203" title="All 2 branches missed.">          &amp;&amp; extractSelectionOptions.getGeoFilterWkt().length() == 0) {</span>
+<span class="fc" id="L200">      ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();</span>
+<span class="fc" id="L201">      extractSelectionOptions.setGeoFilterWkt(db.getMetadata(Metadata.GEOM_FILTER));</span>
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">      if (extractSelectionOptions.getGeoFilterWkt() != null</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">          &amp;&amp; extractSelectionOptions.getGeoFilterWkt().length() == 0) {</span>
 <span class="nc" id="L204">        extractSelectionOptions.setGeoFilterWkt(null);</span>
       }
-<span class="nc" id="L206">      extractSelectionOptions.setFeatureTypes(</span>
-<span class="nc" id="L207">          Arrays.asList(db.getMetadata(Metadata.FEATURE_TYPES).split(&quot;,&quot;)));</span>
-<span class="nc" id="L208">      LoadOptions loadOptions = new LoadOptions();</span>
-<span class="nc bnc" id="L209" title="All 2 branches missed.">      loadOptions.setHttpZipRandomAccess(!noHttpZipRandomAccess);</span>
-<span class="nc" id="L210">      loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));</span>
-<span class="nc" id="L211">      loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));</span>
-<span class="nc" id="L212">      loadOptions.tablePrefix =</span>
-<span class="nc" id="L213">          Objects.requireNonNullElse(db.getMetadata(Metadata.TABLE_PREFIX), &quot;&quot;);</span>
+<span class="fc" id="L206">      extractSelectionOptions.setFeatureTypes(</span>
+<span class="fc" id="L207">          Arrays.asList(db.getMetadata(Metadata.FEATURE_TYPES).split(&quot;,&quot;)));</span>
+<span class="fc" id="L208">      LoadOptions loadOptions = new LoadOptions();</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">      loadOptions.setHttpZipRandomAccess(!noHttpZipRandomAccess);</span>
+<span class="fc" id="L210">      loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));</span>
+<span class="fc" id="L211">      loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));</span>
+<span class="fc" id="L212">      loadOptions.tablePrefix =</span>
+<span class="fc" id="L213">          Objects.requireNonNullElse(db.getMetadata(Metadata.TABLE_PREFIX), &quot;&quot;);</span>
 
-<span class="nc" id="L215">      log.info(</span>
-<span class="nc" id="L216">          getMessageFormattedString(&quot;download.current_delta_id&quot;, deltaId)</span>
+<span class="fc" id="L215">      log.info(</span>
+<span class="fc" id="L216">          getMessageFormattedString(&quot;download.current_delta_id&quot;, deltaId)</span>
               + &quot;, &quot;
-<span class="nc bnc" id="L218" title="All 2 branches missed.">              + (deltaIdTimeTo != null</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">              + (deltaIdTimeTo != null</span>
 <span class="nc" id="L219">                  ? getMessageFormattedString(</span>
                       &quot;download.current_delta_time&quot;,
 <span class="nc" id="L221">                      DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo))</span>
-<span class="nc" id="L222">                  : getBundleString(&quot;download.current_delta_time_unknown&quot;)));</span>
+<span class="fc" id="L222">                  : getBundleString(&quot;download.current_delta_time_unknown&quot;)));</span>
 
       try {
-<span class="nc" id="L225">        Instant start = Instant.now();</span>
-<span class="nc" id="L226">        log.info(getBundleString(&quot;download.loading_deltas&quot;));</span>
+<span class="fc" id="L225">        Instant start = Instant.now();</span>
+<span class="fc" id="L226">        log.info(getBundleString(&quot;download.loading_deltas&quot;));</span>
         // Note that the afterDeltaId parameter is useless, because the response does not
         // distinguish between
         // &quot;'afterDeltaId' is the latest&quot; and &quot;'afterDeltaId' not found or older than 31
         // days&quot;
-<span class="nc" id="L231">        GetDeltasResponse response = new DeltaApi(client).getDeltas(null, 1, 100);</span>
+<span class="fc" id="L231">        GetDeltasResponse response = new DeltaApi(client).getDeltas(null, 1, 100);</span>
 
         // Verify no links to other page, as we expect at most 31 delta's
-<span class="nc bnc" id="L234" title="All 4 branches missed.">        if (response.getLinks() != null &amp;&amp; !response.getLinks().isEmpty()) {</span>
+<span class="pc bpc" id="L234" title="2 of 4 branches missed.">        if (response.getLinks() != null &amp;&amp; !response.getLinks().isEmpty()) {</span>
 <span class="nc" id="L235">          throw new IllegalStateException(&quot;Did not expect links in GetDeltas response&quot;);</span>
         }
 
         int i;
-<span class="nc bnc" id="L239" title="All 2 branches missed.">        for (i = 0; i &lt; response.getDeltas().size(); i++) {</span>
-<span class="nc" id="L240">          Delta d = response.getDeltas().get(i);</span>
-<span class="nc bnc" id="L241" title="All 2 branches missed.">          if (deltaId.equals(d.getId())) {</span>
-<span class="nc" id="L242">            break;</span>
+<span class="pc bpc" id="L239" title="1 of 2 branches missed.">        for (i = 0; i &lt; response.getDeltas().size(); i++) {</span>
+<span class="fc" id="L240">          Delta d = response.getDeltas().get(i);</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">          if (deltaId.equals(d.getId())) {</span>
+<span class="fc" id="L242">            break;</span>
           }
         }
-<span class="nc bnc" id="L245" title="All 2 branches missed.">        if (i == response.getDeltas().size()) {</span>
+<span class="pc bpc" id="L245" title="1 of 2 branches missed.">        if (i == response.getDeltas().size()) {</span>
           // TODO automatically do initial load depending on option
 <span class="nc" id="L247">          log.error(getBundleString(&quot;download.current_delta_not_found&quot;));</span>
 <span class="nc" id="L248">          return ExitCode.SOFTWARE;</span>
         }
 
-<span class="nc" id="L251">        List&lt;Delta&gt; deltas = response.getDeltas().subList(i + 1, response.getDeltas().size());</span>
-<span class="nc bnc" id="L252" title="All 2 branches missed.">        if (deltas.isEmpty()) {</span>
-<span class="nc" id="L253">          log.info(getBundleString(&quot;download.uptodate&quot;));</span>
-<span class="nc" id="L254">          return ExitCode.OK;</span>
+<span class="fc" id="L251">        List&lt;Delta&gt; deltas = response.getDeltas().subList(i + 1, response.getDeltas().size());</span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">        if (deltas.isEmpty()) {</span>
+<span class="fc" id="L253">          log.info(getBundleString(&quot;download.uptodate&quot;));</span>
+<span class="fc" id="L254">          return ExitCode.OK;</span>
         }
 
 <span class="nc" id="L257">        Delta latestDelta = deltas.get(deltas.size() - 1);</span>
@@ -290,15 +290,15 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L290">        printApiException(apiException);</span>
 <span class="nc" id="L291">        throw apiException;</span>
       }
-<span class="nc bnc" id="L293" title="All 6 branches missed.">    }</span>
+<span class="pc bpc" id="L293" title="5 of 6 branches missed.">    }</span>
   }
 
   private static void printApiException(ApiException apiException) {
-<span class="nc" id="L297">    log.error(</span>
-<span class="nc" id="L298">        String.format(</span>
+<span class="fc" id="L297">    log.error(</span>
+<span class="fc" id="L298">        String.format(</span>
             &quot;API status code: %d, body: %s\n&quot;,
-<span class="nc" id="L300">            apiException.getCode(), apiException.getResponseBody()));</span>
-<span class="nc" id="L301">  }</span>
+<span class="fc" id="L300">            apiException.getCode(), apiException.getResponseBody()));</span>
+<span class="fc" id="L301">  }</span>
 
   private static void loadZipFromURI(
       URI uri,
@@ -309,23 +309,23 @@ import picocli.CommandLine.Option;
       boolean showSelected,
       Instant start)
       throws Exception {
-<span class="nc" id="L312">    Instant loadStart = Instant.now();</span>
-<span class="nc" id="L313">    new BGTLoaderMain()</span>
-<span class="nc" id="L314">        .loadZipFromURI(uri, writer, extractSelectionOptions, loadOptions, showSelected);</span>
-<span class="nc" id="L315">    db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());</span>
-<span class="nc" id="L316">    log.info(</span>
-<span class="nc" id="L317">        getMessageFormattedString(</span>
+<span class="fc" id="L312">    Instant loadStart = Instant.now();</span>
+<span class="fc" id="L313">    new BGTLoaderMain()</span>
+<span class="fc" id="L314">        .loadZipFromURI(uri, writer, extractSelectionOptions, loadOptions, showSelected);</span>
+<span class="fc" id="L315">    db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());</span>
+<span class="fc" id="L316">    log.info(</span>
+<span class="fc" id="L317">        getMessageFormattedString(</span>
                 &quot;download.complete&quot;,
-<span class="nc" id="L319">                getBundleString(</span>
+<span class="fc" id="L319">                getBundleString(</span>
                     &quot;download.mutatietype.&quot;
-<span class="nc" id="L321">                        + writer.getProgress().getMutatieInhoud().getMutatieType()),</span>
-<span class="nc" id="L322">                writer.getProgress().getMutatieInhoud().getLeveringsId(),</span>
-<span class="nc" id="L323">                formatTimeSince(loadStart))</span>
-<span class="nc bnc" id="L324" title="All 2 branches missed.">            + (start == null</span>
-<span class="nc" id="L325">                ? &quot;&quot;</span>
+<span class="fc" id="L321">                        + writer.getProgress().getMutatieInhoud().getMutatieType()),</span>
+<span class="fc" id="L322">                writer.getProgress().getMutatieInhoud().getLeveringsId(),</span>
+<span class="fc" id="L323">                formatTimeSince(loadStart))</span>
+<span class="fc bfc" id="L324" title="All 2 branches covered.">            + (start == null</span>
+<span class="fc" id="L325">                ? &quot;&quot;</span>
                 : &quot; &quot;
-<span class="nc" id="L327">                    + getMessageFormattedString(</span>
-<span class="nc" id="L328">                        &quot;download.complete_total&quot;, formatTimeSince(start))));</span>
-<span class="nc" id="L329">  }</span>
+<span class="fc" id="L327">                    + getMessageFormattedString(</span>
+<span class="fc" id="L328">                        &quot;download.complete_total&quot;, formatTimeSince(start))));</span>
+<span class="fc" id="L329">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

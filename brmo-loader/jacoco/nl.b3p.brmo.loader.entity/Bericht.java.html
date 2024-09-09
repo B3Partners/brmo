@@ -48,129 +48,128 @@ public class Bericht {
 <span class="nc" id="L48">    RSGB_OK,</span>
 <span class="nc" id="L49">    RSGB_OUTDATED,</span>
 <span class="nc" id="L50">    RSGB_NOK,</span>
-<span class="nc" id="L51">    ARCHIVE,</span>
-<span class="nc" id="L52">    RSGB_BAG_NOK</span>
+<span class="nc" id="L51">    ARCHIVE</span>
   };
 
-<span class="fc" id="L55">  public Bericht(String brXml) {</span>
-<span class="fc" id="L56">    this.brXml = brXml;</span>
-<span class="fc" id="L57">  }</span>
+<span class="fc" id="L54">  public Bericht(String brXml) {</span>
+<span class="fc" id="L55">    this.brXml = brXml;</span>
+<span class="fc" id="L56">  }</span>
 
   public Long getId() {
-<span class="nc" id="L60">    return id;</span>
+<span class="nc" id="L59">    return id;</span>
   }
 
   public void setId(Long id) {
-<span class="nc" id="L64">    this.id = id;</span>
-<span class="nc" id="L65">  }</span>
+<span class="nc" id="L63">    this.id = id;</span>
+<span class="nc" id="L64">  }</span>
 
   public Long getLaadProcesId() {
-<span class="nc" id="L68">    return laadProcesId;</span>
+<span class="nc" id="L67">    return laadProcesId;</span>
   }
 
   public void setLaadProcesId(Long laadProcesId) {
-<span class="nc" id="L72">    this.laadProcesId = laadProcesId;</span>
-<span class="nc" id="L73">  }</span>
+<span class="nc" id="L71">    this.laadProcesId = laadProcesId;</span>
+<span class="nc" id="L72">  }</span>
 
   public String getObjectRef() {
-<span class="fc" id="L76">    return objectRef;</span>
+<span class="fc" id="L75">    return objectRef;</span>
   }
 
   public void setObjectRef(String objectRef) {
-<span class="fc" id="L80">    this.objectRef = objectRef;</span>
-<span class="fc" id="L81">  }</span>
+<span class="fc" id="L79">    this.objectRef = objectRef;</span>
+<span class="fc" id="L80">  }</span>
 
   public Date getDatum() {
-<span class="fc" id="L84">    return datum;</span>
+<span class="fc" id="L83">    return datum;</span>
   }
 
   public void setDatum(Date datum) {
-<span class="fc" id="L88">    this.datum = datum;</span>
-<span class="fc" id="L89">  }</span>
+<span class="fc" id="L87">    this.datum = datum;</span>
+<span class="fc" id="L88">  }</span>
 
   public Integer getVolgordeNummer() {
-<span class="fc" id="L92">    return volgordeNummer;</span>
+<span class="fc" id="L91">    return volgordeNummer;</span>
   }
 
   public void setVolgordeNummer(Integer volgordeNummer) {
-<span class="fc" id="L96">    this.volgordeNummer = volgordeNummer;</span>
-<span class="fc" id="L97">  }</span>
+<span class="fc" id="L95">    this.volgordeNummer = volgordeNummer;</span>
+<span class="fc" id="L96">  }</span>
 
   public String getSoort() {
-<span class="fc" id="L100">    return soort;</span>
+<span class="fc" id="L99">    return soort;</span>
   }
 
   public void setSoort(String soort) {
-<span class="fc" id="L104">    this.soort = soort;</span>
-<span class="fc" id="L105">  }</span>
+<span class="fc" id="L103">    this.soort = soort;</span>
+<span class="fc" id="L104">  }</span>
 
   public String getOpmerking() {
-<span class="nc" id="L108">    return opmerking;</span>
+<span class="nc" id="L107">    return opmerking;</span>
   }
 
   public void setOpmerking(String opmerking) {
-<span class="nc" id="L112">    this.opmerking = opmerking;</span>
-<span class="nc" id="L113">  }</span>
+<span class="nc" id="L111">    this.opmerking = opmerking;</span>
+<span class="nc" id="L112">  }</span>
 
   public STATUS getStatus() {
-<span class="nc" id="L116">    return status;</span>
+<span class="nc" id="L115">    return status;</span>
   }
 
   public void setStatus(STATUS status) {
-<span class="nc" id="L120">    this.status = status;</span>
-<span class="nc" id="L121">  }</span>
+<span class="nc" id="L119">    this.status = status;</span>
+<span class="nc" id="L120">  }</span>
 
   public String getJobId() {
-<span class="nc" id="L124">    return jobId;</span>
+<span class="nc" id="L123">    return jobId;</span>
   }
 
   public void setJobId(String jobId) {
-<span class="nc" id="L128">    this.jobId = jobId;</span>
-<span class="nc" id="L129">  }</span>
+<span class="nc" id="L127">    this.jobId = jobId;</span>
+<span class="nc" id="L128">  }</span>
 
   public Date getStatusDatum() {
-<span class="nc" id="L132">    return statusDatum;</span>
+<span class="nc" id="L131">    return statusDatum;</span>
   }
 
   public void setStatusDatum(Date statusDatum) {
-<span class="nc" id="L136">    this.statusDatum = statusDatum;</span>
-<span class="nc" id="L137">  }</span>
+<span class="nc" id="L135">    this.statusDatum = statusDatum;</span>
+<span class="nc" id="L136">  }</span>
 
   public String getBrXml() {
-<span class="fc" id="L140">    return brXml;</span>
+<span class="fc" id="L139">    return brXml;</span>
   }
 
   public void setBrXml(String brXml) {
-<span class="fc" id="L144">    this.brXml = brXml;</span>
-<span class="fc" id="L145">  }</span>
+<span class="fc" id="L143">    this.brXml = brXml;</span>
+<span class="fc" id="L144">  }</span>
 
   public String getBrOrgineelXml() {
-<span class="nc" id="L148">    return brOrgineelXml;</span>
+<span class="nc" id="L147">    return brOrgineelXml;</span>
   }
 
   public void setBrOrgineelXml(String brOrgineelXml) {
-<span class="nc" id="L152">    this.brOrgineelXml = brOrgineelXml;</span>
-<span class="nc" id="L153">  }</span>
+<span class="nc" id="L151">    this.brOrgineelXml = brOrgineelXml;</span>
+<span class="nc" id="L152">  }</span>
 
   public String getDbXml() {
-<span class="nc" id="L156">    return dbXml;</span>
+<span class="nc" id="L155">    return dbXml;</span>
   }
 
   public void setDbXml(String dbXml) {
-<span class="nc" id="L160">    this.dbXml = dbXml;</span>
-<span class="nc" id="L161">  }</span>
+<span class="nc" id="L159">    this.dbXml = dbXml;</span>
+<span class="nc" id="L160">  }</span>
 
   public String getXslVersion() {
-<span class="nc" id="L164">    return xslVersion;</span>
+<span class="nc" id="L163">    return xslVersion;</span>
   }
 
   public void setXslVersion(String xslVersion) {
-<span class="nc" id="L168">    this.xslVersion = xslVersion;</span>
-<span class="nc" id="L169">  }</span>
+<span class="nc" id="L167">    this.xslVersion = xslVersion;</span>
+<span class="nc" id="L168">  }</span>
 
   @Override
   public String toString() {
-<span class="fc" id="L173">    return &quot;Bericht{&quot;</span>
+<span class="fc" id="L172">    return &quot;Bericht{&quot;</span>
         + &quot;id=&quot;
         + id
         + &quot;, objectRef=&quot;
@@ -188,13 +187,13 @@ public class Bericht {
         + &quot;, laadProcesId=&quot;
         + laadProcesId
         + &quot; (lengte brOrgineelXml=&quot;
-<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        + (brOrgineelXml == null ? null : brOrgineelXml.length())</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        + (brOrgineelXml == null ? null : brOrgineelXml.length())</span>
         + &quot; (lengte brXml=&quot;
-<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        + (brXml == null ? null : brXml.length())</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">        + (brXml == null ? null : brXml.length())</span>
         + &quot; (lengte dbXml=&quot;
-<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        + (dbXml == null ? null : dbXml.length())</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">        + (dbXml == null ? null : dbXml.length())</span>
         + &quot; (lengte opmerking=&quot;
-<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        + (opmerking == null ? null : opmerking.length())</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">        + (opmerking == null ? null : opmerking.length())</span>
         + &quot;, xslVersion='&quot;
         + xslVersion
         + &quot;, jobId=&quot;
@@ -202,4 +201,4 @@ public class Bericht {
         + '}';
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

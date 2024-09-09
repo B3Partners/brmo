@@ -6,22 +6,30 @@
 
 package nl.b3p.brmo.schema.mapping;
 
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
   public BooleanAttributeColumnMapping(String name, boolean notNull) {
-<span class="fc" id="L11">    super(name, &quot;boolean&quot;, notNull, false);</span>
-<span class="fc" id="L12">  }</span>
+<span class="fc" id="L14">    super(name, &quot;boolean&quot;, notNull, false);</span>
+<span class="fc" id="L15">  }</span>
 
   public BooleanAttributeColumnMapping(String name) {
-<span class="fc" id="L15">    this(name, true);</span>
-<span class="fc" id="L16">  }</span>
+<span class="fc" id="L18">    this(name, true);</span>
+<span class="fc" id="L19">  }</span>
 
   @Override
-  public Object toQueryParameter(Object value) {
-<span class="nc bnc" id="L20" title="All 2 branches missed.">    if (value == null) {</span>
-<span class="nc" id="L21">      return null;</span>
+  public Object toQueryParameter(Object value, SQLDialect sqlDialect) throws Exception {
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (sqlDialect instanceof OracleDialect) {</span>
+      // Use default string to have 'true' and 'false' in nvarchar2(5) column
+<span class="nc" id="L25">      return super.toQueryParameter(value, sqlDialect);</span>
     } else {
-<span class="nc" id="L23">      return Boolean.parseBoolean(value.toString());</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">      if (value == null) {</span>
+<span class="fc" id="L28">        return null;</span>
+      } else {
+<span class="fc" id="L30">        return Boolean.parseBoolean(value.toString());</span>
+      }
     }
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

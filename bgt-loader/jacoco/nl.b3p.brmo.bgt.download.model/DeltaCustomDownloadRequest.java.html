@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadRequest.JSON_PROPERTY_FORMAT,
   DeltaCustomDownloadRequest.JSON_PROPERTY_GEOFILTER
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.8.0&quot;)
 public class DeltaCustomDownloadRequest {
   public static final String JSON_PROPERTY_DELTA_ID = &quot;deltaId&quot;;
   private String deltaId;
@@ -195,49 +195,47 @@ public class DeltaCustomDownloadRequest {
 <span class="nc" id="L195">    return this;</span>
   }
 
-   /**
+  /**
    * Get deltaId
    * @return deltaId
-  **/
+   */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DELTA_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public String getDeltaId() {
-<span class="nc" id="L207">    return deltaId;</span>
+<span class="nc" id="L206">    return deltaId;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_DELTA_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeltaId(String deltaId) {
-<span class="nc" id="L214">    this.deltaId = deltaId;</span>
-<span class="nc" id="L215">  }</span>
+<span class="nc" id="L213">    this.deltaId = deltaId;</span>
+<span class="nc" id="L214">  }</span>
 
 
   public DeltaCustomDownloadRequest featuretypes(Set&lt;FeaturetypesEnum&gt; featuretypes) {
-<span class="nc" id="L219">    this.featuretypes = featuretypes;</span>
-<span class="nc" id="L220">    return this;</span>
+<span class="nc" id="L218">    this.featuretypes = featuretypes;</span>
+<span class="nc" id="L219">    return this;</span>
   }
 
   public DeltaCustomDownloadRequest addFeaturetypesItem(FeaturetypesEnum featuretypesItem) {
-<span class="nc bnc" id="L224" title="All 2 branches missed.">    if (this.featuretypes == null) {</span>
-<span class="nc" id="L225">      this.featuretypes = new LinkedHashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">    if (this.featuretypes == null) {</span>
+<span class="nc" id="L224">      this.featuretypes = new LinkedHashSet&lt;&gt;();</span>
     }
-<span class="nc" id="L227">    this.featuretypes.add(featuretypesItem);</span>
-<span class="nc" id="L228">    return this;</span>
+<span class="nc" id="L226">    this.featuretypes.add(featuretypesItem);</span>
+<span class="nc" id="L227">    return this;</span>
   }
 
-   /**
+  /**
    * Get featuretypes
    * @return featuretypes
-  **/
+   */
   @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FEATURETYPES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
   public Set&lt;FeaturetypesEnum&gt; getFeaturetypes() {
-<span class="nc" id="L240">    return featuretypes;</span>
+<span class="nc" id="L238">    return featuretypes;</span>
   }
 
 
@@ -245,58 +243,56 @@ public class DeltaCustomDownloadRequest {
   @JsonProperty(JSON_PROPERTY_FEATURETYPES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFeaturetypes(Set&lt;FeaturetypesEnum&gt; featuretypes) {
-<span class="nc" id="L248">    this.featuretypes = featuretypes;</span>
-<span class="nc" id="L249">  }</span>
+<span class="nc" id="L246">    this.featuretypes = featuretypes;</span>
+<span class="nc" id="L247">  }</span>
 
 
   public DeltaCustomDownloadRequest format(FormatEnum format) {
-<span class="nc" id="L253">    this.format = format;</span>
-<span class="nc" id="L254">    return this;</span>
+<span class="nc" id="L251">    this.format = format;</span>
+<span class="nc" id="L252">    return this;</span>
   }
 
-   /**
+  /**
    * Get format
    * @return format
-  **/
+   */
   @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FORMAT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
   public FormatEnum getFormat() {
-<span class="nc" id="L266">    return format;</span>
+<span class="nc" id="L263">    return format;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_FORMAT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFormat(FormatEnum format) {
-<span class="nc" id="L273">    this.format = format;</span>
-<span class="nc" id="L274">  }</span>
+<span class="nc" id="L270">    this.format = format;</span>
+<span class="nc" id="L271">  }</span>
 
 
   public DeltaCustomDownloadRequest geofilter(String geofilter) {
-<span class="nc" id="L278">    this.geofilter = geofilter;</span>
-<span class="nc" id="L279">    return this;</span>
+<span class="nc" id="L275">    this.geofilter = geofilter;</span>
+<span class="nc" id="L276">    return this;</span>
   }
 
-   /**
+  /**
    * Get geofilter
    * @return geofilter
-  **/
+   */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_GEOFILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public String getGeofilter() {
-<span class="nc" id="L291">    return geofilter;</span>
+<span class="nc" id="L287">    return geofilter;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_GEOFILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGeofilter(String geofilter) {
-<span class="nc" id="L298">    this.geofilter = geofilter;</span>
-<span class="nc" id="L299">  }</span>
+<span class="nc" id="L294">    this.geofilter = geofilter;</span>
+<span class="nc" id="L295">  }</span>
 
 
   /**
@@ -304,34 +300,34 @@ public class DeltaCustomDownloadRequest {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L307" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L308">      return true;</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L304">      return true;</span>
     }
-<span class="nc bnc" id="L310" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L311">      return false;</span>
+<span class="nc bnc" id="L306" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L307">      return false;</span>
     }
-<span class="nc" id="L313">    DeltaCustomDownloadRequest deltaCustomDownloadRequest = (DeltaCustomDownloadRequest) o;</span>
-<span class="nc bnc" id="L314" title="All 2 branches missed.">    return Objects.equals(this.deltaId, deltaCustomDownloadRequest.deltaId) &amp;&amp;</span>
-<span class="nc bnc" id="L315" title="All 2 branches missed.">        Objects.equals(this.featuretypes, deltaCustomDownloadRequest.featuretypes) &amp;&amp;</span>
-<span class="nc bnc" id="L316" title="All 2 branches missed.">        Objects.equals(this.format, deltaCustomDownloadRequest.format) &amp;&amp;</span>
-<span class="nc bnc" id="L317" title="All 2 branches missed.">        Objects.equals(this.geofilter, deltaCustomDownloadRequest.geofilter);</span>
+<span class="nc" id="L309">    DeltaCustomDownloadRequest deltaCustomDownloadRequest = (DeltaCustomDownloadRequest) o;</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">    return Objects.equals(this.deltaId, deltaCustomDownloadRequest.deltaId) &amp;&amp;</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">        Objects.equals(this.featuretypes, deltaCustomDownloadRequest.featuretypes) &amp;&amp;</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">        Objects.equals(this.format, deltaCustomDownloadRequest.format) &amp;&amp;</span>
+<span class="nc bnc" id="L313" title="All 2 branches missed.">        Objects.equals(this.geofilter, deltaCustomDownloadRequest.geofilter);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L322">    return Objects.hash(deltaId, featuretypes, format, geofilter);</span>
+<span class="nc" id="L318">    return Objects.hash(deltaId, featuretypes, format, geofilter);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L327">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L328">    sb.append(&quot;class DeltaCustomDownloadRequest {\n&quot;);</span>
-<span class="nc" id="L329">    sb.append(&quot;    deltaId: &quot;).append(toIndentedString(deltaId)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L330">    sb.append(&quot;    featuretypes: &quot;).append(toIndentedString(featuretypes)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L331">    sb.append(&quot;    format: &quot;).append(toIndentedString(format)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L332">    sb.append(&quot;    geofilter: &quot;).append(toIndentedString(geofilter)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L333">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L334">    return sb.toString();</span>
+<span class="nc" id="L323">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L324">    sb.append(&quot;class DeltaCustomDownloadRequest {\n&quot;);</span>
+<span class="nc" id="L325">    sb.append(&quot;    deltaId: &quot;).append(toIndentedString(deltaId)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L326">    sb.append(&quot;    featuretypes: &quot;).append(toIndentedString(featuretypes)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L327">    sb.append(&quot;    format: &quot;).append(toIndentedString(format)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L328">    sb.append(&quot;    geofilter: &quot;).append(toIndentedString(geofilter)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L329">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L330">    return sb.toString();</span>
   }
 
   /**
@@ -339,11 +335,11 @@ public class DeltaCustomDownloadRequest {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L342" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L343">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L339">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L345">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L341">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

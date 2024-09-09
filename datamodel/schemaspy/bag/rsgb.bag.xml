@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="bag" type="PostgreSQL - 16.1">
+<database name="rsgb" schema="bag" type="PostgreSQL - 16.4">
    <tables>
       <table name="ligplaats" numRows="432" remarks="" schema="bag" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('bag.objectid_seq'::regclass)" digits="0" id="0" name="objectid" nullable="false" remarks="" size="10" type="serial"/>

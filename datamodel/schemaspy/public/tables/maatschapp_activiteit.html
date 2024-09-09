@@ -84,7 +84,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='even'>
+<tr class='odd'>
  <td class='primaryKey' title='Primary Key'>kvk_nummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -93,19 +93,19 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="ondrnmng.fk_4mac_kvk_nummer refs maatschapp_activiteit.kvk_nummer via fk_ond_as_4"><a href='ondrnmng.html'>ondrnmng</a><span class='relatedKey'>.fk_4mac_kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_ond_as_4<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="vestg.fk_17mac_kvk_nummer refs maatschapp_activiteit.kvk_nummer via fk_ves_as_17"><a href='vestg.html'>vestg</a><span class='relatedKey'>.fk_17mac_kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_ves_as_17<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="vestg.fk_19mac_kvk_nummer refs maatschapp_activiteit.kvk_nummer via fk_ves_as_19"><a href='vestg.html'>vestg</a><span class='relatedKey'>.fk_19mac_kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_ves_as_19<span title='Cascade on delete:
@@ -116,7 +116,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>[PK] N8 - KvK-nummer</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>datum_aanvang</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>19</td>
@@ -127,7 +127,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>OnvolledigeDatum - Datum aanvang</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>datum_einde_geldig</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>19</td>
@@ -138,7 +138,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>OnvolledigeDatum - Datum einde geldig (beeindiging)</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>fk_3ond_kvk_nummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -148,7 +148,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="maatschapp_activiteit.fk_3ond_kvk_nummer refs ondrnmng.kvk_nummer via fk_mac_as_3"><a href='ondrnmng.html'>ondrnmng</a><span class='relatedKey'>.kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_mac_as_3<span title='Cascade on delete:
@@ -158,7 +158,7 @@
  </td>
  <td class='comment detail'>[FK] N8, FK naar ondrnmng.kvk_nummer: "manifesteert zich als"</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>fk_4pes_sc_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -168,7 +168,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="maatschapp_activiteit.fk_4pes_sc_identif refs prs.sc_identif via fk_mac_as_4"><a href='prs.html'>prs</a><span class='relatedKey'>.sc_identif</span>
     </td>
     <td class='constraint detail'>fk_mac_as_4<span title='Cascade on delete:
@@ -178,7 +178,7 @@
  </td>
  <td class='comment detail'>[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): "heeft als eigenaar"</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>nonmailing</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>3</td>
@@ -190,7 +190,7 @@
  <td class='comment detail'>nonMailing attribuut (niet-RSGB)</td>
 </tr>
 </table>
-<p title='6 columns'>Table contained 0 rows at Wed Feb 07 11:58 CET 2024<p/>
+<p title='6 columns'>Table contained 0 rows at Mon Sep 09 16:41 CEST 2024<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>

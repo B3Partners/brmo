@@ -22,29 +22,29 @@ public class BAG2SchemaMapper extends SchemaSQLMapper {
 
   public static final String METADATA_TABLE_NAME = &quot;brmo_metadata&quot;;
 
-<span class="nc" id="L25">  public enum Metadata {</span>
-<span class="nc" id="L26">    SCHEMA_VERSION,</span>
-<span class="nc" id="L27">    LOADER_VERSION,</span>
-<span class="nc" id="L28">    STAND_LOAD_TIME,</span>
-<span class="nc" id="L29">    STAND_LOAD_TECHNISCHE_DATUM,</span>
-<span class="nc" id="L30">    CURRENT_TECHNISCHE_DATUM,</span>
-<span class="nc" id="L31">    GEMEENTE_CODES,</span>
-<span class="nc" id="L32">    FILTER_MUTATIES_WOONPLAATS;</span>
+<span class="fc" id="L25">  public enum Metadata {</span>
+<span class="fc" id="L26">    SCHEMA_VERSION,</span>
+<span class="fc" id="L27">    LOADER_VERSION,</span>
+<span class="fc" id="L28">    STAND_LOAD_TIME,</span>
+<span class="fc" id="L29">    STAND_LOAD_TECHNISCHE_DATUM,</span>
+<span class="fc" id="L30">    CURRENT_TECHNISCHE_DATUM,</span>
+<span class="fc" id="L31">    GEMEENTE_CODES,</span>
+<span class="fc" id="L32">    FILTER_GEOMETRIE;</span>
 
     public String getDbKey() {
-<span class="nc" id="L35">      return &quot;bag2_&quot; + this.name().toLowerCase();</span>
+<span class="fc" id="L35">      return &quot;bag2_&quot; + this.name().toLowerCase();</span>
     }
   }
 
   public BAG2SchemaMapper() {
-<span class="nc" id="L40">    super(BAG2Schema.getInstance());</span>
-<span class="nc" id="L41">  }</span>
+<span class="fc" id="L40">    super(BAG2Schema.getInstance());</span>
+<span class="fc" id="L41">  }</span>
 
   public static BAG2SchemaMapper getInstance() {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">    if (instance == null) {</span>
-<span class="nc" id="L45">      instance = new BAG2SchemaMapper();</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    if (instance == null) {</span>
+<span class="fc" id="L45">      instance = new BAG2SchemaMapper();</span>
     }
-<span class="nc" id="L47">    return instance;</span>
+<span class="fc" id="L47">    return instance;</span>
   }
 
   @Override
@@ -83,4 +83,4 @@ public class BAG2SchemaMapper extends SchemaSQLMapper {
 <span class="nc" id="L83">    return statements;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

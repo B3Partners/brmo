@@ -145,7 +145,7 @@
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>                   <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>                     <a name="AttributeColumnMapping" href="../../../../../nl/b3p/brmo/schema/mapping/AttributeColumnMapping.html#AttributeColumnMapping">AttributeColumnMapping</a> mapping = objectType.getAttributeByName(pk.getName());
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>                     Object attribute = object.getAttributes().get(pk.getName());
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>                     <strong class="jxr_keyword">return</strong> mapping.toQueryParameter(attribute);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>                     <strong class="jxr_keyword">return</strong> mapping.toQueryParameter(attribute, getDialect());
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>                   } <strong class="jxr_keyword">catch</strong> (Exception e) {
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e);
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>                   }
@@ -265,6 +265,6 @@
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>

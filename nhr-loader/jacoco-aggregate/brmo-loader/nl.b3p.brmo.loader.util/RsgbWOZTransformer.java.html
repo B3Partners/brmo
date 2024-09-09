@@ -40,9 +40,9 @@ public class RsgbWOZTransformer extends RsgbTransformer {
 
   public RsgbWOZTransformer(String pathToXsl, StagingProxy staging)
       throws TransformerConfigurationException, ParserConfigurationException {
-<span class="nc" id="L43">    super(pathToXsl);</span>
-<span class="nc" id="L44">    this.staging = staging;</span>
-<span class="nc" id="L45">  }</span>
+<span class="fc" id="L43">    super(pathToXsl);</span>
+<span class="fc" id="L44">    this.staging = staging;</span>
+<span class="fc" id="L45">  }</span>
 
   protected static Document merge(String oldDBxml, String newDBxml)
       throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
@@ -104,15 +104,15 @@ public class RsgbWOZTransformer extends RsgbTransformer {
   @Override
   public String transformToDbXml(Bericht bericht)
       throws SAXException, IOException, TransformerException {
-<span class="nc" id="L107">    String current = super.transformToDbXml(bericht);</span>
-<span class="nc" id="L108">    StringBuilder loadLog = new StringBuilder();</span>
+<span class="fc" id="L107">    String current = super.transformToDbXml(bericht);</span>
+<span class="fc" id="L108">    StringBuilder loadLog = new StringBuilder();</span>
 
-<span class="nc" id="L110">    LOG.debug(&quot;actuele bericht is: &quot; + bericht);</span>
+<span class="fc" id="L110">    LOG.debug(&quot;actuele bericht is: &quot; + bericht);</span>
     try {
-<span class="nc" id="L112">      Bericht previousBericht = staging.getPreviousBericht(bericht, loadLog);</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">      if (previousBericht != null) {</span>
-<span class="nc" id="L114">        LOG.debug(&quot;vorige bericht is: &quot; + previousBericht);</span>
-<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (null == previousBericht.getDbXml()) {</span>
+<span class="fc" id="L112">      Bericht previousBericht = staging.getPreviousBericht(bericht, loadLog);</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">      if (previousBericht != null) {</span>
+<span class="fc" id="L114">        LOG.debug(&quot;vorige bericht is: &quot; + previousBericht);</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (null == previousBericht.getDbXml()) {</span>
           // TODO mogelijk op te lossen door previousBericht nogmaals te transformeren via
           //      oldDBXml = super.transformToDbXml(previousBericht);
           //      voor nu zetten we de pipelining.enabled op false in de
@@ -123,12 +123,12 @@ public class RsgbWOZTransformer extends RsgbTransformer {
           //      is naar de bericht tabel
 <span class="nc" id="L124">          LOG.warn(&quot;Er is wel een vorig bericht, maar de DB_XML ontbreekt&quot;);</span>
         }
-<span class="nc" id="L126">        Document d = merge(previousBericht.getDbXml(), current);</span>
+<span class="fc" id="L126">        Document d = merge(previousBericht.getDbXml(), current);</span>
 
-<span class="nc" id="L128">        String mergedDBXML = print(d);</span>
-<span class="nc" id="L129">        bericht.setDbXml(mergedDBXML);</span>
-<span class="nc" id="L130">        LOG.trace(&quot;mergedDBXML bericht is: &quot; + mergedDBXML);</span>
-<span class="nc" id="L131">        current = mergedDBXML;</span>
+<span class="fc" id="L128">        String mergedDBXML = print(d);</span>
+<span class="fc" id="L129">        bericht.setDbXml(mergedDBXML);</span>
+<span class="fc" id="L130">        LOG.trace(&quot;mergedDBXML bericht is: &quot; + mergedDBXML);</span>
+<span class="fc" id="L131">        current = mergedDBXML;</span>
       }
 <span class="nc" id="L133">    } catch (SQLException</span>
         | XPathExpressionException
@@ -136,9 +136,9 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         | IOException
         | SAXException ex) {
 <span class="nc" id="L138">      LOG.error(&quot;Vorige bericht kon niet worden opgehaald: &quot;, ex);</span>
-<span class="nc" id="L139">    }</span>
-<span class="nc" id="L140">    LOG.debug(loadLog);</span>
-<span class="nc" id="L141">    return current;</span>
+<span class="fc" id="L139">    }</span>
+<span class="fc" id="L140">    LOG.debug(loadLog);</span>
+<span class="fc" id="L141">    return current;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

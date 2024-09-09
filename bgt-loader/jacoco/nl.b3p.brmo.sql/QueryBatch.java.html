@@ -8,7 +8,7 @@ package nl.b3p.brmo.sql;
 
 import java.sql.SQLException;
 
-public interface QueryBatch {
+public interface QueryBatch extends AutoCloseable {
   boolean addBatch(Object[] params) throws Exception;
 
   void executeBatch() throws Exception;
@@ -22,4 +22,4 @@ public interface QueryBatch {
 <span class="nc" id="L22">    }</span>
 <span class="nc" id="L23">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

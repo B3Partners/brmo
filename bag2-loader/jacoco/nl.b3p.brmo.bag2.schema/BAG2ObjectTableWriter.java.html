@@ -137,7 +137,7 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
                   try {
 <span class="nc" id="L138">                    AttributeColumnMapping mapping = objectType.getAttributeByName(pk.getName());</span>
 <span class="nc" id="L139">                    Object attribute = object.getAttributes().get(pk.getName());</span>
-<span class="nc" id="L140">                    return mapping.toQueryParameter(attribute);</span>
+<span class="nc" id="L140">                    return mapping.toQueryParameter(attribute, getDialect());</span>
 <span class="nc" id="L141">                  } catch (Exception e) {</span>
 <span class="nc" id="L142">                    throw new RuntimeException(e);</span>
                   }
@@ -255,4 +255,4 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
 <span class="nc" id="L255">    super.createIndexes(objectType);</span>
 <span class="nc" id="L256">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
