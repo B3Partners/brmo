@@ -34,11 +34,6 @@
 				<script>102_metagegevens_brondocument.sql</script>
 				<script>103_woz_waarde.sql</script>
 				<script>104_brondocument_indices.sql</script>
-				<!--<script>105_appartements_rechten.sql</script>-->
-				<!--<script>106_bag_views.sql</script>-->
-				<!--<script>107_brk_views.sql</script>-->
-				<script>108_insert_aard_recht_verkort.sql</script>
-				<script>109_insert_aard_verkregen_recht.sql</script>
 				<script>110_gebruiksdoel_primary_key.sql</script>
 				<script>111_insert_gemeente.sql</script>
 				<script>112_insert_buurt.sql</script>
@@ -54,8 +49,6 @@
 				<script>122_idx_gebr_doel.sql</script>
 				<script>123_add_hoofdvestiging.sql</script>
 				<script>124_uitbreiding_woz.sql</script>
-				<!-- BAG 1 is verwijderd in versie 4.0.0
-				 script>206_bag_views.sql</script -->
 				<script>207_brk_views.sql</script>
 				<script>300_drop_bag_tabellen.sql</script>
 			</extra-scripts>
