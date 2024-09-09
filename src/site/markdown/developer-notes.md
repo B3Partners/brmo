@@ -68,7 +68,7 @@ worden bijgewerkt en online gebracht. De SchemaSpy tool waarmee database schema 
 Graphviz nodig, installeer met `sudo apt install -y --no-install-recommends graphviz`.
 
 - `cd target/checkout` (als je dit direct na een release doet)
-- `mvn -T1 site site:stage -Ppostgresql -DskipQA=true`
+- `mvn -T1 site site:stage -DskipQA=true`
 - `mvn scm-publish:publish-scm -T1`
 
 _NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt; je kunt dan met de hand een commit 

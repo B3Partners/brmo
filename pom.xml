@@ -66,9 +66,9 @@
             <url>https://repo.b3p.nl/nexus/repository/snapshots/</url>
         </snapshotRepository>
         <site>
-            <id>gh-pages</id>
+            <id>github</id>
             <name>github pages site</name>
-            <url>scm:git:ssh://git@github.com/b3partners/brmo.git</url>
+            <url>scm:git:https://github.com/b3partners/brmo.git</url>
         </site>
     </distributionManagement>
     <properties>
