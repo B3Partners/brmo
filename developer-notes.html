@@ -146,7 +146,7 @@ Graphviz nodig, installeer met <code>sudo apt install -y --no-install-recommends
 <ul>
 
 <li><code>cd target/checkout</code> (als je dit direct na een release doet)</li>
-<li><code>mvn -T1 site site:stage -Ppostgresql -DskipQA=true</code></li>
+<li><code>mvn -T1 site site:stage -DskipQA=true</code></li>
 <li><code>mvn scm-publish:publish-scm -T1</code></li>
 </ul>
 <p><em>NB</em> de git acties willen wel eens mislukken omdat de commandline te lang wordt; je kunt dan met de hand een commit
