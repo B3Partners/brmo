@@ -4,22 +4,29 @@
 
 ### Vereisten
 
-- Java 11
+- Java 17
 - Maven 3.9.5 of hoger
-- Docker 24.0.x met buildx 0.11.x en compose 2.19.x of hoger (dit vereiste kan worden overgeslagen als je geen docker images wilt bouwen of geen release artifacten wilt bouwen)
+- Docker 27.0.x met buildx 0.16.x en compose 2.29.x of hoger (dit vereiste kan worden overgeslagen als je geen 
+  docker images wilt bouwen en/of geen release artifacten wilt bouwen)
+- Graphviz 2.40.x of hoger (voor het maken van de database documentatie)
 
 ### Basisprocedure
 
+1. clone de repository (gebruik bij voorbaat ssh): `git clone git@github.com:B3Partners/brmo.git`
+1. maak een branch voor je wijzigingen, met de ticket in de naam, bijvoorbeeld: `git checkout -b BRMO-1234_mijn-wijzigingen` 
 1. doe je ding, als het mogelijk is gebruik `google` styling (voer `mvn fmt:format sortpom:sort` uit om alle opmaak te corrigeren)
-2. voer `mvn -T1 modernizer:modernizer` uit om te controleren of er geen Java 8 of lagere code-constructies worden gebruikt
+2. voer `mvn -T1 modernizer:modernizer` uit om te controleren of er geen Java 11 of lagere code-constructies worden gebruikt
 2. voer `mvn clean install` uit om te controleren of alle vereiste opmaak is toegepast en of alle tests slagen
+2. pas de upgrade scripts aan in de `datamodel/upgrade_scripts` directory voor de versie waarin je wijzigingen komen, 
+   bijvoorbeeld in: `upgrade_scripts/3.0.2-4.0.0/postgresql/rsgb.sql` voor de upgrade van 3.0.2 naar 4.0.0 vam het rsgb schema in PostgreSQL 
 3. commit en push je branch om een pull request te maken, gebruik de **Nederlandse taal** voor commit messages en pull
-   request beschijvingen zodat we consistente release notes krijgen. De release notes worden gegenreerd uit de titel van
+   request beschrijvingen zodat we consistente release notes krijgen. De release notes worden gegenereerd uit de titel van
    een pull request. Indien er iets gedaan moet worden (bijvoorbeeld views droppen oid.) bij een upgrade naar de 
-   volgende versie dient de PR deze procedure te beschrijven.
+   volgende versie dient de PR deze procedure te beschrijven. Zorg dat de Jira issue is vermeld in de PR titel. 
 4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
 5. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
-6. update de upgrade instructies op de wiki: https://github.com/B3Partners/brmo/wiki/Upgrade-Instructies
+6. update de upgrade instructies op de wiki: https://github.com/B3Partners/brmo/wiki/Upgrade-Instructies voor de nieuwe 
+   versie waarin je wijzigingen komen. Het is handig om (ook) de pull request beschrijving te gebruiken voor de upgrade instructies
 
 ## release maken
 
@@ -30,15 +37,16 @@ zowel voor voor de release als de volgende ontwikkel versie.
 Tevens wordt er om een naam voor een tag gevraagd. In principe kan alle informatie op de
 commandline worden meegegeven, bijvoorbeeld:
 
-```
-mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=3.0.2-SNAPSHOT -DreleaseVersion=3.0.1 -Dtag=v3.0.1 -T1
+```bash
+mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=4.0.0-SNAPSHOT -DreleaseVersion=4.0.0 -Dtag=v4.0.0 -T1
 mvn release:perform -l rel-perform.log -T1
 ```
 
 _NB_ Voor het maken van de database documentatie is een draaiende, up-2-date databases met de betreffende RSGB
 schema's (public, brk, bag) nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`, dat kan met onderstaande commando's:
-Zorg dat de tabellen en views zijn aangemaakt (BAG!).
-```
+_Zorg dat de tabellen en views zijn aangemaakt (BAG!)._
+
+```bash
 export POSTGRES_PASSWORD=postgres
 export POSTGRES_PASSWORD=postgres
 export PGPASSWORD=postgres
@@ -57,14 +65,15 @@ Voor het hele project kan dit even duren, oa. omdat de javadoc gebouwd wordt.
 ### Maven site bouwen en online brengen
 
 De Maven site voor de BRMO leeft in de `gh-pages` branch van de repository, met onderstaande commando's kan de site
-worden
-bijgewerkt en online gebracht.
+worden bijgewerkt en online gebracht. De SchemaSpy tool waarmee database schema documentatie wordt gemaakt heeft 
+Graphviz nodig, installeer met `sudo apt install -y --no-install-recommends graphviz`.
 
 - `cd target/checkout` (als je dit direct na een release doet)
-- `mvn -T1 site site:stage`
+- `mvn -T1 site site:stage -Ppostgresql -DskipQA=true`
 - `mvn scm-publish:publish-scm -T1`
 
-_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt; je kunt dan met de hand een commit doen van de staged site in jouw temp directory.
+_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt; je kunt dan met de hand een commit 
+doen van de staged site in jouw temp directory.
 
 ### Jira release publiceren
 
@@ -74,9 +83,9 @@ en maak evt. de volgende versie aan.
 ### nieuwe ontwikkel cyclus
 
 Na het maken van de release kun je het script `new-version-upgrades.sh` in de `datamodel/upgrade_scripts` directory
-gebruiken om de initiele upgrade scripts voor de volgende release te maken.
+gebruiken om de initiële upgrade scripts voor de volgende release te maken.
 
-```
+```bash
 cd datamodel/upgrade_scripts
 ./new-version-upgrades.sh
 git push
@@ -90,7 +99,7 @@ Begin met de nieuwe upgrade instructies op de wiki: https://github.com/B3Partner
 Op sommige systemen en bij sommige versies van git moet er eea. worden ingesteld voorafgaand aan het starten van de
 release procedure.
 
-```
+```bash
 git config --add status.displayCommentPrefix true
 export LANG=C
 mvn clean install
@@ -99,7 +108,7 @@ mvn clean install
 ## Integratie en unit tests
 
 Er zijn drie Maven profielen (postgresql, oracle) voor de ondersteunde databases gedefinieerd,
-de profiele zorgen ervoor dat de juist JDBC driver beschikbaar komt in de test suites,
+de profielen zorgen ervoor dat de juist JDBC driver beschikbaar komt in de test suites,
 tevens kan daarmee de juiste configuratie worden geladen.
 
 | unit tests                                                                                                                                                                                      | integratie tests                                                          |
@@ -111,7 +120,7 @@ tevens kan daarmee de juiste configuratie worden geladen.
 Het is mogelijk om bepaalde tests uit te sluiten voor een bepaalde omgeving, dat kan mbv. de marker interfaces in
 de [`brmo-test-util` module](/brmo/brmo-test-util/index.html).
 
-Bekijk de `.github/workflow/` en `Jenkinsfile` hoe de integratie tests worden gestart.
+Bekijk onder `.github/workflow/` hoe de integratie tests worden gestart.
 
 ### database configuratie
 
@@ -124,12 +133,12 @@ omgeving door een bestand naast het bestaande te zetten met de naam `local.<DB s
 De te gebruiken database smaak wordt middels de `database.properties.file` property in de pom.xml van de
 module of via commandline ingesteld.
 
-| property file       | gebruikt op     | override                  |
-|---------------------|-----------------|---------------------------|
-| postgres.properties | Github          | local.postgres.properties |
-| oracle.properties   | Jenkins, Github | local.oracle.properties   |
+| property file       | gebruikt op | override                  |
+|---------------------|-------------|---------------------------|
+| postgres.properties | Github      | local.postgres.properties |
+| oracle.properties   | Github      | local.oracle.properties   |
 
-Voor gebruik van de propertyfile in een integratie test kun je overerven van een
+Voor gebruik van de property file in een integratie test kun je overerven van een
 abstracte klasse in verschillende modules.
 
 | module         | klasse                                   |
