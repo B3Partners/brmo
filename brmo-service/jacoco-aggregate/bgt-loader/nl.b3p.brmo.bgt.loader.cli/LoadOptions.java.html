@@ -8,8 +8,8 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import picocli.CommandLine.Option;
 
-<span class="fc" id="L11">public class LoadOptions {</span>
-<span class="fc" id="L12">  @Option(</span>
+<span class="nc" id="L11">public class LoadOptions {</span>
+<span class="nc" id="L12">  @Option(</span>
       names = {&quot;--no-create-schema&quot;},
       negatable = true)
   boolean createSchema = true;
@@ -19,32 +19,32 @@ import picocli.CommandLine.Option;
       negatable = true)
   boolean dropIfExists;
 
-<span class="fc" id="L22">  @Option(names = {&quot;--include-history&quot;})</span>
+<span class="nc" id="L22">  @Option(names = {&quot;--include-history&quot;})</span>
   boolean includeHistory = false;
 
-<span class="fc" id="L25">  @Option(names = &quot;--table-prefix&quot;, defaultValue = &quot;&quot;, hidden = true)</span>
+<span class="nc" id="L25">  @Option(names = &quot;--table-prefix&quot;, defaultValue = &quot;&quot;, hidden = true)</span>
   String tablePrefix = &quot;&quot;;
 
   @Option(names = &quot;--max-objects&quot;, paramLabel = &quot;&lt;number&gt;&quot;, hidden = true)
   Integer maxObjects;
 
-<span class="fc" id="L31">  @Option(names = {&quot;--linearize-curves&quot;})</span>
+<span class="nc" id="L31">  @Option(names = {&quot;--linearize-curves&quot;})</span>
   boolean linearizeCurves = false;
 
-<span class="fc" id="L34">  @Option(</span>
+<span class="nc" id="L34">  @Option(</span>
       names = {&quot;--no-multithreading&quot;},
       negatable = true,
       hidden = true)
   boolean multithreading = true;
 
-<span class="fc" id="L40">  @Option(names = &quot;--no-http-zip-random-access&quot;, negatable = true, hidden = true)</span>
+<span class="nc" id="L40">  @Option(names = &quot;--no-http-zip-random-access&quot;, negatable = true, hidden = true)</span>
   boolean httpZipRandomAccess = true;
 
-<span class="fc" id="L43">  @Option(names = &quot;--debug-http-seeks&quot;, hidden = true)</span>
+<span class="nc" id="L43">  @Option(names = &quot;--debug-http-seeks&quot;, hidden = true)</span>
   boolean debugHttpSeeks = false;
 
   public boolean isCreateSchema() {
-<span class="fc" id="L47">    return createSchema;</span>
+<span class="nc" id="L47">    return createSchema;</span>
   }
 
   public void setCreateSchema(boolean createSchema) {
@@ -52,7 +52,7 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L52">  }</span>
 
   public boolean isDropIfExists() {
-<span class="fc" id="L55">    return dropIfExists;</span>
+<span class="nc" id="L55">    return dropIfExists;</span>
   }
 
   public void setDropIfExists(boolean dropIfExists) {
@@ -60,15 +60,15 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L60">  }</span>
 
   public boolean isIncludeHistory() {
-<span class="fc" id="L63">    return includeHistory;</span>
+<span class="nc" id="L63">    return includeHistory;</span>
   }
 
   public void setIncludeHistory(boolean includeHistory) {
-<span class="fc" id="L67">    this.includeHistory = includeHistory;</span>
-<span class="fc" id="L68">  }</span>
+<span class="nc" id="L67">    this.includeHistory = includeHistory;</span>
+<span class="nc" id="L68">  }</span>
 
   public String getTablePrefix() {
-<span class="fc" id="L71">    return tablePrefix;</span>
+<span class="nc" id="L71">    return tablePrefix;</span>
   }
 
   public void setTablePrefix(String tablePrefix) {
@@ -76,7 +76,7 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L76">  }</span>
 
   public Integer getMaxObjects() {
-<span class="fc" id="L79">    return maxObjects;</span>
+<span class="nc" id="L79">    return maxObjects;</span>
   }
 
   public void setMaxObjects(Integer maxObjects) {
@@ -84,15 +84,15 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L84">  }</span>
 
   public boolean isLinearizeCurves() {
-<span class="fc" id="L87">    return linearizeCurves;</span>
+<span class="nc" id="L87">    return linearizeCurves;</span>
   }
 
   public void setLinearizeCurves(boolean linearizeCurves) {
-<span class="fc" id="L91">    this.linearizeCurves = linearizeCurves;</span>
-<span class="fc" id="L92">  }</span>
+<span class="nc" id="L91">    this.linearizeCurves = linearizeCurves;</span>
+<span class="nc" id="L92">  }</span>
 
   public boolean isMultithreading() {
-<span class="fc" id="L95">    return multithreading;</span>
+<span class="nc" id="L95">    return multithreading;</span>
   }
 
   public void setMultithreading(boolean multithreading) {
@@ -100,15 +100,15 @@ import picocli.CommandLine.Option;
 <span class="nc" id="L100">  }</span>
 
   public boolean isHttpZipRandomAccess() {
-<span class="fc" id="L103">    return httpZipRandomAccess;</span>
+<span class="nc" id="L103">    return httpZipRandomAccess;</span>
   }
 
   public void setHttpZipRandomAccess(boolean httpZipRandomAccess) {
-<span class="fc" id="L107">    this.httpZipRandomAccess = httpZipRandomAccess;</span>
-<span class="fc" id="L108">  }</span>
+<span class="nc" id="L107">    this.httpZipRandomAccess = httpZipRandomAccess;</span>
+<span class="nc" id="L108">  }</span>
 
   public boolean isDebugHttpSeeks() {
-<span class="fc" id="L111">    return debugHttpSeeks;</span>
+<span class="nc" id="L111">    return debugHttpSeeks;</span>
   }
 
   public void setDebugHttpSeeks(boolean debugHttpSeeks) {

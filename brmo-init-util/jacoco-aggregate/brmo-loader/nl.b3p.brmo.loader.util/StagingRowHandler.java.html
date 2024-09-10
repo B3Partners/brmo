@@ -14,16 +14,16 @@ import org.apache.commons.dbutils.BasicRowProcessor;
  *
  * @author Chris van Lith
  */
-<span class="fc" id="L17">public class StagingRowHandler extends BasicRowProcessor {</span>
+<span class="nc" id="L17">public class StagingRowHandler extends BasicRowProcessor {</span>
 
   @Override
   public List toBeanList(ResultSet rs, Class clazz) {
     try {
-<span class="fc" id="L22">      List newlist = new ArrayList();</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">      while (rs.next()) {</span>
-<span class="fc" id="L24">        newlist.add(toBean(rs, clazz));</span>
+<span class="nc" id="L22">      List newlist = new ArrayList();</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">      while (rs.next()) {</span>
+<span class="nc" id="L24">        newlist.add(toBean(rs, clazz));</span>
       }
-<span class="fc" id="L26">      return newlist;</span>
+<span class="nc" id="L26">      return newlist;</span>
 <span class="nc" id="L27">    } catch (SQLException ex) {</span>
 <span class="nc" id="L28">      throw new RuntimeException(ex);</span>
     }
@@ -33,142 +33,142 @@ import org.apache.commons.dbutils.BasicRowProcessor;
   public Object toBean(ResultSet rs, Class type) throws SQLException {
 
     // vind beschikbare kolomnamen
-<span class="fc" id="L36">    ResultSetMetaData rsm = rs.getMetaData();</span>
-<span class="fc" id="L37">    IgnoreCaseStringList namesList = new IgnoreCaseStringList();</span>
-<span class="fc bfc" id="L38" title="All 2 branches covered.">    for (int i = 1; i &lt;= rsm.getColumnCount(); i++) {</span>
-<span class="fc" id="L39">      namesList.add(rsm.getColumnLabel(i));</span>
+<span class="nc" id="L36">    ResultSetMetaData rsm = rs.getMetaData();</span>
+<span class="nc" id="L37">    IgnoreCaseStringList namesList = new IgnoreCaseStringList();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">    for (int i = 1; i &lt;= rsm.getColumnCount(); i++) {</span>
+<span class="nc" id="L39">      namesList.add(rsm.getColumnLabel(i));</span>
     }
 
-<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (type.getName().contains(&quot;LaadProces&quot;)) {</span>
-<span class="fc" id="L43">      LaadProces lp = new LaadProces();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">    if (type.getName().contains(&quot;LaadProces&quot;)) {</span>
+<span class="nc" id="L43">      LaadProces lp = new LaadProces();</span>
 
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">      if (namesList.contains(&quot;id&quot;)) {</span>
-<span class="fc" id="L46">        lp.setId(rs.getLong(&quot;id&quot;));</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">      if (namesList.contains(&quot;id&quot;)) {</span>
+<span class="nc" id="L46">        lp.setId(rs.getLong(&quot;id&quot;));</span>
       }
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">      if (namesList.contains(&quot;bestand_naam&quot;)) {</span>
-<span class="fc" id="L49">        lp.setBestandNaam(rs.getString(&quot;bestand_naam&quot;));</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">      if (namesList.contains(&quot;bestand_naam&quot;)) {</span>
+<span class="nc" id="L49">        lp.setBestandNaam(rs.getString(&quot;bestand_naam&quot;));</span>
       }
-<span class="pc bpc" id="L51" title="1 of 2 branches missed.">      if (namesList.contains(&quot;bestand_datum&quot;)) {</span>
-<span class="fc" id="L52">        lp.setBestandDatum(rs.getDate(&quot;bestand_datum&quot;));</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">      if (namesList.contains(&quot;bestand_datum&quot;)) {</span>
+<span class="nc" id="L52">        lp.setBestandDatum(rs.getDate(&quot;bestand_datum&quot;));</span>
       }
-<span class="pc bpc" id="L54" title="1 of 2 branches missed.">      if (namesList.contains(&quot;soort&quot;)) {</span>
-<span class="fc" id="L55">        lp.setSoort(rs.getString(&quot;soort&quot;));</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">      if (namesList.contains(&quot;soort&quot;)) {</span>
+<span class="nc" id="L55">        lp.setSoort(rs.getString(&quot;soort&quot;));</span>
       }
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">      if (namesList.contains(&quot;gebied&quot;)) {</span>
-<span class="fc" id="L58">        lp.setGebied(rs.getString(&quot;gebied&quot;));</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">      if (namesList.contains(&quot;gebied&quot;)) {</span>
+<span class="nc" id="L58">        lp.setGebied(rs.getString(&quot;gebied&quot;));</span>
       }
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">      if (namesList.contains(&quot;opmerking&quot;)) {</span>
-<span class="fc" id="L61">        lp.setOpmerking(rs.getString(&quot;opmerking&quot;));</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">      if (namesList.contains(&quot;opmerking&quot;)) {</span>
+<span class="nc" id="L61">        lp.setOpmerking(rs.getString(&quot;opmerking&quot;));</span>
       }
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">      if (namesList.contains(&quot;status&quot;)) {</span>
-<span class="fc" id="L64">        lp.setStatus(LaadProces.STATUS.valueOf(rs.getString(&quot;status&quot;)));</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">      if (namesList.contains(&quot;status&quot;)) {</span>
+<span class="nc" id="L64">        lp.setStatus(LaadProces.STATUS.valueOf(rs.getString(&quot;status&quot;)));</span>
       }
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">      if (namesList.contains(&quot;status_datum&quot;)) {</span>
-<span class="fc" id="L67">        lp.setStatusDatum(rs.getDate(&quot;status_datum&quot;));</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">      if (namesList.contains(&quot;status_datum&quot;)) {</span>
+<span class="nc" id="L67">        lp.setStatusDatum(rs.getDate(&quot;status_datum&quot;));</span>
       }
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">      if (namesList.contains(&quot;contact_email&quot;)) {</span>
-<span class="fc" id="L70">        lp.setContactEmail(rs.getString(&quot;contact_email&quot;));</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">      if (namesList.contains(&quot;contact_email&quot;)) {</span>
+<span class="nc" id="L70">        lp.setContactEmail(rs.getString(&quot;contact_email&quot;));</span>
       }
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">      if (namesList.contains(&quot;klantafgiftenummer&quot;)</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">          &amp;&amp; rs.getBigDecimal(&quot;klantafgiftenummer&quot;) != null) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">      if (namesList.contains(&quot;klantafgiftenummer&quot;)</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">          &amp;&amp; rs.getBigDecimal(&quot;klantafgiftenummer&quot;) != null) {</span>
 <span class="nc" id="L74">        lp.setKlantafgiftenummer((rs.getBigDecimal(&quot;klantafgiftenummer&quot;).toBigInteger()));</span>
       }
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">      if (namesList.contains(&quot;contractafgiftenummer&quot;)</span>
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">          &amp;&amp; rs.getBigDecimal(&quot;contractafgiftenummer&quot;) != null) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">      if (namesList.contains(&quot;contractafgiftenummer&quot;)</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">          &amp;&amp; rs.getBigDecimal(&quot;contractafgiftenummer&quot;) != null) {</span>
 <span class="nc" id="L78">        lp.setContractafgiftenummer((rs.getBigDecimal(&quot;contractafgiftenummer&quot;).toBigInteger()));</span>
       }
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">      if (namesList.contains(&quot;artikelnummer&quot;)) {</span>
-<span class="fc" id="L81">        lp.setArtikelnummer(rs.getString(&quot;artikelnummer&quot;));</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">      if (namesList.contains(&quot;artikelnummer&quot;)) {</span>
+<span class="nc" id="L81">        lp.setArtikelnummer(rs.getString(&quot;artikelnummer&quot;));</span>
       }
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">      if (namesList.contains(&quot;contractnummer&quot;)) {</span>
-<span class="fc" id="L84">        lp.setContractnummer(rs.getString(&quot;contractnummer&quot;));</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">      if (namesList.contains(&quot;contractnummer&quot;)) {</span>
+<span class="nc" id="L84">        lp.setContractnummer(rs.getString(&quot;contractnummer&quot;));</span>
       }
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">      if (namesList.contains(&quot;afgifteid&quot;)) {</span>
-<span class="fc" id="L87">        lp.setAfgifteid(rs.getString(&quot;afgifteid&quot;));</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">      if (namesList.contains(&quot;afgifteid&quot;)) {</span>
+<span class="nc" id="L87">        lp.setAfgifteid(rs.getString(&quot;afgifteid&quot;));</span>
       }
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">      if (namesList.contains(&quot;afgiftereferentie&quot;)) {</span>
-<span class="fc" id="L90">        lp.setAfgiftereferentie(rs.getString(&quot;afgiftereferentie&quot;));</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">      if (namesList.contains(&quot;afgiftereferentie&quot;)) {</span>
+<span class="nc" id="L90">        lp.setAfgiftereferentie(rs.getString(&quot;afgiftereferentie&quot;));</span>
       }
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">      if (namesList.contains(&quot;bestandsreferentie&quot;)) {</span>
-<span class="fc" id="L93">        lp.setBestandsreferentie(rs.getString(&quot;bestandsreferentie&quot;));</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">      if (namesList.contains(&quot;bestandsreferentie&quot;)) {</span>
+<span class="nc" id="L93">        lp.setBestandsreferentie(rs.getString(&quot;bestandsreferentie&quot;));</span>
       }
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">      if (namesList.contains(&quot;beschikbaar_tot&quot;)) {</span>
-<span class="fc" id="L96">        lp.setBeschikbaar_tot(rs.getDate(&quot;beschikbaar_tot&quot;));</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">      if (namesList.contains(&quot;beschikbaar_tot&quot;)) {</span>
+<span class="nc" id="L96">        lp.setBeschikbaar_tot(rs.getDate(&quot;beschikbaar_tot&quot;));</span>
       }
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">      if (namesList.contains(&quot;bestand_naam_hersteld&quot;)) {</span>
-<span class="fc" id="L99">        lp.setBestandNaamHersteld(rs.getString(&quot;bestand_naam_hersteld&quot;));</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">      if (namesList.contains(&quot;bestand_naam_hersteld&quot;)) {</span>
+<span class="nc" id="L99">        lp.setBestandNaamHersteld(rs.getString(&quot;bestand_naam_hersteld&quot;));</span>
       }
-<span class="fc" id="L101">      return lp;</span>
+<span class="nc" id="L101">      return lp;</span>
     }
 
-<span class="pc bpc" id="L104" title="1 of 2 branches missed.">    if (type.getName().contains(&quot;Bericht&quot;)) {</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">    if (type.getName().contains(&quot;Bericht&quot;)) {</span>
       Bericht b;
-<span class="fc bfc" id="L106" title="All 2 branches covered.">      if (namesList.contains(&quot;br_xml&quot;)) {</span>
-<span class="fc" id="L107">        b = new Bericht(rs.getString(&quot;br_xml&quot;));</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">      if (namesList.contains(&quot;br_xml&quot;)) {</span>
+<span class="nc" id="L107">        b = new Bericht(rs.getString(&quot;br_xml&quot;));</span>
       } else {
-<span class="fc" id="L109">        b = new Bericht(&quot;&quot;);</span>
+<span class="nc" id="L109">        b = new Bericht(&quot;&quot;);</span>
       }
 
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">      if (namesList.contains(&quot;id&quot;)) {</span>
-<span class="fc" id="L113">        b.setId(rs.getLong(&quot;id&quot;));</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">      if (namesList.contains(&quot;id&quot;)) {</span>
+<span class="nc" id="L113">        b.setId(rs.getLong(&quot;id&quot;));</span>
       }
-<span class="fc bfc" id="L115" title="All 2 branches covered.">      if (namesList.contains(&quot;laadprocesid&quot;)) {</span>
-<span class="fc" id="L116">        b.setLaadProcesId(rs.getLong(&quot;laadprocesid&quot;));</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">      if (namesList.contains(&quot;laadprocesid&quot;)) {</span>
+<span class="nc" id="L116">        b.setLaadProcesId(rs.getLong(&quot;laadprocesid&quot;));</span>
       }
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">      if (namesList.contains(&quot;object_ref&quot;)) {</span>
-<span class="fc" id="L119">        b.setObjectRef(rs.getString(&quot;object_ref&quot;));</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">      if (namesList.contains(&quot;object_ref&quot;)) {</span>
+<span class="nc" id="L119">        b.setObjectRef(rs.getString(&quot;object_ref&quot;));</span>
       }
-<span class="pc bpc" id="L121" title="1 of 2 branches missed.">      if (namesList.contains(&quot;datum&quot;)) {</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">      if (namesList.contains(&quot;datum&quot;)) {</span>
         // gebruik getTimestamp() (en niet getDate()) om tijdinfo ook op te halen.
         // zie ook:
         // https://stackoverflow.com/questions/3266530/jdbc-resultset-getdate-losing-precision
-<span class="fc" id="L125">        b.setDatum(rs.getTimestamp(&quot;datum&quot;));</span>
+<span class="nc" id="L125">        b.setDatum(rs.getTimestamp(&quot;datum&quot;));</span>
       }
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">      if (namesList.contains(&quot;volgordenummer&quot;)) {</span>
-<span class="fc" id="L128">        b.setVolgordeNummer(rs.getInt(&quot;volgordenummer&quot;));</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">      if (namesList.contains(&quot;volgordenummer&quot;)) {</span>
+<span class="nc" id="L128">        b.setVolgordeNummer(rs.getInt(&quot;volgordenummer&quot;));</span>
       }
-<span class="pc bpc" id="L130" title="1 of 2 branches missed.">      if (namesList.contains(&quot;soort&quot;)) {</span>
-<span class="fc" id="L131">        b.setSoort(rs.getString(&quot;soort&quot;));</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">      if (namesList.contains(&quot;soort&quot;)) {</span>
+<span class="nc" id="L131">        b.setSoort(rs.getString(&quot;soort&quot;));</span>
       }
-<span class="fc bfc" id="L133" title="All 2 branches covered.">      if (namesList.contains(&quot;opmerking&quot;)) {</span>
-<span class="fc" id="L134">        b.setOpmerking(rs.getString(&quot;opmerking&quot;));</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">      if (namesList.contains(&quot;opmerking&quot;)) {</span>
+<span class="nc" id="L134">        b.setOpmerking(rs.getString(&quot;opmerking&quot;));</span>
       }
-<span class="fc bfc" id="L136" title="All 2 branches covered.">      if (namesList.contains(&quot;status&quot;)) {</span>
-<span class="fc" id="L137">        b.setStatus(Bericht.STATUS.valueOf(rs.getString(&quot;status&quot;)));</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">      if (namesList.contains(&quot;status&quot;)) {</span>
+<span class="nc" id="L137">        b.setStatus(Bericht.STATUS.valueOf(rs.getString(&quot;status&quot;)));</span>
       }
-<span class="fc bfc" id="L139" title="All 2 branches covered.">      if (namesList.contains(&quot;status_datum&quot;)) {</span>
-<span class="fc" id="L140">        b.setStatusDatum(rs.getTimestamp(&quot;status_datum&quot;));</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">      if (namesList.contains(&quot;status_datum&quot;)) {</span>
+<span class="nc" id="L140">        b.setStatusDatum(rs.getTimestamp(&quot;status_datum&quot;));</span>
       }
-<span class="fc bfc" id="L142" title="All 2 branches covered.">      if (namesList.contains(&quot;job_id&quot;)) {</span>
-<span class="fc" id="L143">        b.setJobId(rs.getString(&quot;job_id&quot;));</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">      if (namesList.contains(&quot;job_id&quot;)) {</span>
+<span class="nc" id="L143">        b.setJobId(rs.getString(&quot;job_id&quot;));</span>
       }
-<span class="fc bfc" id="L145" title="All 2 branches covered.">      if (namesList.contains(&quot;br_orgineel_xml&quot;)) {</span>
-<span class="fc" id="L146">        b.setBrOrgineelXml(rs.getString(&quot;br_orgineel_xml&quot;));</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      if (namesList.contains(&quot;br_orgineel_xml&quot;)) {</span>
+<span class="nc" id="L146">        b.setBrOrgineelXml(rs.getString(&quot;br_orgineel_xml&quot;));</span>
       }
-<span class="fc bfc" id="L148" title="All 2 branches covered.">      if (namesList.contains(&quot;db_xml&quot;)) {</span>
-<span class="fc" id="L149">        b.setDbXml(rs.getString(&quot;db_xml&quot;));</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">      if (namesList.contains(&quot;db_xml&quot;)) {</span>
+<span class="nc" id="L149">        b.setDbXml(rs.getString(&quot;db_xml&quot;));</span>
       }
-<span class="fc bfc" id="L151" title="All 2 branches covered.">      if (namesList.contains(&quot;xsl_version&quot;)) {</span>
-<span class="fc" id="L152">        b.setXslVersion(rs.getString(&quot;xsl_version&quot;));</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">      if (namesList.contains(&quot;xsl_version&quot;)) {</span>
+<span class="nc" id="L152">        b.setXslVersion(rs.getString(&quot;xsl_version&quot;));</span>
       }
 
-<span class="fc" id="L155">      return b;</span>
+<span class="nc" id="L155">      return b;</span>
     }
 
 <span class="nc" id="L158">    return null;</span>
   }
 
-<span class="fc" id="L161">  static class IgnoreCaseStringList extends ArrayList&lt;String&gt; {</span>
+<span class="nc" id="L161">  static class IgnoreCaseStringList extends ArrayList&lt;String&gt; {</span>
 
     @Override
     public boolean contains(Object o) {
-<span class="fc" id="L165">      String paramStr = (String) o;</span>
-<span class="fc bfc" id="L166" title="All 2 branches covered.">      for (String s : this) {</span>
-<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (paramStr.equalsIgnoreCase(s)) {</span>
-<span class="fc" id="L168">          return true;</span>
+<span class="nc" id="L165">      String paramStr = (String) o;</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">      for (String s : this) {</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (paramStr.equalsIgnoreCase(s)) {</span>
+<span class="nc" id="L168">          return true;</span>
         }
-<span class="fc" id="L170">      }</span>
-<span class="fc" id="L171">      return false;</span>
+<span class="nc" id="L170">      }</span>
+<span class="nc" id="L171">      return false;</span>
     }
   }
 }

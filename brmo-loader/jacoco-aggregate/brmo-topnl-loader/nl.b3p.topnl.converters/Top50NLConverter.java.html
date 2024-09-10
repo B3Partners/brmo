@@ -360,12 +360,12 @@ import org.xml.sax.SAXException;
 <span class="fc" id="L360">    convertTop50NlObjectType(r, rg);</span>
 
 <span class="fc" id="L362">    String fysieks = &quot;&quot;;</span>
-<span class="fc bfc" id="L363" title="All 2 branches covered.">    for (FysiekVoorkomenWegT50Type fk : r.getFysiekVoorkomen()) {</span>
-<span class="pc bpc" id="L364" title="1 of 2 branches missed.">      if (fysieks.length() != 0) {</span>
+<span class="pc bpc" id="L363" title="1 of 2 branches missed.">    for (FysiekVoorkomenWegT50Type fk : r.getFysiekVoorkomen()) {</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">      if (fysieks.length() != 0) {</span>
 <span class="nc" id="L365">        fysieks += &quot;,&quot;;</span>
       }
-<span class="fc" id="L367">      fysieks += fk.value();</span>
-<span class="fc" id="L368">    }</span>
+<span class="nc" id="L367">      fysieks += fk.value();</span>
+<span class="nc" id="L368">    }</span>
 <span class="fc" id="L369">    rg.setFysiekVoorkomen(fysieks);</span>
 
 <span class="fc" id="L371">    rg.setNaam(String.join(&quot;,&quot;, r.getStraatnaamNL()));</span>
@@ -377,7 +377,7 @@ import org.xml.sax.SAXException;
 <span class="fc" id="L377">    rg.setHoofdverkeersgebruik(</span>
 <span class="pc bpc" id="L378" title="1 of 2 branches missed.">        r.getHoofdverkeersgebruik() != null ? r.getHoofdverkeersgebruik().value() : null);</span>
 <span class="fc" id="L379">    rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse());</span>
-<span class="fc bfc" id="L380" title="All 2 branches covered.">    rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == JaNeeType.JA);</span>
+<span class="pc bpc" id="L380" title="1 of 2 branches missed.">    rg.setGescheidenRijbaan(r.getGescheidenRijbaan() == JaNeeType.JA);</span>
 <span class="fc" id="L381">    rg.setaWegnummer(String.join(&quot;,&quot;, r.getAWegnummer()));</span>
 <span class="fc" id="L382">    rg.setnWegnummer(String.join(&quot;,&quot;, r.getNWegnummer()));</span>
 <span class="fc" id="L383">    rg.seteWegnummer(String.join(&quot;,&quot;, r.getEWegnummer()));</span>

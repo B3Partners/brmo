@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class BrmoFramework {
 
-<span class="fc" id="L42">  private static final Log log = LogFactory.getLog(BrmoFramework.class);</span>
+<span class="nc" id="L42">  private static final Log log = LogFactory.getLog(BrmoFramework.class);</span>
 
   public static final String BR_BRK = &quot;brk&quot;;
   public static final String BR_BRK2 = &quot;brk2&quot;;
@@ -61,32 +61,32 @@ public class BrmoFramework {
   public static final String JOB_TABLE = &quot;job&quot;;
   public static final String BRMO_METADATA_TABEL = &quot;brmo_metadata&quot;;
 
-<span class="fc" id="L64">  private StagingProxy stagingProxy = null;</span>
+<span class="nc" id="L64">  private StagingProxy stagingProxy = null;</span>
   private final DataSource dataSourceRsgb;
   private final DataSource dataSourceRsgbBrk;
-<span class="fc" id="L67">  private DataSource dataSourceRsgbBgt = null;</span>
+<span class="nc" id="L67">  private DataSource dataSourceRsgbBgt = null;</span>
   private final DataSource dataSourceStaging;
-<span class="fc" id="L69">  private DataSource dataSourceTopNL = null;</span>
-<span class="fc" id="L70">  private boolean enablePipeline = false;</span>
+<span class="nc" id="L69">  private DataSource dataSourceTopNL = null;</span>
+<span class="nc" id="L70">  private boolean enablePipeline = false;</span>
   private Integer pipelineCapacity;
-<span class="fc" id="L72">  private boolean renewConnectionAfterCommit = false;</span>
-<span class="fc" id="L73">  private boolean orderBerichten = true;</span>
-<span class="fc" id="L74">  private String errorState = null;</span>
+<span class="nc" id="L72">  private boolean renewConnectionAfterCommit = false;</span>
+<span class="nc" id="L73">  private boolean orderBerichten = true;</span>
+<span class="nc" id="L74">  private String errorState = null;</span>
 
   public BrmoFramework(
       DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBrk)
-<span class="fc" id="L78">      throws BrmoException {</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    if (dataSourceStaging != null) {</span>
+<span class="nc" id="L78">      throws BrmoException {</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">    if (dataSourceStaging != null) {</span>
       try {
-<span class="fc" id="L81">        stagingProxy = new StagingProxy(dataSourceStaging);</span>
+<span class="nc" id="L81">        stagingProxy = new StagingProxy(dataSourceStaging);</span>
 <span class="nc" id="L82">      } catch (SQLException ex) {</span>
 <span class="nc" id="L83">        throw new BrmoException(ex);</span>
-<span class="fc" id="L84">      }</span>
+<span class="nc" id="L84">      }</span>
     }
-<span class="fc" id="L86">    this.dataSourceStaging = dataSourceStaging;</span>
-<span class="fc" id="L87">    this.dataSourceRsgb = dataSourceRsgb;</span>
-<span class="fc" id="L88">    this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
-<span class="fc" id="L89">  }</span>
+<span class="nc" id="L86">    this.dataSourceStaging = dataSourceStaging;</span>
+<span class="nc" id="L87">    this.dataSourceRsgb = dataSourceRsgb;</span>
+<span class="nc" id="L88">    this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
+<span class="nc" id="L89">  }</span>
 
   public BrmoFramework(
       DataSource dataSourceStaging,
@@ -94,20 +94,20 @@ public class BrmoFramework {
       DataSource dataSourceRsgbBgt,
       DataSource dataSourceTopNL,
       DataSource dataSourceRsgbBrk)
-<span class="fc" id="L97">      throws BrmoException {</span>
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">    if (dataSourceStaging != null) {</span>
+<span class="nc" id="L97">      throws BrmoException {</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">    if (dataSourceStaging != null) {</span>
       try {
-<span class="fc" id="L100">        stagingProxy = new StagingProxy(dataSourceStaging);</span>
+<span class="nc" id="L100">        stagingProxy = new StagingProxy(dataSourceStaging);</span>
 <span class="nc" id="L101">      } catch (SQLException ex) {</span>
 <span class="nc" id="L102">        throw new BrmoException(ex);</span>
-<span class="fc" id="L103">      }</span>
+<span class="nc" id="L103">      }</span>
     }
-<span class="fc" id="L105">    this.dataSourceRsgb = dataSourceRsgb;</span>
-<span class="fc" id="L106">    this.dataSourceRsgbBgt = dataSourceRsgbBgt;</span>
-<span class="fc" id="L107">    this.dataSourceStaging = dataSourceStaging;</span>
-<span class="fc" id="L108">    this.dataSourceTopNL = dataSourceTopNL;</span>
-<span class="fc" id="L109">    this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
-<span class="fc" id="L110">  }</span>
+<span class="nc" id="L105">    this.dataSourceRsgb = dataSourceRsgb;</span>
+<span class="nc" id="L106">    this.dataSourceRsgbBgt = dataSourceRsgbBgt;</span>
+<span class="nc" id="L107">    this.dataSourceStaging = dataSourceStaging;</span>
+<span class="nc" id="L108">    this.dataSourceTopNL = dataSourceTopNL;</span>
+<span class="nc" id="L109">    this.dataSourceRsgbBrk = dataSourceRsgbBrk;</span>
+<span class="nc" id="L110">  }</span>
 
   public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
 <span class="nc" id="L113">    this.dataSourceRsgbBgt = dataSourceRsgbBgt;</span>
@@ -119,7 +119,7 @@ public class BrmoFramework {
 
   public String getStagingVersion() {
     try {
-<span class="fc" id="L122">      return getVersion(dataSourceStaging);</span>
+<span class="nc" id="L122">      return getVersion(dataSourceStaging);</span>
 <span class="nc" id="L123">    } catch (SQLException ex) {</span>
 <span class="nc" id="L124">      log.error(&quot;Versienummer kon niet uit de STAGING database worden gelezen.&quot;, ex);</span>
 <span class="nc" id="L125">      return &quot;&quot;;</span>
@@ -128,7 +128,7 @@ public class BrmoFramework {
 
   public String getRsgbVersion() {
     try {
-<span class="fc" id="L131">      return getVersion(dataSourceRsgb);</span>
+<span class="nc" id="L131">      return getVersion(dataSourceRsgb);</span>
 <span class="nc" id="L132">    } catch (SQLException ex) {</span>
 <span class="nc" id="L133">      log.error(&quot;Versienummer kon niet uit de RSGB database worden gelezen.&quot;, ex);</span>
 <span class="nc" id="L134">      return &quot;&quot;;</span>
@@ -146,7 +146,7 @@ public class BrmoFramework {
 
   public String getRsgbBrkVersion() {
     try {
-<span class="fc" id="L149">      return getVersion(dataSourceRsgbBrk);</span>
+<span class="nc" id="L149">      return getVersion(dataSourceRsgbBrk);</span>
 <span class="nc" id="L150">    } catch (SQLException ex) {</span>
 <span class="nc" id="L151">      log.error(&quot;Versienummer kon niet uit de RSGB BRK database worden gelezen.&quot;, ex);</span>
 <span class="nc" id="L152">      return &quot;&quot;;</span>
@@ -154,13 +154,13 @@ public class BrmoFramework {
   }
 
   private String getVersion(DataSource dataSource) throws SQLException {
-<span class="fc" id="L157">    String sql =</span>
+<span class="nc" id="L157">    String sql =</span>
         &quot;SELECT waarde FROM &quot; + BrmoFramework.BRMO_METADATA_TABEL + &quot; WHERE naam = 'brmoversie'&quot;;
-<span class="fc" id="L159">    final Connection c = dataSource.getConnection();</span>
-<span class="fc" id="L160">    GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);</span>
-<span class="fc" id="L161">    String o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler&lt;&gt;());</span>
-<span class="fc" id="L162">    DbUtils.closeQuietly(c);</span>
-<span class="fc" id="L163">    return o;</span>
+<span class="nc" id="L159">    final Connection c = dataSource.getConnection();</span>
+<span class="nc" id="L160">    GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);</span>
+<span class="nc" id="L161">    String o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler&lt;&gt;());</span>
+<span class="nc" id="L162">    DbUtils.closeQuietly(c);</span>
+<span class="nc" id="L163">    return o;</span>
   }
 
   public void setEnablePipeline(boolean enablePipeline) {
@@ -193,11 +193,11 @@ public class BrmoFramework {
    * @param orderBerichten {@code false} voor stand, {@code true} voor mutaties
    */
   public void setOrderBerichten(boolean orderBerichten) {
-<span class="fc" id="L196">    this.orderBerichten = orderBerichten;</span>
-<span class="fc" id="L197">  }</span>
+<span class="nc" id="L196">    this.orderBerichten = orderBerichten;</span>
+<span class="nc" id="L197">  }</span>
 
   public boolean isOrderBerichten() {
-<span class="fc" id="L200">    return this.orderBerichten;</span>
+<span class="nc" id="L200">    return this.orderBerichten;</span>
   }
 
   public void setErrorState(String errorState) {
@@ -205,34 +205,34 @@ public class BrmoFramework {
 <span class="nc" id="L205">  }</span>
 
   public void closeBrmoFramework() {
-<span class="pc bpc" id="L208" title="1 of 2 branches missed.">    if (stagingProxy != null) {</span>
-<span class="fc" id="L209">      stagingProxy.closeStagingProxy();</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">    if (stagingProxy != null) {</span>
+<span class="nc" id="L209">      stagingProxy.closeStagingProxy();</span>
     }
     // rsgbProxy is thread and will be closed in thread
-<span class="fc" id="L212">  }</span>
+<span class="nc" id="L212">  }</span>
 
   public Thread toRsgb() throws BrmoException {
-<span class="fc" id="L215">    return toRsgb((ProgressUpdateListener) null);</span>
+<span class="nc" id="L215">    return toRsgb((ProgressUpdateListener) null);</span>
   }
 
   public Thread toRsgb(ProgressUpdateListener listener) throws BrmoException {
-<span class="fc" id="L219">    return toRsgb(Bericht.STATUS.STAGING_OK, listener);</span>
+<span class="nc" id="L219">    return toRsgb(Bericht.STATUS.STAGING_OK, listener);</span>
   }
 
   public Thread toRsgb(Bericht.STATUS status, ProgressUpdateListener listener)
       throws BrmoException {
-<span class="fc" id="L224">    RsgbProxy rsgbProxy =</span>
+<span class="nc" id="L224">    RsgbProxy rsgbProxy =</span>
         new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, status, listener);
-<span class="fc" id="L226">    rsgbProxy.setEnablePipeline(enablePipeline);</span>
-<span class="pc bpc" id="L227" title="1 of 2 branches missed.">    if (pipelineCapacity != null) {</span>
+<span class="nc" id="L226">    rsgbProxy.setEnablePipeline(enablePipeline);</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">    if (pipelineCapacity != null) {</span>
 <span class="nc" id="L228">      rsgbProxy.setPipelineCapacity(pipelineCapacity);</span>
     }
-<span class="fc" id="L230">    rsgbProxy.setRenewConnectionAfterCommit(renewConnectionAfterCommit);</span>
-<span class="fc" id="L231">    rsgbProxy.setOrderBerichten(orderBerichten);</span>
-<span class="fc" id="L232">    rsgbProxy.setErrorState(errorState);</span>
-<span class="fc" id="L233">    Thread t = new Thread(rsgbProxy);</span>
-<span class="fc" id="L234">    t.start();</span>
-<span class="fc" id="L235">    return t;</span>
+<span class="nc" id="L230">    rsgbProxy.setRenewConnectionAfterCommit(renewConnectionAfterCommit);</span>
+<span class="nc" id="L231">    rsgbProxy.setOrderBerichten(orderBerichten);</span>
+<span class="nc" id="L232">    rsgbProxy.setErrorState(errorState);</span>
+<span class="nc" id="L233">    Thread t = new Thread(rsgbProxy);</span>
+<span class="nc" id="L234">    t.start();</span>
+<span class="nc" id="L235">    return t;</span>
   }
 
   /**
@@ -245,22 +245,22 @@ public class BrmoFramework {
   public Thread toRsgb(
       RsgbProxy.BerichtSelectMode mode, long[] ids, ProgressUpdateListener listener)
       throws BrmoException {
-<span class="fc" id="L248">    String soort = &quot;&quot;;</span>
-<span class="pc bpc" id="L249" title="1 of 2 branches missed.">    if (mode == RsgbProxy.BerichtSelectMode.BY_LAADPROCES) {</span>
+<span class="nc" id="L248">    String soort = &quot;&quot;;</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">    if (mode == RsgbProxy.BerichtSelectMode.BY_LAADPROCES) {</span>
       try {
-<span class="fc" id="L251">        soort = stagingProxy.getLaadProcesById(ids[0]).getSoort();</span>
+<span class="nc" id="L251">        soort = stagingProxy.getLaadProcesById(ids[0]).getSoort();</span>
 <span class="nc" id="L252">      } catch (SQLException ex) {</span>
 <span class="nc" id="L253">        throw new BrmoException(ex);</span>
-<span class="fc" id="L254">      }</span>
+<span class="nc" id="L254">      }</span>
     }
 
     Runnable worker;
-<span class="pc bpc" id="L258" title="1 of 2 branches missed.">    if (TopNLType.isTopNLType(soort)) {</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">    if (TopNLType.isTopNLType(soort)) {</span>
       try {
-<span class="fc" id="L260">        worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);</span>
+<span class="nc" id="L260">        worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);</span>
 <span class="nc" id="L261">      } catch (JAXBException | SQLException ex) {</span>
 <span class="nc" id="L262">        throw new BrmoException(&quot;Probleem met TopNL parser initialiseren: &quot;, ex);</span>
-<span class="fc" id="L263">      }</span>
+<span class="nc" id="L263">      }</span>
     } else {
 <span class="nc" id="L265">      worker = new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, mode, ids, listener);</span>
 <span class="nc" id="L266">      ((RsgbProxy) worker).setEnablePipeline(enablePipeline);</span>
@@ -271,9 +271,9 @@ public class BrmoFramework {
 <span class="nc" id="L271">      ((RsgbProxy) worker).setOrderBerichten(orderBerichten);</span>
 <span class="nc" id="L272">      ((RsgbProxy) worker).setErrorState(errorState);</span>
     }
-<span class="fc" id="L274">    Thread t = new Thread(worker);</span>
-<span class="fc" id="L275">    t.start();</span>
-<span class="fc" id="L276">    return t;</span>
+<span class="nc" id="L274">    Thread t = new Thread(worker);</span>
+<span class="nc" id="L275">    t.start();</span>
+<span class="nc" id="L276">    return t;</span>
   }
 
   public Thread toRsgb(UpdateProcess updateProcess, ProgressUpdateListener listener)
@@ -304,7 +304,7 @@ public class BrmoFramework {
 
   public List&lt;LaadProces&gt; listLaadProcessen() throws BrmoException {
     try {
-<span class="fc" id="L307">      return stagingProxy.getLaadProcessen();</span>
+<span class="nc" id="L307">      return stagingProxy.getLaadProcessen();</span>
 <span class="nc" id="L308">    } catch (SQLException ex) {</span>
 <span class="nc" id="L309">      throw new BrmoException(ex);</span>
     }
@@ -312,7 +312,7 @@ public class BrmoFramework {
 
   public List&lt;Bericht&gt; listBerichten() throws BrmoException {
     try {
-<span class="fc" id="L315">      return stagingProxy.getBerichten();</span>
+<span class="nc" id="L315">      return stagingProxy.getBerichten();</span>
 <span class="nc" id="L316">    } catch (SQLException ex) {</span>
 <span class="nc" id="L317">      throw new BrmoException(ex);</span>
     }
@@ -341,15 +341,15 @@ public class BrmoFramework {
   public void loadFromFile(String type, String fileName, Long automatischProces)
       throws BrmoException {
     try {
-<span class="fc" id="L344">      loadFromFile(type, fileName, null, automatischProces);</span>
+<span class="nc" id="L344">      loadFromFile(type, fileName, null, automatischProces);</span>
 <span class="nc" id="L345">    } catch (Exception e) {</span>
 <span class="nc bnc" id="L346" title="All 2 branches missed.">      if (e instanceof BrmoException) {</span>
 <span class="nc" id="L347">        throw (BrmoException) e;</span>
       } else {
 <span class="nc" id="L349">        throw new BrmoException(&quot;Fout bij loaden basisregistratie gegevens&quot;, e);</span>
       }
-<span class="fc" id="L351">    }</span>
-<span class="fc" id="L352">  }</span>
+<span class="nc" id="L351">    }</span>
+<span class="nc" id="L352">  }</span>
 
   /**
    * laden van BR data uit een bestand. &lt;br&gt;
@@ -365,7 +365,7 @@ public class BrmoFramework {
       String type, String fileName, final ProgressUpdateListener listener, Long automatischProces)
       throws BrmoException {
     try {
-<span class="pc bpc" id="L368" title="1 of 2 branches missed.">      if (fileName.toLowerCase().endsWith(&quot;.zip&quot;)) {</span>
+<span class="nc bnc" id="L368" title="All 2 branches missed.">      if (fileName.toLowerCase().endsWith(&quot;.zip&quot;)) {</span>
 <span class="nc" id="L369">        log.info(&quot;Openen ZIP bestand &quot; + fileName);</span>
 <span class="nc" id="L370">        ZipInputStream zip = null;</span>
         try {
@@ -407,13 +407,13 @@ public class BrmoFramework {
         }
 <span class="nc" id="L408">        log.info(&quot;Klaar met ZIP bestand &quot; + fileName);</span>
 <span class="nc" id="L409">      } else {</span>
-<span class="fc" id="L410">        File f = new File(fileName);</span>
-<span class="pc bpc" id="L411" title="1 of 2 branches missed.">        if (listener != null) {</span>
+<span class="nc" id="L410">        File f = new File(fileName);</span>
+<span class="nc bnc" id="L411" title="All 2 branches missed.">        if (listener != null) {</span>
 <span class="nc" id="L412">          listener.total(f.length());</span>
         }
 
-<span class="fc" id="L415">        try (FileInputStream fis = new FileInputStream(fileName)) {</span>
-<span class="fc" id="L416">          stagingProxy.loadBr(fis, type, fileName, null, listener, automatischProces);</span>
+<span class="nc" id="L415">        try (FileInputStream fis = new FileInputStream(fileName)) {</span>
+<span class="nc" id="L416">          stagingProxy.loadBr(fis, type, fileName, null, listener, automatischProces);</span>
         }
       }
 <span class="nc" id="L419">    } catch (Exception e) {</span>
@@ -422,8 +422,8 @@ public class BrmoFramework {
       } else {
 <span class="nc" id="L423">        throw new BrmoException(&quot;Fout bij loaden basisregistratie gegevens&quot;, e);</span>
       }
-<span class="fc" id="L425">    }</span>
-<span class="fc" id="L426">  }</span>
+<span class="nc" id="L425">    }</span>
+<span class="nc" id="L426">  }</span>
 
   /**
    * laden van BR data uit een stream.
@@ -599,7 +599,7 @@ public class BrmoFramework {
       throws BrmoException {
 
     try {
-<span class="fc" id="L602">      return stagingProxy.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);</span>
+<span class="nc" id="L602">      return stagingProxy.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);</span>
 <span class="nc" id="L603">    } catch (SQLException ex) {</span>
 <span class="nc" id="L604">      throw new BrmoException(ex);</span>
     }
@@ -626,7 +626,7 @@ public class BrmoFramework {
   public Long[] getLaadProcessenIds(
       String sort, String dir, String filterSoort, String filterStatus) throws BrmoException {
     try {
-<span class="fc" id="L629">      return stagingProxy.getLaadProcessenIds(sort, dir, filterSoort, filterStatus);</span>
+<span class="nc" id="L629">      return stagingProxy.getLaadProcessenIds(sort, dir, filterSoort, filterStatus);</span>
 <span class="nc" id="L630">    } catch (SQLException ex) {</span>
 <span class="nc" id="L631">      throw new BrmoException(ex);</span>
     }
@@ -634,7 +634,7 @@ public class BrmoFramework {
 
   public long getCountBerichten(String filterSoort, String filterStatus) throws BrmoException {
     try {
-<span class="fc" id="L637">      return stagingProxy.getCountBerichten(filterSoort, filterStatus);</span>
+<span class="nc" id="L637">      return stagingProxy.getCountBerichten(filterSoort, filterStatus);</span>
 <span class="nc" id="L638">    } catch (SQLException ex) {</span>
 <span class="nc" id="L639">      throw new BrmoException(ex);</span>
     }
@@ -642,7 +642,7 @@ public class BrmoFramework {
 
   public long getCountLaadProcessen(String filterSoort, String filterStatus) throws BrmoException {
     try {
-<span class="fc" id="L645">      return stagingProxy.getCountLaadProces(filterSoort, filterStatus);</span>
+<span class="nc" id="L645">      return stagingProxy.getCountLaadProces(filterSoort, filterStatus);</span>
 <span class="nc" id="L646">    } catch (SQLException ex) {</span>
 <span class="nc" id="L647">      throw new BrmoException(ex);</span>
     }

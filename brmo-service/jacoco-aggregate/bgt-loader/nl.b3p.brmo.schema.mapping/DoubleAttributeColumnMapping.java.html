@@ -20,10 +20,10 @@ public class DoubleAttributeColumnMapping extends AttributeColumnMapping {
 
   @Override
   public Object toQueryParameter(Object value, SQLDialect sqlDialect) {
-<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (value == null) {</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">    if (value == null) {</span>
 <span class="nc" id="L24">      return null;</span>
     } else {
-<span class="fc" id="L26">      return Double.parseDouble(value.toString());</span>
+<span class="nc" id="L26">      return Double.parseDouble(value.toString());</span>
     }
   }
 }

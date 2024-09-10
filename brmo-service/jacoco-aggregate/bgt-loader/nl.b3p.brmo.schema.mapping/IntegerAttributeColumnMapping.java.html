@@ -23,10 +23,10 @@ public class IntegerAttributeColumnMapping extends AttributeColumnMapping {
 
   @Override
   public Object toQueryParameter(Object value, SQLDialect sqlDialect) {
-<span class="fc bfc" id="L26" title="All 2 branches covered.">    if (value == null) {</span>
-<span class="fc" id="L27">      return null;</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">    if (value == null) {</span>
+<span class="nc" id="L27">      return null;</span>
     } else {
-<span class="fc" id="L29">      return Integer.parseInt(value.toString());</span>
+<span class="nc" id="L29">      return Integer.parseInt(value.toString());</span>
     }
   }
 }

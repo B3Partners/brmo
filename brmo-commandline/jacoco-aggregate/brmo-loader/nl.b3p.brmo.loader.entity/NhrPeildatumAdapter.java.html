@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 /**
  * @author Matthijs Laan
  */
-<span class="fc" id="L10">public class NhrPeildatumAdapter extends XmlAdapter&lt;String, Date&gt; {</span>
+<span class="nc" id="L10">public class NhrPeildatumAdapter extends XmlAdapter&lt;String, Date&gt; {</span>
   public static final String NHR_PEILDATUM_FORMAT = &quot;yyyyMMddHHmmssSSS&quot;;
-<span class="fc" id="L12">  private final SimpleDateFormat dateFormat = new SimpleDateFormat(NHR_PEILDATUM_FORMAT);</span>
+<span class="nc" id="L12">  private final SimpleDateFormat dateFormat = new SimpleDateFormat(NHR_PEILDATUM_FORMAT);</span>
 
   @Override
   public String marshal(Date v) throws Exception {
@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
   @Override
   public Date unmarshal(String v) throws Exception {
-<span class="fc" id="L23">    synchronized (dateFormat) {</span>
-<span class="fc" id="L24">      return dateFormat.parse(v);</span>
+<span class="nc" id="L23">    synchronized (dateFormat) {</span>
+<span class="nc" id="L24">      return dateFormat.parse(v);</span>
     }
   }
 }

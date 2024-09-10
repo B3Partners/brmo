@@ -101,7 +101,7 @@ public class Brk2SnapshotXMLReader extends BrmoXMLReader {
 <span class="pc bpc" id="L101" title="1 of 4 branches missed.">        } else if (inProductSpecificatie &amp;&amp; streamReader.getLocalName().equals(KENMERKWAARDE)) {</span>
 <span class="fc bfc" id="L102" title="All 2 branches covered.">          if (&quot;Peildatum&quot;.equals(inProductSpecificatieNaam)) {</span>
 <span class="fc" id="L103">            setDatumAsString(streamReader.getElementText());</span>
-<span class="fc bfc" id="L104" title="All 2 branches covered.">          } else if (&quot;Gebiednummer&quot;.equals(inProductSpecificatieNaam)) {</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">          } else if (&quot;Gebiednummer&quot;.equals(inProductSpecificatieNaam)) {</span>
 <span class="fc" id="L105">            setGebied(streamReader.getElementText());</span>
           }
 <span class="fc bfc" id="L107" title="All 2 branches covered.">        } else if (streamReader.getLocalName().equals(MUTATIE)) {</span>

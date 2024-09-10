@@ -8,17 +8,17 @@ import java.util.List;
  */
 public class TableData {
 
-<span class="fc" id="L11">  private boolean comfortData = false;</span>
+<span class="pc" id="L11">  private boolean comfortData = false;</span>
   private String comfortSearchTable;
   private String comfortSearchColumn;
   private String comfortSearchValue;
 
-<span class="fc" id="L16">  private boolean deleteData = false;</span>
+<span class="pc" id="L16">  private boolean deleteData = false;</span>
 
   /* Used for comfort metadata tables */
   private String comfortSnapshotDate;
 
-<span class="fc" id="L21">  List&lt;TableRow&gt; rows = new ArrayList&lt;&gt;();</span>
+<span class="pc" id="L21">  List&lt;TableRow&gt; rows = new ArrayList&lt;&gt;();</span>
 
 <span class="fc" id="L23">  public TableData(TableRow row) {</span>
 <span class="fc" id="L24">    this.deleteData = false;</span>
@@ -40,10 +40,10 @@ public class TableData {
 <span class="fc" id="L40">    this.comfortSnapshotDate = comfortSnapshotDate;</span>
 <span class="fc" id="L41">  }</span>
 
-<span class="fc" id="L43">  public TableData() {</span>
-<span class="fc" id="L44">    this.deleteData = true;</span>
-<span class="fc" id="L45">    this.comfortData = false;</span>
-<span class="fc" id="L46">  }</span>
+<span class="nc" id="L43">  public TableData() {</span>
+<span class="nc" id="L44">    this.deleteData = true;</span>
+<span class="nc" id="L45">    this.comfortData = false;</span>
+<span class="nc" id="L46">  }</span>
 
   public void addRow(TableRow row) {
 <span class="fc" id="L49">    rows.add(row);</span>
@@ -58,7 +58,7 @@ public class TableData {
 <span class="nc" id="L58">  }</span>
 
   public boolean isDeleteData() {
-<span class="fc" id="L61">    return deleteData;</span>
+<span class="nc" id="L61">    return deleteData;</span>
   }
 
   public void setDeleteData(boolean deleteData) {
@@ -66,7 +66,7 @@ public class TableData {
 <span class="nc" id="L66">  }</span>
 
   public String getComfortSearchTable() {
-<span class="fc" id="L69">    return comfortSearchTable;</span>
+<span class="nc" id="L69">    return comfortSearchTable;</span>
   }
 
   public void setComfortSearchTable(String comfortSearchTable) {
@@ -74,7 +74,7 @@ public class TableData {
 <span class="nc" id="L74">  }</span>
 
   public String getComfortSearchColumn() {
-<span class="fc" id="L77">    return comfortSearchColumn;</span>
+<span class="nc" id="L77">    return comfortSearchColumn;</span>
   }
 
   public void setComfortSearchColumn(String comfortSearchColumn) {
@@ -82,7 +82,7 @@ public class TableData {
 <span class="nc" id="L82">  }</span>
 
   public String getComfortSearchValue() {
-<span class="fc" id="L85">    return comfortSearchValue;</span>
+<span class="nc" id="L85">    return comfortSearchValue;</span>
   }
 
   public void setComfortSearchValue(String comfortSearchValue) {
@@ -98,7 +98,7 @@ public class TableData {
 <span class="nc" id="L98">  }</span>
 
   public String getComfortSnapshotDate() {
-<span class="fc" id="L101">    return comfortSnapshotDate;</span>
+<span class="nc" id="L101">    return comfortSnapshotDate;</span>
   }
 
   public void setComfortSnapshotDate(String comfortSnapshotDate) {

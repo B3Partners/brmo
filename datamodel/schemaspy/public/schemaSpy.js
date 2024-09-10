@@ -1,97 +1,45 @@
-// table-based pages are expected to set 'table' to their name
-var table = null;
-
-// sync target's visibility with the state of checkbox
-function sync(cb, target) {
-  var checked = cb.attr('checked');
-  var displayed = target.css('display') != 'none';
-  if (checked != displayed) {
-    if (checked)
-      target.show();
-    else
-      target.hide();
-  }
-}
-
-// sync target's visibility with the inverse of the state of checkbox
-function unsync(cb, target) {
-  var checked = cb.attr('checked');
-  var displayed = target.css('display') != 'none';
-  if (checked == displayed) {
-    if (checked)
-      target.hide();
-    else
-      target.show();
-  }
-}
-
-// associate the state of checkbox with the visibility of target
-function associate(cb, target) {
-  sync(cb, target);
-  cb.click(function() {
-    sync(cb, target);
-  });
-}
-
-// select the appropriate image based on the options selected
-function syncImage() {
-  var implied   = $('#implied').attr('checked');
-
-  $('.diagram').hide();
-
-  if (table) {
-    if (implied && $('#impliedTwoDegreesImg').size() > 0) {
-      $('#impliedTwoDegreesImg').show();
-    } else {
-      var oneDegree = $('#oneDegree').attr('checked');
-
-      if (oneDegree || $('#twoDegreesImg').size() == 0) {
-        $('#oneDegreeImg').show();
-      } else {
-        $('#twoDegreesImg').show();
-      }
-    }
-  } else {
-    var showNonKeys = $('#showNonKeys').attr('checked');
-
-    if (implied) {
-      if (showNonKeys && $('#impliedLargeImg').size() > 0) {
-        $('#impliedLargeImg').show();
-      } else if ($('#impliedCompactImg').size() > 0) {
-        $('#impliedCompactImg').show();
-      } else {
-        $('#realCompactImg').show();
-      }
-    } else {
-      if (showNonKeys && $('#realLargeImg').size() > 0) {
-        $('#realLargeImg').show();
-      } else {
-        $('#realCompactImg').show();
-      }
-    }
-  }
-}
-
-// our 'ready' handler makes the page consistent
-$(function(){
-  associate($('#implied'),         $('.impliedRelationship'));
-  associate($('#showComments'),    $('.comment'));
-  associate($('#showLegend'),      $('.legend'));
-  associate($('#showRelatedCols'), $('.relatedKey'));
-  associate($('#showConstNames'),  $('.constraint'));
-
-  syncImage();
-  $('#implied,#oneDegree,#twoDegrees,#showNonKeys').click(function() {
-    syncImage();
-  });
-
-  unsync($('#implied'), $('.degrees'));
-  $('#implied').click(function() {
-    unsync($('#implied'), $('.degrees'));
-  });
-
-  unsync($('#removeImpliedOrphans'), $('.impliedNotOrphan'));
-  $('#removeImpliedOrphans').click(function() {
-    unsync($('#removeImpliedOrphans'), $('.impliedNotOrphan'));
-  });
+$(function() {
+     var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/")+1);
+     $("#navbar-collapse ul li a").each(function(){
+          if($(this).attr("href") == pgurl || $(this).attr("href") == '' )
+          $(this).parent().addClass("active");
+     })
 });
+
+function dataTableExportButtons(table) {
+    $("<div class=\"row\">\n" +
+        "    <div id=\"button_group_one\" class=\"col-md-6 col-sm-6\"></div>\n" +
+        "    <div id=\"button_group_two\" class=\"col-md-2 col-sm-4 pull-right text-right\"></div>\n" +
+        "</div>").prependTo('#' + table.table().container().id);
+   new $.fn.dataTable.Buttons( table, {
+       name: 'exports',
+       buttons: [
+           {
+               extend:    'copyHtml5',
+               text:      '<i class="fa fa-files-o"></i>',
+               titleAttr: 'Copy'
+           },
+           {
+               extend:    'excelHtml5',
+               text:      '<i class="fa fa-file-excel-o"></i>',
+               titleAttr: 'Excel'
+           },
+           {
+               extend:    'csvHtml5',
+               text:      '<i class="fa fa-file-text-o"></i>',
+               titleAttr: 'CSV'
+           },
+           {
+               extend:    'pdfHtml5',
+               text:      '<i class="fa fa-file-pdf-o"></i>',
+               orientation: 'landscape',
+               titleAttr: 'PDF'
+           }
+       ]
+   } );
+
+    table.buttons().container().appendTo( '#' + table.table().container().id + ' #button_group_one' );
+    table.buttons( 'exports', null ).container().appendTo( '#' + table.table().container().id + ' #button_group_two' );
+}
+
+ 

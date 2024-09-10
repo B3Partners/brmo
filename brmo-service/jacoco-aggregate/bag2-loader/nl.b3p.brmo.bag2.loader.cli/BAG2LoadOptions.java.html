@@ -9,7 +9,7 @@ package nl.b3p.brmo.bag2.loader.cli;
 
 import picocli.CommandLine;
 
-<span class="fc" id="L12">public class BAG2LoadOptions {</span>
+<span class="nc" id="L12">public class BAG2LoadOptions {</span>
   @CommandLine.Option(names = &quot;--no-create-schema&quot;, negatable = true)
   boolean noCreateSchema;
 
@@ -24,13 +24,13 @@ import picocli.CommandLine;
   @CommandLine.Option(names = &quot;--max-objects&quot;, paramLabel = &quot;&lt;number&gt;&quot;, hidden = true)
   Integer maxObjects;
 
-<span class="fc" id="L27">  @CommandLine.Option(</span>
+<span class="nc" id="L27">  @CommandLine.Option(</span>
       names = {&quot;--no-multithreading&quot;},
       negatable = true,
       hidden = true)
   boolean multithreading = true;
 
-<span class="fc" id="L33">  boolean ignoreDuplicates = false;</span>
+<span class="nc" id="L33">  boolean ignoreDuplicates = false;</span>
 
   public boolean isNoCreateSchema() {
 <span class="nc" id="L36">    return noCreateSchema;</span>
@@ -41,7 +41,7 @@ import picocli.CommandLine;
 <span class="nc" id="L41">  }</span>
 
   public boolean isDropIfExists() {
-<span class="fc" id="L44">    return dropIfExists;</span>
+<span class="nc" id="L44">    return dropIfExists;</span>
   }
 
   public void setDropIfExists(boolean dropIfExists) {
@@ -49,16 +49,16 @@ import picocli.CommandLine;
 <span class="nc" id="L49">  }</span>
 
   public String getGeoFilter() {
-<span class="fc" id="L52">    return geoFilter;</span>
+<span class="nc" id="L52">    return geoFilter;</span>
   }
 
   public BAG2LoadOptions setGeoFilter(String geoFilter) {
-<span class="fc" id="L56">    this.geoFilter = geoFilter;</span>
-<span class="fc" id="L57">    return this;</span>
+<span class="nc" id="L56">    this.geoFilter = geoFilter;</span>
+<span class="nc" id="L57">    return this;</span>
   }
 
   public Integer getMaxObjects() {
-<span class="fc" id="L61">    return maxObjects;</span>
+<span class="nc" id="L61">    return maxObjects;</span>
   }
 
   public void setMaxObjects(Integer maxObjects) {
@@ -66,7 +66,7 @@ import picocli.CommandLine;
 <span class="nc" id="L66">  }</span>
 
   public boolean isMultithreading() {
-<span class="fc" id="L69">    return multithreading;</span>
+<span class="nc" id="L69">    return multithreading;</span>
   }
 
   public void setMultithreading(boolean multithreading) {
@@ -74,11 +74,11 @@ import picocli.CommandLine;
 <span class="nc" id="L74">  }</span>
 
   public boolean isIgnoreDuplicates() {
-<span class="fc" id="L77">    return ignoreDuplicates;</span>
+<span class="nc" id="L77">    return ignoreDuplicates;</span>
   }
 
   public void setIgnoreDuplicates(boolean ignoreDuplicates) {
-<span class="fc" id="L81">    this.ignoreDuplicates = ignoreDuplicates;</span>
-<span class="fc" id="L82">  }</span>
+<span class="nc" id="L81">    this.ignoreDuplicates = ignoreDuplicates;</span>
+<span class="nc" id="L82">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -140,7 +140,7 @@ public class Brk2Bericht extends Bericht {
 <span class="fc" id="L140">      Document doc = builder.parse(new InputSource(new StringReader(this.getBrXml())));</span>
 
       // in geval van een verwijderbericht is de &quot;wordt&quot; leeg, db_xml &lt;empty/&gt;
-<span class="pc bpc" id="L143" title="1 of 4 branches missed.">      if (this.getBrXml().contains(&quot;&lt;empty/&gt;&quot;) &amp;&amp; StringUtils.isNotBlank(this.getBrOrgineelXml())) {</span>
+<span class="pc bpc" id="L143" title="3 of 4 branches missed.">      if (this.getBrXml().contains(&quot;&lt;empty/&gt;&quot;) &amp;&amp; StringUtils.isNotBlank(this.getBrOrgineelXml())) {</span>
         // dan proberen om de db_origineel_xml te gebruiken.
 <span class="nc" id="L145">        basePath = &quot;/Mutatie/kadastraalObject/AanduidingKadastraalObject/kadastraleAanduiding/&quot;;</span>
 <span class="nc" id="L146">        doc = builder.parse(new InputSource(new StringReader(this.getBrOrgineelXml())));</span>
@@ -164,7 +164,7 @@ public class Brk2Bericht extends Bericht {
 <span class="fc" id="L164">      String aanduiding = kadGemCode + sectie + perceelnummer + appartementsrechtVolgnummer;</span>
 <span class="fc" id="L165">      log.debug(&quot;gevonden aanduiding voor herstelde bestandsnaam: &quot; + aanduiding);</span>
 <span class="fc" id="L166">      String filename = &quot;bestandsnaam kon niet worden hersteld&quot;;</span>
-<span class="fc bfc" id="L167" title="All 2 branches covered.">      if (StringUtils.isNotBlank(aanduiding)) {</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">      if (StringUtils.isNotBlank(aanduiding)) {</span>
 <span class="fc" id="L168">        filename =</span>
 <span class="fc" id="L169">            prefix + &quot;-&quot; + aanduiding + &quot;-&quot; + brkdatum + &quot;-&quot; + volgordenummer.toString() + &quot;.zip&quot;;</span>
       }

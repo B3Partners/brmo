@@ -219,8 +219,8 @@ public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {
 <span class="fc bfc" id="L219" title="All 2 branches covered.">        if (!buffer.isEmpty()) {</span>
 <span class="fc" id="L220">          return true;</span>
         }
-<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (event != null) {</span>
-<span class="fc" id="L223">          return true;</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">        if (event != null) {</span>
+<span class="nc" id="L223">          return true;</span>
         }
         try {
 <span class="fc" id="L226">          event = cursor.getNext();</span>
@@ -323,7 +323,7 @@ public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {
 
 <span class="fc bfc" id="L324" title="All 2 branches covered.">            if (parsedAttribute instanceof BGTObject) {</span>
 <span class="fc" id="L325">              List&lt;BGTObject&gt; oneToMany = (List&lt;BGTObject&gt;) attributes.get(attributeName);</span>
-<span class="fc bfc" id="L326" title="All 2 branches covered.">              if (oneToMany == null) {</span>
+<span class="pc bpc" id="L326" title="1 of 2 branches missed.">              if (oneToMany == null) {</span>
 <span class="fc" id="L327">                oneToMany = new ArrayList&lt;&gt;();</span>
 <span class="fc" id="L328">                attributes.put(attributeName, oneToMany);</span>
               }
@@ -360,8 +360,8 @@ public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {
 
   private Object parseIMGeoAttribute(SMInputCursor attribute)
       throws XMLStreamException, FactoryException, IOException {
-<span class="fc bfc" id="L363" title="All 2 branches covered.">    if (&quot;true&quot;.equals(attribute.getAttrValue(&quot;http://www.w3.org/2001/XMLSchema-instance&quot;, &quot;nil&quot;))) {</span>
-<span class="fc" id="L364">      return null;</span>
+<span class="pc bpc" id="L363" title="1 of 2 branches missed.">    if (&quot;true&quot;.equals(attribute.getAttrValue(&quot;http://www.w3.org/2001/XMLSchema-instance&quot;, &quot;nil&quot;))) {</span>
+<span class="nc" id="L364">      return null;</span>
     }
 
 <span class="fc bfc" id="L367" title="All 2 branches covered.">    if (attribute.hasLocalName(&quot;identificatie&quot;)) {</span>
@@ -407,7 +407,7 @@ public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {
   }
 
   private static boolean isGeometryElement(String localName) {
-<span class="fc bfc" id="L410" title="All 4 branches covered.">    return localName.startsWith(&quot;geometrie&quot;) || localName.startsWith(&quot;kruinlijn&quot;);</span>
+<span class="pc bpc" id="L410" title="1 of 4 branches missed.">    return localName.startsWith(&quot;geometrie&quot;) || localName.startsWith(&quot;kruinlijn&quot;);</span>
   }
 
 <span class="fc" id="L413">  private static final QName CAPITALIZED_NUMMERAANDUIDINGREEKS =</span>

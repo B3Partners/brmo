@@ -37,18 +37,18 @@ public class Bericht {
   public static final String GEEN_OBJECT_REF_MSG =
       &quot;Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.&quot;;
 
-<span class="fc" id="L40">  public static enum STATUS {</span>
+<span class="nc" id="L40">  public static enum STATUS {</span>
     // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en
     // /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
-<span class="fc" id="L43">    STAGING_OK,</span>
-<span class="fc" id="L44">    STAGING_NOK,</span>
-<span class="fc" id="L45">    STAGING_FORWARDED,</span>
-<span class="fc" id="L46">    RSGB_WAITING,</span>
-<span class="fc" id="L47">    RSGB_PROCESSING,</span>
-<span class="fc" id="L48">    RSGB_OK,</span>
-<span class="fc" id="L49">    RSGB_OUTDATED,</span>
-<span class="fc" id="L50">    RSGB_NOK,</span>
-<span class="fc" id="L51">    ARCHIVE</span>
+<span class="nc" id="L43">    STAGING_OK,</span>
+<span class="nc" id="L44">    STAGING_NOK,</span>
+<span class="nc" id="L45">    STAGING_FORWARDED,</span>
+<span class="nc" id="L46">    RSGB_WAITING,</span>
+<span class="nc" id="L47">    RSGB_PROCESSING,</span>
+<span class="nc" id="L48">    RSGB_OK,</span>
+<span class="nc" id="L49">    RSGB_OUTDATED,</span>
+<span class="nc" id="L50">    RSGB_NOK,</span>
+<span class="nc" id="L51">    ARCHIVE</span>
   };
 
 <span class="fc" id="L54">  public Bericht(String brXml) {</span>
@@ -56,20 +56,20 @@ public class Bericht {
 <span class="fc" id="L56">  }</span>
 
   public Long getId() {
-<span class="fc" id="L59">    return id;</span>
+<span class="nc" id="L59">    return id;</span>
   }
 
   public void setId(Long id) {
-<span class="fc" id="L63">    this.id = id;</span>
-<span class="fc" id="L64">  }</span>
+<span class="nc" id="L63">    this.id = id;</span>
+<span class="nc" id="L64">  }</span>
 
   public Long getLaadProcesId() {
-<span class="fc" id="L67">    return laadProcesId;</span>
+<span class="nc" id="L67">    return laadProcesId;</span>
   }
 
   public void setLaadProcesId(Long laadProcesId) {
-<span class="fc" id="L71">    this.laadProcesId = laadProcesId;</span>
-<span class="fc" id="L72">  }</span>
+<span class="nc" id="L71">    this.laadProcesId = laadProcesId;</span>
+<span class="nc" id="L72">  }</span>
 
   public String getObjectRef() {
 <span class="fc" id="L75">    return objectRef;</span>
@@ -104,36 +104,36 @@ public class Bericht {
 <span class="fc" id="L104">  }</span>
 
   public String getOpmerking() {
-<span class="fc" id="L107">    return opmerking;</span>
+<span class="nc" id="L107">    return opmerking;</span>
   }
 
   public void setOpmerking(String opmerking) {
-<span class="fc" id="L111">    this.opmerking = opmerking;</span>
-<span class="fc" id="L112">  }</span>
+<span class="nc" id="L111">    this.opmerking = opmerking;</span>
+<span class="nc" id="L112">  }</span>
 
   public STATUS getStatus() {
-<span class="fc" id="L115">    return status;</span>
+<span class="nc" id="L115">    return status;</span>
   }
 
   public void setStatus(STATUS status) {
-<span class="fc" id="L119">    this.status = status;</span>
-<span class="fc" id="L120">  }</span>
+<span class="nc" id="L119">    this.status = status;</span>
+<span class="nc" id="L120">  }</span>
 
   public String getJobId() {
 <span class="nc" id="L123">    return jobId;</span>
   }
 
   public void setJobId(String jobId) {
-<span class="fc" id="L127">    this.jobId = jobId;</span>
-<span class="fc" id="L128">  }</span>
+<span class="nc" id="L127">    this.jobId = jobId;</span>
+<span class="nc" id="L128">  }</span>
 
   public Date getStatusDatum() {
-<span class="fc" id="L131">    return statusDatum;</span>
+<span class="nc" id="L131">    return statusDatum;</span>
   }
 
   public void setStatusDatum(Date statusDatum) {
-<span class="fc" id="L135">    this.statusDatum = statusDatum;</span>
-<span class="fc" id="L136">  }</span>
+<span class="nc" id="L135">    this.statusDatum = statusDatum;</span>
+<span class="nc" id="L136">  }</span>
 
   public String getBrXml() {
 <span class="fc" id="L139">    return brXml;</span>
@@ -144,28 +144,28 @@ public class Bericht {
 <span class="fc" id="L144">  }</span>
 
   public String getBrOrgineelXml() {
-<span class="fc" id="L147">    return brOrgineelXml;</span>
+<span class="nc" id="L147">    return brOrgineelXml;</span>
   }
 
   public void setBrOrgineelXml(String brOrgineelXml) {
-<span class="fc" id="L151">    this.brOrgineelXml = brOrgineelXml;</span>
-<span class="fc" id="L152">  }</span>
+<span class="nc" id="L151">    this.brOrgineelXml = brOrgineelXml;</span>
+<span class="nc" id="L152">  }</span>
 
   public String getDbXml() {
-<span class="fc" id="L155">    return dbXml;</span>
+<span class="nc" id="L155">    return dbXml;</span>
   }
 
   public void setDbXml(String dbXml) {
-<span class="fc" id="L159">    this.dbXml = dbXml;</span>
-<span class="fc" id="L160">  }</span>
+<span class="nc" id="L159">    this.dbXml = dbXml;</span>
+<span class="nc" id="L160">  }</span>
 
   public String getXslVersion() {
-<span class="fc" id="L163">    return xslVersion;</span>
+<span class="nc" id="L163">    return xslVersion;</span>
   }
 
   public void setXslVersion(String xslVersion) {
-<span class="fc" id="L167">    this.xslVersion = xslVersion;</span>
-<span class="fc" id="L168">  }</span>
+<span class="nc" id="L167">    this.xslVersion = xslVersion;</span>
+<span class="nc" id="L168">  }</span>
 
   @Override
   public String toString() {
@@ -187,13 +187,13 @@ public class Bericht {
         + &quot;, laadProcesId=&quot;
         + laadProcesId
         + &quot; (lengte brOrgineelXml=&quot;
-<span class="fc bfc" id="L190" title="All 2 branches covered.">        + (brOrgineelXml == null ? null : brOrgineelXml.length())</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        + (brOrgineelXml == null ? null : brOrgineelXml.length())</span>
         + &quot; (lengte brXml=&quot;
 <span class="pc bpc" id="L192" title="1 of 2 branches missed.">        + (brXml == null ? null : brXml.length())</span>
         + &quot; (lengte dbXml=&quot;
-<span class="fc bfc" id="L194" title="All 2 branches covered.">        + (dbXml == null ? null : dbXml.length())</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">        + (dbXml == null ? null : dbXml.length())</span>
         + &quot; (lengte opmerking=&quot;
-<span class="fc bfc" id="L196" title="All 2 branches covered.">        + (opmerking == null ? null : opmerking.length())</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">        + (opmerking == null ? null : opmerking.length())</span>
         + &quot;, xslVersion='&quot;
         + xslVersion
         + &quot;, jobId=&quot;

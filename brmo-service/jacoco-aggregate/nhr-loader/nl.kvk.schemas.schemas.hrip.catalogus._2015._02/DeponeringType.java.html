@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DeponeringType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">DeponeringType.java</span></div><h1>DeponeringType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for DeponeringType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;DeponeringType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}MetExtraElementenMogenlijkheidType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;depotId&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DepotIdType&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;soortDeponering&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;status&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumDeponering&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DatumIncompleetType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;uitspraak&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}RechterlijkeUitspraakType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;gaatOver&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DeponeringRelatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;gedeponeerdBij&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DeponeringNietNatuurlijkPersoonRelatieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;DeponeringType&quot;, propOrder = {
+    &quot;depotId&quot;,
+    &quot;soortDeponering&quot;,
+    &quot;status&quot;,
+    &quot;datumDeponering&quot;,
+    &quot;uitspraak&quot;,
+    &quot;gaatOver&quot;,
+    &quot;gedeponeerdBij&quot;
+})
+@XmlSeeAlso({
+    DeponeringAansprakelijkheidIntrekkingType.class,
+    DeponeringAansprakelijkheidOverblijvendType.class,
+    DeponeringAansprakelijkheidVerklaringType.class,
+    DeponeringAanvullendeMededelingType.class,
+    DeponeringBijzondereDeponeringType.class,
+    DeponeringJaarstukType.class
+})
+<span class="nc" id="L54">public abstract class DeponeringType</span>
+    extends MetExtraElementenMogenlijkheidType
+{
+
+    @XmlElement(required = true)
+    protected String depotId;
+    protected String soortDeponering;
+    protected EnumeratieType status;
+    protected String datumDeponering;
+    protected RechterlijkeUitspraakType uitspraak;
+    protected DeponeringRelatieType gaatOver;
+    protected DeponeringNietNatuurlijkPersoonRelatieType gedeponeerdBij;
+
+    /**
+     * Gets the value of the depotId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDepotId() {
+<span class="nc" id="L76">        return depotId;</span>
+    }
+
+    /**
+     * Sets the value of the depotId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDepotId(String value) {
+<span class="nc" id="L88">        this.depotId = value;</span>
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * Gets the value of the soortDeponering property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSoortDeponering() {
+<span class="nc" id="L100">        return soortDeponering;</span>
+    }
+
+    /**
+     * Sets the value of the soortDeponering property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSoortDeponering(String value) {
+<span class="nc" id="L112">        this.soortDeponering = value;</span>
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getStatus() {
+<span class="nc" id="L124">        return status;</span>
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setStatus(EnumeratieType value) {
+<span class="nc" id="L136">        this.status = value;</span>
+<span class="nc" id="L137">    }</span>
+
+    /**
+     * Gets the value of the datumDeponering property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDatumDeponering() {
+<span class="nc" id="L148">        return datumDeponering;</span>
+    }
+
+    /**
+     * Sets the value of the datumDeponering property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDatumDeponering(String value) {
+<span class="nc" id="L160">        this.datumDeponering = value;</span>
+<span class="nc" id="L161">    }</span>
+
+    /**
+     * Gets the value of the uitspraak property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link RechterlijkeUitspraakType }
+     *     
+     */
+    public RechterlijkeUitspraakType getUitspraak() {
+<span class="nc" id="L172">        return uitspraak;</span>
+    }
+
+    /**
+     * Sets the value of the uitspraak property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link RechterlijkeUitspraakType }
+     *     
+     */
+    public void setUitspraak(RechterlijkeUitspraakType value) {
+<span class="nc" id="L184">        this.uitspraak = value;</span>
+<span class="nc" id="L185">    }</span>
+
+    /**
+     * Gets the value of the gaatOver property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public DeponeringRelatieType getGaatOver() {
+<span class="nc" id="L196">        return gaatOver;</span>
+    }
+
+    /**
+     * Sets the value of the gaatOver property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DeponeringRelatieType }
+     *     
+     */
+    public void setGaatOver(DeponeringRelatieType value) {
+<span class="nc" id="L208">        this.gaatOver = value;</span>
+<span class="nc" id="L209">    }</span>
+
+    /**
+     * Gets the value of the gedeponeerdBij property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DeponeringNietNatuurlijkPersoonRelatieType }
+     *     
+     */
+    public DeponeringNietNatuurlijkPersoonRelatieType getGedeponeerdBij() {
+<span class="nc" id="L220">        return gedeponeerdBij;</span>
+    }
+
+    /**
+     * Sets the value of the gedeponeerdBij property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DeponeringNietNatuurlijkPersoonRelatieType }
+     *     
+     */
+    public void setGedeponeerdBij(DeponeringNietNatuurlijkPersoonRelatieType value) {
+<span class="nc" id="L232">        this.gedeponeerdBij = value;</span>
+<span class="nc" id="L233">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

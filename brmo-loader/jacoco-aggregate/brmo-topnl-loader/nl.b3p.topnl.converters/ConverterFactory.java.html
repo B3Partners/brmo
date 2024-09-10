@@ -36,13 +36,13 @@ public class ConverterFactory {
 <span class="fc" id="L36">  }</span>
 
   public Converter getConverter(TopNLType type) {
-<span class="pc bpc" id="L39" title="1 of 5 branches missed.">    switch (type) {</span>
+<span class="pc bpc" id="L39" title="2 of 5 branches missed.">    switch (type) {</span>
       case TOP250NL:
 <span class="fc" id="L41">        return top250nlConverter;</span>
       case TOP100NL:
 <span class="fc" id="L43">        return top100nlConverter;</span>
       case TOP50NL:
-<span class="fc" id="L45">        return top50nlConverter;</span>
+<span class="nc" id="L45">        return top50nlConverter;</span>
       case TOP10NL:
 <span class="fc" id="L47">        return top10nlConverter;</span>
       default:

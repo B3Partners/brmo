@@ -8,18 +8,18 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import picocli.CommandLine.Option;
 
-<span class="fc" id="L11">public class CLIOptions {</span>
+<span class="nc" id="L11">public class CLIOptions {</span>
 
   @Option(names = &quot;--progress&quot;, hidden = true)
   boolean progress;
 
   public boolean isConsoleProgressEnabled() {
-<span class="pc bpc" id="L17" title="1 of 2 branches missed.">    if (progress) {</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">    if (progress) {</span>
 <span class="nc" id="L18">      return true;</span>
     }
     // Imperfect but good enough without using native library like Jansi's isatty()
     // https://stackoverflow.com/questions/1403772/how-can-i-check-if-a-java-programs-input-output-streams-are-connected-to-a-term
-<span class="pc bpc" id="L22" title="1 of 2 branches missed.">    return System.console() != null;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">    return System.console() != null;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
