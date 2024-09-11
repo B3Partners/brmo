@@ -121,7 +121,6 @@
                         <file>${project.basedir}/src/test/resources/pgsql.properties</file>
                         <file>${project.basedir}/src/test/resources/local.pgsql.properties</file>
                     </files>
-                    <quiet>true</quiet>
                 </configuration>
                 <executions>
                     <execution>
@@ -297,6 +296,7 @@
                     <allowHtmlInComments>false</allowHtmlInComments>
                     <schemaDescription>SchemaSpy rapport BRMO schemas v${project.version}</schemaDescription>
                     <highQuality>true</highQuality>
+                    <vizjs>false</vizjs>
                 </configuration>
             </plugin>
         </plugins>
