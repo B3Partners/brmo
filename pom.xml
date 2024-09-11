@@ -134,6 +134,7 @@
         <!-- skip QA checks -->
         <skipQA>false</skipQA>
         <docker.skip>false</docker.skip>
+        <site.stagingDirectory>/tmp/staging</site.stagingDirectory>
     </properties>
     <dependencyManagement>
         <!--
@@ -1152,6 +1153,20 @@
                 </executions>
             </plugin>
             <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${site.stagingDirectory}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>true</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.spotify.fmt</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
                 <configuration>
@@ -1238,7 +1253,8 @@
                     <generateSitemap>true</generateSitemap>
                     <attach>false</attach>
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
-                    <stagingDirectory>/tmp/staging</stagingDirectory>
+                    <stagingDirectory>${site.stagingDirectory}</stagingDirectory>
+                    <relativizeSiteLinks>false</relativizeSiteLinks>
                 </configuration>
                 <dependencies>
                     <dependency>
