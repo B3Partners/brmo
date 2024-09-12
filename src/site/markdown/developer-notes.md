@@ -22,11 +22,13 @@
 3. commit en push je branch om een pull request te maken, gebruik de **Nederlandse taal** voor commit messages en pull
    request beschrijvingen zodat we consistente release notes krijgen. De release notes worden gegenereerd uit de titel van
    een pull request. Indien er iets gedaan moet worden (bijvoorbeeld views droppen oid.) bij een upgrade naar de 
-   volgende versie dient de PR deze procedure te beschrijven. Zorg dat de Jira issue is vermeld in de PR titel. 
-4. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
-5. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
-6. update de upgrade instructies op de wiki: https://github.com/B3Partners/brmo/wiki/Upgrade-Instructies voor de nieuwe 
+   volgende versie dient de PR deze procedure te beschrijven. Zorg dat de Jira issue is vermeld in de PR titel.
+   Vergeet niet om eventuele nieuwe scripts op te nemen in de CI en deployment scripts
+5. wacht op het doorlopen van de Q&A procedures en volledige CI, pas eventueel je PR aan
+6. wacht op het doorlopen van de code review, pas eventueel je PR aan en merge je PR
+7. update de upgrade instructies op de wiki: https://github.com/B3Partners/brmo/wiki/Upgrade-Instructies voor de nieuwe 
    versie waarin je wijzigingen komen. Het is handig om (ook) de pull request beschrijving te gebruiken voor de upgrade instructies
+8. update, indien nodig, de installatie handleiding op de wiki: https://github.com/B3Partners/brmo/wiki/Installatiehandleiding
 
 ## release maken
 
