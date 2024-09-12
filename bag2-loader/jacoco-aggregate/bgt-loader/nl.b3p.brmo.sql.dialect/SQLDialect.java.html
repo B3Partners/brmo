@@ -16,8 +16,8 @@ public interface SQLDialect {
   String getDriverClass() throws ClassNotFoundException;
 
   default void loadDriver() throws ClassNotFoundException {
-<span class="nc" id="L19">    Class.forName(getDriverClass());</span>
-<span class="nc" id="L20">  }</span>
+<span class="fc" id="L19">    Class.forName(getDriverClass());</span>
+<span class="fc" id="L20">  }</span>
 
   default String getType(String type) {
 <span class="nc" id="L23">    return type;</span>
@@ -42,16 +42,16 @@ public interface SQLDialect {
       Geometry geometry,
       boolean linearizeCurves)
       throws SQLException {
-<span class="nc bnc" id="L45" title="All 2 branches missed.">    if (geometry == null) {</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">    if (geometry == null) {</span>
 <span class="nc" id="L46">      ps.setNull(parameterIndex, pmdType);</span>
     } else {
-<span class="nc" id="L48">      ps.setObject(parameterIndex, getGeometryParameter(c, geometry, linearizeCurves));</span>
+<span class="fc" id="L48">      ps.setObject(parameterIndex, getGeometryParameter(c, geometry, linearizeCurves));</span>
     }
-<span class="nc" id="L50">  }</span>
+<span class="fc" id="L50">  }</span>
 
   default String getCreateGeometryMetadataSQL(
       String tableName, String geometryColumn, String type) {
-<span class="nc" id="L54">    return &quot;&quot;;</span>
+<span class="fc" id="L54">    return &quot;&quot;;</span>
   }
 
   default String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
@@ -62,13 +62,13 @@ public interface SQLDialect {
 
   /** Does not take into account schema, case or search path! */
   default boolean tableExists(Connection c, String name) throws SQLException {
-<span class="nc" id="L65">    try (ResultSet tables = c.getMetaData().getTables(null, null, null, new String[] {&quot;TABLE&quot;})) {</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">      while (tables.next()) {</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (tables.getString(&quot;TABLE_NAME&quot;).equalsIgnoreCase(name)) {</span>
-<span class="nc" id="L68">          return true;</span>
+<span class="fc" id="L65">    try (ResultSet tables = c.getMetaData().getTables(null, null, null, new String[] {&quot;TABLE&quot;})) {</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">      while (tables.next()) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (tables.getString(&quot;TABLE_NAME&quot;).equalsIgnoreCase(name)) {</span>
+<span class="fc" id="L68">          return true;</span>
         }
       }
-<span class="nc bnc" id="L71" title="All 2 branches missed.">    }</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">    }</span>
 <span class="nc" id="L72">    return false;</span>
   }
 }

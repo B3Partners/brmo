@@ -41,11 +41,11 @@ public class AttributeColumnMapping {
   }
 
   public String getType() {
-<span class="nc" id="L44">    return type;</span>
+<span class="fc" id="L44">    return type;</span>
   }
 
   public boolean isNotNull() {
-<span class="nc" id="L48">    return notNull;</span>
+<span class="fc" id="L48">    return notNull;</span>
   }
 
   public boolean isPrimaryKey() {
@@ -65,10 +65,10 @@ public class AttributeColumnMapping {
   }
 
   public Object toQueryParameter(Object value, SQLDialect sqlDialect) throws Exception {
-<span class="nc bnc" id="L68" title="All 2 branches missed.">    if (value == null) {</span>
-<span class="nc" id="L69">      return null;</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    if (value == null) {</span>
+<span class="fc" id="L69">      return null;</span>
     }
-<span class="nc" id="L71">    return value.toString();</span>
+<span class="fc" id="L71">    return value.toString();</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

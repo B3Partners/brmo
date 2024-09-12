@@ -60,64 +60,64 @@ public class ObjectType {
   }
 
   public List&lt;AttributeColumnMapping&gt; getAllAttributes() {
-<span class="nc" id="L63">    return attributes;</span>
+<span class="fc" id="L63">    return attributes;</span>
   }
 
   public List&lt;AttributeColumnMapping&gt; getPrimaryKeys() {
-<span class="nc" id="L67">    return primaryKeys;</span>
+<span class="fc" id="L67">    return primaryKeys;</span>
   }
 
   public AttributeColumnMapping getAttributeByName(String name) {
-<span class="nc" id="L71">    return attributes.stream().filter(a -&gt; a.getName().equals(name)).findFirst().orElse(null);</span>
+<span class="fc" id="L71">    return attributes.stream().filter(a -&gt; a.getName().equals(name)).findFirst().orElse(null);</span>
   }
 
   public List&lt;AttributeColumnMapping&gt; getDirectAttributes() {
-<span class="nc" id="L75">    return attributes.stream()</span>
-<span class="nc" id="L76">        .filter(AttributeColumnMapping::isDirectAttribute)</span>
-<span class="nc" id="L77">        .collect(Collectors.toList());</span>
+<span class="fc" id="L75">    return attributes.stream()</span>
+<span class="fc" id="L76">        .filter(AttributeColumnMapping::isDirectAttribute)</span>
+<span class="fc" id="L77">        .collect(Collectors.toList());</span>
   }
 
   public List&lt;AttributeColumnMapping&gt; getDirectNonDefaultInsertAttributes() {
-<span class="nc" id="L81">    return directNonDefaultInsertAttributes;</span>
+<span class="fc" id="L81">    return directNonDefaultInsertAttributes;</span>
   }
 
   public boolean hasOnlyDirectAttributes() {
-<span class="nc bnc" id="L85" title="All 2 branches missed.">    return directNonDefaultInsertAttributes.size() == attributes.size();</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">    return directNonDefaultInsertAttributes.size() == attributes.size();</span>
   }
 
   public List&lt;ObjectType&gt; getOneToManyAttributeObjectTypes() {
     // Create on-demand because objectTypes map must be completely filled
-<span class="nc bnc" id="L90" title="All 2 branches missed.">    if (oneToManyAttributeObjectTypes == null) {</span>
-<span class="nc" id="L91">      oneToManyAttributeObjectTypes =</span>
-<span class="nc" id="L92">          attributes.stream()</span>
-<span class="nc" id="L93">              .filter(</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">    if (oneToManyAttributeObjectTypes == null) {</span>
+<span class="fc" id="L91">      oneToManyAttributeObjectTypes =</span>
+<span class="fc" id="L92">          attributes.stream()</span>
+<span class="fc" id="L93">              .filter(</span>
                   attributeColumnMapping -&gt;
-<span class="nc" id="L95">                      (attributeColumnMapping instanceof OneToManyColumnMapping))</span>
-<span class="nc" id="L96">              .map(</span>
+<span class="fc" id="L95">                      (attributeColumnMapping instanceof OneToManyColumnMapping))</span>
+<span class="fc" id="L96">              .map(</span>
                   attributeColumnMapping -&gt;
 <span class="nc" id="L98">                      schema.getObjectTypes().get(attributeColumnMapping.getName()))</span>
-<span class="nc" id="L99">              .collect(Collectors.toList());</span>
+<span class="fc" id="L99">              .collect(Collectors.toList());</span>
     }
-<span class="nc" id="L101">    return oneToManyAttributeObjectTypes;</span>
+<span class="fc" id="L101">    return oneToManyAttributeObjectTypes;</span>
   }
 
   public List&lt;ArrayAttributeMapping&gt; getArrayAttributes() {
-<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (arrayAttributes == null) {</span>
-<span class="nc" id="L106">      arrayAttributes =</span>
-<span class="nc" id="L107">          attributes.stream()</span>
-<span class="nc" id="L108">              .filter(attribute -&gt; attribute instanceof ArrayAttributeMapping)</span>
-<span class="nc" id="L109">              .map(attribute -&gt; (ArrayAttributeMapping) attribute)</span>
-<span class="nc" id="L110">              .collect(Collectors.toList());</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">    if (arrayAttributes == null) {</span>
+<span class="fc" id="L106">      arrayAttributes =</span>
+<span class="fc" id="L107">          attributes.stream()</span>
+<span class="fc" id="L108">              .filter(attribute -&gt; attribute instanceof ArrayAttributeMapping)</span>
+<span class="fc" id="L109">              .map(attribute -&gt; (ArrayAttributeMapping) attribute)</span>
+<span class="fc" id="L110">              .collect(Collectors.toList());</span>
     }
-<span class="nc" id="L112">    return arrayAttributes;</span>
+<span class="fc" id="L112">    return arrayAttributes;</span>
   }
 
   public List&lt;GeometryAttributeColumnMapping&gt; getGeometryAttributes() {
-<span class="nc" id="L116">    return geometryAttributes;</span>
+<span class="fc" id="L116">    return geometryAttributes;</span>
   }
 
   public List&lt;String&gt; getExtraDataDefinitionSQL() {
-<span class="nc" id="L120">    return extraDataDefinitionSQL;</span>
+<span class="fc" id="L120">    return extraDataDefinitionSQL;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -121,8 +121,8 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
     }
 
     public void setGemeenteIdentificaties(Set&lt;String&gt; gemeenteIdentificaties) {
-<span class="nc" id="L124">      this.gemeenteIdentificaties = gemeenteIdentificaties;</span>
-<span class="nc" id="L125">    }</span>
+<span class="fc" id="L124">      this.gemeenteIdentificaties = gemeenteIdentificaties;</span>
+<span class="fc" id="L125">    }</span>
 
     public boolean equalsExceptGemeenteIdentificaties(Object o) {
 <span class="nc bnc" id="L128" title="All 2 branches missed.">      if (this == o) return true;</span>
@@ -239,7 +239,7 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
 <span class="fc" id="L239">      SMInputCursor bagInfoCursor = cursor.descendantElementCursor().advance();</span>
 <span class="fc" id="L240">      String gemeenteIdentificatie = null;</span>
       do {
-<span class="pc bpc" id="L242" title="1 of 4 branches missed.">        switch (bagInfoCursor.getLocalName()) {</span>
+<span class="fc bfc" id="L242" title="All 4 branches covered.">        switch (bagInfoCursor.getLocalName()) {</span>
           case &quot;StandTechnischeDatum&quot;:
             try {
 <span class="fc" id="L245">              standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());</span>
@@ -247,12 +247,12 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
 <span class="fc" id="L247">            }</span>
 <span class="nc" id="L248">            break;</span>
           case &quot;GemeenteIdentificatie&quot;:
-<span class="nc bnc" id="L250" title="All 2 branches missed.">            if (gemeenteIdentificatie != null) {</span>
+<span class="pc bpc" id="L250" title="1 of 2 branches missed.">            if (gemeenteIdentificatie != null) {</span>
 <span class="nc" id="L251">              throw new IllegalArgumentException(</span>
                   &quot;Alleen een enkele GemeenteIdentificatie in een GemeenteCollectie wordt ondersteund&quot;);
             }
-<span class="nc" id="L254">            gemeenteIdentificatie = bagInfoCursor.collectDescendantText();</span>
-<span class="nc" id="L255">            break;</span>
+<span class="fc" id="L254">            gemeenteIdentificatie = bagInfoCursor.collectDescendantText();</span>
+<span class="fc" id="L255">            break;</span>
           case &quot;Gebied-NLD&quot;:
             // &quot;9999&quot; is code for entire NL area
 <span class="fc" id="L258">            gemeenteIdentificatie = &quot;9999&quot;;</span>
@@ -288,8 +288,8 @@ public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&g
 <span class="nc" id="L288">          return false;</span>
         }
 
-<span class="pc bpc" id="L291" title="1 of 2 branches missed.">        if (event != null) {</span>
-<span class="nc" id="L292">          return true;</span>
+<span class="fc bfc" id="L291" title="All 2 branches covered.">        if (event != null) {</span>
+<span class="fc" id="L292">          return true;</span>
         }
         try {
 <span class="fc" id="L295">          event = cursor.getNext();</span>
