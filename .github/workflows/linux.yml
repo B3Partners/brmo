@@ -32,7 +32,7 @@ jobs:
         postgis:
           # t/m november 2024
           - 12-3.4-alpine
-          - 15-3.5-alpine
+          - 15-3.4-alpine
           - 16-3.5-alpine
           - 17-3.5-alpine
         include:
@@ -201,7 +201,7 @@ jobs:
     name: 'Deploy docker images'
     if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/master' && github.event_name == 'push' }}
     needs: [ build, qacheck ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
