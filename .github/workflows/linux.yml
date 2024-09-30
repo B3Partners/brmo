@@ -21,7 +21,7 @@ env:
 jobs:
   build:
     name: "Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -32,12 +32,13 @@ jobs:
         postgis:
           # t/m november 2024
           - 12-3.4-alpine
-          - 15-3.4-alpine
-          - 16-3.4-alpine
+          - 15-3.5-alpine
+          - 16-3.5-alpine
+          - 17-3.5-alpine
         include:
           - java: 21
             java-dist: 'temurin'
-            postgis: 16-3.4-alpine
+            postgis: 17-3.5-alpine
 
     steps:
       - uses: actions/checkout@v4
