@@ -33,11 +33,12 @@ jobs:
           # t/m november 2024
           - 12-3.4-alpine
           - 15-3.4-alpine
-          - 16-3.4-alpine
+          - 16-3.5-alpine
+          - 17-3.5-alpine
         include:
           - java: 21
             java-dist: 'temurin'
-            postgis: 16-3.4-alpine
+            postgis: 17-3.5-alpine
 
     steps:
       - uses: actions/checkout@v4
@@ -200,7 +201,7 @@ jobs:
     name: 'Deploy docker images'
     if: ${{ github.repository == 'B3Partners/brmo' && github.ref == 'refs/heads/master' && github.event_name == 'push' }}
     needs: [ build, qacheck ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest 
     permissions:
       contents: read
       packages: write
