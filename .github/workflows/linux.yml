@@ -35,7 +35,7 @@ jobs:
             # t/m november 2027
             - 15-3.4-alpine
             # t/m november 2028
-            - 16-3.4-alpine
+            - 16-3.5-alpine
             # t/m november 2029
             - 17-3.5-alpine
         include:
