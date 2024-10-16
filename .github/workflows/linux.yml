@@ -29,12 +29,15 @@ jobs:
         java-dist: [ 'temurin' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
-        postgis:
-          # t/m november 2024
-          - 12-3.4-alpine
-          - 15-3.4-alpine
-          - 16-3.5-alpine
-          - 17-3.5-alpine
+        postgis: 
+            # t/m november 2025
+            - 13-3.4-alpine
+            # t/m november 2027
+            - 15-3.4-alpine
+            # t/m november 2028
+            - 16-3.5-alpine
+            # t/m november 2029
+            - 17-3.5-alpine
         include:
           - java: 21
             java-dist: 'temurin'
