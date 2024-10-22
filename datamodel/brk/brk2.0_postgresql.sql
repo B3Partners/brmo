@@ -472,11 +472,11 @@ CREATE TABLE recht
     -- OZ referentie
     rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
     -- een splitsing ref
-    isontstaanuit                          VARCHAR REFERENCES recht (identificatie),
+    isontstaanuit                          VARCHAR(255),
     -- een splitsing ref
-    isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
+    isbetrokkenbij                         VARCHAR(255),
     -- Mandeligheid ref
-    isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
+    isbestemdtot                           VARCHAR(255),
     -- Erfpachtcanon.Soort is een nadere aanduiding van de erfpachtcanon. De waarden zijn opgenomen in een waardelijst
     -- We onderkennen de volgende soorten erfpachtcanon* Eeuwigdurend afgekocht* Afgekocht tot* Variabel bedrag* Jaarlijks bedrag
     -- https://developer.kadaster.nl/schemas/waardelijsten/SoortErfpachtcanon/
@@ -733,3 +733,5 @@ CREATE INDEX perceel_archief_plaatscoordinaten ON perceel_archief USING GIST (pl
 
 CREATE INDEX recht_aantekeningkadastraalobject ON recht (aantekeningkadastraalobject);
 CREATE INDEX recht_rustop ON recht (rustop);
+CREATE INDEX onroerendezaakfiliatie_betreft_idx ON brk.onroerendezaakfiliatie  USING btree (betreft); 
+CREATE INDEX onroerendezaakfiliatie_onroerendezaak_idx ON brk.onroerendezaakfiliatie  USING btree (onroerendezaak);
