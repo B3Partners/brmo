@@ -42,6 +42,12 @@ COMMENT ON COLUMN onroerendezaak.begingeldigheid IS 'BRMO: metadata tbv archiver
 COMMENT ON COLUMN onroerendezaak.eindegeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het opvolgende bericht.';
 COMMENT ON COLUMN recht.begingeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het bericht.';
 
+--https://b3partners.atlassian.net/browse/BRMO-332
+ALTER TABLE IF EXISTS brk.recht DROP CONSTRAINT IF EXISTS recht_isbestemdtot_fkey;
+ALTER TABLE IF EXISTS brk.recht DROP CONSTRAINT IF EXISTS recht_isontstaanuit_fkey;
+ALTER TABLE IF EXISTS brk.recht DROP CONSTRAINT IF EXISTS recht_isbetrokkenbij_fkey;
+
+--https://b3partners.atlassian.net/browse/BRMO-379
 CREATE INDEX IF NOT EXISTS onroerendezaakfiliatie_betreft_idx ON brk.onroerendezaakfiliatie  USING btree (betreft); 
 CREATE INDEX IF NOT EXISTS onroerendezaakfiliatie_onroerendezaak_idx ON brk.onroerendezaakfiliatie  USING btree (onroerendezaak);
 
