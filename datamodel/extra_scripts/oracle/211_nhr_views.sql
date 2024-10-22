@@ -14,7 +14,7 @@ group by s.naam, coalesce(v.fk_15ond_kvk_nummer, v.fk_17mac_kvk_nummer);
 -- koppel subject en vestg tabel met het adresseerbaarobject
 create materialized view mb_kvk_adres as 
 select  
-        cast(rownum as integer)    as objectid,
+        row_number() OVER ()::integer AS objectid,
         v.sc_identif,
         -- fk_15ond_kvk_nummer = kvknummer voor onderneming
         -- fk_17mac_kvk_nummer = kvknummer voor maatschappelijke activiteit (niet commercieel)
