@@ -472,11 +472,11 @@ CREATE TABLE recht
     -- OZ referentie
     rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
     -- een splitsing ref
-    isontstaanuit                          VARCHAR REFERENCES recht (identificatie),
+    isontstaanuit                          VARCHAR,
     -- een splitsing ref
-    isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
+    isbetrokkenbij                         VARCHAR,
     -- Mandeligheid ref
-    isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
+    isbestemdtot                           VARCHAR,
     -- Erfpachtcanon.Soort is een nadere aanduiding van de erfpachtcanon. De waarden zijn opgenomen in een waardelijst
     -- We onderkennen de volgende soorten erfpachtcanon* Eeuwigdurend afgekocht* Afgekocht tot* Variabel bedrag* Jaarlijks bedrag
     -- https://developer.kadaster.nl/schemas/waardelijsten/SoortErfpachtcanon/
