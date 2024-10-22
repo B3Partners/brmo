@@ -421,3 +421,5 @@ CREATE INDEX perceel_archief_plaatscoordinaten ON perceel_archief (plaatscoordin
 
 CREATE INDEX recht_aantekeningkadastraalobject ON recht (aantekeningkadastraalobject);
 CREATE INDEX recht_rustop ON recht (rustop);
+CREATE INDEX onroerendezaakfiliatie_betreft_idx ON brk.onroerendezaakfiliatie  USING btree (betreft); 
+CREATE INDEX onroerendezaakfiliatie_onroerendezaak_idx ON brk.onroerendezaakfiliatie  USING btree (onroerendezaak);
