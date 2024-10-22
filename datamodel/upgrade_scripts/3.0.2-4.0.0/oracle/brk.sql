@@ -121,6 +121,9 @@ COMMENT ON COLUMN onroerendezaak.begingeldigheid IS 'BRMO: metadata tbv archiver
 COMMENT ON COLUMN onroerendezaak.eindegeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het opvolgende bericht.';
 COMMENT ON COLUMN recht.begingeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het bericht.';
 
+CREATE INDEX IF NOT EXISTS onroerendezaakfiliatie_betreft_idx ON brk.onroerendezaakfiliatie  USING btree (betreft); 
+CREATE INDEX IF NOT EXISTS onroerendezaakfiliatie_onroerendezaak_idx ON brk.onroerendezaakfiliatie  USING btree (onroerendezaak);
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_3.0.2_naar_4.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
