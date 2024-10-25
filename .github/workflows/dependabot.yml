@@ -15,11 +15,37 @@ jobs:
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: 'Enable auto-merge for Dependabot PRs on Maven plugins'
-        if: contains(steps.metadata.outputs.dependency-names, 'maven-') && (steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor')
-        run: |
-          gh pr edit --remove-label "dependency update" "$PR_URL"
-          gh pr merge --auto --squash "$PR_URL"
+      - name: 'Enable auto-merge for Dependabot PRs on selected dependencies for patch and minor version updates'
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        if: |
+          ( 
+            contains(steps.metadata.outputs.dependency-names, 'junit') || 
+            contains(steps.metadata.outputs.dependency-names, 'mockito') ||
+            contains(steps.metadata.outputs.dependency-names, 'log4j') ||
+            contains(steps.metadata.outputs.dependency-names, 'commons-') ||
+            contains(steps.metadata.outputs.dependency-names, 'tomcat')
+          ) && (
+            steps.metadata.outputs.update-type == 'version-update:semver-patch' || 
+            steps.metadata.outputs.update-type == 'version-update:semver-minor'
+          )
+        run: |
+          gh pr edit --remove-label "bouw- en testinfrastuctuur" "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+      - name: 'Enable auto-merge for Dependabot PRs on Maven plugins and GH actions for patch and minor version updates'
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        if: |
+          (
+            contains(steps.metadata.outputs.dependency-names, 'maven-') ||
+            contains(steps.metadata.outputs.dependency-names, 'action') ||
+            contains(steps.metadata.outputs.dependency-names, 'error_prone_core')
+          ) && (
+            steps.metadata.outputs.update-type == 'version-update:semver-patch' || 
+            steps.metadata.outputs.update-type == 'version-update:semver-minor'
+          )
+        run: |
+          gh pr edit --remove-label "dependency update" "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
