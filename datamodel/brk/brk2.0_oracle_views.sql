@@ -514,7 +514,7 @@ SELECT zakrecht.identificatie                                            AS zr_i
        COALESCE(tenaamstelling2.tennamevan, '')                          AS subject_identif,
        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.
        mandeligheid.identificatie                                        AS mandeligheid_identif,
-       zakrecht.rustop                                                   AS koz_identif,
+       vuzrok.rustop_zak_recht                                                   AS koz_identif,
        CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
        zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
        zakrecht.aard                                                     AS fk_3avr_aand,
