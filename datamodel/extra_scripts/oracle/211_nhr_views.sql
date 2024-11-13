@@ -26,8 +26,7 @@ select
         --https://www.kvk.nl/over-het-handelsregister/overzicht-standaard-bedrijfsindeling-sbi-codes-voor-activiteiten/
         case 
                 when v.fk_sa_sbi_activiteit_sbi_code between '01%' and '04%' then 'Landbouw, bosbouw en visserij'
-				-- regex selectie tussen 06* en 09*
-                when regexp_like(v.fk_sa_sbi_activiteit_sbi_code, '^0[6-9]\d+') then 'Winning van delftstoffen'
+                when v.fk_sa_sbi_activiteit_sbi_code between '06%' and '09%' then 'Winning van delftstoffen'
 				when v.fk_sa_sbi_activiteit_sbi_code between '10%' and '34%' then 'Industrie'
 				when v.fk_sa_sbi_activiteit_sbi_code between '35%' and '36%' then 'Productie en distributie van en handel in elektriciteit, aardgas, stoom en gekoelde lucht '
 				when v.fk_sa_sbi_activiteit_sbi_code between '36%' and '41%' then 'Winning en distributie van water; afval- en afvalwaterbeheer en sanering'
@@ -39,8 +38,8 @@ select
 				when v.fk_sa_sbi_activiteit_sbi_code between '64%' and '68%' then 'Financiële instellingen'
 				when v.fk_sa_sbi_activiteit_sbi_code between '68%' and '69%' then 'Verhuur van en handel in onroerend goed'	
 				when v.fk_sa_sbi_activiteit_sbi_code between '69%' and '77%' then 'Advisering, onderzoek en overige specialistische zakelijke dienstverlening'	
-				when v.fk_sa_sbi_activiteit_sbi_code between '69%' and '77%' then 'Verhuur en lease van autos, consumentenartikelen, machines en overige roerende goederen'	
-				when v.fk_sa_sbi_activiteit_sbi_code between '77%' and '85%' then 'Openbaar bestuur, overheidsdiensten en verplichte sociale verzekeringen'	
+				when v.fk_sa_sbi_activiteit_sbi_code between '77%' and '84%' then 'Verhuur van roerende goederen en overige zakelijke dienstverlening'
+				when v.fk_sa_sbi_activiteit_sbi_code between '84%' and '85%' then 'Openbaar bestuur, overheidsdiensten en verplichte sociale verzekeringen'
 				when v.fk_sa_sbi_activiteit_sbi_code between '85%' and '86%' then 'Onderwijs'
 				when v.fk_sa_sbi_activiteit_sbi_code between '86%' and '90%' then 'Gezondheids- en welzijnszorg'
 				when v.fk_sa_sbi_activiteit_sbi_code between '90%' and '94%' then 'Cultuur, sport en recreatie'
