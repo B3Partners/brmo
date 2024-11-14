@@ -121,6 +121,62 @@ COMMENT ON COLUMN onroerendezaak.begingeldigheid IS 'BRMO: metadata tbv archiver
 COMMENT ON COLUMN onroerendezaak.eindegeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het opvolgende bericht.';
 COMMENT ON COLUMN recht.begingeldigheid IS 'BRMO: metadata tbv archivering, de toestandsdatum van het bericht.';
 
+--https://b3partners.atlassian.net/browse/BRMO-332
+-- Haal de constraintnaam op uit de database. Oracle genereert geen voorspelbare namen voor constraints.
+DECLARE
+v_constraint_name VARCHAR2(255);
+BEGIN
+    BEGIN
+        SELECT c.constraint_name
+        INTO v_constraint_name
+        FROM all_cons_columns col
+        JOIN all_constraints c
+            ON col.constraint_name = c.constraint_name
+        WHERE col.table_name = 'recht'
+            AND col.column_name = 'isbestemdtot'
+            AND c.constraint_type = 'R';
+        EXECUTE IMMEDIATE 'ALTER TABLE recht DROP CONSTRAINT ' || v_constraint_name;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('Geen constraint gevonden voor recht.isbestemdtot');
+    END;
+
+    BEGIN
+        SELECT c.constraint_name
+        INTO v_constraint_name
+        FROM all_cons_columns col
+        JOIN all_constraints c
+            ON col.constraint_name = c.constraint_name
+        WHERE col.table_name = 'recht'
+            AND col.column_name = 'isontstaanuit'
+            AND c.constraint_type = 'R';
+        EXECUTE IMMEDIATE 'ALTER TABLE recht DROP CONSTRAINT ' || v_constraint_name;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('Geen constraint gevonden voor recht.isontstaanuit');
+    END;
+
+    BEGIN
+        SELECT c.constraint_name
+        INTO v_constraint_name
+        FROM all_cons_columns col
+        JOIN all_constraints c
+            ON col.constraint_name = c.constraint_name
+        WHERE col.table_name = 'recht'
+            AND col.column_name = 'isbetrokkenbij'
+            AND c.constraint_type = 'R';
+        EXECUTE IMMEDIATE 'ALTER TABLE recht DROP CONSTRAINT ' || v_constraint_name;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('Geen constraint gevonden voor recht.isbetrokkenbij');
+    END;
+END;
+/
+
+--https://b3partners.atlassian.net/browse/BRMO-379 
+CREATE INDEX onroerendezaakfiliatie_betreft_idx ON onroerendezaakfiliatie (betreft);
+CREATE INDEX onroerendezaakfiliatie_onroerendezaak_idx ON onroerendezaakfiliatie (onroerendezaak);
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_3.0.2_naar_4.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

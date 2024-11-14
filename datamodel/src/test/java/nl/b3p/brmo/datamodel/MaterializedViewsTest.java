@@ -146,9 +146,6 @@ public class MaterializedViewsTest {
                 // bag 2
                 "mb_adres_bag",
                 "mb_adresseerbaar_object_geometrie_bag",
-                "mb_avg_koz_rechth_bag",
-                "mb_kad_onrrnd_zk_adres_bag",
-                "mb_koz_rechth_bag",
                 // bag 2 & brk 2 views in rsgb/public
                 "mb_kadastraleonroerendezakenmetadres",
                 "mb_onroerendezakenmetrechthebbenden",

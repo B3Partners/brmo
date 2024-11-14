@@ -230,9 +230,9 @@ CREATE TABLE recht
     isgebaseerdop2                         VARCHAR2(255) REFERENCES stukdeel (identificatie),
     betreft                                VARCHAR2(255) REFERENCES recht (identificatie),
     rustop                                 VARCHAR2(255) REFERENCES onroerendezaak (identificatie),
-    isontstaanuit                          VARCHAR2(255) REFERENCES recht (identificatie),
-    isbetrokkenbij                         VARCHAR2(255) REFERENCES recht (identificatie),
-    isbestemdtot                           VARCHAR2(255) REFERENCES recht (identificatie),
+    isontstaanuit                          VARCHAR2(255),
+    isbetrokkenbij                         VARCHAR2(255),
+    isbestemdtot                           VARCHAR2(255),
     soort                                  VARCHAR2(22),
     jaarlijksbedrag                        DECIMAL(20, 2),
     jaarlijksbedrag_valuta                 VARCHAR(42),
@@ -421,3 +421,5 @@ CREATE INDEX perceel_archief_plaatscoordinaten ON perceel_archief (plaatscoordin
 
 CREATE INDEX recht_aantekeningkadastraalobject ON recht (aantekeningkadastraalobject);
 CREATE INDEX recht_rustop ON recht (rustop);
+CREATE INDEX onroerendezaakfiliatie_betreft_idx ON onroerendezaakfiliatie (betreft);
+CREATE INDEX onroerendezaakfiliatie_onroerendezaak_idx ON onroerendezaakfiliatie (onroerendezaak);
