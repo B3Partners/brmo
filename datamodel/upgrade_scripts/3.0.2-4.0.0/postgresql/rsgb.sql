@@ -10,10 +10,16 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('2
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('25', 'Huur afhankelijk opstal (recht van)');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('26', 'Pachtafhankelijk opstal (recht van)');
 
---ihkv https://b3partners.atlassian.net/browse/BRMO-381 zouden onderstaande materialized views verwijderd kunnen worden. ivm potentiële afhankelijkheid wordt dit niet automatisch gedaan
--- drop materialized view mb_kad_onrrnd_zk_adres_bag;
--- drop materialized view mb_koz_rechth_bag;
--- drop materialized view mb_avg_koz_rechth_bag;
+-- Onderstaande materialized views kunnen verwijderd worden en worden niet langer ondersteund.
+-- ivm potentiële afhankelijkheid wordt dit niet automatisch gedaan
+-- zie https://b3partners.atlassian.net/browse/BRMO-381
+-- DROP MATERIALIZED VIEW mb_kad_onrrnd_zk_adres_bag;
+-- DROP MATERIALIZED VIEW mb_koz_rechth_bag;
+-- DROP MATERIALIZED VIEW mb_avg_koz_rechth_bag;
+
+-- https://b3partners.atlassian.net/browse/BRMO-383
+DROP MATERIALIZED VIEW IF EXISTS mb_onroerendezakenmetrechthebbenden;
+DROP MATERIALIZED VIEW IF EXISTS mb_avg_onroerendezakenmetrechthebbenden;
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_3.0.2_naar_4.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
