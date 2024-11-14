@@ -142,6 +142,7 @@
             <includes>
                 <include>**/209_*.sql</include>
                 <include>**/210_*.sql</include>
+                <include>**/211_*.sql</include>
             </includes>
         </fileSet>
         <fileSet>
