@@ -45,11 +45,13 @@ categories:
     labels:
       - dependencies
       - 'dependency update'
+    collapse-after: 10
   - title: 🚦 Tests en Infrastructuur
     labels:
       - tests
       - infrastructure
       - 'bouw- en testinfrastuctuur'
+    collapse-after: 10
 
 replacers:
   - search: '/CVE-(\d{4})-(\d+)/g'
