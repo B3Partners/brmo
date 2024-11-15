@@ -51,7 +51,7 @@ _Zorg dat de tabellen en views zijn aangemaakt (BAG!)._
 ```bash
 export POSTGRES_PASSWORD=postgres
 export PGPASSWORD=postgres
-.build/ci/pgsql-start-docker.sh 16-3.4-alpine
+.build/ci/pgsql-start-docker.sh 17-3.5-alpine
 .build/ci/pgsql-create-databases.sh
 .build/ci/pgsql-setup.sh
 mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true

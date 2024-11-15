@@ -31,9 +31,9 @@ jobs:
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
             # t/m november 2025
-            - 13-3.4-alpine
+            - 13-3.5-alpine
             # t/m november 2027
-            - 15-3.4-alpine
+            - 15-3.5-alpine
             # t/m november 2028
             - 16-3.5-alpine
             # t/m november 2029
