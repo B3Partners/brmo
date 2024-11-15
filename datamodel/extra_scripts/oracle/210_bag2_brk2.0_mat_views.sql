@@ -208,9 +208,16 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.postcode,
        koz.lon,
        koz.lat,
-       koz.begrenzing_perceel
+       koz.begrenzing_perceel,
+       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
+       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_zr_rechth zrr
-         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
+         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
+         JOIN BRMO_BRK.recht r on  zrr.zr_identif = r.van
+         LEFT JOIN BRMO_BRK.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
+         LEFT JOIN BRMO_BRK.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
+         LEFT JOIN BRMO_BRK.stuk st1 ON sd1.deelvan = st1.identificatie
+         LEFT JOIN BRMO_BRK.stuk st2 ON sd2.deelvan = st2.identificatie;
 
 COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
@@ -273,7 +280,9 @@ COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     * postcode: -,
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak';
+    * begrenzing_perceel: perceelvlak,
+    * tijdstipaanbieding_stuk: tijdstip van aanbieding van stuk,
+    * tijdstipaanbieding_stuk2: tijdstip van aanbieding van 2e stuk';
 
 delete
 from user_sdo_geom_metadata
@@ -346,9 +355,16 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.postcode,
        koz.lon,
        koz.lat,
-       koz.begrenzing_perceel
+       koz.begrenzing_perceel,
+       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
+       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_avg_zr_rechth zrr
-         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
+         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
+         JOIN BRMO_BRK.recht r on  zrr.zr_identif = r.van
+         LEFT JOIN BRMO_BRK.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
+         LEFT JOIN BRMO_BRK.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
+         LEFT JOIN BRMO_BRK.stuk st1 ON sd1.deelvan = st1.identificatie
+         LEFT JOIN BRMO_BRK.stuk st2 ON sd2.deelvan = st2.identificatie;
 
 COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
@@ -411,7 +427,9 @@ COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     * postcode: -,
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak';
+    * begrenzing_perceel: perceelvlak,
+    * tijdstipaanbieding_stuk: tijdstip van aanbieding van stuk,
+    * tijdstipaanbieding_stuk2: tijdstip van aanbieding van 2e stuk';
 
 delete
 from user_sdo_geom_metadata

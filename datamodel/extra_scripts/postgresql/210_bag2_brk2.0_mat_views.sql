@@ -94,6 +94,8 @@ SELECT row_number() OVER ()                                                     
        st_x(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lon,
        st_y(st_transform(qry.plaatscoordinaten, 4326))                                                 AS lat,
        qry.begrenzing_perceel
+--        ,st1.tijdstipaanbieding,
+--        st2.tijdstipaanbieding as tijdstipaanbieding2
 FROM (SELECT p.identificatie,
              'perceel' AS type,
              p.soortgrootte,
@@ -241,7 +243,9 @@ CREATE MATERIALIZED VIEW public.mb_onroerendezakenmetrechthebbenden
              postcode,
              lon,
              lat,
-             begrenzing_perceel
+             begrenzing_perceel,
+             tijdstipaanbieding_stuk,
+             tijdstipaanbieding_stuk2
                 )
 AS
 SELECT row_number() OVER ()             AS objectid,
@@ -301,9 +305,16 @@ SELECT row_number() OVER ()             AS objectid,
        koz.postcode,
        koz.lon,
        koz.lat,
-       koz.begrenzing_perceel
+       koz.begrenzing_perceel,
+       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
+       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
 FROM brk.mb_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON zrr.koz_identif = koz.identificatie
+         JOIN brk.recht r on  zrr.zr_identif = r.van
+         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
+         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
+         LEFT JOIN brk.stuk st1 ON sd1.deelvan = st1.identificatie
+         LEFT JOIN brk.stuk st2 ON sd2.deelvan = st2.identificatie
 WITH NO DATA;
 -- View indexes:
 CREATE INDEX mb_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON public.mb_onroerendezakenmetrechthebbenden USING gist (begrenzing_perceel);
@@ -371,7 +382,9 @@ COMMENT ON MATERIALIZED VIEW public.mb_onroerendezakenmetrechthebbenden IS 'comm
     * postcode: -,
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak';
+    * begrenzing_perceel: perceelvlak,
+    * tijdstipaanbieding_stuk: tijdstip van aanbieding van stuk,
+    * tijdstipaanbieding_stuk2: tijdstip van aanbieding van 2e stuk';
 
 
 -- materialized view zonder gegevens van natuurlijke personen
@@ -434,7 +447,9 @@ CREATE MATERIALIZED VIEW public.mb_avg_onroerendezakenmetrechthebbenden
              postcode,
              lon,
              lat,
-             begrenzing_perceel
+             begrenzing_perceel,
+             tijdstipaanbieding_stuk,
+             tijdstipaanbieding_stuk2
                 )
 AS
 SELECT row_number() OVER ()             AS objectid,
@@ -494,9 +509,16 @@ SELECT row_number() OVER ()             AS objectid,
        koz.postcode,
        koz.lon,
        koz.lat,
-       koz.begrenzing_perceel
+       koz.begrenzing_perceel,
+       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
+       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
 FROM brk.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON zrr.koz_identif = koz.identificatie
+         JOIN brk.recht r on  zrr.zr_identif = r.van
+         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
+         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
+         LEFT JOIN brk.stuk st1 ON sd1.deelvan = st1.identificatie
+         LEFT JOIN brk.stuk st2 ON sd2.deelvan = st2.identificatie
 WITH NO DATA;
 -- View indexes:
 CREATE INDEX mb_avg_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON public.mb_avg_onroerendezakenmetrechthebbenden USING gist (begrenzing_perceel);
@@ -564,4 +586,6 @@ COMMENT ON MATERIALIZED VIEW public.mb_avg_onroerendezakenmetrechthebbenden IS '
     * postcode: -,
     * lon: coordinaat als WSG84,
     * lon: coordinaat als WSG84,
-    * begrenzing_perceel: perceelvlak';
+    * begrenzing_perceel: perceelvlak,
+    * tijdstipaanbieding_stuk: tijdstip van aanbieding van stuk,
+    * tijdstipaanbieding_stuk2: tijdstip van aanbieding van 2e stuk';
