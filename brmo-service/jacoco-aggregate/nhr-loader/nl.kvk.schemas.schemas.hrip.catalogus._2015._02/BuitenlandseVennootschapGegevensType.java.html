@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BuitenlandseVennootschapGegevensType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.kvk.schemas.schemas.hrip.catalogus._2015._02</a> &gt; <span class="el_source">BuitenlandseVennootschapGegevensType.java</span></div><h1>BuitenlandseVennootschapGegevensType.java</h1><pre class="source lang-java linenums">
+package nl.kvk.schemas.schemas.hrip.catalogus._2015._02;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for BuitenlandseVennootschapGegevensType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BuitenlandseVennootschapGegevensType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}BasisType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;heeftHoofdvestigingBuitenNederland&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;omschrijvingRechtsvorm&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumEersteInschrijvingBuitenland&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DatumIncompleetType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;zetel&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;rechtsvormcategorie&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}EnumeratieType&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumFormeelBuitenlandsSinds&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DatumIncompleetType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumAkteOprichting&quot; type=&quot;{http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02}DatumIncompleetType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BuitenlandseVennootschapGegevensType&quot;, propOrder = {
+    &quot;heeftHoofdvestigingBuitenNederland&quot;,
+    &quot;omschrijvingRechtsvorm&quot;,
+    &quot;datumEersteInschrijvingBuitenland&quot;,
+    &quot;zetel&quot;,
+    &quot;rechtsvormcategorie&quot;,
+    &quot;datumFormeelBuitenlandsSinds&quot;,
+    &quot;datumAkteOprichting&quot;
+})
+<span class="nc" id="L45">public class BuitenlandseVennootschapGegevensType</span>
+    extends BasisType
+{
+
+    protected EnumeratieType heeftHoofdvestigingBuitenNederland;
+    protected String omschrijvingRechtsvorm;
+    protected String datumEersteInschrijvingBuitenland;
+    protected String zetel;
+    @XmlElement(required = true)
+    protected EnumeratieType rechtsvormcategorie;
+    protected String datumFormeelBuitenlandsSinds;
+    protected String datumAkteOprichting;
+
+    /**
+     * Gets the value of the heeftHoofdvestigingBuitenNederland property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getHeeftHoofdvestigingBuitenNederland() {
+<span class="nc" id="L67">        return heeftHoofdvestigingBuitenNederland;</span>
+    }
+
+    /**
+     * Sets the value of the heeftHoofdvestigingBuitenNederland property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setHeeftHoofdvestigingBuitenNederland(EnumeratieType value) {
+<span class="nc" id="L79">        this.heeftHoofdvestigingBuitenNederland = value;</span>
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Gets the value of the omschrijvingRechtsvorm property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOmschrijvingRechtsvorm() {
+<span class="nc" id="L91">        return omschrijvingRechtsvorm;</span>
+    }
+
+    /**
+     * Sets the value of the omschrijvingRechtsvorm property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOmschrijvingRechtsvorm(String value) {
+<span class="nc" id="L103">        this.omschrijvingRechtsvorm = value;</span>
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Gets the value of the datumEersteInschrijvingBuitenland property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDatumEersteInschrijvingBuitenland() {
+<span class="nc" id="L115">        return datumEersteInschrijvingBuitenland;</span>
+    }
+
+    /**
+     * Sets the value of the datumEersteInschrijvingBuitenland property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDatumEersteInschrijvingBuitenland(String value) {
+<span class="nc" id="L127">        this.datumEersteInschrijvingBuitenland = value;</span>
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Gets the value of the zetel property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getZetel() {
+<span class="nc" id="L139">        return zetel;</span>
+    }
+
+    /**
+     * Sets the value of the zetel property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setZetel(String value) {
+<span class="nc" id="L151">        this.zetel = value;</span>
+<span class="nc" id="L152">    }</span>
+
+    /**
+     * Gets the value of the rechtsvormcategorie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public EnumeratieType getRechtsvormcategorie() {
+<span class="nc" id="L163">        return rechtsvormcategorie;</span>
+    }
+
+    /**
+     * Sets the value of the rechtsvormcategorie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EnumeratieType }
+     *     
+     */
+    public void setRechtsvormcategorie(EnumeratieType value) {
+<span class="nc" id="L175">        this.rechtsvormcategorie = value;</span>
+<span class="nc" id="L176">    }</span>
+
+    /**
+     * Gets the value of the datumFormeelBuitenlandsSinds property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDatumFormeelBuitenlandsSinds() {
+<span class="nc" id="L187">        return datumFormeelBuitenlandsSinds;</span>
+    }
+
+    /**
+     * Sets the value of the datumFormeelBuitenlandsSinds property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDatumFormeelBuitenlandsSinds(String value) {
+<span class="nc" id="L199">        this.datumFormeelBuitenlandsSinds = value;</span>
+<span class="nc" id="L200">    }</span>
+
+    /**
+     * Gets the value of the datumAkteOprichting property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDatumAkteOprichting() {
+<span class="nc" id="L211">        return datumAkteOprichting;</span>
+    }
+
+    /**
+     * Sets the value of the datumAkteOprichting property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDatumAkteOprichting(String value) {
+<span class="nc" id="L223">        this.datumAkteOprichting = value;</span>
+<span class="nc" id="L224">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

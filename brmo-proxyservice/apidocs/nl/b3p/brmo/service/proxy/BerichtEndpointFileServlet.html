@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -71,8 +71,8 @@ loadScripts(document, 'script');</script>
 <h1 title="Class BerichtEndpointFileServlet" class="title">Class BerichtEndpointFileServlet</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html" title="class or interface in javax.servlet" class="external-link">javax.servlet.GenericServlet</a>
-<div class="inheritance"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html" title="class or interface in javax.servlet.http" class="external-link">javax.servlet.http.HttpServlet</a>
+<div class="inheritance">javax.servlet.GenericServlet
+<div class="inheritance">javax.servlet.http.HttpServlet
 <div class="inheritance">nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</div>
 </div>
 </div>
@@ -80,11 +80,11 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code>, <code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html" title="class or interface in javax.servlet" class="external-link">Servlet</a></code>, <code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletConfig.html" title="class or interface in javax.servlet" class="external-link">ServletConfig</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code>, <code>javax.servlet.Servlet</code>, <code>javax.servlet.ServletConfig</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">BerichtEndpointFileServlet</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html" title="class or interface in javax.servlet.http" class="external-link">HttpServlet</a></span></div>
+<span class="extends-implements">extends javax.servlet.http.HttpServlet</span></div>
 <div class="block">Endpoint servlet welke geposte bestanden opslaat in een directory conform de configuratie. Deze
  servlet ondersteund gzip compressie. Voorbeeld:<br>
  <code>curl -X POST -H "Content-Type: application/xml"
@@ -135,8 +135,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#doPost(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)" class="member-name-link">doPost</a><wbr>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html" title="class or interface in javax.servlet.http" class="external-link">HttpServletRequest</a>&nbsp;request,
- <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html" title="class or interface in javax.servlet.http" class="external-link">HttpServletResponse</a>&nbsp;response)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#doPost(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)" class="member-name-link">doPost</a><wbr>(javax.servlet.http.HttpServletRequest&nbsp;request,
+ javax.servlet.http.HttpServletResponse&nbsp;response)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Handles the HTTP <code>POST</code>.</div>
 </div>
@@ -147,11 +147,11 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-javax.servlet.http.HttpServlet">Methods inherited from class&nbsp;javax.servlet.http.<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html" title="class or interface in javax.servlet.http" class="external-link">HttpServlet</a></h3>
-<code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doDelete-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doDelete</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doGet-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doGet</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doHead-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doHead</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doOptions-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doOptions</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doPut-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doPut</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doTrace-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doTrace</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#getLastModified-javax.servlet.http.HttpServletRequest-" title="class or interface in javax.servlet.http" class="external-link">getLastModified</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#service-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">service</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#service-javax.servlet.ServletRequest-javax.servlet.ServletResponse-" title="class or interface in javax.servlet.http" class="external-link">service</a></code></div>
+<h3 id="methods-inherited-from-class-javax.servlet.http.HttpServlet">Methods inherited from class&nbsp;javax.servlet.http.HttpServlet</h3>
+<code>doDelete, doGet, doHead, doOptions, doPut, doTrace, getLastModified, service, service</code></div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-javax.servlet.GenericServlet">Methods inherited from class&nbsp;javax.servlet.<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html" title="class or interface in javax.servlet" class="external-link">GenericServlet</a></h3>
-<code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#destroy--" title="class or interface in javax.servlet" class="external-link">destroy</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#getInitParameter-java.lang.String-" title="class or interface in javax.servlet" class="external-link">getInitParameter</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#getInitParameterNames--" title="class or interface in javax.servlet" class="external-link">getInitParameterNames</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#getServletConfig--" title="class or interface in javax.servlet" class="external-link">getServletConfig</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#getServletContext--" title="class or interface in javax.servlet" class="external-link">getServletContext</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#getServletInfo--" title="class or interface in javax.servlet" class="external-link">getServletInfo</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#getServletName--" title="class or interface in javax.servlet" class="external-link">getServletName</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#init-javax.servlet.ServletConfig-" title="class or interface in javax.servlet" class="external-link">init</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#log-java.lang.String-" title="class or interface in javax.servlet" class="external-link">log</a>, <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#log-java.lang.String-java.lang.Throwable-" title="class or interface in javax.servlet" class="external-link">log</a></code></div>
+<h3 id="methods-inherited-from-class-javax.servlet.GenericServlet">Methods inherited from class&nbsp;javax.servlet.GenericServlet</h3>
+<code>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -184,31 +184,31 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="init()">
 <h3>init</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">init</span>()
-          throws <span class="exceptions"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletException.html" title="class or interface in javax.servlet" class="external-link">ServletException</a></span></div>
+          throws <span class="exceptions">javax.servlet.ServletException</span></div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html#init--" title="class or interface in javax.servlet" class="external-link">init</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/GenericServlet.html" title="class or interface in javax.servlet" class="external-link">GenericServlet</a></code></dd>
+<dd><code>init</code>&nbsp;in class&nbsp;<code>javax.servlet.GenericServlet</code></dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletException.html" title="class or interface in javax.servlet" class="external-link">ServletException</a></code></dd>
+<dd><code>javax.servlet.ServletException</code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="doPost(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)">
 <h3>doPost</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">doPost</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html" title="class or interface in javax.servlet.http" class="external-link">HttpServletRequest</a>&nbsp;request,
- <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html" title="class or interface in javax.servlet.http" class="external-link">HttpServletResponse</a>&nbsp;response)</span>
-               throws <span class="exceptions"><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletException.html" title="class or interface in javax.servlet" class="external-link">ServletException</a>,
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">doPost</span><wbr><span class="parameters">(javax.servlet.http.HttpServletRequest&nbsp;request,
+ javax.servlet.http.HttpServletResponse&nbsp;response)</span>
+               throws <span class="exceptions">javax.servlet.ServletException,
 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Handles the HTTP <code>POST</code>.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html#doPost-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-" title="class or interface in javax.servlet.http" class="external-link">doPost</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html" title="class or interface in javax.servlet.http" class="external-link">HttpServlet</a></code></dd>
+<dd><code>doPost</code>&nbsp;in class&nbsp;<code>javax.servlet.http.HttpServlet</code></dd>
 <dt>Parameters:</dt>
 <dd><code>request</code> - servlet request</dd>
 <dd><code>response</code> - servlet response</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletException.html" title="class or interface in javax.servlet" class="external-link">ServletException</a></code> - if a servlet-specific error occurs</dd>
+<dd><code>javax.servlet.ServletException</code> - if a servlet-specific error occurs</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if an I/O error occurs</dd>
 </dl>
 </section>

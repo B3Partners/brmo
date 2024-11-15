@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="bag" type="PostgreSQL - 16.4">
+<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="bag" type="PostgreSQL - 17.1">
    <sequences>
       <sequence increment="1" name="objectid_seq" startValue="1"/>
    </sequences>

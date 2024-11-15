@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -77,12 +77,12 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EventListener.html" title="class or interface in java.util" class="external-link">EventListener</a></code>, <code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html" title="class or interface in javax.servlet" class="external-link">ServletContextListener</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/EventListener.html" title="class or interface in java.util" class="external-link">EventListener</a></code>, <code>javax.servlet.ServletContextListener</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GeotoolsContextListener</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html" title="class or interface in javax.servlet" class="external-link">ServletContextListener</a></span></div>
+implements javax.servlet.ServletContextListener</span></div>
 <dl class="notes">
 <dt>Author:</dt>
 <dd>mprins</dd>
@@ -115,10 +115,10 @@ implements <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletCo
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contextDestroyed(javax.servlet.ServletContextEvent)" class="member-name-link">contextDestroyed</a><wbr>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextEvent.html" title="class or interface in javax.servlet" class="external-link">ServletContextEvent</a>&nbsp;sce)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contextDestroyed(javax.servlet.ServletContextEvent)" class="member-name-link">contextDestroyed</a><wbr>(javax.servlet.ServletContextEvent&nbsp;sce)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contextInitialized(javax.servlet.ServletContextEvent)" class="member-name-link">contextInitialized</a><wbr>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextEvent.html" title="class or interface in javax.servlet" class="external-link">ServletContextEvent</a>&nbsp;sce)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contextInitialized(javax.servlet.ServletContextEvent)" class="member-name-link">contextInitialized</a><wbr>(javax.servlet.ServletContextEvent&nbsp;sce)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -154,20 +154,20 @@ implements <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletCo
 <li>
 <section class="detail" id="contextInitialized(javax.servlet.ServletContextEvent)">
 <h3>contextInitialized</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">contextInitialized</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextEvent.html" title="class or interface in javax.servlet" class="external-link">ServletContextEvent</a>&nbsp;sce)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">contextInitialized</span><wbr><span class="parameters">(javax.servlet.ServletContextEvent&nbsp;sce)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html#contextInitialized-javax.servlet.ServletContextEvent-" title="class or interface in javax.servlet" class="external-link">contextInitialized</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html" title="class or interface in javax.servlet" class="external-link">ServletContextListener</a></code></dd>
+<dd><code>contextInitialized</code>&nbsp;in interface&nbsp;<code>javax.servlet.ServletContextListener</code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="contextDestroyed(javax.servlet.ServletContextEvent)">
 <h3>contextDestroyed</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">contextDestroyed</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextEvent.html" title="class or interface in javax.servlet" class="external-link">ServletContextEvent</a>&nbsp;sce)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">contextDestroyed</span><wbr><span class="parameters">(javax.servlet.ServletContextEvent&nbsp;sce)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html#contextDestroyed-javax.servlet.ServletContextEvent-" title="class or interface in javax.servlet" class="external-link">contextDestroyed</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextListener.html" title="class or interface in javax.servlet" class="external-link">ServletContextListener</a></code></dd>
+<dd><code>contextDestroyed</code>&nbsp;in interface&nbsp;<code>javax.servlet.ServletContextListener</code></dd>
 </dl>
 </section>
 </li>

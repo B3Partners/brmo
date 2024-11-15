@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="brk" type="PostgreSQL - 16.4">
+<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="brk" type="PostgreSQL - 17.1">
    <tables>
       <table name="adres" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar" typeCode="12">
@@ -550,6 +550,12 @@
             <column ascending="true" name="onroerendezaak"/>
             <column ascending="true" name="betreft"/>
          </index>
+         <index name="onroerendezaakfiliatie_betreft_idx" unique="false">
+            <column ascending="true" name="betreft"/>
+         </index>
+         <index name="onroerendezaakfiliatie_onroerendezaak_idx" unique="false">
+            <column ascending="true" name="onroerendezaak"/>
+         </index>
       </table>
       <table name="perceel" remarks="Een perceel is een begrensd deel van het Nederlands grondgebied dat kadastraal geïdentificeerd is en met kadastrale grenzen begrensd is." schema="brk" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar" typeCode="12"/>
@@ -614,7 +620,7 @@
          <index name="persoon_pkey" unique="true">
             <column ascending="true" name="identificatie"/>
          </index>
-         <checkConstraint constraint="(((soort)::text = ANY ((ARRAY['natuurlijkpersoon'::character varying, 'nietnatuurlijkpersoon'::character varying])::text[])))" name="persoon_soort_check"/>
+         <checkConstraint constraint="((soort)::text = ANY ((ARRAY['natuurlijkpersoon'::character varying, 'nietnatuurlijkpersoon'::character varying])::text[]))" name="persoon_soort_check"/>
       </table>
       <table name="publiekrechtelijkebeperking" remarks="Publiekrechtelijke beperkingen zijn beperkingen die door de overheid zijn opgelegd." schema="brk" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar" typeCode="12">
@@ -639,9 +645,6 @@
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar" typeCode="12">
             <child column="betreft" foreignKey="recht_betreft_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
             <child column="geldtvoor" foreignKey="recht_geldtvoor_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
-            <child column="isbestemdtot" foreignKey="recht_isbestemdtot_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
-            <child column="isbetrokkenbij" foreignKey="recht_isbetrokkenbij_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
-            <child column="isontstaanuit" foreignKey="recht_isontstaanuit_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
             <child column="van" foreignKey="recht_van_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
             <child column="aantekening" foreignKey="recht_aantekeningrecht_aantekening_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht_aantekeningrecht"/>
             <child column="tenaamstelling" foreignKey="recht_aantekeningrecht_tenaamstelling_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht_aantekeningrecht"/>
@@ -663,15 +666,9 @@
          <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="rustop" nullable="true" remarks="Relatie van zakelijk recht naar onroerende zaak." size="2147483647" type="varchar" typeCode="12">
             <parent column="identificatie" foreignKey="recht_rustop_fkey" implied="false" onDeleteCascade="false" schema="brk" table="onroerendezaak"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="isontstaanuit" nullable="true" remarks="Relatie van zakelijk recht naar (appartementsrecht) splitsing." size="2147483647" type="varchar" typeCode="12">
-            <parent column="identificatie" foreignKey="recht_isontstaanuit_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="isbetrokkenbij" nullable="true" remarks="Relatie van zakelijk recht naar (appartementsrecht) splitsing." size="2147483647" type="varchar" typeCode="12">
-            <parent column="identificatie" foreignKey="recht_isbetrokkenbij_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="isbestemdtot" nullable="true" remarks="Relatie van zakelijk recht naar mandeligheid." size="2147483647" type="varchar" typeCode="12">
-            <parent column="identificatie" foreignKey="recht_isbestemdtot_fkey" implied="false" onDeleteCascade="false" schema="brk" table="recht"/>
-         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="isontstaanuit" nullable="true" remarks="Relatie van zakelijk recht naar (appartementsrecht) splitsing." size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="isbetrokkenbij" nullable="true" remarks="Relatie van zakelijk recht naar (appartementsrecht) splitsing." size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="isbestemdtot" nullable="true" remarks="Relatie van zakelijk recht naar mandeligheid." size="255" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="soort" nullable="true" remarks="Soort is een nadere aanduiding van de erfpachtcanon." size="22" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="2" id="11" name="jaarlijksbedrag" nullable="true" remarks="Jaarlijksbedrag is het bedrag dat jaarlijks als erpachtcanon moet worden betaald." size="20" type="numeric" typeCode="2"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="jaarlijksbedrag_valuta" nullable="true" remarks="De aanduiding van de valutasoort van het jaarlijksbedrag." size="42" type="varchar" typeCode="12"/>

@@ -80,7 +80,7 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <i class="ion ion-key"></i>
-                            <h3 class="box-title">34 Foreign Key Constraints</h3>
+                            <h3 class="box-title">31 Foreign Key Constraints</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -284,24 +284,6 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>recht_isbestemdtot_fkey</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/recht.html'>recht</a><span>.isbestemdtot</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/recht.html'>recht</a><span>.identificatie</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>recht_rustop_fkey</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
@@ -314,42 +296,6 @@
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
                                                     <td><a href='tables/onroerendezaak.html'>onroerendezaak</a><span>.identificatie</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>recht_isbetrokkenbij_fkey</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/recht.html'>recht</a><span>.isbetrokkenbij</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/recht.html'>recht</a><span>.identificatie</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>recht_isontstaanuit_fkey</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/recht.html'>recht</a><span>.isontstaanuit</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/recht.html'>recht</a><span>.identificatie</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -747,7 +693,7 @@
                                     <tr>
                                         <td><a href='tables/persoon.html'>persoon</a></td>
                                         <td>persoon_soort_check</td>
-                                        <td>(((soort)::text &#61; ANY ((ARRAY[&#39;natuurlijkpersoon&#39;::character varying, &#39;nietnatuurlijkpersoon&#39;::character varying])::text[])))</td>
+                                        <td>((soort)::text &#61; ANY ((ARRAY[&#39;natuurlijkpersoon&#39;::character varying, &#39;nietnatuurlijkpersoon&#39;::character varying])::text[]))</td>
                                     </tr>
                                 </tbody>
                             </table>
