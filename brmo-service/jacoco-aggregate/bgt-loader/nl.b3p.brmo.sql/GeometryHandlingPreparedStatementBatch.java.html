@@ -25,17 +25,17 @@ public class GeometryHandlingPreparedStatementBatch extends PreparedStatementQue
       Boolean[] parameterIsGeometry,
       boolean linearizeCurves)
       throws SQLException {
-<span class="nc" id="L28">    super(c, sql, batchSize);</span>
-<span class="nc" id="L29">    this.dialect = dialect;</span>
-<span class="nc" id="L30">    this.parameterIsGeometry = parameterIsGeometry;</span>
-<span class="nc" id="L31">    this.linearizeCurves = linearizeCurves;</span>
-<span class="nc" id="L32">  }</span>
+<span class="fc" id="L28">    super(c, sql, batchSize);</span>
+<span class="fc" id="L29">    this.dialect = dialect;</span>
+<span class="fc" id="L30">    this.parameterIsGeometry = parameterIsGeometry;</span>
+<span class="fc" id="L31">    this.linearizeCurves = linearizeCurves;</span>
+<span class="fc" id="L32">  }</span>
 
   @Override
   protected void setPreparedStatementParameter(
       int oneBasedParameterIndex, int parameterMetadataType, Object parameter) throws SQLException {
-<span class="nc bnc" id="L37" title="All 2 branches missed.">    if (this.parameterIsGeometry[oneBasedParameterIndex - 1]) {</span>
-<span class="nc" id="L38">      this.dialect.setGeometryParameter(</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">    if (this.parameterIsGeometry[oneBasedParameterIndex - 1]) {</span>
+<span class="fc" id="L38">      this.dialect.setGeometryParameter(</span>
           c,
           ps,
           oneBasedParameterIndex,
@@ -43,8 +43,8 @@ public class GeometryHandlingPreparedStatementBatch extends PreparedStatementQue
           (Geometry) parameter,
           linearizeCurves);
     } else {
-<span class="nc" id="L46">      super.setPreparedStatementParameter(oneBasedParameterIndex, parameterMetadataType, parameter);</span>
+<span class="fc" id="L46">      super.setPreparedStatementParameter(oneBasedParameterIndex, parameterMetadataType, parameter);</span>
     }
-<span class="nc" id="L48">  }</span>
+<span class="fc" id="L48">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
