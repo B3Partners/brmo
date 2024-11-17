@@ -34,6 +34,9 @@ updates:
       - dependency-name: org.apache.cxf:*
         versions:
           - ">= 4"
+      - dependency-name: org.quartz-scheduler:*
+        versions:
+          - ">= 2.5"
 
   - package-ecosystem: "github-actions"
     directory: "/"
