@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Brk2SnapshotXMLReader extends BrmoXMLReader {
   private static final Log log = LogFactory.getLog(Brk2SnapshotXMLReader.class);
-  private final XMLInputFactory factory = XMLInputFactory.newInstance();
+  private final XMLInputFactory factory;
   private final XMLStreamReader streamReader;
   private final Transformer transformer;
   private static final String KAD_OBJ_SNAP = "KadastraalObjectSnapshot";
@@ -59,6 +59,9 @@ public class Brk2SnapshotXMLReader extends BrmoXMLReader {
   public Brk2SnapshotXMLReader(InputStream in)
       throws XMLStreamException, TransformerConfigurationException {
 
+    factory = XMLInputFactory.newInstance();
+    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
     streamReader = factory.createXMLStreamReader(in);
     TransformerFactory tf = TransformerFactory.newInstance();
     transformer = tf.newTransformer();
