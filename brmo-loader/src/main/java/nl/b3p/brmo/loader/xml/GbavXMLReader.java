@@ -43,7 +43,7 @@ public class GbavXMLReader extends BrmoXMLReader {
   private static final Log log = LogFactory.getLog(GbavXMLReader.class);
   private static final String PERSOON = "persoon";
   public static final String PREFIX = "NL.BRP.Persoon.";
-  private final XMLInputFactory factory = XMLInputFactory.newInstance();
+  private final XMLInputFactory factory;
   private final XMLStreamReader streamReader;
   private final Transformer transformer;
   private final XMLOutputFactory xmlof;
@@ -52,6 +52,9 @@ public class GbavXMLReader extends BrmoXMLReader {
 
   public GbavXMLReader(InputStream in)
       throws XMLStreamException, TransformerConfigurationException {
+    factory = XMLInputFactory.newInstance();
+    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
     streamReader = factory.createXMLStreamReader(in);
     TransformerFactory tf = TransformerFactory.newInstance();
     transformer = tf.newTransformer();
