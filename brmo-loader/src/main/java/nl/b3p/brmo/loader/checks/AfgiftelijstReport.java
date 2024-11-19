@@ -18,9 +18,6 @@ package nl.b3p.brmo.loader.checks;
 
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.events.Event;
-import com.itextpdf.kernel.events.IEventHandler;
-import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -29,6 +26,9 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
@@ -41,7 +41,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,7 +63,7 @@ public class AfgiftelijstReport {
   private String datum;
 
   public void createReport(List<Afgifte> afgiftes, String inputFileName, File output)
-      throws FileNotFoundException {
+      throws IOException {
     datum = sdf.format(new Date());
     PdfDocument pdfDoc = new PdfDocument(new PdfWriter(output));
 
@@ -151,21 +150,21 @@ public class AfgiftelijstReport {
   }
 
   private String getStatusString(Afgifte afgifte) {
-    String res = "";
+    StringBuilder res = new StringBuilder();
     Map<STATUS, Integer> stati = afgifte.getStatussen();
     for (STATUS status : stati.keySet()) {
       if (!res.isEmpty()) {
-        res += "\n";
+        res.append("\n");
       }
-      res += status.name() + ":" + stati.get(status);
+      res.append(status.name()).append(":").append(stati.get(status));
     }
     if (res.isEmpty()) {
-      res = "-";
+      res = new StringBuilder("-");
     }
-    return res;
+    return res.toString();
   }
 
-  protected class Footer implements IEventHandler {
+  protected class Footer extends AbstractPdfDocumentEventHandler {
 
     protected PdfFormXObject placeholder;
     protected float side = 20;
@@ -179,7 +178,7 @@ public class AfgiftelijstReport {
     }
 
     @Override
-    public void handleEvent(Event event) {
+    public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
       PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
       PdfDocument pdf = docEvent.getDocument();
       PdfPage page = docEvent.getPage();

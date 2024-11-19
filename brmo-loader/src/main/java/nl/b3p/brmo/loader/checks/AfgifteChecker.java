@@ -18,7 +18,6 @@ package nl.b3p.brmo.loader.checks;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -53,7 +52,7 @@ public class AfgifteChecker {
   }
 
   public void check() {
-    afgiftes.forEach((afgifte) -> check(afgifte));
+    afgiftes.forEach(this::check);
   }
 
   /**
@@ -85,22 +84,21 @@ public class AfgifteChecker {
     List<Bericht> berichten = staging.getBerichtByLaadProces(lp);
     Map<Bericht.STATUS, Integer> counts = afgifte.getStatussen();
     berichten.stream()
-        .map(
+        .peek(
             (bericht) -> {
               if (!counts.containsKey(bericht.getStatus())) {
                 counts.put(bericht.getStatus(), 0);
               }
-              return bericht;
             })
         .forEachOrdered(
             (bericht) -> counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1));
   }
 
-  public File getResults(String input, String f) throws FileNotFoundException {
+  public File getResults(String input, String f) throws IOException {
     return getResults(input, new File(f));
   }
 
-  public File getResults(String input, File f) throws FileNotFoundException {
+  public File getResults(String input, File f) throws IOException {
     AfgiftelijstReport reporter = new AfgiftelijstReport();
 
     reporter.createReport(afgiftes, input, f);
