@@ -1,11 +1,11 @@
 package nl.b3p.brmo.loader.xml;
-import javax.xml.XMLConstants;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
@@ -59,20 +59,13 @@ public class NhrXMLReader extends BrmoXMLReader {
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
     in = new TeeInputStream(in, bos, true);
 
-    // Configure DocumentBuilderFactory to prevent XXE
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-    dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-    dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-
-    // Configure TransformerFactory to prevent XXE
-    TransformerFactory tf = TransformerFactory.newInstance();
-    tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-
     // Split input naar multiple berichten
     DOMResult r = new DOMResult();
-    tf.newTransformer().transform(new StreamSource(in), r);
+    Transformer transformer=splitTemplates.newTransformer();
+    StreamSource source = new StreamSource(in);
+    // Prevent external entity resolution
+    source.setSystemId("");
+    transformer.transform(source, r);
 
     JAXBContext jc = JAXBContext.newInstance(NhrBerichten.class, NhrBericht.class, Bericht.class);
     Unmarshaller unmarshaller = jc.createUnmarshaller();
