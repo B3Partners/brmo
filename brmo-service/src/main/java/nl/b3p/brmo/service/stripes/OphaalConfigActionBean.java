@@ -31,7 +31,6 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
 import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.BRK2ScannerProces;
-import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
@@ -178,38 +177,22 @@ public class OphaalConfigActionBean implements ActionBean {
    * @return an instance of the specified type
    */
   private AutomatischProces getProces(ProcesExecutable.ProcessingImple type) {
-    switch (type) {
-      case BAG2MutatieProces:
-        return new BAG2MutatieProces();
-      case BRK2ScannerProces:
-        return new BRK2ScannerProces();
-      case BRKScannerProces:
-        return new BRKScannerProces();
-      case MailRapportageProces:
-        return new MailRapportageProces();
-      case GDS2OphaalProces:
-        return new GDS2OphaalProces();
-      case BerichtTransformatieProces:
-        return new BerichtTransformatieProces();
-      case BerichtDoorstuurProces:
-        return new BerichtDoorstuurProces();
-      case LaadprocesTransformatieProces:
-        return new LaadprocesTransformatieProces();
-      case MaterializedViewRefresh:
-        return new MaterializedViewRefresh();
-      case BerichtstatusRapportProces:
-        return new BerichtstatusRapportProces();
-      case LaadprocesStatusRapportProces:
-        return new LaadprocesStatusRapportProces();
-      case TopNLScannerProces:
-        return new TopNLScannerProces();
-      case AfgifteNummerScannerProces:
-        return new AfgifteNummerScannerProces();
-      case BGTLoaderProces:
-        return new BGTLoaderProces();
-      default:
-        throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
-    }
+      return switch (type) {
+          case BAG2MutatieProces -> new BAG2MutatieProces();
+          case BRK2ScannerProces -> new BRK2ScannerProces();
+          case MailRapportageProces -> new MailRapportageProces();
+          case GDS2OphaalProces -> new GDS2OphaalProces();
+          case BerichtTransformatieProces -> new BerichtTransformatieProces();
+          case BerichtDoorstuurProces -> new BerichtDoorstuurProces();
+          case LaadprocesTransformatieProces -> new LaadprocesTransformatieProces();
+          case MaterializedViewRefresh -> new MaterializedViewRefresh();
+          case BerichtstatusRapportProces -> new BerichtstatusRapportProces();
+          case LaadprocesStatusRapportProces -> new LaadprocesStatusRapportProces();
+          case TopNLScannerProces -> new TopNLScannerProces();
+          case AfgifteNummerScannerProces -> new AfgifteNummerScannerProces();
+          case BGTLoaderProces -> new BGTLoaderProces();
+          default -> throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
+      };
   }
 
   private ProcesExecutable.ProcessingImple getType(AutomatischProces p) {
