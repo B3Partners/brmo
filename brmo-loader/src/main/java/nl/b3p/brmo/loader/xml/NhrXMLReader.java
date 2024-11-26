@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
@@ -61,7 +60,7 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     // Split input naar multiple berichten
     DOMResult r = new DOMResult();
-    Transformer transformer=splitTemplates.newTransformer();
+    Transformer transformer = splitTemplates.newTransformer();
     StreamSource source = new StreamSource(in);
     // Prevent external entity resolution
     source.setSystemId("");

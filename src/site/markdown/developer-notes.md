@@ -40,7 +40,7 @@ Tevens wordt er om een naam voor een tag gevraagd. In principe kan alle informat
 commandline worden meegegeven, bijvoorbeeld:
 
 ```bash
-mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=4.0.0-SNAPSHOT -DreleaseVersion=4.0.0 -Dtag=v4.0.0 -T1
+mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=5.0.1-SNAPSHOT -DreleaseVersion=5.0.0 -Dtag=v5.0.0 -T1
 mvn release:perform -l rel-perform.log -T1
 ```
 
