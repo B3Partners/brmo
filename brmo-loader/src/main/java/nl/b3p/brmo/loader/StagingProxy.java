@@ -28,7 +28,6 @@ import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BRPXMLReader;
 import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
-import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
 import nl.b3p.brmo.loader.xml.GbavXMLReader;
 import nl.b3p.brmo.loader.xml.NhrXMLReader;
@@ -851,9 +850,7 @@ public class StagingProxy {
     CountingInputStream cis = new CountingInputStream(stream);
 
     BrmoXMLReader brmoXMLReader;
-    if (type.equals(BrmoFramework.BR_BRK)) {
-      brmoXMLReader = new BrkSnapshotXMLReader(cis);
-    } else if (type.equals(BrmoFramework.BR_BRK2)) {
+    if (type.equals(BrmoFramework.BR_BRK2)) {
       brmoXMLReader = new Brk2SnapshotXMLReader(cis);
     } else if (type.equals(BrmoFramework.BR_NHR)) {
       brmoXMLReader = new NhrXMLReader(cis);

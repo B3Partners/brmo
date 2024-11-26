@@ -177,22 +177,23 @@ public class OphaalConfigActionBean implements ActionBean {
    * @return an instance of the specified type
    */
   private AutomatischProces getProces(ProcesExecutable.ProcessingImple type) {
-      return switch (type) {
-          case BAG2MutatieProces -> new BAG2MutatieProces();
-          case BRK2ScannerProces -> new BRK2ScannerProces();
-          case MailRapportageProces -> new MailRapportageProces();
-          case GDS2OphaalProces -> new GDS2OphaalProces();
-          case BerichtTransformatieProces -> new BerichtTransformatieProces();
-          case BerichtDoorstuurProces -> new BerichtDoorstuurProces();
-          case LaadprocesTransformatieProces -> new LaadprocesTransformatieProces();
-          case MaterializedViewRefresh -> new MaterializedViewRefresh();
-          case BerichtstatusRapportProces -> new BerichtstatusRapportProces();
-          case LaadprocesStatusRapportProces -> new LaadprocesStatusRapportProces();
-          case TopNLScannerProces -> new TopNLScannerProces();
-          case AfgifteNummerScannerProces -> new AfgifteNummerScannerProces();
-          case BGTLoaderProces -> new BGTLoaderProces();
-          default -> throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
-      };
+    return switch (type) {
+      case BAG2MutatieProces -> new BAG2MutatieProces();
+      case BRK2ScannerProces -> new BRK2ScannerProces();
+      case MailRapportageProces -> new MailRapportageProces();
+      case GDS2OphaalProces -> new GDS2OphaalProces();
+      case BerichtTransformatieProces -> new BerichtTransformatieProces();
+      case BerichtDoorstuurProces -> new BerichtDoorstuurProces();
+      case LaadprocesTransformatieProces -> new LaadprocesTransformatieProces();
+      case MaterializedViewRefresh -> new MaterializedViewRefresh();
+      case BerichtstatusRapportProces -> new BerichtstatusRapportProces();
+      case LaadprocesStatusRapportProces -> new LaadprocesStatusRapportProces();
+      case TopNLScannerProces -> new TopNLScannerProces();
+      case AfgifteNummerScannerProces -> new AfgifteNummerScannerProces();
+      case BGTLoaderProces -> new BGTLoaderProces();
+      default ->
+          throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
+    };
   }
 
   private ProcesExecutable.ProcessingImple getType(AutomatischProces p) {

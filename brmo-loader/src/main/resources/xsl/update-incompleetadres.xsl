@@ -93,10 +93,7 @@
             </data>
         </root>
     </xsl:template>
-    <!-- 
-    kopie 'describe-locatie' template uit brk-snapshot-to-rsgb-xml.xsl
-    -->
-    <xsl:template name="describe-locatie">
+     <xsl:template name="describe-locatie">
         <xsl:for-each select="adres:PostbusAdres">
             Postbus <xsl:value-of select="adres:postbusnummer"/>, <xsl:value-of select="adres:postcode"/>
             <xsl:text> </xsl:text>

@@ -49,7 +49,6 @@ public class BrmoFramework {
   public static final String BR_GBAV = "gbav";
   public static final String BR_WOZ = "woz";
 
-  public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
   public static final String XSL_BRK2 = "/xsl/brk2-snapshot-to-rsgb-xml.xsl";
   public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-3.0.xsl";
   public static final String XSL_BRP = "/xsl/brp-to-rsgb-xml.xsl";

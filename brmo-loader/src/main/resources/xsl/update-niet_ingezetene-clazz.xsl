@@ -61,7 +61,6 @@
         </root>
     </xsl:template>
 
-    <!-- onderstaande templates 1:1 gekopierd uit brk-snapshot-to-rsgb-xml.xsl -->
     <xsl:template name="nen_identificatie">
         <xsl:param name="id"/>
         <xsl:value-of select="$id/nen:namespace"/>.<xsl:value-of select="$id/nen:lokaalId"/>

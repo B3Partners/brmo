@@ -19,9 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipOutputStream;
 import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -39,7 +36,6 @@ import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
 import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.xml.WozXMLReader;
@@ -47,7 +43,6 @@ import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -364,7 +359,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
       LOG.info("Originele WOZ berichten opnieuw verwerken afgerond.");
     }
   }
-
 
   public void cleanupBerichten(String config, String soort) throws Exception {
     final int offset = 0;
@@ -908,5 +902,4 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     }
     closeQuietly(conn);
   }
-
 }

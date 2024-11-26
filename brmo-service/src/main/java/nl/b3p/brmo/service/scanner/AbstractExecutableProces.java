@@ -39,23 +39,29 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
    */
   public static ProcesExecutable getProces(AutomatischProces config) {
     ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());
-      return switch (imple) {
-          case BAG2MutatieProces -> new BAG2MutatieProcesRunner((BAG2MutatieProces) config);
-          case BRK2ScannerProces -> new BRK2DirectoryScanner((BRK2ScannerProces) config);
-          case MailRapportageProces -> new MailRapportage((MailRapportageProces) config);
-          case GDS2OphaalProces -> new GDS2OphalenProces((GDS2OphaalProces) config);
-          case BerichtTransformatieProces -> new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
-          case BerichtDoorstuurProces -> new BerichtDoorsturenProces((BerichtDoorstuurProces) config);
-          case LaadprocesTransformatieProces ->
-                  new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
-          case MaterializedViewRefresh -> new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);
-          case BerichtstatusRapportProces -> new BerichtstatusRapport((BerichtstatusRapportProces) config);
-          case LaadprocesStatusRapportProces -> new LaadprocesStatusRapport((LaadprocesStatusRapportProces) config);
-          case TopNLScannerProces -> new TopNLDirectoryScanner((TopNLScannerProces) config);
-          case AfgifteNummerScannerProces -> new AfgifteNummerScanner((AfgifteNummerScannerProces) config);
-          case BGTLoaderProces -> new BGTLoader((BGTLoaderProces) config);
-          default -> throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
-      };
+    return switch (imple) {
+      case BAG2MutatieProces -> new BAG2MutatieProcesRunner((BAG2MutatieProces) config);
+      case BRK2ScannerProces -> new BRK2DirectoryScanner((BRK2ScannerProces) config);
+      case MailRapportageProces -> new MailRapportage((MailRapportageProces) config);
+      case GDS2OphaalProces -> new GDS2OphalenProces((GDS2OphaalProces) config);
+      case BerichtTransformatieProces ->
+          new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
+      case BerichtDoorstuurProces -> new BerichtDoorsturenProces((BerichtDoorstuurProces) config);
+      case LaadprocesTransformatieProces ->
+          new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
+      case MaterializedViewRefresh ->
+          new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);
+      case BerichtstatusRapportProces ->
+          new BerichtstatusRapport((BerichtstatusRapportProces) config);
+      case LaadprocesStatusRapportProces ->
+          new LaadprocesStatusRapport((LaadprocesStatusRapportProces) config);
+      case TopNLScannerProces -> new TopNLDirectoryScanner((TopNLScannerProces) config);
+      case AfgifteNummerScannerProces ->
+          new AfgifteNummerScanner((AfgifteNummerScannerProces) config);
+      case BGTLoaderProces -> new BGTLoader((BGTLoaderProces) config);
+      default ->
+          throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
+    };
   }
 
   @Override
@@ -89,7 +95,7 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
    * <pre>
    * loadFromFile(bericht)
    * 	→ stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
-   * 	→ snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of Brk2SnapshotXMLReader die bericht voor bericht uitgelezen kunnen worden
+   * 	→ snapshot reader van de input stream parsed het bericht in een Brk2SnapshotXMLReader die bericht voor bericht uitgelezen kunnen worden
    * 	→ bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
    * 	→ laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
    * 	→ uitlezen xml bericht als

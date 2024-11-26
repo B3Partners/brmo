@@ -45,12 +45,9 @@ import javax.net.ssl.X509TrustManager;
 import javax.persistence.*;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
-import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Brk2Bericht;
-import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
-import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.ClobElement;
@@ -613,25 +610,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
       Date brDatum;
       Integer brVolgordeNummer;
       String brObjectRef;
-      if (BrmoFramework.BR_BRK.equals(brkSoort)) {
-        BrkSnapshotXMLReader reader =
-            new BrkSnapshotXMLReader(
-                new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
-        BrkBericht parsedBericht = reader.next();
-        brXML = parsedBericht.getBrXml();
-        brDatum = parsedBericht.getDatum();
-        brVolgordeNummer = parsedBericht.getVolgordeNummer();
-        brObjectRef = parsedBericht.getObjectRef();
-      } else {
-        Brk2SnapshotXMLReader reader2 =
-            new Brk2SnapshotXMLReader(
-                new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
-        Brk2Bericht parsedBericht = reader2.next();
-        brXML = parsedBericht.getBrXml();
-        brDatum = parsedBericht.getDatum();
-        brVolgordeNummer = parsedBericht.getVolgordeNummer();
-        brObjectRef = parsedBericht.getObjectRef();
-      }
+      Brk2SnapshotXMLReader reader2 =
+          new Brk2SnapshotXMLReader(
+              new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
+      Brk2Bericht parsedBericht = reader2.next();
+      brXML = parsedBericht.getBrXml();
+      brDatum = parsedBericht.getDatum();
+      brVolgordeNummer = parsedBericht.getVolgordeNummer();
+      brObjectRef = parsedBericht.getObjectRef();
 
       if (null != brDatum) {
         b.setDatum(brDatum);
