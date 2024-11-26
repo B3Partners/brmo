@@ -15,7 +15,6 @@ import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
 import nl.b3p.brmo.loader.entity.Brk2Bericht;
-import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
@@ -812,7 +811,7 @@ public class StagingProxy {
    * Laadt het bestand uit de stream in de database.
    *
    * @param stream input
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param fileName naam van het bestand (ter identificatie)
    * @param d bestandsdatum
    * @param listener progress listener
@@ -831,7 +830,7 @@ public class StagingProxy {
    * Laadt het bestand uit de stream in de database.
    *
    * @param stream input
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param fileName naam van het bestand (ter identificatie)
    * @param d bestandsdatum
    * @param automatischProces id van het automatisch proces
@@ -928,14 +927,6 @@ public class StagingProxy {
           log.debug(b);
 
           Bericht existingBericht = getExistingBericht(b);
-          if (type.equals(BrmoFramework.BR_BRK) && !isBerichtGeschreven) {
-            // haal alleen voor eerste
-            BrkBericht brkBericht = (BrkBericht) b;
-            lp.setBestandNaamHersteld(
-                brkBericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
-            updateLaadProcesBestandNaamHersteld(lp);
-          }
-
           // TODO BRK2 bepalen of dit nog nodig is voor BRK2
           if (type.equals(BrmoFramework.BR_BRK2) && !isBerichtGeschreven) {
             // haal alleen voor eerste

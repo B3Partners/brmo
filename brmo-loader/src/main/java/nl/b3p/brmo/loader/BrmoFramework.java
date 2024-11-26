@@ -41,7 +41,6 @@ public class BrmoFramework {
 
   private static final Log log = LogFactory.getLog(BrmoFramework.class);
 
-  public static final String BR_BRK = "brk";
   public static final String BR_BRK2 = "brk2";
   public static final String BR_NHR = "nhr";
   public static final String BR_TOPNL = "topnl";
@@ -427,7 +426,7 @@ public class BrmoFramework {
   /**
    * laden van BR data uit een stream.
    *
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param stream datastream
    * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
    * @throws BrmoException als er een algemene fout optreed
@@ -445,7 +444,7 @@ public class BrmoFramework {
   /**
    * laden van BR data uit een stream.
    *
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param stream datastream
    * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
    * @param automatischProces id van automatisch proces dat deze functie aanroept
@@ -472,7 +471,7 @@ public class BrmoFramework {
   /**
    * laden van BR data uit een stream.
    *
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param stream datastream
    * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
    * @param d bestandsdatum
@@ -490,7 +489,7 @@ public class BrmoFramework {
   /**
    * laden van BR data uit een stream.
    *
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param stream datastream
    * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
    * @param d bestandsdatum
@@ -518,7 +517,7 @@ public class BrmoFramework {
   /**
    * laden van BR data uit een stream.
    *
-   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK}
+   * @param type type registratie, bijv. {@value BrmoFramework#BR_BRK2}
    * @param stream datastream
    * @param fileName te gebruiken bestandsnaam om laadproces te identificeren
    * @param listener mag {@code null} zijn

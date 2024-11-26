@@ -160,39 +160,6 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
               // bij een nieuw proces ook de wiki bijwerken:
               // https://github.com/B3Partners/brmo/wiki/Snelle-updates
               new UpdateProcess(
-                  "Toevoegen BSN aan ingeschreven natuurlijk persoon",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-bsn.xsl"),
-              new UpdateProcess(
-                  "Toevoegen RSIN aan ingeschreven niet-natuurlijk persoon",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-rsin.xsl"),
-              new UpdateProcess(
-                  "Bijwerken van omschrijving, datum en ref_id in brondocument",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-brondocument.xsl"),
-              new UpdateProcess(
-                  "Bijwerken van onvolledig adres",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-incompleetadres.xsl"),
-              new UpdateProcess(
-                  "Bijwerken van rechthebbende VVE op zakelijk recht",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-zak_recht-vve.xsl"),
-              new UpdateProcess(
-                  "Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-niet_ingezetene-clazz.xsl"),
-              new UpdateProcess(
-                  "Bijwerken subject adres comfort data",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-comfort-adres.xsl"),
-              new UpdateProcess(
-                  "Bijwerken ingangsdatum_recht zakelijk recht",
-                  BrmoFramework.BR_BRK,
-                  "/xsl/update-zak_recht-begindatum.xsl",
-                  true),
-              new UpdateProcess(
                   "Bijwerken vestiging activiteit",
                   BrmoFramework.BR_NHR,
                   "/xsl/update-vestg-activiteit.xsl"),

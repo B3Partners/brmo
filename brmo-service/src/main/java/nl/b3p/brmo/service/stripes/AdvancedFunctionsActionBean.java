@@ -202,10 +202,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     advancedFunctionProcesses =
         Arrays.asList(
             new AdvancedFunctionProcess(
-                "Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden",
-                BrmoFramework.BR_BRK,
-                Bericht.STATUS.RSGB_OK.toString()),
-            new AdvancedFunctionProcess(
                 NHR_ARCHIVING, BrmoFramework.BR_NHR, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(
                 NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),
@@ -241,9 +237,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     // Get berichten
     try {
       switch (process.getName()) {
-        case "Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden":
-          cleanupBerichten(process.getConfig(), "brk");
-          break;
         case NHR_ARCHIVING:
           cleanupBerichten(process.getConfig(), BrmoFramework.BR_NHR);
           break;

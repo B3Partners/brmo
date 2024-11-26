@@ -461,13 +461,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
       final String soort =
           this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
-      switch (soort) {
-        case "brk2":
-        case "brk":
-          verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
-          break;
-        default:
-          throw new BrmoException("Onbekende basisregistratie soort: " + soort);
+      if (soort.equals("brk2")) {
+        verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
+      } else {
+        throw new BrmoException("Onbekende basisregistratie soort: " + soort);
       }
 
     } catch (Exception e) {
