@@ -1,6 +1,6 @@
 # BRMO docker
 
-Een project om een dockerfile te maken met daarin een Tomcat instantie waarin :
+Een project om een dockerfile te maken met daarin een Tomcat instantie waarin:
 
 - brmo-service als ROOT applicatie (http://localhost:8080/)
 - postgis database
@@ -14,15 +14,14 @@ mvn install -Dmaven.test.skip=true -B -V -e -fae -q
 mvn clean deploy
 ```
 
-(NB. voor `deploy` is authenticatie nodig middels `docker login` en een geldige `~/.m2/settings.xml`)
+(N.B. voor `deploy` is authenticatie nodig middels `docker login` en een geldige `~/.m2/settings.xml`)
 
 ## run
 
 Start een stack met de bijvoorbeeld volgende command line:
 
 ```shell
-docker compose --env-file ./localhost.env \
-         -p brmo-service up --always-recreate-deps --remove-orphans -d
+docker compose --env-file ./localhost.env -p brmo-service up --always-recreate-deps --remove-orphans -d
 ```
 
 ![deployment diagram](docker-compose.svg)
@@ -40,8 +39,8 @@ Zie verder:
 - https://www.postgresql.org/docs/current/ssl-tcp.html
 
 De juiste client-connect optie voor self-signed certificaten is `sslmode=require`; de server dwingt geen encryptie
-van de verbinding af. Om encryptie af te dwingen te bewerkstelligen dient de `pg_hba.conf` te worden aangepast eea.
-afhankelijk van oa. netwerk configuratie.
+van de verbinding af. Om encryptie af te dwingen te bewerkstelligen dient de `pg_hba.conf` te worden aangepast e.e.a.
+afhankelijk van o.a. netwerk configuratie.
 Bijvoorbeeld met het volgende commando:
 
 ```shell
@@ -52,9 +51,9 @@ vi /var/lib/postgresql/data/pg_hba.conf
 Waarna de laatste regel `host all all all scram-sha-256` naar wens kan kan worden aangepast. Zie verder:
 - https://www.postgresql.org/docs/current/auth-pg-hba-conf.html
 
-### default password reset
+### Default wachtwoord reset
 
-Het default password van de brmo-service dient te worden aangepast voordat er data wordt geladen.
+Het default wachtwoord van de brmo-service dient te worden aangepast voordat er data wordt geladen.
 Gebruik de procedure op https://github.com/B3Partners/brmo/wiki/update-wachtwoord-procedure#versies-vanaf-210
 
 ```shell
@@ -83,11 +82,11 @@ docker cp PKIOkeystore.pfx brmo-service-brmo-1:/opt/brmo-data/NHR/certificaten/k
 docker cp truststore.pfx brmo-service-brmo-1:/opt/brmo-data/NHR/certificaten/kvk.truststore.pfx
 docker restart brmo-service-brmo-1
 ```
-_NB. het pad naar de keystore en truststore zijn hard-coded in de `server.xml` en kunnen niet worden aangepast._
+_N.B. het pad naar de keystore en truststore zijn hard-coded in de `server.xml` en kunnen niet worden aangepast._
 Daarnaast zijn een aantal omgevingvariabelen nodig, welke voor pre-prod en prod HR verschillen.
 - `HR_ACTIVE`: actief of niet `true` of `false`(`false`)
-- `HR_PASS_KEYSTORE`: password voor client keystore (`changeme`)
-- `HR_PASS_TRUSTSTORE`: password voor kvk truststore (`changeme`)
+- `HR_PASS_KEYSTORE`: wachtwoord voor client keystore (`changeme`)
+- `HR_PASS_TRUSTSTORE`: wachtwoord voor KvK truststore (`changeme`)
 - `HR_ISPREPROD`: of pre-prod gebruikt wordt`true` of `false` (`true`)
 - `HR_URL`: data service url (prod of pre-prod service url (`https://webservices.preprod.kvk.nl/postbus1`)
 - `HR_IMAP_RESOURCE`: naam van de global jndi resource `brmo/nhr/email` (`disabled`)
