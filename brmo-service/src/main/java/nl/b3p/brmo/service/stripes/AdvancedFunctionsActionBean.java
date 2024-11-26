@@ -194,9 +194,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
   @Before(stages = LifecycleStage.BindingAndValidation)
   public void populateAdvancedFunctionProcesses() {
-    String brkExportDir = this.getContext().getServletContext().getInitParameter("exportDir.brk");
-    LOG.warn("Instellen BRK export directory op niet-default waarde: " + brkExportDir);
-
     // bij een nieuw proces ook de wiki bijwerken:
     // https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
     advancedFunctionProcesses =

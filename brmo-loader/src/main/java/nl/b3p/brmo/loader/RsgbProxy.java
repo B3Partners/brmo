@@ -986,7 +986,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
    * formatting. De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties zijn:
    *
    * <ul>
-   *   <li>{@code yyyy-MM-dd} (BRK / BRK2)
+   *   <li>{@code yyyy-MM-dd} (BRK2)
    *   <li>{@code yyyyMMddHHmmssSSS0} (BAG)
    * </ul>
    *
@@ -995,7 +995,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
    * @return formatted datum, indien mogelijk in de vorm van {@code otherDate}
    */
   private String formatDateLikeOtherDate(Date newDate, String otherDate) {
-    // 2010-06-29 (BRK/BRK2)
+    // 2010-06-29 (BRK2)
     SimpleDateFormat dfltFmt = new SimpleDateFormat("yyyy-MM-dd");
     // 201006291200000000 (BAG)
     SimpleDateFormat f2 = new SimpleDateFormat("yyyyMMddHHmmssSSS0");

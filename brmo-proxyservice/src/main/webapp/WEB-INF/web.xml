@@ -6,15 +6,6 @@
          metadata-complete="true">
     <display-name>brmo-proxyservices</display-name>
     <servlet>
-        <servlet-name>BRK_file</servlet-name>
-        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
-        <init-param>
-            <description>directory waar bestanden terecht komen</description>
-            <param-name>save_dir</param-name>
-            <param-value>/var/opt/brmo/brk/</param-value>
-        </init-param>
-    </servlet>
-    <servlet>
         <servlet-name>BRK2_file</servlet-name>
         <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
         <init-param>
@@ -30,15 +21,6 @@
             <description>directory waar bestanden terecht komen</description>
             <param-name>save_dir</param-name>
             <param-value>/var/opt/brmo/woz</param-value>
-        </init-param>
-    </servlet>
-    <servlet>
-        <servlet-name>BRK_proxy</servlet-name>
-        <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointProxyServlet</servlet-class>
-        <init-param>
-            <description>BRMO endpoint waarnaartoe door-gepost wordt</description>
-            <param-name>proxy_for_url</param-name>
-            <param-value>http://localhost:8037/brmo-service/post/brk</param-value>
         </init-param>
     </servlet>
     <servlet>
@@ -59,11 +41,6 @@
             <param-value>http://localhost:8037/brmo-service/post/woz</param-value>
         </init-param>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>BRK_file</servlet-name>
-        <!--<servlet-name>BRK_proxy</servlet-name>-->
-        <url-pattern>/post/brk</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BRK2_file</servlet-name>
         <!--<servlet-name>BRK_proxy</servlet-name>-->

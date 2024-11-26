@@ -78,7 +78,6 @@ class BerichtEndpointFileServletTest {
         new File(BerichtEndpointFileServletTest.class.getResource("/test.xml").getFile());
     assertNotNull(expected, "Expected file not found");
     // servlet schrijft naar saveDir,
-    // /tmp/brk/post-op_<yyyy-MM-dd_HH-mm-ss-SSS>_<randomuniek>.xml
     File actual =
         Files.newDirectoryStream(new File(saveDir).toPath(), "*.{xml}").iterator().next().toFile();
 

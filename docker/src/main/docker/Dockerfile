@@ -17,7 +17,6 @@ SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
 RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && mkdir -p /opt/brmo-data/BGT/ \
     && mkdir -p /opt/brmo-data/NHR/certificaten/ \
-    && mkdir -p /opt/brmo-data/BRK/berichtendump \
     && mkdir -p /opt/brmo-data/TOPNL/Top10NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top50NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top100NL/ \

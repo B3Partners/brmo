@@ -35,5 +35,4 @@
     </Realm>
     <Parameter name="stand.transform.max.size" value="-1" override="false"/>
     <Parameter name="pipelining.enabled" value="true" override="false"/>
-    <Parameter name="exportDir.brk" value="true" override="/opt/brmo-data/BRK/berichtendump"/>
 </Context>

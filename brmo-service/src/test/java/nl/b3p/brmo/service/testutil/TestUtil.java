@@ -151,15 +151,6 @@ public abstract class TestUtil {
   @AfterAll
   public static void closeConnections() throws SQLException {
     // JNDI connectie pools niet sluiten!
-    // if (dsStaging != null) {
-    //    dsStaging.close();
-    // }
-    // if (dsRsgb != null) {
-    //    dsRsgb.close();
-    // }
-    // if (dsRsgbBrk != null) {
-    //    dsRsgbBrk.close();
-    // }
     try {
       InitialContext ic = new InitialContext();
       ic.unbind("java:comp/env/jdbc/brmo/rsgb");

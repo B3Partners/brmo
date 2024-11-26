@@ -8,7 +8,7 @@
     <context-param>
         <description>Gebruik (true) multithreaded XSL transformatie/GML parse pipeline of niet (false). Om op correcte wijze WOZ en BRP
             berichten te kunnen verwerken dient deze op false te worden ingesteld - omdat deze geen was/wordt leveren, maar een (onvolledige) toestandmutatie.
-            Voor BRK/nHR berichten kan deze op true worden ingesteld. Eventueel kan dan ook de onderstaande pipelining.capacity worden aangepast.</description>
+            Voor BRK2/nHR berichten kan deze op true worden ingesteld. Eventueel kan dan ook de onderstaande pipelining.capacity worden aangepast.</description>
         <param-name>pipelining.enabled</param-name>
         <param-value>false</param-value>
     </context-param>
@@ -37,12 +37,6 @@
             aan 0 om uit te schakelen. Op snelle PostgreSQL databases kan deze altijd op -1, bij Oracle vrijwel nooit.</description>
         <param-name>stand.transform.max</param-name>
         <param-value>1000000</param-value>
-    </context-param>
-    <context-param>
-        <description>BRK export locatie, een bestaande directory waar de servlet container mag schrijven.
-            Default waarde is /tmp/brkmutaties</description>
-        <param-name>exportDir.brk</param-name>
-        <param-value>/tmp/brkmutaties</param-value>
     </context-param>
     <context-param>
         <description>Aantal uitvoerende threads voor ingeplande taken. Default waarde is 1, bij hogere waarden dient de
