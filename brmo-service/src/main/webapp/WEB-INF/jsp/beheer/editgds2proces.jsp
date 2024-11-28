@@ -27,7 +27,6 @@
     <td>Bericht soort:</td>
     <td><stripes:select name="config['gds2_br_soort']" value="brk2">
             <stripes:option value="brk2">BRK 2</stripes:option>
-            <stripes:option value="brk">BRK</stripes:option>
         </stripes:select>
     </td>
 </tr>

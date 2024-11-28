@@ -1,6 +1,5 @@
 package nl.b3p.brmo.loader;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -26,7 +25,6 @@ import java.util.TreeSet;
 import javax.sql.DataSource;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.entity.Bericht;
@@ -49,7 +47,6 @@ import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.locationtech.jts.io.ParseException;
 import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 /**
  * @author Boy de Wit
@@ -646,39 +643,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
       metaData = this.dbMetadataBrk;
     }
 
-    // TODO BRK2 bepalen of dit nog nodig is voor BRK2
-    if (updateProcess.isUpdateDbXml() && jobBericht.getSoort().equals(BrmoFramework.BR_BRK)) {
-      try {
-        // maak nieuwe DbXml voor het bericht op basis van de br xml en gebruik die in
-        // verdere verwerking
-        Bericht berichtBericht = stagingProxy.getBerichtById(jobBericht.getId());
-        log.trace("job bericht: " + jobBericht);
-        log.trace("origineel bericht: " + berichtBericht);
-        RsgbTransformer t = new RsgbTransformer(BrmoFramework.XSL_BRK);
-        final String newDbXml = t.transformToDbXml(berichtBericht);
-        berichtBericht.setDbXml(newDbXml);
-        jobBericht.setDbXml(newDbXml);
-        berichtBericht.setStatus(Bericht.STATUS.RSGB_OK);
-        berichtBericht.setStatusDatum(new Date());
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        berichtBericht.setOpmerking(
-            String.format(
-                "%s: Middels update proces '%s' her-verwerkt.\nDe eerdere db_xml van dit bericht is vervangen door nieuwe.\n\nOude verwerkingslog\n\n%s",
-                dateTimeFormat.format(new Date()),
-                updateProcess.getName(),
-                berichtBericht.getOpmerking()));
-        log.trace("updated bericht: " + jobBericht);
-        log.trace("job bericht: " + jobBericht);
-        stagingProxy.updateBerichtProcessing(berichtBericht);
-      } catch (SAXException
-          | IOException
-          | TransformerException
-          | ParserConfigurationException
-          | SQLException e) {
-        log.error("Bijwerken van db_xml is mislukt voor bericht " + jobBericht.getId(), e);
-      }
-    }
-
     try {
       if (conn.getAutoCommit()) {
         conn.setAutoCommit(false);
@@ -727,28 +691,17 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
       throws TransformerConfigurationException, ParserConfigurationException {
     RsgbTransformer t = rsgbTransformers.get(brType);
     if (t == null) {
-      switch (brType) {
-        case BrmoFramework.BR_BRK:
-          t = new RsgbTransformer(BrmoFramework.XSL_BRK);
-          break;
-        case BrmoFramework.BR_BRK2:
-          t = new RsgbTransformer(BrmoFramework.XSL_BRK2);
-          break;
-        case BrmoFramework.BR_BRP:
-          t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
-          break;
-        case BrmoFramework.BR_NHR:
-          t = new RsgbTransformer(BrmoFramework.XSL_NHR);
-          break;
-        case BrmoFramework.BR_GBAV:
-          t = new RsgbTransformer(BrmoFramework.XSL_GBAV);
-          break;
-        case BrmoFramework.BR_WOZ:
-          t = new RsgbWOZTransformer(BrmoFramework.XSL_WOZ, this.stagingProxy);
-          break;
-        default:
-          throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
-      }
+      t =
+          switch (brType) {
+            case BrmoFramework.BR_BRK2 -> new RsgbTransformer(BrmoFramework.XSL_BRK2);
+            case BrmoFramework.BR_BRP ->
+                new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
+            case BrmoFramework.BR_NHR -> new RsgbTransformer(BrmoFramework.XSL_NHR);
+            case BrmoFramework.BR_GBAV -> new RsgbTransformer(BrmoFramework.XSL_GBAV);
+            case BrmoFramework.BR_WOZ ->
+                new RsgbWOZTransformer(BrmoFramework.XSL_WOZ, this.stagingProxy);
+            default -> throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
+          };
       rsgbTransformers.put(brType, t);
     }
     return t;
@@ -1033,7 +986,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
    * formatting. De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties zijn:
    *
    * <ul>
-   *   <li>{@code yyyy-MM-dd} (BRK / BRK2)
+   *   <li>{@code yyyy-MM-dd} (BRK2)
    *   <li>{@code yyyyMMddHHmmssSSS0} (BAG)
    * </ul>
    *
@@ -1042,7 +995,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
    * @return formatted datum, indien mogelijk in de vorm van {@code otherDate}
    */
   private String formatDateLikeOtherDate(Date newDate, String otherDate) {
-    // 2010-06-29 (BRK/BRK2)
+    // 2010-06-29 (BRK2)
     SimpleDateFormat dfltFmt = new SimpleDateFormat("yyyy-MM-dd");
     // 201006291200000000 (BAG)
     SimpleDateFormat f2 = new SimpleDateFormat("yyyyMMddHHmmssSSS0");

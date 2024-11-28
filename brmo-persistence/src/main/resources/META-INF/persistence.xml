@@ -9,7 +9,6 @@
         <mapping-file>META-INF/orm-postgresql.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
-        <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRK2ScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <class>nl.b3p.brmo.persistence.staging.NHRInschrijving</class>
@@ -31,7 +30,6 @@
         <mapping-file>META-INF/orm-oracle.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
-        <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRK2ScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <class>nl.b3p.brmo.persistence.staging.NHRInschrijving</class>

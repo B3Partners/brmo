@@ -10,13 +10,13 @@ import nl.b3p.brmo.persistence.TestUtil;
 import org.junit.jupiter.api.Test;
 
 /**
- * Testcase voor {@link nl.b3p.brmo.persistence.staging.BRKScannerProces}.
+ * Testcase voor {@link nl.b3p.brmo.persistence.staging.BRK2ScannerProces}.
  *
  * @author mprins
  */
 public class BRK2ScannerProcesTest extends TestUtil {
 
-  /** round trip test van maken, opslaan en uitlezen van een BRKScannerProces. */
+  /** round trip test van maken, opslaan en uitlezen van een BRK2ScannerProces. */
   @Test
   public void roundtrip() {
     BRK2ScannerProces p = new BRK2ScannerProces();
