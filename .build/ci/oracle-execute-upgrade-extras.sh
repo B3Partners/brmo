@@ -10,11 +10,11 @@ export SQLPATH=./.build/ci
 
 if [ $CURSNAPSHOT = "5.0.0-SNAPSHOT" ] && [ $1 = "rsgb" ]
 then
-#     docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/FREE < ./datamodel/utility_scripts/oracle/205_delete_brk_brondocumenten.sql
+    docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/FREE < ./datamodel/utility_scripts/oracle/205_delete_brk_brondocumenten.sql
     docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/FREE < ./datamodel/extra_scripts/oracle/301_drop_brk1_tabellen.sql
 fi
 
-#if [ $CURSNAPSHOT = "5.0.0-SNAPSHOT" ] && [ $1 = "staging" ]
-#then
-#    docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/FREE < ./datamodel/utility_scripts/oracle/1000_delete_bag_berichten.sql
-#fi
+if [ $CURSNAPSHOT = "5.0.0-SNAPSHOT" ] && [ $1 = "staging" ]
+then
+    docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/FREE < ./datamodel/utility_scripts/oracle/1001_delete_brk1_berichten.sql
+fi
