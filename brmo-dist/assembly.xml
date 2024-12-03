@@ -168,6 +168,14 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../${project.basedir}/datamodel/extra_scripts/</directory>
+            <outputDirectory>db/utility_scripts/4.0.0-5.0.0</outputDirectory>
+            <includes>
+                <include>**/205_*.sql</include>
+                <include>**/1001_*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>
