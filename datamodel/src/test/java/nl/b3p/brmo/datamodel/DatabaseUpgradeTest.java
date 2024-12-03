@@ -73,8 +73,8 @@ public class DatabaseUpgradeTest {
     LOG.debug("release patch is: " + patch);
     previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
     // HACK voor bump
-    if (nextRelease.equalsIgnoreCase("4.0.0")) {
-      previousRelease = "3.0.2";
+    if (nextRelease.equalsIgnoreCase("5.0.0")) {
+      previousRelease = "4.0.0";
     }
     LOG.debug("vorige release is: " + previousRelease);
 
@@ -159,17 +159,8 @@ public class DatabaseUpgradeTest {
     List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
     assertNotNull(viewsFound, "Geen materialized views gevonden");
 
-    List<String> views =
-        Stream.of(
-                // brk 1
-                "mb_subject",
-                "mb_avg_subject",
-                "mb_util_app_re_kad_perceel",
-                "mb_percelenkaart",
-                "mb_zr_rechth",
-                "mb_avg_zr_rechth",
-                "mb_kad_onrrnd_zk_archief")
-            .collect(Collectors.toList());
+    List<String> views = new ArrayList<>();
+
 
     if (this.isPostgis) {
       views.addAll(
