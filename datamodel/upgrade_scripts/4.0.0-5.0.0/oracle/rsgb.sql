@@ -5,6 +5,7 @@
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_4.0.0_naar_5.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

@@ -2,7 +2,8 @@
 -- upgrade PostgreSQL RSGB datamodel van 4.0.0 naar 5.0.0
 --
 
-set search_path = public,bag,brk;
+set search_path = public;
+
 
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd

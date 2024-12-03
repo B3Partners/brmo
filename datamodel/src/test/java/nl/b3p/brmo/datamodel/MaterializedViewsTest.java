@@ -135,14 +135,6 @@ public class MaterializedViewsTest {
 
     List<String> views =
         Stream.of(
-                 // brk in rsgb/public
-                "mb_subject",
-                "mb_avg_subject",
-                "mb_util_app_re_kad_perceel",
-                "mb_percelenkaart",
-                "mb_zr_rechth",
-                "mb_avg_zr_rechth",
-                "mb_kad_onrrnd_zk_archief",
                 // bag 2
                 "mb_adres_bag",
                 "mb_adresseerbaar_object_geometrie_bag",
