@@ -536,14 +536,14 @@ public class Main {
       String autoProcessen = "select id FROM automatisch_proces where dtype = 'GDS2OphaalProces'";
       ResultSet rs = stmt.executeQuery(autoProcessen);
       while (rs.next()) {
-        Long id = rs.getLong(1);
+        long id = rs.getLong(1);
         LOG.info("Ophalen laadprocessen voor automatisch proces: " + id);
         String processen =
             "select id,bestand_naam from laadproces where automatisch_proces = " + id;
         Statement laadprocesStmt = con.createStatement();
         ResultSet lpRs = laadprocesStmt.executeQuery(processen);
         while (lpRs.next()) {
-          Long lpId = lpRs.getLong(1);
+          long lpId = lpRs.getLong(1);
           String bestandsNaam = lpRs.getString(2);
           String berichten =
               "select id, br_orgineel_xml, object_ref from bericht where laadprocesid = " + lpId;
