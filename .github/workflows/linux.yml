@@ -236,22 +236,6 @@ jobs:
           mvn -pl docker,datamodel -am -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true -Ddocker.skip=true install
           mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
-      - name: 'Deploy brmo-service SBOM'
-        uses: DependencyTrack/gh-upload-sbom@v3
-        with:
-          serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
-          apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: 'ae922e6c-e182-46c4-b3fe-272eaeee6d9c'
-          bomfilename: 'brmo-service/target/bom.xml'
-
-      - name: 'Deploy brmo-stufbg204 SBOM'
-        uses: DependencyTrack/gh-upload-sbom@v3
-        with:
-          serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
-          apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
-          project: '72254d7c-c584-4821-b1e7-c806ebcd967e'
-          bomfilename: 'brmo-stufbg204/target/bom.xml'
-
       - name: 'Set up JDK (repo.b3p.nl)'
         uses: actions/setup-java@v4
         with:
