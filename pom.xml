@@ -726,22 +726,6 @@
                 <version>4.4</version>
             </dependency>
             <dependency>
-                <groupId>org.httpunit</groupId>
-                <artifactId>httpunit</artifactId>
-                <version>1.7.3</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.hamcrest</groupId>
-                        <artifactId>hamcrest-core</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>net.javacrumbs.json-unit</groupId>
                 <artifactId>json-unit</artifactId>
                 <version>4.1.0</version>
