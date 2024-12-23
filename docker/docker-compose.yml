@@ -50,6 +50,10 @@ services:
       DB_PASS_STAGING: ${DB_PASS_STAGING:-staging}
       DB_PASS_RSGBBGT: ${DB_PASS_RSGBBGT:-rsgbbgt}
       DB_PASS_TOPNL: ${DB_PASS_TOPNL:-topnl}
+      DB_NAME_RSGB: ${DB_NAME_RSGB:-rsgb}
+      DB_NAME_STAGING: ${DB_NAME_STAGING:-staging}
+      DB_NAME_RSGBBGT: ${DB_NAME_RSGBBGT:-rsgbbgt}
+      DB_NAME_TOPNL: ${DB_NAME_TOPNL:-topnl}
       CATALINA_OPTS: -DMAIL_FROM=${MAIL_FROM:-brmo-no-reply@b3partners.nl}
         -DMAIL_HOST=${MAIL_HOST:-mail.b3partners.nl}
         -DPG_PORT=${PG_PORT:-5432}
@@ -67,6 +71,10 @@ services:
         -DHR_IMAP_USER=${HR_IMAP_USER:-changeme}
         -DHR_IMAP_PASS=${HR_IMAP_PASS:-changeme}
         -DHR_IMAP_HOST=${HR_IMAP_HOST:-mail.b3partners.nl}
+        -DDB_NAME_RSGB=${DB_NAME_RSGB}
+        -DDB_NAME_STAGING=${DB_NAME_STAGING}
+        -DDB_NAME_RSGBBGT=${DB_NAME_RSGBBGT}
+        -DDB_NAME_TOPNL=${DB_NAME_TOPNL}
     depends_on:
       - db
     restart: unless-stopped
