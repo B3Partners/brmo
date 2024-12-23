@@ -61,7 +61,7 @@ Gebruik de procedure op https://github.com/B3Partners/brmo/wiki/update-wachtwoor
 /usr/local/tomcat/bin/digest.sh -a PBKDF2WithHmacSHA512 -i 100000 -s 16 -k 256 -h "org.apache.catalina.realm.SecretKeyCredentialHandler" <STERK WACHTWOORD>
 ```
 
-Update in de database container
+Update het wachtwoord in de database container
 
 ```shell
 # login staging db
