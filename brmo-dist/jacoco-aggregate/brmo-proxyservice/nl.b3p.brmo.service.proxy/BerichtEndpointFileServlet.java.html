@@ -21,15 +21,15 @@ import org.apache.commons.logging.LogFactory;
  * Endpoint servlet welke geposte bestanden opslaat in een directory conform de configuratie. Deze
  * servlet ondersteund gzip compressie. Voorbeeld:&lt;br&gt;
  * {@code curl -X POST -H &quot;Content-Type: application/xml&quot;
- * http://localhost:8037/brmo-proxyservice/post/brk -d @'pom.xml'} &lt;br&gt;
+ * http://localhost:8037/brmo-proxyservice/post/brk2 -d @'pom.xml'} &lt;br&gt;
  * of met gzip compressie:&lt;br&gt;
  * {@code curl -v -s --trace-ascii http_trace.log --data-binary @src/test/resources/web.xml.gz -H
  * &quot;Content-Type: text/xml&quot; -H &quot;Content-Encoding: gzip&quot; -X POST
- * http://localhost:8037/brmo-proxyservice/post/brk} &lt;br&gt;
+ * http://localhost:8037/brmo-proxyservice/post/brk2} &lt;br&gt;
  * of met certificaat authenticatie en wget:&lt;br&gt;
  * {@code wget --post-file=&quot;test.xml&quot; --append-output=logs/wget.log --ca-cert=./ca.pem
- * --certificate=./client.pem --private-key=./key.pem https://somehost.nl/brmo-proxyservice/post/brk
- * -O - &gt;&gt; output.log}
+ * --certificate=./client.pem --private-key=./key.pem
+ * https://somehost.nl/brmo-proxyservice/post/brk2 -O - &gt;&gt; output.log}
  *
  * @author mprins
  */

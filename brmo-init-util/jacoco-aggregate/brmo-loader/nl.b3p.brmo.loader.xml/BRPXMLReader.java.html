@@ -73,77 +73,80 @@ public class BRPXMLReader extends BrmoXMLReader {
 <span class="nc" id="L73">    soort = BrmoFramework.BR_BRP;</span>
 <span class="nc" id="L74">    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
 <span class="nc" id="L75">    factory.setNamespaceAware(true);</span>
-<span class="nc" id="L76">    DocumentBuilder builder = factory.newDocumentBuilder();</span>
-<span class="nc" id="L77">    Document doc = builder.parse(in);</span>
+<span class="nc" id="L76">    factory.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);</span>
+<span class="nc" id="L77">    factory.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, false);</span>
+<span class="nc" id="L78">    factory.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);</span>
+<span class="nc" id="L79">    DocumentBuilder builder = factory.newDocumentBuilder();</span>
+<span class="nc" id="L80">    Document doc = builder.parse(in);</span>
 
-<span class="nc" id="L79">    TransformerFactory tf = TransformerFactory.newInstance();</span>
-<span class="nc" id="L80">    tf.setURIResolver(</span>
+<span class="nc" id="L82">    TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="nc" id="L83">    tf.setURIResolver(</span>
         (href, base) -&gt;
-<span class="nc" id="L82">            new StreamSource(RsgbTransformer.class.getResourceAsStream(&quot;/xsl/&quot; + href)));</span>
+<span class="nc" id="L85">            new StreamSource(RsgbTransformer.class.getResourceAsStream(&quot;/xsl/&quot; + href)));</span>
 
-<span class="nc" id="L84">    Source xsl = new StreamSource(BRPXMLReader.class.getResourceAsStream(pathToXsl));</span>
-<span class="nc" id="L85">    this.template = tf.newTemplates(xsl);</span>
+<span class="nc" id="L87">    Source xsl = new StreamSource(BRPXMLReader.class.getResourceAsStream(pathToXsl));</span>
+<span class="nc" id="L88">    this.template = tf.newTemplates(xsl);</span>
 
-<span class="nc" id="L87">    nodes = doc.getDocumentElement().getChildNodes();</span>
-<span class="nc" id="L88">    index = 0;</span>
-<span class="nc" id="L89">  }</span>
+<span class="nc" id="L90">    nodes = doc.getDocumentElement().getChildNodes();</span>
+<span class="nc" id="L91">    index = 0;</span>
+<span class="nc" id="L92">  }</span>
 
   @Override
   public boolean hasNext() throws Exception {
-<span class="nc bnc" id="L93" title="All 2 branches missed.">    return index &lt; nodes.getLength();</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">    return index &lt; nodes.getLength();</span>
   }
 
   @Override
   public Bericht next() throws Exception {
-<span class="nc" id="L98">    Node n = nodes.item(index);</span>
-<span class="nc" id="L99">    index++;</span>
-<span class="nc" id="L100">    String object_ref = getObjectRef(n);</span>
-<span class="nc" id="L101">    StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L102">    Bericht old =</span>
-<span class="nc" id="L103">        staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());</span>
+<span class="nc" id="L101">    Node n = nodes.item(index);</span>
+<span class="nc" id="L102">    index++;</span>
+<span class="nc" id="L103">    String object_ref = getObjectRef(n);</span>
+<span class="nc" id="L104">    StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L105">    Bericht old =</span>
+<span class="nc" id="L106">        staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());</span>
 
     // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor
     // template gebruikt worden, maar de gewone.
 
     Transformer t;
 
-<span class="nc bnc" id="L110" title="All 2 branches missed.">    if (old != null) {</span>
-<span class="nc" id="L111">      t = this.template.newTransformer();</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    if (old != null) {</span>
+<span class="nc" id="L114">      t = this.template.newTransformer();</span>
     } else {
-<span class="nc" id="L113">      t = TransformerFactory.newInstance().newTransformer();</span>
+<span class="nc" id="L116">      t = TransformerFactory.newInstance().newTransformer();</span>
     }
 
-<span class="nc" id="L116">    t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
-<span class="nc" id="L117">    t.transform(new DOMSource(n), new StreamResult(sw)); // new StreamResult(outputStream));</span>
+<span class="nc" id="L119">    t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
+<span class="nc" id="L120">    t.transform(new DOMSource(n), new StreamResult(sw)); // new StreamResult(outputStream));</span>
 
-<span class="nc" id="L119">    Map&lt;String, String&gt; bsns = extractBSN(n);</span>
+<span class="nc" id="L122">    Map&lt;String, String&gt; bsns = extractBSN(n);</span>
 
-<span class="nc" id="L121">    String el = getXML(bsns);</span>
-<span class="nc" id="L122">    String origXML = sw.toString();</span>
-<span class="nc" id="L123">    String brXML = &quot;&lt;root&gt;&quot; + origXML;</span>
-<span class="nc" id="L124">    brXML += el + &quot;&lt;/root&gt;&quot;;</span>
-<span class="nc" id="L125">    Bericht b = new Bericht(brXML);</span>
-<span class="nc" id="L126">    b.setBrOrgineelXml(origXML);</span>
-<span class="nc" id="L127">    b.setVolgordeNummer(index);</span>
-<span class="nc" id="L128">    b.setObjectRef(object_ref);</span>
-<span class="nc" id="L129">    b.setSoort(BrmoFramework.BR_BRP);</span>
-<span class="nc" id="L130">    b.setDatum(getBestandsDatum());</span>
-<span class="nc" id="L131">    return b;</span>
+<span class="nc" id="L124">    String el = getXML(bsns);</span>
+<span class="nc" id="L125">    String origXML = sw.toString();</span>
+<span class="nc" id="L126">    String brXML = &quot;&lt;root&gt;&quot; + origXML;</span>
+<span class="nc" id="L127">    brXML += el + &quot;&lt;/root&gt;&quot;;</span>
+<span class="nc" id="L128">    Bericht b = new Bericht(brXML);</span>
+<span class="nc" id="L129">    b.setBrOrgineelXml(origXML);</span>
+<span class="nc" id="L130">    b.setVolgordeNummer(index);</span>
+<span class="nc" id="L131">    b.setObjectRef(object_ref);</span>
+<span class="nc" id="L132">    b.setSoort(BrmoFramework.BR_BRP);</span>
+<span class="nc" id="L133">    b.setDatum(getBestandsDatum());</span>
+<span class="nc" id="L134">    return b;</span>
   }
 
   private String getObjectRef(Node n) {
-<span class="nc" id="L135">    NodeList childs = n.getChildNodes();</span>
-<span class="nc" id="L136">    String hash = null;</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">    for (int i = 0; i &lt; childs.getLength(); i++) {</span>
-<span class="nc" id="L138">      Node child = childs.item(i);</span>
-<span class="nc" id="L139">      String name = child.getNodeName();</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">      if (name.contains(&quot;bsn-nummer&quot;)) {</span>
-<span class="nc" id="L141">        hash = child.getTextContent();</span>
-<span class="nc" id="L142">        hash = getHash(hash);</span>
-<span class="nc" id="L143">        break;</span>
+<span class="nc" id="L138">    NodeList childs = n.getChildNodes();</span>
+<span class="nc" id="L139">    String hash = null;</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">    for (int i = 0; i &lt; childs.getLength(); i++) {</span>
+<span class="nc" id="L141">      Node child = childs.item(i);</span>
+<span class="nc" id="L142">      String name = child.getNodeName();</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">      if (name.contains(&quot;bsn-nummer&quot;)) {</span>
+<span class="nc" id="L144">        hash = child.getTextContent();</span>
+<span class="nc" id="L145">        hash = getHash(hash);</span>
+<span class="nc" id="L146">        break;</span>
       }
     }
-<span class="nc" id="L146">    return PREFIX + hash;</span>
+<span class="nc" id="L149">    return PREFIX + hash;</span>
   }
 
   /**
@@ -154,34 +157,34 @@ public class BRPXMLReader extends BrmoXMLReader {
    * @throws XPathExpressionException if any
    */
   public Map&lt;String, String&gt; extractBSN(Node n) throws XPathExpressionException {
-<span class="nc" id="L157">    Map&lt;String, String&gt; hashes = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L160">    Map&lt;String, String&gt; hashes = new HashMap&lt;&gt;();</span>
 
-<span class="nc" id="L159">    XPathFactory xPathfactory = XPathFactory.newInstance();</span>
-<span class="nc" id="L160">    XPath xpath = xPathfactory.newXPath();</span>
-<span class="nc" id="L161">    XPathExpression expr = xpath.compile(&quot;//*[local-name() = 'bsn-nummer']&quot;);</span>
-<span class="nc" id="L162">    NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">    for (int i = 0; i &lt; nodelist.getLength(); i++) {</span>
-<span class="nc" id="L164">      Node bsn = nodelist.item(i);</span>
-<span class="nc" id="L165">      String bsnString = bsn.getTextContent();</span>
-<span class="nc" id="L166">      String hash = getHash(bsnString);</span>
-<span class="nc" id="L167">      hashes.put(bsnString, hash);</span>
+<span class="nc" id="L162">    XPathFactory xPathfactory = XPathFactory.newInstance();</span>
+<span class="nc" id="L163">    XPath xpath = xPathfactory.newXPath();</span>
+<span class="nc" id="L164">    XPathExpression expr = xpath.compile(&quot;//*[local-name() = 'bsn-nummer']&quot;);</span>
+<span class="nc" id="L165">    NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">    for (int i = 0; i &lt; nodelist.getLength(); i++) {</span>
+<span class="nc" id="L167">      Node bsn = nodelist.item(i);</span>
+<span class="nc" id="L168">      String bsnString = bsn.getTextContent();</span>
+<span class="nc" id="L169">      String hash = getHash(bsnString);</span>
+<span class="nc" id="L170">      hashes.put(bsnString, hash);</span>
     }
-<span class="nc" id="L169">    return hashes;</span>
+<span class="nc" id="L172">    return hashes;</span>
   }
 
   public String getXML(Map&lt;String, String&gt; map) throws ParserConfigurationException {
-<span class="nc" id="L173">    String root = &quot;&lt;bsnhashes&gt;&quot;;</span>
-<span class="nc bnc" id="L174" title="All 2 branches missed.">    for (Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
-<span class="nc bnc" id="L175" title="All 4 branches missed.">      if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
-<span class="nc" id="L176">        String hash = entry.getValue();</span>
+<span class="nc" id="L176">    String root = &quot;&lt;bsnhashes&gt;&quot;;</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">    for (Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
+<span class="nc bnc" id="L178" title="All 4 branches missed.">      if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
+<span class="nc" id="L179">        String hash = entry.getValue();</span>
 
-<span class="nc" id="L178">        String el =</span>
-<span class="nc" id="L179">            &quot;&lt;&quot; + PREFIX + entry.getKey() + &quot;&gt;&quot; + hash + &quot;&lt;/&quot; + PREFIX + entry.getKey() + &quot;&gt;&quot;;</span>
-<span class="nc" id="L180">        root += el;</span>
+<span class="nc" id="L181">        String el =</span>
+<span class="nc" id="L182">            &quot;&lt;&quot; + PREFIX + entry.getKey() + &quot;&gt;&quot; + hash + &quot;&lt;/&quot; + PREFIX + entry.getKey() + &quot;&gt;&quot;;</span>
+<span class="nc" id="L183">        root += el;</span>
       }
-<span class="nc" id="L182">    }</span>
-<span class="nc" id="L183">    root += &quot;&lt;/bsnhashes&gt;&quot;;</span>
-<span class="nc" id="L184">    return root;</span>
+<span class="nc" id="L185">    }</span>
+<span class="nc" id="L186">    root += &quot;&lt;/bsnhashes&gt;&quot;;</span>
+<span class="nc" id="L187">    return root;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

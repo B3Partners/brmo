@@ -200,7 +200,7 @@
                                     <td><p>N8 - Datum ingang familierechtelijke betrekking</p></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="ouder_aand">ouder_aand</span></td>
+                                    <td><span id="ouder_aand">ouder_aand</span></td>
                                     <td>varchar</td>
                                     <td>6</td>
                                     <td title='nullable'>√</td>
@@ -212,11 +212,6 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="ouder_kind_rel.ouder_aand&#39;s name implies that it&#39;s a child of aard_verkregen_recht.aand, but it doesn&#39;t reference that column."><a href='aard_verkregen_recht.html'>aard_verkregen_recht</a><span class='relatedKey'>.aand</span></td>
-                                                <td class="constraint detail">Implied Constraint</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td><p>AN6 - Ouder-aanduiding</p></td>
@@ -305,28 +300,23 @@
                                     <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
 <area shape="rect" id="node1" href="ouder_kind_rel.html" target="_top" title="ouder_kind_rel" alt="" coords="361,5,763,221">
-<area shape="rect" id="node2" href="ingeschr_nat_prs.html" target="_top" title="ingeschr_nat_prs" alt="" coords="5,8,317,331">
-<area shape="rect" id="node3" href="aard_verkregen_recht.html" target="_top" title="aard_verkregen_recht" alt="" coords="13,348,310,465">
+<area shape="rect" id="node2" href="ingeschr_nat_prs.html" target="_top" title="ingeschr_nat_prs" alt="" coords="5,23,317,345">
 </map>
                                         <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/ouder_kind_rel.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="huishoudenrel.html" target="_top" title="huishoudenrel" alt="" coords="657,111,857,199">
-<area shape="rect" id="node2" href="ingeschr_nat_prs.html" target="_top" title="ingeschr_nat_prs" alt="" coords="200,124,512,447">
-<area shape="rect" id="node4" href="land.html" target="_top" title="land" alt="" coords="21,185,140,273">
-<area shape="rect" id="node5" href="rsdoc.html" target="_top" title="rsdoc" alt="" coords="17,411,144,499">
-<area shape="rect" id="node6" href="nation.html" target="_top" title="nation" alt="" coords="5,291,156,379">
-<area shape="rect" id="node7" href="nat_prs.html" target="_top" title="nat_prs" alt="" coords="9,80,152,168">
-<area shape="rect" id="node3" href="huw_ger_partn.html" target="_top" title="huw_ger_partn" alt="" coords="655,5,858,93">
-<area shape="rect" id="node8" href="ingezetene.html" target="_top" title="ingezetene" alt="" coords="671,216,843,304">
-<area shape="rect" id="node9" href="niet_ingezetene.html" target="_top" title="niet_ingezetene" alt="" coords="651,321,862,409">
-<area shape="rect" id="node10" href="ouder_kind_rel.html" target="_top" title="ouder_kind_rel" alt="" coords="556,532,957,748">
-<area shape="rect" id="node11" href="aard_verkregen_recht.html" target="_top" title="aard_verkregen_recht" alt="" coords="207,803,505,920">
-<area shape="rect" id="node12" href="rsdoc_ingeschr_nat_prs.html" target="_top" title="rsdoc_ingeschr_nat_prs" alt="" coords="623,427,891,515">
-<area shape="rect" id="node13" href="vb_util_zk_recht.html" target="_top" title="vb_util_zk_recht" alt="" coords="653,765,860,829">
-<area shape="rect" id="node14" href="zak_recht.html" target="_top" title="zak_recht" alt="" coords="677,847,837,935">
-<area shape="rect" id="node15" href="zak_recht_archief.html" target="_top" title="zak_recht_archief" alt="" coords="645,952,868,1040">
+<area shape="rect" id="node1" href="huishoudenrel.html" target="_top" title="huishoudenrel" alt="" coords="657,344,857,432">
+<area shape="rect" id="node2" href="ingeschr_nat_prs.html" target="_top" title="ingeschr_nat_prs" alt="" coords="200,349,512,672">
+<area shape="rect" id="node4" href="land.html" target="_top" title="land" alt="" coords="21,557,140,645">
+<area shape="rect" id="node5" href="rsdoc.html" target="_top" title="rsdoc" alt="" coords="17,124,144,212">
+<area shape="rect" id="node6" href="nation.html" target="_top" title="nation" alt="" coords="5,452,156,540">
+<area shape="rect" id="node7" href="nat_prs.html" target="_top" title="nat_prs" alt="" coords="9,347,152,435">
+<area shape="rect" id="node3" href="huw_ger_partn.html" target="_top" title="huw_ger_partn" alt="" coords="655,660,858,748">
+<area shape="rect" id="node8" href="ingezetene.html" target="_top" title="ingezetene" alt="" coords="671,449,843,537">
+<area shape="rect" id="node9" href="niet_ingezetene.html" target="_top" title="niet_ingezetene" alt="" coords="651,555,862,643">
+<area shape="rect" id="node10" href="ouder_kind_rel.html" target="_top" title="ouder_kind_rel" alt="" coords="556,111,957,327">
+<area shape="rect" id="node11" href="rsdoc_ingeschr_nat_prs.html" target="_top" title="rsdoc_ingeschr_nat_prs" alt="" coords="623,5,891,93">
 </map>
                                         <a name='diagram'><img id="twoimpliedDegreeImg" src="../diagrams/tables/ouder_kind_rel.implied2degrees.png" usemap="#twoDegreesRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>

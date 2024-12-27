@@ -33,23 +33,26 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   HalLink.JSON_PROPERTY_REL,
   HalLink.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.9.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.10.0&quot;)
 public class HalLink {
   public static final String JSON_PROPERTY_HREF = &quot;href&quot;;
+  @javax.annotation.Nonnull
   private String href;
 
   public static final String JSON_PROPERTY_REL = &quot;rel&quot;;
+  @javax.annotation.Nullable
   private String rel;
 
   public static final String JSON_PROPERTY_TYPE = &quot;type&quot;;
+  @javax.annotation.Nullable
   private String type;
 
-<span class="nc" id="L47">  public HalLink() { </span>
-<span class="nc" id="L48">  }</span>
+<span class="nc" id="L50">  public HalLink() { </span>
+<span class="nc" id="L51">  }</span>
 
-  public HalLink href(String href) {
-<span class="nc" id="L51">    this.href = href;</span>
-<span class="nc" id="L52">    return this;</span>
+  public HalLink href(@javax.annotation.Nonnull String href) {
+<span class="nc" id="L54">    this.href = href;</span>
+<span class="nc" id="L55">    return this;</span>
   }
 
   /**
@@ -60,20 +63,20 @@ public class HalLink {
   @JsonProperty(JSON_PROPERTY_HREF)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getHref() {
-<span class="nc" id="L63">    return href;</span>
+<span class="nc" id="L66">    return href;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_HREF)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setHref(String href) {
-<span class="nc" id="L70">    this.href = href;</span>
-<span class="nc" id="L71">  }</span>
+  public void setHref(@javax.annotation.Nonnull String href) {
+<span class="nc" id="L73">    this.href = href;</span>
+<span class="nc" id="L74">  }</span>
 
 
-  public HalLink rel(String rel) {
-<span class="nc" id="L75">    this.rel = rel;</span>
-<span class="nc" id="L76">    return this;</span>
+  public HalLink rel(@javax.annotation.Nullable String rel) {
+<span class="nc" id="L78">    this.rel = rel;</span>
+<span class="nc" id="L79">    return this;</span>
   }
 
   /**
@@ -84,20 +87,20 @@ public class HalLink {
   @JsonProperty(JSON_PROPERTY_REL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getRel() {
-<span class="nc" id="L87">    return rel;</span>
+<span class="nc" id="L90">    return rel;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_REL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRel(String rel) {
-<span class="nc" id="L94">    this.rel = rel;</span>
-<span class="nc" id="L95">  }</span>
+  public void setRel(@javax.annotation.Nullable String rel) {
+<span class="nc" id="L97">    this.rel = rel;</span>
+<span class="nc" id="L98">  }</span>
 
 
-  public HalLink type(String type) {
-<span class="nc" id="L99">    this.type = type;</span>
-<span class="nc" id="L100">    return this;</span>
+  public HalLink type(@javax.annotation.Nullable String type) {
+<span class="nc" id="L102">    this.type = type;</span>
+<span class="nc" id="L103">    return this;</span>
   }
 
   /**
@@ -108,15 +111,15 @@ public class HalLink {
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getType() {
-<span class="nc" id="L111">    return type;</span>
+<span class="nc" id="L114">    return type;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(String type) {
-<span class="nc" id="L118">    this.type = type;</span>
-<span class="nc" id="L119">  }</span>
+  public void setType(@javax.annotation.Nullable String type) {
+<span class="nc" id="L121">    this.type = type;</span>
+<span class="nc" id="L122">  }</span>
 
 
   /**
@@ -124,32 +127,32 @@ public class HalLink {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L127" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L128">      return true;</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L131">      return true;</span>
     }
-<span class="nc bnc" id="L130" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L131">      return false;</span>
+<span class="nc bnc" id="L133" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L134">      return false;</span>
     }
-<span class="nc" id="L133">    HalLink halLink = (HalLink) o;</span>
-<span class="nc bnc" id="L134" title="All 2 branches missed.">    return Objects.equals(this.href, halLink.href) &amp;&amp;</span>
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        Objects.equals(this.rel, halLink.rel) &amp;&amp;</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">        Objects.equals(this.type, halLink.type);</span>
+<span class="nc" id="L136">    HalLink halLink = (HalLink) o;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">    return Objects.equals(this.href, halLink.href) &amp;&amp;</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        Objects.equals(this.rel, halLink.rel) &amp;&amp;</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        Objects.equals(this.type, halLink.type);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L141">    return Objects.hash(href, rel, type);</span>
+<span class="nc" id="L144">    return Objects.hash(href, rel, type);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L146">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L147">    sb.append(&quot;class HalLink {\n&quot;);</span>
-<span class="nc" id="L148">    sb.append(&quot;    href: &quot;).append(toIndentedString(href)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L149">    sb.append(&quot;    rel: &quot;).append(toIndentedString(rel)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L150">    sb.append(&quot;    type: &quot;).append(toIndentedString(type)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L151">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L152">    return sb.toString();</span>
+<span class="nc" id="L149">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L150">    sb.append(&quot;class HalLink {\n&quot;);</span>
+<span class="nc" id="L151">    sb.append(&quot;    href: &quot;).append(toIndentedString(href)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L152">    sb.append(&quot;    rel: &quot;).append(toIndentedString(rel)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L153">    sb.append(&quot;    type: &quot;).append(toIndentedString(type)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L154">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L155">    return sb.toString();</span>
   }
 
   /**
@@ -157,10 +160,10 @@ public class HalLink {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L160" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L161">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L164">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L163">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L166">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 

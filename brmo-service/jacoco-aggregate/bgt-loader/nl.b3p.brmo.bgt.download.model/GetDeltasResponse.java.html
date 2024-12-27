@@ -36,28 +36,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   GetDeltasResponse.JSON_PROPERTY_LINKS,
   GetDeltasResponse.JSON_PROPERTY_DELTAS
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.9.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.10.0&quot;)
 public class GetDeltasResponse {
   public static final String JSON_PROPERTY_LINKS = &quot;_links&quot;;
-<span class="nc" id="L42">  private List&lt;HalLink&gt; links = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L42">  @javax.annotation.Nonnull</span>
+  private List&lt;HalLink&gt; links = new ArrayList&lt;&gt;();
 
   public static final String JSON_PROPERTY_DELTAS = &quot;deltas&quot;;
-<span class="nc" id="L45">  private List&lt;Delta&gt; deltas = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L46">  @javax.annotation.Nonnull</span>
+  private List&lt;Delta&gt; deltas = new ArrayList&lt;&gt;();
 
-<span class="nc" id="L47">  public GetDeltasResponse() { </span>
-<span class="nc" id="L48">  }</span>
+<span class="nc" id="L49">  public GetDeltasResponse() { </span>
+<span class="nc" id="L50">  }</span>
 
-  public GetDeltasResponse links(List&lt;HalLink&gt; links) {
-<span class="nc" id="L51">    this.links = links;</span>
-<span class="nc" id="L52">    return this;</span>
+  public GetDeltasResponse links(@javax.annotation.Nonnull List&lt;HalLink&gt; links) {
+<span class="nc" id="L53">    this.links = links;</span>
+<span class="nc" id="L54">    return this;</span>
   }
 
   public GetDeltasResponse addLinksItem(HalLink linksItem) {
-<span class="nc bnc" id="L56" title="All 2 branches missed.">    if (this.links == null) {</span>
-<span class="nc" id="L57">      this.links = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">    if (this.links == null) {</span>
+<span class="nc" id="L59">      this.links = new ArrayList&lt;&gt;();</span>
     }
-<span class="nc" id="L59">    this.links.add(linksItem);</span>
-<span class="nc" id="L60">    return this;</span>
+<span class="nc" id="L61">    this.links.add(linksItem);</span>
+<span class="nc" id="L62">    return this;</span>
   }
 
   /**
@@ -68,28 +70,28 @@ public class GetDeltasResponse {
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List&lt;HalLink&gt; getLinks() {
-<span class="nc" id="L71">    return links;</span>
+<span class="nc" id="L73">    return links;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLinks(List&lt;HalLink&gt; links) {
-<span class="nc" id="L78">    this.links = links;</span>
-<span class="nc" id="L79">  }</span>
+  public void setLinks(@javax.annotation.Nonnull List&lt;HalLink&gt; links) {
+<span class="nc" id="L80">    this.links = links;</span>
+<span class="nc" id="L81">  }</span>
 
 
-  public GetDeltasResponse deltas(List&lt;Delta&gt; deltas) {
-<span class="nc" id="L83">    this.deltas = deltas;</span>
-<span class="nc" id="L84">    return this;</span>
+  public GetDeltasResponse deltas(@javax.annotation.Nonnull List&lt;Delta&gt; deltas) {
+<span class="nc" id="L85">    this.deltas = deltas;</span>
+<span class="nc" id="L86">    return this;</span>
   }
 
   public GetDeltasResponse addDeltasItem(Delta deltasItem) {
-<span class="nc bnc" id="L88" title="All 2 branches missed.">    if (this.deltas == null) {</span>
-<span class="nc" id="L89">      this.deltas = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">    if (this.deltas == null) {</span>
+<span class="nc" id="L91">      this.deltas = new ArrayList&lt;&gt;();</span>
     }
-<span class="nc" id="L91">    this.deltas.add(deltasItem);</span>
-<span class="nc" id="L92">    return this;</span>
+<span class="nc" id="L93">    this.deltas.add(deltasItem);</span>
+<span class="nc" id="L94">    return this;</span>
   }
 
   /**
@@ -100,15 +102,15 @@ public class GetDeltasResponse {
   @JsonProperty(JSON_PROPERTY_DELTAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List&lt;Delta&gt; getDeltas() {
-<span class="nc" id="L103">    return deltas;</span>
+<span class="nc" id="L105">    return deltas;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_DELTAS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeltas(List&lt;Delta&gt; deltas) {
-<span class="nc" id="L110">    this.deltas = deltas;</span>
-<span class="nc" id="L111">  }</span>
+  public void setDeltas(@javax.annotation.Nonnull List&lt;Delta&gt; deltas) {
+<span class="nc" id="L112">    this.deltas = deltas;</span>
+<span class="nc" id="L113">  }</span>
 
 
   /**
@@ -116,30 +118,30 @@ public class GetDeltasResponse {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L119" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L120">      return true;</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L122">      return true;</span>
     }
-<span class="nc bnc" id="L122" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L123">      return false;</span>
+<span class="nc bnc" id="L124" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L125">      return false;</span>
     }
-<span class="nc" id="L125">    GetDeltasResponse getDeltasResponse = (GetDeltasResponse) o;</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">    return Objects.equals(this.links, getDeltasResponse.links) &amp;&amp;</span>
-<span class="nc bnc" id="L127" title="All 2 branches missed.">        Objects.equals(this.deltas, getDeltasResponse.deltas);</span>
+<span class="nc" id="L127">    GetDeltasResponse getDeltasResponse = (GetDeltasResponse) o;</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">    return Objects.equals(this.links, getDeltasResponse.links) &amp;&amp;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        Objects.equals(this.deltas, getDeltasResponse.deltas);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L132">    return Objects.hash(links, deltas);</span>
+<span class="nc" id="L134">    return Objects.hash(links, deltas);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L137">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L138">    sb.append(&quot;class GetDeltasResponse {\n&quot;);</span>
-<span class="nc" id="L139">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L140">    sb.append(&quot;    deltas: &quot;).append(toIndentedString(deltas)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L141">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L142">    return sb.toString();</span>
+<span class="nc" id="L139">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L140">    sb.append(&quot;class GetDeltasResponse {\n&quot;);</span>
+<span class="nc" id="L141">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L142">    sb.append(&quot;    deltas: &quot;).append(toIndentedString(deltas)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L143">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L144">    return sb.toString();</span>
   }
 
   /**
@@ -147,10 +149,10 @@ public class GetDeltasResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L150" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L151">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L153">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L153">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L155">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 

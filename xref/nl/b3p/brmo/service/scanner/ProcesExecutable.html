@@ -25,42 +25,41 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <em class="jxr_comment">// klassen uit nl.b3p.brmo.persistence.staging package</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      BAG2MutatieProces,
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>      BRK2ScannerProces,
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      BRKScannerProces,
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>      MailRapportageProces,
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>      GDS2OphaalProces,
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      BerichtTransformatieProces,
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      BerichtDoorstuurProces,
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      LaadprocesTransformatieProces,
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      BGTLoaderProces,
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      MaterializedViewRefresh,
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      BerichtstatusRapportProces,
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      LaadprocesStatusRapportProces,
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      TopNLScannerProces,
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      AfgifteNummerScannerProces;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>    }
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">   * Voert deze taak eenmalig uit.</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">   * @exception BrmoException als er een fout optreed in het uitvoeren van het proces.</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> BrmoException;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   * Voert de taak uit en rapporteert de voortgang.</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">   * @param listener voortgangs listener</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>    <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener);
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>    <em class="jxr_javadoccomment">/** probeert het lopende proces te stoppen. */</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>    <strong class="jxr_keyword">void</strong> stop();
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>    <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">   * @return true als deze processor runt.</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>    <strong class="jxr_keyword">boolean</strong> isRunning();
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  }
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      MailRapportageProces,
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      GDS2OphaalProces,
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      BerichtTransformatieProces,
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      BerichtDoorstuurProces,
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      LaadprocesTransformatieProces,
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      BGTLoaderProces,
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      MaterializedViewRefresh,
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      BerichtstatusRapportProces,
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      LaadprocesStatusRapportProces,
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      TopNLScannerProces,
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      AfgifteNummerScannerProces;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>    }
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">   * Voert deze taak eenmalig uit.</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">   * @exception BrmoException als er een fout optreed in het uitvoeren van het proces.</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>    <strong class="jxr_keyword">void</strong> execute() <strong class="jxr_keyword">throws</strong> BrmoException;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   * Voert de taak uit en rapporteert de voortgang.</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">   * @param listener voortgangs listener</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">void</strong> execute(<a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/service/scanner/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> listener);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <em class="jxr_javadoccomment">/** probeert het lopende proces te stoppen. */</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>    <strong class="jxr_keyword">void</strong> stop();
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">   * @return true als deze processor runt.</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>    <strong class="jxr_keyword">boolean</strong> isRunning();
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>

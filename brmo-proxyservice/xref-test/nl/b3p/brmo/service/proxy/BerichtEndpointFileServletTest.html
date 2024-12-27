@@ -86,14 +86,13 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          <strong class="jxr_keyword">new</strong> File(BerichtEndpointFileServletTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/test.xml"</span>).getFile());
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      assertNotNull(expected, <span class="jxr_string">"Expected file not found"</span>);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      <em class="jxr_comment">// servlet schrijft naar saveDir,</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <em class="jxr_comment">// /tmp/brk/post-op_&lt;yyyy-MM-dd_HH-mm-ss-SSS&gt;_&lt;randomuniek&gt;.xml</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      File actual =
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          Files.newDirectoryStream(<strong class="jxr_keyword">new</strong> File(saveDir).toPath(), <span class="jxr_string">"*.{xml}"</span>).iterator().next().toFile();
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      assertTrue(actual.getName().startsWith(<span class="jxr_string">"post-op"</span>), <span class="jxr_string">"Bestand begint niet met 'post-op"</span>);
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      assertTrue(FileUtils.contentEquals(expected, actual), <span class="jxr_string">"File inhoud niet gelijk"</span>);
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>    }
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  }
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      File actual =
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          Files.newDirectoryStream(<strong class="jxr_keyword">new</strong> File(saveDir).toPath(), <span class="jxr_string">"*.{xml}"</span>).iterator().next().toFile();
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      assertTrue(actual.getName().startsWith(<span class="jxr_string">"post-op"</span>), <span class="jxr_string">"Bestand begint niet met 'post-op"</span>);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      assertTrue(FileUtils.contentEquals(expected, actual), <span class="jxr_string">"File inhoud niet gelijk"</span>);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>    }
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>

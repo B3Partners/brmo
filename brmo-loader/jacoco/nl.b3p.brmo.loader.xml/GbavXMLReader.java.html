@@ -43,7 +43,7 @@ public class GbavXMLReader extends BrmoXMLReader {
 <span class="fc" id="L43">  private static final Log log = LogFactory.getLog(GbavXMLReader.class);</span>
   private static final String PERSOON = &quot;persoon&quot;;
   public static final String PREFIX = &quot;NL.BRP.Persoon.&quot;;
-<span class="fc" id="L46">  private final XMLInputFactory factory = XMLInputFactory.newInstance();</span>
+  private final XMLInputFactory factory;
   private final XMLStreamReader streamReader;
   private final Transformer transformer;
   private final XMLOutputFactory xmlof;
@@ -52,77 +52,80 @@ public class GbavXMLReader extends BrmoXMLReader {
 
   public GbavXMLReader(InputStream in)
 <span class="fc" id="L54">      throws XMLStreamException, TransformerConfigurationException {</span>
-<span class="fc" id="L55">    streamReader = factory.createXMLStreamReader(in);</span>
-<span class="fc" id="L56">    TransformerFactory tf = TransformerFactory.newInstance();</span>
-<span class="fc" id="L57">    transformer = tf.newTransformer();</span>
-<span class="fc" id="L58">    xmlof = XMLOutputFactory.newInstance();</span>
+<span class="fc" id="L55">    factory = XMLInputFactory.newInstance();</span>
+<span class="fc" id="L56">    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);</span>
+<span class="fc" id="L57">    factory.setProperty(&quot;javax.xml.stream.isSupportingExternalEntities&quot;, false);</span>
+<span class="fc" id="L58">    streamReader = factory.createXMLStreamReader(in);</span>
+<span class="fc" id="L59">    TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="fc" id="L60">    transformer = tf.newTransformer();</span>
+<span class="fc" id="L61">    xmlof = XMLOutputFactory.newInstance();</span>
     // xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
 
-<span class="fc" id="L61">    init();</span>
-<span class="fc" id="L62">  }</span>
+<span class="fc" id="L64">    init();</span>
+<span class="fc" id="L65">  }</span>
 
   @Override
   public void init() throws XMLStreamException {
-<span class="fc" id="L66">    soort = BrmoFramework.BR_GBAV;</span>
+<span class="fc" id="L69">    soort = BrmoFramework.BR_GBAV;</span>
     try {
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">      while (streamReader.hasNext()) {</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (streamReader.isStartElement()) {</span>
-<span class="fc" id="L70">          String localName = streamReader.getLocalName();</span>
-<span class="fc bfc" id="L71" title="All 2 branches covered.">          if (localName.equals(PERSOON)) {</span>
-<span class="fc" id="L72">            break;</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">      while (streamReader.hasNext()) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (streamReader.isStartElement()) {</span>
+<span class="fc" id="L73">          String localName = streamReader.getLocalName();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">          if (localName.equals(PERSOON)) {</span>
+<span class="fc" id="L75">            break;</span>
           }
         }
-<span class="fc" id="L75">        streamReader.next();</span>
+<span class="fc" id="L78">        streamReader.next();</span>
       }
-<span class="nc" id="L77">    } catch (XMLStreamException ex) {</span>
-<span class="nc" id="L78">      log.error(&quot;Error while streaming XML&quot;, ex);</span>
-<span class="fc" id="L79">    }</span>
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">    if (getBestandsDatum() == null) {</span>
-<span class="fc" id="L81">      setBestandsDatum(new Date());</span>
+<span class="nc" id="L80">    } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L81">      log.error(&quot;Error while streaming XML&quot;, ex);</span>
+<span class="fc" id="L82">    }</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">    if (getBestandsDatum() == null) {</span>
+<span class="fc" id="L84">      setBestandsDatum(new Date());</span>
     }
-<span class="fc" id="L83">  }</span>
+<span class="fc" id="L86">  }</span>
 
   @Override
   public boolean hasNext() throws Exception {
-<span class="fc bfc" id="L87" title="All 2 branches covered.">    if (nextBericht != null) {</span>
-<span class="fc" id="L88">      return true;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">    if (nextBericht != null) {</span>
+<span class="fc" id="L91">      return true;</span>
     }
     try {
-<span class="fc bfc" id="L91" title="All 2 branches covered.">      while (streamReader.hasNext()) {</span>
-<span class="pc bpc" id="L92" title="1 of 4 branches missed.">        if (streamReader.isStartElement() &amp;&amp; streamReader.getLocalName().equals(PERSOON)) {</span>
-<span class="fc" id="L93">          StringWriter sw = new StringWriter();</span>
-<span class="fc" id="L94">          transformer.transform(</span>
-<span class="fc" id="L95">              new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
-<span class="fc" id="L96">          nextBericht = new GbavBericht(sw.toString());</span>
-<span class="fc" id="L97">          nextBericht.setDatum(nextBericht.parseDatum());</span>
-<span class="fc bfc" id="L98" title="All 2 branches covered.">          if (nextBericht.getDatum() == null) {</span>
-<span class="fc" id="L99">            nextBericht.setDatum(new Date());</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">      while (streamReader.hasNext()) {</span>
+<span class="pc bpc" id="L95" title="1 of 4 branches missed.">        if (streamReader.isStartElement() &amp;&amp; streamReader.getLocalName().equals(PERSOON)) {</span>
+<span class="fc" id="L96">          StringWriter sw = new StringWriter();</span>
+<span class="fc" id="L97">          transformer.transform(</span>
+<span class="fc" id="L98">              new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
+<span class="fc" id="L99">          nextBericht = new GbavBericht(sw.toString());</span>
+<span class="fc" id="L100">          nextBericht.setDatum(nextBericht.parseDatum());</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">          if (nextBericht.getDatum() == null) {</span>
+<span class="fc" id="L102">            nextBericht.setDatum(new Date());</span>
           }
-<span class="fc" id="L101">          nextBericht.setVolgordeNummer(volgordeNummer);</span>
+<span class="fc" id="L104">          nextBericht.setVolgordeNummer(volgordeNummer);</span>
 
-<span class="fc" id="L103">          String bsn = nextBericht.getBsn();</span>
-<span class="fc" id="L104">          String bsnHash = this.getHash(bsn);</span>
-<span class="fc" id="L105">          nextBericht.setObjectRef(PREFIX + bsnHash);</span>
+<span class="fc" id="L106">          String bsn = nextBericht.getBsn();</span>
+<span class="fc" id="L107">          String bsnHash = this.getHash(bsn);</span>
+<span class="fc" id="L108">          nextBericht.setObjectRef(PREFIX + bsnHash);</span>
 
-<span class="fc" id="L107">          Map&lt;String, String&gt; bsns = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L108">          nextBericht</span>
-<span class="fc" id="L109">              .getBsnList()</span>
-<span class="fc" id="L110">              .forEach(</span>
+<span class="fc" id="L110">          Map&lt;String, String&gt; bsns = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L111">          nextBericht</span>
+<span class="fc" id="L112">              .getBsnList()</span>
+<span class="fc" id="L113">              .forEach(</span>
                   (_bsn) -&gt; {
-<span class="fc" id="L112">                    log.debug(&quot;toevoegen bsn en hash: &quot; + _bsn + &quot;:&quot; + this.getHash(_bsn));</span>
-<span class="fc" id="L113">                    bsns.put(_bsn, this.getHash(_bsn));</span>
-<span class="fc" id="L114">                  });</span>
-<span class="fc" id="L115">          log.debug(&quot;aantal BSN in bericht:&quot; + bsns.size());</span>
-<span class="fc" id="L116">          nextBericht.setBsnMap(bsns);</span>
-<span class="fc" id="L117">          return true;</span>
+<span class="fc" id="L115">                    log.debug(&quot;toevoegen bsn en hash: &quot; + _bsn + &quot;:&quot; + this.getHash(_bsn));</span>
+<span class="fc" id="L116">                    bsns.put(_bsn, this.getHash(_bsn));</span>
+<span class="fc" id="L117">                  });</span>
+<span class="fc" id="L118">          log.debug(&quot;aantal BSN in bericht:&quot; + bsns.size());</span>
+<span class="fc" id="L119">          nextBericht.setBsnMap(bsns);</span>
+<span class="fc" id="L120">          return true;</span>
         } else {
-<span class="fc" id="L119">          streamReader.next();</span>
+<span class="fc" id="L122">          streamReader.next();</span>
         }
       }
-<span class="nc" id="L122">    } catch (XMLStreamException ex) {</span>
-<span class="nc" id="L123">      log.error(&quot;Streamfout tijdens parsen GBA-V XML&quot;, ex);</span>
-<span class="fc" id="L124">    }</span>
-<span class="fc" id="L125">    return false;</span>
+<span class="nc" id="L125">    } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L126">      log.error(&quot;Streamfout tijdens parsen GBA-V XML&quot;, ex);</span>
+<span class="fc" id="L127">    }</span>
+<span class="fc" id="L128">    return false;</span>
   }
 
   /**
@@ -134,10 +137,10 @@ public class GbavXMLReader extends BrmoXMLReader {
    */
   @Override
   public GbavBericht next() throws Exception {
-<span class="fc" id="L137">    GbavBericht b = nextBericht;</span>
-<span class="fc" id="L138">    nextBericht = null;</span>
-<span class="fc" id="L139">    volgordeNummer++;</span>
-<span class="fc" id="L140">    return b;</span>
+<span class="fc" id="L140">    GbavBericht b = nextBericht;</span>
+<span class="fc" id="L141">    nextBericht = null;</span>
+<span class="fc" id="L142">    volgordeNummer++;</span>
+<span class="fc" id="L143">    return b;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

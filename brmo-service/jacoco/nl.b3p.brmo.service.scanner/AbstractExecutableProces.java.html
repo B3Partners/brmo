@@ -39,62 +39,53 @@ import org.stripesstuff.stripersist.Stripersist;
    */
   public static ProcesExecutable getProces(AutomatischProces config) {
 <span class="nc" id="L41">    ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());</span>
-<span class="nc bnc" id="L42" title="All 15 branches missed.">    switch (imple) {</span>
-      case BAG2MutatieProces:
-<span class="nc" id="L44">        return new BAG2MutatieProcesRunner((BAG2MutatieProces) config);</span>
-      case BRK2ScannerProces:
-<span class="nc" id="L46">        return new BRK2DirectoryScanner((BRK2ScannerProces) config);</span>
-      case BRKScannerProces:
-<span class="nc" id="L48">        return new BRKDirectoryScanner((BRKScannerProces) config);</span>
-      case MailRapportageProces:
-<span class="nc" id="L50">        return new MailRapportage((MailRapportageProces) config);</span>
-      case GDS2OphaalProces:
-<span class="nc" id="L52">        return new GDS2OphalenProces((GDS2OphaalProces) config);</span>
-      case BerichtTransformatieProces:
-<span class="nc" id="L54">        return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);</span>
-      case BerichtDoorstuurProces:
-<span class="nc" id="L56">        return new BerichtDoorsturenProces((BerichtDoorstuurProces) config);</span>
-      case LaadprocesTransformatieProces:
-<span class="nc" id="L58">        return new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);</span>
-      case MaterializedViewRefresh:
-<span class="nc" id="L60">        return new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);</span>
-      case BerichtstatusRapportProces:
-<span class="nc" id="L62">        return new BerichtstatusRapport((BerichtstatusRapportProces) config);</span>
-      case LaadprocesStatusRapportProces:
-<span class="nc" id="L64">        return new LaadprocesStatusRapport((LaadprocesStatusRapportProces) config);</span>
-      case TopNLScannerProces:
-<span class="nc" id="L66">        return new TopNLDirectoryScanner((TopNLScannerProces) config);</span>
-      case AfgifteNummerScannerProces:
-<span class="nc" id="L68">        return new AfgifteNummerScanner((AfgifteNummerScannerProces) config);</span>
-      case BGTLoaderProces:
-<span class="nc" id="L70">        return new BGTLoader((BGTLoaderProces) config);</span>
-      default:
-<span class="nc" id="L72">        throw new IllegalArgumentException(imple.name() + &quot; is is geen ondersteund proces...&quot;);</span>
-    }
+<span class="nc bnc" id="L42" title="All 14 branches missed.">    return switch (imple) {</span>
+<span class="nc" id="L43">      case BAG2MutatieProces -&gt; new BAG2MutatieProcesRunner((BAG2MutatieProces) config);</span>
+<span class="nc" id="L44">      case BRK2ScannerProces -&gt; new BRK2DirectoryScanner((BRK2ScannerProces) config);</span>
+<span class="nc" id="L45">      case MailRapportageProces -&gt; new MailRapportage((MailRapportageProces) config);</span>
+<span class="nc" id="L46">      case GDS2OphaalProces -&gt; new GDS2OphalenProces((GDS2OphaalProces) config);</span>
+      case BerichtTransformatieProces -&gt;
+<span class="nc" id="L48">          new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);</span>
+<span class="nc" id="L49">      case BerichtDoorstuurProces -&gt; new BerichtDoorsturenProces((BerichtDoorstuurProces) config);</span>
+      case LaadprocesTransformatieProces -&gt;
+<span class="nc" id="L51">          new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);</span>
+      case MaterializedViewRefresh -&gt;
+<span class="nc" id="L53">          new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);</span>
+      case BerichtstatusRapportProces -&gt;
+<span class="nc" id="L55">          new BerichtstatusRapport((BerichtstatusRapportProces) config);</span>
+      case LaadprocesStatusRapportProces -&gt;
+<span class="nc" id="L57">          new LaadprocesStatusRapport((LaadprocesStatusRapportProces) config);</span>
+<span class="nc" id="L58">      case TopNLScannerProces -&gt; new TopNLDirectoryScanner((TopNLScannerProces) config);</span>
+      case AfgifteNummerScannerProces -&gt;
+<span class="nc" id="L60">          new AfgifteNummerScanner((AfgifteNummerScannerProces) config);</span>
+<span class="nc" id="L61">      case BGTLoaderProces -&gt; new BGTLoader((BGTLoaderProces) config);</span>
+      default -&gt;
+<span class="nc" id="L63">          throw new IllegalArgumentException(imple.name() + &quot; is is geen ondersteund proces...&quot;);</span>
+    };
   }
 
   @Override
   public boolean isRunning() {
-<span class="nc" id="L78">    return this.active;</span>
+<span class="nc" id="L69">    return this.active;</span>
   }
 
   @Override
   public void stop() {
-<span class="nc" id="L83">    this.active = false;</span>
-<span class="nc" id="L84">  }</span>
+<span class="nc" id="L74">    this.active = false;</span>
+<span class="nc" id="L75">  }</span>
 
   @Override
   public void run() {
-<span class="nc bnc" id="L88" title="All 2 branches missed.">    while (active) {</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">    while (active) {</span>
       try {
-<span class="nc" id="L90">        this.execute();</span>
+<span class="nc" id="L81">        this.execute();</span>
         // TODO
-<span class="nc" id="L92">        Thread.sleep(5000);</span>
-<span class="nc" id="L93">      } catch (InterruptedException | BrmoException e) {</span>
-<span class="nc" id="L94">        log.error(e.getMessage(), e);</span>
-<span class="nc" id="L95">      }</span>
+<span class="nc" id="L83">        Thread.sleep(5000);</span>
+<span class="nc" id="L84">      } catch (InterruptedException | BrmoException e) {</span>
+<span class="nc" id="L85">        log.error(e.getMessage(), e);</span>
+<span class="nc" id="L86">      }</span>
     }
-<span class="nc" id="L97">  }</span>
+<span class="nc" id="L88">  }</span>
 
   /**
    * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en soort.
@@ -104,7 +95,7 @@ import org.stripesstuff.stripersist.Stripersist;
    * &lt;pre&gt;
    * loadFromFile(bericht)
    * 	→ stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
-   * 	→ snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of Brk2SnapshotXMLReader die bericht voor bericht uitgelezen kunnen worden
+   * 	→ snapshot reader van de input stream parsed het bericht in een Brk2SnapshotXMLReader die bericht voor bericht uitgelezen kunnen worden
    * 	→ bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
    * 	→ laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
    * 	→ uitlezen xml bericht als
@@ -118,20 +109,20 @@ import org.stripesstuff.stripersist.Stripersist;
    * @return {@code true} als het bestand een duplicaat betreft, anders {@code false}
    */
   protected boolean isDuplicaatLaadProces(File input, String soort) {
-<span class="nc" id="L121">    log.debug(</span>
-<span class="nc" id="L122">        &quot;Controle voor duplicaat laadproces, soort: '&quot; + soort + &quot;', bestand: &quot; + input.getName());</span>
-<span class="nc" id="L123">    final String name = getBestandsNaam(input);</span>
-<span class="nc" id="L124">    EntityManager em = Stripersist.getEntityManager();</span>
-<span class="nc" id="L125">    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();</span>
-<span class="nc" id="L126">    CriteriaQuery&lt;LaadProces&gt; criteriaQuery = criteriaBuilder.createQuery(LaadProces.class);</span>
-<span class="nc" id="L127">    Root&lt;LaadProces&gt; from = criteriaQuery.from(LaadProces.class);</span>
-<span class="nc" id="L128">    CriteriaQuery&lt;LaadProces&gt; select = criteriaQuery.select(from);</span>
-<span class="nc" id="L129">    Predicate _bestand_naam = criteriaBuilder.equal(from.get(&quot;bestand_naam&quot;), name);</span>
-<span class="nc" id="L130">    Predicate _soort = criteriaBuilder.equal(from.get(&quot;soort&quot;), soort);</span>
-<span class="nc" id="L131">    criteriaQuery.where(criteriaBuilder.and(_bestand_naam, _soort));</span>
-<span class="nc" id="L132">    TypedQuery&lt;LaadProces&gt; typedQuery = em.createQuery(select);</span>
+<span class="nc" id="L112">    log.debug(</span>
+<span class="nc" id="L113">        &quot;Controle voor duplicaat laadproces, soort: '&quot; + soort + &quot;', bestand: &quot; + input.getName());</span>
+<span class="nc" id="L114">    final String name = getBestandsNaam(input);</span>
+<span class="nc" id="L115">    EntityManager em = Stripersist.getEntityManager();</span>
+<span class="nc" id="L116">    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();</span>
+<span class="nc" id="L117">    CriteriaQuery&lt;LaadProces&gt; criteriaQuery = criteriaBuilder.createQuery(LaadProces.class);</span>
+<span class="nc" id="L118">    Root&lt;LaadProces&gt; from = criteriaQuery.from(LaadProces.class);</span>
+<span class="nc" id="L119">    CriteriaQuery&lt;LaadProces&gt; select = criteriaQuery.select(from);</span>
+<span class="nc" id="L120">    Predicate _bestand_naam = criteriaBuilder.equal(from.get(&quot;bestand_naam&quot;), name);</span>
+<span class="nc" id="L121">    Predicate _soort = criteriaBuilder.equal(from.get(&quot;soort&quot;), soort);</span>
+<span class="nc" id="L122">    criteriaQuery.where(criteriaBuilder.and(_bestand_naam, _soort));</span>
+<span class="nc" id="L123">    TypedQuery&lt;LaadProces&gt; typedQuery = em.createQuery(select);</span>
 
-<span class="nc bnc" id="L134" title="All 2 branches missed.">    return !typedQuery.getResultList().isEmpty();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">    return !typedQuery.getResultList().isEmpty();</span>
   }
 
   /**
@@ -142,11 +133,11 @@ import org.stripesstuff.stripersist.Stripersist;
    * @see #isDuplicaatLaadProces(java.io.File, java.lang.String)
    */
   protected String getBestandsNaam(File f) {
-<span class="nc" id="L145">    return f.getAbsolutePath();</span>
+<span class="nc" id="L136">    return f.getAbsolutePath();</span>
   }
 
   protected Date getBestandsDatum(File f) {
-<span class="nc" id="L149">    return new Date(f.lastModified());</span>
+<span class="nc" id="L140">    return new Date(f.lastModified());</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

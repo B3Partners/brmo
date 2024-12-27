@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT public.postgis_transform_geometry($1, proj4text, $2, 0)&#10;&#9;FROM spatial_ref_sys WHERE srid&#61;public.ST_SRID($1);</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT public.postgis_transform_geometry($1, proj4text, $2, 0)&#10;&#9;FROM public.spatial_ref_sys WHERE srid&#61;public.ST_SRID($1);</textarea>
                         </div>
                     </div>
                 </section>

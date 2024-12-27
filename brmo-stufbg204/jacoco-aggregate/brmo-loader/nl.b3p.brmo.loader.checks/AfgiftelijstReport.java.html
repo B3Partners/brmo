@@ -18,9 +18,6 @@ package nl.b3p.brmo.loader.checks;
 
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.events.Event;
-import com.itextpdf.kernel.events.IEventHandler;
-import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -29,6 +26,9 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
@@ -41,7 +41,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,151 +54,151 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author meine
  */
-<span class="nc" id="L58">public class AfgiftelijstReport {</span>
+<span class="nc" id="L57">public class AfgiftelijstReport {</span>
 
-<span class="nc" id="L60">  private final SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
-<span class="nc" id="L61">  private final SimpleDateFormat xlsDate =</span>
+<span class="nc" id="L59">  private final SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L60">  private final SimpleDateFormat xlsDate =</span>
       new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss,SSSSSSSSS&quot;); // 26-06-2019 01:50:58,355000000
-<span class="nc" id="L63">  private static final Log log = LogFactory.getLog(AfgiftelijstReport.class);</span>
+<span class="nc" id="L62">  private static final Log log = LogFactory.getLog(AfgiftelijstReport.class);</span>
   private String datum;
 
   public void createReport(List&lt;Afgifte&gt; afgiftes, String inputFileName, File output)
-      throws FileNotFoundException {
-<span class="nc" id="L68">    datum = sdf.format(new Date());</span>
-<span class="nc" id="L69">    PdfDocument pdfDoc = new PdfDocument(new PdfWriter(output));</span>
+      throws IOException {
+<span class="nc" id="L67">    datum = sdf.format(new Date());</span>
+<span class="nc" id="L68">    PdfDocument pdfDoc = new PdfDocument(new PdfWriter(output));</span>
 
-<span class="nc" id="L71">    pdfDoc.setDefaultPageSize(PageSize.A4.rotate());</span>
-<span class="nc" id="L72">    Footer footerHandler = new Footer(pdfDoc);</span>
+<span class="nc" id="L70">    pdfDoc.setDefaultPageSize(PageSize.A4.rotate());</span>
+<span class="nc" id="L71">    Footer footerHandler = new Footer(pdfDoc);</span>
 
     // Assign event-handlers
-<span class="nc" id="L75">    pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);</span>
+<span class="nc" id="L74">    pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);</span>
 
-<span class="nc" id="L77">    try (Document doc = new Document(pdfDoc)) {</span>
-<span class="nc" id="L78">      createFirstPage(doc, inputFileName);</span>
-<span class="nc" id="L79">      createTable(afgiftes, pdfDoc, doc);</span>
+<span class="nc" id="L76">    try (Document doc = new Document(pdfDoc)) {</span>
+<span class="nc" id="L77">      createFirstPage(doc, inputFileName);</span>
+<span class="nc" id="L78">      createTable(afgiftes, pdfDoc, doc);</span>
 
-<span class="nc" id="L81">      footerHandler.writeTotal(pdfDoc);</span>
-<span class="nc" id="L82">    } catch (IOException ex) {</span>
-<span class="nc" id="L83">      log.error(&quot;Cannot&quot;);</span>
-<span class="nc" id="L84">    }</span>
-<span class="nc" id="L85">  }</span>
+<span class="nc" id="L80">      footerHandler.writeTotal(pdfDoc);</span>
+<span class="nc" id="L81">    } catch (IOException ex) {</span>
+<span class="nc" id="L82">      log.error(&quot;Cannot&quot;);</span>
+<span class="nc" id="L83">    }</span>
+<span class="nc" id="L84">  }</span>
 
   private void createFirstPage(Document doc, String input) throws IOException {
-<span class="nc" id="L88">    PdfFont bold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);</span>
-<span class="nc" id="L89">    Style style =</span>
-<span class="nc" id="L90">        new Style().setFont(bold).setFontSize(16).setFontColor(new DeviceRgb(21, 127, 204));</span>
-<span class="nc" id="L91">    Paragraph title = new Paragraph(&quot;BRMO Controle afgiftelijst&quot;);</span>
-<span class="nc" id="L92">    title.addStyle(style);</span>
+<span class="nc" id="L87">    PdfFont bold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);</span>
+<span class="nc" id="L88">    Style style =</span>
+<span class="nc" id="L89">        new Style().setFont(bold).setFontSize(16).setFontColor(new DeviceRgb(21, 127, 204));</span>
+<span class="nc" id="L90">    Paragraph title = new Paragraph(&quot;BRMO Controle afgiftelijst&quot;);</span>
+<span class="nc" id="L91">    title.addStyle(style);</span>
 
-<span class="nc" id="L94">    Paragraph text =</span>
+<span class="nc" id="L93">    Paragraph text =</span>
         new Paragraph(
             &quot;Dit rapport is gegenereerd op &quot;
                 + datum
                 + &quot; op basis van de afgiftelijst &quot;
                 + input
                 + &quot;.&quot;);
-<span class="nc" id="L101">    doc.add(title);</span>
-<span class="nc" id="L102">    doc.add(text);</span>
-<span class="nc" id="L103">  }</span>
+<span class="nc" id="L100">    doc.add(title);</span>
+<span class="nc" id="L101">    doc.add(text);</span>
+<span class="nc" id="L102">  }</span>
 
   protected void createTable(List&lt;Afgifte&gt; afgiftes, PdfDocument pdfDoc, Document doc)
       throws IOException {
-<span class="nc" id="L107">    PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);</span>
+<span class="nc" id="L106">    PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);</span>
 
-<span class="nc" id="L109">    pdfDoc.addNewPage();</span>
-<span class="nc" id="L110">    doc.add(new AreaBreak());</span>
-<span class="nc" id="L111">    Table table = new Table(8).useAllAvailableWidth();</span>
-<span class="nc" id="L112">    table.setBorder(new SolidBorder(1));</span>
-<span class="nc" id="L113">    createHeaderRow(table);</span>
-<span class="nc" id="L114">    table.setFont(font);</span>
-<span class="nc bnc" id="L115" title="All 2 branches missed.">    for (Afgifte afgifte : afgiftes) {</span>
-<span class="nc" id="L116">      createRow(afgifte, table);</span>
-<span class="nc" id="L117">    }</span>
-<span class="nc" id="L118">    doc.add(table);</span>
-<span class="nc" id="L119">  }</span>
+<span class="nc" id="L108">    pdfDoc.addNewPage();</span>
+<span class="nc" id="L109">    doc.add(new AreaBreak());</span>
+<span class="nc" id="L110">    Table table = new Table(8).useAllAvailableWidth();</span>
+<span class="nc" id="L111">    table.setBorder(new SolidBorder(1));</span>
+<span class="nc" id="L112">    createHeaderRow(table);</span>
+<span class="nc" id="L113">    table.setFont(font);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    for (Afgifte afgifte : afgiftes) {</span>
+<span class="nc" id="L115">      createRow(afgifte, table);</span>
+<span class="nc" id="L116">    }</span>
+<span class="nc" id="L117">    doc.add(table);</span>
+<span class="nc" id="L118">  }</span>
 
   private void createHeaderRow(Table table) throws IOException {
-<span class="nc" id="L122">    PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);</span>
-<span class="nc" id="L123">    table.setFont(font);</span>
+<span class="nc" id="L121">    PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);</span>
+<span class="nc" id="L122">    table.setFont(font);</span>
 
-<span class="nc" id="L125">    Border b = new SolidBorder(2);</span>
+<span class="nc" id="L124">    Border b = new SolidBorder(2);</span>
 
-<span class="nc" id="L127">    table.addCell(new Cell().add(new Paragraph(&quot;Klantnr.&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L128">    table.addCell(new Cell().add(new Paragraph(&quot;Contractnr.&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L129">    table.addCell(new Cell().add(new Paragraph(&quot;Datum&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L130">    table.addCell(new Cell().add(new Paragraph(&quot;Bestand&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L131">    table.addCell(new Cell().add(new Paragraph(&quot;Rapport via URL&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L132">    table.addCell(new Cell().add(new Paragraph(&quot;Geleverd&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L133">    table.addCell(new Cell().add(new Paragraph(&quot;In staging&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L134">    table.addCell(new Cell().add(new Paragraph(&quot;Status&quot;).setFont(font))).setBorder(b);</span>
-<span class="nc" id="L135">  }</span>
+<span class="nc" id="L126">    table.addCell(new Cell().add(new Paragraph(&quot;Klantnr.&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L127">    table.addCell(new Cell().add(new Paragraph(&quot;Contractnr.&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L128">    table.addCell(new Cell().add(new Paragraph(&quot;Datum&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L129">    table.addCell(new Cell().add(new Paragraph(&quot;Bestand&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L130">    table.addCell(new Cell().add(new Paragraph(&quot;Rapport via URL&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L131">    table.addCell(new Cell().add(new Paragraph(&quot;Geleverd&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L132">    table.addCell(new Cell().add(new Paragraph(&quot;In staging&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L133">    table.addCell(new Cell().add(new Paragraph(&quot;Status&quot;).setFont(font))).setBorder(b);</span>
+<span class="nc" id="L134">  }</span>
 
   private void createRow(Afgifte afgifte, Table table) {
-<span class="nc" id="L138">    Border b = new SolidBorder(1);</span>
-<span class="nc" id="L139">    table.addCell(afgifte.getKlantnummer()).setBorder(b);</span>
-<span class="nc" id="L140">    table.addCell(afgifte.getContractnummer()).setBorder(b);</span>
+<span class="nc" id="L137">    Border b = new SolidBorder(1);</span>
+<span class="nc" id="L138">    table.addCell(afgifte.getKlantnummer()).setBorder(b);</span>
+<span class="nc" id="L139">    table.addCell(afgifte.getContractnummer()).setBorder(b);</span>
     try {
-<span class="nc" id="L142">      table.addCell(sdf.format(xlsDate.parse(afgifte.getDatum()))).setBorder(b);</span>
-<span class="nc" id="L143">    } catch (ParseException ex) {</span>
-<span class="nc" id="L144">      table.addCell(afgifte.getDatum()).setBorder(b);</span>
-<span class="nc" id="L145">    }</span>
-<span class="nc" id="L146">    table.addCell(afgifte.getBestandsnaam()).setBorder(b);</span>
-<span class="nc bnc" id="L147" title="All 2 branches missed.">    table.addCell(afgifte.isRapport() ? &quot;Ja&quot; : &quot;Nee&quot;).setBorder(b);</span>
-<span class="nc bnc" id="L148" title="All 2 branches missed.">    table.addCell(afgifte.isGeleverd() ? &quot;Ja&quot; : &quot;Nee&quot;).setBorder(b);</span>
-<span class="nc bnc" id="L149" title="All 2 branches missed.">    table.addCell(afgifte.isFoundInStaging() ? &quot;Ja&quot; : &quot;Nee&quot;).setBorder(b);</span>
-<span class="nc" id="L150">    table.addCell(getStatusString(afgifte)).setBorder(b);</span>
-<span class="nc" id="L151">  }</span>
+<span class="nc" id="L141">      table.addCell(sdf.format(xlsDate.parse(afgifte.getDatum()))).setBorder(b);</span>
+<span class="nc" id="L142">    } catch (ParseException ex) {</span>
+<span class="nc" id="L143">      table.addCell(afgifte.getDatum()).setBorder(b);</span>
+<span class="nc" id="L144">    }</span>
+<span class="nc" id="L145">    table.addCell(afgifte.getBestandsnaam()).setBorder(b);</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">    table.addCell(afgifte.isRapport() ? &quot;Ja&quot; : &quot;Nee&quot;).setBorder(b);</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">    table.addCell(afgifte.isGeleverd() ? &quot;Ja&quot; : &quot;Nee&quot;).setBorder(b);</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">    table.addCell(afgifte.isFoundInStaging() ? &quot;Ja&quot; : &quot;Nee&quot;).setBorder(b);</span>
+<span class="nc" id="L149">    table.addCell(getStatusString(afgifte)).setBorder(b);</span>
+<span class="nc" id="L150">  }</span>
 
   private String getStatusString(Afgifte afgifte) {
-<span class="nc" id="L154">    String res = &quot;&quot;;</span>
-<span class="nc" id="L155">    Map&lt;STATUS, Integer&gt; stati = afgifte.getStatussen();</span>
-<span class="nc bnc" id="L156" title="All 2 branches missed.">    for (STATUS status : stati.keySet()) {</span>
-<span class="nc bnc" id="L157" title="All 2 branches missed.">      if (!res.isEmpty()) {</span>
-<span class="nc" id="L158">        res += &quot;\n&quot;;</span>
+<span class="nc" id="L153">    StringBuilder res = new StringBuilder();</span>
+<span class="nc" id="L154">    Map&lt;STATUS, Integer&gt; stati = afgifte.getStatussen();</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">    for (STATUS status : stati.keySet()) {</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">      if (!res.isEmpty()) {</span>
+<span class="nc" id="L157">        res.append(&quot;\n&quot;);</span>
       }
-<span class="nc" id="L160">      res += status.name() + &quot;:&quot; + stati.get(status);</span>
-<span class="nc" id="L161">    }</span>
-<span class="nc bnc" id="L162" title="All 2 branches missed.">    if (res.isEmpty()) {</span>
-<span class="nc" id="L163">      res = &quot;-&quot;;</span>
+<span class="nc" id="L159">      res.append(status.name()).append(&quot;:&quot;).append(stati.get(status));</span>
+<span class="nc" id="L160">    }</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">    if (res.isEmpty()) {</span>
+<span class="nc" id="L162">      res = new StringBuilder(&quot;-&quot;);</span>
     }
-<span class="nc" id="L165">    return res;</span>
+<span class="nc" id="L164">    return res.toString();</span>
   }
 
-  protected class Footer implements IEventHandler {
+  protected class Footer extends AbstractPdfDocumentEventHandler {
 
     protected PdfFormXObject placeholder;
-<span class="nc" id="L171">    protected float side = 20;</span>
-<span class="nc" id="L172">    protected float x = 790;</span>
-<span class="nc" id="L173">    protected float y = 5;</span>
-<span class="nc" id="L174">    protected float space = 4.5f;</span>
-<span class="nc" id="L175">    protected float descent = 3;</span>
+<span class="nc" id="L170">    protected float side = 20;</span>
+<span class="nc" id="L171">    protected float x = 790;</span>
+<span class="nc" id="L172">    protected float y = 5;</span>
+<span class="nc" id="L173">    protected float space = 4.5f;</span>
+<span class="nc" id="L174">    protected float descent = 3;</span>
 
-<span class="nc" id="L177">    public Footer(PdfDocument pdf) {</span>
-<span class="nc" id="L178">      placeholder = new PdfFormXObject(new Rectangle(0, 0, side, side));</span>
-<span class="nc" id="L179">    }</span>
+<span class="nc" id="L176">    public Footer(PdfDocument pdf) {</span>
+<span class="nc" id="L177">      placeholder = new PdfFormXObject(new Rectangle(0, 0, side, side));</span>
+<span class="nc" id="L178">    }</span>
 
     @Override
-    public void handleEvent(Event event) {
-<span class="nc" id="L183">      PdfDocumentEvent docEvent = (PdfDocumentEvent) event;</span>
-<span class="nc" id="L184">      PdfDocument pdf = docEvent.getDocument();</span>
-<span class="nc" id="L185">      PdfPage page = docEvent.getPage();</span>
-<span class="nc" id="L186">      int pageNumber = pdf.getPageNumber(page);</span>
-<span class="nc" id="L187">      Rectangle pageSize = page.getPageSize();</span>
-<span class="nc" id="L188">      PdfCanvas pdfCanvas = new PdfCanvas(page.getLastContentStream(), page.getResources(), pdf);</span>
-<span class="nc" id="L189">      Canvas canvas = new Canvas(pdfCanvas, pageSize);</span>
-<span class="nc" id="L190">      Paragraph p = new Paragraph().add(&quot;Pagina &quot;).add(String.valueOf(pageNumber)).add(&quot; van&quot;);</span>
-<span class="nc" id="L191">      Paragraph p2 = new Paragraph().add(&quot;B3Partners BRMO controlemodule - &quot; + datum);</span>
-<span class="nc" id="L192">      canvas.showTextAligned(p2, 35, y, TextAlignment.LEFT);</span>
-<span class="nc" id="L193">      canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);</span>
-<span class="nc" id="L194">      pdfCanvas.addXObjectAt(placeholder, x + space, y - descent);</span>
-<span class="nc" id="L195">      pdfCanvas.release();</span>
-<span class="nc" id="L196">    }</span>
+    public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
+<span class="nc" id="L182">      PdfDocumentEvent docEvent = (PdfDocumentEvent) event;</span>
+<span class="nc" id="L183">      PdfDocument pdf = docEvent.getDocument();</span>
+<span class="nc" id="L184">      PdfPage page = docEvent.getPage();</span>
+<span class="nc" id="L185">      int pageNumber = pdf.getPageNumber(page);</span>
+<span class="nc" id="L186">      Rectangle pageSize = page.getPageSize();</span>
+<span class="nc" id="L187">      PdfCanvas pdfCanvas = new PdfCanvas(page.getLastContentStream(), page.getResources(), pdf);</span>
+<span class="nc" id="L188">      Canvas canvas = new Canvas(pdfCanvas, pageSize);</span>
+<span class="nc" id="L189">      Paragraph p = new Paragraph().add(&quot;Pagina &quot;).add(String.valueOf(pageNumber)).add(&quot; van&quot;);</span>
+<span class="nc" id="L190">      Paragraph p2 = new Paragraph().add(&quot;B3Partners BRMO controlemodule - &quot; + datum);</span>
+<span class="nc" id="L191">      canvas.showTextAligned(p2, 35, y, TextAlignment.LEFT);</span>
+<span class="nc" id="L192">      canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);</span>
+<span class="nc" id="L193">      pdfCanvas.addXObjectAt(placeholder, x + space, y - descent);</span>
+<span class="nc" id="L194">      pdfCanvas.release();</span>
+<span class="nc" id="L195">    }</span>
 
     public void writeTotal(PdfDocument pdf) {
-<span class="nc" id="L199">      Canvas canvas = new Canvas(placeholder, pdf);</span>
-<span class="nc" id="L200">      canvas.showTextAligned(</span>
-<span class="nc" id="L201">          String.valueOf(pdf.getNumberOfPages()), 0, descent, TextAlignment.LEFT);</span>
-<span class="nc" id="L202">    }</span>
+<span class="nc" id="L198">      Canvas canvas = new Canvas(placeholder, pdf);</span>
+<span class="nc" id="L199">      canvas.showTextAligned(</span>
+<span class="nc" id="L200">          String.valueOf(pdf.getNumberOfPages()), 0, descent, TextAlignment.LEFT);</span>
+<span class="nc" id="L201">    }</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

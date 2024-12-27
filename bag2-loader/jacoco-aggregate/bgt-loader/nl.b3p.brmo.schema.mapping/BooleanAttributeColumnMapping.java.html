@@ -20,14 +20,14 @@ public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
 
   @Override
   public Object toQueryParameter(Object value, SQLDialect sqlDialect) throws Exception {
-<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (sqlDialect instanceof OracleDialect) {</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">    if (sqlDialect instanceof OracleDialect) {</span>
       // Use default string to have 'true' and 'false' in nvarchar2(5) column
 <span class="nc" id="L25">      return super.toQueryParameter(value, sqlDialect);</span>
     } else {
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">      if (value == null) {</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">      if (value == null) {</span>
 <span class="nc" id="L28">        return null;</span>
       } else {
-<span class="fc" id="L30">        return Boolean.parseBoolean(value.toString());</span>
+<span class="nc" id="L30">        return Boolean.parseBoolean(value.toString());</span>
       }
     }
   }

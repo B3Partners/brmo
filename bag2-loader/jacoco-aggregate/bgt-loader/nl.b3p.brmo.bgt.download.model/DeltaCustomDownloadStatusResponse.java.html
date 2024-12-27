@@ -34,60 +34,63 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadStatusResponse.JSON_PROPERTY_PROGRESS,
   DeltaCustomDownloadStatusResponse.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.9.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.10.0&quot;)
 public class DeltaCustomDownloadStatusResponse {
   public static final String JSON_PROPERTY_LINKS = &quot;_links&quot;;
+  @javax.annotation.Nonnull
   private DeltaCustomDownloadStatusResponseLinks links;
 
   public static final String JSON_PROPERTY_PROGRESS = &quot;progress&quot;;
+  @javax.annotation.Nonnull
   private Integer progress;
 
   /**
    * Gets or Sets status
    */
-<span class="nc" id="L48">  public enum StatusEnum {</span>
-<span class="nc" id="L49">    PENDING(&quot;PENDING&quot;),</span>
+<span class="nc" id="L50">  public enum StatusEnum {</span>
+<span class="nc" id="L51">    PENDING(String.valueOf(&quot;PENDING&quot;)),</span>
     
-<span class="nc" id="L51">    RUNNING(&quot;RUNNING&quot;),</span>
+<span class="nc" id="L53">    RUNNING(String.valueOf(&quot;RUNNING&quot;)),</span>
     
-<span class="nc" id="L53">    COMPLETED(&quot;COMPLETED&quot;);</span>
+<span class="nc" id="L55">    COMPLETED(String.valueOf(&quot;COMPLETED&quot;));</span>
 
     private String value;
 
-<span class="nc" id="L57">    StatusEnum(String value) {</span>
-<span class="nc" id="L58">      this.value = value;</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L59">    StatusEnum(String value) {</span>
+<span class="nc" id="L60">      this.value = value;</span>
+<span class="nc" id="L61">    }</span>
 
     @JsonValue
     public String getValue() {
-<span class="nc" id="L63">      return value;</span>
+<span class="nc" id="L65">      return value;</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L68">      return String.valueOf(value);</span>
+<span class="nc" id="L70">      return String.valueOf(value);</span>
     }
 
     @JsonCreator
     public static StatusEnum fromValue(String value) {
-<span class="nc bnc" id="L73" title="All 2 branches missed.">      for (StatusEnum b : StatusEnum.values()) {</span>
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (b.value.equals(value)) {</span>
-<span class="nc" id="L75">          return b;</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">      for (StatusEnum b : StatusEnum.values()) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (b.value.equals(value)) {</span>
+<span class="nc" id="L77">          return b;</span>
         }
       }
-<span class="nc" id="L78">      throw new IllegalArgumentException(&quot;Unexpected value '&quot; + value + &quot;'&quot;);</span>
+<span class="nc" id="L80">      throw new IllegalArgumentException(&quot;Unexpected value '&quot; + value + &quot;'&quot;);</span>
     }
   }
 
   public static final String JSON_PROPERTY_STATUS = &quot;status&quot;;
+  @javax.annotation.Nonnull
   private StatusEnum status;
 
-<span class="nc" id="L85">  public DeltaCustomDownloadStatusResponse() { </span>
-<span class="nc" id="L86">  }</span>
+<span class="nc" id="L88">  public DeltaCustomDownloadStatusResponse() { </span>
+<span class="nc" id="L89">  }</span>
 
-  public DeltaCustomDownloadStatusResponse links(DeltaCustomDownloadStatusResponseLinks links) {
-<span class="nc" id="L89">    this.links = links;</span>
-<span class="nc" id="L90">    return this;</span>
+  public DeltaCustomDownloadStatusResponse links(@javax.annotation.Nonnull DeltaCustomDownloadStatusResponseLinks links) {
+<span class="nc" id="L92">    this.links = links;</span>
+<span class="nc" id="L93">    return this;</span>
   }
 
   /**
@@ -98,20 +101,20 @@ public class DeltaCustomDownloadStatusResponse {
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public DeltaCustomDownloadStatusResponseLinks getLinks() {
-<span class="nc" id="L101">    return links;</span>
+<span class="nc" id="L104">    return links;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLinks(DeltaCustomDownloadStatusResponseLinks links) {
-<span class="nc" id="L108">    this.links = links;</span>
-<span class="nc" id="L109">  }</span>
+  public void setLinks(@javax.annotation.Nonnull DeltaCustomDownloadStatusResponseLinks links) {
+<span class="nc" id="L111">    this.links = links;</span>
+<span class="nc" id="L112">  }</span>
 
 
-  public DeltaCustomDownloadStatusResponse progress(Integer progress) {
-<span class="nc" id="L113">    this.progress = progress;</span>
-<span class="nc" id="L114">    return this;</span>
+  public DeltaCustomDownloadStatusResponse progress(@javax.annotation.Nonnull Integer progress) {
+<span class="nc" id="L116">    this.progress = progress;</span>
+<span class="nc" id="L117">    return this;</span>
   }
 
   /**
@@ -122,20 +125,20 @@ public class DeltaCustomDownloadStatusResponse {
   @JsonProperty(JSON_PROPERTY_PROGRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Integer getProgress() {
-<span class="nc" id="L125">    return progress;</span>
+<span class="nc" id="L128">    return progress;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_PROGRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setProgress(Integer progress) {
-<span class="nc" id="L132">    this.progress = progress;</span>
-<span class="nc" id="L133">  }</span>
+  public void setProgress(@javax.annotation.Nonnull Integer progress) {
+<span class="nc" id="L135">    this.progress = progress;</span>
+<span class="nc" id="L136">  }</span>
 
 
-  public DeltaCustomDownloadStatusResponse status(StatusEnum status) {
-<span class="nc" id="L137">    this.status = status;</span>
-<span class="nc" id="L138">    return this;</span>
+  public DeltaCustomDownloadStatusResponse status(@javax.annotation.Nonnull StatusEnum status) {
+<span class="nc" id="L140">    this.status = status;</span>
+<span class="nc" id="L141">    return this;</span>
   }
 
   /**
@@ -146,15 +149,15 @@ public class DeltaCustomDownloadStatusResponse {
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public StatusEnum getStatus() {
-<span class="nc" id="L149">    return status;</span>
+<span class="nc" id="L152">    return status;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStatus(StatusEnum status) {
-<span class="nc" id="L156">    this.status = status;</span>
-<span class="nc" id="L157">  }</span>
+  public void setStatus(@javax.annotation.Nonnull StatusEnum status) {
+<span class="nc" id="L159">    this.status = status;</span>
+<span class="nc" id="L160">  }</span>
 
 
   /**
@@ -162,32 +165,32 @@ public class DeltaCustomDownloadStatusResponse {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L165" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L166">      return true;</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L169">      return true;</span>
     }
-<span class="nc bnc" id="L168" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L169">      return false;</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L172">      return false;</span>
     }
-<span class="nc" id="L171">    DeltaCustomDownloadStatusResponse deltaCustomDownloadStatusResponse = (DeltaCustomDownloadStatusResponse) o;</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadStatusResponse.links) &amp;&amp;</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        Objects.equals(this.progress, deltaCustomDownloadStatusResponse.progress) &amp;&amp;</span>
-<span class="nc bnc" id="L174" title="All 2 branches missed.">        Objects.equals(this.status, deltaCustomDownloadStatusResponse.status);</span>
+<span class="nc" id="L174">    DeltaCustomDownloadStatusResponse deltaCustomDownloadStatusResponse = (DeltaCustomDownloadStatusResponse) o;</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadStatusResponse.links) &amp;&amp;</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        Objects.equals(this.progress, deltaCustomDownloadStatusResponse.progress) &amp;&amp;</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        Objects.equals(this.status, deltaCustomDownloadStatusResponse.status);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L179">    return Objects.hash(links, progress, status);</span>
+<span class="nc" id="L182">    return Objects.hash(links, progress, status);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L184">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L185">    sb.append(&quot;class DeltaCustomDownloadStatusResponse {\n&quot;);</span>
-<span class="nc" id="L186">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L187">    sb.append(&quot;    progress: &quot;).append(toIndentedString(progress)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L188">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L189">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L190">    return sb.toString();</span>
+<span class="nc" id="L187">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L188">    sb.append(&quot;class DeltaCustomDownloadStatusResponse {\n&quot;);</span>
+<span class="nc" id="L189">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L190">    sb.append(&quot;    progress: &quot;).append(toIndentedString(progress)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L191">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L192">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L193">    return sb.toString();</span>
   }
 
   /**
@@ -195,10 +198,10 @@ public class DeltaCustomDownloadStatusResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L198" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L199">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L202">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L201">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L204">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 

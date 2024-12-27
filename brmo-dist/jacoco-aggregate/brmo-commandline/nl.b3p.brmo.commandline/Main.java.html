@@ -536,14 +536,14 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L536">      String autoProcessen = &quot;select id FROM automatisch_proces where dtype = 'GDS2OphaalProces'&quot;;</span>
 <span class="nc" id="L537">      ResultSet rs = stmt.executeQuery(autoProcessen);</span>
 <span class="nc bnc" id="L538" title="All 2 branches missed.">      while (rs.next()) {</span>
-<span class="nc" id="L539">        Long id = rs.getLong(1);</span>
+<span class="nc" id="L539">        long id = rs.getLong(1);</span>
 <span class="nc" id="L540">        LOG.info(&quot;Ophalen laadprocessen voor automatisch proces: &quot; + id);</span>
 <span class="nc" id="L541">        String processen =</span>
             &quot;select id,bestand_naam from laadproces where automatisch_proces = &quot; + id;
 <span class="nc" id="L543">        Statement laadprocesStmt = con.createStatement();</span>
 <span class="nc" id="L544">        ResultSet lpRs = laadprocesStmt.executeQuery(processen);</span>
 <span class="nc bnc" id="L545" title="All 2 branches missed.">        while (lpRs.next()) {</span>
-<span class="nc" id="L546">          Long lpId = lpRs.getLong(1);</span>
+<span class="nc" id="L546">          long lpId = lpRs.getLong(1);</span>
 <span class="nc" id="L547">          String bestandsNaam = lpRs.getString(2);</span>
 <span class="nc" id="L548">          String berichten =</span>
               &quot;select id, br_orgineel_xml, object_ref from bericht where laadprocesid = &quot; + lpId;
