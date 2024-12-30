@@ -125,7 +125,7 @@
         <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.2.1</taglist-maven-plugin.version>
-        <modernizer-maven-plugin.version>2.9.0</modernizer-maven-plugin.version>
+        <modernizer-maven-plugin.version>3.0.0</modernizer-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
         <database.upgrade />
