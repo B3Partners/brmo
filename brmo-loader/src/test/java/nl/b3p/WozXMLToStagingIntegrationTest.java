@@ -46,6 +46,7 @@ import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -62,6 +63,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  * @author Mark Prins
  */
 @Tag("skip-windows-java11")
+@SuppressModernizer
 public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
   private static final Log LOG = LogFactory.getLog(WozXMLToStagingIntegrationTest.class);
