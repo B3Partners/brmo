@@ -28,6 +28,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,7 @@ import org.junit.jupiter.api.Test;
  * Draaien met: {@code mvn -Dit.test=GH527NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true
  * verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log} voor bijvoorbeeld PostgreSQL
  */
+@SuppressModernizer
 public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrationTest {
 
   private static final Log LOG = LogFactory.getLog(GH527NhrToStagingToRsgbIntegrationTest.class);

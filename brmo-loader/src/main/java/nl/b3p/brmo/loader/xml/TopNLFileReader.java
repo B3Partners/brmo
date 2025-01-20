@@ -21,10 +21,12 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 
 /**
  * @author Mark Prins
  */
+@SuppressModernizer
 public class TopNLFileReader extends BrmoXMLReader {
 
   private long fileSize = 0;

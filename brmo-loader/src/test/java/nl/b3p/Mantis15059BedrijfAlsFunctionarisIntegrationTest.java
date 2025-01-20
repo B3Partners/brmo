@@ -35,6 +35,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,6 +51,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  *
  * @author Mark Prins
  */
+@SuppressModernizer
 public class Mantis15059BedrijfAlsFunctionarisIntegrationTest
     extends AbstractDatabaseIntegrationTest {
 

@@ -37,6 +37,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -52,6 +53,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  *
  * @author mprins
  */
+@SuppressModernizer
 class Brk2StandMutatieVerwerkingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
   private static final Log LOG = LogFactory.getLog(Brk2StandMutatieVerwerkingIntegrationTest.class);
