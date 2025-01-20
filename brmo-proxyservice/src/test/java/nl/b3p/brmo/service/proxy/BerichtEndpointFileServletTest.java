@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author mprins
  */
+@SuppressModernizer
 class BerichtEndpointFileServletTest {
 
   private String saveDir = "/bericht-post-test-";
@@ -35,7 +36,6 @@ class BerichtEndpointFileServletTest {
   private ServletRunner sr;
 
   @BeforeEach
-  @SuppressModernizer
   void setUp() {
     HttpUnitOptions.setDefaultCharacterSet("UTF-8");
     HttpUnitOptions.setLoggingHttpHeaders(true);
