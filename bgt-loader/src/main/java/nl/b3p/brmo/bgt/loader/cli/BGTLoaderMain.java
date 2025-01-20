@@ -15,7 +15,6 @@ import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
@@ -398,7 +397,7 @@ public class BGTLoaderMain implements IVersionProvider {
   }
 
   public void loadXml(File file, BGTObjectTableWriter writer) throws Exception {
-    try (FileInputStream in = (FileInputStream) Files.newInputStream(file.toPath())) {
+    try (InputStream in = Files.newInputStream(file.toPath())) {
       loadInputStream(file.getName(), in, file.length(), writer);
     }
   }

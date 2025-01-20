@@ -17,9 +17,10 @@
 package nl.b3p.web.jsp;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.GZIPOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -103,8 +104,7 @@ public class DownloadTag extends BodyTagSupport {
     byte[] bytes = new byte[4096];
     boolean success = true;
 
-    try (FileInputStream fileInputStream =
-        (FileInputStream) java.nio.file.Files.newInputStream(file)) {
+    try (InputStream fileInputStream = Files.newInputStream(file)) {
       int length;
       while ((length = fileInputStream.read(bytes)) != -1) {
         outputStream.write(bytes, 0, length);
