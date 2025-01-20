@@ -17,10 +17,10 @@
 package nl.b3p.web.jsp;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.apache.commons.logging.Log;
@@ -58,13 +58,12 @@ public class TailTag extends BodyTagSupport {
         this.file = LogfileUtil.getLogfile();
       }
 
-      File f = new File(this.file);
-      f =
-          f.isAbsolute()
-              ? f
-              : new File(this.pageContext.getServletContext().getRealPath("/"), this.file);
-
-      try (InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(f))) {
+      Path p = Path.of(this.file);
+      p =
+          p.isAbsolute()
+              ? p
+              : Path.of(this.pageContext.getServletContext().getRealPath("/"), this.file);
+      try (InputStreamReader inputStreamReader = new InputStreamReader(Files.newInputStream(p))) {
         String line;
         for (BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             (line = bufferedReader.readLine()) != null;

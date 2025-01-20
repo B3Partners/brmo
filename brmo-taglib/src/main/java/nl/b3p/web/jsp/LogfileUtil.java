@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -56,8 +55,7 @@ public final class LogfileUtil {
         break;
       }
     }
-    File f = new File(file);
-    return f.getAbsolutePath();
+    return Path.of(file).toAbsolutePath().toString();
   }
 
   /**
@@ -69,14 +67,14 @@ public final class LogfileUtil {
   public static List<String> getLogfileList() {
     List<String> files = new ArrayList<>();
     // opzoeken van brmo log files, de logger heeft de naam 'file' in de log4j properties
-    final File f = new File(getLogfile());
+    File f = Path.of(getLogfile()).toFile();
 
     // filter op basename van actuele logfile zodat geroteerde files ook in de lijst komen
     DirectoryStream.Filter<Path> filter =
         (Path p) -> (p.getFileName().toString().startsWith(FilenameUtils.getBaseName(f.getName())));
 
     try (DirectoryStream<Path> directoryStream =
-        Files.newDirectoryStream(Paths.get(f.getParent()), filter)) {
+        Files.newDirectoryStream(Path.of(f.getParent()), filter)) {
       for (Path path : directoryStream) {
         files.add(path.toString());
       }
