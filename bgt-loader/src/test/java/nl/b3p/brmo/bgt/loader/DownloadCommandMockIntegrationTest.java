@@ -83,7 +83,7 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
     assertDataSetEquals(
         "kast,ondersteunendwaterdeel,paal,sensor,begroeidterreindeel,overbruggingsdeel,spoor,"
             + "bord,pand,nummeraanduidingreeks,functioneelgebied,onbegroeidterreindeel,gebouwinstallatie,weginrichtingselement,"
-            + "kunstwerkdeel,waterinrichtingselement,installatie,vegetatieobject,waterdeel,put,scheiding,ondersteunendwegdeel"
+            + "kunstwerkdeel,waterinrichtingselement,installatie,vegetatieobject,waterdeel,put,scheiding,ondersteunendwegdeel,"
             + "straatmeubilair,wegdeel,plaatsbepalingspunt,bak,openbareruimtelabel,overigbouwwerk,overigescheiding",
         "extract");
   }
