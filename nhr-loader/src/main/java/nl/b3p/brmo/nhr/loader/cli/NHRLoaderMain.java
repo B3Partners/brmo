@@ -8,8 +8,9 @@
 package nl.b3p.brmo.nhr.loader.cli;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.nhr.loader.NHRCertificateOptions;
 import nl.b3p.brmo.nhr.loader.NHRDatabaseOptions;
@@ -128,7 +129,7 @@ public class NHRLoaderMain implements IVersionProvider {
     outer:
     for (String file : files) {
       try (BufferedReader reader =
-          new BufferedReader(new FileReader(file, StandardCharsets.US_ASCII))) {
+          Files.newBufferedReader(Path.of(file), StandardCharsets.US_ASCII)) {
         while (reader.ready()) {
           String nummer = reader.readLine();
           try {
