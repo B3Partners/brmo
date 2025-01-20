@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import java.util.zip.GZIPOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,13 +44,14 @@ public class DownloadTag extends BodyTagSupport {
     if (this.file == null) {
       this.file = LogfileUtil.getLogfile();
     }
-    File f = new File(this.file);
-    f =
-        f.isAbsolute()
-            ? f
-            : new File(this.pageContext.getServletContext().getRealPath("/"), this.file);
+    Path p = Path.of(this.file);
+    p =
+        p.isAbsolute()
+            ? p
+            : Path.of(this.pageContext.getServletContext().getRealPath("/"), this.file);
+
     sendFile(
-        f,
+        p.toFile(),
         (HttpServletResponse) this.pageContext.getResponse(),
         (HttpServletRequest) this.pageContext.getRequest());
     return EVAL_PAGE;
@@ -85,7 +87,7 @@ public class DownloadTag extends BodyTagSupport {
       throw new JspException(e.getLocalizedMessage());
     }
 
-    if (!this.streamFile(f, outputStream)) {
+    if (!this.streamFile(f.toPath(), outputStream)) {
       throw new JspException("Bestand kon niet worden geladen");
     } else {
       try {
@@ -97,11 +99,12 @@ public class DownloadTag extends BodyTagSupport {
     }
   }
 
-  private boolean streamFile(File file, OutputStream outputStream) {
+  private boolean streamFile(Path file, OutputStream outputStream) {
     byte[] bytes = new byte[4096];
     boolean success = true;
 
-    try (FileInputStream fileInputStream = new FileInputStream(file)) {
+    try (FileInputStream fileInputStream =
+        (FileInputStream) java.nio.file.Files.newInputStream(file)) {
       int length;
       while ((length = fileInputStream.read(bytes)) != -1) {
         outputStream.write(bytes, 0, length);
