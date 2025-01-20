@@ -15,7 +15,6 @@ import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TECHN
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TIME;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.CookieManager;
@@ -591,7 +590,7 @@ public class BAG2LoaderMain implements IVersionProvider {
       }
     }
     if (url.endsWith(".zip")) {
-      try (InputStream in = new FileInputStream(url)) {
+      try (InputStream in = Files.newInputStream(Path.of(url))) {
         return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, url, in);
       }
     }

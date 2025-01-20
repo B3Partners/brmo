@@ -86,7 +86,7 @@ public class BAG2LoaderUtils {
         return getBAGExtractSelectieFromHttpZip(URI.create(zipFileName));
       }
     } else {
-      return getBAGExtractSelectieFromZipFile(new File(zipFileName));
+      return getBAGExtractSelectieFromZipFile(Path.of(zipFileName).toFile());
     }
   }
 
