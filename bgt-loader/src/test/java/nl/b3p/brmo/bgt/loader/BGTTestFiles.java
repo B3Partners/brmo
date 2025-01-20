@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 
 public class BGTTestFiles {
   public static InputStream getTestInputStream(String name) {
@@ -23,6 +24,7 @@ public class BGTTestFiles {
     return input;
   }
 
+  @SuppressModernizer
   public static File getTestFile(String name) {
     URL url = BGTTestFiles.class.getResource("/" + name);
     assertNotNull(url, name);

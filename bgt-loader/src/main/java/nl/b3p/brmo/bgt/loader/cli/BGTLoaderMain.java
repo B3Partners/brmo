@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -153,9 +155,9 @@ public class BGTLoaderMain implements IVersionProvider {
       if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
         loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions, loadOptions, true);
       } else if (file.endsWith(".zip")) {
-        loadZip(new File(file), writer, featureTypeSelectionOptions);
+        loadZip(Path.of(file).toFile(), writer, featureTypeSelectionOptions);
       } else if (file.matches(".*\\.[xg]ml")) {
-        loadXml(new File(file), writer);
+        loadXml(Path.of(file).toFile(), writer);
       } else {
         log.error(getMessageFormattedString("load.invalid_extension", file));
         return ExitCode.USAGE;
@@ -396,7 +398,7 @@ public class BGTLoaderMain implements IVersionProvider {
   }
 
   public void loadXml(File file, BGTObjectTableWriter writer) throws Exception {
-    try (FileInputStream in = new FileInputStream(file)) {
+    try (FileInputStream in = (FileInputStream) Files.newInputStream(file.toPath())) {
       loadInputStream(file.getName(), in, file.length(), writer);
     }
   }
