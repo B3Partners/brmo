@@ -27,6 +27,7 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
@@ -34,6 +35,7 @@ import org.stripesstuff.stripersist.Stripersist;
  *
  * @author Meine Toonen
  */
+@SuppressModernizer
 public class TopNLDirectoryScanner extends AbstractExecutableProces {
 
   private static final Log LOG = LogFactory.getLog(TopNLDirectoryScanner.class);

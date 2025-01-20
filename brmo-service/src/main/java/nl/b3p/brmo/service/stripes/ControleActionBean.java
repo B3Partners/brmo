@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.activation.MimetypesFileTypeMap;
@@ -93,7 +94,7 @@ public class ControleActionBean implements ActionBean {
       LOG.info("Afgiftelijst gecontroleerd met bestand: " + file.getFileName());
       brmo.closeBrmoFramework();
 
-      final FileInputStream fis = new FileInputStream(response);
+      final FileInputStream fis = (FileInputStream) Files.newInputStream(response.toPath());
       try {
         StreamingResolution res =
             new StreamingResolution(
