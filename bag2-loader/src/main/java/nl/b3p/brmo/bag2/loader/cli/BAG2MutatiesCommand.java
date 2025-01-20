@@ -11,7 +11,6 @@ import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.CookieManager;
@@ -127,7 +126,7 @@ public class BAG2MutatiesCommand {
                       URI.create(url),
                       new Java11HttpClientWrapper(
                           HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));
-          OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {
+          OutputStream out = Files.newOutputStream(Path.of(downloadPath, name))) {
 
         log.info(
             String.format(
@@ -145,8 +144,8 @@ public class BAG2MutatiesCommand {
           String name = bestand.getString("naam");
           bestand.put("url", URI.create(mirrorBaseUrl).resolve(name));
         }
-        File bestandenJSONMirror = Path.of(downloadPath, "bestanden.json").toFile();
-        try (OutputStream out = new FileOutputStream(bestandenJSONMirror)) {
+        Path bestandenJSONMirror = Path.of(downloadPath, "bestanden.json");
+        try (OutputStream out = Files.newOutputStream(bestandenJSONMirror)) {
           IOUtils.write(bestanden.toString(2), out, StandardCharsets.UTF_8);
           msg =
               String.format(
