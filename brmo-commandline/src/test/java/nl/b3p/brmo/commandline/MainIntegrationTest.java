@@ -19,6 +19,7 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -29,6 +30,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  *
  * @author mprins
  */
+@SuppressModernizer
 public class MainIntegrationTest {
   private static final Log LOG = LogFactory.getLog(MainIntegrationTest.class);
   private static final String BASE_COMMAND =

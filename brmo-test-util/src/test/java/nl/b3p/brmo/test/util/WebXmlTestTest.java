@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.Test;
 
+@SuppressModernizer
 public final class WebXmlTestTest {
 
   @Test

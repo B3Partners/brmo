@@ -9,7 +9,6 @@ import static nl.b3p.gds2.GDS2Util.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -19,6 +18,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -600,7 +601,8 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
       // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
       String fName = File.createTempFile(lp.getBestand_naam(), ".xml").getAbsolutePath();
       log.debug("Dump xml bericht naar: " + fName);
-      IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName, StandardCharsets.UTF_8));
+      IOUtils.write(
+          b.getBr_orgineel_xml(), Files.newBufferedWriter(Path.of(fName), StandardCharsets.UTF_8));
     }
     try {
       String brXML;
