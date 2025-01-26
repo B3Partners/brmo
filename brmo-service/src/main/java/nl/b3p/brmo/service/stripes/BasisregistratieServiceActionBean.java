@@ -92,15 +92,16 @@ public class BasisregistratieServiceActionBean implements ActionBean {
         // uniek)
         ZipInputStream zip = new ZipInputStream(in);
         ZipEntry entry = zip.getNextEntry();
+        String sanitizedEntryName;
         while (entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
-          String sanitizedEntryName = entry.getName().replace("\n", "").replace("\r", "");
+          sanitizedEntryName = entry.getName().replace('\n', ' ').replace('\r', ' ');
           log.warn("Overslaan zip entry geen XML: " + sanitizedEntryName);
           entry = zip.getNextEntry();
         }
         if (entry == null) {
           throw new BrmoException("Geen geschikt XML bestand gevonden in zip bestand ");
         }
-        String sanitizedEntryName = entry.getName().replace('\n', ' ').replace('\r', ' ');
+        sanitizedEntryName = entry.getName().replace('\n', ' ').replace('\r', ' ');
         log.debug("Lezen XML bestand uit zip: " + sanitizedEntryName);
         unzippedFile = entry.getName();
         brmo.loadFromStream(basisregistratie, zip, getUniqueFilename(brmo), (Long) null);
