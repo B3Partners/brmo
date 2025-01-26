@@ -99,7 +99,8 @@ public class BasisregistratieServiceActionBean implements ActionBean {
         if (entry == null) {
           throw new BrmoException("Geen geschikt XML bestand gevonden in zip bestand ");
         }
-        log.debug("Lezen XML bestand uit zip: " + entry.getName());
+        String sanitizedEntryName = entry.getName().replace('\n', ' ').replace('\r', ' ');
+        log.debug("Lezen XML bestand uit zip: " + sanitizedEntryName);
         unzippedFile = entry.getName();
         brmo.loadFromStream(basisregistratie, zip, getUniqueFilename(brmo), (Long) null);
 
