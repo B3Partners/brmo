@@ -93,7 +93,8 @@ public class BasisregistratieServiceActionBean implements ActionBean {
         ZipInputStream zip = new ZipInputStream(in);
         ZipEntry entry = zip.getNextEntry();
         while (entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
-          log.warn("Overslaan zip entry geen XML: " + entry.getName());
+          String sanitizedEntryName = entry.getName().replace("\n", "").replace("\r", "");
+          log.warn("Overslaan zip entry geen XML: " + sanitizedEntryName);
           entry = zip.getNextEntry();
         }
         if (entry == null) {
