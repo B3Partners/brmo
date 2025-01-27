@@ -41,7 +41,7 @@ jobs:
         run: mvn -U package -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true -Dmaven.javadoc.skip=true
 
       - name: 'Trivy Cache'
-        uses: yogeshlonkar/trivy-cache-action@v0.1.11
+        uses: yogeshlonkar/trivy-cache-action@v0.1.12
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
 
