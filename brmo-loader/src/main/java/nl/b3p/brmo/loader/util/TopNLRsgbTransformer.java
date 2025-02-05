@@ -17,11 +17,13 @@ import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TopNLType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.jdom2.JDOMException;
 
 /**
  * @author Meine Toonen
  */
+@SuppressModernizer
 public class TopNLRsgbTransformer implements Runnable {
 
   private static final Log LOG = LogFactory.getLog(TopNLRsgbTransformer.class);

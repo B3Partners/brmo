@@ -17,9 +17,10 @@
 package nl.b3p.brmo.service.stripes;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.activation.MimetypesFileTypeMap;
@@ -93,8 +94,7 @@ public class ControleActionBean implements ActionBean {
       LOG.info("Afgiftelijst gecontroleerd met bestand: " + file.getFileName());
       brmo.closeBrmoFramework();
 
-      final FileInputStream fis = new FileInputStream(response);
-      try {
+      try (InputStream fis = Files.newInputStream(response.toPath())) {
         StreamingResolution res =
             new StreamingResolution(
                 MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(response)) {
@@ -102,7 +102,6 @@ public class ControleActionBean implements ActionBean {
               public void stream(HttpServletResponse response) throws Exception {
                 OutputStream out = response.getOutputStream();
                 IOUtils.copy(fis, out);
-                fis.close();
               }
             };
         String extension = "pdf";
