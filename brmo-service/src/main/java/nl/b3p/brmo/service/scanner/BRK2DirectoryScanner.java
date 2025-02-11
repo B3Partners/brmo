@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -109,7 +110,7 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
     sb.append(msg);
 
     // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
-    final File scanDirectory = new File(this.config.getScanDirectory());
+    final File scanDirectory = Path.of(this.config.getScanDirectory()).toFile();
     if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {
       config.setStatus(ERROR);
       msg = String.format("De scan directory '%s' is geen executable directory", scanDirectory);
@@ -122,7 +123,7 @@ public class BRK2DirectoryScanner extends AbstractExecutableProces {
     final String aDir = this.config.getArchiefDirectory();
     File archiefDirectory = null;
     if (aDir != null) {
-      archiefDirectory = new File(aDir);
+      archiefDirectory = Path.of(aDir).toFile();
       archiefDirectory.mkdirs();
       if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
         config.setStatus(ERROR);
