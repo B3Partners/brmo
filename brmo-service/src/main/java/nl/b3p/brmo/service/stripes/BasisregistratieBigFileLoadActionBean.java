@@ -1,6 +1,7 @@
 package nl.b3p.brmo.service.stripes;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Date;
 import javax.sql.DataSource;
 import net.sourceforge.stripes.action.ActionBean;
@@ -78,7 +79,7 @@ public class BasisregistratieBigFileLoadActionBean implements ActionBean, Progre
     start = new Date();
 
     try {
-      File f = new File(filename);
+      File f = Path.of(filename).toFile();
       if (!f.exists() || !f.canRead() || f.length() == 0) {
         getContext()
             .getMessages()

@@ -12,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 
+@SuppressModernizer
 public class BAG2TestFiles {
   public static InputStream getTestInputStream(String name) {
     InputStream input = BAG2TestFiles.class.getResourceAsStream("/" + name);
