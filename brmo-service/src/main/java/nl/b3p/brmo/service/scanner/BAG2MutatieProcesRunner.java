@@ -170,7 +170,8 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
                 String.format(
                     "Verwerken van BAG2 mutatiebestanden van publieke mirror \"%s\"", url));
             exitCode =
-                mutatiesCommand.apply(dbOptions, progress, null, null, url, queryParams, false);
+                mutatiesCommand.apply(
+                    dbOptions, progress, loadOptions, null, null, url, queryParams, false);
             listener.addLog("Einde verwerken BAG2 bestanden");
             break;
           case "apply":
@@ -181,7 +182,14 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
                     kadasterUser));
             exitCode =
                 mutatiesCommand.apply(
-                    dbOptions, progress, kadasterUser, kadasterPassword, url, queryParams, false);
+                    dbOptions,
+                    progress,
+                    loadOptions,
+                    kadasterUser,
+                    kadasterPassword,
+                    url,
+                    queryParams,
+                    false);
             listener.addLog("Einde verwerken BAG2 bestanden");
             break;
           case "download":
