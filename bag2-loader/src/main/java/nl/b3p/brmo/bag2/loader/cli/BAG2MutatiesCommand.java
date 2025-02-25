@@ -164,6 +164,7 @@ public class BAG2MutatiesCommand {
   public int apply(
       @Mixin BAG2DatabaseOptions dbOptions,
       @Mixin BAG2ProgressOptions progressOptions,
+      @Mixin BAG2LoadOptions loadOptions,
       @Option(names = "--kadaster-user") String kadasterUser,
       @Option(names = "--kadaster-password") String kadasterPassword,
       @Option(names = "--url", defaultValue = LVBAG_BESTANDEN_API_URL) String url,
@@ -199,7 +200,7 @@ public class BAG2MutatiesCommand {
       parent.applyMutaties(
           db,
           dbOptions,
-          new BAG2LoadOptions(),
+          loadOptions,
           progressReporter,
           urls.toArray(String[]::new),
           kadasterCookieManager);
