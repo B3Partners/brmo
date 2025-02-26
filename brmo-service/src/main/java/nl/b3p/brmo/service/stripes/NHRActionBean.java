@@ -1,10 +1,12 @@
 package nl.b3p.brmo.service.stripes;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -115,9 +117,9 @@ public class NHRActionBean implements ActionBean {
     KeyStore keyStore;
     try {
       keyStore = KeyStore.getInstance("PKCS12");
-      try (FileInputStream keyStoreFile =
-          new FileInputStream(
-              (String) InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePath"))) {
+      try (InputStream keyStoreFile =
+          Files.newInputStream(
+              Path.of((String) InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePath")))) {
         keyStore.load(
             keyStoreFile,
             ((String) InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePassword"))
@@ -149,9 +151,9 @@ public class NHRActionBean implements ActionBean {
 
     try {
       KeyStore trustStore = KeyStore.getInstance("PKCS12");
-      try (FileInputStream trustStoreFile =
-          new FileInputStream(
-              (String) InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePath"))) {
+      try (InputStream trustStoreFile =
+          Files.newInputStream(
+              Path.of((String) InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePath")))) {
         trustStore.load(
             trustStoreFile,
             ((String) InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePassword"))
