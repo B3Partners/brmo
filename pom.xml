@@ -121,7 +121,7 @@
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
-        <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.2.1</taglist-maven-plugin.version>
@@ -791,15 +791,6 @@
             <url>https://repo.b3p.nl/nexus/repository/public/</url>
         </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </pluginRepository>
-    </pluginRepositories>
     <build>
         <defaultGoal>package</defaultGoal>
         <testResources>
@@ -934,7 +925,9 @@
                         <!--                        <systemPropertyVariables />-->
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
+                        <!--suppress MavenModelInspection -->
                         <skipTests>!${test.onlyITs}</skipTests>
+                        <!--suppress MavenModelInspection -->
                         <skipITs>!${test.onlyITs}</skipITs>
                         <!--suppress UnresolvedMavenProperty -->
                         <argLine>${failsafeArgLine}</argLine>
@@ -995,7 +988,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.3</version>
+                    <version>3.1.4</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -1109,7 +1102,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[3.9,)</version>
+                                    <version>[3.9,4.0)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
@@ -1352,7 +1345,7 @@
                 <version>${maven-jxr-plugin.version}</version>
                 <configuration>
                     <linkJavadoc>true</linkJavadoc>
-                    <javadocDir>${basedir}/target/site/apidocs</javadocDir>
+                    <javadocLocation>${basedir}/target/site/apidocs</javadocLocation>
                 </configuration>
             </plugin>
             <plugin>
