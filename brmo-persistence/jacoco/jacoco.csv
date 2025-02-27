@@ -2,7 +2,7 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 BRMO persistence,nl.b3p.brmo.persistence,SnakeCasePhysicalNamingStrategy,7,57,0,4,1,10,1,8,1,6
 BRMO persistence,nl.b3p.brmo.persistence.auth,Gebruiker,13,16,0,0,5,6,4,3,4,3
 BRMO persistence,nl.b3p.brmo.persistence.auth,Groep,7,22,0,0,3,8,2,5,2,5
-BRMO persistence,nl.b3p.brmo.persistence.staging,LaadProces,178,7,0,0,60,3,39,2,39,2
+BRMO persistence,nl.b3p.brmo.persistence.staging,LaadProces,185,7,0,0,60,3,39,2,39,2
 BRMO persistence,nl.b3p.brmo.persistence.staging,Bericht.STATUS,0,57,0,0,0,10,0,1,0,1
 BRMO persistence,nl.b3p.brmo.persistence.staging,BGTLoaderProces,3,0,0,0,1,0,1,0,1,0
 BRMO persistence,nl.b3p.brmo.persistence.staging,AfgifteNummerScannerProces,105,0,8,0,19,0,13,0,9,0

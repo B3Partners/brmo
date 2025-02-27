@@ -50,7 +50,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * &lt;p&gt;The setter methods of this class return the current object to facilitate
  * a fluent style of configuration.&lt;/p&gt;
  */
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.10.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.11.0&quot;)
 public class ApiClient {
 
   private HttpClient.Builder builder;
@@ -191,7 +191,7 @@ public class ApiClient {
 <span class="nc" id="L191">    asyncResponseInterceptor = null;</span>
 <span class="nc" id="L192">  }</span>
 
-  protected ObjectMapper createDefaultObjectMapper() {
+  public static ObjectMapper createDefaultObjectMapper() {
 <span class="nc" id="L195">    ObjectMapper mapper = new ObjectMapper();</span>
 <span class="nc" id="L196">    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);</span>
 <span class="nc" id="L197">    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
@@ -204,11 +204,11 @@ public class ApiClient {
 <span class="nc" id="L204">    return mapper;</span>
   }
 
-  protected String getDefaultBaseUri() {
+  private String getDefaultBaseUri() {
 <span class="nc" id="L208">    return &quot;https://api.pdok.nl/lv/bgt/download/v1_0&quot;;</span>
   }
 
-  protected HttpClient.Builder createDefaultHttpClientBuilder() {
+  public static HttpClient.Builder createDefaultHttpClientBuilder() {
 <span class="nc" id="L212">    return HttpClient.newBuilder();</span>
   }
 

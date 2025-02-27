@@ -172,139 +172,140 @@
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> apply(
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>       @Mixin <a name="BAG2DatabaseOptions" href="../../../../../../nl/b3p/brmo/bag2/loader/cli/BAG2DatabaseOptions.html#BAG2DatabaseOptions">BAG2DatabaseOptions</a> dbOptions,
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>       @Mixin <a name="BAG2ProgressOptions" href="../../../../../../nl/b3p/brmo/bag2/loader/cli/BAG2ProgressOptions.html#BAG2ProgressOptions">BAG2ProgressOptions</a> progressOptions,
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>       @Option(names = <span class="jxr_string">"--kadaster-user"</span>) String kadasterUser,
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>       @Option(names = <span class="jxr_string">"--kadaster-password"</span>) String kadasterPassword,
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>       @Option(names = <span class="jxr_string">"--url"</span>, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>       @Option(names = <span class="jxr_string">"--query-params"</span>, defaultValue = <span class="jxr_string">"artikelnummers=2529"</span>) String queryParams,
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>       @Option(
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>               names = {<span class="jxr_string">"-h"</span>, <span class="jxr_string">"--help"</span>},
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>               usageHelp = <strong class="jxr_keyword">true</strong>)
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>           <strong class="jxr_keyword">boolean</strong> showHelp)
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>       <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> 
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     log.info(BAG2LoaderUtils.getUserAgent());
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>     Instant start = Instant.now();
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> 
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     CookieManager kadasterCookieManager = <strong class="jxr_keyword">new</strong> CookieManager(<strong class="jxr_keyword">null</strong>, CookiePolicy.ACCEPT_ALL);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>     mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);
-<a class="jxr_linenumber" name="L182" href="#L182">182</a> 
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>     JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);
-<a class="jxr_linenumber" name="L184" href="#L184">184</a> 
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>     log.info(<span class="jxr_string">"Aantal beschikbare bestanden: "</span> + bestanden.length());
-<a class="jxr_linenumber" name="L186" href="#L186">186</a> 
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>     List&lt;String&gt; urls = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; bestanden.length(); i++) {
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>       JSONObject bestand = bestanden.getJSONObject(i);
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>       urls.add(bestand.getString(<span class="jxr_string">"url"</span>));
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     }
-<a class="jxr_linenumber" name="L192" href="#L192">192</a> 
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">try</strong> (<a name="BAG2Database" href="../../../../../../nl/b3p/brmo/bag2/loader/BAG2Database.html#BAG2Database">BAG2Database</a> db = parent.getBAG2Database(dbOptions)) {
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>       <a name="BAG2ProgressReporter" href="../../../../../../nl/b3p/brmo/bag2/loader/BAG2ProgressReporter.html#BAG2ProgressReporter">BAG2ProgressReporter</a> progressReporter =
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>           progressOptions.isConsoleProgressEnabled()
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>               ? <strong class="jxr_keyword">new</strong> <a name="BAG2ConsoleProgressReporter" href="../../../../../../nl/b3p/brmo/bag2/loader/cli/BAG2ConsoleProgressReporter.html#BAG2ConsoleProgressReporter">BAG2ConsoleProgressReporter</a>()
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>               : <strong class="jxr_keyword">new</strong> <a name="BAG2ProgressReporter" href="../../../../../../nl/b3p/brmo/bag2/loader/BAG2ProgressReporter.html#BAG2ProgressReporter">BAG2ProgressReporter</a>();
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> 
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>       parent.applyMutaties(
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>           db,
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>           dbOptions,
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>           <strong class="jxr_keyword">new</strong> <a name="BAG2LoadOptions" href="../../../../../../nl/b3p/brmo/bag2/loader/cli/BAG2LoadOptions.html#BAG2LoadOptions">BAG2LoadOptions</a>(),
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>           progressReporter,
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>           urls.toArray(String[]::<strong class="jxr_keyword">new</strong>),
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>           kadasterCookieManager);
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>       log.info(<span class="jxr_string">"Alle mutatiebestanden verwerkt in "</span> + formatTimeSince(start));
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>       <strong class="jxr_keyword">return</strong> ExitCode.OK;
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>     }
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>   }
-<a class="jxr_linenumber" name="L210" href="#L210">210</a> 
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> mijnKadasterLogin(
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>       URI forUri, String username, String password, CookieManager cookieManager)
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>       <strong class="jxr_keyword">throws</strong> IOException, InterruptedException {
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">if</strong> (!forUri.getHost().endsWith(<span class="jxr_string">"kadaster.nl"</span>)) {
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>       <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>     }
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     <strong class="jxr_keyword">if</strong> (username == <strong class="jxr_keyword">null</strong> || password == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Gebruikersnaam en wachtwoord zijn verplicht"</span>);
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     }
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> 
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>     HttpRequest request =
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         HttpRequest.newBuilder()
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>             .uri(URI.create(KADASTER_LOGIN_URL))
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>             .header(<span class="jxr_string">"Content-Type"</span>, <span class="jxr_string">"application/x-www-form-urlencoded"</span>)
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>             .POST(
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>                 HttpRequest.BodyPublishers.ofString(
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>                     String.format(
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>                         <span class="jxr_string">"user=%s&amp;password=%s"</span>,
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>                         URLEncoder.encode(username, StandardCharsets.UTF_8),
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>                         URLEncoder.encode(password, StandardCharsets.UTF_8))))
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>             .build();
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>     HttpClient httpClient = HttpClient.newBuilder().cookieHandler(cookieManager).build();
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>     HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-<a class="jxr_linenumber" name="L236" href="#L236">236</a> 
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>     <strong class="jxr_keyword">if</strong> (response.statusCode() != 302) {
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>           String.format(<span class="jxr_string">"Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;"</span>, username));
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>     }
-<a class="jxr_linenumber" name="L241" href="#L241">241</a> 
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>     Map&lt;String, List&lt;String&gt;&gt; cookies =
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>         cookieManager.get(URI.create(KADASTER_LOGIN_URL), <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;());
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>     Optional&lt;String&gt; kadasterTicketIdCookie =
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>         cookies.getOrDefault(<span class="jxr_string">"Cookie"</span>, List.of()).stream()
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>             .filter(c -&gt; c.startsWith(<span class="jxr_string">"KadasterTicketId="</span>))
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>             .findFirst();
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> 
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>     <strong class="jxr_keyword">if</strong> (kadasterTicketIdCookie.isEmpty()) {
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Geen KadasterTicketId cookie ontvangen na inloggen"</span>);
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>     }
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>   }
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> JSONArray getBagBestanden(
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>       String url, String queryParams, CookieManager kadasterCookieManager) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>     url = url + <span class="jxr_string">"?"</span> + queryParams;
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>     log.info(<span class="jxr_string">"Opvragen bestanden JSON vanaf URL "</span> + url);
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>     HttpClient httpClient = HttpClient.newBuilder().cookieHandler(kadasterCookieManager).build();
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>     HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> 
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>     JSONArray bestanden;
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>       bestanden = <strong class="jxr_keyword">new</strong> JSONArray(response.body());
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>     } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> Exception(<span class="jxr_string">"Fout bij parsen BAG bestanden JSON, body: "</span> + response.body(), e);
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     }
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">return</strong> bestanden;
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>   }
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> 
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden)
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>       <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>     <strong class="jxr_keyword">final</strong> Set&lt;String&gt; names = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; bestanden.length(); i++) {
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>       names.add(bestanden.getJSONObject(i).getString(<span class="jxr_string">"naam"</span>));
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>     }
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>     <strong class="jxr_keyword">try</strong> (Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>       stream
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>           .filter(
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>               p -&gt;
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>                   !Files.isDirectory(p)
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>                       &amp;&amp; p.getFileName().toString().endsWith(<span class="jxr_string">".zip"</span>)
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>                       &amp;&amp; !names.contains(p.getFileName().toString()))
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>           .forEach(
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>               p -&gt; {
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>                 log.info(<span class="jxr_string">"Verwijderen ZIP bestand niet in bestandenlijst: "</span> + p.getFileName());
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>                   Files.delete(p);
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>                   log.error(
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>                       String.format(<span class="jxr_string">"Fout bij verwijderen ZIP bestand %s: %s"</span>, p.getFileName(), e));
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>                 }
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>               });
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>     }
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>   }
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>       @Mixin <a name="BAG2LoadOptions" href="../../../../../../nl/b3p/brmo/bag2/loader/cli/BAG2LoadOptions.html#BAG2LoadOptions">BAG2LoadOptions</a> loadOptions,
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>       @Option(names = <span class="jxr_string">"--kadaster-user"</span>) String kadasterUser,
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>       @Option(names = <span class="jxr_string">"--kadaster-password"</span>) String kadasterPassword,
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>       @Option(names = <span class="jxr_string">"--url"</span>, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>       @Option(names = <span class="jxr_string">"--query-params"</span>, defaultValue = <span class="jxr_string">"artikelnummers=2529"</span>) String queryParams,
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>       @Option(
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>               names = {<span class="jxr_string">"-h"</span>, <span class="jxr_string">"--help"</span>},
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>               usageHelp = <strong class="jxr_keyword">true</strong>)
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>           <strong class="jxr_keyword">boolean</strong> showHelp)
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>       <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> 
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>     log.info(BAG2LoaderUtils.getUserAgent());
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     Instant start = Instant.now();
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> 
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     CookieManager kadasterCookieManager = <strong class="jxr_keyword">new</strong> CookieManager(<strong class="jxr_keyword">null</strong>, CookiePolicy.ACCEPT_ALL);
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);
+<a class="jxr_linenumber" name="L185" href="#L185">185</a> 
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>     log.info(<span class="jxr_string">"Aantal beschikbare bestanden: "</span> + bestanden.length());
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>     List&lt;String&gt; urls = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; bestanden.length(); i++) {
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>       JSONObject bestand = bestanden.getJSONObject(i);
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>       urls.add(bestand.getString(<span class="jxr_string">"url"</span>));
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">try</strong> (<a name="BAG2Database" href="../../../../../../nl/b3p/brmo/bag2/loader/BAG2Database.html#BAG2Database">BAG2Database</a> db = parent.getBAG2Database(dbOptions)) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>       <a name="BAG2ProgressReporter" href="../../../../../../nl/b3p/brmo/bag2/loader/BAG2ProgressReporter.html#BAG2ProgressReporter">BAG2ProgressReporter</a> progressReporter =
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>           progressOptions.isConsoleProgressEnabled()
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>               ? <strong class="jxr_keyword">new</strong> <a name="BAG2ConsoleProgressReporter" href="../../../../../../nl/b3p/brmo/bag2/loader/cli/BAG2ConsoleProgressReporter.html#BAG2ConsoleProgressReporter">BAG2ConsoleProgressReporter</a>()
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>               : <strong class="jxr_keyword">new</strong> <a name="BAG2ProgressReporter" href="../../../../../../nl/b3p/brmo/bag2/loader/BAG2ProgressReporter.html#BAG2ProgressReporter">BAG2ProgressReporter</a>();
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> 
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>       parent.applyMutaties(
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>           db,
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>           dbOptions,
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>           loadOptions,
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>           progressReporter,
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>           urls.toArray(String[]::<strong class="jxr_keyword">new</strong>),
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>           kadasterCookieManager);
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>       log.info(<span class="jxr_string">"Alle mutatiebestanden verwerkt in "</span> + formatTimeSince(start));
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>       <strong class="jxr_keyword">return</strong> ExitCode.OK;
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>     }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>   }
+<a class="jxr_linenumber" name="L211" href="#L211">211</a> 
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> mijnKadasterLogin(
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>       URI forUri, String username, String password, CookieManager cookieManager)
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>       <strong class="jxr_keyword">throws</strong> IOException, InterruptedException {
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">if</strong> (!forUri.getHost().endsWith(<span class="jxr_string">"kadaster.nl"</span>)) {
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>       <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>     }
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">if</strong> (username == <strong class="jxr_keyword">null</strong> || password == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Gebruikersnaam en wachtwoord zijn verplicht"</span>);
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>     }
+<a class="jxr_linenumber" name="L221" href="#L221">221</a> 
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     HttpRequest request =
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         HttpRequest.newBuilder()
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>             .uri(URI.create(KADASTER_LOGIN_URL))
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>             .header(<span class="jxr_string">"Content-Type"</span>, <span class="jxr_string">"application/x-www-form-urlencoded"</span>)
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>             .POST(
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>                 HttpRequest.BodyPublishers.ofString(
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                     String.format(
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                         <span class="jxr_string">"user=%s&amp;password=%s"</span>,
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>                         URLEncoder.encode(username, StandardCharsets.UTF_8),
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>                         URLEncoder.encode(password, StandardCharsets.UTF_8))))
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>             .build();
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>     HttpClient httpClient = HttpClient.newBuilder().cookieHandler(cookieManager).build();
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>     HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     <strong class="jxr_keyword">if</strong> (response.statusCode() != 302) {
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>           String.format(<span class="jxr_string">"Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;"</span>, username));
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     }
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> 
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>     Map&lt;String, List&lt;String&gt;&gt; cookies =
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>         cookieManager.get(URI.create(KADASTER_LOGIN_URL), <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;());
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> 
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>     Optional&lt;String&gt; kadasterTicketIdCookie =
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         cookies.getOrDefault(<span class="jxr_string">"Cookie"</span>, List.of()).stream()
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>             .filter(c -&gt; c.startsWith(<span class="jxr_string">"KadasterTicketId="</span>))
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             .findFirst();
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> 
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">if</strong> (kadasterTicketIdCookie.isEmpty()) {
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Geen KadasterTicketId cookie ontvangen na inloggen"</span>);
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     }
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>   }
+<a class="jxr_linenumber" name="L255" href="#L255">255</a> 
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> JSONArray getBagBestanden(
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>       String url, String queryParams, CookieManager kadasterCookieManager) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     url = url + <span class="jxr_string">"?"</span> + queryParams;
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>     log.info(<span class="jxr_string">"Opvragen bestanden JSON vanaf URL "</span> + url);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     HttpClient httpClient = HttpClient.newBuilder().cookieHandler(kadasterCookieManager).build();
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>     HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> 
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>     JSONArray bestanden;
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>       bestanden = <strong class="jxr_keyword">new</strong> JSONArray(response.body());
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>     } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> Exception(<span class="jxr_string">"Fout bij parsen BAG bestanden JSON, body: "</span> + response.body(), e);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     }
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">return</strong> bestanden;
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>   }
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> 
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden)
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>       <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">final</strong> Set&lt;String&gt; names = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;();
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; bestanden.length(); i++) {
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>       names.add(bestanden.getJSONObject(i).getString(<span class="jxr_string">"naam"</span>));
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>     }
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>     <strong class="jxr_keyword">try</strong> (Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>       stream
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>           .filter(
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>               p -&gt;
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>                   !Files.isDirectory(p)
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>                       &amp;&amp; p.getFileName().toString().endsWith(<span class="jxr_string">".zip"</span>)
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>                       &amp;&amp; !names.contains(p.getFileName().toString()))
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>           .forEach(
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>               p -&gt; {
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>                 log.info(<span class="jxr_string">"Verwijderen ZIP bestand niet in bestandenlijst: "</span> + p.getFileName());
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                   Files.delete(p);
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>                 } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>                   log.error(
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>                       String.format(<span class="jxr_string">"Fout bij verwijderen ZIP bestand %s: %s"</span>, p.getFileName(), e));
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 }
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>               });
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>     }
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>   }
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> }
 </pre>
 <hr/>
-<div id="footer">© 2014–2024 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
+<div id="footer">© 2014–2025 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>

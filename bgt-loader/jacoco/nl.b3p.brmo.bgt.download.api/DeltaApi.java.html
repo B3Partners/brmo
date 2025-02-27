@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.10.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.11.0&quot;)
 public class DeltaApi {
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
@@ -117,59 +117,70 @@ public class DeltaApi {
 <span class="nc bnc" id="L117" title="All 2 branches missed.">        if (localVarResponse.statusCode()/ 100 != 2) {</span>
 <span class="nc" id="L118">          throw getApiException(&quot;getDeltas&quot;, localVarResponse);</span>
         }
-<span class="nc" id="L120">        return new ApiResponse&lt;GetDeltasResponse&gt;(</span>
-<span class="nc" id="L121">          localVarResponse.statusCode(),</span>
-<span class="nc" id="L122">          localVarResponse.headers().map(),</span>
-<span class="nc bnc" id="L123" title="All 2 branches missed.">          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference&lt;GetDeltasResponse&gt;() {}) // closes the InputStream</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (localVarResponse.body() == null) {</span>
+<span class="nc" id="L121">          return new ApiResponse&lt;GetDeltasResponse&gt;(</span>
+<span class="nc" id="L122">              localVarResponse.statusCode(),</span>
+<span class="nc" id="L123">              localVarResponse.headers().map(),</span>
+              null
+          );
+        }
+
+<span class="nc" id="L128">        String responseBody = new String(localVarResponse.body().readAllBytes());</span>
+<span class="nc" id="L129">        localVarResponse.body().close();</span>
+
+<span class="nc" id="L131">        return new ApiResponse&lt;GetDeltasResponse&gt;(</span>
+<span class="nc" id="L132">            localVarResponse.statusCode(),</span>
+<span class="nc" id="L133">            localVarResponse.headers().map(),</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">            responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference&lt;GetDeltasResponse&gt;() {})</span>
         );
       } finally {
       }
-<span class="nc" id="L127">    } catch (IOException e) {</span>
-<span class="nc" id="L128">      throw new ApiException(e);</span>
+<span class="nc" id="L138">    } catch (IOException e) {</span>
+<span class="nc" id="L139">      throw new ApiException(e);</span>
     }
-<span class="nc" id="L130">    catch (InterruptedException e) {</span>
-<span class="nc" id="L131">      Thread.currentThread().interrupt();</span>
-<span class="nc" id="L132">      throw new ApiException(e);</span>
+<span class="nc" id="L141">    catch (InterruptedException e) {</span>
+<span class="nc" id="L142">      Thread.currentThread().interrupt();</span>
+<span class="nc" id="L143">      throw new ApiException(e);</span>
     }
   }
 
   private HttpRequest.Builder getDeltasRequestBuilder(String afterDeltaId, Integer page, Integer count) throws ApiException {
 
-<span class="nc" id="L138">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
+<span class="nc" id="L149">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
 
-<span class="nc" id="L140">    String localVarPath = &quot;/delta&quot;;</span>
+<span class="nc" id="L151">    String localVarPath = &quot;/delta&quot;;</span>
 
-<span class="nc" id="L142">    List&lt;Pair&gt; localVarQueryParams = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L143">    StringJoiner localVarQueryStringJoiner = new StringJoiner(&quot;&amp;&quot;);</span>
+<span class="nc" id="L153">    List&lt;Pair&gt; localVarQueryParams = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L154">    StringJoiner localVarQueryStringJoiner = new StringJoiner(&quot;&amp;&quot;);</span>
     String localVarQueryParameterBaseName;
-<span class="nc" id="L145">    localVarQueryParameterBaseName = &quot;after-delta-id&quot;;</span>
-<span class="nc" id="L146">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;after-delta-id&quot;, afterDeltaId));</span>
-<span class="nc" id="L147">    localVarQueryParameterBaseName = &quot;page&quot;;</span>
-<span class="nc" id="L148">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;page&quot;, page));</span>
-<span class="nc" id="L149">    localVarQueryParameterBaseName = &quot;count&quot;;</span>
-<span class="nc" id="L150">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;count&quot;, count));</span>
+<span class="nc" id="L156">    localVarQueryParameterBaseName = &quot;after-delta-id&quot;;</span>
+<span class="nc" id="L157">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;after-delta-id&quot;, afterDeltaId));</span>
+<span class="nc" id="L158">    localVarQueryParameterBaseName = &quot;page&quot;;</span>
+<span class="nc" id="L159">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;page&quot;, page));</span>
+<span class="nc" id="L160">    localVarQueryParameterBaseName = &quot;count&quot;;</span>
+<span class="nc" id="L161">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;count&quot;, count));</span>
 
-<span class="nc bnc" id="L152" title="All 4 branches missed.">    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {</span>
-<span class="nc" id="L153">      StringJoiner queryJoiner = new StringJoiner(&quot;&amp;&quot;);</span>
-<span class="nc" id="L154">      localVarQueryParams.forEach(p -&gt; queryJoiner.add(p.getName() + '=' + p.getValue()));</span>
-<span class="nc bnc" id="L155" title="All 2 branches missed.">      if (localVarQueryStringJoiner.length() != 0) {</span>
-<span class="nc" id="L156">        queryJoiner.add(localVarQueryStringJoiner.toString());</span>
+<span class="nc bnc" id="L163" title="All 4 branches missed.">    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {</span>
+<span class="nc" id="L164">      StringJoiner queryJoiner = new StringJoiner(&quot;&amp;&quot;);</span>
+<span class="nc" id="L165">      localVarQueryParams.forEach(p -&gt; queryJoiner.add(p.getName() + '=' + p.getValue()));</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">      if (localVarQueryStringJoiner.length() != 0) {</span>
+<span class="nc" id="L167">        queryJoiner.add(localVarQueryStringJoiner.toString());</span>
       }
-<span class="nc" id="L158">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));</span>
-<span class="nc" id="L159">    } else {</span>
-<span class="nc" id="L160">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
+<span class="nc" id="L169">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));</span>
+<span class="nc" id="L170">    } else {</span>
+<span class="nc" id="L171">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
     }
 
-<span class="nc" id="L163">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L174">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
 
-<span class="nc" id="L165">    localVarRequestBuilder.method(&quot;GET&quot;, HttpRequest.BodyPublishers.noBody());</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
-<span class="nc" id="L167">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
+<span class="nc" id="L176">    localVarRequestBuilder.method(&quot;GET&quot;, HttpRequest.BodyPublishers.noBody());</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
+<span class="nc" id="L178">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
     }
-<span class="nc bnc" id="L169" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
-<span class="nc" id="L170">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
+<span class="nc" id="L181">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
     }
-<span class="nc" id="L172">    return localVarRequestBuilder;</span>
+<span class="nc" id="L183">    return localVarRequestBuilder;</span>
   }
 
 }

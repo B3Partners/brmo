@@ -164,6 +164,7 @@ import picocli.CommandLine.ParentCommand;
   public int apply(
       @Mixin BAG2DatabaseOptions dbOptions,
       @Mixin BAG2ProgressOptions progressOptions,
+      @Mixin BAG2LoadOptions loadOptions,
       @Option(names = &quot;--kadaster-user&quot;) String kadasterUser,
       @Option(names = &quot;--kadaster-password&quot;) String kadasterPassword,
       @Option(names = &quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
@@ -174,125 +175,125 @@ import picocli.CommandLine.ParentCommand;
           boolean showHelp)
       throws Exception {
 
-<span class="nc" id="L177">    log.info(BAG2LoaderUtils.getUserAgent());</span>
-<span class="nc" id="L178">    Instant start = Instant.now();</span>
+<span class="nc" id="L178">    log.info(BAG2LoaderUtils.getUserAgent());</span>
+<span class="nc" id="L179">    Instant start = Instant.now();</span>
 
-<span class="nc" id="L180">    CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
-<span class="nc" id="L181">    mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
+<span class="nc" id="L181">    CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
+<span class="nc" id="L182">    mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
 
-<span class="nc" id="L183">    JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
+<span class="nc" id="L184">    JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
 
-<span class="nc" id="L185">    log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
+<span class="nc" id="L186">    log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
 
-<span class="nc" id="L187">    List&lt;String&gt; urls = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">    for (int i = 0; i &lt; bestanden.length(); i++) {</span>
-<span class="nc" id="L189">      JSONObject bestand = bestanden.getJSONObject(i);</span>
-<span class="nc" id="L190">      urls.add(bestand.getString(&quot;url&quot;));</span>
+<span class="nc" id="L188">    List&lt;String&gt; urls = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">    for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L190">      JSONObject bestand = bestanden.getJSONObject(i);</span>
+<span class="nc" id="L191">      urls.add(bestand.getString(&quot;url&quot;));</span>
     }
 
-<span class="nc" id="L193">    try (BAG2Database db = parent.getBAG2Database(dbOptions)) {</span>
+<span class="nc" id="L194">    try (BAG2Database db = parent.getBAG2Database(dbOptions)) {</span>
       BAG2ProgressReporter progressReporter =
-<span class="nc bnc" id="L195" title="All 2 branches missed.">          progressOptions.isConsoleProgressEnabled()</span>
-<span class="nc" id="L196">              ? new BAG2ConsoleProgressReporter()</span>
-<span class="nc" id="L197">              : new BAG2ProgressReporter();</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">          progressOptions.isConsoleProgressEnabled()</span>
+<span class="nc" id="L197">              ? new BAG2ConsoleProgressReporter()</span>
+<span class="nc" id="L198">              : new BAG2ProgressReporter();</span>
 
-<span class="nc" id="L199">      parent.applyMutaties(</span>
+<span class="nc" id="L200">      parent.applyMutaties(</span>
           db,
           dbOptions,
-          new BAG2LoadOptions(),
+          loadOptions,
           progressReporter,
-<span class="nc" id="L204">          urls.toArray(String[]::new),</span>
+<span class="nc" id="L205">          urls.toArray(String[]::new),</span>
           kadasterCookieManager);
-<span class="nc" id="L206">      log.info(&quot;Alle mutatiebestanden verwerkt in &quot; + formatTimeSince(start));</span>
-<span class="nc" id="L207">      return ExitCode.OK;</span>
+<span class="nc" id="L207">      log.info(&quot;Alle mutatiebestanden verwerkt in &quot; + formatTimeSince(start));</span>
+<span class="nc" id="L208">      return ExitCode.OK;</span>
     }
   }
 
   private static void mijnKadasterLogin(
       URI forUri, String username, String password, CookieManager cookieManager)
       throws IOException, InterruptedException {
-<span class="nc bnc" id="L214" title="All 2 branches missed.">    if (!forUri.getHost().endsWith(&quot;kadaster.nl&quot;)) {</span>
-<span class="nc" id="L215">      return;</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">    if (!forUri.getHost().endsWith(&quot;kadaster.nl&quot;)) {</span>
+<span class="nc" id="L216">      return;</span>
     }
-<span class="nc bnc" id="L217" title="All 4 branches missed.">    if (username == null || password == null) {</span>
-<span class="nc" id="L218">      throw new IllegalArgumentException(&quot;Gebruikersnaam en wachtwoord zijn verplicht&quot;);</span>
+<span class="nc bnc" id="L218" title="All 4 branches missed.">    if (username == null || password == null) {</span>
+<span class="nc" id="L219">      throw new IllegalArgumentException(&quot;Gebruikersnaam en wachtwoord zijn verplicht&quot;);</span>
     }
 
     HttpRequest request =
-<span class="nc" id="L222">        HttpRequest.newBuilder()</span>
-<span class="nc" id="L223">            .uri(URI.create(KADASTER_LOGIN_URL))</span>
-<span class="nc" id="L224">            .header(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</span>
-<span class="nc" id="L225">            .POST(</span>
-<span class="nc" id="L226">                HttpRequest.BodyPublishers.ofString(</span>
-<span class="nc" id="L227">                    String.format(</span>
+<span class="nc" id="L223">        HttpRequest.newBuilder()</span>
+<span class="nc" id="L224">            .uri(URI.create(KADASTER_LOGIN_URL))</span>
+<span class="nc" id="L225">            .header(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</span>
+<span class="nc" id="L226">            .POST(</span>
+<span class="nc" id="L227">                HttpRequest.BodyPublishers.ofString(</span>
+<span class="nc" id="L228">                    String.format(</span>
                         &quot;user=%s&amp;password=%s&quot;,
-<span class="nc" id="L229">                        URLEncoder.encode(username, StandardCharsets.UTF_8),</span>
-<span class="nc" id="L230">                        URLEncoder.encode(password, StandardCharsets.UTF_8))))</span>
-<span class="nc" id="L231">            .build();</span>
+<span class="nc" id="L230">                        URLEncoder.encode(username, StandardCharsets.UTF_8),</span>
+<span class="nc" id="L231">                        URLEncoder.encode(password, StandardCharsets.UTF_8))))</span>
+<span class="nc" id="L232">            .build();</span>
 
-<span class="nc" id="L233">    HttpClient httpClient = HttpClient.newBuilder().cookieHandler(cookieManager).build();</span>
+<span class="nc" id="L234">    HttpClient httpClient = HttpClient.newBuilder().cookieHandler(cookieManager).build();</span>
 
-<span class="nc" id="L235">    HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
+<span class="nc" id="L236">    HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
 
-<span class="nc bnc" id="L237" title="All 2 branches missed.">    if (response.statusCode() != 302) {</span>
-<span class="nc" id="L238">      throw new IllegalArgumentException(</span>
-<span class="nc" id="L239">          String.format(&quot;Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;&quot;, username));</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">    if (response.statusCode() != 302) {</span>
+<span class="nc" id="L239">      throw new IllegalArgumentException(</span>
+<span class="nc" id="L240">          String.format(&quot;Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;&quot;, username));</span>
     }
 
-<span class="nc" id="L242">    Map&lt;String, List&lt;String&gt;&gt; cookies =</span>
-<span class="nc" id="L243">        cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap&lt;&gt;());</span>
+<span class="nc" id="L243">    Map&lt;String, List&lt;String&gt;&gt; cookies =</span>
+<span class="nc" id="L244">        cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap&lt;&gt;());</span>
 
-<span class="nc" id="L245">    Optional&lt;String&gt; kadasterTicketIdCookie =</span>
-<span class="nc" id="L246">        cookies.getOrDefault(&quot;Cookie&quot;, List.of()).stream()</span>
-<span class="nc" id="L247">            .filter(c -&gt; c.startsWith(&quot;KadasterTicketId=&quot;))</span>
-<span class="nc" id="L248">            .findFirst();</span>
+<span class="nc" id="L246">    Optional&lt;String&gt; kadasterTicketIdCookie =</span>
+<span class="nc" id="L247">        cookies.getOrDefault(&quot;Cookie&quot;, List.of()).stream()</span>
+<span class="nc" id="L248">            .filter(c -&gt; c.startsWith(&quot;KadasterTicketId=&quot;))</span>
+<span class="nc" id="L249">            .findFirst();</span>
 
-<span class="nc bnc" id="L250" title="All 2 branches missed.">    if (kadasterTicketIdCookie.isEmpty()) {</span>
-<span class="nc" id="L251">      throw new IllegalArgumentException(&quot;Geen KadasterTicketId cookie ontvangen na inloggen&quot;);</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">    if (kadasterTicketIdCookie.isEmpty()) {</span>
+<span class="nc" id="L252">      throw new IllegalArgumentException(&quot;Geen KadasterTicketId cookie ontvangen na inloggen&quot;);</span>
     }
-<span class="nc" id="L253">  }</span>
+<span class="nc" id="L254">  }</span>
 
   private static JSONArray getBagBestanden(
       String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
-<span class="nc" id="L257">    url = url + &quot;?&quot; + queryParams;</span>
-<span class="nc" id="L258">    log.info(&quot;Opvragen bestanden JSON vanaf URL &quot; + url);</span>
-<span class="nc" id="L259">    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();</span>
-<span class="nc" id="L260">    HttpClient httpClient = HttpClient.newBuilder().cookieHandler(kadasterCookieManager).build();</span>
-<span class="nc" id="L261">    HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
+<span class="nc" id="L258">    url = url + &quot;?&quot; + queryParams;</span>
+<span class="nc" id="L259">    log.info(&quot;Opvragen bestanden JSON vanaf URL &quot; + url);</span>
+<span class="nc" id="L260">    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();</span>
+<span class="nc" id="L261">    HttpClient httpClient = HttpClient.newBuilder().cookieHandler(kadasterCookieManager).build();</span>
+<span class="nc" id="L262">    HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
 
     JSONArray bestanden;
     try {
-<span class="nc" id="L265">      bestanden = new JSONArray(response.body());</span>
-<span class="nc" id="L266">    } catch (Exception e) {</span>
-<span class="nc" id="L267">      throw new Exception(&quot;Fout bij parsen BAG bestanden JSON, body: &quot; + response.body(), e);</span>
-<span class="nc" id="L268">    }</span>
-<span class="nc" id="L269">    return bestanden;</span>
+<span class="nc" id="L266">      bestanden = new JSONArray(response.body());</span>
+<span class="nc" id="L267">    } catch (Exception e) {</span>
+<span class="nc" id="L268">      throw new Exception(&quot;Fout bij parsen BAG bestanden JSON, body: &quot; + response.body(), e);</span>
+<span class="nc" id="L269">    }</span>
+<span class="nc" id="L270">    return bestanden;</span>
   }
 
   private static void deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden)
       throws IOException {
-<span class="nc" id="L274">    final Set&lt;String&gt; names = new HashSet&lt;&gt;();</span>
-<span class="nc bnc" id="L275" title="All 2 branches missed.">    for (int i = 0; i &lt; bestanden.length(); i++) {</span>
-<span class="nc" id="L276">      names.add(bestanden.getJSONObject(i).getString(&quot;naam&quot;));</span>
+<span class="nc" id="L275">    final Set&lt;String&gt; names = new HashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L276" title="All 2 branches missed.">    for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L277">      names.add(bestanden.getJSONObject(i).getString(&quot;naam&quot;));</span>
     }
-<span class="nc" id="L278">    try (Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {</span>
-<span class="nc" id="L279">      stream</span>
-<span class="nc" id="L280">          .filter(</span>
+<span class="nc" id="L279">    try (Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {</span>
+<span class="nc" id="L280">      stream</span>
+<span class="nc" id="L281">          .filter(</span>
               p -&gt;
-<span class="nc bnc" id="L282" title="All 2 branches missed.">                  !Files.isDirectory(p)</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">                      &amp;&amp; p.getFileName().toString().endsWith(&quot;.zip&quot;)</span>
-<span class="nc bnc" id="L284" title="All 2 branches missed.">                      &amp;&amp; !names.contains(p.getFileName().toString()))</span>
-<span class="nc" id="L285">          .forEach(</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">                  !Files.isDirectory(p)</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">                      &amp;&amp; p.getFileName().toString().endsWith(&quot;.zip&quot;)</span>
+<span class="nc bnc" id="L285" title="All 2 branches missed.">                      &amp;&amp; !names.contains(p.getFileName().toString()))</span>
+<span class="nc" id="L286">          .forEach(</span>
               p -&gt; {
-<span class="nc" id="L287">                log.info(&quot;Verwijderen ZIP bestand niet in bestandenlijst: &quot; + p.getFileName());</span>
+<span class="nc" id="L288">                log.info(&quot;Verwijderen ZIP bestand niet in bestandenlijst: &quot; + p.getFileName());</span>
                 try {
-<span class="nc" id="L289">                  Files.delete(p);</span>
-<span class="nc" id="L290">                } catch (Exception e) {</span>
-<span class="nc" id="L291">                  log.error(</span>
-<span class="nc" id="L292">                      String.format(&quot;Fout bij verwijderen ZIP bestand %s: %s&quot;, p.getFileName(), e));</span>
-<span class="nc" id="L293">                }</span>
-<span class="nc" id="L294">              });</span>
+<span class="nc" id="L290">                  Files.delete(p);</span>
+<span class="nc" id="L291">                } catch (Exception e) {</span>
+<span class="nc" id="L292">                  log.error(</span>
+<span class="nc" id="L293">                      String.format(&quot;Fout bij verwijderen ZIP bestand %s: %s&quot;, p.getFileName(), e));</span>
+<span class="nc" id="L294">                }</span>
+<span class="nc" id="L295">              });</span>
     }
-<span class="nc" id="L296">  }</span>
+<span class="nc" id="L297">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

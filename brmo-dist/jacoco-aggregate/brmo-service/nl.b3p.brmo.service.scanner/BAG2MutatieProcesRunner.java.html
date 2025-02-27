@@ -170,64 +170,72 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
 <span class="nc" id="L170">                String.format(</span>
                     &quot;Verwerken van BAG2 mutatiebestanden van publieke mirror \&quot;%s\&quot;&quot;, url));
 <span class="nc" id="L172">            exitCode =</span>
-<span class="nc" id="L173">                mutatiesCommand.apply(dbOptions, progress, null, null, url, queryParams, false);</span>
-<span class="nc" id="L174">            listener.addLog(&quot;Einde verwerken BAG2 bestanden&quot;);</span>
-<span class="nc" id="L175">            break;</span>
+<span class="nc" id="L173">                mutatiesCommand.apply(</span>
+                    dbOptions, progress, loadOptions, null, null, url, queryParams, false);
+<span class="nc" id="L175">            listener.addLog(&quot;Einde verwerken BAG2 bestanden&quot;);</span>
+<span class="nc" id="L176">            break;</span>
           case &quot;apply&quot;:
-<span class="nc" id="L177">            listener.updateStatus(&quot;Verwerken van BAG2 mutatiebestanden...&quot;);</span>
-<span class="nc" id="L178">            listener.addLog(</span>
-<span class="nc" id="L179">                String.format(</span>
+<span class="nc" id="L178">            listener.updateStatus(&quot;Verwerken van BAG2 mutatiebestanden...&quot;);</span>
+<span class="nc" id="L179">            listener.addLog(</span>
+<span class="nc" id="L180">                String.format(</span>
                     &quot;Verwerken van BAG2 mutatiebestanden van BAG Bestanden, gebruikersnaam %s&quot;,
                     kadasterUser));
-<span class="nc" id="L182">            exitCode =</span>
-<span class="nc" id="L183">                mutatiesCommand.apply(</span>
-                    dbOptions, progress, kadasterUser, kadasterPassword, url, queryParams, false);
-<span class="nc" id="L185">            listener.addLog(&quot;Einde verwerken BAG2 bestanden&quot;);</span>
-<span class="nc" id="L186">            break;</span>
+<span class="nc" id="L183">            exitCode =</span>
+<span class="nc" id="L184">                mutatiesCommand.apply(</span>
+                    dbOptions,
+                    progress,
+                    loadOptions,
+                    kadasterUser,
+                    kadasterPassword,
+                    url,
+                    queryParams,
+                    false);
+<span class="nc" id="L193">            listener.addLog(&quot;Einde verwerken BAG2 bestanden&quot;);</span>
+<span class="nc" id="L194">            break;</span>
           case &quot;download&quot;:
-<span class="nc" id="L188">            listener.updateStatus(&quot;Downloaden van BAG2 mutatiebestanden...&quot;);</span>
-<span class="nc" id="L189">            listener.addLog(</span>
-<span class="nc" id="L190">                String.format(</span>
+<span class="nc" id="L196">            listener.updateStatus(&quot;Downloaden van BAG2 mutatiebestanden...&quot;);</span>
+<span class="nc" id="L197">            listener.addLog(</span>
+<span class="nc" id="L198">                String.format(</span>
                     &quot;Downloaden van BAG2 mutatiebestanden naar directory %s, gebruikersnaam %s&quot;,
                     directory, kadasterUser));
-<span class="nc" id="L193">            exitCode =</span>
-<span class="nc" id="L194">                mutatiesCommand.download(</span>
+<span class="nc" id="L201">            exitCode =</span>
+<span class="nc" id="L202">                mutatiesCommand.download(</span>
                     false, kadasterUser, kadasterPassword, url, queryParams, directory, &quot;&quot;, false);
-<span class="nc" id="L196">            listener.addLog(&quot;Einde downloaden BAG2 bestanden&quot;);</span>
-<span class="nc" id="L197">            break;</span>
+<span class="nc" id="L204">            listener.addLog(&quot;Einde downloaden BAG2 bestanden&quot;);</span>
+<span class="nc" id="L205">            break;</span>
           case &quot;load&quot;:
-<span class="nc" id="L199">            listener.updateStatus(&quot;Laden van BAG2 bestanden...&quot;);</span>
-<span class="nc" id="L200">            listener.addLog(&quot;Laden van BAG2 bestanden uit directory &quot; + directory);</span>
-<span class="nc" id="L201">            exitCode = main.load(dbOptions, loadOptions, progress, new String[] {directory}, false);</span>
-<span class="nc" id="L202">            listener.addLog(&quot;Einde laden BAG2 bestanden&quot;);</span>
+<span class="nc" id="L207">            listener.updateStatus(&quot;Laden van BAG2 bestanden...&quot;);</span>
+<span class="nc" id="L208">            listener.addLog(&quot;Laden van BAG2 bestanden uit directory &quot; + directory);</span>
+<span class="nc" id="L209">            exitCode = main.load(dbOptions, loadOptions, progress, new String[] {directory}, false);</span>
+<span class="nc" id="L210">            listener.addLog(&quot;Einde laden BAG2 bestanden&quot;);</span>
             break;
         }
-<span class="nc" id="L205">      } catch (ClassNotFoundException e) {</span>
-<span class="nc" id="L206">        LOG.error(e.getLocalizedMessage());</span>
-<span class="nc" id="L207">        listener.exception(e);</span>
-<span class="nc" id="L208">      } catch (BrmoException | SQLException e) {</span>
-<span class="nc" id="L209">        LOG.error(&quot;Fout tijdens benaderen BAG2 database&quot;, e);</span>
-<span class="nc" id="L210">        listener.exception(e);</span>
-<span class="nc" id="L211">      } catch (Exception e) {</span>
-<span class="nc" id="L212">        LOG.error(&quot;Fout tijdens BAG2 proces&quot;, e);</span>
-<span class="nc" id="L213">        listener.exception(e);</span>
+<span class="nc" id="L213">      } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L214">        LOG.error(e.getLocalizedMessage());</span>
+<span class="nc" id="L215">        listener.exception(e);</span>
+<span class="nc" id="L216">      } catch (BrmoException | SQLException e) {</span>
+<span class="nc" id="L217">        LOG.error(&quot;Fout tijdens benaderen BAG2 database&quot;, e);</span>
+<span class="nc" id="L218">        listener.exception(e);</span>
+<span class="nc" id="L219">      } catch (Exception e) {</span>
+<span class="nc" id="L220">        LOG.error(&quot;Fout tijdens BAG2 proces&quot;, e);</span>
+<span class="nc" id="L221">        listener.exception(e);</span>
       } finally {
-<span class="nc bnc" id="L215" title="All 2 branches missed.">        if (exitCode == 0) {</span>
-<span class="nc" id="L216">          config.setStatus(WAITING);</span>
-<span class="nc" id="L217">          config.setLastrun(new Date());</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (exitCode == 0) {</span>
+<span class="nc" id="L224">          config.setStatus(WAITING);</span>
+<span class="nc" id="L225">          config.setLastrun(new Date());</span>
 
-<span class="nc" id="L219">          listener.updateStatus(WAITING.toString());</span>
+<span class="nc" id="L227">          listener.updateStatus(WAITING.toString());</span>
         } else {
-<span class="nc" id="L221">          config.setStatus(ERROR);</span>
-<span class="nc" id="L222">          config.setLastrun(new Date());</span>
-<span class="nc" id="L223">          listener.updateStatus(ERROR.toString());</span>
+<span class="nc" id="L229">          config.setStatus(ERROR);</span>
+<span class="nc" id="L230">          config.setLastrun(new Date());</span>
+<span class="nc" id="L231">          listener.updateStatus(ERROR.toString());</span>
         }
-<span class="nc" id="L225">        listener.addLog(&quot;BAG2 mutatieproces afgerond op &quot; + new Date());</span>
-<span class="nc" id="L226">        config.setLastrun(new Date());</span>
-<span class="nc" id="L227">        Stripersist.getEntityManager().merge(config);</span>
-<span class="nc" id="L228">        Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L233">        listener.addLog(&quot;BAG2 mutatieproces afgerond op &quot; + new Date());</span>
+<span class="nc" id="L234">        config.setLastrun(new Date());</span>
+<span class="nc" id="L235">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L236">        Stripersist.getEntityManager().flush();</span>
       }
     }
-<span class="nc" id="L231">  }</span>
+<span class="nc" id="L239">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

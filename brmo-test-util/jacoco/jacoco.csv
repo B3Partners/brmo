@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BRMO test-util,nl.b3p.brmo.test.util.database.dbunit,DropAllTablesOperation,97,0,6,0,26,0,6,0,3,0
 BRMO test-util,nl.b3p.brmo.test.util.database.dbunit,CleanUtil,506,0,4,0,20,0,9,0,7,0
-BRMO test-util,nl.b3p.brmo.test.util.database,ViewUtils,101,0,6,0,27,0,7,0,4,0
+BRMO test-util,nl.b3p.brmo.test.util.database,ViewUtils,102,0,6,0,27,0,7,0,4,0
 BRMO test-util,nl.b3p.brmo.test.util.database,SequenceUtil,41,0,0,0,12,0,2,0,2,0
 BRMO test-util,nl.b3p.brmo.test.util,WebXmlTest,0,309,0,4,0,79,0,7,0,5
