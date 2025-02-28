@@ -48,7 +48,7 @@ public class BerichtEndpointFileServlet extends HttpServlet {
     if (_saveDir == null || _saveDir.isEmpty()) {
       throw new ServletException("De parameter '" + SAVE_DIR + "' is benodigd.");
     }
-    this.saveDir = new File(_saveDir);
+    this.saveDir = java.nio.file.Path.of(_saveDir).toFile();
     try {
       FileUtils.forceMkdir(saveDir);
       log.info("Initialisatie met directory: " + this.saveDir);

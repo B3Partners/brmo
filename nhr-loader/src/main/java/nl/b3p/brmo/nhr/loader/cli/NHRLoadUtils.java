@@ -7,7 +7,9 @@
 
 package nl.b3p.brmo.nhr.loader.cli;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,7 +89,8 @@ public class NHRLoadUtils {
     TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
     KeyStore trustStore = KeyStore.getInstance("PKCS12");
 
-    try (FileInputStream trustStoreFile = new FileInputStream(certificateOptions.getTruststore())) {
+    try (InputStream trustStoreFile =
+        Files.newInputStream(Path.of(certificateOptions.getTruststore()))) {
       trustStore.load(trustStoreFile, certificateOptions.getTruststorePassword().toCharArray());
     }
     trustManagerFactory.init(trustStore);
@@ -95,7 +98,8 @@ public class NHRLoadUtils {
     KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
     KeyStore keyStore = KeyStore.getInstance("PKCS12");
 
-    try (FileInputStream keyStoreFile = new FileInputStream(certificateOptions.getKeystore())) {
+    try (InputStream keyStoreFile =
+        Files.newInputStream(Path.of((certificateOptions.getKeystore())))) {
       keyStore.load(keyStoreFile, certificateOptions.getKeystorePassword().toCharArray());
     }
     String alias = certificateOptions.getKeystoreAlias();
