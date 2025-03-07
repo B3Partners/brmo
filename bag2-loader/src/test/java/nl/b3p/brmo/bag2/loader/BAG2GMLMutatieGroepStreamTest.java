@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 import java.util.zip.ZipInputStream;
 import javax.xml.stream.XMLStreamException;
 import nl.b3p.brmo.bag2.schema.BAG2Object;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,6 +38,7 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
+@SuppressModernizer
 class BAG2GMLMutatieGroepStreamTest {
 
   @Test

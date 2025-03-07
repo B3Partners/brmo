@@ -17,9 +17,10 @@
 package nl.b3p.brmo.loader.checks;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class AfgifteChecker {
   private StagingProxy staging;
 
   public void init(String input, StagingProxy staging) throws IOException {
-    try (FileInputStream fin = new FileInputStream(new File(input))) {
+    try (InputStream fin = Files.newInputStream(Path.of(input))) {
       init(fin, staging);
     }
   }
@@ -92,10 +93,6 @@ public class AfgifteChecker {
             })
         .forEachOrdered(
             (bericht) -> counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1));
-  }
-
-  public File getResults(String input, String f) throws IOException {
-    return getResults(input, new File(f));
   }
 
   public File getResults(String input, File f) throws IOException {
