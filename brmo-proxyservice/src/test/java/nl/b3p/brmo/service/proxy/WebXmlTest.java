@@ -4,8 +4,10 @@ import static nl.b3p.brmo.test.util.WebXmlTest.testWebXmlIsValidSchemaJavaEE7;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.Test;
 
+@SuppressModernizer
 class WebXmlTest {
   @Test
   void validateWebXml() throws Exception {

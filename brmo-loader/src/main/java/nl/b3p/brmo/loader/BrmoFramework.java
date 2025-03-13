@@ -1,10 +1,11 @@
 package nl.b3p.brmo.loader;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -367,12 +368,12 @@ public class BrmoFramework {
         log.info("Openen ZIP bestand " + fileName);
         ZipInputStream zip = null;
         try {
-          File f = new File(fileName);
+          File f = Path.of(fileName).toFile();
           if (listener != null) {
             listener.total(f.length());
           }
           CountingInputStream zipCis =
-              new CountingInputStream(new FileInputStream(f)) {
+              new CountingInputStream(Files.newInputStream(f.toPath())) {
                 @Override
                 protected synchronized void afterRead(int n) throws IOException {
                   super.afterRead(n);
@@ -405,12 +406,11 @@ public class BrmoFramework {
         }
         log.info("Klaar met ZIP bestand " + fileName);
       } else {
-        File f = new File(fileName);
         if (listener != null) {
-          listener.total(f.length());
+          listener.total(Path.of(fileName).toFile().length());
         }
 
-        try (FileInputStream fis = new FileInputStream(fileName)) {
+        try (InputStream fis = Files.newInputStream(Path.of(fileName))) {
           stagingProxy.loadBr(fis, type, fileName, null, listener, automatischProces);
         }
       }
@@ -696,8 +696,8 @@ public class BrmoFramework {
   }
 
   public File checkAfgiftelijst(String bestandsnaam, String output) throws IOException {
-    File f = new File(bestandsnaam);
-    return checkAfgiftelijst(bestandsnaam, new FileInputStream(f), new File(output));
+    return checkAfgiftelijst(
+        bestandsnaam, Files.newInputStream(Path.of(bestandsnaam)), Path.of(output).toFile());
   }
 
   public File checkAfgiftelijst(String bestandsnaam, InputStream is, File output)

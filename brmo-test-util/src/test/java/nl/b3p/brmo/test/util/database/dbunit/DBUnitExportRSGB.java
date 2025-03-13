@@ -18,6 +18,7 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 
 /**
  * Een tool om een export te maken van een aantal tabellen; de export kan vervolgens worden gebruikt
@@ -26,6 +27,7 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
  * @author mprins
  *     <p>zie: http://dbunit.wikidot.com/demoimportexport
  */
+@SuppressModernizer
 public class DBUnitExportRSGB {
 
   private static final String _testDir = "target/";

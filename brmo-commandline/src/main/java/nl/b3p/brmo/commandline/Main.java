@@ -41,6 +41,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 
 /**
  * run: {@code java -jar brmo-commandline.jar -versieinfo -dbprops commandline-example.properties}
@@ -48,6 +49,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Boy de Wit
  * @author mprins
  */
+@SuppressModernizer
 public class Main {
 
   private static final Log LOG = LogFactory.getLog(Main.class);
