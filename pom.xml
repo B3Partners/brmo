@@ -790,6 +790,14 @@
             <name>Releases hosted by B3Partners</name>
             <url>https://repo.b3p.nl/nexus/repository/public/</url>
         </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>OSGeo</id>
+            <name>Releases hosted by OSGeo</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+        </repository>
     </repositories>
     <build>
         <defaultGoal>package</defaultGoal>
