@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -156,9 +157,12 @@ public class BrmoFramework {
         "SELECT waarde FROM " + BrmoFramework.BRMO_METADATA_TABEL + " WHERE naam = 'brmoversie'";
     final Connection c = dataSource.getConnection();
     GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);
-    String o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler<>());
+    Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler<>());
     DbUtils.closeQuietly(c);
-    return o;
+    if (o instanceof Clob){
+      return ((Clob) o).getSubString(1, (int) ((Clob) o).length());
+    }
+    return o.toString();
   }
 
   public void setEnablePipeline(boolean enablePipeline) {
