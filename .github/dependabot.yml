@@ -3,8 +3,9 @@ updates:
   - package-ecosystem: maven
     directory: "/"
     schedule:
-      interval: daily
-      time: "06:00"
+      interval: weekly
+      day: tuesday
+      time: "05:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
     target-branch: master
@@ -46,7 +47,7 @@ updates:
       time: "21:00"
       timezone: Europe/Amsterdam
     labels:
-      - bouw- en testinfrastuctuur
+      - "bouw- en testinfrastuctuur"
 
 
   - package-ecosystem: docker
@@ -58,7 +59,7 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "21:00"
+      time: "22:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
     target-branch: master
@@ -68,7 +69,7 @@ updates:
       - mprins
     labels:
       - "bouw- en testinfrastuctuur"
-    ignore: # stay on Tomcat 9 for now
+    ignore: # stay on Tomcat 9/Java 17 for now
       - dependency-name: "tomcat"
         versions:
           - ">= 10"
