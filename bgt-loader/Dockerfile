@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM eclipse-temurin:17.0.14_7-jre-alpine
+FROM eclipse-temurin:17.0.15_6-jre-alpine
 
 LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bgt-citygml-loader
 
