@@ -159,7 +159,7 @@ public class BrmoFramework {
     GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(c);
     Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(c, sql, new ScalarHandler<>());
     DbUtils.closeQuietly(c);
-    if (o instanceof Clob){
+    if (o instanceof Clob) {
       return ((Clob) o).getSubString(1, (int) ((Clob) o).length());
     }
     return o.toString();
