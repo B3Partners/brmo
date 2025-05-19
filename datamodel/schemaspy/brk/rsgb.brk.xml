@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="brk" type="PostgreSQL - 17.4">
+<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="brk" type="PostgreSQL - 17.5">
    <tables>
       <table catalog="rsgb" name="adres" remarks="Een AdresLocatie is een PostbusLocatie of een ObjectLocatie" schema="brk" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="identificatie" nullable="false" remarks="Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie." size="255" type="varchar" typeCode="12">

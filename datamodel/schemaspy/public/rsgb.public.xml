@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="public" type="PostgreSQL - 17.4">
+<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="public" type="PostgreSQL - 17.5">
    <tables>
       <table catalog="rsgb" name="academische_titel" remarks="RSGB referentielijst ACADEMISCHE TITEL" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="code" nullable="false" remarks="Referentielijst property ACADEMISCHE TITEL.Academische titelcode - Academische titelcode" size="3" type="varchar" typeCode="12">
@@ -108,7 +108,7 @@
       </table>
       <table catalog="rsgb" name="brmo_metadata" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="naam" nullable="false" remarks="" size="255" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="waarde" nullable="true" remarks="" size="255" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="waarde" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
          <primaryKey column="naam" sequenceNumberInPK="1"/>
          <index name="brmo_metadata_pk" unique="true">
             <column ascending="true" name="naam"/>
@@ -167,7 +167,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table catalog="rsgb" name="buurt" numRows="14080" remarks="RSGB class BUURT" schema="public" type="TABLE">
+      <table catalog="rsgb" name="buurt" remarks="RSGB class BUURT" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="code" nullable="false" remarks="[PK] N8 - Buurtcode" size="8" type="numeric" typeCode="2"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="naam" nullable="true" remarks="AN80 - Buurtnaam" size="80" type="varchar" typeCode="12"/>
@@ -301,7 +301,7 @@
             <column ascending="true" name="geom"/>
          </index>
       </table>
-      <table catalog="rsgb" name="gemeente" numRows="345" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
+      <table catalog="rsgb" name="gemeente" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="code" nullable="false" remarks="[PK] N4 - Gemeentecode" size="4" type="numeric" typeCode="2">
             <child catalog="rsgb" column="fk_nn_lh_gem_code" foreignKey="fk_gem_gem_nn_lh" implied="false" onDeleteCascade="true" schema="public" table="gemeente_gemeente"/>
@@ -1734,7 +1734,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table catalog="rsgb" name="wijk" numRows="3248" remarks="RSGB class WIJK" schema="public" type="TABLE">
+      <table catalog="rsgb" name="wijk" remarks="RSGB class WIJK" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="code" nullable="false" remarks="[PK] N6 - Wijkcode" size="6" type="numeric" typeCode="2"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid wijk" size="19" type="varchar" typeCode="12"/>
@@ -4950,7 +4950,7 @@ END]]></definition>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="postgis_scripts_build_date()" returnType="text" securityType="INVOKER" type="FUNCTION">
          <comment/>
-         <definition language="sql"><![CDATA[SELECT '2025-02-24 13:42:32'::text AS version]]></definition>
+         <definition language="sql"><![CDATA[SELECT '2025-05-12 05:32:25'::text AS version]]></definition>
          <parameters>
             <parameter mode="IN"/>
          </parameters>
