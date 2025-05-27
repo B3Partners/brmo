@@ -23,10 +23,14 @@ jobs:
           ( 
             contains(steps.metadata.outputs.dependency-names, 'junit') || 
             contains(steps.metadata.outputs.dependency-names, 'mockito') ||
+            contains(steps.metadata.outputs.dependency-names, 'xmlunit') ||
+            contains(steps.metadata.outputs.dependency-names, 'jsonunit') ||
             contains(steps.metadata.outputs.dependency-names, 'log4j') ||
             contains(steps.metadata.outputs.dependency-names, 'commons-') ||
             contains(steps.metadata.outputs.dependency-names, 'jackson') ||
+            contains(steps.metadata.outputs.dependency-names, 'org.json') ||
             contains(steps.metadata.outputs.dependency-names, 'temurin') ||
+            contains(steps.metadata.outputs.dependency-names, 'apache.cxf') ||
             contains(steps.metadata.outputs.dependency-names, 'tomcat')
           ) && (
             steps.metadata.outputs.update-type == 'version-update:semver-patch' || 
