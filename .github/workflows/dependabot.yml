@@ -9,6 +9,9 @@ jobs:
   dependabot:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'B3Partners/brmo'
+    env:
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      PR_REPO: 'B3Partners/brmo'
     steps:
       - name: 'Dependabot metadata'
         id: metadata
@@ -16,9 +19,6 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: 'Enable auto-merge for Dependabot PRs on selected dependencies for patch and minor version updates'
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         if: |
           ( 
             contains(steps.metadata.outputs.dependency-names, 'junit') || 
@@ -37,12 +37,9 @@ jobs:
             steps.metadata.outputs.update-type == 'version-update:semver-minor'
           )
         run: |
-          gh pr edit --remove-label "bouw- en testinfrastuctuur" "$PR_URL"
-          gh pr merge --auto --squash "$PR_URL"
+          gh pr edit --remove-label "bouw- en testinfrastuctuur" "$PR_URL" --repo "$PR_REPO"
+          gh pr merge --auto --squash "$PR_URL" --repo "$PR_REPO"
       - name: 'Enable auto-merge for Dependabot PRs on Maven plugins and GH actions for patch and minor version updates'
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         if: |
           (
             contains(steps.metadata.outputs.dependency-names, 'maven-') ||
@@ -53,5 +50,5 @@ jobs:
             steps.metadata.outputs.update-type == 'version-update:semver-minor'
           )
         run: |
-          gh pr edit --remove-label "dependency update" "$PR_URL"
-          gh pr merge --auto --squash "$PR_URL"
+          gh pr edit --remove-label "dependency update" "$PR_URL" --repo "$PR_REPO"
+          gh pr merge --auto --squash "$PR_URL" --repo "$PR_REPO"
