@@ -28,6 +28,9 @@ jobs:
             contains(steps.metadata.outputs.dependency-names, 'jsonunit') ||
             contains(steps.metadata.outputs.dependency-names, 'log4j') ||
             contains(steps.metadata.outputs.dependency-names, 'commons-') ||
+            contains(steps.metadata.outputs.dependency-names, 'net.postgis') ||
+            contains(steps.metadata.outputs.dependency-names, 'org.postgresql') ||
+            contains(steps.metadata.outputs.dependency-names, 'com.oracle.database.jdbc') ||            
             contains(steps.metadata.outputs.dependency-names, 'jackson') ||
             contains(steps.metadata.outputs.dependency-names, 'org.json') ||
             contains(steps.metadata.outputs.dependency-names, 'temurin') ||
@@ -44,6 +47,7 @@ jobs:
         if: |
           (
             contains(steps.metadata.outputs.dependency-names, 'maven-') ||
+            contains(steps.metadata.outputs.dependency-names, '-maven') ||
             contains(steps.metadata.outputs.dependency-names, 'action') ||
             contains(steps.metadata.outputs.dependency-names, 'error_prone_core')
           ) && (
