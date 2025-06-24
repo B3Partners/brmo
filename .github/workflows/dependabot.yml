@@ -23,6 +23,7 @@ jobs:
         if: |
           ( 
             contains(steps.metadata.outputs.dependency-names, 'junit') || 
+            contains(steps.metadata.outputs.dependency-names, 'jsoup') || 
             contains(steps.metadata.outputs.dependency-names, 'mockito') ||
             contains(steps.metadata.outputs.dependency-names, 'xmlunit') ||
             contains(steps.metadata.outputs.dependency-names, 'jsonunit') ||
