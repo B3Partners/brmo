@@ -26,13 +26,14 @@ class HttpStartRangeInputStreamProviderTest {
   HttpStartRangeInputStreamProvider provider;
 
   @BeforeEach
-  void init() {
+  void init() throws IOException {
     this.mockWebServer = new MockWebServer();
+    this.mockWebServer.start();
     this.provider = new HttpStartRangeInputStreamProvider(mockWebServer.url("/").uri());
   }
 
   @AfterEach
-  void close() throws IOException {
+  void close() {
     this.mockWebServer.close();
   }
 

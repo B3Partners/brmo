@@ -25,16 +25,17 @@ public class CommandLineTestBase extends DBTestBase {
   protected MockWebServer mockWebServer;
 
   @BeforeEach
-  void init(TestInfo info) {
+  void init(TestInfo info) throws IOException {
     main = new BGTLoaderMain();
     main.configureLogging(true);
     cmd = new CommandLine(main);
     mockWebServer = new MockWebServer();
+    mockWebServer.start();
     System.out.println("\nExecute test: " + info.getDisplayName());
   }
 
   @AfterEach
-  void closeWebServer() throws IOException {
+  void closeWebServer()  {
     mockWebServer.close();
   }
 

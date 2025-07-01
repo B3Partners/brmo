@@ -78,7 +78,8 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
 
     RecordedRequest recordedRequest = mockWebServer.takeRequest(0, TimeUnit.SECONDS);
     assertNotNull(recordedRequest);
-    String body = recordedRequest.getBody().readString(Charset.defaultCharset());
+    assertNotNull(recordedRequest.getBody());
+    String body = recordedRequest.getBody().string(Charset.defaultCharset());
     assertTrue(body.contains("\"format\":\"citygml\""));
     assertDataSetEquals(
         "kast,ondersteunendwaterdeel,paal,sensor,begroeidterreindeel,overbruggingsdeel,spoor,"
@@ -102,7 +103,7 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
 
     RecordedRequest recordedRequest = mockWebServer.takeRequest(0, TimeUnit.SECONDS);
     assertNotNull(recordedRequest);
-    assertEquals("//delta?page=1&count=100", recordedRequest.getPath());
+    assertEquals("//delta?page=1&count=100", recordedRequest.getTarget());
 
     // TODO apply mutaties
   }
