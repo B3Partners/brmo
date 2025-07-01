@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -103,9 +105,9 @@ public abstract class TestUtil {
     dsStaging.setInitialSize(5);
     dsStaging.setMaxTotal(100);
     dsStaging.setMaxIdle(1);
-    dsStaging.setMaxConnLifetimeMillis(1000 * 120);
-    dsStaging.setMinEvictableIdleTimeMillis(1000 * 10);
-    dsStaging.setTimeBetweenEvictionRunsMillis(1000 * 30);
+    dsStaging.setMaxConn(Duration.of(1000 * 120, ChronoUnit.MILLIS));
+    dsStaging.setMinEvictableIdle(Duration.of(1000 * 10, ChronoUnit.MILLIS));
+    dsStaging.setDurationBetweenEvictionRuns(Duration.of(1000 * 30, ChronoUnit.MILLIS));
 
     dsRsgb = new BasicDataSource();
     dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
@@ -115,8 +117,8 @@ public abstract class TestUtil {
     dsRsgb.setInitialSize(1);
     dsRsgb.setMaxTotal(50);
     dsRsgb.setMaxIdle(1);
-    dsRsgb.setMaxConnLifetimeMillis(1000 * 60);
-    dsRsgb.setMinEvictableIdleTimeMillis(1000 * 10);
+    dsRsgb.setMaxConn(Duration.of(1000 * 60, ChronoUnit.MILLIS));
+    dsRsgb.setMinEvictableIdle(Duration.of(1000 * 10, ChronoUnit.MILLIS));
     dsRsgb.setPoolPreparedStatements(true);
     dsRsgb.setClearStatementPoolOnReturn(true);
 
@@ -128,8 +130,8 @@ public abstract class TestUtil {
     dsRsgbBrk.setInitialSize(1);
     dsRsgbBrk.setMaxTotal(50);
     dsRsgbBrk.setMaxIdle(1);
-    dsRsgbBrk.setMaxConnLifetimeMillis(1000 * 60);
-    dsRsgbBrk.setMinEvictableIdleTimeMillis(1000 * 10);
+    dsRsgbBrk.setMaxConn(Duration.of(1000 * 60, ChronoUnit.MILLIS));
+    dsRsgbBrk.setMinEvictableIdle(Duration.of(1000 * 10, ChronoUnit.MILLIS));
     dsRsgbBrk.setPoolPreparedStatements(true);
     dsRsgbBrk.setClearStatementPoolOnReturn(true);
 

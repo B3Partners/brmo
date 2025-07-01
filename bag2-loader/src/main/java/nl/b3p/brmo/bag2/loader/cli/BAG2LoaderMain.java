@@ -644,12 +644,12 @@ public class BAG2LoaderMain implements IVersionProvider {
                   progressReporter,
                   entry.getName(),
                   nestedZip,
-                  nestedZip.getNextZipEntry());
+                  nestedZip.getNextEntry());
         }
 
         if (entry.getName().matches("[0-9]{4}Inactief.*\\.zip")) {
           ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
-          ZipArchiveEntry nestedEntry = nestedZip.getNextZipEntry();
+          ZipArchiveEntry nestedEntry = nestedZip.getNextEntry();
           while (nestedEntry != null) {
             if (nestedEntry.getName().matches("[0-9]{4}IA.*\\.zip")) {
               ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);
@@ -661,9 +661,9 @@ public class BAG2LoaderMain implements IVersionProvider {
                       progressReporter,
                       nestedEntry.getName(),
                       moreNestedZip,
-                      moreNestedZip.getNextZipEntry());
+                      moreNestedZip.getNextEntry());
             }
-            nestedEntry = nestedZip.getNextZipEntry();
+            nestedEntry = nestedZip.getNextEntry();
           }
         }
 
@@ -672,7 +672,7 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
 
         try {
-          entry = zip.getNextZipEntry();
+          entry = zip.getNextEntry();
         } catch (IOException e) {
           // Reading the ZIP from HTTP may give this error, but it is a normal end...
           if ("Truncated ZIP file".equals(e.getMessage())) {
@@ -802,7 +802,7 @@ public class BAG2LoaderMain implements IVersionProvider {
             && writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {
           break;
         }
-        entry = zip.getNextZipEntry();
+        entry = zip.getNextEntry();
       }
       writer.complete();
 
