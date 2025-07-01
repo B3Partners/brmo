@@ -24,7 +24,7 @@ van de kwetsbaarheid; gebruik https://github.com/B3Partners/brmo/security/adviso
 Wees verantwoordelijk in uw openbaarmaking en probeer te voorkomen dat het probleem wordt onthuld via Github-issues,
 pull-requests of commit-berichten.
 
-Uw e-mail moet binnen 1 werkdag (maandag-vrijdag) worden bevestigd door het ondersteuningsteam en/of een ontwikkelaar.
+Uw e-mail zal binnen 1 werkdag (maandag-vrijdag) worden bevestigd door het ondersteuningsteam en/of een ontwikkelaar.
 
 ## Reporting a Vulnerability
 
