@@ -147,7 +147,7 @@ SPDX-License-Identifier: MIT
                             <!-- Use JDK 11 HttpClient -->
                             <library>native</library>
                             <generateSupportingFiles>true</generateSupportingFiles>
-                            <supportingFilesToGenerate>ApiClient.java,ApiException.java,ApiResponse.java,Pair.java</supportingFilesToGenerate>
+                            <supportingFilesToGenerate>Configuration.java,RFC3339JavaTimeModule.java,RFC3339InstantDeserializer.java,ApiClient.java,ApiException.java,ApiResponse.java,Pair.java</supportingFilesToGenerate>
                             <generateModelTests>false</generateModelTests>
                             <generateApiTests>false</generateApiTests>
                             <generateModelDocumentation>false</generateModelDocumentation>
