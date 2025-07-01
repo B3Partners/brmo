@@ -136,12 +136,12 @@ wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "${API_
 
 
 # uitpakken in de /tmp dir
-ls *.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done;
+ls *.zip | while read filename; do unzip -LL -j -o -d "/tmp" "$filename" *.gml; done;
 # lowercase alle gml files uit de zips
-for f in /tmp/*.gml ; do mv -vn -- "$f" "$(tr '[:upper:]' '[:lower:]' <<< "$f")" ; done
+mkdir -p /tmp/lowercasegml
+# for f in /tmp/*.gml ; do mv -vn -- "$f" "$(tr '[:upper:]' '[:lower:]' <<< "$f")" ; done
 # van ieder alleen de eerste 5 features
 for f in /tmp/top250nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top250nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
 for f in /tmp/top100nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top100nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
 for f in /tmp/top50nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top50nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
 for f in /tmp/top10nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top10nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
-
