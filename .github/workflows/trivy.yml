@@ -6,7 +6,7 @@ on: # use pull request so this workflow dos not fail when triggered by dependabo
   workflow_dispatch:
 
 env:
-  MAVEN_VERSION: '3.9.9'
+  MAVEN_VERSION: '3.9.10'
 
 jobs:
   build:

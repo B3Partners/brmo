@@ -16,7 +16,7 @@ env:
   PGPASSWORD: postgres
   PGUSER: postgres
   PGDATABASE: postgres
-  MAVEN_VERSION: '3.9.9'
+  MAVEN_VERSION: '3.9.10'
 
 jobs:
   build:
