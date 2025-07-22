@@ -22,7 +22,7 @@ select na.objectid,
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
          left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
-		 where na.status is not 'Naamgeving ingetrokken';
+		 where na.status <> 'Naamgeving ingetrokken';
 
 comment on table vb_adres is 'Actuele gegevens van bestaande adressen zonder geometrie';
 
@@ -81,7 +81,7 @@ from (select 'true'                                 as ishoofdadres,
                join ligplaats_nevenadres lpna on (lpna.identificatie = lpa.identificatie and
                                                   lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-			   where qry.status is not 'Plaats ingetrokken';
+			   where qry.status <> 'Plaats ingetrokken';
 
 comment on table vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
@@ -148,7 +148,7 @@ from (select 'true'                                 as ishoofdadres,
                join standplaats_nevenadres spna on (spna.identificatie = spa.identificatie and
                                                     spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-			   where qry.status is not 'Plaats ingetrokken';
+			   where qry.status <> 'Plaats ingetrokken';
 
 comment on table vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';

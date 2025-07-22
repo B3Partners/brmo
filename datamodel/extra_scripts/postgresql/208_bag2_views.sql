@@ -25,7 +25,7 @@ select na.objectid,
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
          left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
-		 where na.status is not 'Naamgeving ingetrokken';
+		 where na.status <> 'Naamgeving ingetrokken';
 
 comment on view vb_adres is 'Actuele gegevens van bestaande adressen zonder geometrie';
 
@@ -87,7 +87,7 @@ from (
                  and lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                   join vb_adres a on
                  lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-				  where qry.status is not 'Plaats ingetrokken';
+				  where qry.status <> 'Plaats ingetrokken';
 
 comment on view vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 
@@ -148,7 +148,7 @@ from (select true                      as ishoofdadres,
               and spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on
           spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-		  where qry.status is not 'Plaats ingetrokken';
+		  where qry.status <> 'Plaats ingetrokken';
 
 comment on view vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 
@@ -274,7 +274,7 @@ comment on view vb_pand is 'Actuele gegevens van bestaande panden én die nog ge
 create or replace view vb_adresseerbaar_object_geometrie as
 select qry.objectid,
        qry.ishoofdadres,
-       qry.status,
+       qry.status, 
        qry.identificatie,
        qry.identificatienummeraanduiding,
        qry.nummeraanduidingstatus,
