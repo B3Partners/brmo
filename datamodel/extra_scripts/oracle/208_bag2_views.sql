@@ -21,9 +21,10 @@ select na.objectid,
        null              as gemeentecode
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
-         left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin);
+         left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
+		 where na.status is not 'Naamgeving ingetrokken';
 
-comment on table vb_adres is 'volledig actueel adres zonder locatie';
+comment on table vb_adres is 'Actuele gegevens van bestaande adressen zonder geometrie';
 
 
 -- Vervangt vb_ligplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
@@ -79,9 +80,10 @@ from (select 'true'                                 as ishoofdadres,
       from v_ligplaats_actueel lpa
                join ligplaats_nevenadres lpna on (lpna.identificatie = lpa.identificatie and
                                                   lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
-               join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+			   where qry.status is not 'Plaats ingetrokken';
 
-comment on table vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
+comment on table vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
 insert into user_sdo_geom_metadata
 values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE_CENTROIDE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
@@ -145,9 +147,10 @@ from (select 'true'                                 as ishoofdadres,
       from v_standplaats_actueel spa
                join standplaats_nevenadres spna on (spna.identificatie = spa.identificatie and
                                                     spna.voorkomenidentificatie = spa.voorkomenidentificatie)
-               join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+			   where qry.status is not 'Plaats ingetrokken';
 
-comment on table vb_standplaats_adres is 'standplaats met adres en puntlocatie';
+comment on table vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';
 insert into user_sdo_geom_metadata
 values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE_CENTROIDE',
@@ -233,9 +236,10 @@ from (select 'true'                                                             
       from v_verblijfsobject_actueel voa
                join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
                                                         vona.voorkomenidentificatie = voa.voorkomenidentificatie)
-               join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+			   where qry.status NOT IN ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
 
-comment on table vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
+comment on table vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';
 insert into user_sdo_geom_metadata
 values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE_CENTROIDE',
@@ -243,6 +247,39 @@ values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE_CENTROIDE',
                             mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 insert into user_sdo_geom_metadata
 values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
+                                                                     mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
+        28992);
+
+CREATE OR REPLACE VIEW vb_pand
+AS 
+SELECT vpa.objectid,
+       vpa.identificatie,
+       vpa.voorkomenidentificatie,
+       vpa.begingeldigheid,
+       vpa.eindgeldigheid,
+       vpa.tijdstipregistratie,
+       vpa.eindregistratie,
+       vpa.tijdstipinactief,
+       vpa.tijdstipregistratielv,
+       vpa.tijdstipeindregistratielv,
+       vpa.tijdstipinactieflv,
+       vpa.documentdatum,
+       vpa.documentnummer,
+       vpa.geconstateerd,
+       vpa.status,
+       vpa.oorspronkelijkbouwjaar,
+       vpa.geometrie
+  FROM v_pand_actueel vpa
+       WHERE vpa.status NOT IN ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt');
+
+comment on table vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
+delete from user_sdo_geom_metadata where table_name = 'VB_PAND';
+insert into user_sdo_geom_metadata
+values ('VB_PAND', 'GEOMETRIE_CENTROIDE',
+        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
+                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata
+values ('VB_PAND', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
                                                                      mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
         28992);
 

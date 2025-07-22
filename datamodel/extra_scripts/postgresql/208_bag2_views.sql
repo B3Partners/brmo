@@ -24,9 +24,10 @@ select na.objectid,
        null              as gemeentecode -- Gemeente-woonplaats relatie nog niet beschikbaar (BRMO-104)
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
-         left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin);
+         left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
+		 where na.status is not 'Naamgeving ingetrokken';
 
-comment on view vb_adres is 'volledig actueel adres zonder locatie';
+comment on view vb_adres is 'Actuele gegevens van bestaande adressen zonder geometrie';
 
 
 -- Vervangt vb_ligplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
@@ -45,7 +46,7 @@ select qry.objectid,
        qry.huisnummertoevoeging,
        qry.postcode,
        qry.geometrie,
-    qry.geometrie_centroide
+	   qry.geometrie_centroide
 from (
          select true                      as ishoofdadres,
                 lp.status,
@@ -85,9 +86,10 @@ from (
              (lpna.identificatie = lpa.identificatie
                  and lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                   join vb_adres a on
-                 lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+                 lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+				  where qry.status is not 'Plaats ingetrokken';
 
-comment on view vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
+comment on view vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 
 
 -- Vervangt vb_standplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
@@ -145,9 +147,10 @@ from (select true                      as ishoofdadres,
           (spna.identificatie = spa.identificatie
               and spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on
-          spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+          spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+		  where qry.status is not 'Plaats ingetrokken';
 
-comment on view vb_standplaats_adres is 'standplaats met adres en puntlocatie';
+comment on view vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 
 
 -- Vervangt vb_vbo_adres. Gemeentevelden zijn nog niet beschikbaar.
@@ -234,9 +237,37 @@ from (select true                      as ishoofdadres,
           (vona.identificatie = voa.identificatie
               and vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on
-          vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
+          vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+		  WHERE qry.status::text NOT IN ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
 
-comment on view vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
+comment on view vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie met adres, pandverwijzing, gebruiksdoel en puntlocatie';
+
+CREATE OR REPLACE VIEW vb_pand
+AS 
+SELECT p.objectid,
+       p.identificatie,
+       p.voorkomenidentificatie,
+       p.begingeldigheid,
+       p.eindgeldigheid,
+       p.tijdstipregistratie,
+       p.eindregistratie,
+       p.tijdstipinactief,
+       p.tijdstipregistratielv,
+       p.tijdstipeindregistratielv,
+       p.tijdstipinactieflv,
+       p.documentdatum,
+       p.documentnummer,
+       p.geconstateerd,
+       p.status,
+       p.oorspronkelijkbouwjaar,
+       p.geometrie
+  FROM pand p
+       WHERE p.status NOT IN ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt')
+	   and begingeldigheid <= CURRENT_DATE 
+	   AND (eindgeldigheid IS NULL OR eindgeldigheid > CURRENT_DATE) 
+	   AND tijdstipinactief IS NULL;
+
+comment on view vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
 
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
