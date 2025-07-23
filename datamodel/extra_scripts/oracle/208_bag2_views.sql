@@ -22,7 +22,7 @@ select na.objectid,
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
          left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
-		 where na.status <> 'Naamgeving ingetrokken';
+where na.status <> 'Naamgeving ingetrokken';
 
 comment on table vb_adres is 'Actuele gegevens van bestaande adressen zonder geometrie';
 
@@ -81,7 +81,7 @@ from (select 'true'                                 as ishoofdadres,
                join ligplaats_nevenadres lpna on (lpna.identificatie = lpa.identificatie and
                                                   lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-			   where qry.status <> 'Plaats ingetrokken';
+where qry.status <> 'Plaats ingetrokken';
 
 comment on table vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
@@ -148,7 +148,7 @@ from (select 'true'                                 as ishoofdadres,
                join standplaats_nevenadres spna on (spna.identificatie = spa.identificatie and
                                                     spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-			   where qry.status <> 'Plaats ingetrokken';
+where qry.status <> 'Plaats ingetrokken';
 
 comment on table vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';
@@ -237,7 +237,7 @@ from (select 'true'                                                             
                join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
                                                         vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-			   where qry.status NOT IN ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
+where qry.status not in ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
 
 comment on table vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';
@@ -250,9 +250,8 @@ values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_d
                                                                      mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
         28992);
 
-CREATE OR REPLACE VIEW vb_pand
-AS 
-SELECT vpa.objectid,
+create or replace view vb_pand as
+select vpa.objectid,
        vpa.identificatie,
        vpa.voorkomenidentificatie,
        vpa.begingeldigheid,
@@ -269,8 +268,8 @@ SELECT vpa.objectid,
        vpa.status,
        vpa.oorspronkelijkbouwjaar,
        vpa.geometrie
-  FROM v_pand_actueel vpa
-       WHERE vpa.status NOT IN ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt');
+from v_pand_actueel vpa
+where vpa.status not in ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt');
 
 comment on table vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
 delete from user_sdo_geom_metadata where table_name = 'VB_PAND';

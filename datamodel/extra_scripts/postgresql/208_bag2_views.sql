@@ -25,7 +25,7 @@ select na.objectid,
 from v_nummeraanduiding_actueel na
          left join v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
          left join v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin)
-		 where na.status <> 'Naamgeving ingetrokken';
+where na.status <> 'Naamgeving ingetrokken';
 
 comment on view vb_adres is 'Actuele gegevens van bestaande adressen zonder geometrie';
 
@@ -46,7 +46,7 @@ select qry.objectid,
        qry.huisnummertoevoeging,
        qry.postcode,
        qry.geometrie,
-	   qry.geometrie_centroide
+       qry.geometrie_centroide
 from (
          select true                      as ishoofdadres,
                 lp.status,
@@ -87,7 +87,7 @@ from (
                  and lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                   join vb_adres a on
                  lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-				  where qry.status <> 'Plaats ingetrokken';
+where qry.status <> 'Plaats ingetrokken';
 
 comment on view vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 
@@ -148,7 +148,7 @@ from (select true                      as ishoofdadres,
               and spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on
           spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-		  where qry.status <> 'Plaats ingetrokken';
+where qry.status <> 'Plaats ingetrokken';
 
 comment on view vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 
@@ -238,13 +238,12 @@ from (select true                      as ishoofdadres,
               and vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on
           vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-		  WHERE qry.status::text NOT IN ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
+where qry.status not in ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
 
 comment on view vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 
-CREATE OR REPLACE VIEW vb_pand
-AS 
-SELECT p.objectid,
+create or replace view vb_pand as
+select p.objectid,
        p.identificatie,
        p.voorkomenidentificatie,
        p.begingeldigheid,
@@ -261,11 +260,11 @@ SELECT p.objectid,
        p.status,
        p.oorspronkelijkbouwjaar,
        p.geometrie
-  FROM pand p
-       WHERE p.status NOT IN ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt')
-	   and begingeldigheid <= CURRENT_DATE 
-	   AND (eindgeldigheid IS NULL OR eindgeldigheid > CURRENT_DATE) 
-	   AND tijdstipinactief IS NULL;
+from pand p
+where p.status not in ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt')
+and begingeldigheid <= current_date
+and (eindgeldigheid is null or eindgeldigheid > current_date)
+and tijdstipinactief is null;
 
 comment on view vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
 
