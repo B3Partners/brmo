@@ -237,7 +237,9 @@ from (select 'true'                                                             
                join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
                                                         vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
+
 where qry.status not in ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
+--'Verblijfsobject buiten gebruik' wordt wel in de view meegenomen aangezien het verblijfsobject en het bijbehorende pand nog aanwezig zijn in de openbare ruimte.
 
 comment on table vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';
@@ -270,18 +272,18 @@ select vpa.objectid,
        vpa.geometrie
 from v_pand_actueel vpa
 where vpa.status not in ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt');
+--'Pand buiten gebruik' wordt wel in de view meegenomen aangezien het pand nog aanwezig is in de openbare ruimte.
 
 comment on table vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
 delete from user_sdo_geom_metadata where table_name = 'VB_PAND';
 insert into user_sdo_geom_metadata
-values ('VB_PAND', 'GEOMETRIE_CENTROIDE',
+values ('VB_PAND', 'GEOMETRIE',
         mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
                             mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 insert into user_sdo_geom_metadata
 values ('VB_PAND', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
                                                                      mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
         28992);
-
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
 create or replace view vb_adresseerbaar_object_geometrie as

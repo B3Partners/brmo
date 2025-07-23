@@ -239,32 +239,32 @@ from (select true                      as ishoofdadres,
                join vb_adres a on
           vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
 where qry.status not in ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
+--'Verblijfsobject buiten gebruik' wordt wel in de view meegenomen aangezien het verblijfsobject en het bijbehorende pand nog aanwezig zijn in de openbare ruimte.
 
 comment on view vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 
 create or replace view vb_pand as
-select p.objectid,
-       p.identificatie,
-       p.voorkomenidentificatie,
-       p.begingeldigheid,
-       p.eindgeldigheid,
-       p.tijdstipregistratie,
-       p.eindregistratie,
-       p.tijdstipinactief,
-       p.tijdstipregistratielv,
-       p.tijdstipeindregistratielv,
-       p.tijdstipinactieflv,
-       p.documentdatum,
-       p.documentnummer,
-       p.geconstateerd,
-       p.status,
-       p.oorspronkelijkbouwjaar,
-       p.geometrie
-from pand p
-where p.status not in ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt')
-and begingeldigheid <= current_date
-and (eindgeldigheid is null or eindgeldigheid > current_date)
-and tijdstipinactief is null;
+select vpa.objectid,
+       vpa.identificatie,
+       vpa.voorkomenidentificatie,
+       vpa.begingeldigheid,
+       vpa.eindgeldigheid,
+       vpa.tijdstipregistratie,
+       vpa.eindregistratie,
+       vpa.tijdstipinactief,
+       vpa.tijdstipregistratielv,
+       vpa.tijdstipeindregistratielv,
+       vpa.tijdstipinactieflv,
+       vpa.documentdatum,
+       vpa.documentnummer,
+       vpa.geconstateerd,
+       vpa.status,
+       vpa.oorspronkelijkbouwjaar,
+       vpa.geometrie
+from v_pand_actueel vpa
+where vpa.status not in ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd', 'Pand gesloopt');
+--'Pand buiten gebruik' wordt wel in de view meegenomen aangezien het pand nog aanwezig is in de openbare ruimte.
+
 
 comment on view vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
 
