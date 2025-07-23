@@ -237,7 +237,6 @@ from (select 'true'                                                             
                join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
                                                         vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry
-
 where qry.status not in ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject ingetrokken', 'Verblijfsobject ten onrechte opgevoerd');
 --'Verblijfsobject buiten gebruik' wordt wel in de view meegenomen aangezien het verblijfsobject en het bijbehorende pand nog aanwezig zijn in de openbare ruimte.
 
@@ -280,10 +279,6 @@ insert into user_sdo_geom_metadata
 values ('VB_PAND', 'GEOMETRIE',
         mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
                             mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-insert into user_sdo_geom_metadata
-values ('VB_PAND', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                                                                     mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
-        28992);
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
 create or replace view vb_adresseerbaar_object_geometrie as
