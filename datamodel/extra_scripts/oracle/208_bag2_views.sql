@@ -85,13 +85,8 @@ where qry.status <> 'Plaats ingetrokken';
 
 comment on table vb_ligplaats_adres is 'Actuele gegevens van bestaande ligplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
-insert into user_sdo_geom_metadata
-values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE_CENTROIDE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                                                                         mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
-        28992);
-insert into user_sdo_geom_metadata
-values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                                                               mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE_CENTROIDE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 
 
 -- Vervangt vb_standplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
@@ -152,14 +147,8 @@ where qry.status <> 'Plaats ingetrokken';
 
 comment on table vb_standplaats_adres is 'Actuele gegevens van bestaande standplaatsen met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';
-insert into user_sdo_geom_metadata
-values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE_CENTROIDE',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-insert into user_sdo_geom_metadata
-values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                                                                 mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
-        28992);
+insert into user_sdo_geom_metadata values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE_CENTROIDE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 
 
 -- Vervangt vb_vbo_adres. Gemeentevelden zijn nog niet beschikbaar.
@@ -242,14 +231,8 @@ where qry.status not in ('Niet gerealiseerd verblijfsobject', 'Verblijfsobject i
 
 comment on table vb_verblijfsobject_adres is 'Actuele gegevens van bestaande verblijfsobjecten en die nog gerealiseerd zullen worden met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';
-insert into user_sdo_geom_metadata
-values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE_CENTROIDE',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-insert into user_sdo_geom_metadata
-values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                                                                     mdsys.sdo_dim_element('Y', 304000, 620000, .1)),
-        28992);
+insert into user_sdo_geom_metadata values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE_CENTROIDE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 
 create or replace view vb_pand as
 select vpa.objectid,
@@ -275,10 +258,7 @@ where vpa.status not in ('Niet gerealiseerd pand', 'Pand ten onrechte opgevoerd'
 
 comment on table vb_pand is 'Actuele gegevens van bestaande panden én die nog gerealiseerd zullen worden';
 delete from user_sdo_geom_metadata where table_name = 'VB_PAND';
-insert into user_sdo_geom_metadata
-values ('VB_PAND', 'GEOMETRIE',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_PAND', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
 create or replace view vb_adresseerbaar_object_geometrie as
@@ -366,11 +346,5 @@ from (select vla.ishoofdadres,
 
 comment on table vb_adresseerbaar_object_geometrie is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
 delete from user_sdo_geom_metadata where table_name = 'VB_ADRESSEERBAAR_OBJECT_GEOMETRIE';
-insert into user_sdo_geom_metadata
-values ('VB_ADRESSEERBAAR_OBJECT_GEOMETRIE', 'GEOMETRIE_CENTROIDE',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
-insert into user_sdo_geom_metadata
-values ('VB_ADRESSEERBAAR_OBJECT_GEOMETRIE', 'GEOMETRIE',
-        mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
-                            mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_ADRESSEERBAAR_OBJECT_GEOMETRIE', 'GEOMETRIE_CENTROIDE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
+insert into user_sdo_geom_metadata values ('VB_ADRESSEERBAAR_OBJECT_GEOMETRIE', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1), mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
