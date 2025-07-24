@@ -27,7 +27,8 @@ public interface ProcesExecutable extends Runnable {
     BerichtstatusRapportProces,
     LaadprocesStatusRapportProces,
     TopNLScannerProces,
-    AfgifteNummerScannerProces;
+    AfgifteNummerScannerProces,
+    KVKMutatieserviceProces,
   }
 
   /**

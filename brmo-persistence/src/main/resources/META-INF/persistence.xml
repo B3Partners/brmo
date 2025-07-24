@@ -13,7 +13,7 @@
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <class>nl.b3p.brmo.persistence.staging.NHRInschrijving</class>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
             <property name="javax.persistence.validation.mode" value="none"/>
             <!-- workaround for Hibernate bug expecting the generated id to be the first column
