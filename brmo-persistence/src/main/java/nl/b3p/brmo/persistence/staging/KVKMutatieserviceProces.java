@@ -9,4 +9,7 @@ import javax.persistence.Entity;
  * @author mprins
  */
 @Entity
-public class KVKMutatieserviceProces extends AutomatischProces {}
+public class KVKMutatieserviceProces extends AutomatischProces {
+  public static final String APIKEY = "apikey";
+  public static final String ABONNEMENT_ID = "abonnementId";
+}
