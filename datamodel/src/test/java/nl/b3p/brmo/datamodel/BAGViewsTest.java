@@ -100,6 +100,7 @@ public class BAGViewsTest {
             "vb_verblijfsobject_adres",
             "vb_standplaats_adres",
             "vb_ligplaats_adres",
+            "vb_pand",
             "vb_adres");
 
     // alles lower-case (ORACLE!) en gesorteerd vergelijken
