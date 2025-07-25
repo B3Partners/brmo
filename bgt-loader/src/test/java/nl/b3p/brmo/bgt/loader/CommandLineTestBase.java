@@ -35,7 +35,7 @@ public class CommandLineTestBase extends DBTestBase {
   }
 
   @AfterEach
-  void closeWebServer()  {
+  void closeWebServer() {
     mockWebServer.close();
   }
 

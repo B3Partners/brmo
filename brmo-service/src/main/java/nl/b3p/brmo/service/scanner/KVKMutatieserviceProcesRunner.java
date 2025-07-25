@@ -94,7 +94,7 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
         GregorianCalendar tot =
             getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get(TOT)));
         String sVanaf = ClobElement.nullSafeGet(this.config.getConfig().get(VANAF));
-        if (tot != null && ("-1".equals(sVanaf) | "-2".equals(sVanaf) | "-3".equals(sVanaf))) {
+        if (tot != null && ("-1".equals(sVanaf) || "-2".equals(sVanaf) || "-3".equals(sVanaf))) {
           vanaf =
               getDatumTijd(
                   ClobElement.nullSafeGet(this.config.getConfig().get(TOT)),

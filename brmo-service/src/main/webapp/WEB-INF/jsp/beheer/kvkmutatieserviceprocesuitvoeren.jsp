@@ -26,7 +26,7 @@
     <p>
       Gestart op: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>,
       <script type="text/javascript">
-        document.write(moment("<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>", "YYYY-MM-DD HH:mm:ss").fromNow() + ".");
+        document.write(moment('<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${actionBean.start}"/>', "YYYY-MM-DD HH:mm:ss").fromNow() + ".");
       </script>
       <br>
       <c:if test="${!empty actionBean.update}">
