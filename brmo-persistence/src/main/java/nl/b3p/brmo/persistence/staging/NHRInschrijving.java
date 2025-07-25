@@ -31,6 +31,17 @@ public class NHRInschrijving implements Serializable {
   @Type(type = "org.hibernate.type.TextType")
   private String exception;
 
+  public NHRInschrijving() {
+    // JPA default constructor
+  }
+
+  public NHRInschrijving(String kvkNummer) {
+    this.kvkNummer = kvkNummer;
+    this.datum = new Date();
+    this.volgendProberen = new Date();
+    this.probeerAantal = 0;
+  }
+
   // <editor-fold defaultstate="collapsed" desc="getters and setters">
   public Date getDatum() {
     return datum;

@@ -5,6 +5,7 @@ package nl.b3p.brmo.service.stripes;
 
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
+import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.KVKMutatieserviceProces;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,21 +27,7 @@ import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationMethod;
-import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
-import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
-import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
-import nl.b3p.brmo.persistence.staging.BRK2ScannerProces;
-import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
-import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
-import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
-import nl.b3p.brmo.persistence.staging.ClobElement;
-import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
-import nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces;
-import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
-import nl.b3p.brmo.persistence.staging.MailRapportageProces;
-import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
-import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
+import nl.b3p.brmo.persistence.staging.*;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
@@ -191,6 +178,7 @@ public class OphaalConfigActionBean implements ActionBean {
       case TopNLScannerProces -> new TopNLScannerProces();
       case AfgifteNummerScannerProces -> new AfgifteNummerScannerProces();
       case BGTLoaderProces -> new BGTLoaderProces();
+      case KVKMutatieserviceProces -> new KVKMutatieserviceProces();
       default ->
           throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
     };

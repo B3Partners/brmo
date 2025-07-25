@@ -59,6 +59,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
       case AfgifteNummerScannerProces ->
           new AfgifteNummerScanner((AfgifteNummerScannerProces) config);
       case BGTLoaderProces -> new BGTLoader((BGTLoaderProces) config);
+      case KVKMutatieserviceProces ->
+          new KVKMutatieserviceProcesRunner((KVKMutatieserviceProces) config);
       default ->
           throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
     };
