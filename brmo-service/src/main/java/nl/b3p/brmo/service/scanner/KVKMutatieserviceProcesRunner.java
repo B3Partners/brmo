@@ -1,20 +1,23 @@
 package nl.b3p.brmo.service.scanner;
 
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.*;
-import static nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces.ABONNEMENT_ID;
-import static nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces.APIKEY;
+import static nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces.*;
+import static nl.b3p.gds2.GDS2Util.getDatumTijd;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.Transient;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import org.apache.commons.logging.Log;
@@ -26,9 +29,11 @@ import org.stripesstuff.stripersist.Stripersist;
 
 public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
   private static final Log LOG = LogFactory.getLog(KVKMutatieserviceProcesRunner.class);
-  private static final String API_URL = "https://api.kvk.nl/test/api/v1/abonnementen/%s?pagina=%d";
+
   private final KVKMutatieserviceProces config;
   private int pages;
+  private String ophalenVanaf = "";
+  private String ophalenTot = "";
   private final Set<String> kvkNummers = new HashSet<>();
   @Transient private ProgressUpdateListener listener;
 
@@ -84,10 +89,24 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
         listener.addLog(
             "Gebruik %s als abonnementId.".formatted(config.getConfig().get(ABONNEMENT_ID)));
 
-        getPageFromAPI(
-            config.getConfig().get(APIKEY).getValue(),
-            config.getConfig().get(ABONNEMENT_ID).getValue(),
-            1);
+        // datum tijd parsen/instellen
+        GregorianCalendar vanaf;
+        GregorianCalendar tot =
+            getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get(TOT)));
+        String sVanaf = ClobElement.nullSafeGet(this.config.getConfig().get(VANAF));
+        if (tot != null && ("-1".equals(sVanaf) | "-2".equals(sVanaf) | "-3".equals(sVanaf))) {
+          vanaf =
+              getDatumTijd(
+                  ClobElement.nullSafeGet(this.config.getConfig().get(TOT)),
+                  Integer.parseInt(sVanaf));
+        } else {
+          vanaf = getDatumTijd(sVanaf);
+        }
+
+        ophalenVanaf =
+            vanaf == null ? "" : vanaf.toZonedDateTime().format(DateTimeFormatter.ISO_INSTANT);
+        ophalenTot = tot == null ? "" : tot.toZonedDateTime().format(DateTimeFormatter.ISO_INSTANT);
+        getPageFromAPI(/*start met p.1*/ 1);
 
         config.setSamenvatting(
             "Er zijn %d pagina's KVK mutaties opgehaald en verwerkt.".formatted(pages));
@@ -111,27 +130,39 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
     }
   }
 
-  private void getPageFromAPI(String apikey, String abonnementId, int pagina) {
-    // execute a http request to the KVK Mutatieservice API
-    // similar to curl
-    // https://api.kvk.nl/test/api/v1/abonnementen/1365acf9-0b63-3ed4-9e68-a8c37425080b?pagina=2 -H
-    // "apikey: l7xx1f2691f2520d487b902f4e0b57a0b197"
-    // using the apikey header and abonnementId as a url part and pagina as a query parameter and
-    // the template in API_URL
-    String url = String.format(API_URL, abonnementId, pagina);
+  private void getPageFromAPI(int pagina)
+      throws JSONException, IllegalArgumentException, TransactionRequiredException {
+
+    final String API_URL_PARAMS = "%s/%s?pagina=%d&vanaf=%s&tot=%s";
+    String url =
+        String.format(
+            API_URL_PARAMS,
+            config.getConfig().get(APIURL).getValue(),
+            config.getConfig().get(ABONNEMENT_ID).getValue(),
+            pagina,
+            this.ophalenVanaf,
+            this.ophalenTot);
     LOG.debug("Requesting KVK Mutatieservice API: " + url);
     listener.progress(pagina);
-    listener.addLog("Verwerken van pagina %d van KVK mutaties.".formatted(pagina));
+    listener.updateStatus(
+        "Verwerken van pagina %d van %d van KVK mutaties.".formatted(pagina, pages));
+    LOG.info("Verwerken van pagina %d van %d van KVK mutaties.".formatted(pagina, pages));
 
     try {
       HttpClient client = HttpClient.newHttpClient();
       HttpRequest request =
-          HttpRequest.newBuilder().uri(URI.create(url)).header(APIKEY, apikey).build();
+          HttpRequest.newBuilder()
+              .uri(URI.create(url))
+              .header(APIKEY, config.getConfig().get(APIKEY).getValue())
+              .build();
       HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
       if (response.statusCode() == 200) {
         parseApiResponse(response.body());
       } else {
         LOG.error(
+            "Ophalen van mutatiedata is mislukt met statuscode %s en melding: %s"
+                .formatted(response.statusCode(), response.body()));
+        listener.addLog(
             "Ophalen van mutatiedata is mislukt met statuscode %s en melding: %s"
                 .formatted(response.statusCode(), response.body()));
       }
@@ -169,8 +200,7 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
     pages = jsonObject.getInt("totaalPaginas");
     int pagina = jsonObject.getInt("pagina");
     listener.total(pages);
-    listener.addLog(
-        "Aantal signalen op pagina %d: %d".formatted(pagina, jsonObject.getInt("aantal")));
+    LOG.debug("Aantal signalen op pagina %d: %d".formatted(pagina, jsonObject.getInt("aantal")));
 
     final JSONArray signalen = jsonObject.getJSONArray("signalen");
     for (int i = 0; i < signalen.length(); i++) {
@@ -182,10 +212,7 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
     }
     if (pagina < pages) {
       // If there are more pages, fetch the next page
-      getPageFromAPI(
-          config.getConfig().get(APIKEY).getValue(),
-          config.getConfig().get(ABONNEMENT_ID).getValue(),
-          pagina + 1);
+      getPageFromAPI(pagina + 1);
     } else {
       listener.addLog("Alle %d pagina's KVK mutaties zijn opgehaald.".formatted(pages));
       storeKvkNummers();
@@ -205,6 +232,8 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
       }
       Stripersist.getEntityManager().merge(inschrijving);
     }
-    listener.addLog("KVK nummers opgeslagen of bijgewerkt: " + kvkNummers.size());
+    listener.addLog(
+        "Er zijn %s unieke KVK nummers met mutatie opgeslagen of bijgewerkt."
+            .formatted(kvkNummers.size()));
   }
 }
