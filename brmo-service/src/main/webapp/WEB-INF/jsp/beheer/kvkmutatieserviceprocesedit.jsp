@@ -36,7 +36,7 @@
         <td><stripes:text name="config['vanaf']"/></td>
     </tr>
     <tr>
-        <td>datum tot (dd-MM-yyyyHH:mm:ssZ formaat of "nu")</td>
+        <td>datum tot (dd-MM-yyyyTHH:mm:ssZ formaat of "nu")</td>
         <%-- KVKMutatieserviceProces#TOT --%>
         <td><stripes:text name="config['tot']"/></td>
     </tr>

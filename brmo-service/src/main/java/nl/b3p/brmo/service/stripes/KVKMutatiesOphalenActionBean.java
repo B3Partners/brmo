@@ -46,8 +46,7 @@ public class KVKMutatiesOphalenActionBean implements ActionBean, ProgressUpdateL
     if (proces == null) {
       samenvatting = "Geen geldig KVK Mutatieservice proces opgegeven.";
       getContext().getMessages().add(new SimpleMessage(samenvatting));
-      proces.setSamenvatting(samenvatting);
-      Stripersist.getEntityManager().merge(proces);
+      LOG.warn(samenvatting);
       completed();
       return new ForwardResolution(JSP);
     }
