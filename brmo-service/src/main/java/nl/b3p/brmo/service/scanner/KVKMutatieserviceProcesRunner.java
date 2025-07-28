@@ -22,6 +22,7 @@ import nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,9 +86,9 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
         listener.updateStatus(PROCESSING.toString());
         config.setStatus(PROCESSING);
         Stripersist.getEntityManager().merge(config);
-        listener.addLog("Gebruik %s als apikey.".formatted(config.getConfig().get(APIKEY)));
-        listener.addLog(
-            "Gebruik %s als abonnementId.".formatted(config.getConfig().get(ABONNEMENT_ID)));
+        LOG.debug(
+            "Gebruik %s als apikey en %s als abonnementId."
+                .formatted(config.getConfig().get(APIKEY), config.getConfig().get(ABONNEMENT_ID)));
 
         // datum tijd parsen/instellen
         GregorianCalendar vanaf;
@@ -109,12 +110,14 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
         getPageFromAPI(/*start met p.1*/ 1);
 
         config.setSamenvatting(
-            "Er zijn %d pagina's KVK mutaties opgehaald en verwerkt.".formatted(pages));
+            "Er zijn %d pagina's van de KVK Mutatieservice opgehaald en verwerkt."
+                .formatted(pages));
         config.setStatus(WAITING);
         listener.updateStatus("KVK Mutatieservice proces voltooid op %tc.".formatted(new Date()));
       } catch (Exception e) {
         listener.exception(e);
         listener.updateStatus(ERROR.toString());
+        listener.addLog(e.getMessage());
         config.setStatus(ERROR);
       } finally {
         config.setLastrun(new Date());
@@ -131,7 +134,11 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
   }
 
   private void getPageFromAPI(int pagina)
-      throws JSONException, IllegalArgumentException, TransactionRequiredException {
+      throws JSONException,
+          IllegalArgumentException,
+          TransactionRequiredException,
+          IOException,
+          BrmoException {
 
     final String API_URL_PARAMS = "%s/%s?pagina=%d&vanaf=%s&tot=%s";
     String url =
@@ -145,8 +152,8 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
     LOG.debug("Requesting KVK Mutatieservice API: " + url);
     listener.progress(pagina);
     listener.updateStatus(
-        "Verwerken van pagina %d van %d van KVK mutaties.".formatted(pagina, pages));
-    LOG.info("Verwerken van pagina %d van %d van KVK mutaties.".formatted(pagina, pages));
+        "Ophalen van pagina %d van %d van KVK mutaties.".formatted(pagina, pages));
+    LOG.info("Ophalen van pagina %d van %d van KVK mutaties.".formatted(pagina, pages));
 
     try {
       HttpClient client = HttpClient.newHttpClient();
@@ -154,19 +161,23 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
           HttpRequest.newBuilder()
               .uri(URI.create(url))
               .header(APIKEY, config.getConfig().get(APIKEY).getValue())
+              .header("Accept", "application/json")
               .build();
       HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
       if (response.statusCode() == 200) {
         parseApiResponse(response.body());
       } else {
-        LOG.error(
+        // de API heeft een foutmelding teruggegeven, maar dat kan HTML zijn, dus die moet escaped
+        // worden
+        // zie ook KVK TopDesk melding M2507 3520
+        String errorMsg =
             "Ophalen van mutatiedata is mislukt met statuscode %s en melding: %s"
-                .formatted(response.statusCode(), response.body()));
-        listener.addLog(
-            "Ophalen van mutatiedata is mislukt met statuscode %s en melding: %s"
-                .formatted(response.statusCode(), response.body()));
+                .formatted(response.statusCode(), StringEscapeUtils.escapeHtml4(response.body()));
+        listener.updateStatus(ERROR.toString());
+        config.setStatus(ERROR);
+        throw new BrmoException(errorMsg);
       }
-    } catch (IOException | InterruptedException | JSONException e) {
+    } catch (InterruptedException | JSONException e) {
       LOG.error("Fout tijdens benaderen KVK Mutatieservice API data", e);
       listener.addLog("Fout tijdens benaderen KVK Mutatieservice API data: " + e.getMessage());
       listener.exception(e);
@@ -174,7 +185,11 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
   }
 
   private void parseApiResponse(String responseBody)
-      throws JSONException, IllegalArgumentException, TransactionRequiredException {
+      throws JSONException,
+          IllegalArgumentException,
+          TransactionRequiredException,
+          BrmoException,
+          IOException {
     // test json response:
     //          {
     //                  "pagina": 1,
