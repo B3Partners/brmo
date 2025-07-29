@@ -174,6 +174,13 @@
 						</stripes:url>
 					</c:when>
 
+                    <c:when test="${actionBean.type eq 'KVKMutatieserviceProces'}">
+                        <jsp:include page="kvkmutatieserviceprocesedit.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.KVKMutatiesOphalenActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
 					<c:otherwise>
 						<p>Onbekende input</p>
 					</c:otherwise>
