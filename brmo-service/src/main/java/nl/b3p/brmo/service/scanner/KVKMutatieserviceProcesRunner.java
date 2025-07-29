@@ -47,7 +47,7 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
   }
 
   @Override
-  public void execute() throws BrmoException {
+  public void execute() {
     this.execute(
         new ProgressUpdateListener() {
           @Override
@@ -124,7 +124,6 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
         Stripersist.getEntityManager().merge(config);
         Stripersist.getEntityManager().flush();
       }
-
     } else {
       // PROCESSING
       // Als het proces al bezig is of succesvol is afgerond, doen we niets
@@ -140,7 +139,7 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
           IOException,
           BrmoException {
 
-    final String API_URL_PARAMS = "%s/%s?pagina=%d&vanaf=%s&tot=%s";
+    final String API_URL_PARAMS = "%s%s?pagina=%d&vanaf=%s&tot=%s";
     String url =
         String.format(
             API_URL_PARAMS,
@@ -167,12 +166,13 @@ public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
       if (response.statusCode() == 200) {
         parseApiResponse(response.body());
       } else {
-        // de API heeft een foutmelding teruggegeven, maar dat kan HTML zijn, dus die moet escaped
-        // worden
-        // zie ook KVK TopDesk melding M2507 3520
+        // de API heeft een foutmelding teruggegeven, maar dat kan HTML zijn, dus die moet
+        // escaped/gestript worden, zie ook KVK TopDesk melding "M2507 3520"
         String errorMsg =
             "Ophalen van mutatiedata is mislukt met statuscode %s en melding: %s"
-                .formatted(response.statusCode(), StringEscapeUtils.escapeHtml4(response.body()));
+                .formatted(
+                    response.statusCode(),
+                    StringEscapeUtils.escapeHtml4(response.body().replaceAll("<[^>]*>", "")));
         listener.updateStatus(ERROR.toString());
         config.setStatus(ERROR);
         throw new BrmoException(errorMsg);

@@ -34,6 +34,7 @@ public class KVKMutatiesOphalenActionBean implements ActionBean, ProgressUpdateL
   private long processed;
   private double progress;
   private boolean complete;
+  private int logLineCounter = 0;
   private Date start;
   private Date update;
   private StringBuilder log = new StringBuilder();
@@ -109,7 +110,16 @@ public class KVKMutatiesOphalenActionBean implements ActionBean, ProgressUpdateL
 
   @Override
   public void addLog(String line) {
+    if (this.logLineCounter > 3000) {
+      // trim buffer met 150 regels (5%)
+      for (int removeline = 0; removeline < 150; removeline++) {
+        this.log.delete(0, this.log.indexOf("\n") + 1);
+      }
+      this.log.trimToSize();
+      this.logLineCounter = this.log.toString().split("\n").length;
+    }
     this.log.append(line).append("\n");
+    this.logLineCounter++;
     KVKMutatieserviceProcesRunner.getLog().info(line);
   }
 
