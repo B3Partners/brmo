@@ -23,6 +23,7 @@ public class ConfigUtil implements Servlet {
   private static final String JDBC_NAME_RSGBBRK = "jdbc/brmo/rsgbbrk";
   private static final String JDBC_NAME_RSGB_BAG = "jdbc/brmo/rsgbbag";
   private static final String JDBC_NAME_RSGB_BGT = "jdbc/brmo/rsgbbgt";
+  @Deprecated
   private static final String JDBC_NAME_RSGB_TOPNL = "jdbc/brmo/rsgbtopnl";
 
   private static DataSource datasourceStaging = null;
@@ -30,6 +31,7 @@ public class ConfigUtil implements Servlet {
   private static DataSource datasourceRsgbBrk = null;
   private static DataSource datasourceRsgbBag = null;
   private static DataSource datasourceRsgbBgt = null;
+  @Deprecated
   private static DataSource datasourceTopNL = null;
 
   public static Long MAX_UPLOAD_SIZE;
@@ -136,7 +138,9 @@ public class ConfigUtil implements Servlet {
   /**
    * @return de gevraagde datasource
    * @throws BrmoException als opzoeken van de datasource in de jndi context mislukt
+   * @deprecated miv versie 6 niet langer ondersteund/verwijderd
    */
+  @Deprecated
   public static DataSource getDataSourceTopNL() throws BrmoException {
     try {
       if (datasourceTopNL == null) {

@@ -25,7 +25,6 @@ public interface ProcesExecutable extends Runnable {
     MaterializedViewRefresh,
     BerichtstatusRapportProces,
     LaadprocesStatusRapportProces,
-    TopNLScannerProces,
     AfgifteNummerScannerProces,
     KVKMutatieserviceProces,
   }

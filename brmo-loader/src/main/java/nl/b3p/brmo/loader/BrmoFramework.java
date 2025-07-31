@@ -44,6 +44,7 @@ public class BrmoFramework {
 
   public static final String BR_BRK2 = "brk2";
   public static final String BR_NHR = "nhr";
+  @Deprecated
   public static final String BR_TOPNL = "topnl";
   public static final String BR_BRP = "brp";
   public static final String BR_GBAV = "gbav";
@@ -65,6 +66,7 @@ public class BrmoFramework {
   private final DataSource dataSourceRsgbBrk;
   private DataSource dataSourceRsgbBgt = null;
   private final DataSource dataSourceStaging;
+  @Deprecated
   private DataSource dataSourceTopNL = null;
   private boolean enablePipeline = false;
   private Integer pipelineCapacity;

@@ -10,7 +10,6 @@
     <ResourceLink global="jdbc/brmo/rsgbbrk" name="jdbc/brmo/rsgbbrk" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbag" name="jdbc/brmo/rsgbbag" type="javax.sql.DataSource"/>
-    <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
     <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
     <Realm className="org.apache.catalina.realm.LockOutRealm">
         <Realm className="org.apache.catalina.realm.DataSourceRealm"
