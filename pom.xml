@@ -81,13 +81,13 @@
         <hibernate.version>5.6.15.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>33.2</geotools.version>
-        <jdbc-util.version>19.2</jdbc-util.version>
+        <jdbc-util.version>19.3-SNAPSHOT</jdbc-util.version>
         <jts.version>1.20.0</jts.version>
         <itextpdf.version>9.2.0</itextpdf.version>
         <postgresql.jdbc.version>42.7.7</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2025.1.1</postgresql.postgis-jdbc.version>
-        <oracle.jdbc.version>23.8.0.25.04</oracle.jdbc.version>
-        <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
+        <oracle.jdbc.version>23.9.0.25.07</oracle.jdbc.version>
+        <oracle.jdbc.artifact>ojdbc17</oracle.jdbc.artifact>
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.7</jakarta.mail.version>
@@ -316,11 +316,11 @@
                 <exclusions>
                     <exclusion>
                         <groupId>com.oracle.database.jdbc</groupId>
-                        <artifactId>ojdbc8</artifactId>
+                        <artifactId>ojdbc11</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>com.oracle.database.jdbc</groupId>
-                        <artifactId>ojdbc11</artifactId>
+                        <artifactId>ojdbc17</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1405,7 +1405,7 @@
             <id>postgresql</id>
             <properties>
                 <oracle.jdbc.groupId>com.oracle.database.jdbc</oracle.jdbc.groupId>
-                <oracle.jdbc.artifactId>ojdbc11</oracle.jdbc.artifactId>
+                <oracle.jdbc.artifactId>ojdbc17</oracle.jdbc.artifactId>
             </properties>
         </profile>
         <profile>
