@@ -171,7 +171,6 @@ public class OphaalConfigActionBean implements ActionBean {
       case GDS2OphaalProces -> new GDS2OphaalProces();
       case BerichtTransformatieProces -> new BerichtTransformatieProces();
       case BerichtDoorstuurProces -> new BerichtDoorstuurProces();
-      case LaadprocesTransformatieProces -> new LaadprocesTransformatieProces();
       case MaterializedViewRefresh -> new MaterializedViewRefresh();
       case BerichtstatusRapportProces -> new BerichtstatusRapportProces();
       case LaadprocesStatusRapportProces -> new LaadprocesStatusRapportProces();

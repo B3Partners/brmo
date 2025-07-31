@@ -139,13 +139,6 @@
                         </stripes:url>
                     </c:when>
 
-					<c:when test="${actionBean.type eq 'LaadprocesTransformatieProces'}">
-						<jsp:include page="editlaadprocestransformatieproces.jsp" />
-						<stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean">
-							<stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-						</stripes:url>
-					</c:when>
-
 					<c:when test="${actionBean.type eq 'MaterializedViewRefresh'}">
 						<jsp:include page="editmviewrefreshproces.jsp" />
 						<stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.MViewRefreshActionBean">

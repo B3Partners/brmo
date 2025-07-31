@@ -47,8 +47,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
       case BerichtTransformatieProces ->
           new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);
       case BerichtDoorstuurProces -> new BerichtDoorsturenProces((BerichtDoorstuurProces) config);
-      case LaadprocesTransformatieProces ->
-          new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);
       case MaterializedViewRefresh ->
           new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);
       case BerichtstatusRapportProces ->
