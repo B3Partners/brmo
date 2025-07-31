@@ -13,7 +13,7 @@ concurrency: # cancel on PR pushes
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.oracle -Djava.security.egd=file:/dev/./urandom
-  MAVEN_VERSION: '3.9.10'
+  MAVEN_VERSION: '3.9.11'
 
 jobs:
   build:

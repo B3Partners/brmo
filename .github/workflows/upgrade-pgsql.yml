@@ -16,7 +16,7 @@ env:
   PGPASSWORD: postgres
   PGUSER: postgres
   PGDATABASE: postgres
-  MAVEN_VERSION: '3.9.10'
+  MAVEN_VERSION: '3.9.11'
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        postgis: [ 13-3.5 ]
+        postgis: [ 14-3.5 ]
 
     services:
       postgres:
