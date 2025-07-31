@@ -14,13 +14,6 @@ if [ $? -eq 0 ]; then
 else
     echo Failed setting up rsgb DB
 fi
-printf "\nset up topnl DB...\n"
-psql -v ON_ERROR_STOP=1 -U postgres -h localhost -w -q -d topnl -f ./brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/postgres.sql
-if [ $? -eq 0 ]; then
-    echo Success
-else
-    echo Failed setting up topnl DB
-fi
 
 printf "\nset up BRK 2.0 schema in rsgb DB...\n"
 psql -v ON_ERROR_STOP=1 -U postgres -h localhost -w -q -d rsgb -f ./datamodel/brk/brk2.0_postgresql.sql
