@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>5.0.3-SNAPSHOT</version>
+    <version>6.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -15,7 +15,7 @@
     </organization>
     <licenses>
         <license>
-            <name>GNU GENERAL PUBLIC LICENSE 3.0</name>
+            <name>GPL-3.0-or-later</name>
             <url>https://raw.githubusercontent.com/B3Partners/brmo/master/LICENSE</url>
             <distribution>repo</distribution>
             <comments>Voor de code van de BRMO applicatie.</comments>

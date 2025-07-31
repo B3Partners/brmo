@@ -1,5 +1,5 @@
 -- 
--- upgrade Oracle STAGING datamodel van 5.0.2 naar 5.0.3 
+-- upgrade Oracle STAGING datamodel van 5.0.2 naar 6.0.0
 --
 
 WHENEVER SQLERROR EXIT SQL.SQLCODE
@@ -9,6 +9,6 @@ DELETE FROM automatisch_proces_config WHERE proces_id IN (SELECT id FROM automat
 DELETE FROM automatisch_proces WHERE dtype IN ('LaadprocesTransformatieProces');
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
-INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_5.0.2_naar_5.0.3','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
+INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_5.0.2_naar_6.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
-UPDATE brmo_metadata SET waarde='5.0.3' WHERE naam='brmoversie';
+UPDATE brmo_metadata SET waarde='6.0.0' WHERE naam='brmoversie';
