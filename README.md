@@ -14,7 +14,7 @@ Ga naar de [ontwikkelaarshandleiding](https://b3partners.github.io/brmo/develope
 [![GitHub issues](https://img.shields.io/github/issues/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/issues)
 [![GitHub forks](https://img.shields.io/github/forks/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/network)
 [![GitHub stars](https://img.shields.io/github/stars/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/B3Partners/brmo/master/LICENSE)
+[![GitHub License](https://img.shields.io/github/license/B3Partners/brmo)](https://raw.githubusercontent.com/B3Partners/brmo/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/B3Partners/brmo.svg?maxAge=2592000)]()
 [![Github Releases](https://img.shields.io/github/downloads/B3Partners/brmo/latest/total.svg?maxAge=2592000)]()
 [![Github All Releases](https://img.shields.io/github/downloads/B3Partners/brmo/total.svg?maxAge=2592000)]()
