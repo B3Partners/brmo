@@ -36,12 +36,6 @@
                   url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/${DB_NAME_RSGBBGT}?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service"
                   username="${DB_USER_RSGBBGT}"
                   validationQuery="select 1"/>
-        <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40" initialSize="0"
-                  minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbtopnl" password="${DB_PASS_TOPNL}"
-                  timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
-                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/${DB_NAME_TOPNL}?sslmode=allow&amp;reWriteBatchedInserts=true&amp;ApplicationName=brmo-service"
-                  username="${DB_USER_TOPNL}"
-                  validationQuery="select 1"/>
         <Environment type="java.lang.Boolean" name="brmo/nhr/active" value="${HR_ACTIVE}"/>
         <Environment type="java.lang.Integer" name="brmo/nhr/secondsBetweenFetches" value="0"/>
         <Environment type="java.lang.String" name="brmo/nhr/keystorePath"

@@ -5,7 +5,6 @@
     <ResourceLink global="jdbc/brmo/rsgbbrk" name="jdbc/brmo/rsgbbrk" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbag" name="jdbc/brmo/rsgbbag" type="javax.sql.DataSource"/>
-    <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
     <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
     <ResourceLink global="brmo/nhr/active" name="brmo/nhr/active" type="java.lang.Boolean"/>
     <ResourceLink global="brmo/nhr/keystorePath" name="brmo/nhr/keystorePath" type="java.lang.String"/>
