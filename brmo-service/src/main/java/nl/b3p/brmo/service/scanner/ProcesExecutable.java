@@ -21,7 +21,6 @@ public interface ProcesExecutable extends Runnable {
     GDS2OphaalProces,
     BerichtTransformatieProces,
     BerichtDoorstuurProces,
-    LaadprocesTransformatieProces,
     BGTLoaderProces,
     MaterializedViewRefresh,
     BerichtstatusRapportProces,
