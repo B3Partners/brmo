@@ -57,7 +57,6 @@ public class VersieInfo implements Servlet {
               ConfigUtil.getDataSourceStaging(),
               ConfigUtil.getDataSourceRsgb(),
               ConfigUtil.getDataSourceRsgbBgt(),
-              ConfigUtil.getDataSourceTopNL(),
               ConfigUtil.getDataSourceRsgbBrk());
       LOG.info("BRMO versie informatie:");
       LOG.info("  brmo applicatie versie is: " + appVersie);

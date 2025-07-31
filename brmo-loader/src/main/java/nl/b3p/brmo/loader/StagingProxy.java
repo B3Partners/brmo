@@ -30,14 +30,12 @@ import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
 import nl.b3p.brmo.loader.xml.GbavXMLReader;
 import nl.b3p.brmo.loader.xml.NhrXMLReader;
-import nl.b3p.brmo.loader.xml.TopNLFileReader;
 import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.jdbc.util.converter.OracleJdbcConverter;
 import nl.b3p.jdbc.util.converter.PostgisJdbcConverter;
 import nl.b3p.jdbc.util.dbutils.LongColumnListHandler;
-import nl.b3p.topnl.TopNLType;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -853,8 +851,6 @@ public class StagingProxy {
       brmoXMLReader = new Brk2SnapshotXMLReader(cis);
     } else if (type.equals(BrmoFramework.BR_NHR)) {
       brmoXMLReader = new NhrXMLReader(cis);
-    } else if (TopNLType.isTopNLType(type)) {
-      brmoXMLReader = new TopNLFileReader(fileName, type);
     } else if (type.equals(BrmoFramework.BR_BRP)) {
       brmoXMLReader = new BRPXMLReader(cis, d, this);
     } else if (type.equals(BrmoFramework.BR_GBAV)) {
@@ -883,98 +879,87 @@ public class StagingProxy {
     }
     lp = writeLaadProces(lp);
 
-    if (TopNLType.isTopNLType(type)) {
-      // van een TopNL GML bestand maken we alleen een LP, geen bericht,
-      // de datum halen we van het zip bestand
-      if (listener != null) {
-        listener.total(((TopNLFileReader) brmoXMLReader).getFileSize());
-        listener.progress(((TopNLFileReader) brmoXMLReader).getFileSize());
-      }
-    } else {
-      if (!brmoXMLReader.hasNext()) {
-        updateLaadProcesStatus(
-            lp,
-            LaadProces.STATUS.STAGING_OK,
-            "Leeg bestand, geen berichten gevonden in " + fileName);
-        throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in " + fileName);
-      }
+    if (!brmoXMLReader.hasNext()) {
+      updateLaadProcesStatus(
+          lp, LaadProces.STATUS.STAGING_OK, "Leeg bestand, geen berichten gevonden in " + fileName);
+      throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in " + fileName);
+    }
 
-      boolean isBerichtGeschreven = false;
-      int berichten = 0;
-      int foutBerichten = 0;
-      String lastErrorMessage = null;
+    boolean isBerichtGeschreven = false;
+    int berichten = 0;
+    int foutBerichten = 0;
+    String lastErrorMessage = null;
 
-      while (brmoXMLReader.hasNext()) {
-        Bericht b;
-        try {
-          b = brmoXMLReader.next();
-          b.setLaadProcesId(lp.getId());
-          b.setStatus(Bericht.STATUS.STAGING_OK);
-          b.setStatusDatum(new Date());
-          b.setSoort(type);
+    while (brmoXMLReader.hasNext()) {
+      Bericht b;
+      try {
+        b = brmoXMLReader.next();
+        b.setLaadProcesId(lp.getId());
+        b.setStatus(Bericht.STATUS.STAGING_OK);
+        b.setStatusDatum(new Date());
+        b.setSoort(type);
 
-          if (StringUtils.isEmpty(b.getObjectRef())) {
-            // geen object_ref kunnen vaststellen; dan ook niet transformeren,
-            // bijvoorbeeld bij WOZ
-            b.setStatus(Bericht.STATUS.STAGING_NOK);
-            b.setOpmerking(
-                "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.");
-          }
-
-          if (b.getDatum() == null) {
-            throw new BrmoException("Datum bericht is null");
-          }
-          log.debug(b);
-
-          Bericht existingBericht = getExistingBericht(b);
-          // TODO BRK2 bepalen of dit nog nodig is voor BRK2
-          if (type.equals(BrmoFramework.BR_BRK2) && !isBerichtGeschreven) {
-            // haal alleen voor eerste
-            Brk2Bericht brk2Bericht = (Brk2Bericht) b;
-            lp.setBestandNaamHersteld(
-                brk2Bericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
-            updateLaadProcesBestandNaamHersteld(lp);
-          }
-
-          if (existingBericht == null) {
-            writeBericht(b);
-            isBerichtGeschreven = true;
-          } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
-            // als bericht nog niet getransformeerd is, dan overschrijven.
-            b.setId(existingBericht.getId());
-            this.updateBericht(b);
-          }
-          if (listener != null) {
-            listener.progress(cis.getByteCount());
-          }
-          berichten++;
-        } catch (Exception e) {
-          lastErrorMessage =
-              String.format(
-                  "Laden bericht uit %s mislukt vanwege: %s", fileName, e.getLocalizedMessage());
-          log.error(lastErrorMessage);
-          log.trace(lastErrorMessage, e);
-          if (listener != null) {
-            listener.exception(e);
-          }
-          foutBerichten++;
+        if (StringUtils.isEmpty(b.getObjectRef())) {
+          // geen object_ref kunnen vaststellen; dan ook niet transformeren,
+          // bijvoorbeeld bij WOZ
+          b.setStatus(Bericht.STATUS.STAGING_NOK);
+          b.setOpmerking(
+              "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.");
         }
+
+        if (b.getDatum() == null) {
+          throw new BrmoException("Datum bericht is null");
+        }
+        log.debug(b);
+
+        Bericht existingBericht = getExistingBericht(b);
+        // TODO BRK2 bepalen of dit nog nodig is voor BRK2
+        if (type.equals(BrmoFramework.BR_BRK2) && !isBerichtGeschreven) {
+          // haal alleen voor eerste
+          Brk2Bericht brk2Bericht = (Brk2Bericht) b;
+          lp.setBestandNaamHersteld(
+              brk2Bericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
+          updateLaadProcesBestandNaamHersteld(lp);
+        }
+
+        if (existingBericht == null) {
+          writeBericht(b);
+          isBerichtGeschreven = true;
+        } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
+          // als bericht nog niet getransformeerd is, dan overschrijven.
+          b.setId(existingBericht.getId());
+          this.updateBericht(b);
+        }
+        if (listener != null) {
+          listener.progress(cis.getByteCount());
+        }
+        berichten++;
+      } catch (Exception e) {
+        lastErrorMessage =
+            String.format(
+                "Laden bericht uit %s mislukt vanwege: %s", fileName, e.getLocalizedMessage());
+        log.error(lastErrorMessage);
+        log.trace(lastErrorMessage, e);
+        if (listener != null) {
+          listener.exception(e);
+        }
+        foutBerichten++;
       }
-      if (listener != null) {
-        listener.total(berichten);
-      }
-      if (foutBerichten > 0) {
-        String opmerking =
-            "Laden van "
-                + foutBerichten
-                + " bericht(en) mislukt, laatste melding: "
-                + lastErrorMessage
-                + ", zie logs voor meer info.";
-        this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);
-      } else if (!isBerichtGeschreven) {
-        String opmerking = "Dit bestand is waarschijnlijk al eerder geladen.";
-        this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);
-      }
+    }
+    if (listener != null) {
+      listener.total(berichten);
+    }
+    if (foutBerichten > 0) {
+      String opmerking =
+          "Laden van "
+              + foutBerichten
+              + " bericht(en) mislukt, laatste melding: "
+              + lastErrorMessage
+              + ", zie logs voor meer info.";
+      this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);
+    } else if (!isBerichtGeschreven) {
+      String opmerking = "Dit bestand is waarschijnlijk al eerder geladen.";
+      this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);
     }
   }
 
