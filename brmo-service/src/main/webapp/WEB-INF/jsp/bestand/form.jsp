@@ -16,8 +16,6 @@
                             <stripes:option/>
                             <stripes:option value="brk2">BRK 2</stripes:option>
                             <stripes:option value="nhr">nHR</stripes:option>
-                            <stripes:option value="gbav">GBAV</stripes:option>
-                            <stripes:option value="woz">WOZ</stripes:option>
                         </stripes:select>
                     </td>
                 </tr>
@@ -39,8 +37,6 @@
                             <stripes:option/>
                             <stripes:option value="brk2">BRK 2</stripes:option>
                             <stripes:option value="nhr">nHR</stripes:option>
-                            <stripes:option value="gbav">GBAV</stripes:option>
-                            <stripes:option value="woz">WOZ</stripes:option>
                         </stripes:select>
                     </td>
                 </tr>
