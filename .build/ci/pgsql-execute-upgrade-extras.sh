@@ -5,13 +5,7 @@ CURSNAPSHOT=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<
 echo "Huidige snapshot:" $CURSNAPSHOT
 echo "Verwerk extra upgrade scripts voor: " $1
 
-if [ $CURSNAPSHOT = "5.0.0-SNAPSHOT" ] && [ $1 = "rsgb" ]
+if [ $CURSNAPSHOT = "6.0.0-SNAPSHOT" ] && [ $1 = "topnl" ]
 then
-    psql -U postgres -h localhost -d $1 -f ./datamodel/utility_scripts/postgresql/205_delete_brk_brondocumenten.sql
-    psql -U postgres -h localhost -d $1 -f ./datamodel/extra_scripts/postgresql/301_drop_brk1_tabellen.sql
-fi
-
-if [ $CURSNAPSHOT = "5.0.0-SNAPSHOT" ] && [ $1 = "staging" ]
-then
-    docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/XE < ./datamodel/utility_scripts/postgresql/1001_delete_brk1_berichten.sql
+    psql -U postgres -h localhost -f ./datamodel/upgrade_scripts/5.0.2-6.0.0/postgresql/topnl.sql
 fi
