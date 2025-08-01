@@ -83,7 +83,8 @@ jobs:
           .build/ci/pgsql-execute-upgrades.sh rsgbbgt
           .build/ci/pgsql-execute-upgrades.sh bag
           .build/ci/pgsql-execute-upgrades.sh brk
-          .build/ci/pgsql-execute-upgrade-extras.sh topnl
+#          de topnl database/user worden niet (meer) aangemaakt
+#          .build/ci/pgsql-execute-upgrade-extras.sh topnl
 
       - name: 'Test'
         run: |

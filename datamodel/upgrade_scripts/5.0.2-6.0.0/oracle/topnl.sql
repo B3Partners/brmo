@@ -4,8 +4,6 @@
 -- NB uit te voeren onder sys of een andere gebruiker met voldoende rechten in alle schemas, bijvoorbeeld de superuser
 ALTER SESSION SET "_ORACLE_SCRIPT"=true;
 
-WHENEVER SQLERROR EXIT SQL.SQLCODE
-
 -- Verwijder de TopNL schemas
 DROP USER IF EXISTS TOPNL CASCADE;
 DROP USER IF EXISTS TOP10NL CASCADE;
