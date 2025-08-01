@@ -28,7 +28,6 @@
         <module>brmo-persistence</module>
         <module>bgt-loader</module>
         <module>bag2-loader</module>
-        <module>brmo-topnl-loader</module>
         <module>brmo-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
@@ -211,11 +210,6 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-loader</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>nl.b3p</groupId>
-                <artifactId>brmo-topnl-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

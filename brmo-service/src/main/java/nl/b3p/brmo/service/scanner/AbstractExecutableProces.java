@@ -53,7 +53,6 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
           new BerichtstatusRapport((BerichtstatusRapportProces) config);
       case LaadprocesStatusRapportProces ->
           new LaadprocesStatusRapport((LaadprocesStatusRapportProces) config);
-      case TopNLScannerProces -> new TopNLDirectoryScanner((TopNLScannerProces) config);
       case AfgifteNummerScannerProces ->
           new AfgifteNummerScanner((AfgifteNummerScannerProces) config);
       case BGTLoaderProces -> new BGTLoader((BGTLoaderProces) config);

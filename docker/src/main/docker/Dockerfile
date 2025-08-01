@@ -17,10 +17,6 @@ SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
 RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && mkdir -p /opt/brmo-data/BGT/ \
     && mkdir -p /opt/brmo-data/NHR/certificaten/ \
-    && mkdir -p /opt/brmo-data/TOPNL/Top10NL/ \
-    && mkdir -p /opt/brmo-data/TOPNL/Top50NL/ \
-    && mkdir -p /opt/brmo-data/TOPNL/Top100NL/ \
-    && mkdir -p /opt/brmo-data/TOPNL/Top250NL/ \
     && mkdir -p /opt/brmo-data/sqlscripts/ \
     && chown -R www-data:www-data /usr/local/tomcat/webapps \
     && chown -R www-data:www-data /usr/local/tomcat/logs \
@@ -45,7 +41,6 @@ COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql_views.sql", \
       "bin_unzipped/db/brk/brk2.0_commentaar.sql", \
       "bin_unzipped/db/bag/postgresql/208_bag2_views.sql", \
-      "bin_unzipped/db/topnl/postgres.sql", \
       "bin_unzipped/db/staging/create-brmo-persistence-postgresql.sql", \
       "/opt/brmo-data/sqlscripts/"]
 

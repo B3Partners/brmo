@@ -88,10 +88,6 @@ jobs:
           .build/ci/pgsql-create-databases.sh
           .build/ci/pgsql-setup.sh
 
-      - name: 'Prepare TopNL Data'
-        run: |
-          .build/ci/data-prepare-topnl.sh
-
       - name: 'Test'
         run: |
           mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false -DskipQA=true

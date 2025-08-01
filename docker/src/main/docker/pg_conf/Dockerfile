@@ -6,7 +6,6 @@ ARG BRMO_VERSION="snapshot"
 #ENV DB_PASS_RSGB=rsgb
 #ENV DB_PASS_STAGING=staging
 #ENV DB_PASS_RSGBBGT=rsgbbgt
-#ENV DB_PASS_TOPNL=topnl
 
 LABEL org.opencontainers.image.authors="support@b3partners.nl" \
       org.opencontainers.image.description="BRMO services PostGIS database" \
@@ -25,7 +24,6 @@ COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql.sql", \
       "bin_unzipped/db/brk/brk2.0_postgresql_views.sql", \
       "bin_unzipped/db/brk/brk2.0_commentaar.sql", \
-      "bin_unzipped/db/topnl/postgres.sql", \
       "bin_unzipped/db/staging/create-brmo-persistence-postgresql.sql", \
       "/opt/brmo-scripts/"]
 

@@ -25,18 +25,6 @@ docker exec -i oracle_brmo sqlplus -l -S jenkins_rsgb/jenkins_rsgb@//localhost:1
 docker exec -i oracle_brmo sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@//localhost:1521/FREE <<< "update GEOMETRY_COLUMNS set F_TABLE_SCHEMA = 'JENKINS_RSGB';"
 docker exec -i oracle_brmo sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@//localhost:1521/FREE <<< "update GT_PK_METADATA set TABLE_SCHEMA = 'JENKINS_RSGB';"
 
-# setup topnl
-docker exec -i oracle_brmo sqlplus -l -S top10nl/top10nl@//localhost:1521/FREE < ./brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/oracletop10nl.sql
-docker exec -i oracle_brmo sqlplus -l -S top50nl/top50nl@//localhost:1521/FREE < ./brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/oracletop50nl.sql
-docker exec -i oracle_brmo sqlplus -l -S top100nl/top100nl@//localhost:1521/FREE < ./brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/oracletop100nl.sql
-docker exec -i oracle_brmo sqlplus -l -S top250nl/top250nl@//localhost:1521/FREE < ./brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/oracletop250nl.sql
-
-printf "\nSetup TopNL grants...\n"
-docker exec -i oracle_brmo sqlplus -l top10nl/top10nl@//localhost:1521/FREE < ./.build/ci/oracle-db-grant-topnl.sql
-docker exec -i oracle_brmo sqlplus -l top50nl/top50nl@//localhost:1521/FREE < ./.build/ci/oracle-db-grant-topnl.sql
-docker exec -i oracle_brmo sqlplus -l top100nl/top100nl@//localhost:1521/FREE < ./.build/ci/oracle-db-grant-topnl.sql
-docker exec -i oracle_brmo sqlplus -l top250nl/top250nl@//localhost:1521/FREE < ./.build/ci/oracle-db-grant-topnl.sql
-
 # set up brk tabellen
 docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/FREE < ./old/db/brk/brk2.0_oracle.sql
 docker exec -i oracle_brmo sqlplus -l -S jenkins_brk/jenkins_brk@//localhost:1521/FREE < ./old/db/brk/brk2.0_commentaar.sql

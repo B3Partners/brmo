@@ -174,7 +174,6 @@ public class OphaalConfigActionBean implements ActionBean {
       case MaterializedViewRefresh -> new MaterializedViewRefresh();
       case BerichtstatusRapportProces -> new BerichtstatusRapportProces();
       case LaadprocesStatusRapportProces -> new LaadprocesStatusRapportProces();
-      case TopNLScannerProces -> new TopNLScannerProces();
       case AfgifteNummerScannerProces -> new AfgifteNummerScannerProces();
       case BGTLoaderProces -> new BGTLoaderProces();
       case KVKMutatieserviceProces -> new KVKMutatieserviceProces();

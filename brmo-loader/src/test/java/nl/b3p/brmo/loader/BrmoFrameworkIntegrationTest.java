@@ -67,7 +67,7 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
     dsRsgbBgt.setPassword(params.getProperty("rsgbbgt.passwd"));
     dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
 
-    brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBgt, null, dsRsgbBrk);
+    brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBgt, dsRsgbBrk);
   }
 
   @AfterEach

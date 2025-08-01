@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
-import javax.xml.bind.JAXBException;
 import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
@@ -21,10 +20,8 @@ import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
-import nl.b3p.brmo.loader.util.TopNLRsgbTransformer;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
-import nl.b3p.topnl.TopNLType;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -44,7 +41,6 @@ public class BrmoFramework {
 
   public static final String BR_BRK2 = "brk2";
   public static final String BR_NHR = "nhr";
-  public static final String BR_TOPNL = "topnl";
   public static final String BR_BRP = "brp";
   public static final String BR_GBAV = "gbav";
   public static final String BR_WOZ = "woz";
@@ -65,7 +61,6 @@ public class BrmoFramework {
   private final DataSource dataSourceRsgbBrk;
   private DataSource dataSourceRsgbBgt = null;
   private final DataSource dataSourceStaging;
-  private DataSource dataSourceTopNL = null;
   private boolean enablePipeline = false;
   private Integer pipelineCapacity;
   private boolean renewConnectionAfterCommit = false;
@@ -91,7 +86,6 @@ public class BrmoFramework {
       DataSource dataSourceStaging,
       DataSource dataSourceRsgb,
       DataSource dataSourceRsgbBgt,
-      DataSource dataSourceTopNL,
       DataSource dataSourceRsgbBrk)
       throws BrmoException {
     if (dataSourceStaging != null) {
@@ -104,16 +98,11 @@ public class BrmoFramework {
     this.dataSourceRsgb = dataSourceRsgb;
     this.dataSourceRsgbBgt = dataSourceRsgbBgt;
     this.dataSourceStaging = dataSourceStaging;
-    this.dataSourceTopNL = dataSourceTopNL;
     this.dataSourceRsgbBrk = dataSourceRsgbBrk;
   }
 
   public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
     this.dataSourceRsgbBgt = dataSourceRsgbBgt;
-  }
-
-  public void setDataSourceTopNL(DataSource dataSourceTopNL) {
-    this.dataSourceTopNL = dataSourceTopNL;
   }
 
   public String getStagingVersion() {
@@ -257,22 +246,14 @@ public class BrmoFramework {
     }
 
     Runnable worker;
-    if (TopNLType.isTopNLType(soort)) {
-      try {
-        worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);
-      } catch (JAXBException | SQLException ex) {
-        throw new BrmoException("Probleem met TopNL parser initialiseren: ", ex);
-      }
-    } else {
-      worker = new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, mode, ids, listener);
-      ((RsgbProxy) worker).setEnablePipeline(enablePipeline);
-      if (pipelineCapacity != null) {
-        ((RsgbProxy) worker).setPipelineCapacity(pipelineCapacity);
-      }
-      ((RsgbProxy) worker).setRenewConnectionAfterCommit(renewConnectionAfterCommit);
-      ((RsgbProxy) worker).setOrderBerichten(orderBerichten);
-      ((RsgbProxy) worker).setErrorState(errorState);
+    worker = new RsgbProxy(dataSourceRsgb, dataSourceRsgbBrk, stagingProxy, mode, ids, listener);
+    ((RsgbProxy) worker).setEnablePipeline(enablePipeline);
+    if (pipelineCapacity != null) {
+      ((RsgbProxy) worker).setPipelineCapacity(pipelineCapacity);
     }
+    ((RsgbProxy) worker).setRenewConnectionAfterCommit(renewConnectionAfterCommit);
+    ((RsgbProxy) worker).setOrderBerichten(orderBerichten);
+    ((RsgbProxy) worker).setErrorState(errorState);
     Thread t = new Thread(worker);
     t.start();
     return t;

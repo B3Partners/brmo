@@ -10,7 +10,7 @@
     <dependencySets>
         <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>${project.groupId}:brmo-proxyservice</useProjectArtifact>
+            <useProjectArtifact>true</useProjectArtifact>
             <outputDirectory>wars</outputDirectory>
             <unpack>false</unpack>
             <includes>
@@ -20,7 +20,7 @@
         </dependencySet>
         <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>${project.groupId}:brmo-commandline</useProjectArtifact>
+            <useProjectArtifact>true</useProjectArtifact>
             <outputDirectory>tools</outputDirectory>
             <unpack>false</unpack>
             <includes>
@@ -30,7 +30,7 @@
         </dependencySet>
         <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>${project.groupId}:brmo-dist</useProjectArtifact>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>drivers/pgsql/</outputDirectory>
             <unpack>false</unpack>
             <includes>
@@ -44,7 +44,7 @@
         </dependencySet>
         <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>${project.groupId}:brmo-dist</useProjectArtifact>
+            <useProjectArtifact>false</useProjectArtifact>
             <outputDirectory>drivers/oracle/</outputDirectory>
             <unpack>false</unpack>
             <includes>
@@ -113,13 +113,6 @@
             <includes>
                 <include>**/206_*.sql</include>
                 <include>**/207_*.sql</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>../${project.basedir}/brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/</directory>
-            <outputDirectory>db/topnl</outputDirectory>
-            <includes>
-                <include>**/*.sql</include>
             </includes>
         </fileSet>
         <fileSet>

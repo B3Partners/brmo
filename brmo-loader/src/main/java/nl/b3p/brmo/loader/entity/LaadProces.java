@@ -43,10 +43,7 @@ public class LaadProces {
     STAGING_NOK,
     STAGING_MISSING,
     STAGING_DUPLICAAT,
-    ARCHIVE,
-    RSGB_TOPNL_WAITING,
-    RSGB_TOPNL_OK,
-    RSGB_TOPNL_NOK
+    ARCHIVE
   };
 
   public LaadProces() {}

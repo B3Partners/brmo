@@ -57,7 +57,6 @@ public class VersieInfo implements Servlet {
               ConfigUtil.getDataSourceStaging(),
               ConfigUtil.getDataSourceRsgb(),
               ConfigUtil.getDataSourceRsgbBgt(),
-              ConfigUtil.getDataSourceTopNL(),
               ConfigUtil.getDataSourceRsgbBrk());
       LOG.info("BRMO versie informatie:");
       LOG.info("  brmo applicatie versie is: " + appVersie);
@@ -65,8 +64,6 @@ public class VersieInfo implements Servlet {
       LOG.info("  rsgb schema versie is:     " + brmo.getRsgbVersion());
       LOG.info("  rsgb brk schema versie is: " + brmo.getRsgbBrkVersion());
       LOG.info("  rsgbbgt schema versie is:  " + brmo.getRsgbBgtVersion());
-      // LOG.info("  topnl schema versie is:  " + brmo.getRsgbTopNLVersion());
-      // TODO TopNL versie info
       // TODO check voor passende versies
     } catch (BrmoException ex) {
       LOG.warn("Ophalen BRMO schema versie informatie is mislukt.", ex);

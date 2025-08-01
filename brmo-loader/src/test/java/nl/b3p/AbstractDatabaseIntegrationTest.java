@@ -86,7 +86,6 @@ public abstract class AbstractDatabaseIntegrationTest {
       Class.forName(params.getProperty("staging.jdbc.driverClassName"));
       Class.forName(params.getProperty("rsgbbgt.jdbc.driverClassName"));
       Class.forName(params.getProperty("rsgbbrk.jdbc.driverClassName"));
-      Class.forName(params.getProperty("topnl.jdbc.driverClassName"));
     } catch (ClassNotFoundException ex) {
       LOG.error("Database driver niet gevonden.", ex);
     }

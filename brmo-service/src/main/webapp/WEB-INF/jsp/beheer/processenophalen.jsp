@@ -125,13 +125,6 @@
                         </stripes:url>
                     </c:when>
 
-                    <c:when test="${actionBean.type eq 'TopNLScannerProces'}">
-                        <jsp:include page="edittopnlscannerproces.jsp" />
-                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean">
-                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
-                        </stripes:url>
-                    </c:when>
-
                     <c:when test="${actionBean.type eq 'BGTLoaderProces'}">
                         <jsp:include page="editbgtloaderproces.jsp" />
                         <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BGTLoaderUitvoerenActionBean">
