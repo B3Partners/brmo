@@ -80,10 +80,10 @@ jobs:
         run: |
           .build/ci/pgsql-execute-upgrades.sh staging
           .build/ci/pgsql-execute-upgrades.sh rsgb
-          .build/ci/pgsql-execute-upgrade-extras.sh rsgb
           .build/ci/pgsql-execute-upgrades.sh rsgbbgt
           .build/ci/pgsql-execute-upgrades.sh bag
           .build/ci/pgsql-execute-upgrades.sh brk
+          .build/ci/pgsql-execute-upgrade-extras.sh topnl
 
       - name: 'Test'
         run: |
