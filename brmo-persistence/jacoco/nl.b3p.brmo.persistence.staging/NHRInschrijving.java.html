@@ -10,7 +10,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = &quot;nhr_laadproces&quot;)
-<span class="nc" id="L13">public class NHRInschrijving implements Serializable {</span>
+public class NHRInschrijving implements Serializable {
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date datum;
@@ -31,54 +31,65 @@ import org.hibernate.annotations.Type;
   @Type(type = &quot;org.hibernate.type.TextType&quot;)
   private String exception;
 
+<span class="nc" id="L34">  public NHRInschrijving() {</span>
+    // JPA default constructor
+<span class="nc" id="L36">  }</span>
+
+<span class="nc" id="L38">  public NHRInschrijving(String kvkNummer) {</span>
+<span class="nc" id="L39">    this.kvkNummer = kvkNummer;</span>
+<span class="nc" id="L40">    this.datum = new Date();</span>
+<span class="nc" id="L41">    this.volgendProberen = new Date();</span>
+<span class="nc" id="L42">    this.probeerAantal = 0;</span>
+<span class="nc" id="L43">  }</span>
+
   // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
   public Date getDatum() {
-<span class="nc" id="L36">    return datum;</span>
+<span class="nc" id="L47">    return datum;</span>
   }
 
   public void setDatum(Date datum) {
-<span class="nc" id="L40">    this.datum = datum;</span>
-<span class="nc" id="L41">  }</span>
+<span class="nc" id="L51">    this.datum = datum;</span>
+<span class="nc" id="L52">  }</span>
 
   public Date getLaatstGeprobeerd() {
-<span class="nc" id="L44">    return laatstGeprobeerd;</span>
+<span class="nc" id="L55">    return laatstGeprobeerd;</span>
   }
 
   public void setLaatstGeprobeerd(Date laatstGeprobeerd) {
-<span class="nc" id="L48">    this.laatstGeprobeerd = laatstGeprobeerd;</span>
-<span class="nc" id="L49">  }</span>
+<span class="nc" id="L59">    this.laatstGeprobeerd = laatstGeprobeerd;</span>
+<span class="nc" id="L60">  }</span>
 
   public Date getVolgendProberen() {
-<span class="nc" id="L52">    return volgendProberen;</span>
+<span class="nc" id="L63">    return volgendProberen;</span>
   }
 
   public void setVolgendProberen(Date volgendProberen) {
-<span class="nc" id="L56">    this.volgendProberen = volgendProberen;</span>
-<span class="nc" id="L57">  }</span>
+<span class="nc" id="L67">    this.volgendProberen = volgendProberen;</span>
+<span class="nc" id="L68">  }</span>
 
   public Integer getProbeerAantal() {
-<span class="nc" id="L60">    return probeerAantal;</span>
+<span class="nc" id="L71">    return probeerAantal;</span>
   }
 
   public void setProbeerAantal(Integer probeerAantal) {
-<span class="nc" id="L64">    this.probeerAantal = probeerAantal;</span>
-<span class="nc" id="L65">  }</span>
+<span class="nc" id="L75">    this.probeerAantal = probeerAantal;</span>
+<span class="nc" id="L76">  }</span>
 
   public String getKvkNummer() {
-<span class="nc" id="L68">    return kvkNummer;</span>
+<span class="nc" id="L79">    return kvkNummer;</span>
   }
 
   public void setKvkNummer(String kvkNummer) {
-<span class="nc" id="L72">    this.kvkNummer = kvkNummer;</span>
-<span class="nc" id="L73">  }</span>
+<span class="nc" id="L83">    this.kvkNummer = kvkNummer;</span>
+<span class="nc" id="L84">  }</span>
 
   public String getException() {
-<span class="nc" id="L76">    return exception;</span>
+<span class="nc" id="L87">    return exception;</span>
   }
 
   public void setException(String exception) {
-<span class="nc" id="L80">    this.exception = exception;</span>
-<span class="nc" id="L81">  }</span>
+<span class="nc" id="L91">    this.exception = exception;</span>
+<span class="nc" id="L92">  }</span>
 
   // &lt;/editor-fold&gt;
 }

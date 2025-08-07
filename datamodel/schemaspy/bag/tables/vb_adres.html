@@ -84,7 +84,7 @@
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body clearfix">
-                            <p>volledig actueel adres zonder locatie</p>
+                            <p>Actuele gegevens van bestaande adressen zonder geometrie</p>
                         </div><!-- /.box-body -->
                     </div>
                 </section>
@@ -399,7 +399,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT na.objectid,&#10;    na.identificatie AS identificatienummeraanduiding,&#10;    na.status,&#10;    na.begingeldigheid,&#10;    NULL::text AS gemeente,&#10;    wp.naam AS woonplaats,&#10;    opr.naam AS straatnaam,&#10;    na.huisnummer,&#10;    na.huisletter,&#10;    na.huisnummertoevoeging,&#10;    na.postcode,&#10;    opr.identificatie AS identificatieopenbareruimte,&#10;    wp.identificatie AS identificatiewoonplaats,&#10;    NULL::text AS gemeentecode&#10;   FROM ((bag.v_nummeraanduiding_actueel na&#10;     LEFT JOIN bag.v_openbareruimte_actueel opr ON ((opr.identificatie &#61; na.ligtaan)))&#10;     LEFT JOIN bag.v_woonplaats_actueel wp ON ((wp.identificatie &#61; opr.ligtin)));</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT na.objectid,&#10;    na.identificatie AS identificatienummeraanduiding,&#10;    na.status,&#10;    na.begingeldigheid,&#10;    NULL::text AS gemeente,&#10;    wp.naam AS woonplaats,&#10;    opr.naam AS straatnaam,&#10;    na.huisnummer,&#10;    na.huisletter,&#10;    na.huisnummertoevoeging,&#10;    na.postcode,&#10;    opr.identificatie AS identificatieopenbareruimte,&#10;    wp.identificatie AS identificatiewoonplaats,&#10;    NULL::text AS gemeentecode&#10;   FROM ((bag.v_nummeraanduiding_actueel na&#10;     LEFT JOIN bag.v_openbareruimte_actueel opr ON ((opr.identificatie &#61; na.ligtaan)))&#10;     LEFT JOIN bag.v_woonplaats_actueel wp ON ((wp.identificatie &#61; opr.ligtin)))&#10;  WHERE ((na.status)::text &lt;&gt; &#39;Naamgeving ingetrokken&#39;::text);</textarea>
                             <div style="padding-top: 5px;"><hr></div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">

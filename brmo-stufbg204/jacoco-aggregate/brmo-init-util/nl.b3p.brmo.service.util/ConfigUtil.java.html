@@ -23,153 +23,132 @@ import org.apache.commons.logging.LogFactory;
   private static final String JDBC_NAME_RSGBBRK = &quot;jdbc/brmo/rsgbbrk&quot;;
   private static final String JDBC_NAME_RSGB_BAG = &quot;jdbc/brmo/rsgbbag&quot;;
   private static final String JDBC_NAME_RSGB_BGT = &quot;jdbc/brmo/rsgbbgt&quot;;
-  private static final String JDBC_NAME_RSGB_TOPNL = &quot;jdbc/brmo/rsgbtopnl&quot;;
 
-<span class="nc" id="L28">  private static DataSource datasourceStaging = null;</span>
-<span class="nc" id="L29">  private static DataSource datasourceRsgb = null;</span>
-<span class="nc" id="L30">  private static DataSource datasourceRsgbBrk = null;</span>
-<span class="nc" id="L31">  private static DataSource datasourceRsgbBag = null;</span>
-<span class="nc" id="L32">  private static DataSource datasourceRsgbBgt = null;</span>
-<span class="nc" id="L33">  private static DataSource datasourceTopNL = null;</span>
+<span class="nc" id="L27">  private static DataSource datasourceStaging = null;</span>
+<span class="nc" id="L28">  private static DataSource datasourceRsgb = null;</span>
+<span class="nc" id="L29">  private static DataSource datasourceRsgbBrk = null;</span>
+<span class="nc" id="L30">  private static DataSource datasourceRsgbBag = null;</span>
+<span class="nc" id="L31">  private static DataSource datasourceRsgbBgt = null;</span>
 
   public static Long MAX_UPLOAD_SIZE;
   public static String TEMP_FOLDER;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
-<span class="nc" id="L40">    String tempSize = config.getInitParameter(&quot;max_upload_size&quot;);</span>
-<span class="nc bnc" id="L41" title="All 4 branches missed.">    if (tempSize != null &amp;&amp; !tempSize.isEmpty()) {</span>
-<span class="nc" id="L42">      MAX_UPLOAD_SIZE = Long.parseLong(tempSize) * 1024 * 1024;</span>
+<span class="nc" id="L38">    String tempSize = config.getInitParameter(&quot;max_upload_size&quot;);</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">    if (tempSize != null &amp;&amp; !tempSize.isEmpty()) {</span>
+<span class="nc" id="L40">      MAX_UPLOAD_SIZE = Long.parseLong(tempSize) * 1024 * 1024;</span>
     } else {
-<span class="nc" id="L44">      MAX_UPLOAD_SIZE = 10000L * 1024 * 1024;</span>
+<span class="nc" id="L42">      MAX_UPLOAD_SIZE = 10000L * 1024 * 1024;</span>
     }
 
-<span class="nc" id="L47">    String tempFolder = config.getInitParameter(&quot;temp_folder&quot;);</span>
-<span class="nc bnc" id="L48" title="All 4 branches missed.">    if (tempFolder != null &amp;&amp; !tempFolder.isEmpty()) {</span>
-<span class="nc" id="L49">      TEMP_FOLDER = tempFolder;</span>
+<span class="nc" id="L45">    String tempFolder = config.getInitParameter(&quot;temp_folder&quot;);</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">    if (tempFolder != null &amp;&amp; !tempFolder.isEmpty()) {</span>
+<span class="nc" id="L47">      TEMP_FOLDER = tempFolder;</span>
     } else {
-<span class="nc" id="L51">      TEMP_FOLDER = System.getProperty(&quot;java.io.tmpdir&quot;);</span>
+<span class="nc" id="L49">      TEMP_FOLDER = System.getProperty(&quot;java.io.tmpdir&quot;);</span>
     }
-<span class="nc" id="L53">  }</span>
+<span class="nc" id="L51">  }</span>
 
   public static DataSource getDataSourceStaging() throws BrmoException {
     try {
-<span class="nc bnc" id="L57" title="All 2 branches missed.">      if (datasourceStaging == null) {</span>
-<span class="nc" id="L58">        InitialContext ic = new InitialContext();</span>
-<span class="nc" id="L59">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
-<span class="nc" id="L60">        datasourceStaging = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">      if (datasourceStaging == null) {</span>
+<span class="nc" id="L56">        InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L57">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L58">        datasourceStaging = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);</span>
       }
-<span class="nc" id="L62">    } catch (Exception ex) {</span>
-<span class="nc" id="L63">      log.error(&quot;Fout verbinden naar staging db. &quot;, ex);</span>
-<span class="nc" id="L64">      throw new BrmoException(ex);</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L60">    } catch (Exception ex) {</span>
+<span class="nc" id="L61">      log.error(&quot;Fout verbinden naar staging db. &quot;, ex);</span>
+<span class="nc" id="L62">      throw new BrmoException(ex);</span>
+<span class="nc" id="L63">    }</span>
 
-<span class="nc" id="L67">    return datasourceStaging;</span>
+<span class="nc" id="L65">    return datasourceStaging;</span>
   }
 
   public static DataSource getDataSourceRsgb() throws BrmoException {
     try {
-<span class="nc bnc" id="L72" title="All 2 branches missed.">      if (datasourceRsgb == null) {</span>
-<span class="nc" id="L73">        InitialContext ic = new InitialContext();</span>
-<span class="nc" id="L74">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
-<span class="nc" id="L75">        datasourceRsgb = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">      if (datasourceRsgb == null) {</span>
+<span class="nc" id="L71">        InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L72">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L73">        datasourceRsgb = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);</span>
       }
-<span class="nc" id="L77">    } catch (Exception ex) {</span>
-<span class="nc" id="L78">      log.error(&quot;Fout verbinden naar rsgb db. &quot;, ex);</span>
-<span class="nc" id="L79">      throw new BrmoException(ex);</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L75">    } catch (Exception ex) {</span>
+<span class="nc" id="L76">      log.error(&quot;Fout verbinden naar rsgb db. &quot;, ex);</span>
+<span class="nc" id="L77">      throw new BrmoException(ex);</span>
+<span class="nc" id="L78">    }</span>
 
-<span class="nc" id="L82">    return datasourceRsgb;</span>
+<span class="nc" id="L80">    return datasourceRsgb;</span>
   }
 
   public static DataSource getDataSourceRsgbBrk() throws BrmoException {
     try {
-<span class="nc bnc" id="L87" title="All 2 branches missed.">      if (datasourceRsgbBrk == null) {</span>
-<span class="nc" id="L88">        InitialContext ic = new InitialContext();</span>
-<span class="nc" id="L89">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
-<span class="nc" id="L90">        datasourceRsgbBrk = (DataSource) xmlContext.lookup(JDBC_NAME_RSGBBRK);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">      if (datasourceRsgbBrk == null) {</span>
+<span class="nc" id="L86">        InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L87">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L88">        datasourceRsgbBrk = (DataSource) xmlContext.lookup(JDBC_NAME_RSGBBRK);</span>
       }
-<span class="nc" id="L92">    } catch (Exception ex) {</span>
-<span class="nc" id="L93">      log.error(&quot;Fout verbinden naar rsgb db. &quot;, ex);</span>
-<span class="nc" id="L94">      throw new BrmoException(ex);</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L90">    } catch (Exception ex) {</span>
+<span class="nc" id="L91">      log.error(&quot;Fout verbinden naar rsgb db. &quot;, ex);</span>
+<span class="nc" id="L92">      throw new BrmoException(ex);</span>
+<span class="nc" id="L93">    }</span>
 
-<span class="nc" id="L97">    return datasourceRsgbBrk;</span>
+<span class="nc" id="L95">    return datasourceRsgbBrk;</span>
   }
 
   public static DataSource getDataSourceRsgbBag() throws BrmoException {
-<span class="nc" id="L101">    return getDataSourceRsgbBag(true);</span>
+<span class="nc" id="L99">    return getDataSourceRsgbBag(true);</span>
   }
 
   public static DataSource getDataSourceRsgbBag(boolean logErrors) throws BrmoException {
     try {
-<span class="nc bnc" id="L106" title="All 2 branches missed.">      if (datasourceRsgbBag == null) {</span>
-<span class="nc" id="L107">        InitialContext ic = new InitialContext();</span>
-<span class="nc" id="L108">        Context context = (Context) ic.lookup(JNDI_NAME);</span>
-<span class="nc" id="L109">        datasourceRsgbBag = (DataSource) context.lookup(JDBC_NAME_RSGB_BAG);</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">      if (datasourceRsgbBag == null) {</span>
+<span class="nc" id="L105">        InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L106">        Context context = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L107">        datasourceRsgbBag = (DataSource) context.lookup(JDBC_NAME_RSGB_BAG);</span>
       }
-<span class="nc" id="L111">    } catch (Exception ex) {</span>
-<span class="nc bnc" id="L112" title="All 2 branches missed.">      if (logErrors) {</span>
-<span class="nc" id="L113">        log.error(&quot;Fout verbinden naar 'rsgbbag' schema.&quot;, ex);</span>
+<span class="nc" id="L109">    } catch (Exception ex) {</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">      if (logErrors) {</span>
+<span class="nc" id="L111">        log.error(&quot;Fout verbinden naar 'rsgbbag' schema.&quot;, ex);</span>
       }
-<span class="nc" id="L115">      throw new BrmoException(&quot;Fout verbinden naar 'rsgbbag' schema: &quot;, ex);</span>
-<span class="nc" id="L116">    }</span>
+<span class="nc" id="L113">      throw new BrmoException(&quot;Fout verbinden naar 'rsgbbag' schema: &quot;, ex);</span>
+<span class="nc" id="L114">    }</span>
 
-<span class="nc" id="L118">    return datasourceRsgbBag;</span>
+<span class="nc" id="L116">    return datasourceRsgbBag;</span>
   }
 
   public static DataSource getDataSourceRsgbBgt() throws BrmoException {
     try {
-<span class="nc bnc" id="L123" title="All 2 branches missed.">      if (datasourceRsgbBgt == null) {</span>
-<span class="nc" id="L124">        InitialContext ic = new InitialContext();</span>
-<span class="nc" id="L125">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
-<span class="nc" id="L126">        datasourceRsgbBgt = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">      if (datasourceRsgbBgt == null) {</span>
+<span class="nc" id="L122">        InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L123">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L124">        datasourceRsgbBgt = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);</span>
       }
-<span class="nc" id="L128">    } catch (Exception ex) {</span>
-<span class="nc" id="L129">      log.error(&quot;Fout verbinden naar 'rsgbbgt' schema.&quot;, ex);</span>
-<span class="nc" id="L130">      throw new BrmoException(&quot;Fout verbinden naar 'rsgbbgt' schema.&quot;, ex);</span>
-<span class="nc" id="L131">    }</span>
+<span class="nc" id="L126">    } catch (Exception ex) {</span>
+<span class="nc" id="L127">      log.error(&quot;Fout verbinden naar 'rsgbbgt' schema.&quot;, ex);</span>
+<span class="nc" id="L128">      throw new BrmoException(&quot;Fout verbinden naar 'rsgbbgt' schema.&quot;, ex);</span>
+<span class="nc" id="L129">    }</span>
 
-<span class="nc" id="L133">    return datasourceRsgbBgt;</span>
-  }
-
-  /**
-   * @return de gevraagde datasource
-   * @throws BrmoException als opzoeken van de datasource in de jndi context mislukt
-   */
-  public static DataSource getDataSourceTopNL() throws BrmoException {
-    try {
-<span class="nc bnc" id="L142" title="All 2 branches missed.">      if (datasourceTopNL == null) {</span>
-<span class="nc" id="L143">        InitialContext ic = new InitialContext();</span>
-<span class="nc" id="L144">        Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
-<span class="nc" id="L145">        datasourceTopNL = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_TOPNL);</span>
-      }
-<span class="nc" id="L147">    } catch (Exception ex) {</span>
-<span class="nc" id="L148">      log.error(&quot;Fout verbinden naar 'topnl' schema.&quot;, ex);</span>
-<span class="nc" id="L149">      throw new BrmoException(&quot;Fout verbinden naar 'topnl' schema.&quot;, ex);</span>
-<span class="nc" id="L150">    }</span>
-
-<span class="nc" id="L152">    return datasourceTopNL;</span>
+<span class="nc" id="L131">    return datasourceRsgbBgt;</span>
   }
 
   @Override
   public ServletConfig getServletConfig() {
-<span class="nc" id="L157">    throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L136">    throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
   }
 
   @Override
   public void service(ServletRequest sr, ServletResponse sr1) throws ServletException, IOException {
-<span class="nc" id="L162">    throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L141">    throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
   }
 
   @Override
   public String getServletInfo() {
-<span class="nc" id="L167">    return &quot;Servlet voor configuratie parameters in web.xml&quot;;</span>
+<span class="nc" id="L146">    return &quot;Servlet voor configuratie parameters in web.xml&quot;;</span>
   }
 
   @Override
   public void destroy() {
     // nothing
-<span class="nc" id="L173">  }</span>
+<span class="nc" id="L152">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

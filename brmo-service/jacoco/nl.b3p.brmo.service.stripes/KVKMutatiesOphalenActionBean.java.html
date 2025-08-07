@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KVKMutatiesOphalenActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">KVKMutatiesOphalenActionBean.java</span></div><h1>KVKMutatiesOphalenActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
+
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.validation.SimpleError;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.KVKMutatieserviceProcesRunner;
+import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+import org.stripesstuff.stripersist.EntityTypeConverter;
+import org.stripesstuff.stripersist.Stripersist;
+
+<span class="nc" id="L23">public class KVKMutatiesOphalenActionBean implements ActionBean, ProgressUpdateListener {</span>
+  private static final String JSP = &quot;/WEB-INF/jsp/beheer/kvkmutatieserviceprocesuitvoeren.jsp&quot;;
+<span class="nc" id="L25">  private static final Log LOG = LogFactory.getLog(KVKMutatiesOphalenActionBean.class);</span>
+
+  @Validate(converter = EntityTypeConverter.class)
+  private KVKMutatieserviceProces proces;
+
+  private ActionBeanContext context;
+  private String exceptionStacktrace;
+  private String status;
+  private long total;
+  private long processed;
+  private double progress;
+  private boolean complete;
+<span class="nc" id="L37">  private int logLineCounter = 0;</span>
+  private Date start;
+  private Date update;
+<span class="nc" id="L40">  private StringBuilder log = new StringBuilder();</span>
+
+  @DefaultHandler
+  @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+  public Resolution execute() {
+    String samenvatting;
+
+<span class="nc bnc" id="L47" title="All 2 branches missed.">    if (proces == null) {</span>
+<span class="nc" id="L48">      samenvatting = &quot;Geen geldig KVK Mutatieservice proces opgegeven.&quot;;</span>
+<span class="nc" id="L49">      getContext().getMessages().add(new SimpleMessage(samenvatting));</span>
+<span class="nc" id="L50">      LOG.warn(samenvatting);</span>
+<span class="nc" id="L51">      completed();</span>
+<span class="nc" id="L52">      return new ForwardResolution(JSP);</span>
+    }
+
+    // opnieuw laden van config omdat de waitpage de entity detached
+<span class="nc" id="L56">    proces =</span>
+        (KVKMutatieserviceProces)
+<span class="nc" id="L58">            Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());</span>
+<span class="nc" id="L59">    ProcesExecutable runner = AbstractExecutableProces.getProces(proces);</span>
+    try {
+<span class="nc" id="L61">      runner.execute(this);</span>
+<span class="nc" id="L62">    } catch (Exception ex) {</span>
+<span class="nc" id="L63">      proces.setStatus(ERROR);</span>
+<span class="nc" id="L64">      exception(ex);</span>
+<span class="nc" id="L65">      samenvatting = &quot;Er is een fout opgetreden tijdens het ophalen van KVK mutaties.&quot;;</span>
+<span class="nc" id="L66">      this.addLog(samenvatting);</span>
+<span class="nc" id="L67">      getContext()</span>
+<span class="nc" id="L68">          .getMessages()</span>
+<span class="nc" id="L69">          .add(</span>
+              new SimpleError(
+                  &quot;Er is een fout opgetreden tijdens het ophalen van KVK mutaties. {2}&quot;,
+<span class="nc" id="L72">                  ex.getMessage()));</span>
+    } finally {
+<span class="nc" id="L74">      completed();</span>
+<span class="nc" id="L75">      proces.updateSamenvattingEnLogfile(this.log.toString());</span>
+<span class="nc" id="L76">      Stripersist.getEntityManager().merge(proces);</span>
+<span class="nc" id="L77">      Stripersist.getEntityManager().flush();</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">      if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L79">        Stripersist.getEntityManager().getTransaction().commit();</span>
+      }
+    }
+<span class="nc" id="L82">    return new ForwardResolution(JSP);</span>
+  }
+
+  @Override
+  public void total(long total) {
+<span class="nc" id="L87">    this.total = total;</span>
+<span class="nc" id="L88">  }</span>
+
+  @Override
+  public void progress(long progress) {
+<span class="nc" id="L92">    this.processed = progress;</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">    if (this.total != 0) {</span>
+<span class="nc" id="L94">      this.progress = (100.0 / this.total) * this.processed;</span>
+    }
+<span class="nc" id="L96">    this.update = new Date();</span>
+<span class="nc" id="L97">  }</span>
+
+  @Override
+  public void exception(Throwable t) {
+<span class="nc" id="L101">    StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L102">    t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L103">    this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L104">  }</span>
+
+  @Override
+  public void updateStatus(String status) {
+<span class="nc" id="L108">    this.status = status;</span>
+<span class="nc" id="L109">  }</span>
+
+  @Override
+  public void addLog(String line) {
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    if (this.logLineCounter &gt; 3000) {</span>
+      // trim buffer met 150 regels (5%)
+<span class="nc bnc" id="L115" title="All 2 branches missed.">      for (int removeline = 0; removeline &lt; 150; removeline++) {</span>
+<span class="nc" id="L116">        this.log.delete(0, this.log.indexOf(&quot;\n&quot;) + 1);</span>
+      }
+<span class="nc" id="L118">      this.log.trimToSize();</span>
+<span class="nc" id="L119">      this.logLineCounter = this.log.toString().split(&quot;\n&quot;).length;</span>
+    }
+<span class="nc" id="L121">    this.log.append(line).append(&quot;\n&quot;);</span>
+<span class="nc" id="L122">    this.logLineCounter++;</span>
+<span class="nc" id="L123">    KVKMutatieserviceProcesRunner.getLog().info(line);</span>
+<span class="nc" id="L124">  }</span>
+
+  @Before
+  public void before() {
+<span class="nc" id="L128">    start = new Date();</span>
+<span class="nc" id="L129">  }</span>
+
+  @After
+  public void completed() {
+<span class="nc" id="L133">    complete = true;</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">    proces.setLastrun(this.update == null ? new Date() : this.update);</span>
+<span class="nc" id="L135">  }</span>
+
+  // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
+  @Override
+  public ActionBeanContext getContext() {
+<span class="nc" id="L140">    return this.context;</span>
+  }
+
+  @Override
+  public void setContext(ActionBeanContext context) {
+<span class="nc" id="L145">    this.context = context;</span>
+<span class="nc" id="L146">  }</span>
+
+  public KVKMutatieserviceProces getProces() {
+<span class="nc" id="L149">    return proces;</span>
+  }
+
+  public void setProces(KVKMutatieserviceProces proces) {
+<span class="nc" id="L153">    this.proces = proces;</span>
+<span class="nc" id="L154">  }</span>
+
+  public String getLog() {
+<span class="nc" id="L157">    return log.toString();</span>
+  }
+
+  public void setLog(String log) {
+<span class="nc" id="L161">    this.log = new StringBuilder(log);</span>
+<span class="nc" id="L162">  }</span>
+
+  public String getStatus() {
+<span class="nc" id="L165">    return status;</span>
+  }
+
+  public void setStatus(String status) {
+<span class="nc" id="L169">    this.status = status;</span>
+<span class="nc" id="L170">  }</span>
+
+  public String getExceptionStacktrace() {
+<span class="nc" id="L173">    return exceptionStacktrace;</span>
+  }
+
+  public void setExceptionStacktrace(String exceptionStacktrace) {
+<span class="nc" id="L177">    this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L178">  }</span>
+
+  public boolean isComplete() {
+<span class="nc" id="L181">    return complete;</span>
+  }
+
+  public void setComplete(boolean complete) {
+<span class="nc" id="L185">    this.complete = complete;</span>
+<span class="nc" id="L186">  }</span>
+
+  public Date getStart() {
+<span class="nc" id="L189">    return start;</span>
+  }
+
+  public void setStart(Date start) {
+<span class="nc" id="L193">    this.start = start;</span>
+<span class="nc" id="L194">  }</span>
+
+  public Date getUpdate() {
+<span class="nc" id="L197">    return update;</span>
+  }
+
+  public void setUpdate(Date update) {
+<span class="nc" id="L201">    this.update = update;</span>
+<span class="nc" id="L202">  }</span>
+
+  public long getTotal() {
+<span class="nc" id="L205">    return this.total;</span>
+  }
+
+  public void setTotal(long total) {
+<span class="nc" id="L209">    this.total = total;</span>
+<span class="nc" id="L210">  }</span>
+
+  public long getProcessed() {
+<span class="nc" id="L213">    return processed;</span>
+  }
+
+  public void setProcessed(long processed) {
+<span class="nc" id="L217">    this.processed = processed;</span>
+<span class="nc" id="L218">  }</span>
+
+  public double getProgress() {
+<span class="nc" id="L221">    return progress;</span>
+  }
+
+  public void setProgress(double progress) {
+<span class="nc" id="L225">    this.progress = progress;</span>
+<span class="nc" id="L226">  }</span>
+
+  // &lt;/editor-fold&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -132,165 +132,164 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 <span class="nc" id="L132">          break;</span>
         case BY_LAADPROCES:
 <span class="nc" id="L134">          brmo.setDataSourceRsgbBgt(ConfigUtil.getDataSourceRsgbBgt());</span>
-<span class="nc" id="L135">          brmo.setDataSourceTopNL(ConfigUtil.getDataSourceTopNL());</span>
-<span class="nc" id="L136">          t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);</span>
-<span class="nc" id="L137">          break;</span>
+<span class="nc" id="L135">          t = brmo.toRsgb(BerichtSelectMode.BY_LAADPROCES, selectedIds, this);</span>
+<span class="nc" id="L136">          break;</span>
         case FOR_UPDATE:
         default:
           // do nothing
       }
-<span class="nc bnc" id="L142" title="All 2 branches missed.">      if (t != null) {</span>
-<span class="nc" id="L143">        t.join();</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">      if (t != null) {</span>
+<span class="nc" id="L142">        t.join();</span>
       }
 
-<span class="nc bnc" id="L146" title="All 2 branches missed.">      if (this.exceptionStacktrace == null) {</span>
-<span class="nc" id="L147">        getContext()</span>
-<span class="nc" id="L148">            .getMessages()</span>
-<span class="nc" id="L149">            .add(new SimpleMessage(&quot;Transformatie afgerond, controleer berichtenstatus.&quot;));</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      if (this.exceptionStacktrace == null) {</span>
+<span class="nc" id="L146">        getContext()</span>
+<span class="nc" id="L147">            .getMessages()</span>
+<span class="nc" id="L148">            .add(new SimpleMessage(&quot;Transformatie afgerond, controleer berichtenstatus.&quot;));</span>
       }
-<span class="nc" id="L151">    } catch (Throwable t) {</span>
-<span class="nc" id="L152">      log.error(&quot;Fout bij transformeren berichten naar RSGB&quot;, t);</span>
-<span class="nc" id="L153">      String m = &quot;Fout bij transformeren berichten naar RSGB: &quot; + ExceptionUtils.getMessage(t);</span>
-<span class="nc bnc" id="L154" title="All 2 branches missed.">      if (t.getCause() != null) {</span>
-<span class="nc" id="L155">        m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
+<span class="nc" id="L150">    } catch (Throwable t) {</span>
+<span class="nc" id="L151">      log.error(&quot;Fout bij transformeren berichten naar RSGB&quot;, t);</span>
+<span class="nc" id="L152">      String m = &quot;Fout bij transformeren berichten naar RSGB: &quot; + ExceptionUtils.getMessage(t);</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">      if (t.getCause() != null) {</span>
+<span class="nc" id="L154">        m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
       }
-<span class="nc" id="L157">      getContext().getMessages().add(new SimpleMessage(m));</span>
+<span class="nc" id="L156">      getContext().getMessages().add(new SimpleMessage(m));</span>
     } finally {
-<span class="nc bnc" id="L159" title="All 2 branches missed.">      if (brmo != null) {</span>
-<span class="nc" id="L160">        brmo.closeBrmoFramework();</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">      if (brmo != null) {</span>
+<span class="nc" id="L159">        brmo.closeBrmoFramework();</span>
       }
     }
 
-<span class="nc" id="L164">    return new ForwardResolution(JSP);</span>
+<span class="nc" id="L163">    return new ForwardResolution(JSP);</span>
   }
 
   @DefaultHandler
   public Resolution transformUnknown() {
-<span class="nc" id="L169">    getContext()</span>
-<span class="nc" id="L170">        .getMessages()</span>
-<span class="nc" id="L171">        .add(</span>
+<span class="nc" id="L168">    getContext()</span>
+<span class="nc" id="L169">        .getMessages()</span>
+<span class="nc" id="L170">        .add(</span>
             new SimpleMessage(
                 &quot;Het proces is onbekend. Mogelijk is deze transformatie al enige tijd geleden afgerond.&quot;));
-<span class="nc" id="L174">    return new ForwardResolution(JSP);</span>
+<span class="nc" id="L173">    return new ForwardResolution(JSP);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformSelected() {
-<span class="nc" id="L179">    return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);</span>
+<span class="nc" id="L178">    return doTransform(RsgbProxy.BerichtSelectMode.BY_IDS, true);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformAll() {
-<span class="nc" id="L184">    return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, true);</span>
+<span class="nc" id="L183">    return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, true);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformAllStand() {
-<span class="nc" id="L189">    return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);</span>
+<span class="nc" id="L188">    return doTransform(RsgbProxy.BerichtSelectMode.BY_STATUS, false);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformRetry() {
-<span class="nc" id="L194">    return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, true);</span>
+<span class="nc" id="L193">    return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, true);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformRetryStand() {
-<span class="nc" id="L199">    return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);</span>
+<span class="nc" id="L198">    return doTransform(RsgbProxy.BerichtSelectMode.RETRY_WAITING, false);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformSelectedLaadprocessen() {
-<span class="nc" id="L204">    return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);</span>
+<span class="nc" id="L203">    return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, true);</span>
   }
 
   @WaitPage(path = JSP, delay = 1000, refresh = 1000)
   public Resolution transformSelectedLaadprocessenStand() {
-<span class="nc" id="L209">    return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, false);</span>
+<span class="nc" id="L208">    return doTransform(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, false);</span>
   }
 
   // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
   @Override
   public ActionBeanContext getContext() {
-<span class="nc" id="L215">    return context;</span>
+<span class="nc" id="L214">    return context;</span>
   }
 
   @Override
   public void setContext(ActionBeanContext context) {
-<span class="nc" id="L220">    this.context = context;</span>
-<span class="nc" id="L221">  }</span>
+<span class="nc" id="L219">    this.context = context;</span>
+<span class="nc" id="L220">  }</span>
 
   public long[] getSelectedIds() {
-<span class="nc" id="L224">    return selectedIds;</span>
+<span class="nc" id="L223">    return selectedIds;</span>
   }
 
   public void setSelectedIds(long[] selectedIds) {
-<span class="nc" id="L228">    this.selectedIds = selectedIds;</span>
-<span class="nc" id="L229">  }</span>
+<span class="nc" id="L227">    this.selectedIds = selectedIds;</span>
+<span class="nc" id="L228">  }</span>
 
   public long getTotal() {
-<span class="nc" id="L232">    return total;</span>
+<span class="nc" id="L231">    return total;</span>
   }
 
   public void setTotal(long total) {
-<span class="nc" id="L236">    this.total = total;</span>
-<span class="nc" id="L237">  }</span>
+<span class="nc" id="L235">    this.total = total;</span>
+<span class="nc" id="L236">  }</span>
 
   public long getProcessed() {
-<span class="nc" id="L240">    return processed;</span>
+<span class="nc" id="L239">    return processed;</span>
   }
 
   public void setProcessed(long processed) {
-<span class="nc" id="L244">    this.processed = processed;</span>
-<span class="nc" id="L245">  }</span>
+<span class="nc" id="L243">    this.processed = processed;</span>
+<span class="nc" id="L244">  }</span>
 
   public boolean isComplete() {
-<span class="nc" id="L248">    return complete;</span>
+<span class="nc" id="L247">    return complete;</span>
   }
 
   public void setComplete(boolean complete) {
-<span class="nc" id="L252">    this.complete = complete;</span>
-<span class="nc" id="L253">  }</span>
+<span class="nc" id="L251">    this.complete = complete;</span>
+<span class="nc" id="L252">  }</span>
 
   public Date getStart() {
-<span class="nc" id="L256">    return start;</span>
+<span class="nc" id="L255">    return start;</span>
   }
 
   public void setStart(Date start) {
-<span class="nc" id="L260">    this.start = start;</span>
-<span class="nc" id="L261">  }</span>
+<span class="nc" id="L259">    this.start = start;</span>
+<span class="nc" id="L260">  }</span>
 
   public Date getUpdate() {
-<span class="nc" id="L264">    return update;</span>
+<span class="nc" id="L263">    return update;</span>
   }
 
   public void setUpdate(Date update) {
-<span class="nc" id="L268">    this.update = update;</span>
-<span class="nc" id="L269">  }</span>
+<span class="nc" id="L267">    this.update = update;</span>
+<span class="nc" id="L268">  }</span>
 
   public double getProgress() {
-<span class="nc" id="L272">    return progress;</span>
+<span class="nc" id="L271">    return progress;</span>
   }
 
   public void setProgress(double progress) {
-<span class="nc" id="L276">    this.progress = progress;</span>
-<span class="nc" id="L277">  }</span>
+<span class="nc" id="L275">    this.progress = progress;</span>
+<span class="nc" id="L276">  }</span>
 
   public String getExceptionStacktrace() {
-<span class="nc" id="L280">    return exceptionStacktrace;</span>
+<span class="nc" id="L279">    return exceptionStacktrace;</span>
   }
 
   public void setExceptionStacktrace(String exceptionStacktrace) {
-<span class="nc" id="L284">    this.exceptionStacktrace = exceptionStacktrace;</span>
-<span class="nc" id="L285">  }</span>
+<span class="nc" id="L283">    this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L284">  }</span>
 
   public long getStandBerichtenVerwerkingsLimiet() {
-<span class="nc" id="L288">    return standBerichtenVerwerkingsLimiet;</span>
+<span class="nc" id="L287">    return standBerichtenVerwerkingsLimiet;</span>
   }
 
   public void setStandBerichtenVerwerkingsLimiet(long standBerichtenVerwerkingsLimiet) {
-<span class="nc" id="L292">    this.standBerichtenVerwerkingsLimiet = standBerichtenVerwerkingsLimiet;</span>
-<span class="nc" id="L293">  }</span>
+<span class="nc" id="L291">    this.standBerichtenVerwerkingsLimiet = standBerichtenVerwerkingsLimiet;</span>
+<span class="nc" id="L292">  }</span>
 
   // &lt;/editor-fold&gt;
 }

@@ -72,177 +72,174 @@ public class LaadProces implements Serializable {
 <span class="fc" id="L72">    STAGING_NOK,</span>
 <span class="fc" id="L73">    STAGING_MISSING,</span>
 <span class="fc" id="L74">    STAGING_DUPLICAAT,</span>
-<span class="fc" id="L75">    ARCHIVE,</span>
-<span class="fc" id="L76">    RSGB_TOPNL_WAITING,</span>
-<span class="fc" id="L77">    RSGB_TOPNL_OK,</span>
-<span class="fc" id="L78">    RSGB_TOPNL_NOK</span>
+<span class="fc" id="L75">    ARCHIVE</span>
   };
 
-<span class="fc" id="L81">  public LaadProces() {}</span>
+<span class="fc" id="L78">  public LaadProces() {}</span>
 
-<span class="nc" id="L83">  public LaadProces(String bestand_naam, String soort) {</span>
-<span class="nc" id="L84">    this.bestand_naam = bestand_naam;</span>
-<span class="nc" id="L85">    this.soort = soort;</span>
-<span class="nc" id="L86">  }</span>
+<span class="nc" id="L80">  public LaadProces(String bestand_naam, String soort) {</span>
+<span class="nc" id="L81">    this.bestand_naam = bestand_naam;</span>
+<span class="nc" id="L82">    this.soort = soort;</span>
+<span class="nc" id="L83">  }</span>
 
   // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
   public Long getId() {
-<span class="nc" id="L90">    return id;</span>
+<span class="nc" id="L87">    return id;</span>
   }
 
   public void setId(Long id) {
-<span class="nc" id="L94">    this.id = id;</span>
-<span class="nc" id="L95">  }</span>
+<span class="nc" id="L91">    this.id = id;</span>
+<span class="nc" id="L92">  }</span>
 
   public String getBestand_naam() {
-<span class="nc" id="L98">    return bestand_naam;</span>
+<span class="nc" id="L95">    return bestand_naam;</span>
   }
 
   public void setBestand_naam(String bestand_naam) {
-<span class="nc" id="L102">    this.bestand_naam = bestand_naam;</span>
-<span class="nc" id="L103">  }</span>
+<span class="nc" id="L99">    this.bestand_naam = bestand_naam;</span>
+<span class="nc" id="L100">  }</span>
 
   public Date getBestand_datum() {
-<span class="nc" id="L106">    return bestand_datum;</span>
+<span class="nc" id="L103">    return bestand_datum;</span>
   }
 
   public void setBestand_datum(Date bestand_datum) {
-<span class="nc" id="L110">    this.bestand_datum = bestand_datum;</span>
-<span class="nc" id="L111">  }</span>
+<span class="nc" id="L107">    this.bestand_datum = bestand_datum;</span>
+<span class="nc" id="L108">  }</span>
 
   public String getSoort() {
-<span class="nc" id="L114">    return soort;</span>
+<span class="nc" id="L111">    return soort;</span>
   }
 
   public void setSoort(String soort) {
-<span class="nc" id="L118">    this.soort = soort;</span>
-<span class="nc" id="L119">  }</span>
+<span class="nc" id="L115">    this.soort = soort;</span>
+<span class="nc" id="L116">  }</span>
 
   public String getGebied() {
-<span class="nc" id="L122">    return gebied;</span>
+<span class="nc" id="L119">    return gebied;</span>
   }
 
   public void setGebied(String gebied) {
-<span class="nc" id="L126">    this.gebied = gebied;</span>
-<span class="nc" id="L127">  }</span>
+<span class="nc" id="L123">    this.gebied = gebied;</span>
+<span class="nc" id="L124">  }</span>
 
   public String getOpmerking() {
-<span class="nc" id="L130">    return opmerking;</span>
+<span class="nc" id="L127">    return opmerking;</span>
   }
 
   public void setOpmerking(String opmerking) {
-<span class="nc" id="L134">    this.opmerking = opmerking;</span>
-<span class="nc" id="L135">  }</span>
+<span class="nc" id="L131">    this.opmerking = opmerking;</span>
+<span class="nc" id="L132">  }</span>
 
   public STATUS getStatus() {
-<span class="nc" id="L138">    return status;</span>
+<span class="nc" id="L135">    return status;</span>
   }
 
   public void setStatus(STATUS status) {
-<span class="fc" id="L142">    this.status = status;</span>
-<span class="fc" id="L143">  }</span>
+<span class="fc" id="L139">    this.status = status;</span>
+<span class="fc" id="L140">  }</span>
 
   public Date getStatus_datum() {
-<span class="nc" id="L146">    return status_datum;</span>
+<span class="nc" id="L143">    return status_datum;</span>
   }
 
   public void setStatus_datum(Date status_datum) {
-<span class="nc" id="L150">    this.status_datum = status_datum;</span>
-<span class="nc" id="L151">  }</span>
+<span class="nc" id="L147">    this.status_datum = status_datum;</span>
+<span class="nc" id="L148">  }</span>
 
   public String getContact_email() {
-<span class="nc" id="L154">    return contact_email;</span>
+<span class="nc" id="L151">    return contact_email;</span>
   }
 
   public void setContact_email(String contact_email) {
-<span class="nc" id="L158">    this.contact_email = contact_email;</span>
-<span class="nc" id="L159">  }</span>
+<span class="nc" id="L155">    this.contact_email = contact_email;</span>
+<span class="nc" id="L156">  }</span>
 
   public AutomatischProces getAutomatischProces() {
-<span class="nc" id="L162">    return automatischProces;</span>
+<span class="nc" id="L159">    return automatischProces;</span>
   }
 
   public void setAutomatischProces(AutomatischProces automatischProces) {
-<span class="nc" id="L166">    this.automatischProces = automatischProces;</span>
-<span class="nc" id="L167">  }</span>
+<span class="nc" id="L163">    this.automatischProces = automatischProces;</span>
+<span class="nc" id="L164">  }</span>
 
   public BigInteger getKlantafgiftenummer() {
-<span class="nc" id="L170">    return klantafgiftenummer;</span>
+<span class="nc" id="L167">    return klantafgiftenummer;</span>
   }
 
   public void setKlantafgiftenummer(BigInteger klantafgiftenummer) {
-<span class="nc" id="L174">    this.klantafgiftenummer = klantafgiftenummer;</span>
-<span class="nc" id="L175">  }</span>
+<span class="nc" id="L171">    this.klantafgiftenummer = klantafgiftenummer;</span>
+<span class="nc" id="L172">  }</span>
 
   public BigInteger getContractafgiftenummer() {
-<span class="nc" id="L178">    return contractafgiftenummer;</span>
+<span class="nc" id="L175">    return contractafgiftenummer;</span>
   }
 
   public void setContractafgiftenummer(BigInteger contractafgiftenummer) {
-<span class="nc" id="L182">    this.contractafgiftenummer = contractafgiftenummer;</span>
-<span class="nc" id="L183">  }</span>
+<span class="nc" id="L179">    this.contractafgiftenummer = contractafgiftenummer;</span>
+<span class="nc" id="L180">  }</span>
 
   public String getArtikelnummer() {
-<span class="nc" id="L186">    return artikelnummer;</span>
+<span class="nc" id="L183">    return artikelnummer;</span>
   }
 
   public void setArtikelnummer(String artikelnummer) {
-<span class="nc" id="L190">    this.artikelnummer = artikelnummer;</span>
-<span class="nc" id="L191">  }</span>
+<span class="nc" id="L187">    this.artikelnummer = artikelnummer;</span>
+<span class="nc" id="L188">  }</span>
 
   public String getContractnummer() {
-<span class="nc" id="L194">    return contractnummer;</span>
+<span class="nc" id="L191">    return contractnummer;</span>
   }
 
   public void setContractnummer(String contractnummer) {
-<span class="nc" id="L198">    this.contractnummer = contractnummer;</span>
-<span class="nc" id="L199">  }</span>
+<span class="nc" id="L195">    this.contractnummer = contractnummer;</span>
+<span class="nc" id="L196">  }</span>
 
   public String getAfgifteid() {
-<span class="nc" id="L202">    return afgifteid;</span>
+<span class="nc" id="L199">    return afgifteid;</span>
   }
 
   public void setAfgifteid(String afgifteid) {
-<span class="nc" id="L206">    this.afgifteid = afgifteid;</span>
-<span class="nc" id="L207">  }</span>
+<span class="nc" id="L203">    this.afgifteid = afgifteid;</span>
+<span class="nc" id="L204">  }</span>
 
   public String getAfgiftereferentie() {
-<span class="nc" id="L210">    return afgiftereferentie;</span>
+<span class="nc" id="L207">    return afgiftereferentie;</span>
   }
 
   public void setAfgiftereferentie(String afgiftereferentie) {
-<span class="nc" id="L214">    this.afgiftereferentie = afgiftereferentie;</span>
-<span class="nc" id="L215">  }</span>
+<span class="nc" id="L211">    this.afgiftereferentie = afgiftereferentie;</span>
+<span class="nc" id="L212">  }</span>
 
   public String getBestandsreferentie() {
-<span class="nc" id="L218">    return bestandsreferentie;</span>
+<span class="nc" id="L215">    return bestandsreferentie;</span>
   }
 
   public void setBestandsreferentie(String bestandsreferentie) {
-<span class="nc" id="L222">    this.bestandsreferentie = bestandsreferentie;</span>
-<span class="nc" id="L223">  }</span>
+<span class="nc" id="L219">    this.bestandsreferentie = bestandsreferentie;</span>
+<span class="nc" id="L220">  }</span>
 
   public Date getBeschikbaar_tot() {
-<span class="nc" id="L226">    return beschikbaar_tot;</span>
+<span class="nc" id="L223">    return beschikbaar_tot;</span>
   }
 
   public void setBeschikbaar_tot(Date beschikbaar_tot) {
-<span class="nc" id="L230">    this.beschikbaar_tot = beschikbaar_tot;</span>
-<span class="nc" id="L231">  }</span>
+<span class="nc" id="L227">    this.beschikbaar_tot = beschikbaar_tot;</span>
+<span class="nc" id="L228">  }</span>
 
   public String getBestand_naam_hersteld() {
-<span class="nc" id="L234">    return bestand_naam_hersteld;</span>
+<span class="nc" id="L231">    return bestand_naam_hersteld;</span>
   }
 
   public void setBestand_naam_hersteld(String bestand_naam_hersteld) {
-<span class="nc" id="L238">    this.bestand_naam_hersteld = bestand_naam_hersteld;</span>
-<span class="nc" id="L239">  }</span>
+<span class="nc" id="L235">    this.bestand_naam_hersteld = bestand_naam_hersteld;</span>
+<span class="nc" id="L236">  }</span>
 
   // &lt;/editor-fold&gt;
 
   @Override
   public String toString() {
-<span class="nc" id="L245">    return &quot;LaadProces{&quot;</span>
+<span class="nc" id="L242">    return &quot;LaadProces{&quot;</span>
         + &quot;id=&quot;
         + id
         + &quot;, bestandNaam='&quot;

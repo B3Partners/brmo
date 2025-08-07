@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>KVKMutatieserviceProcesRunner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">KVKMutatieserviceProcesRunner.java</span></div><h1>KVKMutatieserviceProcesRunner.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.scanner;
+
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.*;
+import static nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces.*;
+import static nl.b3p.gds2.GDS2Util.getDatumTijd;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.TransactionRequiredException;
+import javax.persistence.Transient;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.persistence.staging.KVKMutatieserviceProces;
+import nl.b3p.brmo.persistence.staging.NHRInschrijving;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.StringEscapeUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.stripesstuff.stripersist.Stripersist;
+
+public class KVKMutatieserviceProcesRunner extends AbstractExecutableProces {
+<span class="nc" id="L32">  private static final Log LOG = LogFactory.getLog(KVKMutatieserviceProcesRunner.class);</span>
+
+  private final KVKMutatieserviceProces config;
+  private int pages;
+<span class="nc" id="L36">  private String ophalenVanaf = &quot;&quot;;</span>
+<span class="nc" id="L37">  private String ophalenTot = &quot;&quot;;</span>
+<span class="nc" id="L38">  private final Set&lt;String&gt; kvkNummers = new HashSet&lt;&gt;();</span>
+  @Transient private ProgressUpdateListener listener;
+
+  public static Log getLog() {
+<span class="nc" id="L42">    return LOG;</span>
+  }
+
+<span class="nc" id="L45">  public KVKMutatieserviceProcesRunner(KVKMutatieserviceProces config) {</span>
+<span class="nc" id="L46">    this.config = config;</span>
+<span class="nc" id="L47">  }</span>
+
+  @Override
+  public void execute() {
+<span class="nc" id="L51">    this.execute(</span>
+<span class="nc" id="L52">        new ProgressUpdateListener() {</span>
+          @Override
+<span class="nc" id="L54">          public void total(long total) {}</span>
+
+          @Override
+<span class="nc" id="L57">          public void progress(long progress) {}</span>
+
+          @Override
+          public void exception(Throwable t) {
+<span class="nc" id="L61">            LOG.error(t);</span>
+<span class="nc" id="L62">          }</span>
+
+          @Override
+<span class="nc" id="L65">          public void updateStatus(String status) {}</span>
+
+          @Override
+          public void addLog(String log) {
+<span class="nc" id="L69">            KVKMutatieserviceProcesRunner.LOG.info(log);</span>
+<span class="nc" id="L70">            config.updateSamenvattingEnLogfile(log);</span>
+<span class="nc" id="L71">            Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L72">          }</span>
+        });
+<span class="nc" id="L74">  }</span>
+
+  @Override
+  public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L78">    this.listener = listener;</span>
+<span class="nc" id="L79">    listener.updateStatus(&quot;KVK Mutatieservice proces gestart op %tc.&quot;.formatted(new Date()));</span>
+
+<span class="nc bnc" id="L81" title="All 4 branches missed.">    if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">      if (config.getStatus().equals(ERROR)) {</span>
+<span class="nc" id="L83">        listener.addLog(&quot;Vorige run is met ERROR status afgerond, opnieuw proberen&quot;);</span>
+      }
+      try {
+<span class="nc" id="L86">        listener.updateStatus(PROCESSING.toString());</span>
+<span class="nc" id="L87">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L88">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L89">        LOG.debug(</span>
+            &quot;Gebruik %s als apikey en %s als abonnementId.&quot;
+<span class="nc" id="L91">                .formatted(config.getConfig().get(APIKEY), config.getConfig().get(ABONNEMENT_ID)));</span>
+
+        // datum tijd parsen/instellen
+        GregorianCalendar vanaf;
+<span class="nc" id="L95">        GregorianCalendar tot =</span>
+<span class="nc" id="L96">            getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get(TOT)));</span>
+<span class="nc" id="L97">        String sVanaf = ClobElement.nullSafeGet(this.config.getConfig().get(VANAF));</span>
+<span class="nc bnc" id="L98" title="All 8 branches missed.">        if (tot != null &amp;&amp; (&quot;-1&quot;.equals(sVanaf) || &quot;-2&quot;.equals(sVanaf) || &quot;-3&quot;.equals(sVanaf))) {</span>
+<span class="nc" id="L99">          vanaf =</span>
+<span class="nc" id="L100">              getDatumTijd(</span>
+<span class="nc" id="L101">                  ClobElement.nullSafeGet(this.config.getConfig().get(TOT)),</span>
+<span class="nc" id="L102">                  Integer.parseInt(sVanaf));</span>
+        } else {
+<span class="nc" id="L104">          vanaf = getDatumTijd(sVanaf);</span>
+        }
+
+<span class="nc" id="L107">        ophalenVanaf =</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            vanaf == null ? &quot;&quot; : vanaf.toZonedDateTime().format(DateTimeFormatter.ISO_INSTANT);</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        ophalenTot = tot == null ? &quot;&quot; : tot.toZonedDateTime().format(DateTimeFormatter.ISO_INSTANT);</span>
+<span class="nc" id="L110">        getPageFromAPI(/*start met p.1*/ 1);</span>
+
+<span class="nc" id="L112">        config.setSamenvatting(</span>
+            &quot;Er zijn %d pagina's van de KVK Mutatieservice opgehaald en verwerkt.&quot;
+<span class="nc" id="L114">                .formatted(pages));</span>
+<span class="nc" id="L115">        config.setStatus(WAITING);</span>
+<span class="nc" id="L116">        listener.updateStatus(&quot;KVK Mutatieservice proces voltooid op %tc.&quot;.formatted(new Date()));</span>
+<span class="nc" id="L117">      } catch (Exception e) {</span>
+<span class="nc" id="L118">        listener.exception(e);</span>
+<span class="nc" id="L119">        listener.updateStatus(ERROR.toString());</span>
+<span class="nc" id="L120">        listener.addLog(e.getMessage());</span>
+<span class="nc" id="L121">        config.setStatus(ERROR);</span>
+      } finally {
+<span class="nc" id="L123">        config.setLastrun(new Date());</span>
+<span class="nc" id="L124">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L125">        Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L126">      }</span>
+    } else {
+      // PROCESSING
+      // Als het proces al bezig is of succesvol is afgerond, doen we niets
+<span class="nc" id="L130">      listener.addLog(&quot;KVK Mutatieservice proces is al bezig, geen actie nodig.&quot;);</span>
+<span class="nc" id="L131">      LOG.info(&quot;KVK Mutatieservice proces is al bezig, geen actie nodig.&quot;);</span>
+    }
+<span class="nc" id="L133">  }</span>
+
+  private void getPageFromAPI(int pagina)
+      throws JSONException,
+          IllegalArgumentException,
+          TransactionRequiredException,
+          IOException,
+          BrmoException {
+
+<span class="nc" id="L142">    final String API_URL_PARAMS = &quot;%s%s?pagina=%d&amp;vanaf=%s&amp;tot=%s&quot;;</span>
+<span class="nc" id="L143">    String url =</span>
+<span class="nc" id="L144">        String.format(</span>
+            API_URL_PARAMS,
+<span class="nc" id="L146">            config.getConfig().get(APIURL).getValue(),</span>
+<span class="nc" id="L147">            config.getConfig().get(ABONNEMENT_ID).getValue(),</span>
+<span class="nc" id="L148">            pagina,</span>
+            this.ophalenVanaf,
+            this.ophalenTot);
+<span class="nc" id="L151">    LOG.debug(&quot;Requesting KVK Mutatieservice API: &quot; + url);</span>
+<span class="nc" id="L152">    listener.progress(pagina);</span>
+<span class="nc" id="L153">    listener.updateStatus(</span>
+<span class="nc" id="L154">        &quot;Ophalen van pagina %d van %d van KVK mutaties.&quot;.formatted(pagina, pages));</span>
+<span class="nc" id="L155">    LOG.info(&quot;Ophalen van pagina %d van %d van KVK mutaties.&quot;.formatted(pagina, pages));</span>
+
+    try {
+<span class="nc" id="L158">      HttpClient client = HttpClient.newHttpClient();</span>
+      HttpRequest request =
+<span class="nc" id="L160">          HttpRequest.newBuilder()</span>
+<span class="nc" id="L161">              .uri(URI.create(url))</span>
+<span class="nc" id="L162">              .header(APIKEY, config.getConfig().get(APIKEY).getValue())</span>
+<span class="nc" id="L163">              .header(&quot;Accept&quot;, &quot;application/json&quot;)</span>
+<span class="nc" id="L164">              .build();</span>
+<span class="nc" id="L165">      HttpResponse&lt;String&gt; response = client.send(request, HttpResponse.BodyHandlers.ofString());</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">      if (response.statusCode() == 200) {</span>
+<span class="nc" id="L167">        parseApiResponse(response.body());</span>
+      } else {
+        // de API heeft een foutmelding teruggegeven, maar dat kan HTML zijn, dus die moet
+        // escaped/gestript worden, zie ook KVK TopDesk melding &quot;M2507 3520&quot;
+<span class="nc" id="L171">        String errorMsg =</span>
+            &quot;Ophalen van mutatiedata is mislukt met statuscode %s en melding: %s&quot;
+<span class="nc" id="L173">                .formatted(</span>
+<span class="nc" id="L174">                    response.statusCode(),</span>
+<span class="nc" id="L175">                    StringEscapeUtils.escapeHtml4(response.body().replaceAll(&quot;&lt;[^&gt;]*&gt;&quot;, &quot;&quot;)));</span>
+<span class="nc" id="L176">        listener.updateStatus(ERROR.toString());</span>
+<span class="nc" id="L177">        config.setStatus(ERROR);</span>
+<span class="nc" id="L178">        throw new BrmoException(errorMsg);</span>
+      }
+<span class="nc" id="L180">    } catch (InterruptedException | JSONException e) {</span>
+<span class="nc" id="L181">      LOG.error(&quot;Fout tijdens benaderen KVK Mutatieservice API data&quot;, e);</span>
+<span class="nc" id="L182">      listener.addLog(&quot;Fout tijdens benaderen KVK Mutatieservice API data: &quot; + e.getMessage());</span>
+<span class="nc" id="L183">      listener.exception(e);</span>
+<span class="nc" id="L184">    }</span>
+<span class="nc" id="L185">  }</span>
+
+  private void parseApiResponse(String responseBody)
+      throws JSONException,
+          IllegalArgumentException,
+          TransactionRequiredException,
+          BrmoException,
+          IOException {
+    // test json response:
+    //          {
+    //                  &quot;pagina&quot;: 1,
+    //                  &quot;aantal&quot;: 100,
+    //                  &quot;totaal&quot;: 14344,
+    //                  &quot;totaalPaginas&quot;: 144,
+    //                  &quot;signalen&quot;: [
+    //              {
+    //                  &quot;id&quot;: &quot;ed6b886b-39e2-46d9-8175-85a48f227c40&quot;,
+    //                      &quot;timestamp&quot;: &quot;2025-07-17T13:16:01.86692Z&quot;,
+    //                      &quot;kvknummer&quot;: &quot;90003403&quot;,
+    //                      &quot;signaalType&quot;: &quot;SignaalGewijzigdeInschrijving&quot;
+    //              },
+    //              {
+    //                  &quot;id&quot;: &quot;a124dca0-de17-4d10-af8a-9e0ad79da1ed&quot;,
+    //                      &quot;timestamp&quot;: &quot;2025-07-17T13:16:01.885015Z&quot;,
+    //                      &quot;kvknummer&quot;: &quot;90004604&quot;,
+    //                      &quot;signaalType&quot;: &quot;SignaalGewijzigdeInschrijving&quot;
+    //              }
+    //              ]}
+<span class="nc" id="L213">    LOG.debug(&quot;Parsing API response: &quot; + responseBody);</span>
+<span class="nc" id="L214">    JSONObject jsonObject = new JSONObject(responseBody);</span>
+<span class="nc" id="L215">    pages = jsonObject.getInt(&quot;totaalPaginas&quot;);</span>
+<span class="nc" id="L216">    int pagina = jsonObject.getInt(&quot;pagina&quot;);</span>
+<span class="nc" id="L217">    listener.total(pages);</span>
+<span class="nc" id="L218">    LOG.debug(&quot;Aantal signalen op pagina %d: %d&quot;.formatted(pagina, jsonObject.getInt(&quot;aantal&quot;)));</span>
+
+<span class="nc" id="L220">    final JSONArray signalen = jsonObject.getJSONArray(&quot;signalen&quot;);</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">    for (int i = 0; i &lt; signalen.length(); i++) {</span>
+<span class="nc" id="L222">      JSONObject signaal = signalen.getJSONObject(i);</span>
+<span class="nc" id="L223">      String kvkNummer = signaal.getString(&quot;kvknummer&quot;);</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">      if (kvkNummers.add(kvkNummer)) {</span>
+<span class="nc" id="L225">        listener.addLog(&quot;KVK nummer %s toegevoegd van pagina %d.&quot;.formatted(kvkNummer, pagina));</span>
+      }
+    }
+<span class="nc bnc" id="L228" title="All 2 branches missed.">    if (pagina &lt; pages) {</span>
+      // If there are more pages, fetch the next page
+<span class="nc" id="L230">      getPageFromAPI(pagina + 1);</span>
+    } else {
+<span class="nc" id="L232">      listener.addLog(&quot;Alle %d pagina's KVK mutaties zijn opgehaald.&quot;.formatted(pages));</span>
+<span class="nc" id="L233">      storeKvkNummers();</span>
+    }
+<span class="nc" id="L235">  }</span>
+
+  private void storeKvkNummers() throws IllegalArgumentException, TransactionRequiredException {
+<span class="nc bnc" id="L238" title="All 2 branches missed.">    for (String kvkNummer : kvkNummers) {</span>
+      NHRInschrijving inschrijving =
+<span class="nc" id="L240">          Stripersist.getEntityManager().find(NHRInschrijving.class, kvkNummer);</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">      if (inschrijving == null) {</span>
+<span class="nc" id="L242">        inschrijving = new NHRInschrijving(kvkNummer);</span>
+      } else {
+<span class="nc" id="L244">        inschrijving.setDatum(new Date());</span>
+<span class="nc" id="L245">        inschrijving.setVolgendProberen(new Date());</span>
+<span class="nc" id="L246">        inschrijving.setProbeerAantal(0);</span>
+      }
+<span class="nc" id="L248">      Stripersist.getEntityManager().merge(inschrijving);</span>
+<span class="nc" id="L249">    }</span>
+<span class="nc" id="L250">    listener.addLog(</span>
+        &quot;Er zijn %s unieke KVK nummers met mutatie opgeslagen of bijgewerkt.&quot;
+<span class="nc" id="L252">            .formatted(kvkNummers.size()));</span>
+<span class="nc" id="L253">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

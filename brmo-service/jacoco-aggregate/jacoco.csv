@@ -2,33 +2,31 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence,SnakeCasePhysicalNamingStrategy,7,57,0,4,1,10,1,8,1,6
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.auth,Gebruiker,13,16,0,0,5,6,4,3,4,3
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.auth,Groep,7,22,0,0,3,8,2,5,2,5
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,GDS2OphaalProces,3,0,0,0,1,0,1,0,1,0
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,AutomatischProces.ProcessingStatus,0,39,0,0,0,8,0,2,0,2
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,ClobElement,67,17,17,1,15,6,14,4,5,4
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,LaadProces,185,7,0,0,60,3,39,2,39,2
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,Bericht.STATUS,0,57,0,0,0,10,0,1,0,1
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,DirectoryScannerProces,33,22,3,1,6,5,4,3,2,3
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BGTLoaderProces,3,0,0,0,1,0,1,0,1,0
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,KVKMutatieserviceProces,3,0,0,0,1,0,1,0,1,0
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BRK2ScannerProces,0,3,0,0,0,1,0,1,0,1
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,AfgifteNummerScannerProces,105,0,8,0,19,0,13,0,9,0
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,Bericht,96,11,0,0,41,5,27,3,27,3
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,AutomatischProces,27,54,1,3,12,19,8,10,7,9
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,TopNLScannerProces,3,0,0,0,1,0,1,0,1,0
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,NHRInschrijving,65,0,0,0,26,0,14,0,14,0
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BerichtDoorstuurProces,3,0,0,0,1,0,1,0,1,0
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BAG2MutatieProces,3,0,0,0,1,0,1,0,1,0
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BerichtTransformatieProces,28,0,2,0,5,0,4,0,3,0
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BerichtstatusRapportProces,3,0,0,0,1,0,1,0,1,0
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,LaadprocesStatusRapportProces,3,0,0,0,1,0,1,0,1,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,LaadProces.STATUS,0,51,0,0,0,9,0,1,0,1
+BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,LaadProces.STATUS,0,33,0,0,0,6,0,1,0,1
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,MailRapportageProces,24,106,5,7,5,20,5,8,0,7
 BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,MaterializedViewRefresh,10,0,0,0,2,0,2,0,2,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,GDS2OphaalProces,3,0,0,0,1,0,1,0,1,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,LaadprocesTransformatieProces.LaadprocesSoorten,49,0,2,0,11,0,5,0,4,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,AutomatischProces.ProcessingStatus,0,39,0,0,0,8,0,2,0,2
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,ClobElement,67,17,17,1,15,6,14,4,5,4
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,DirectoryScannerProces,33,22,3,1,6,5,4,3,2,3
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BRK2ScannerProces,0,3,0,0,0,1,0,1,0,1
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,NHRInschrijving,45,0,0,0,19,0,13,0,13,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BerichtDoorstuurProces,3,0,0,0,1,0,1,0,1,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,LaadprocesTransformatieProces,21,0,0,0,4,0,3,0,3,0
-BRMO service/brmo-persistence,nl.b3p.brmo.persistence.staging,BAG2MutatieProces,3,0,0,0,1,0,1,0,1,0
 BRMO service/brmo-soap-util,nl.b3p.brmo.soap.util,LogMessageHandler,79,0,6,0,24,0,9,0,6,0
 BRMO service/brmo-init-util,nl.b3p.brmo.service.util,DiagnosticsServlet,115,0,6,0,30,0,10,0,7,0
-BRMO service/brmo-init-util,nl.b3p.brmo.service.util,ConfigUtil,251,0,22,0,77,0,25,0,14,0
-BRMO service/brmo-init-util,nl.b3p.brmo.service.util,VersieInfo,108,0,4,0,33,0,9,0,7,0
+BRMO service/brmo-init-util,nl.b3p.brmo.service.util,ConfigUtil,219,0,20,0,67,0,23,0,13,0
+BRMO service/brmo-init-util,nl.b3p.brmo.service.util,VersieInfo,107,0,4,0,32,0,9,0,7,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,BrmoException,16,0,0,0,7,0,4,0,4,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,BrmoLeegBestandException,16,0,0,0,7,0,4,0,4,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,StagingRowHandler,379,0,76,0,84,0,41,0,3,0
@@ -36,15 +34,14 @@ BRMO service/brmo-loader,nl.b3p.brmo.loader.util,TableRow,145,63,9,1,37,20,13,10
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,StagingBeanProcessor,61,0,6,0,13,0,5,0,2,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,RsgbBRPTransformer,232,0,16,0,63,0,16,0,8,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,DataComfortXMLReader,54,303,14,34,13,87,12,17,0,3
-BRMO service/brmo-loader,nl.b3p.brmo.loader.util,TopNLRsgbTransformer,184,0,14,0,50,0,12,0,5,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,TableData,80,69,0,0,24,20,14,5,14,5
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,BrmoDuplicaatLaadprocesException,16,0,0,0,7,0,4,0,4,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,StagingRowHandler.IgnoreCaseStringList,25,0,4,0,7,0,4,0,2,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,RsgbTransformer,138,4,8,0,25,1,8,1,4,1
 BRMO service/brmo-loader,nl.b3p.brmo.loader.util,RsgbWOZTransformer,74,130,5,1,22,32,5,3,2,3
-BRMO service/brmo-loader,nl.b3p.brmo.loader,BrmoFramework,929,0,54,0,253,0,75,0,48,0
+BRMO service/brmo-loader,nl.b3p.brmo.loader,BrmoFramework,895,0,52,0,244,0,73,0,47,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader,RsgbProxy.BerichtSelectMode,33,0,0,0,6,0,1,0,1,0
-BRMO service/brmo-loader,nl.b3p.brmo.loader,StagingProxy,2809,0,250,0,641,0,172,0,47,0
+BRMO service/brmo-loader,nl.b3p.brmo.loader,StagingProxy,2783,0,244,0,635,0,169,0,47,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader,RsgbProxy,4388,0,416,0,1026,0,258,0,46,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader,BrmoFramework.new CountingInputStream() {...},22,0,2,0,5,0,3,0,2,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,BRPXMLReader,317,0,16,0,79,0,16,0,8,0
@@ -53,7 +50,6 @@ BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,WozXMLReader,774,0,76,0,178,0,47
 BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,GbavXMLReader,10,219,3,15,4,56,3,12,0,6
 BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,BrmoXMLReader,52,40,0,0,21,15,13,8,13,8
 BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,Brk2SnapshotXMLReader,7,381,4,72,3,82,4,40,0,6
-BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,TopNLFileReader,77,0,6,0,21,0,9,0,6,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.xml,Brk2SnapshotXMLReader.MutatieGegevens,0,15,0,0,0,5,0,1,0,1
 BRMO service/brmo-loader,nl.b3p.brmo.loader.advancedfunctions,AdvancedFunctionProcess,33,0,0,0,14,0,7,0,7,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,NhrBerichten,3,0,0,0,1,0,1,0,1,0
@@ -66,7 +62,7 @@ BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,NhrPeildatumAdapter,33,0,0,0,
 BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,LaadProces,191,0,0,0,63,0,41,0,41,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,NhrBericht,24,0,0,0,9,0,4,0,4,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,BerichtenSorter,26,0,0,0,7,0,3,0,3,0
-BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,LaadProces.STATUS,51,0,0,0,9,0,1,0,1,0
+BRMO service/brmo-loader,nl.b3p.brmo.loader.entity,LaadProces.STATUS,33,0,0,0,6,0,1,0,1,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.pipeline,BerichtWorkUnit,30,0,0,0,13,0,7,0,7,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.pipeline,BerichtPipelineThread,162,0,12,0,49,0,11,0,5,0
 BRMO service/brmo-loader,nl.b3p.brmo.loader.pipeline,UpdateResultPipeline,13,0,0,0,4,0,2,0,2,0
@@ -97,11 +93,11 @@ BRMO service/bgt-loader,nl.b3p.brmo.sql,PostgresCopyEscapeUtils,3,8,0,0,1,2,1,2,
 BRMO service/bgt-loader,nl.b3p.brmo.sql,GeometryHandlingPreparedStatementBatch,43,0,2,0,9,0,3,0,2,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
-BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi,394,0,34,0,97,0,27,0,10,0
+BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi,392,0,34,0,97,0,27,0,10,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaApi.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DownloadApiUtils,151,0,12,0,37,0,9,0,3,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,CustomDownloadProgress,21,0,0,0,7,0,6,0,6,0
-BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaApi,297,0,24,0,67,0,20,0,8,0
+BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.api,DeltaApi,295,0,24,0,67,0,20,0,8,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.schema,BGTObject,33,32,2,0,7,10,4,5,3,5
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.schema,BGTSchema,26,1618,4,6,4,93,7,9,4,7
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.schema,BGTSchemaMapper.Metadata,79,0,0,0,14,0,2,0,2,0
@@ -125,7 +121,10 @@ BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadReques
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.model,Delta,118,0,12,0,28,0,16,0,10,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse.StatusEnum,71,0,4,0,13,0,7,0,5,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.model,HalLink,155,0,14,0,36,0,21,0,14,0
-BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiClient,370,0,35,0,100,0,49,0,30,0
+BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,Configuration,37,0,4,0,13,0,7,0,5,0
+BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiClient,376,0,35,0,101,0,49,0,30,0
+BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,RFC3339InstantDeserializer,130,0,4,0,18,0,12,0,10,0
+BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,RFC3339JavaTimeModule,19,0,0,0,5,0,1,0,1,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,Pair,45,0,6,0,19,0,9,0,6,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiException,124,0,0,0,29,0,12,0,12,0
 BRMO service/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiResponse,27,0,0,0,10,0,5,0,5,0

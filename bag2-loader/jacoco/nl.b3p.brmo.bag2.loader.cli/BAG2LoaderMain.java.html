@@ -644,12 +644,12 @@ import picocli.CommandLine.Parameters;
                   progressReporter,
 <span class="nc" id="L645">                  entry.getName(),</span>
                   nestedZip,
-<span class="nc" id="L647">                  nestedZip.getNextZipEntry());</span>
+<span class="nc" id="L647">                  nestedZip.getNextEntry());</span>
         }
 
 <span class="nc bnc" id="L650" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}Inactief.*\\.zip&quot;)) {</span>
 <span class="nc" id="L651">          ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);</span>
-<span class="nc" id="L652">          ZipArchiveEntry nestedEntry = nestedZip.getNextZipEntry();</span>
+<span class="nc" id="L652">          ZipArchiveEntry nestedEntry = nestedZip.getNextEntry();</span>
 <span class="nc bnc" id="L653" title="All 2 branches missed.">          while (nestedEntry != null) {</span>
 <span class="nc bnc" id="L654" title="All 2 branches missed.">            if (nestedEntry.getName().matches(&quot;[0-9]{4}IA.*\\.zip&quot;)) {</span>
 <span class="nc" id="L655">              ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);</span>
@@ -661,9 +661,9 @@ import picocli.CommandLine.Parameters;
                       progressReporter,
 <span class="nc" id="L662">                      nestedEntry.getName(),</span>
                       moreNestedZip,
-<span class="nc" id="L664">                      moreNestedZip.getNextZipEntry());</span>
+<span class="nc" id="L664">                      moreNestedZip.getNextEntry());</span>
             }
-<span class="nc" id="L666">            nestedEntry = nestedZip.getNextZipEntry();</span>
+<span class="nc" id="L666">            nestedEntry = nestedZip.getNextEntry();</span>
           }
         }
 
@@ -672,7 +672,7 @@ import picocli.CommandLine.Parameters;
         }
 
         try {
-<span class="nc" id="L675">          entry = zip.getNextZipEntry();</span>
+<span class="nc" id="L675">          entry = zip.getNextEntry();</span>
 <span class="nc" id="L676">        } catch (IOException e) {</span>
           // Reading the ZIP from HTTP may give this error, but it is a normal end...
 <span class="nc bnc" id="L678" title="All 2 branches missed.">          if (&quot;Truncated ZIP file&quot;.equals(e.getMessage())) {</span>
@@ -802,7 +802,7 @@ import picocli.CommandLine.Parameters;
 <span class="nc bnc" id="L802" title="All 2 branches missed.">            &amp;&amp; writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {</span>
 <span class="nc" id="L803">          break;</span>
         }
-<span class="nc" id="L805">        entry = zip.getNextZipEntry();</span>
+<span class="nc" id="L805">        entry = zip.getNextEntry();</span>
       }
 <span class="nc" id="L807">      writer.complete();</span>
 

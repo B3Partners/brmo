@@ -652,12 +652,12 @@
 <a class="jxr_linenumber" name="L644" href="#L644">644</a>                   progressReporter,
 <a class="jxr_linenumber" name="L645" href="#L645">645</a>                   entry.getName(),
 <a class="jxr_linenumber" name="L646" href="#L646">646</a>                   nestedZip,
-<a class="jxr_linenumber" name="L647" href="#L647">647</a>                   nestedZip.getNextZipEntry());
+<a class="jxr_linenumber" name="L647" href="#L647">647</a>                   nestedZip.getNextEntry());
 <a class="jxr_linenumber" name="L648" href="#L648">648</a>         }
 <a class="jxr_linenumber" name="L649" href="#L649">649</a> 
 <a class="jxr_linenumber" name="L650" href="#L650">650</a>         <strong class="jxr_keyword">if</strong> (entry.getName().matches(<span class="jxr_string">"[0-9]{4}Inactief.*&#92;&#92;.zip"</span>)) {
 <a class="jxr_linenumber" name="L651" href="#L651">651</a>           ZipArchiveInputStream nestedZip = <strong class="jxr_keyword">new</strong> ZipArchiveInputStream(zip);
-<a class="jxr_linenumber" name="L652" href="#L652">652</a>           ZipArchiveEntry nestedEntry = nestedZip.getNextZipEntry();
+<a class="jxr_linenumber" name="L652" href="#L652">652</a>           ZipArchiveEntry nestedEntry = nestedZip.getNextEntry();
 <a class="jxr_linenumber" name="L653" href="#L653">653</a>           <strong class="jxr_keyword">while</strong> (nestedEntry != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L654" href="#L654">654</a>             <strong class="jxr_keyword">if</strong> (nestedEntry.getName().matches(<span class="jxr_string">"[0-9]{4}IA.*&#92;&#92;.zip"</span>)) {
 <a class="jxr_linenumber" name="L655" href="#L655">655</a>               ZipArchiveInputStream moreNestedZip = <strong class="jxr_keyword">new</strong> ZipArchiveInputStream(nestedZip);
@@ -669,9 +669,9 @@
 <a class="jxr_linenumber" name="L661" href="#L661">661</a>                       progressReporter,
 <a class="jxr_linenumber" name="L662" href="#L662">662</a>                       nestedEntry.getName(),
 <a class="jxr_linenumber" name="L663" href="#L663">663</a>                       moreNestedZip,
-<a class="jxr_linenumber" name="L664" href="#L664">664</a>                       moreNestedZip.getNextZipEntry());
+<a class="jxr_linenumber" name="L664" href="#L664">664</a>                       moreNestedZip.getNextEntry());
 <a class="jxr_linenumber" name="L665" href="#L665">665</a>             }
-<a class="jxr_linenumber" name="L666" href="#L666">666</a>             nestedEntry = nestedZip.getNextZipEntry();
+<a class="jxr_linenumber" name="L666" href="#L666">666</a>             nestedEntry = nestedZip.getNextEntry();
 <a class="jxr_linenumber" name="L667" href="#L667">667</a>           }
 <a class="jxr_linenumber" name="L668" href="#L668">668</a>         }
 <a class="jxr_linenumber" name="L669" href="#L669">669</a> 
@@ -680,7 +680,7 @@
 <a class="jxr_linenumber" name="L672" href="#L672">672</a>         }
 <a class="jxr_linenumber" name="L673" href="#L673">673</a> 
 <a class="jxr_linenumber" name="L674" href="#L674">674</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L675" href="#L675">675</a>           entry = zip.getNextZipEntry();
+<a class="jxr_linenumber" name="L675" href="#L675">675</a>           entry = zip.getNextEntry();
 <a class="jxr_linenumber" name="L676" href="#L676">676</a>         } <strong class="jxr_keyword">catch</strong> (IOException e) {
 <a class="jxr_linenumber" name="L677" href="#L677">677</a>           <em class="jxr_comment">// Reading the ZIP from HTTP may give this error, but it is a normal end...</em>
 <a class="jxr_linenumber" name="L678" href="#L678">678</a>           <strong class="jxr_keyword">if</strong> (<span class="jxr_string">"Truncated ZIP file"</span>.equals(e.getMessage())) {
@@ -810,7 +810,7 @@
 <a class="jxr_linenumber" name="L802" href="#L802">802</a>             &amp;&amp; writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {
 <a class="jxr_linenumber" name="L803" href="#L803">803</a>           <strong class="jxr_keyword">break</strong>;
 <a class="jxr_linenumber" name="L804" href="#L804">804</a>         }
-<a class="jxr_linenumber" name="L805" href="#L805">805</a>         entry = zip.getNextZipEntry();
+<a class="jxr_linenumber" name="L805" href="#L805">805</a>         entry = zip.getNextEntry();
 <a class="jxr_linenumber" name="L806" href="#L806">806</a>       }
 <a class="jxr_linenumber" name="L807" href="#L807">807</a>       writer.complete();
 <a class="jxr_linenumber" name="L808" href="#L808">808</a> 

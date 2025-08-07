@@ -57,45 +57,42 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L57">              ConfigUtil.getDataSourceStaging(),</span>
 <span class="nc" id="L58">              ConfigUtil.getDataSourceRsgb(),</span>
 <span class="nc" id="L59">              ConfigUtil.getDataSourceRsgbBgt(),</span>
-<span class="nc" id="L60">              ConfigUtil.getDataSourceTopNL(),</span>
-<span class="nc" id="L61">              ConfigUtil.getDataSourceRsgbBrk());</span>
-<span class="nc" id="L62">      LOG.info(&quot;BRMO versie informatie:&quot;);</span>
-<span class="nc" id="L63">      LOG.info(&quot;  brmo applicatie versie is: &quot; + appVersie);</span>
-<span class="nc" id="L64">      LOG.info(&quot;  staging schema versie is:  &quot; + brmo.getStagingVersion());</span>
-<span class="nc" id="L65">      LOG.info(&quot;  rsgb schema versie is:     &quot; + brmo.getRsgbVersion());</span>
-<span class="nc" id="L66">      LOG.info(&quot;  rsgb brk schema versie is: &quot; + brmo.getRsgbBrkVersion());</span>
-<span class="nc" id="L67">      LOG.info(&quot;  rsgbbgt schema versie is:  &quot; + brmo.getRsgbBgtVersion());</span>
-      // LOG.info(&quot;  topnl schema versie is:  &quot; + brmo.getRsgbTopNLVersion());
-      // TODO TopNL versie info
+<span class="nc" id="L60">              ConfigUtil.getDataSourceRsgbBrk());</span>
+<span class="nc" id="L61">      LOG.info(&quot;BRMO versie informatie:&quot;);</span>
+<span class="nc" id="L62">      LOG.info(&quot;  brmo applicatie versie is: &quot; + appVersie);</span>
+<span class="nc" id="L63">      LOG.info(&quot;  staging schema versie is:  &quot; + brmo.getStagingVersion());</span>
+<span class="nc" id="L64">      LOG.info(&quot;  rsgb schema versie is:     &quot; + brmo.getRsgbVersion());</span>
+<span class="nc" id="L65">      LOG.info(&quot;  rsgb brk schema versie is: &quot; + brmo.getRsgbBrkVersion());</span>
+<span class="nc" id="L66">      LOG.info(&quot;  rsgbbgt schema versie is:  &quot; + brmo.getRsgbBgtVersion());</span>
       // TODO check voor passende versies
-<span class="nc" id="L71">    } catch (BrmoException ex) {</span>
-<span class="nc" id="L72">      LOG.warn(&quot;Ophalen BRMO schema versie informatie is mislukt.&quot;, ex);</span>
+<span class="nc" id="L68">    } catch (BrmoException ex) {</span>
+<span class="nc" id="L69">      LOG.warn(&quot;Ophalen BRMO schema versie informatie is mislukt.&quot;, ex);</span>
     } finally {
-<span class="nc bnc" id="L74" title="All 2 branches missed.">      if (brmo != null) {</span>
-<span class="nc" id="L75">        brmo.closeBrmoFramework();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">      if (brmo != null) {</span>
+<span class="nc" id="L72">        brmo.closeBrmoFramework();</span>
       }
     }
-<span class="nc" id="L78">  }</span>
+<span class="nc" id="L75">  }</span>
 
   @Override
   public ServletConfig getServletConfig() {
-<span class="nc" id="L82">    throw new UnsupportedOperationException(&quot;Not supported.&quot;);</span>
+<span class="nc" id="L79">    throw new UnsupportedOperationException(&quot;Not supported.&quot;);</span>
   }
 
   @Override
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
-<span class="nc" id="L88">    throw new UnsupportedOperationException(&quot;Not supported.&quot;);</span>
+<span class="nc" id="L85">    throw new UnsupportedOperationException(&quot;Not supported.&quot;);</span>
   }
 
   @Override
   public String getServletInfo() {
-<span class="nc" id="L93">    return &quot;Versie info logging servlet&quot;;</span>
+<span class="nc" id="L90">    return &quot;Versie info logging servlet&quot;;</span>
   }
 
   @Override
   public void destroy() {
     // leeg
-<span class="nc" id="L99">  }</span>
+<span class="nc" id="L96">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
