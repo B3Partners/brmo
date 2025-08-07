@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>6.0.0</version>
+    <version>6.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -42,7 +42,7 @@
     <scm>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
-        <tag>v6.0.0</tag>
+        <tag>v3.0.1</tag>
         <url>https://github.com/B3Partners/brmo/</url>
     </scm>
     <issueManagement>
@@ -72,7 +72,7 @@
     </distributionManagement>
     <properties>
         <java.version>17</java.version>
-        <project.build.outputTimestamp>2025-08-07T14:25:18Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2025-08-07T14:26:40Z</project.build.outputTimestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>${java.version}</maven.compiler.release>
