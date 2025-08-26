@@ -57,7 +57,7 @@ jobs:
             downloads-
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
@@ -136,7 +136,7 @@ jobs:
           lfs: false
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 17
@@ -181,7 +181,7 @@ jobs:
           lfs: false
 
       - name: 'Set up JDK'
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: 17
           distribution: 'temurin'
@@ -210,7 +210,7 @@ jobs:
           lfs: false
 
       - name: 'Set up JDK (ghcr.io)'
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
@@ -233,7 +233,7 @@ jobs:
           mvn -pl docker -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -DskipQA=true deploy
 
       - name: 'Set up JDK (repo.b3p.nl)'
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
