@@ -1085,7 +1085,7 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>7.14.0</version>
+                    <version>7.15.0</version>
                 </plugin>
                 <!--                <plugin>-->
                 <!--            deze plugin is stuk op Windows met Java 11.0.15, zie oa. https://stackoverflow.com/questions/71956115 -->
@@ -1248,6 +1248,11 @@
                 <configuration>
                     <javaVersion>${java.version}</javaVersion>
                     <failOnViolations>true</failOnViolations>
+                    <ignoreClassNamePatterns>
+                        <!-- generated, but with SOURCE level annotation retention policy -->
+                        <ignoreClassNamePattern>nl.b3p.brmo.bgt.download.api.DeltaCustomApi</ignoreClassNamePattern>
+                        <ignoreClassNamePattern>nl.b3p.brmo.bgt.download.api.DeltaApi</ignoreClassNamePattern>
+                    </ignoreClassNamePatterns>
                 </configuration>
                 <executions>
                     <execution>
