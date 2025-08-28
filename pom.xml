@@ -1248,6 +1248,11 @@
                 <configuration>
                     <javaVersion>${java.version}</javaVersion>
                     <failOnViolations>true</failOnViolations>
+                    <ignoreClassNamePatterns>
+                        <!-- generated, but with SOURCE level annotation retention policy -->
+                        <ignoreClassNamePattern>nl.b3p.brmo.bgt.download.api.DeltaCustomApi</ignoreClassNamePattern>
+                        <ignoreClassNamePattern>nl.b3p.brmo.bgt.download.api.DeltaApi</ignoreClassNamePattern>
+                    </ignoreClassNamePatterns>
                 </configuration>
                 <executions>
                     <execution>
