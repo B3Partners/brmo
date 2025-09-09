@@ -190,7 +190,8 @@ public class NhrXMLReader extends BrmoXMLReader {
                   .replace(")", "")
                   // komt in bedrijfsnaam voor '& Co'
                   .replace("&", "")
-                  // komt in bedijfsnaam voor 'Radley + Co. Limited'
+                  // komt in bedijfsnaam voor 'Radley + Co. Limited' of 'Jan Wilhelm Arntz GmbH +
+                  // Co.KG'
                   .replace("+", "")
                   // komt in bedijfsnaam voor 'UAB "MANTINGA GROUP"'
                   .replace("\"", "");
