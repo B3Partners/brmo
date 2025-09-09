@@ -191,7 +191,10 @@ public class NhrXMLReader extends BrmoXMLReader {
                   // komt in bedrijfsnaam voor '& Co'
                   .replace("&", "")
                   // komt in bedijfsnaam voor 'Radley + Co. Limited'
-                  .replace("+", "");
+                  .replace("+", "")
+                  // komt in bedijfsnaam voor 'UAB "MANTINGA GROUP"'
+                  .replace("\"", "");
+          ;
           bsnHashes.put(_cleanName, getHash(_cleanName));
         }
       }

@@ -205,7 +205,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
               "8010", "4652", "85592", "6202", "4321"
             },
             10),
-        // EO-78 gevallen
+        //  <editor-fold defaultstate="collapsed" desc="testcases voor EO-78">
         arguments(
             "/nhr-v3/maatschact_br_origineel.anon.xml",
             // aantalBerichten
@@ -278,6 +278,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             new String[] {"86221"},
             // aantalFunctionarissen
             2),
+        // </editor-fold>
         //  <editor-fold defaultstate="collapsed" desc="testcases voor BRMO-419">
         arguments(
             // heeft een buitenlandse persoon met een + in de naam
@@ -303,7 +304,32 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             // sbiCodes,
             new String[] {"47919", "46499", "47722", "47712", "47721"},
             // aantalFunctionarissen
-            1)
+            1),
+        arguments(
+            // heeft een buitenlandse persoon met " in de naam
+            "/nhr-v3/289538.anon.xml",
+            // aantalBerichten
+            3,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            4,
+            // aantalSubj
+            5,
+            // aantalNiet_nat_prs
+            3,
+            // aantalNat_prs
+            1,
+            // hoofd vestgID
+            "nhr.comVestg.000032230524",
+            // aantalVestg_activiteit
+            1,
+            // kvkNummer v MaatschAct
+            63300486,
+            // sbiCodes,
+            new String[] {"46384"},
+            // aantalFunctionarissen
+            2)
         // </editor-fold>
         );
   }
