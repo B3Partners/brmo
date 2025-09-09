@@ -189,7 +189,18 @@ public class NhrXMLReader extends BrmoXMLReader {
                   .replace("(", "")
                   .replace(")", "")
                   // komt in bedrijfsnaam voor '& Co'
-                  .replace("&", "");
+                  .replace("&", "")
+                  // komt in bedrijfsnaam voor 'Radley + Co. Limited' of 'Jan Wilhelm Arntz GmbH +
+                  // Co.KG'
+                  .replace("+", "")
+                  // komt in bedrijfsnaam voor 'UAB "MANTINGA GROUP"'
+                  .replace("\"", "")
+                  //  U+0218 LATIN CAPITAL LETTER S WITH COMMA BELOW, bijv. in 'KESER Makina İmalat
+                  // Montaj Sanayi ve Ticaret Limited Șirketi'
+                  .replace("Ș", "S")
+                  // komt voor in bedrijfsnaam 'OMG@Mathews Ltd'
+                  .replace("@", "")
+                  .replace("?", "");
           bsnHashes.put(_cleanName, getHash(_cleanName));
         }
       }

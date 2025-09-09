@@ -70,8 +70,14 @@
                 <!-- verwijder ongeldige chars zoals spatie, apostrof, haakjes, ampersand
                 zie ook: nl.b3p.brmo.loader.xml.NhrXMLReader#extractBSN() -->
                 <xsl:variable name="APOS">'</xsl:variable>
+                <xsl:variable name="QUOTE">"</xsl:variable>
                 <xsl:variable name="lookfor"
                               select="translate(
+                                      translate(
+                                      translate(
+                                      translate(
+                                      translate(
+                                      translate(
                                       translate(
                                       translate(
                                       translate(
@@ -86,7 +92,12 @@
                                                          ,'/','')
                                                          ,'(','')
                                                          ,')','')
-                                                         ,'&amp;', '')"
+                                                         ,'&amp;', '')
+                                                         ,'+','')
+                                                         ,$QUOTE,'')
+                                                         ,'@','')
+                                                         ,'?','')
+                                                         ,'Ș','S')"
                 />
                 <xsl:variable name="hashsoort" select="'naam.'"/>
 

@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2025-09-09+02:00, zie commentaar in bericht.-->
+<ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                             xmlns:ns2="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+                             peilmoment="20250818103657584">
+   <meldingen>
+      <informatie>
+         <code>IPD0000</code>
+         <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+         <referentie>93152825</referentie>
+      </informatie>
+   </meldingen>
+   <product>
+      <ns2:maatschappelijkeActiviteit>
+         <ns2:registratie registratieTijdstip="20240304162304948">
+            <ns2:datumAanvang>20240304</ns2:datumAanvang>
+         </ns2:registratie>
+         <ns2:kvkNummer>93152825</ns2:kvkNummer>
+         <ns2:nonMailing>
+            <ns2:code>J</ns2:code>
+            <ns2:omschrijving>Ja</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:nonMailing>
+         <ns2:incidenteelUitlenenArbeidskrachten>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:incidenteelUitlenenArbeidskrachten>
+         <ns2:bezoekLocatie>
+            <ns2:registratie registratieTijdstip="20240304162304948">
+               <ns2:datumAanvang>20240304</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Buster Keatonstraat</ns2:straatnaam>
+                  <ns2:huisnummer>9</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>1325</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>CJ</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Almere</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0034200000041060</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0034010000067741</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Buster Keatonstraat 9
+1325CJ Almere</ns2:volledigAdres>
+         </ns2:bezoekLocatie>
+         <ns2:postLocatie>
+            <ns2:registratie registratieTijdstip="20240304162304948">
+               <ns2:datumAanvang>20240304</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Buster Keatonstraat</ns2:straatnaam>
+                  <ns2:huisnummer>9</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>1325</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>CJ</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Almere</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0034200000041060</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0034010000067741</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Buster Keatonstraat 9
+1325CJ Almere</ns2:volledigAdres>
+         </ns2:postLocatie>
+         <ns2:naam>KESER Industrial Solutions B.V.</ns2:naam>
+         <ns2:manifesteertZichAls>
+            <ns2:relatieRegistratie registratieTijdstip="20240304162304948">
+               <ns2:datumAanvang>20240304</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:onderneming>
+               <ns2:registratie registratieTijdstip="20240304162304948">
+                  <ns2:datumAanvang>20240304</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:kvkNummer>93152825</ns2:kvkNummer>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>7112</ns2:code>
+                     <ns2:omschrijving>Ingenieurs en overig technisch ontwerp en advies</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>4120</ns2:code>
+                     <ns2:omschrijving>Algemene burgerlijke en utiliteitsbouw</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>2511</ns2:code>
+                     <ns2:omschrijving>Vervaardiging van metalen constructiewerken en delen daarvan</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:voltijdWerkzamePersonen>0</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>0</ns2:totaalWerkzamePersonen>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>KESER Industrial Solutions B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:wordtUitgeoefendIn>
+                  <ns2:relatieRegistratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:commercieleVestiging>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:vestigingsnummer>000058716262</ns2:vestigingsnummer>
+                     <ns2:bezoekLocatie>
+                        <ns2:registratie registratieTijdstip="20240304162304948">
+                           <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:afgeschermd>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:afgeschermd>
+                        <ns2:adres>
+                           <ns2:binnenlandsAdres>
+                              <ns2:straatnaam>Buster Keatonstraat</ns2:straatnaam>
+                              <ns2:huisnummer>9</ns2:huisnummer>
+                              <ns2:postcode>
+                                 <ns2:cijfercombinatie>1325</ns2:cijfercombinatie>
+                                 <ns2:lettercombinatie>CJ</ns2:lettercombinatie>
+                              </ns2:postcode>
+                              <ns2:plaats>Almere</ns2:plaats>
+                              <ns2:bagId>
+                                 <ns2:identificatieNummeraanduiding>0034200000041060</ns2:identificatieNummeraanduiding>
+                                 <ns2:identificatieAdresseerbaarObject>0034010000067741</ns2:identificatieAdresseerbaarObject>
+                              </ns2:bagId>
+                           </ns2:binnenlandsAdres>
+                        </ns2:adres>
+                        <ns2:volledigAdres>Buster Keatonstraat 9
+1325CJ Almere</ns2:volledigAdres>
+                     </ns2:bezoekLocatie>
+                     <ns2:eersteHandelsnaam>KESER Industrial Solutions B.V.</ns2:eersteHandelsnaam>
+                     <ns2:voltijdWerkzamePersonen>0</ns2:voltijdWerkzamePersonen>
+                     <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+                     <ns2:totaalWerkzamePersonen>0</ns2:totaalWerkzamePersonen>
+                     <ns2:activiteiten>
+                        <ns2:omschrijving>Het leveren van diensten op het gebied van installatie, supervisie, advies, ontwerp en materiaallevering van industriële bekledingen, alsmede het uitvoeren van industriële en civiele bouwwerken, mechanische montagewerken en staalwerken.</ns2:omschrijving>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20240304162304948">
+                              <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>7112</ns2:code>
+                              <ns2:omschrijving>Ingenieurs en overig technisch ontwerp en advies</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>J</ns2:code>
+                              <ns2:omschrijving>Ja</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20240304162304948">
+                              <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>4120</ns2:code>
+                              <ns2:omschrijving>Algemene burgerlijke en utiliteitsbouw</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>N</ns2:code>
+                              <ns2:omschrijving>Nee</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20240304162304948">
+                              <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>2511</ns2:code>
+                              <ns2:omschrijving>Vervaardiging van metalen constructiewerken en delen daarvan</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>N</ns2:code>
+                              <ns2:omschrijving>Nee</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:exporteert>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:exporteert>
+                        <ns2:importeert>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:importeert>
+                     </ns2:activiteiten>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstip="20240304162304948">
+                           <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstip="20240304162304948">
+                              <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>KESER Industrial Solutions B.V.</ns2:naam>
+                           <ns2:volgorde>0</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                  </ns2:commercieleVestiging>
+               </ns2:wordtUitgeoefendIn>
+            </ns2:onderneming>
+         </ns2:manifesteertZichAls>
+         <ns2:wordtGeleidVanuit>
+            <ns2:commercieleVestiging>
+               <ns2:registratie registratieTijdstip="20240304162304948">
+                  <ns2:datumAanvang>20240304</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:vestigingsnummer>000058716262</ns2:vestigingsnummer>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Buster Keatonstraat</ns2:straatnaam>
+                        <ns2:huisnummer>9</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>1325</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>CJ</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Almere</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0034200000041060</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0034010000067741</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Buster Keatonstraat 9
+1325CJ Almere</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+               <ns2:eersteHandelsnaam>KESER Industrial Solutions B.V.</ns2:eersteHandelsnaam>
+               <ns2:voltijdWerkzamePersonen>0</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>0</ns2:totaalWerkzamePersonen>
+               <ns2:activiteiten>
+                  <ns2:omschrijving>Het leveren van diensten op het gebied van installatie, supervisie, advies, ontwerp en materiaallevering van industriële bekledingen, alsmede het uitvoeren van industriële en civiele bouwwerken, mechanische montagewerken en staalwerken.</ns2:omschrijving>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>7112</ns2:code>
+                        <ns2:omschrijving>Ingenieurs en overig technisch ontwerp en advies</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>J</ns2:code>
+                        <ns2:omschrijving>Ja</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>4120</ns2:code>
+                        <ns2:omschrijving>Algemene burgerlijke en utiliteitsbouw</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>N</ns2:code>
+                        <ns2:omschrijving>Nee</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>2511</ns2:code>
+                        <ns2:omschrijving>Vervaardiging van metalen constructiewerken en delen daarvan</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>N</ns2:code>
+                        <ns2:omschrijving>Nee</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:exporteert>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:exporteert>
+                  <ns2:importeert>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:importeert>
+               </ns2:activiteiten>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>KESER Industrial Solutions B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+            </ns2:commercieleVestiging>
+         </ns2:wordtGeleidVanuit>
+         <ns2:heeftAlsEigenaar>
+            <ns2:relatieRegistratie registratieTijdstip="20240304162304948">
+               <ns2:datumAanvang>20240304</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:rechtspersoon>
+               <ns2:extraElementen>
+                  <ns2:extraElement naam="datumAanvangStatuten">20240304</ns2:extraElement>
+                  <ns2:extraElement naam="datumAkteStatuten">20240304</ns2:extraElement>
+               </ns2:extraElementen>
+               <ns2:registratie registratieTijdstip="20240304162304948">
+                  <ns2:datumAanvang>20240304</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:persoonRechtsvorm>Besloten Vennootschap</ns2:persoonRechtsvorm>
+               <ns2:volledigeNaam>KESER Industrial Solutions B.V.</ns2:volledigeNaam>
+               <ns2:uitgebreideRechtsvorm>Besloten Vennootschap</ns2:uitgebreideRechtsvorm>
+               <ns2:heeft>
+                  <ns2:bestuursfunctie>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">6ac96</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>19481109</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>2e5f27 ba3fb</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstip="20240304162304948"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>Sinanoba Mahallesi, Bektaș Çikmazi Sokak No: 5D</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>Büyükçekmece, Istanbul</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>6043</ns2:code>
+                                       <ns2:omschrijving>Turkije</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Sinanoba Mahallesi, Bektaș Çikmazi Sokak No: 5D
+Büyükçekmece, Istanbul
+Turkije</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>6ac96</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>f36baa</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>m</ns2:code>
+                              <ns2:omschrijving>Mannelijk</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>2ec2594</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6043</ns2:code>
+                              <ns2:omschrijving>Turkije</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>19481109</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>02</ns2:code>
+                        <ns2:omschrijving>Bestuurder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstip="20240304162304948">
+                           <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>azb</ns2:code>
+                           <ns2:omschrijving>Alleen/zelfstandig bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidBestuurder</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:isBevoegdMetAnderePersonen>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isBevoegdMetAnderePersonen>
+                     </ns2:bevoegdheid>
+                  </ns2:bestuursfunctie>
+               </ns2:heeft>
+               <ns2:heeft>
+                  <ns2:bestuursfunctie>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">6ac96</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>20230204</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>ae584 bd0a de969</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstip="20240304162304948"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>Erenköy Mahallesi, Azim Sokak Murat Apt. No:4, Iç Kapi No:2</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>Kadiköy, Istanbul</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>6043</ns2:code>
+                                       <ns2:omschrijving>Turkije</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Erenköy Mahallesi, Azim Sokak Murat Apt. No:4, Iç Kapi No:2
+Kadiköy, Istanbul
+Turkije</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>6ac96</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>17e0a c50b</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>v</ns2:code>
+                              <ns2:omschrijving>Vrouwelijk</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>d3bb13ec893ada</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6043</ns2:code>
+                              <ns2:omschrijving>Turkije</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>20230204</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>02</ns2:code>
+                        <ns2:omschrijving>Bestuurder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstip="20240304162304948">
+                           <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>azb</ns2:code>
+                           <ns2:omschrijving>Alleen/zelfstandig bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidBestuurder</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:isBevoegdMetAnderePersonen>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isBevoegdMetAnderePersonen>
+                     </ns2:bevoegdheid>
+                  </ns2:bestuursfunctie>
+               </ns2:heeft>
+               <ns2:heeft>
+                  <ns2:bestuursfunctie>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">6ac96</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>19830710</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>d752e 0dde57c c8193</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstip="20240304162304948"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>Sinanoba Mahallesi, Bektaș Çikmazi Sokak No: 5D</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>Büyükçekmece, Istanbul</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>6043</ns2:code>
+                                       <ns2:omschrijving>Turkije</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Sinanoba Mahallesi, Bektaș Çikmazi Sokak No: 5D
+Büyükçekmece, Istanbul
+Turkije</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>6ac96</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>04404 e824806</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>m</ns2:code>
+                              <ns2:omschrijving>Mannelijk</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>7f572646cd</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6043</ns2:code>
+                              <ns2:omschrijving>Turkije</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>19830710</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>02</ns2:code>
+                        <ns2:omschrijving>Bestuurder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstip="20240304162304948">
+                           <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>azb</ns2:code>
+                           <ns2:omschrijving>Alleen/zelfstandig bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidBestuurder</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:isBevoegdMetAnderePersonen>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isBevoegdMetAnderePersonen>
+                     </ns2:bevoegdheid>
+                  </ns2:bestuursfunctie>
+               </ns2:heeft>
+               <ns2:heeft>
+                  <ns2:overigeFunctionaris>
+                     <ns2:registratie registratieTijdstip="20240304162304948">
+                        <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:buitenlandseVennootschap>
+                           <ns2:persoonRechtsvorm>Overige buitenlandse rechtspersoon of vennootschap</ns2:persoonRechtsvorm>
+                           <ns2:volledigeNaam>KESER Makina İmalat Montaj Sanayi ve Ticaret Limited Șirketi</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstip="20240304162304948">
+                                 <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                              </ns2:registratie>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>19 Mayıs Mahallesi, Atatürk Caddesi, Saydağ Sokak No:4/A</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>34500 Büyükçekmece, Istanbul</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>6043</ns2:code>
+                                       <ns2:omschrijving>Turkije</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>19 Mayıs Mahallesi, Atatürk Caddesi, Saydağ Sokak No:4/A
+34500 Büyükçekmece, Istanbul
+Turkije</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <ns2:buitenlandseRegistratieGegevens>
+                              <ns2:naam>Regionale Administraties Handelsregister</ns2:naam>
+                              <ns2:plaats>İstanbul Ticaret Odası</ns2:plaats>
+                              <ns2:land>
+                                 <ns2:code>6043</ns2:code>
+                                 <ns2:omschrijving>Turkije</ns2:omschrijving>
+                                 <ns2:referentieType>Land</ns2:referentieType>
+                              </ns2:land>
+                              <ns2:inschrijfnummer>385218-0</ns2:inschrijfnummer>
+                              <ns2:buitenlandseRegistratie>Regionale Administraties Handelsregister
+İstanbul Ticaret Odası, Turkije
+Onder nummer 385218-0</ns2:buitenlandseRegistratie>
+                           </ns2:buitenlandseRegistratieGegevens>
+                           <ns2:landVanVestiging>
+                              <ns2:code>6043</ns2:code>
+                              <ns2:omschrijving>Turkije</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:landVanVestiging>
+                        </ns2:buitenlandseVennootschap>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>08</ns2:code>
+                        <ns2:omschrijving>Enig aandeelhouder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                  </ns2:overigeFunctionaris>
+               </ns2:heeft>
+               <ns2:rsin>866295045</ns2:rsin>
+               <ns2:naamgeving>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:naam>KESER Industrial Solutions B.V.</ns2:naam>
+               </ns2:naamgeving>
+               <ns2:rechtsvorm>
+                  <ns2:code>BV</ns2:code>
+                  <ns2:omschrijving>Besloten Vennootschap</ns2:omschrijving>
+                  <ns2:referentieType>Rechtsvorm</ns2:referentieType>
+               </ns2:rechtsvorm>
+               <ns2:statutaireZetel>Rotterdam</ns2:statutaireZetel>
+               <ns2:aanvangStatutaireZetel>20240304</ns2:aanvangStatutaireZetel>
+               <ns2:datumAkteOprichting>20240304</ns2:datumAkteOprichting>
+               <ns2:datumOprichting>20240304</ns2:datumOprichting>
+               <ns2:datumEersteInschrijvingHandelsregister>20240304</ns2:datumEersteInschrijvingHandelsregister>
+               <ns2:datumAkteStatutenwijziging>20240304</ns2:datumAkteStatutenwijziging>
+               <ns2:stelselInrichting>
+                  <ns2:code>D</ns2:code>
+                  <ns2:omschrijving>Dualistisch</ns2:omschrijving>
+                  <ns2:referentieType>StelselInrichting</ns2:referentieType>
+               </ns2:stelselInrichting>
+               <ns2:structuur>
+                  <ns2:code>GS</ns2:code>
+                  <ns2:omschrijving>Gewone structuur</ns2:omschrijving>
+                  <ns2:referentieType>RechtsvormStructuur</ns2:referentieType>
+               </ns2:structuur>
+               <ns2:geplaatstKapitaal>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:bedrag>
+                     <ns2:waarde>100</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:geplaatstKapitaal>
+               <ns2:gestortKapitaal>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:bedrag>
+                     <ns2:waarde>0</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:gestortKapitaal>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20240304162304948">
+                     <ns2:datumAanvang>20240304</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Buster Keatonstraat</ns2:straatnaam>
+                        <ns2:huisnummer>9</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>1325</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>CJ</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Almere</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0034200000041060</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0034010000067741</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Buster Keatonstraat 9
+1325CJ Almere</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+            </ns2:rechtspersoon>
+         </ns2:heeftAlsEigenaar>
+      </ns2:maatschappelijkeActiviteit>
+   </product>
+</ophalenInschrijvingResponse>

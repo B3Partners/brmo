@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2025-09-09+02:00, zie commentaar in bericht.-->
+<ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                             xmlns:ns2="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+                             peilmoment="20250818103657584">
+   <meldingen>
+      <informatie>
+         <code>IPD0000</code>
+         <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+         <referentie>39052953</referentie>
+      </informatie>
+   </meldingen>
+   <product>
+      <ns2:maatschappelijkeActiviteit>
+         <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+            <ns2:datumAanvang>19550701</ns2:datumAanvang>
+         </ns2:registratie>
+         <ns2:kvkNummer>39052953</ns2:kvkNummer>
+         <ns2:nonMailing>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:nonMailing>
+         <ns2:incidenteelUitlenenArbeidskrachten>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:incidenteelUitlenenArbeidskrachten>
+         <ns2:bezoekLocatie>
+            <ns2:registratie registratieTijdstip="20211201081841176">
+               <ns2:datumAanvang>20211201</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Edvard Munchweg</ns2:straatnaam>
+                  <ns2:huisnummer>29</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>MA</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Almere</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0034200000075865</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0034010000076871</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Edvard Munchweg 29
+1328MA Almere</ns2:volledigAdres>
+         </ns2:bezoekLocatie>
+         <ns2:postLocatie>
+            <ns2:registratie registratieTijdstip="20211201081841176">
+               <ns2:datumAanvang>20211201</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Edvard Munchweg</ns2:straatnaam>
+                  <ns2:huisnummer>29</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>MA</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Almere</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0034200000075865</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0034010000076871</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Edvard Munchweg 29
+1328MA Almere</ns2:volledigAdres>
+         </ns2:postLocatie>
+         <ns2:communicatiegegevens>
+            <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>19550701</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:communicatienummer>
+               <ns2:toegangscode>+31</ns2:toegangscode>
+               <ns2:nummer>0365365483</ns2:nummer>
+               <ns2:soort>
+                  <ns2:code>T</ns2:code>
+                  <ns2:omschrijving>Telefoon</ns2:omschrijving>
+               </ns2:soort>
+            </ns2:communicatienummer>
+            <ns2:emailAdres>info@arntz-nl.com</ns2:emailAdres>
+         </ns2:communicatiegegevens>
+         <ns2:naam>ARNTZ Nederland B.V.</ns2:naam>
+         <ns2:manifesteertZichAls>
+            <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>19720911</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:onderneming>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>19550701</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:kvkNummer>39052953</ns2:kvkNummer>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19550701</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>4662</ns2:code>
+                     <ns2:omschrijving>Groothandel in gereedschapswerktuigen</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:voltijdWerkzamePersonen>21</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>1</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>22</ns2:totaalWerkzamePersonen>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20001002</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>ARNTZ Nederland B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:wordtUitgeoefendIn>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19720911</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:commercieleVestiging>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19550701</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:vestigingsnummer>000018129943</ns2:vestigingsnummer>
+                     <ns2:bezoekLocatie>
+                        <ns2:registratie registratieTijdstip="20211201081841176">
+                           <ns2:datumAanvang>20211201</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:afgeschermd>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:afgeschermd>
+                        <ns2:adres>
+                           <ns2:binnenlandsAdres>
+                              <ns2:straatnaam>Edvard Munchweg</ns2:straatnaam>
+                              <ns2:huisnummer>29</ns2:huisnummer>
+                              <ns2:postcode>
+                                 <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                                 <ns2:lettercombinatie>MA</ns2:lettercombinatie>
+                              </ns2:postcode>
+                              <ns2:plaats>Almere</ns2:plaats>
+                              <ns2:bagId>
+                                 <ns2:identificatieNummeraanduiding>0034200000075865</ns2:identificatieNummeraanduiding>
+                                 <ns2:identificatieAdresseerbaarObject>0034010000076871</ns2:identificatieAdresseerbaarObject>
+                              </ns2:bagId>
+                           </ns2:binnenlandsAdres>
+                        </ns2:adres>
+                        <ns2:volledigAdres>Edvard Munchweg 29
+1328MA Almere</ns2:volledigAdres>
+                     </ns2:bezoekLocatie>
+                     <ns2:communicatiegegevens>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19550701</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:communicatienummer>
+                           <ns2:toegangscode>+31</ns2:toegangscode>
+                           <ns2:nummer>0365365483</ns2:nummer>
+                           <ns2:soort>
+                              <ns2:code>T</ns2:code>
+                              <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                           </ns2:soort>
+                        </ns2:communicatienummer>
+                        <ns2:emailAdres>info@arntz-nl.com</ns2:emailAdres>
+                     </ns2:communicatiegegevens>
+                     <ns2:eersteHandelsnaam>ARNTZ Nederland B.V.</ns2:eersteHandelsnaam>
+                     <ns2:voltijdWerkzamePersonen>21</ns2:voltijdWerkzamePersonen>
+                     <ns2:deeltijdWerkzamePersonen>1</ns2:deeltijdWerkzamePersonen>
+                     <ns2:totaalWerkzamePersonen>22</ns2:totaalWerkzamePersonen>
+                     <ns2:activiteiten>
+                        <ns2:omschrijving>(groot) handel/reparatie van zagen, frezen en aanverwante artikelen.</ns2:omschrijving>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>19550701</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>4662</ns2:code>
+                              <ns2:omschrijving>Groothandel in gereedschapswerktuigen</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>J</ns2:code>
+                              <ns2:omschrijving>Ja</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:exporteert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:exporteert>
+                        <ns2:importeert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:importeert>
+                     </ns2:activiteiten>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>20001002</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <ns2:datumAanvang>20001002</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>ARNTZ Nederland B.V.</ns2:naam>
+                           <ns2:volgorde>0</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                  </ns2:commercieleVestiging>
+               </ns2:wordtUitgeoefendIn>
+            </ns2:onderneming>
+         </ns2:manifesteertZichAls>
+         <ns2:wordtGeleidVanuit>
+            <ns2:commercieleVestiging>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>19550701</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:vestigingsnummer>000018129943</ns2:vestigingsnummer>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20211201081841176">
+                     <ns2:datumAanvang>20211201</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Edvard Munchweg</ns2:straatnaam>
+                        <ns2:huisnummer>29</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>MA</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Almere</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0034200000075865</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0034010000076871</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Edvard Munchweg 29
+1328MA Almere</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+               <ns2:communicatiegegevens>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>19550701</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:communicatienummer>
+                     <ns2:toegangscode>+31</ns2:toegangscode>
+                     <ns2:nummer>0365365483</ns2:nummer>
+                     <ns2:soort>
+                        <ns2:code>T</ns2:code>
+                        <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                     </ns2:soort>
+                  </ns2:communicatienummer>
+                  <ns2:emailAdres>info@arntz-nl.com</ns2:emailAdres>
+               </ns2:communicatiegegevens>
+               <ns2:eersteHandelsnaam>ARNTZ Nederland B.V.</ns2:eersteHandelsnaam>
+               <ns2:voltijdWerkzamePersonen>21</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>1</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>22</ns2:totaalWerkzamePersonen>
+               <ns2:activiteiten>
+                  <ns2:omschrijving>(groot) handel/reparatie van zagen, frezen en aanverwante artikelen.</ns2:omschrijving>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19550701</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>4662</ns2:code>
+                        <ns2:omschrijving>Groothandel in gereedschapswerktuigen</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>J</ns2:code>
+                        <ns2:omschrijving>Ja</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:exporteert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:exporteert>
+                  <ns2:importeert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:importeert>
+               </ns2:activiteiten>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20001002</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20001002</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>ARNTZ Nederland B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+            </ns2:commercieleVestiging>
+         </ns2:wordtGeleidVanuit>
+         <ns2:heeftAlsEigenaar>
+            <ns2:relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+               <ns2:datumAanvang>19550701</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:rechtspersoon>
+               <ns2:extraElementen>
+                  <ns2:extraElement naam="datumAanvangStatuten">20001002</ns2:extraElement>
+                  <ns2:extraElement naam="datumAkteStatuten">20001002</ns2:extraElement>
+               </ns2:extraElementen>
+               <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <ns2:datumAanvang>19550701</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:persoonRechtsvorm>Besloten Vennootschap</ns2:persoonRechtsvorm>
+               <ns2:volledigeNaam>ARNTZ Nederland B.V.</ns2:volledigeNaam>
+               <ns2:uitgebreideRechtsvorm>Besloten Vennootschap</ns2:uitgebreideRechtsvorm>
+               <ns2:heeft>
+                  <ns2:bestuursfunctie>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>19991221</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:functietitel>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19991221</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:titel>Directeur</ns2:titel>
+                        <ns2:isStatutaireTitel>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isStatutaireTitel>
+                     </ns2:functietitel>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">dc9ea</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>19670801</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>5d3 29f2e5c 5cd5c</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>Brüderstrasse 53</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>D42853 Remscheid</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>9089</ns2:code>
+                                       <ns2:omschrijving>Bondsrepubliek Duitsland</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Brüderstrasse 53
+D42853 Remscheid
+Bondsrepubliek Duitsland</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>dc9ea</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>d7c 3913ac6</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>o</ns2:code>
+                              <ns2:omschrijving>Onbekend</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>2f31df10d</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6029</ns2:code>
+                              <ns2:omschrijving>Duitsland</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>19670801</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>02</ns2:code>
+                        <ns2:omschrijving>Bestuurder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <ns2:datumAanvang>19991221</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>azb</ns2:code>
+                           <ns2:omschrijving>Alleen/zelfstandig bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidBestuurder</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:isBevoegdMetAnderePersonen>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isBevoegdMetAnderePersonen>
+                     </ns2:bevoegdheid>
+                  </ns2:bestuursfunctie>
+               </ns2:heeft>
+               <ns2:heeft>
+                  <ns2:overigeFunctionaris>
+                     <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <ns2:datumAanvang>20100108</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:buitenlandseVennootschap>
+                           <ns2:persoonRechtsvorm>Overige buitenlandse rechtspersoon of vennootschap</ns2:persoonRechtsvorm>
+                           <ns2:volledigeNaam>Jan Wilhelm Arntz GmbH + Co.KG</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>Brüderstrasse 53</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>42853 Remscheid</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>9089</ns2:code>
+                                       <ns2:omschrijving>Bondsrepubliek Duitsland</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Brüderstrasse 53
+42853 Remscheid
+Bondsrepubliek Duitsland</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <ns2:buitenlandseRegistratieGegevens>
+                              <ns2:naam>Wuppertal - Handelsregister</ns2:naam>
+                              <ns2:plaats>Wuppertal</ns2:plaats>
+                              <ns2:land>
+                                 <ns2:code>9089</ns2:code>
+                                 <ns2:omschrijving>Bondsrepubliek Duitsland</ns2:omschrijving>
+                                 <ns2:referentieType>Land</ns2:referentieType>
+                              </ns2:land>
+                              <ns2:inschrijfnummer>HRA 22905</ns2:inschrijfnummer>
+                              <ns2:buitenlandseRegistratie>Wuppertal - Handelsregister
+Wuppertal, Bondsrepubliek Duitsland
+Onder nummer HRA 22905</ns2:buitenlandseRegistratie>
+                           </ns2:buitenlandseRegistratieGegevens>
+                           <ns2:landVanVestiging>
+                              <ns2:code>9089</ns2:code>
+                              <ns2:omschrijving>Bondsrepubliek Duitsland</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:landVanVestiging>
+                        </ns2:buitenlandseVennootschap>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>08</ns2:code>
+                        <ns2:omschrijving>Enig aandeelhouder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                  </ns2:overigeFunctionaris>
+               </ns2:heeft>
+               <ns2:rsin>001066845</ns2:rsin>
+               <ns2:naamgeving>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <ns2:datumAanvang>20001002</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:naam>ARNTZ Nederland B.V.</ns2:naam>
+               </ns2:naamgeving>
+               <ns2:heeftGedeponeerd>
+                  <ns2:jaarstukJaarrekening>
+                     <ns2:depotId>244627:179e584e372:-4d78</ns2:depotId>
+                     <ns2:soortDeponering>Jaarrekening (art. 394 lid 1 BW2)</ns2:soortDeponering>
+                     <ns2:status>
+                        <ns2:code>1</ns2:code>
+                        <ns2:omschrijving>Actueel</ns2:omschrijving>
+                        <ns2:referentieType>StatusDepotstuk</ns2:referentieType>
+                     </ns2:status>
+                     <ns2:datumDeponering>20210607</ns2:datumDeponering>
+                     <ns2:boekjaar>2020</ns2:boekjaar>
+                     <ns2:datumVaststelling>20210520</ns2:datumVaststelling>
+                     <ns2:vaststelling>
+                        <ns2:code>D</ns2:code>
+                        <ns2:omschrijving>Definitief</ns2:omschrijving>
+                        <ns2:referentieType>VaststellingJaarrekening</ns2:referentieType>
+                     </ns2:vaststelling>
+                     <ns2:grootte>
+                        <ns2:code>klein</ns2:code>
+                        <ns2:omschrijving>Klein</ns2:omschrijving>
+                     </ns2:grootte>
+                     <ns2:buitenlandseJaarrekening>
+                        <ns2:code>N</ns2:code>
+                        <ns2:omschrijving>Nee</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:buitenlandseJaarrekening>
+                  </ns2:jaarstukJaarrekening>
+               </ns2:heeftGedeponeerd>
+               <ns2:rechtsvorm>
+                  <ns2:code>BV</ns2:code>
+                  <ns2:omschrijving>Besloten Vennootschap</ns2:omschrijving>
+                  <ns2:referentieType>Rechtsvorm</ns2:referentieType>
+               </ns2:rechtsvorm>
+               <ns2:statutaireZetel>Almere</ns2:statutaireZetel>
+               <ns2:aanvangStatutaireZetel>19550701</ns2:aanvangStatutaireZetel>
+               <ns2:datumAkteOprichting>19550701</ns2:datumAkteOprichting>
+               <ns2:datumEersteInschrijvingHandelsregister>19551121</ns2:datumEersteInschrijvingHandelsregister>
+               <ns2:datumAkteStatutenwijziging>20001002</ns2:datumAkteStatutenwijziging>
+               <ns2:stelselInrichting>
+                  <ns2:code>D</ns2:code>
+                  <ns2:omschrijving>Dualistisch</ns2:omschrijving>
+                  <ns2:referentieType>StelselInrichting</ns2:referentieType>
+               </ns2:stelselInrichting>
+               <ns2:structuur>
+                  <ns2:code>GS</ns2:code>
+                  <ns2:omschrijving>Gewone structuur</ns2:omschrijving>
+                  <ns2:referentieType>RechtsvormStructuur</ns2:referentieType>
+               </ns2:structuur>
+               <ns2:geplaatstKapitaal>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                  <ns2:bedrag>
+                     <ns2:waarde>113445.05</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:geplaatstKapitaal>
+               <ns2:gestortKapitaal>
+                  <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                  <ns2:bedrag>
+                     <ns2:waarde>113445.05</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:gestortKapitaal>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20211201081841176">
+                     <ns2:datumAanvang>20211201</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Edvard Munchweg</ns2:straatnaam>
+                        <ns2:huisnummer>29</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>MA</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Almere</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0034200000075865</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0034010000076871</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Edvard Munchweg 29
+1328MA Almere</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+            </ns2:rechtspersoon>
+         </ns2:heeftAlsEigenaar>
+      </ns2:maatschappelijkeActiviteit>
+   </product>
+</ophalenInschrijvingResponse>

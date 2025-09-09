@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2025-09-09+02:00, zie commentaar in bericht.-->
+<ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                             xmlns:ns2="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+                             peilmoment="20250818103657584">
+   <meldingen>
+      <informatie>
+         <code>IPD0000</code>
+         <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+         <referentie>63300486</referentie>
+      </informatie>
+   </meldingen>
+   <product>
+      <ns2:maatschappelijkeActiviteit>
+         <ns2:registratie registratieTijdstip="20150512155308324">
+            <ns2:datumAanvang>20150511</ns2:datumAanvang>
+         </ns2:registratie>
+         <ns2:kvkNummer>63300486</ns2:kvkNummer>
+         <ns2:nonMailing>
+            <ns2:code>J</ns2:code>
+            <ns2:omschrijving>Ja</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:nonMailing>
+         <ns2:incidenteelUitlenenArbeidskrachten>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:incidenteelUitlenenArbeidskrachten>
+         <ns2:bezoekLocatie>
+            <ns2:registratie registratieTijdstip="20240722123852318">
+               <ns2:datumAanvang>20240720</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Aambeeld</ns2:straatnaam>
+                  <ns2:huisnummer>16</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>8307</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>EC</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Ens</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0171200000022341</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0171010000022341</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Aambeeld 16
+8307EC Ens</ns2:volledigAdres>
+         </ns2:bezoekLocatie>
+         <ns2:postLocatie>
+            <ns2:registratie registratieTijdstip="20240722123852318">
+               <ns2:datumAanvang>20240720</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Aambeeld</ns2:straatnaam>
+                  <ns2:huisnummer>16</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>8307</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>EC</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Ens</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0171200000022341</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0171010000022341</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Aambeeld 16
+8307EC Ens</ns2:volledigAdres>
+         </ns2:postLocatie>
+         <ns2:communicatiegegevens>
+            <ns2:registratie registratieTijdstip="20150512155308324">
+               <ns2:datumAanvang>20150511</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:communicatienummer>
+               <ns2:toegangscode>+31</ns2:toegangscode>
+               <ns2:nummer>0646317064</ns2:nummer>
+               <ns2:soort>
+                  <ns2:code>T</ns2:code>
+                  <ns2:omschrijving>Telefoon</ns2:omschrijving>
+               </ns2:soort>
+            </ns2:communicatienummer>
+         </ns2:communicatiegegevens>
+         <ns2:naam>F&amp;L Sales B.V.</ns2:naam>
+         <ns2:manifesteertZichAls>
+            <ns2:relatieRegistratie registratieTijdstip="20150512155308324">
+               <ns2:datumAanvang>20150511</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:onderneming>
+               <ns2:registratie registratieTijdstip="20150512155308324">
+                  <ns2:datumAanvang>20150511</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:kvkNummer>63300486</ns2:kvkNummer>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>46384</ns2:code>
+                     <ns2:omschrijving>Groothandel in bakkerijgrondstoffen</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>1</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>2</ns2:totaalWerkzamePersonen>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstip="20150512155308324">
+                        <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>F&amp;L Sales B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:wordtUitgeoefendIn>
+                  <ns2:relatieRegistratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:commercieleVestiging>
+                     <ns2:registratie registratieTijdstip="20150512155308324">
+                        <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:vestigingsnummer>000032230524</ns2:vestigingsnummer>
+                     <ns2:bezoekLocatie>
+                        <ns2:registratie registratieTijdstip="20240722123852318">
+                           <ns2:datumAanvang>20240720</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:afgeschermd>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:afgeschermd>
+                        <ns2:adres>
+                           <ns2:binnenlandsAdres>
+                              <ns2:straatnaam>Aambeeld</ns2:straatnaam>
+                              <ns2:huisnummer>16</ns2:huisnummer>
+                              <ns2:postcode>
+                                 <ns2:cijfercombinatie>8307</ns2:cijfercombinatie>
+                                 <ns2:lettercombinatie>EC</ns2:lettercombinatie>
+                              </ns2:postcode>
+                              <ns2:plaats>Ens</ns2:plaats>
+                              <ns2:bagId>
+                                 <ns2:identificatieNummeraanduiding>0171200000022341</ns2:identificatieNummeraanduiding>
+                                 <ns2:identificatieAdresseerbaarObject>0171010000022341</ns2:identificatieAdresseerbaarObject>
+                              </ns2:bagId>
+                           </ns2:binnenlandsAdres>
+                        </ns2:adres>
+                        <ns2:volledigAdres>Aambeeld 16
+8307EC Ens</ns2:volledigAdres>
+                     </ns2:bezoekLocatie>
+                     <ns2:communicatiegegevens>
+                        <ns2:registratie registratieTijdstip="20150512155308324">
+                           <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:communicatienummer>
+                           <ns2:toegangscode>+31</ns2:toegangscode>
+                           <ns2:nummer>0646317064</ns2:nummer>
+                           <ns2:soort>
+                              <ns2:code>T</ns2:code>
+                              <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                           </ns2:soort>
+                        </ns2:communicatienummer>
+                     </ns2:communicatiegegevens>
+                     <ns2:eersteHandelsnaam>F&amp;L Sales B.V.</ns2:eersteHandelsnaam>
+                     <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+                     <ns2:deeltijdWerkzamePersonen>1</ns2:deeltijdWerkzamePersonen>
+                     <ns2:totaalWerkzamePersonen>2</ns2:totaalWerkzamePersonen>
+                     <ns2:activiteiten>
+                        <ns2:omschrijving>Het aankopen en verkopen van brood- en banketproducten en andere voedingswaren, het stimuleren, bemiddelen en uitbreiden van verkoop van brood- en banketproducten en andere voedingswaren voor en door bedrijven, alles in de ruimste zin van het woord.</ns2:omschrijving>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20150512155308324">
+                              <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>46384</ns2:code>
+                              <ns2:omschrijving>Groothandel in bakkerijgrondstoffen</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>J</ns2:code>
+                              <ns2:omschrijving>Ja</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:exporteert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:exporteert>
+                        <ns2:importeert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:importeert>
+                     </ns2:activiteiten>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstip="20150512155308324">
+                           <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstip="20150512155308324">
+                              <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>F&amp;L Sales B.V.</ns2:naam>
+                           <ns2:volgorde>0</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                  </ns2:commercieleVestiging>
+               </ns2:wordtUitgeoefendIn>
+            </ns2:onderneming>
+         </ns2:manifesteertZichAls>
+         <ns2:wordtGeleidVanuit>
+            <ns2:commercieleVestiging>
+               <ns2:registratie registratieTijdstip="20150512155308324">
+                  <ns2:datumAanvang>20150511</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:vestigingsnummer>000032230524</ns2:vestigingsnummer>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20240722123852318">
+                     <ns2:datumAanvang>20240720</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Aambeeld</ns2:straatnaam>
+                        <ns2:huisnummer>16</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>8307</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>EC</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Ens</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0171200000022341</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0171010000022341</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Aambeeld 16
+8307EC Ens</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+               <ns2:communicatiegegevens>
+                  <ns2:registratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:communicatienummer>
+                     <ns2:toegangscode>+31</ns2:toegangscode>
+                     <ns2:nummer>0646317064</ns2:nummer>
+                     <ns2:soort>
+                        <ns2:code>T</ns2:code>
+                        <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                     </ns2:soort>
+                  </ns2:communicatienummer>
+               </ns2:communicatiegegevens>
+               <ns2:eersteHandelsnaam>F&amp;L Sales B.V.</ns2:eersteHandelsnaam>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>1</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>2</ns2:totaalWerkzamePersonen>
+               <ns2:activiteiten>
+                  <ns2:omschrijving>Het aankopen en verkopen van brood- en banketproducten en andere voedingswaren, het stimuleren, bemiddelen en uitbreiden van verkoop van brood- en banketproducten en andere voedingswaren voor en door bedrijven, alles in de ruimste zin van het woord.</ns2:omschrijving>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20150512155308324">
+                        <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>46384</ns2:code>
+                        <ns2:omschrijving>Groothandel in bakkerijgrondstoffen</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>J</ns2:code>
+                        <ns2:omschrijving>Ja</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:exporteert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:exporteert>
+                  <ns2:importeert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:importeert>
+               </ns2:activiteiten>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstip="20150512155308324">
+                        <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>F&amp;L Sales B.V.</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+            </ns2:commercieleVestiging>
+         </ns2:wordtGeleidVanuit>
+         <ns2:heeftAlsEigenaar>
+            <ns2:relatieRegistratie registratieTijdstip="20150512155308324">
+               <ns2:datumAanvang>20150511</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:rechtspersoon>
+               <ns2:extraElementen>
+                  <ns2:extraElement naam="datumAanvangStatuten">20150511</ns2:extraElement>
+                  <ns2:extraElement naam="datumAkteStatuten">20150511</ns2:extraElement>
+               </ns2:extraElementen>
+               <ns2:registratie registratieTijdstip="20150512155308324">
+                  <ns2:datumAanvang>20150511</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:persoonRechtsvorm>Besloten Vennootschap</ns2:persoonRechtsvorm>
+               <ns2:volledigeNaam>F&amp;L Sales B.V.</ns2:volledigeNaam>
+               <ns2:uitgebreideRechtsvorm>Besloten Vennootschap</ns2:uitgebreideRechtsvorm>
+               <ns2:heeft>
+                  <ns2:bestuursfunctie>
+                     <ns2:registratie registratieTijdstip="20150512155308324">
+                        <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:functietitel>
+                        <ns2:registratie registratieTijdstip="20150512155308324">
+                           <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:titel>Algemeen directeur</ns2:titel>
+                        <ns2:isStatutaireTitel>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isStatutaireTitel>
+                     </ns2:functietitel>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">523300f</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>20210127</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>640ef52281 1d7258 ada0741a b8a6fe3</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstip="20240715061039837"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:binnenlandsAdres>
+                                    <ns2:straatnaam>Aambeeld</ns2:straatnaam>
+                                    <ns2:huisnummer>16</ns2:huisnummer>
+                                    <ns2:postcode>
+                                       <ns2:cijfercombinatie>8307</ns2:cijfercombinatie>
+                                       <ns2:lettercombinatie>EC</ns2:lettercombinatie>
+                                    </ns2:postcode>
+                                    <ns2:plaats>Ens</ns2:plaats>
+                                    <ns2:bagId>
+                                       <ns2:identificatieNummeraanduiding>0171200000022341</ns2:identificatieNummeraanduiding>
+                                       <ns2:identificatieAdresseerbaarObject>0171010000022341</ns2:identificatieAdresseerbaarObject>
+                                    </ns2:bagId>
+                                 </ns2:binnenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Aambeeld 16
+8307EC Ens</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn>226360306</ns2:bsn>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>523300f</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>c3d98f6b60 313d18 dc981358</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>m</ns2:code>
+                              <ns2:omschrijving>Mannelijk</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>47a7e16</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6030</ns2:code>
+                              <ns2:omschrijving>Nederland</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>20210127</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>02</ns2:code>
+                        <ns2:omschrijving>Bestuurder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstip="20150512155308324">
+                           <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>azb</ns2:code>
+                           <ns2:omschrijving>Alleen/zelfstandig bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidBestuurder</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:isBevoegdMetAnderePersonen>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isBevoegdMetAnderePersonen>
+                     </ns2:bevoegdheid>
+                  </ns2:bestuursfunctie>
+               </ns2:heeft>
+               <ns2:heeft>
+                  <ns2:overigeFunctionaris>
+                     <ns2:registratie registratieTijdstip="20250731112258783">
+                        <ns2:datumAanvang>20250731</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:door>
+                        <ns2:buitenlandseVennootschap>
+                           <ns2:persoonRechtsvorm>Overige buitenlandse rechtspersoon of vennootschap</ns2:persoonRechtsvorm>
+                           <ns2:volledigeNaam>UAB "MANTINGA GROUP"</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstip="20250731112258783">
+                                 <ns2:datumAanvang>20250731</ns2:datumAanvang>
+                              </ns2:registratie>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:buitenlandsAdres>
+                                    <ns2:straatHuisnummer>Stoties g. 51</ns2:straatHuisnummer>
+                                    <ns2:postcodeWoonplaats>LT-68261 Marijampolė</ns2:postcodeWoonplaats>
+                                    <ns2:land>
+                                       <ns2:code>7066</ns2:code>
+                                       <ns2:omschrijving>Litouwen</ns2:omschrijving>
+                                       <ns2:referentieType>Land</ns2:referentieType>
+                                    </ns2:land>
+                                 </ns2:buitenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Stoties g. 51
+LT-68261 Marijampolė
+Litouwen</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <ns2:buitenlandseRegistratieGegevens>
+                              <ns2:naam>Juridinių asmenų registras</ns2:naam>
+                              <ns2:land>
+                                 <ns2:code>7066</ns2:code>
+                                 <ns2:omschrijving>Litouwen</ns2:omschrijving>
+                                 <ns2:referentieType>Land</ns2:referentieType>
+                              </ns2:land>
+                              <ns2:inschrijfnummer>305572684</ns2:inschrijfnummer>
+                              <ns2:buitenlandseRegistratie>Juridinių asmenų registras
+Litouwen
+Onder nummer 305572684</ns2:buitenlandseRegistratie>
+                           </ns2:buitenlandseRegistratieGegevens>
+                           <ns2:landVanVestiging>
+                              <ns2:code>7066</ns2:code>
+                              <ns2:omschrijving>Litouwen</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:landVanVestiging>
+                        </ns2:buitenlandseVennootschap>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>08</ns2:code>
+                        <ns2:omschrijving>Enig aandeelhouder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                  </ns2:overigeFunctionaris>
+               </ns2:heeft>
+               <ns2:rsin>855175904</ns2:rsin>
+               <ns2:naamgeving>
+                  <ns2:registratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:naam>F&amp;L Sales B.V.</ns2:naam>
+               </ns2:naamgeving>
+               <ns2:heeftGedeponeerd>
+                  <ns2:jaarstukJaarrekening>
+                     <ns2:depotId>7c3c8da4:195ad72b3cb:420</ns2:depotId>
+                     <ns2:soortDeponering>Jaarrekening (art. 394 lid 1 BW2)</ns2:soortDeponering>
+                     <ns2:status>
+                        <ns2:code>1</ns2:code>
+                        <ns2:omschrijving>Actueel</ns2:omschrijving>
+                        <ns2:referentieType>StatusDepotstuk</ns2:referentieType>
+                     </ns2:status>
+                     <ns2:datumDeponering>20250319</ns2:datumDeponering>
+                     <ns2:boekjaar>2024</ns2:boekjaar>
+                     <ns2:datumVaststelling>20250318</ns2:datumVaststelling>
+                     <ns2:vaststelling>
+                        <ns2:code>D</ns2:code>
+                        <ns2:omschrijving>Definitief</ns2:omschrijving>
+                        <ns2:referentieType>VaststellingJaarrekening</ns2:referentieType>
+                     </ns2:vaststelling>
+                     <ns2:grootte>
+                        <ns2:code>klein</ns2:code>
+                        <ns2:omschrijving>Klein</ns2:omschrijving>
+                     </ns2:grootte>
+                     <ns2:buitenlandseJaarrekening>
+                        <ns2:code>N</ns2:code>
+                        <ns2:omschrijving>Nee</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:buitenlandseJaarrekening>
+                  </ns2:jaarstukJaarrekening>
+               </ns2:heeftGedeponeerd>
+               <ns2:rechtsvorm>
+                  <ns2:code>BV</ns2:code>
+                  <ns2:omschrijving>Besloten Vennootschap</ns2:omschrijving>
+                  <ns2:referentieType>Rechtsvorm</ns2:referentieType>
+               </ns2:rechtsvorm>
+               <ns2:statutaireZetel>Dalfsen</ns2:statutaireZetel>
+               <ns2:aanvangStatutaireZetel>20150511</ns2:aanvangStatutaireZetel>
+               <ns2:datumAkteOprichting>20150511</ns2:datumAkteOprichting>
+               <ns2:datumOprichting>20150511</ns2:datumOprichting>
+               <ns2:datumEersteInschrijvingHandelsregister>20150512</ns2:datumEersteInschrijvingHandelsregister>
+               <ns2:datumAkteStatutenwijziging>20150511</ns2:datumAkteStatutenwijziging>
+               <ns2:stelselInrichting>
+                  <ns2:code>D</ns2:code>
+                  <ns2:omschrijving>Dualistisch</ns2:omschrijving>
+                  <ns2:referentieType>StelselInrichting</ns2:referentieType>
+               </ns2:stelselInrichting>
+               <ns2:structuur>
+                  <ns2:code>GS</ns2:code>
+                  <ns2:omschrijving>Gewone structuur</ns2:omschrijving>
+                  <ns2:referentieType>RechtsvormStructuur</ns2:referentieType>
+               </ns2:structuur>
+               <ns2:geplaatstKapitaal>
+                  <ns2:registratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:bedrag>
+                     <ns2:waarde>10</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:geplaatstKapitaal>
+               <ns2:gestortKapitaal>
+                  <ns2:registratie registratieTijdstip="20150512155308324">
+                     <ns2:datumAanvang>20150511</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:bedrag>
+                     <ns2:waarde>10</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:gestortKapitaal>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20240722123852318">
+                     <ns2:datumAanvang>20240720</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Aambeeld</ns2:straatnaam>
+                        <ns2:huisnummer>16</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>8307</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>EC</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Ens</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0171200000022341</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0171010000022341</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Aambeeld 16
+8307EC Ens</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+            </ns2:rechtspersoon>
+         </ns2:heeftAlsEigenaar>
+      </ns2:maatschappelijkeActiviteit>
+   </product>
+</ophalenInschrijvingResponse>
