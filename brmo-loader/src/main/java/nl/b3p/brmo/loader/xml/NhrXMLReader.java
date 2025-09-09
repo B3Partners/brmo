@@ -194,7 +194,10 @@ public class NhrXMLReader extends BrmoXMLReader {
                   // Co.KG'
                   .replace("+", "")
                   // komt in bedijfsnaam voor 'UAB "MANTINGA GROUP"'
-                  .replace("\"", "");
+                  .replace("\"", "")
+                  //  U+0218 LATIN CAPITAL LETTER S WITH COMMA BELOW, bijv. in 'KESER Makina İmalat
+                  // Montaj Sanayi ve Ticaret Limited Șirketi'
+                  .replace("Ș", "S");
           ;
           bsnHashes.put(_cleanName, getHash(_cleanName));
         }

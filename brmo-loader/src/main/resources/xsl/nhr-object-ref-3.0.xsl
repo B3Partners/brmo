@@ -82,6 +82,7 @@
                                       translate(
                                       translate(
                                       translate(
+                                      translate(
                                         cat:volledigeNaam,' ','')
                                                          ,$APOS,'')
                                                          ,'.','')
@@ -91,7 +92,8 @@
                                                          ,')','')
                                                          ,'&amp;', '')
                                                          ,'+','')
-                                                         ,$QUOTE,'')"
+                                                         ,$QUOTE,'')
+                                                         ,'Ș','S')"
                 />
                 <xsl:variable name="hashsoort" select="'naam.'"/>
 

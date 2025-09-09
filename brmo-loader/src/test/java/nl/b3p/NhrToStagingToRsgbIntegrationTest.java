@@ -354,7 +354,32 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             // sbiCodes,
             new String[] {"4662"},
             // aantalFunctionarissen
-            2)
+            2),
+        arguments(
+            "/nhr-v3/BRMO-419/origineel/289544.xml",
+            //                    "/nhr-v3/289544.anon.xml",
+            // aantalBerichten
+            3,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            6,
+            // aantalSubj
+            7,
+            // aantalNiet_nat_prs
+            3,
+            // aantalNat_prs
+            3,
+            // hoofd vestgID
+            "nhr.comVestg.000058716262",
+            // aantalVestg_activiteit
+            3,
+            // kvkNummer v MaatschAct
+            93152825,
+            // sbiCodes,
+            new String[] {"7112", "4120", "2511"},
+            // aantalFunctionarissen
+            4)
         // </editor-fold>
         );
   }
