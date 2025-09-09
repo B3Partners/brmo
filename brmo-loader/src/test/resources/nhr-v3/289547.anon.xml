@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2025-09-09+02:00, zie commentaar in bericht.-->
+<ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                             xmlns:ns2="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+                             peilmoment="20250818103657584">
+   <meldingen>
+      <informatie>
+         <code>IPD0000</code>
+         <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+         <referentie>97113131</referentie>
+      </informatie>
+   </meldingen>
+   <product>
+      <ns2:maatschappelijkeActiviteit>
+         <ns2:registratie registratieTijdstip="20250425153458627">
+            <ns2:datumAanvang>20250319</ns2:datumAanvang>
+         </ns2:registratie>
+         <ns2:kvkNummer>97113131</ns2:kvkNummer>
+         <ns2:nonMailing>
+            <ns2:code>J</ns2:code>
+            <ns2:omschrijving>Ja</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:nonMailing>
+         <ns2:incidenteelUitlenenArbeidskrachten>
+            <ns2:code>N</ns2:code>
+            <ns2:omschrijving>Nee</ns2:omschrijving>
+            <ns2:referentieType>geenRT</ns2:referentieType>
+         </ns2:incidenteelUitlenenArbeidskrachten>
+         <ns2:bezoekLocatie>
+            <ns2:registratie registratieTijdstip="20250425153458627">
+               <ns2:datumAanvang>20250319</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Brancusistraat</ns2:straatnaam>
+                  <ns2:huisnummer>27</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>ND</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Almere</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0034200000070603</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0034010000028825</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Brancusistraat 27
+1328ND Almere</ns2:volledigAdres>
+         </ns2:bezoekLocatie>
+         <ns2:postLocatie>
+            <ns2:registratie registratieTijdstip="20250425153458627">
+               <ns2:datumAanvang>20250319</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:afgeschermd>
+               <ns2:code>N</ns2:code>
+               <ns2:omschrijving>Nee</ns2:omschrijving>
+               <ns2:referentieType>geenRT</ns2:referentieType>
+            </ns2:afgeschermd>
+            <ns2:adres>
+               <ns2:binnenlandsAdres>
+                  <ns2:straatnaam>Brancusistraat</ns2:straatnaam>
+                  <ns2:huisnummer>27</ns2:huisnummer>
+                  <ns2:postcode>
+                     <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                     <ns2:lettercombinatie>ND</ns2:lettercombinatie>
+                  </ns2:postcode>
+                  <ns2:plaats>Almere</ns2:plaats>
+                  <ns2:bagId>
+                     <ns2:identificatieNummeraanduiding>0034200000070603</ns2:identificatieNummeraanduiding>
+                     <ns2:identificatieAdresseerbaarObject>0034010000028825</ns2:identificatieAdresseerbaarObject>
+                  </ns2:bagId>
+               </ns2:binnenlandsAdres>
+            </ns2:adres>
+            <ns2:volledigAdres>Brancusistraat 27
+1328ND Almere</ns2:volledigAdres>
+         </ns2:postLocatie>
+         <ns2:communicatiegegevens>
+            <ns2:registratie registratieTijdstip="20250425153458627">
+               <ns2:datumAanvang>20250319</ns2:datumAanvang>
+            </ns2:registratie>
+            <ns2:communicatienummer>
+               <ns2:toegangscode>+31</ns2:toegangscode>
+               <ns2:nummer>0621917214</ns2:nummer>
+               <ns2:soort>
+                  <ns2:code>T</ns2:code>
+                  <ns2:omschrijving>Telefoon</ns2:omschrijving>
+               </ns2:soort>
+            </ns2:communicatienummer>
+            <ns2:emailAdres>nelson@atmathews.com</ns2:emailAdres>
+            <ns2:domeinNaam>www.atmathews.com</ns2:domeinNaam>
+         </ns2:communicatiegegevens>
+         <ns2:naam>OMG@Mathews Ltd</ns2:naam>
+         <ns2:manifesteertZichAls>
+            <ns2:relatieRegistratie registratieTijdstip="20250425153458627">
+               <ns2:datumAanvang>20250319</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:onderneming>
+               <ns2:registratie registratieTijdstip="20250425153458627">
+                  <ns2:datumAanvang>20250319</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:kvkNummer>97113131</ns2:kvkNummer>
+               <ns2:sbiActiviteit>
+                  <ns2:registratie registratieTijdstip="20250425153458627">
+                     <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:sbiCode>
+                     <ns2:code>4637</ns2:code>
+                     <ns2:omschrijving>Groothandel in koffie, thee, cacao en specerijen (geen ruwe)</ns2:omschrijving>
+                     <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                  </ns2:sbiCode>
+                  <ns2:isHoofdactiviteit>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:isHoofdactiviteit>
+               </ns2:sbiActiviteit>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+               <ns2:handeltOnder>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstip="20250425153458627">
+                        <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>OMG@Mathews Ltd</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+               <ns2:wordtUitgeoefendIn>
+                  <ns2:relatieRegistratie registratieTijdstip="20250425153458627">
+                     <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:commercieleVestiging>
+                     <ns2:registratie registratieTijdstip="20250425153458627">
+                        <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:vestigingsnummer>000062377655</ns2:vestigingsnummer>
+                     <ns2:bezoekLocatie>
+                        <ns2:registratie registratieTijdstip="20250425153458627">
+                           <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:afgeschermd>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:afgeschermd>
+                        <ns2:adres>
+                           <ns2:binnenlandsAdres>
+                              <ns2:straatnaam>Brancusistraat</ns2:straatnaam>
+                              <ns2:huisnummer>27</ns2:huisnummer>
+                              <ns2:postcode>
+                                 <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                                 <ns2:lettercombinatie>ND</ns2:lettercombinatie>
+                              </ns2:postcode>
+                              <ns2:plaats>Almere</ns2:plaats>
+                              <ns2:bagId>
+                                 <ns2:identificatieNummeraanduiding>0034200000070603</ns2:identificatieNummeraanduiding>
+                                 <ns2:identificatieAdresseerbaarObject>0034010000028825</ns2:identificatieAdresseerbaarObject>
+                              </ns2:bagId>
+                           </ns2:binnenlandsAdres>
+                        </ns2:adres>
+                        <ns2:volledigAdres>Brancusistraat 27
+1328ND Almere</ns2:volledigAdres>
+                     </ns2:bezoekLocatie>
+                     <ns2:communicatiegegevens>
+                        <ns2:registratie registratieTijdstip="20250425153458627">
+                           <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:communicatienummer>
+                           <ns2:toegangscode>+31</ns2:toegangscode>
+                           <ns2:nummer>0621917214</ns2:nummer>
+                           <ns2:soort>
+                              <ns2:code>T</ns2:code>
+                              <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                           </ns2:soort>
+                        </ns2:communicatienummer>
+                        <ns2:emailAdres>nelson@atmathews.com</ns2:emailAdres>
+                        <ns2:domeinNaam>www.atmathews.com</ns2:domeinNaam>
+                     </ns2:communicatiegegevens>
+                     <ns2:eersteHandelsnaam>OMG@Mathews Ltd</ns2:eersteHandelsnaam>
+                     <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+                     <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+                     <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+                     <ns2:activiteiten>
+                        <ns2:omschrijving>Groothandel, daaronder begrepen de im- en export, in thee en specerijen.</ns2:omschrijving>
+                        <ns2:sbiActiviteit>
+                           <ns2:registratie registratieTijdstip="20250425153458627">
+                              <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:sbiCode>
+                              <ns2:code>4637</ns2:code>
+                              <ns2:omschrijving>Groothandel in koffie, thee, cacao en specerijen (geen ruwe)</ns2:omschrijving>
+                              <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                           </ns2:sbiCode>
+                           <ns2:isHoofdactiviteit>
+                              <ns2:code>J</ns2:code>
+                              <ns2:omschrijving>Ja</ns2:omschrijving>
+                              <ns2:referentieType>geenRT</ns2:referentieType>
+                           </ns2:isHoofdactiviteit>
+                        </ns2:sbiActiviteit>
+                        <ns2:exporteert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:exporteert>
+                        <ns2:importeert>
+                           <ns2:code>J</ns2:code>
+                           <ns2:omschrijving>Ja</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:importeert>
+                     </ns2:activiteiten>
+                     <ns2:handeltOnder>
+                        <ns2:relatieRegistratie registratieTijdstip="20250425153458627">
+                           <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                        </ns2:relatieRegistratie>
+                        <ns2:handelsnaam>
+                           <ns2:registratie registratieTijdstip="20250425153458627">
+                              <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <ns2:naam>OMG@Mathews Ltd</ns2:naam>
+                           <ns2:volgorde>0</ns2:volgorde>
+                        </ns2:handelsnaam>
+                     </ns2:handeltOnder>
+                  </ns2:commercieleVestiging>
+               </ns2:wordtUitgeoefendIn>
+            </ns2:onderneming>
+         </ns2:manifesteertZichAls>
+         <ns2:wordtGeleidVanuit>
+            <ns2:commercieleVestiging>
+               <ns2:registratie registratieTijdstip="20250425153458627">
+                  <ns2:datumAanvang>20250319</ns2:datumAanvang>
+               </ns2:registratie>
+               <ns2:vestigingsnummer>000062377655</ns2:vestigingsnummer>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20250425153458627">
+                     <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Brancusistraat</ns2:straatnaam>
+                        <ns2:huisnummer>27</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>ND</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Almere</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0034200000070603</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0034010000028825</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Brancusistraat 27
+1328ND Almere</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+               <ns2:communicatiegegevens>
+                  <ns2:registratie registratieTijdstip="20250425153458627">
+                     <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:communicatienummer>
+                     <ns2:toegangscode>+31</ns2:toegangscode>
+                     <ns2:nummer>0621917214</ns2:nummer>
+                     <ns2:soort>
+                        <ns2:code>T</ns2:code>
+                        <ns2:omschrijving>Telefoon</ns2:omschrijving>
+                     </ns2:soort>
+                  </ns2:communicatienummer>
+                  <ns2:emailAdres>nelson@atmathews.com</ns2:emailAdres>
+                  <ns2:domeinNaam>www.atmathews.com</ns2:domeinNaam>
+               </ns2:communicatiegegevens>
+               <ns2:eersteHandelsnaam>OMG@Mathews Ltd</ns2:eersteHandelsnaam>
+               <ns2:voltijdWerkzamePersonen>1</ns2:voltijdWerkzamePersonen>
+               <ns2:deeltijdWerkzamePersonen>0</ns2:deeltijdWerkzamePersonen>
+               <ns2:totaalWerkzamePersonen>1</ns2:totaalWerkzamePersonen>
+               <ns2:activiteiten>
+                  <ns2:omschrijving>Groothandel, daaronder begrepen de im- en export, in thee en specerijen.</ns2:omschrijving>
+                  <ns2:sbiActiviteit>
+                     <ns2:registratie registratieTijdstip="20250425153458627">
+                        <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:sbiCode>
+                        <ns2:code>4637</ns2:code>
+                        <ns2:omschrijving>Groothandel in koffie, thee, cacao en specerijen (geen ruwe)</ns2:omschrijving>
+                        <ns2:referentieType>ActiviteitCode</ns2:referentieType>
+                     </ns2:sbiCode>
+                     <ns2:isHoofdactiviteit>
+                        <ns2:code>J</ns2:code>
+                        <ns2:omschrijving>Ja</ns2:omschrijving>
+                        <ns2:referentieType>geenRT</ns2:referentieType>
+                     </ns2:isHoofdactiviteit>
+                  </ns2:sbiActiviteit>
+                  <ns2:exporteert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:exporteert>
+                  <ns2:importeert>
+                     <ns2:code>J</ns2:code>
+                     <ns2:omschrijving>Ja</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:importeert>
+               </ns2:activiteiten>
+               <ns2:handeltOnder>
+                  <ns2:relatieRegistratie registratieTijdstip="20250425153458627">
+                     <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                  </ns2:relatieRegistratie>
+                  <ns2:handelsnaam>
+                     <ns2:registratie registratieTijdstip="20250425153458627">
+                        <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:naam>OMG@Mathews Ltd</ns2:naam>
+                     <ns2:volgorde>0</ns2:volgorde>
+                  </ns2:handelsnaam>
+               </ns2:handeltOnder>
+            </ns2:commercieleVestiging>
+         </ns2:wordtGeleidVanuit>
+         <ns2:heeftAlsEigenaar>
+            <ns2:relatieRegistratie registratieTijdstip="20250425153458627">
+               <ns2:datumAanvang>20250319</ns2:datumAanvang>
+            </ns2:relatieRegistratie>
+            <ns2:buitenlandseVennootschap>
+               <ns2:registratie registratieTijdstip="20250425153458627"/>
+               <ns2:persoonRechtsvorm>Kapitaalvennootschap buiten EER</ns2:persoonRechtsvorm>
+               <ns2:volledigeNaam>OMG@Mathews Ltd</ns2:volledigeNaam>
+               <ns2:uitgebreideRechtsvorm>Private limited company (Verenigd Koninkrijk); volgens opgave een formeel buitenlandse vennootschap</ns2:uitgebreideRechtsvorm>
+               <ns2:heeft>
+                  <ns2:bestuursfunctie>
+                     <ns2:registratie registratieTijdstip="20250425153458627">
+                        <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                     </ns2:registratie>
+                     <ns2:functietitel>
+                        <ns2:registratie registratieTijdstip="20250425153458627">
+                           <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:titel>Director</ns2:titel>
+                        <ns2:isStatutaireTitel>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isStatutaireTitel>
+                     </ns2:functietitel>
+                     <ns2:door>
+                        <ns2:natuurlijkPersoon>
+                           <ns2:extraElementen>
+<!--Anonimisatie 'ns2:extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:extraElement naam="achternaam">eb65d1</ns2:extraElement>
+                           </ns2:extraElementen>
+                           <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+<!--Anonimisatie 'ns2:datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:datumAanvang>19440429</ns2:datumAanvang>
+                           </ns2:registratie>
+                           <!--Anonimisatie 'ns2:volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:volledigeNaam>8158e1 80cda29 77307680 9ec898</ns2:volledigeNaam>
+                           <ns2:bezoekLocatiePersoon>
+                              <ns2:registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                              <ns2:afgeschermd>
+                                 <ns2:code>N</ns2:code>
+                                 <ns2:omschrijving>Nee</ns2:omschrijving>
+                                 <ns2:referentieType>geenRT</ns2:referentieType>
+                              </ns2:afgeschermd>
+                              <ns2:adres>
+                                 <ns2:binnenlandsAdres>
+                                    <ns2:straatnaam>Brancusistraat</ns2:straatnaam>
+                                    <ns2:huisnummer>27</ns2:huisnummer>
+                                    <ns2:postcode>
+                                       <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                                       <ns2:lettercombinatie>ND</ns2:lettercombinatie>
+                                    </ns2:postcode>
+                                    <ns2:plaats>Almere</ns2:plaats>
+                                    <ns2:bagId>
+                                       <ns2:identificatieNummeraanduiding>0034200000070603</ns2:identificatieNummeraanduiding>
+                                       <ns2:identificatieAdresseerbaarObject>0034010000028825</ns2:identificatieAdresseerbaarObject>
+                                    </ns2:bagId>
+                                 </ns2:binnenlandsAdres>
+                              </ns2:adres>
+                              <ns2:volledigAdres>Brancusistraat 27
+1328ND Almere</ns2:volledigAdres>
+                           </ns2:bezoekLocatiePersoon>
+                           <!--Anonimisatie 'ns2:bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><ns2:bsn>608236862</ns2:bsn>
+                           <!--Anonimisatie 'ns2:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geslachtsnaam>eb65d1</ns2:geslachtsnaam>
+                           <!--Anonimisatie 'ns2:voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:voornamen>0a24a4 7524718 15fa1ab3</ns2:voornamen>
+                           <ns2:geslachtsaanduiding>
+                              <ns2:code>m</ns2:code>
+                              <ns2:omschrijving>Mannelijk</ns2:omschrijving>
+                              <ns2:referentieType>Geslacht</ns2:referentieType>
+                           </ns2:geslachtsaanduiding>
+                           <!--Anonimisatie 'ns2:geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met dezelfde lengte.--><ns2:geboorteplaats>0013c01fe</ns2:geboorteplaats>
+                           <ns2:geboorteland>
+                              <ns2:code>6030</ns2:code>
+                              <ns2:omschrijving>Nederland</ns2:omschrijving>
+                              <ns2:referentieType>Land</ns2:referentieType>
+                           </ns2:geboorteland>
+                           <!--Anonimisatie 'ns2:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><ns2:geboortedatum>19440429</ns2:geboortedatum>
+                        </ns2:natuurlijkPersoon>
+                     </ns2:door>
+                     <ns2:functie>
+                        <ns2:code>02</ns2:code>
+                        <ns2:omschrijving>Bestuurder</ns2:omschrijving>
+                        <ns2:referentieType>FunctionarisRol</ns2:referentieType>
+                     </ns2:functie>
+                     <ns2:bevoegdheid>
+                        <ns2:registratie registratieTijdstip="20250425153458627">
+                           <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                        </ns2:registratie>
+                        <ns2:soort>
+                           <ns2:code>azb</ns2:code>
+                           <ns2:omschrijving>Alleen/zelfstandig bevoegd</ns2:omschrijving>
+                           <ns2:referentieType>SoortBevoegdheidBestuurder</ns2:referentieType>
+                        </ns2:soort>
+                        <ns2:isBevoegdMetAnderePersonen>
+                           <ns2:code>N</ns2:code>
+                           <ns2:omschrijving>Nee</ns2:omschrijving>
+                           <ns2:referentieType>geenRT</ns2:referentieType>
+                        </ns2:isBevoegdMetAnderePersonen>
+                     </ns2:bevoegdheid>
+                  </ns2:bestuursfunctie>
+               </ns2:heeft>
+               <ns2:rsin>867915602</ns2:rsin>
+               <ns2:naamgeving>
+                  <ns2:registratie registratieTijdstip="20250425153458627"/>
+                  <ns2:naam>OMG@Mathews Ltd</ns2:naam>
+               </ns2:naamgeving>
+               <ns2:buitenlandseRegistratieGegevens>
+                  <ns2:naam>Companies Registration Office (England and Wales)</ns2:naam>
+                  <ns2:plaats>Cardiff</ns2:plaats>
+                  <ns2:land>
+                     <ns2:code>6039</ns2:code>
+                     <ns2:omschrijving>Verenigd Koninkrijk</ns2:omschrijving>
+                     <ns2:referentieType>Land</ns2:referentieType>
+                  </ns2:land>
+                  <ns2:inschrijfnummer>16328228</ns2:inschrijfnummer>
+                  <ns2:buitenlandseRegistratie>Companies Registration Office (England and Wales)
+Cardiff, Verenigd Koninkrijk
+Onder nummer 16328228</ns2:buitenlandseRegistratie>
+               </ns2:buitenlandseRegistratieGegevens>
+               <ns2:landVanOprichting>
+                  <ns2:code>6039</ns2:code>
+                  <ns2:omschrijving>Verenigd Koninkrijk</ns2:omschrijving>
+                  <ns2:referentieType>Land</ns2:referentieType>
+               </ns2:landVanOprichting>
+               <ns2:landVanVestiging>
+                  <ns2:code>6039</ns2:code>
+                  <ns2:omschrijving>Verenigd Koninkrijk</ns2:omschrijving>
+                  <ns2:referentieType>Land</ns2:referentieType>
+               </ns2:landVanVestiging>
+               <ns2:geplaatstKapitaal>
+                  <ns2:registratie registratieTijdstip="20250425153458627"/>
+                  <ns2:bedrag>
+                     <ns2:waarde>1</ns2:waarde>
+                     <ns2:valuta>
+                        <ns2:code>EUR</ns2:code>
+                        <ns2:omschrijving>Euro</ns2:omschrijving>
+                        <ns2:referentieType>Valuta</ns2:referentieType>
+                     </ns2:valuta>
+                  </ns2:bedrag>
+               </ns2:geplaatstKapitaal>
+               <ns2:buitenlandseVennootschapGegevens>
+                  <ns2:registratie registratieTijdstip="20250425153458627"/>
+                  <ns2:omschrijvingRechtsvorm>Private limited company</ns2:omschrijvingRechtsvorm>
+                  <ns2:datumEersteInschrijvingBuitenland>20250319</ns2:datumEersteInschrijvingBuitenland>
+                  <ns2:zetel>Doncaster</ns2:zetel>
+                  <ns2:rechtsvormcategorie>
+                     <ns2:code>0002</ns2:code>
+                     <ns2:omschrijving>Kapitaalvennootschap buiten EER</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:rechtsvormcategorie>
+                  <ns2:datumFormeelBuitenlandsSinds>20250319</ns2:datumFormeelBuitenlandsSinds>
+                  <ns2:datumAkteOprichting>20250319</ns2:datumAkteOprichting>
+               </ns2:buitenlandseVennootschapGegevens>
+               <ns2:bezoekLocatie>
+                  <ns2:registratie registratieTijdstip="20250425153458627">
+                     <ns2:datumAanvang>20250319</ns2:datumAanvang>
+                  </ns2:registratie>
+                  <ns2:afgeschermd>
+                     <ns2:code>N</ns2:code>
+                     <ns2:omschrijving>Nee</ns2:omschrijving>
+                     <ns2:referentieType>geenRT</ns2:referentieType>
+                  </ns2:afgeschermd>
+                  <ns2:adres>
+                     <ns2:binnenlandsAdres>
+                        <ns2:straatnaam>Brancusistraat</ns2:straatnaam>
+                        <ns2:huisnummer>27</ns2:huisnummer>
+                        <ns2:postcode>
+                           <ns2:cijfercombinatie>1328</ns2:cijfercombinatie>
+                           <ns2:lettercombinatie>ND</ns2:lettercombinatie>
+                        </ns2:postcode>
+                        <ns2:plaats>Almere</ns2:plaats>
+                        <ns2:bagId>
+                           <ns2:identificatieNummeraanduiding>0034200000070603</ns2:identificatieNummeraanduiding>
+                           <ns2:identificatieAdresseerbaarObject>0034010000028825</ns2:identificatieAdresseerbaarObject>
+                        </ns2:bagId>
+                     </ns2:binnenlandsAdres>
+                  </ns2:adres>
+                  <ns2:volledigAdres>Brancusistraat 27
+1328ND Almere</ns2:volledigAdres>
+               </ns2:bezoekLocatie>
+            </ns2:buitenlandseVennootschap>
+         </ns2:heeftAlsEigenaar>
+      </ns2:maatschappelijkeActiviteit>
+   </product>
+</ophalenInschrijvingResponse>

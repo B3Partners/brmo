@@ -356,8 +356,8 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             // aantalFunctionarissen
             2),
         arguments(
-            "/nhr-v3/BRMO-419/origineel/289544.xml",
-            //                    "/nhr-v3/289544.anon.xml",
+            // heeft een buitenlandse persoon met Ș in de naam
+            "/nhr-v3/289544.anon.xml",
             // aantalBerichten
             3,
             // aantalProcessen
@@ -379,7 +379,31 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             // sbiCodes,
             new String[] {"7112", "4120", "2511"},
             // aantalFunctionarissen
-            4)
+            4),
+        arguments(
+            "/nhr-v3/289547.anon.xml",
+            // aantalBerichten
+            3,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            2,
+            // aantalSubj
+            3,
+            // aantalNiet_nat_prs
+            2,
+            // aantalNat_prs
+            0,
+            // hoofd vestgID
+            "nhr.comVestg.000062377655",
+            // aantalVestg_activiteit
+            1,
+            // kvkNummer v MaatschAct
+            97113131,
+            // sbiCodes,
+            new String[] {"4637"},
+            // aantalFunctionarissen
+            0)
         // </editor-fold>
         );
   }
