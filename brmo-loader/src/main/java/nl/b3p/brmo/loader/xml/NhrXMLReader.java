@@ -189,7 +189,9 @@ public class NhrXMLReader extends BrmoXMLReader {
                   .replace("(", "")
                   .replace(")", "")
                   // komt in bedrijfsnaam voor '& Co'
-                  .replace("&", "");
+                  .replace("&", "")
+                  // komt in bedijfsnaam voor 'Radley + Co. Limited'
+                  .replace("+", "");
           bsnHashes.put(_cleanName, getHash(_cleanName));
         }
       }

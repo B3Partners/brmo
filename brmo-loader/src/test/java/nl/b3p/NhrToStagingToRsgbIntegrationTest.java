@@ -277,7 +277,35 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             // sbiCodes,
             new String[] {"86221"},
             // aantalFunctionarissen
-            2));
+            2),
+        //  <editor-fold defaultstate="collapsed" desc="testcases voor BRMO-419">
+        arguments(
+            // heeft een buitenlandse persoon met een + in de naam
+            "/nhr-v3/289535.anon.xml",
+            // aantalBerichten
+            3,
+            // aantalProcessen
+            1,
+            // aantalPrs
+            3,
+            // aantalSubj
+            4,
+            // aantalNiet_nat_prs
+            3,
+            // aantalNat_prs
+            0,
+            // hoofd vestgID
+            "nhr.comVestg.000046583130",
+            // aantalVestg_activiteit
+            5,
+            // kvkNummer v MaatschAct
+            80216269,
+            // sbiCodes,
+            new String[] {"47919", "46499", "47722", "47712", "47721"},
+            // aantalFunctionarissen
+            1)
+        // </editor-fold>
+        );
   }
 
   private static final String BESTANDTYPE = "nhr";
@@ -364,10 +392,9 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     brmo.closeBrmoFramework();
 
     CleanUtil.cleanSTAGING(staging, false);
+    CleanUtil.cleanRSGB_NHR(rsgb);
     staging.close();
     dsStaging.close();
-
-    CleanUtil.cleanRSGB_NHR(rsgb);
     rsgb.close();
     dsRsgb.close();
 
