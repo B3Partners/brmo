@@ -7,9 +7,9 @@
     <tr>
         <td><stripes:label name="">API URL</stripes:label></td>
         <%-- KVKMutatieserviceProces#APIURL --%>
-        <td><stripes:select  name="config['apiurl']" value="https://api.kvk.nl/v1/abonnementen/" style="width: 22em">
+        <td><stripes:select  name="config['apiurl']" value="https://api.kvk.nl/api/v1/abonnementen/" style="width: 22em">
             <stripes:option value="https://developers.kvk.nl/test/api/v1/abonnementen/">Test KVK Mutatieservice</stripes:option>
-            <stripes:option value="https://api.kvk.nl/v1/abonnementen/">Productie KVK Mutatieservice</stripes:option>
+            <stripes:option value="https://api.kvk.nl/api/v1/abonnementen/">Productie KVK Mutatieservice</stripes:option>
         </stripes:select></td>
     </tr>
     <tr>
