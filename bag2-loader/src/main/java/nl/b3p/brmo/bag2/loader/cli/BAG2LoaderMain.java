@@ -536,7 +536,11 @@ public class BAG2LoaderMain implements IVersionProvider {
     }
     sql =
         """
-        delete from openbareruimte o where not exists (select 1 from nummeraanduiding where ligtaan = o.identificatie)
+        delete from openbareruimte o
+             where not exists (
+               select 1 from woonplaats w
+               where o.ligtin = w.identificatie
+             )
         """;
     try (PreparedStatement ps = db.getConnection().prepareStatement(sql)) {
       log.info("Verwijderen niet-gerefereerde openbareruimte-records");
