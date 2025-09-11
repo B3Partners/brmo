@@ -301,7 +301,7 @@ public class BAGLoaderDatabaseIntegrationTest {
             Map.entry("verblijfsobject_gebruiksdoel", 1952),
             Map.entry("pand", 2595),
             Map.entry("nummeraanduiding", 838),
-            Map.entry("openbareruimte", 32),
+            Map.entry("openbareruimte", 168),
             Map.entry("woonplaats", 1)));
   }
 
