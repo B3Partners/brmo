@@ -13,46 +13,26 @@
 
 package nl.b3p.brmo.bgt.download.client;
 
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.14.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
 public class Pair {
-<span class="nc" id="L18">    private String name = &quot;&quot;;</span>
-<span class="nc" id="L19">    private String value = &quot;&quot;;</span>
+  private final String name;
+  private final String value;
 
-<span class="nc" id="L21">    public Pair (String name, String value) {</span>
-<span class="nc" id="L22">        setName(name);</span>
-<span class="nc" id="L23">        setValue(value);</span>
-<span class="nc" id="L24">    }</span>
+<span class="nc" id="L21">  public Pair(String name, String value) {</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">    this.name = isValidString(name) ? name : &quot;&quot;;</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">    this.value = isValidString(value) ? value : &quot;&quot;;</span>
+<span class="nc" id="L24">  }</span>
 
-    private void setName(String name) {
-<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (!isValidString(name)) {</span>
-<span class="nc" id="L28">            return;</span>
-        }
+  public String getName() {
+<span class="nc" id="L27">    return this.name;</span>
+  }
 
-<span class="nc" id="L31">        this.name = name;</span>
-<span class="nc" id="L32">    }</span>
+  public String getValue() {
+<span class="nc" id="L31">    return this.value;</span>
+  }
 
-    private void setValue(String value) {
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (!isValidString(value)) {</span>
-<span class="nc" id="L36">            return;</span>
-        }
-
-<span class="nc" id="L39">        this.value = value;</span>
-<span class="nc" id="L40">    }</span>
-
-    public String getName() {
-<span class="nc" id="L43">        return this.name;</span>
-    }
-
-    public String getValue() {
-<span class="nc" id="L47">        return this.value;</span>
-    }
-
-    private boolean isValidString(String arg) {
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (arg == null) {</span>
-<span class="nc" id="L52">            return false;</span>
-        }
-
-<span class="nc" id="L55">        return true;</span>
-    }
+  private static boolean isValidString(String arg) {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">    return arg != null;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

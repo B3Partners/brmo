@@ -17,17 +17,24 @@ import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.Module.SetupContext;
 
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.14.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
 public class RFC3339JavaTimeModule extends SimpleModule {
     private static final long serialVersionUID = 1L;
 
     public RFC3339JavaTimeModule() {
-<span class="nc" id="L26">        super(&quot;RFC3339JavaTimeModule&quot;);</span>
+<span class="nc" id="L27">        super(&quot;RFC3339JavaTimeModule&quot;);</span>
+<span class="nc" id="L28">    }</span>
 
-<span class="nc" id="L28">        addDeserializer(Instant.class, RFC3339InstantDeserializer.INSTANT);</span>
-<span class="nc" id="L29">        addDeserializer(OffsetDateTime.class, RFC3339InstantDeserializer.OFFSET_DATE_TIME);</span>
-<span class="nc" id="L30">        addDeserializer(ZonedDateTime.class, RFC3339InstantDeserializer.ZONED_DATE_TIME);</span>
-<span class="nc" id="L31">    }</span>
+   @Override
+   public void setupModule(SetupContext context) {
+<span class="nc" id="L32">       super.setupModule(context);</span>
+
+<span class="nc" id="L34">       addDeserializer(Instant.class, RFC3339InstantDeserializer.INSTANT);</span>
+<span class="nc" id="L35">       addDeserializer(OffsetDateTime.class, RFC3339InstantDeserializer.OFFSET_DATE_TIME);</span>
+<span class="nc" id="L36">       addDeserializer(ZonedDateTime.class, RFC3339InstantDeserializer.ZONED_DATE_TIME);</span>
+<span class="nc" id="L37">   }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

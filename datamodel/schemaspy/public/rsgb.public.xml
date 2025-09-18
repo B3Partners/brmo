@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="public" type="PostgreSQL - 17.5">
+<?xml version="1.0" encoding="UTF-8"?><database name="rsgb" schema="public" type="PostgreSQL - 17.6">
    <tables>
       <table catalog="rsgb" name="academische_titel" remarks="RSGB referentielijst ACADEMISCHE TITEL" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="code" nullable="false" remarks="Referentielijst property ACADEMISCHE TITEL.Academische titelcode - Academische titelcode" size="3" type="varchar" typeCode="12">
@@ -4950,7 +4950,7 @@ END]]></definition>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="postgis_scripts_build_date()" returnType="text" securityType="INVOKER" type="FUNCTION">
          <comment/>
-         <definition language="sql"><![CDATA[SELECT '2025-08-04 05:50:32'::text AS version]]></definition>
+         <definition language="sql"><![CDATA[SELECT '2025-09-17 14:44:15'::text AS version]]></definition>
          <parameters>
             <parameter mode="IN"/>
          </parameters>

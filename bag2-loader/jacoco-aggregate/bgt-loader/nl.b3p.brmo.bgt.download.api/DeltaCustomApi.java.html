@@ -47,8 +47,28 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.14.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
 public class DeltaCustomApi {
+  /**
+   * Utility class for extending HttpRequest.Builder functionality.
+   */
+  private static class HttpRequestBuilderExtensions {
+    /**
+     * Adds additional headers to the provided HttpRequest.Builder. Useful for adding method/endpoint specific headers.
+     *
+     * @param builder the HttpRequest.Builder to which headers will be added
+     * @param headers a map of header names and values to add; may be null
+     * @return the same HttpRequest.Builder instance with the additional headers set
+     */
+    static HttpRequest.Builder withAdditionalHeaders(HttpRequest.Builder builder, Map&lt;String, String&gt; headers) {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (headers != null) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            for (Map.Entry&lt;String, String&gt; entry : headers.entrySet()) {</span>
+<span class="nc" id="L66">                builder.header(entry.getKey(), entry.getValue());</span>
+<span class="nc" id="L67">            }</span>
+        }
+<span class="nc" id="L69">        return builder;</span>
+    }
+  }
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
   private final String memberVarBaseUri;
@@ -58,30 +78,79 @@ public class DeltaCustomApi {
   private final Consumer&lt;HttpResponse&lt;String&gt;&gt; memberVarAsyncResponseInterceptor;
 
   public DeltaCustomApi() {
-<span class="nc" id="L61">    this(Configuration.getDefaultApiClient());</span>
-<span class="nc" id="L62">  }</span>
+<span class="nc" id="L81">    this(Configuration.getDefaultApiClient());</span>
+<span class="nc" id="L82">  }</span>
 
-<span class="nc" id="L64">  public DeltaCustomApi(ApiClient apiClient) {</span>
-<span class="nc" id="L65">    memberVarHttpClient = apiClient.getHttpClient();</span>
-<span class="nc" id="L66">    memberVarObjectMapper = apiClient.getObjectMapper();</span>
-<span class="nc" id="L67">    memberVarBaseUri = apiClient.getBaseUri();</span>
-<span class="nc" id="L68">    memberVarInterceptor = apiClient.getRequestInterceptor();</span>
-<span class="nc" id="L69">    memberVarReadTimeout = apiClient.getReadTimeout();</span>
-<span class="nc" id="L70">    memberVarResponseInterceptor = apiClient.getResponseInterceptor();</span>
-<span class="nc" id="L71">    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();</span>
-<span class="nc" id="L72">  }</span>
+<span class="nc" id="L84">  public DeltaCustomApi(ApiClient apiClient) {</span>
+<span class="nc" id="L85">    memberVarHttpClient = apiClient.getHttpClient();</span>
+<span class="nc" id="L86">    memberVarObjectMapper = apiClient.getObjectMapper();</span>
+<span class="nc" id="L87">    memberVarBaseUri = apiClient.getBaseUri();</span>
+<span class="nc" id="L88">    memberVarInterceptor = apiClient.getRequestInterceptor();</span>
+<span class="nc" id="L89">    memberVarReadTimeout = apiClient.getReadTimeout();</span>
+<span class="nc" id="L90">    memberVarResponseInterceptor = apiClient.getResponseInterceptor();</span>
+<span class="nc" id="L91">    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();</span>
+<span class="nc" id="L92">  }</span>
+
 
   protected ApiException getApiException(String operationId, HttpResponse&lt;InputStream&gt; response) throws IOException {
-<span class="nc bnc" id="L75" title="All 2 branches missed.">    String body = response.body() == null ? null : new String(response.body().readAllBytes());</span>
-<span class="nc" id="L76">    String message = formatExceptionMessage(operationId, response.statusCode(), body);</span>
-<span class="nc" id="L77">    return new ApiException(response.statusCode(), message, response.headers(), body);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">    String body = response.body() == null ? null : new String(response.body().readAllBytes());</span>
+<span class="nc" id="L97">    String message = formatExceptionMessage(operationId, response.statusCode(), body);</span>
+<span class="nc" id="L98">    return new ApiException(response.statusCode(), message, response.headers(), body);</span>
   }
 
   private String formatExceptionMessage(String operationId, int statusCode, String body) {
-<span class="nc bnc" id="L81" title="All 4 branches missed.">    if (body == null || body.isEmpty()) {</span>
-<span class="nc" id="L82">      body = &quot;[no body]&quot;;</span>
+<span class="nc bnc" id="L102" title="All 4 branches missed.">    if (body == null || body.isEmpty()) {</span>
+<span class="nc" id="L103">      body = &quot;[no body]&quot;;</span>
     }
-<span class="nc" id="L84">    return operationId + &quot; call failed with: &quot; + statusCode + &quot; - &quot; + body;</span>
+<span class="nc" id="L105">    return operationId + &quot; call failed with: &quot; + statusCode + &quot; - &quot; + body;</span>
+  }
+
+  /**
+   * Download file from the given response.
+   *
+   * @param response Response
+   * @return File
+   * @throws ApiException If fail to read file content from response and write to disk
+   */
+  public File downloadFileFromResponse(HttpResponse&lt;InputStream&gt; response) throws ApiException {
+    try {
+<span class="nc" id="L117">      File file = prepareDownloadFile(response);</span>
+<span class="nc" id="L118">      java.nio.file.Files.copy(response.body(), file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);</span>
+<span class="nc" id="L119">      return file;</span>
+<span class="nc" id="L120">    } catch (IOException e) {</span>
+<span class="nc" id="L121">      throw new ApiException(e);</span>
+    }
+  }
+
+  /**
+   * &lt;p&gt;Prepare the file for download from the response.&lt;/p&gt;
+   *
+   * @param response a {@link java.net.http.HttpResponse} object.
+   * @return a {@link java.io.File} object.
+   * @throws java.io.IOException if any.
+   */
+  private File prepareDownloadFile(HttpResponse&lt;InputStream&gt; response) throws IOException {
+<span class="nc" id="L133">    String filename = null;</span>
+<span class="nc" id="L134">    java.util.Optional&lt;String&gt; contentDisposition = response.headers().firstValue(&quot;Content-Disposition&quot;);</span>
+<span class="nc bnc" id="L135" title="All 4 branches missed.">    if (contentDisposition.isPresent() &amp;&amp; !&quot;&quot;.equals(contentDisposition.get())) {</span>
+      // Get filename from the Content-Disposition header.
+<span class="nc" id="L137">      java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(&quot;filename=['\&quot;]?([^'\&quot;\\s]+)['\&quot;]?&quot;);</span>
+<span class="nc" id="L138">      java.util.regex.Matcher matcher = pattern.matcher(contentDisposition.get());</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">      if (matcher.find())</span>
+<span class="nc" id="L140">        filename = matcher.group(1);</span>
+    }
+<span class="nc" id="L142">    File file = null;</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">    if (filename != null) {</span>
+<span class="nc" id="L144">      java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory(&quot;swagger-gen-native&quot;);</span>
+<span class="nc" id="L145">      java.nio.file.Path filePath = java.nio.file.Files.createFile(tempDir.resolve(filename));</span>
+<span class="nc" id="L146">      file = filePath.toFile();</span>
+<span class="nc" id="L147">      tempDir.toFile().deleteOnExit();   // best effort cleanup</span>
+<span class="nc" id="L148">      file.deleteOnExit(); // best effort cleanup</span>
+<span class="nc" id="L149">    } else {</span>
+<span class="nc" id="L150">      file = java.nio.file.Files.createTempFile(&quot;download-&quot;, &quot;&quot;).toFile();</span>
+<span class="nc" id="L151">      file.deleteOnExit(); // best effort cleanup</span>
+    }
+<span class="nc" id="L153">    return file;</span>
   }
 
   /**
@@ -92,8 +161,20 @@ public class DeltaCustomApi {
    * @throws ApiException if fails to make API call
    */
   public DeltaCustomDownloadResponse deltaCustomDownload(@javax.annotation.Nonnull DeltaCustomDownloadRequest deltaCustomDownloadRequest) throws ApiException {
-<span class="nc" id="L95">    ApiResponse&lt;DeltaCustomDownloadResponse&gt; localVarResponse = deltaCustomDownloadWithHttpInfo(deltaCustomDownloadRequest);</span>
-<span class="nc" id="L96">    return localVarResponse.getData();</span>
+<span class="nc" id="L164">    return deltaCustomDownload(deltaCustomDownloadRequest, null);</span>
+  }
+
+  /**
+   * Met dit endpoint kan een delta custom download aangevraagd worden
+   * 
+   * @param deltaCustomDownloadRequest JSON object waarin staat gespecificeerd welke informatie de download moet bevatten. Als het verzoek geen deltaId bevat, dan zal de download de meest recente initiële levering bevatten. Als het verzoek wel een deltaId bevat, dan zal de download alleen de wijzigingen bevatten uit de opgegeven delta.  (required)
+   * @param headers Optional headers to include in the request
+   * @return DeltaCustomDownloadResponse
+   * @throws ApiException if fails to make API call
+   */
+  public DeltaCustomDownloadResponse deltaCustomDownload(@javax.annotation.Nonnull DeltaCustomDownloadRequest deltaCustomDownloadRequest, Map&lt;String, String&gt; headers) throws ApiException {
+<span class="nc" id="L176">    ApiResponse&lt;DeltaCustomDownloadResponse&gt; localVarResponse = deltaCustomDownloadWithHttpInfo(deltaCustomDownloadRequest, headers);</span>
+<span class="nc" id="L177">    return localVarResponse.getData();</span>
   }
 
   /**
@@ -104,73 +185,91 @@ public class DeltaCustomApi {
    * @throws ApiException if fails to make API call
    */
   public ApiResponse&lt;DeltaCustomDownloadResponse&gt; deltaCustomDownloadWithHttpInfo(@javax.annotation.Nonnull DeltaCustomDownloadRequest deltaCustomDownloadRequest) throws ApiException {
-<span class="nc" id="L107">    HttpRequest.Builder localVarRequestBuilder = deltaCustomDownloadRequestBuilder(deltaCustomDownloadRequest);</span>
+<span class="nc" id="L188">    return deltaCustomDownloadWithHttpInfo(deltaCustomDownloadRequest, null);</span>
+  }
+
+  /**
+   * Met dit endpoint kan een delta custom download aangevraagd worden
+   * 
+   * @param deltaCustomDownloadRequest JSON object waarin staat gespecificeerd welke informatie de download moet bevatten. Als het verzoek geen deltaId bevat, dan zal de download de meest recente initiële levering bevatten. Als het verzoek wel een deltaId bevat, dan zal de download alleen de wijzigingen bevatten uit de opgegeven delta.  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&amp;lt;DeltaCustomDownloadResponse&amp;gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse&lt;DeltaCustomDownloadResponse&gt; deltaCustomDownloadWithHttpInfo(@javax.annotation.Nonnull DeltaCustomDownloadRequest deltaCustomDownloadRequest, Map&lt;String, String&gt; headers) throws ApiException {
+<span class="nc" id="L200">    HttpRequest.Builder localVarRequestBuilder = deltaCustomDownloadRequestBuilder(deltaCustomDownloadRequest, headers);</span>
     try {
-<span class="nc" id="L109">      HttpResponse&lt;InputStream&gt; localVarResponse = memberVarHttpClient.send(</span>
-<span class="nc" id="L110">          localVarRequestBuilder.build(),</span>
-<span class="nc" id="L111">          HttpResponse.BodyHandlers.ofInputStream());</span>
-<span class="nc bnc" id="L112" title="All 2 branches missed.">      if (memberVarResponseInterceptor != null) {</span>
-<span class="nc" id="L113">        memberVarResponseInterceptor.accept(localVarResponse);</span>
+<span class="nc" id="L202">      HttpResponse&lt;InputStream&gt; localVarResponse = memberVarHttpClient.send(</span>
+<span class="nc" id="L203">          localVarRequestBuilder.build(),</span>
+<span class="nc" id="L204">          HttpResponse.BodyHandlers.ofInputStream());</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">      if (memberVarResponseInterceptor != null) {</span>
+<span class="nc" id="L206">        memberVarResponseInterceptor.accept(localVarResponse);</span>
       }
       try {
-<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (localVarResponse.statusCode()/ 100 != 2) {</span>
-<span class="nc" id="L117">          throw getApiException(&quot;deltaCustomDownload&quot;, localVarResponse);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">        if (localVarResponse.statusCode()/ 100 != 2) {</span>
+<span class="nc" id="L210">          throw getApiException(&quot;deltaCustomDownload&quot;, localVarResponse);</span>
         }
-<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (localVarResponse.body() == null) {</span>
-<span class="nc" id="L120">          return new ApiResponse&lt;DeltaCustomDownloadResponse&gt;(</span>
-<span class="nc" id="L121">              localVarResponse.statusCode(),</span>
-<span class="nc" id="L122">              localVarResponse.headers().map(),</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (localVarResponse.body() == null) {</span>
+<span class="nc" id="L213">          return new ApiResponse&lt;DeltaCustomDownloadResponse&gt;(</span>
+<span class="nc" id="L214">              localVarResponse.statusCode(),</span>
+<span class="nc" id="L215">              localVarResponse.headers().map(),</span>
               null
           );
         }
 
-<span class="nc" id="L127">        String responseBody = new String(localVarResponse.body().readAllBytes());</span>
-<span class="nc" id="L128">        localVarResponse.body().close();</span>
+        
+        
+<span class="nc" id="L222">        String responseBody = new String(localVarResponse.body().readAllBytes());</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        DeltaCustomDownloadResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference&lt;DeltaCustomDownloadResponse&gt;() {});</span>
+        
+<span class="nc" id="L225">        localVarResponse.body().close();</span>
 
-<span class="nc" id="L130">        return new ApiResponse&lt;DeltaCustomDownloadResponse&gt;(</span>
-<span class="nc" id="L131">            localVarResponse.statusCode(),</span>
-<span class="nc" id="L132">            localVarResponse.headers().map(),</span>
-<span class="nc bnc" id="L133" title="All 2 branches missed.">            responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference&lt;DeltaCustomDownloadResponse&gt;() {})</span>
+<span class="nc" id="L227">        return new ApiResponse&lt;DeltaCustomDownloadResponse&gt;(</span>
+<span class="nc" id="L228">            localVarResponse.statusCode(),</span>
+<span class="nc" id="L229">            localVarResponse.headers().map(),</span>
+            responseValue
         );
       } finally {
       }
-<span class="nc" id="L137">    } catch (IOException e) {</span>
-<span class="nc" id="L138">      throw new ApiException(e);</span>
+<span class="nc" id="L234">    } catch (IOException e) {</span>
+<span class="nc" id="L235">      throw new ApiException(e);</span>
     }
-<span class="nc" id="L140">    catch (InterruptedException e) {</span>
-<span class="nc" id="L141">      Thread.currentThread().interrupt();</span>
-<span class="nc" id="L142">      throw new ApiException(e);</span>
+<span class="nc" id="L237">    catch (InterruptedException e) {</span>
+<span class="nc" id="L238">      Thread.currentThread().interrupt();</span>
+<span class="nc" id="L239">      throw new ApiException(e);</span>
     }
   }
 
-  private HttpRequest.Builder deltaCustomDownloadRequestBuilder(@javax.annotation.Nonnull DeltaCustomDownloadRequest deltaCustomDownloadRequest) throws ApiException {
+  private HttpRequest.Builder deltaCustomDownloadRequestBuilder(@javax.annotation.Nonnull DeltaCustomDownloadRequest deltaCustomDownloadRequest, Map&lt;String, String&gt; headers) throws ApiException {
     // verify the required parameter 'deltaCustomDownloadRequest' is set
-<span class="nc bnc" id="L148" title="All 2 branches missed.">    if (deltaCustomDownloadRequest == null) {</span>
-<span class="nc" id="L149">      throw new ApiException(400, &quot;Missing the required parameter 'deltaCustomDownloadRequest' when calling deltaCustomDownload&quot;);</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">    if (deltaCustomDownloadRequest == null) {</span>
+<span class="nc" id="L246">      throw new ApiException(400, &quot;Missing the required parameter 'deltaCustomDownloadRequest' when calling deltaCustomDownload&quot;);</span>
     }
 
-<span class="nc" id="L152">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
+<span class="nc" id="L249">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
 
-<span class="nc" id="L154">    String localVarPath = &quot;/delta/custom&quot;;</span>
+<span class="nc" id="L251">    String localVarPath = &quot;/delta/custom&quot;;</span>
 
-<span class="nc" id="L156">    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
+<span class="nc" id="L253">    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
 
-<span class="nc" id="L158">    localVarRequestBuilder.header(&quot;Content-Type&quot;, &quot;application/json&quot;);</span>
-<span class="nc" id="L159">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L255">    localVarRequestBuilder.header(&quot;Content-Type&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L256">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
 
     try {
-<span class="nc" id="L162">      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(deltaCustomDownloadRequest);</span>
-<span class="nc" id="L163">      localVarRequestBuilder.method(&quot;POST&quot;, HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));</span>
-<span class="nc" id="L164">    } catch (IOException e) {</span>
-<span class="nc" id="L165">      throw new ApiException(e);</span>
-<span class="nc" id="L166">    }</span>
-<span class="nc bnc" id="L167" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
-<span class="nc" id="L168">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
+<span class="nc" id="L259">      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(deltaCustomDownloadRequest);</span>
+<span class="nc" id="L260">      localVarRequestBuilder.method(&quot;POST&quot;, HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));</span>
+<span class="nc" id="L261">    } catch (IOException e) {</span>
+<span class="nc" id="L262">      throw new ApiException(e);</span>
+<span class="nc" id="L263">    }</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
+<span class="nc" id="L265">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
     }
-<span class="nc bnc" id="L170" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
-<span class="nc" id="L171">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
+    // Add custom headers if provided
+<span class="nc" id="L268">    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
+<span class="nc" id="L270">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
     }
-<span class="nc" id="L173">    return localVarRequestBuilder;</span>
+<span class="nc" id="L272">    return localVarRequestBuilder;</span>
   }
 
   /**
@@ -181,8 +280,20 @@ public class DeltaCustomApi {
    * @throws ApiException if fails to make API call
    */
   public DeltaCustomDownloadStatusResponse deltaCustomDownloadStatus(@javax.annotation.Nonnull String downloadRequestId) throws ApiException {
-<span class="nc" id="L184">    ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt; localVarResponse = deltaCustomDownloadStatusWithHttpInfo(downloadRequestId);</span>
-<span class="nc" id="L185">    return localVarResponse.getData();</span>
+<span class="nc" id="L283">    return deltaCustomDownloadStatus(downloadRequestId, null);</span>
+  }
+
+  /**
+   * Dit endpoint geeft de status terug van een aangevraagde delta custom download
+   * 
+   * @param downloadRequestId  (required)
+   * @param headers Optional headers to include in the request
+   * @return DeltaCustomDownloadStatusResponse
+   * @throws ApiException if fails to make API call
+   */
+  public DeltaCustomDownloadStatusResponse deltaCustomDownloadStatus(@javax.annotation.Nonnull String downloadRequestId, Map&lt;String, String&gt; headers) throws ApiException {
+<span class="nc" id="L295">    ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt; localVarResponse = deltaCustomDownloadStatusWithHttpInfo(downloadRequestId, headers);</span>
+<span class="nc" id="L296">    return localVarResponse.getData();</span>
   }
 
   /**
@@ -193,68 +304,86 @@ public class DeltaCustomApi {
    * @throws ApiException if fails to make API call
    */
   public ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt; deltaCustomDownloadStatusWithHttpInfo(@javax.annotation.Nonnull String downloadRequestId) throws ApiException {
-<span class="nc" id="L196">    HttpRequest.Builder localVarRequestBuilder = deltaCustomDownloadStatusRequestBuilder(downloadRequestId);</span>
+<span class="nc" id="L307">    return deltaCustomDownloadStatusWithHttpInfo(downloadRequestId, null);</span>
+  }
+
+  /**
+   * Dit endpoint geeft de status terug van een aangevraagde delta custom download
+   * 
+   * @param downloadRequestId  (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&amp;lt;DeltaCustomDownloadStatusResponse&amp;gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt; deltaCustomDownloadStatusWithHttpInfo(@javax.annotation.Nonnull String downloadRequestId, Map&lt;String, String&gt; headers) throws ApiException {
+<span class="nc" id="L319">    HttpRequest.Builder localVarRequestBuilder = deltaCustomDownloadStatusRequestBuilder(downloadRequestId, headers);</span>
     try {
-<span class="nc" id="L198">      HttpResponse&lt;InputStream&gt; localVarResponse = memberVarHttpClient.send(</span>
-<span class="nc" id="L199">          localVarRequestBuilder.build(),</span>
-<span class="nc" id="L200">          HttpResponse.BodyHandlers.ofInputStream());</span>
-<span class="nc bnc" id="L201" title="All 2 branches missed.">      if (memberVarResponseInterceptor != null) {</span>
-<span class="nc" id="L202">        memberVarResponseInterceptor.accept(localVarResponse);</span>
+<span class="nc" id="L321">      HttpResponse&lt;InputStream&gt; localVarResponse = memberVarHttpClient.send(</span>
+<span class="nc" id="L322">          localVarRequestBuilder.build(),</span>
+<span class="nc" id="L323">          HttpResponse.BodyHandlers.ofInputStream());</span>
+<span class="nc bnc" id="L324" title="All 2 branches missed.">      if (memberVarResponseInterceptor != null) {</span>
+<span class="nc" id="L325">        memberVarResponseInterceptor.accept(localVarResponse);</span>
       }
       try {
-<span class="nc bnc" id="L205" title="All 2 branches missed.">        if (localVarResponse.statusCode()/ 100 != 2) {</span>
-<span class="nc" id="L206">          throw getApiException(&quot;deltaCustomDownloadStatus&quot;, localVarResponse);</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">        if (localVarResponse.statusCode()/ 100 != 2) {</span>
+<span class="nc" id="L329">          throw getApiException(&quot;deltaCustomDownloadStatus&quot;, localVarResponse);</span>
         }
-<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (localVarResponse.body() == null) {</span>
-<span class="nc" id="L209">          return new ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt;(</span>
-<span class="nc" id="L210">              localVarResponse.statusCode(),</span>
-<span class="nc" id="L211">              localVarResponse.headers().map(),</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">        if (localVarResponse.body() == null) {</span>
+<span class="nc" id="L332">          return new ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt;(</span>
+<span class="nc" id="L333">              localVarResponse.statusCode(),</span>
+<span class="nc" id="L334">              localVarResponse.headers().map(),</span>
               null
           );
         }
 
-<span class="nc" id="L216">        String responseBody = new String(localVarResponse.body().readAllBytes());</span>
-<span class="nc" id="L217">        localVarResponse.body().close();</span>
+        
+        
+<span class="nc" id="L341">        String responseBody = new String(localVarResponse.body().readAllBytes());</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">        DeltaCustomDownloadStatusResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference&lt;DeltaCustomDownloadStatusResponse&gt;() {});</span>
+        
+<span class="nc" id="L344">        localVarResponse.body().close();</span>
 
-<span class="nc" id="L219">        return new ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt;(</span>
-<span class="nc" id="L220">            localVarResponse.statusCode(),</span>
-<span class="nc" id="L221">            localVarResponse.headers().map(),</span>
-<span class="nc bnc" id="L222" title="All 2 branches missed.">            responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference&lt;DeltaCustomDownloadStatusResponse&gt;() {})</span>
+<span class="nc" id="L346">        return new ApiResponse&lt;DeltaCustomDownloadStatusResponse&gt;(</span>
+<span class="nc" id="L347">            localVarResponse.statusCode(),</span>
+<span class="nc" id="L348">            localVarResponse.headers().map(),</span>
+            responseValue
         );
       } finally {
       }
-<span class="nc" id="L226">    } catch (IOException e) {</span>
-<span class="nc" id="L227">      throw new ApiException(e);</span>
+<span class="nc" id="L353">    } catch (IOException e) {</span>
+<span class="nc" id="L354">      throw new ApiException(e);</span>
     }
-<span class="nc" id="L229">    catch (InterruptedException e) {</span>
-<span class="nc" id="L230">      Thread.currentThread().interrupt();</span>
-<span class="nc" id="L231">      throw new ApiException(e);</span>
+<span class="nc" id="L356">    catch (InterruptedException e) {</span>
+<span class="nc" id="L357">      Thread.currentThread().interrupt();</span>
+<span class="nc" id="L358">      throw new ApiException(e);</span>
     }
   }
 
-  private HttpRequest.Builder deltaCustomDownloadStatusRequestBuilder(@javax.annotation.Nonnull String downloadRequestId) throws ApiException {
+  private HttpRequest.Builder deltaCustomDownloadStatusRequestBuilder(@javax.annotation.Nonnull String downloadRequestId, Map&lt;String, String&gt; headers) throws ApiException {
     // verify the required parameter 'downloadRequestId' is set
-<span class="nc bnc" id="L237" title="All 2 branches missed.">    if (downloadRequestId == null) {</span>
-<span class="nc" id="L238">      throw new ApiException(400, &quot;Missing the required parameter 'downloadRequestId' when calling deltaCustomDownloadStatus&quot;);</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">    if (downloadRequestId == null) {</span>
+<span class="nc" id="L365">      throw new ApiException(400, &quot;Missing the required parameter 'downloadRequestId' when calling deltaCustomDownloadStatus&quot;);</span>
     }
 
-<span class="nc" id="L241">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
+<span class="nc" id="L368">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
 
-<span class="nc" id="L243">    String localVarPath = &quot;/delta/custom/{downloadRequestId}/status&quot;</span>
-<span class="nc" id="L244">        .replace(&quot;{downloadRequestId}&quot;, ApiClient.urlEncode(downloadRequestId.toString()));</span>
+<span class="nc" id="L370">    String localVarPath = &quot;/delta/custom/{downloadRequestId}/status&quot;</span>
+<span class="nc" id="L371">        .replace(&quot;{downloadRequestId}&quot;, ApiClient.urlEncode(downloadRequestId.toString()));</span>
 
-<span class="nc" id="L246">    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
+<span class="nc" id="L373">    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
 
-<span class="nc" id="L248">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L375">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
 
-<span class="nc" id="L250">    localVarRequestBuilder.method(&quot;GET&quot;, HttpRequest.BodyPublishers.noBody());</span>
-<span class="nc bnc" id="L251" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
-<span class="nc" id="L252">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
+<span class="nc" id="L377">    localVarRequestBuilder.method(&quot;GET&quot;, HttpRequest.BodyPublishers.noBody());</span>
+<span class="nc bnc" id="L378" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
+<span class="nc" id="L379">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
     }
-<span class="nc bnc" id="L254" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
-<span class="nc" id="L255">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
+    // Add custom headers if provided
+<span class="nc" id="L382">    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);</span>
+<span class="nc bnc" id="L383" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
+<span class="nc" id="L384">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
     }
-<span class="nc" id="L257">    return localVarRequestBuilder;</span>
+<span class="nc" id="L386">    return localVarRequestBuilder;</span>
   }
 
 }

@@ -50,7 +50,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * &lt;p&gt;The setter methods of this class return the current object to facilitate
  * a fluent style of configuration.&lt;/p&gt;
  */
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.14.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
 public class ApiClient {
 
   protected HttpClient.Builder builder;
@@ -165,7 +165,7 @@ public class ApiClient {
 <span class="nc" id="L165">  public ApiClient() {</span>
 <span class="nc" id="L166">    this.builder = createDefaultHttpClientBuilder();</span>
 <span class="nc" id="L167">    this.mapper = createDefaultObjectMapper();</span>
-<span class="nc" id="L168">    updateBaseUri(getDefaultBaseUri());</span>
+<span class="nc" id="L168">    updateBaseUri(&quot;https://api.pdok.nl/lv/bgt/download/v1_0&quot;);</span>
 <span class="nc" id="L169">    interceptor = null;</span>
 <span class="nc" id="L170">    readTimeout = null;</span>
 <span class="nc" id="L171">    connectTimeout = null;</span>
@@ -183,7 +183,7 @@ public class ApiClient {
 <span class="nc" id="L183">  public ApiClient(HttpClient.Builder builder, ObjectMapper mapper, String baseUri) {</span>
 <span class="nc" id="L184">    this.builder = builder;</span>
 <span class="nc" id="L185">    this.mapper = mapper;</span>
-<span class="nc bnc" id="L186" title="All 2 branches missed.">    updateBaseUri(baseUri != null ? baseUri : getDefaultBaseUri());</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">    updateBaseUri(baseUri != null ? baseUri : &quot;https://api.pdok.nl/lv/bgt/download/v1_0&quot;);</span>
 <span class="nc" id="L187">    interceptor = null;</span>
 <span class="nc" id="L188">    readTimeout = null;</span>
 <span class="nc" id="L189">    connectTimeout = null;</span>
@@ -205,8 +205,8 @@ public class ApiClient {
 <span class="nc" id="L205">    return mapper;</span>
   }
 
-  protected String getDefaultBaseUri() {
-<span class="nc" id="L209">    return &quot;https://api.pdok.nl/lv/bgt/download/v1_0&quot;;</span>
+  protected final String getDefaultBaseUri() {
+<span class="nc" id="L209">    return basePath;</span>
   }
 
   public static HttpClient.Builder createDefaultHttpClientBuilder() {

@@ -536,15 +536,19 @@ import picocli.CommandLine.Parameters;
     }
 <span class="nc" id="L537">    sql =</span>
         &quot;&quot;&quot;
-        delete from openbareruimte o where not exists (select 1 from nummeraanduiding where ligtaan = o.identificatie)
+        delete from openbareruimte o
+             where not exists (
+               select 1 from woonplaats w
+               where o.ligtin = w.identificatie
+             )
         &quot;&quot;&quot;;
-<span class="nc" id="L541">    try (PreparedStatement ps = db.getConnection().prepareStatement(sql)) {</span>
-<span class="nc" id="L542">      log.info(&quot;Verwijderen niet-gerefereerde openbareruimte-records&quot;);</span>
-<span class="nc" id="L543">      ps.executeUpdate();</span>
+<span class="nc" id="L545">    try (PreparedStatement ps = db.getConnection().prepareStatement(sql)) {</span>
+<span class="nc" id="L546">      log.info(&quot;Verwijderen niet-gerefereerde openbareruimte-records&quot;);</span>
+<span class="nc" id="L547">      ps.executeUpdate();</span>
     }
-<span class="nc" id="L545">    db.getConnection().commit();</span>
-<span class="nc" id="L546">    log.info(&quot;Klaar met verwijderen records buiten geometrie-filter&quot;);</span>
-<span class="nc" id="L547">  }</span>
+<span class="nc" id="L549">    db.getConnection().commit();</span>
+<span class="nc" id="L550">    log.info(&quot;Klaar met verwijderen records buiten geometrie-filter&quot;);</span>
+<span class="nc" id="L551">  }</span>
 
   private void createKeysAndIndexes(
       BAG2Database db,
@@ -552,13 +556,13 @@ import picocli.CommandLine.Parameters;
       BAG2DatabaseOptions databaseOptions,
       BAG2ProgressReporter progressReporter)
       throws Exception {
-<span class="nc" id="L555">    BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);</span>
-<span class="nc" id="L556">    writer.setProgressUpdater(progressReporter);</span>
-<span class="nc bnc" id="L557" title="All 2 branches missed.">    for (BAG2ObjectType objectType : objectTypesWithSchemaCreated) {</span>
-<span class="nc" id="L558">      writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT</span>
-<span class="nc" id="L559">      writer.createIndexes(objectType);</span>
-<span class="nc" id="L560">    }</span>
-<span class="nc" id="L561">  }</span>
+<span class="nc" id="L559">    BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);</span>
+<span class="nc" id="L560">    writer.setProgressUpdater(progressReporter);</span>
+<span class="nc bnc" id="L561" title="All 2 branches missed.">    for (BAG2ObjectType objectType : objectTypesWithSchemaCreated) {</span>
+<span class="nc" id="L562">      writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT</span>
+<span class="nc" id="L563">      writer.createIndexes(objectType);</span>
+<span class="nc" id="L564">    }</span>
+<span class="nc" id="L565">  }</span>
 
   private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromURLorFile(
       BAG2Database db,
@@ -567,7 +571,7 @@ import picocli.CommandLine.Parameters;
       BAG2ProgressReporter progressReporter,
       String url)
       throws Exception {
-<span class="nc" id="L570">    return loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, url, null);</span>
+<span class="nc" id="L574">    return loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, url, null);</span>
   }
 
   private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromURLorFile(
@@ -579,24 +583,24 @@ import picocli.CommandLine.Parameters;
       CookieManager cookieManager)
       throws Exception {
     HttpClientWrapper&lt;HttpRequest.Builder, HttpResponse&lt;InputStream&gt;&gt; httpClientWrapper =
-<span class="nc bnc" id="L582" title="All 2 branches missed.">        cookieManager == null</span>
-<span class="nc" id="L583">            ? new Java11HttpClientWrapper()</span>
-<span class="nc" id="L584">            : new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(cookieManager));</span>
+<span class="nc bnc" id="L586" title="All 2 branches missed.">        cookieManager == null</span>
+<span class="nc" id="L587">            ? new Java11HttpClientWrapper()</span>
+<span class="nc" id="L588">            : new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(cookieManager));</span>
 
-<span class="nc bnc" id="L586" title="All 4 branches missed.">    if (url.startsWith(&quot;http://&quot;) || url.startsWith(&quot;https://&quot;)) {</span>
-<span class="nc" id="L587">      try (InputStream in =</span>
+<span class="nc bnc" id="L590" title="All 4 branches missed.">    if (url.startsWith(&quot;http://&quot;) || url.startsWith(&quot;https://&quot;)) {</span>
+<span class="nc" id="L591">      try (InputStream in =</span>
           new ResumingInputStream(
-<span class="nc" id="L589">              new HttpStartRangeInputStreamProvider(URI.create(url), httpClientWrapper))) {</span>
-<span class="nc" id="L590">        return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, url, in);</span>
+<span class="nc" id="L593">              new HttpStartRangeInputStreamProvider(URI.create(url), httpClientWrapper))) {</span>
+<span class="nc" id="L594">        return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, url, in);</span>
       }
     }
-<span class="nc bnc" id="L593" title="All 2 branches missed.">    if (url.endsWith(&quot;.zip&quot;)) {</span>
-<span class="nc" id="L594">      try (InputStream in = new FileInputStream(url)) {</span>
-<span class="nc" id="L595">        return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, url, in);</span>
+<span class="nc bnc" id="L597" title="All 2 branches missed.">    if (url.endsWith(&quot;.zip&quot;)) {</span>
+<span class="nc" id="L598">      try (InputStream in = new FileInputStream(url)) {</span>
+<span class="nc" id="L599">        return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, url, in);</span>
       }
     }
 
-<span class="nc" id="L599">    throw new IllegalArgumentException(getMessageFormattedString(&quot;load.invalid_file&quot;, url));</span>
+<span class="nc" id="L603">    throw new IllegalArgumentException(getMessageFormattedString(&quot;load.invalid_file&quot;, url));</span>
   }
 
   private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromStream(
@@ -607,125 +611,125 @@ import picocli.CommandLine.Parameters;
       String name,
       InputStream input)
       throws Exception {
-<span class="nc" id="L610">    BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;</span>
-<span class="nc" id="L611">    Set&lt;String&gt; gemeenteIdentificaties = new HashSet&lt;&gt;();</span>
-<span class="nc" id="L612">    try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {</span>
-<span class="nc" id="L613">      ZipArchiveEntry entry = zip.getNextZipEntry();</span>
-<span class="nc bnc" id="L614" title="All 2 branches missed.">      while (entry != null) {</span>
-<span class="nc bnc" id="L615" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml&quot;)) {</span>
+<span class="nc" id="L614">    BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;</span>
+<span class="nc" id="L615">    Set&lt;String&gt; gemeenteIdentificaties = new HashSet&lt;&gt;();</span>
+<span class="nc" id="L616">    try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {</span>
+<span class="nc" id="L617">      ZipArchiveEntry entry = zip.getNextZipEntry();</span>
+<span class="nc bnc" id="L618" title="All 2 branches missed.">      while (entry != null) {</span>
+<span class="nc bnc" id="L619" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml&quot;)) {</span>
           // Load extracted zipfile
-<span class="nc" id="L617">          bagInfo =</span>
-<span class="nc" id="L618">              loadXmlEntriesFromZipFile(</span>
+<span class="nc" id="L621">          bagInfo =</span>
+<span class="nc" id="L622">              loadXmlEntriesFromZipFile(</span>
                   db, loadOptions, dbOptions, progressReporter, name, zip, entry);
-<span class="nc" id="L620">          break;</span>
+<span class="nc" id="L624">          break;</span>
         }
 
-<span class="nc bnc" id="L623" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}GEM[0-9]{8}\\.zip&quot;)) {</span>
-<span class="nc" id="L624">          bagInfo =</span>
-<span class="nc" id="L625">              loadBAG2ExtractFromStream(</span>
+<span class="nc bnc" id="L627" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}GEM[0-9]{8}\\.zip&quot;)) {</span>
+<span class="nc" id="L628">          bagInfo =</span>
+<span class="nc" id="L629">              loadBAG2ExtractFromStream(</span>
                   db,
                   loadOptions,
                   dbOptions,
                   progressReporter,
                   name,
-<span class="nc" id="L631">                  CloseShieldInputStream.wrap(zip));</span>
+<span class="nc" id="L635">                  CloseShieldInputStream.wrap(zip));</span>
         }
 
         // Process single and double-nested ZIP files
 
-<span class="nc bnc" id="L636" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip&quot;)</span>
-<span class="nc bnc" id="L637" title="All 2 branches missed.">            || entry.getName().matches(&quot;[0-9]{4}MUT[0-9]{8}-[0-9]{8}\\.zip&quot;)) {</span>
-<span class="nc" id="L638">          ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);</span>
-<span class="nc" id="L639">          bagInfo =</span>
-<span class="nc" id="L640">              loadXmlEntriesFromZipFile(</span>
+<span class="nc bnc" id="L640" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip&quot;)</span>
+<span class="nc bnc" id="L641" title="All 2 branches missed.">            || entry.getName().matches(&quot;[0-9]{4}MUT[0-9]{8}-[0-9]{8}\\.zip&quot;)) {</span>
+<span class="nc" id="L642">          ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);</span>
+<span class="nc" id="L643">          bagInfo =</span>
+<span class="nc" id="L644">              loadXmlEntriesFromZipFile(</span>
                   db,
                   loadOptions,
                   dbOptions,
                   progressReporter,
-<span class="nc" id="L645">                  entry.getName(),</span>
+<span class="nc" id="L649">                  entry.getName(),</span>
                   nestedZip,
-<span class="nc" id="L647">                  nestedZip.getNextEntry());</span>
+<span class="nc" id="L651">                  nestedZip.getNextEntry());</span>
         }
 
-<span class="nc bnc" id="L650" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}Inactief.*\\.zip&quot;)) {</span>
-<span class="nc" id="L651">          ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);</span>
-<span class="nc" id="L652">          ZipArchiveEntry nestedEntry = nestedZip.getNextEntry();</span>
-<span class="nc bnc" id="L653" title="All 2 branches missed.">          while (nestedEntry != null) {</span>
-<span class="nc bnc" id="L654" title="All 2 branches missed.">            if (nestedEntry.getName().matches(&quot;[0-9]{4}IA.*\\.zip&quot;)) {</span>
-<span class="nc" id="L655">              ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);</span>
-<span class="nc" id="L656">              bagInfo =</span>
-<span class="nc" id="L657">                  loadXmlEntriesFromZipFile(</span>
+<span class="nc bnc" id="L654" title="All 2 branches missed.">        if (entry.getName().matches(&quot;[0-9]{4}Inactief.*\\.zip&quot;)) {</span>
+<span class="nc" id="L655">          ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);</span>
+<span class="nc" id="L656">          ZipArchiveEntry nestedEntry = nestedZip.getNextEntry();</span>
+<span class="nc bnc" id="L657" title="All 2 branches missed.">          while (nestedEntry != null) {</span>
+<span class="nc bnc" id="L658" title="All 2 branches missed.">            if (nestedEntry.getName().matches(&quot;[0-9]{4}IA.*\\.zip&quot;)) {</span>
+<span class="nc" id="L659">              ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);</span>
+<span class="nc" id="L660">              bagInfo =</span>
+<span class="nc" id="L661">                  loadXmlEntriesFromZipFile(</span>
                       db,
                       loadOptions,
                       dbOptions,
                       progressReporter,
-<span class="nc" id="L662">                      nestedEntry.getName(),</span>
+<span class="nc" id="L666">                      nestedEntry.getName(),</span>
                       moreNestedZip,
-<span class="nc" id="L664">                      moreNestedZip.getNextEntry());</span>
+<span class="nc" id="L668">                      moreNestedZip.getNextEntry());</span>
             }
-<span class="nc" id="L666">            nestedEntry = nestedZip.getNextEntry();</span>
+<span class="nc" id="L670">            nestedEntry = nestedZip.getNextEntry();</span>
           }
         }
 
-<span class="nc bnc" id="L670" title="All 2 branches missed.">        if (bagInfo != null) {</span>
-<span class="nc" id="L671">          gemeenteIdentificaties.addAll(bagInfo.getGemeenteIdentificaties());</span>
+<span class="nc bnc" id="L674" title="All 2 branches missed.">        if (bagInfo != null) {</span>
+<span class="nc" id="L675">          gemeenteIdentificaties.addAll(bagInfo.getGemeenteIdentificaties());</span>
         }
 
         try {
-<span class="nc" id="L675">          entry = zip.getNextEntry();</span>
-<span class="nc" id="L676">        } catch (IOException e) {</span>
+<span class="nc" id="L679">          entry = zip.getNextEntry();</span>
+<span class="nc" id="L680">        } catch (IOException e) {</span>
           // Reading the ZIP from HTTP may give this error, but it is a normal end...
-<span class="nc bnc" id="L678" title="All 2 branches missed.">          if (&quot;Truncated ZIP file&quot;.equals(e.getMessage())) {</span>
-<span class="nc" id="L679">            break;</span>
+<span class="nc bnc" id="L682" title="All 2 branches missed.">          if (&quot;Truncated ZIP file&quot;.equals(e.getMessage())) {</span>
+<span class="nc" id="L683">            break;</span>
           }
-<span class="nc" id="L681">        }</span>
+<span class="nc" id="L685">        }</span>
       }
     }
-<span class="nc bnc" id="L684" title="All 2 branches missed.">    if (bagInfo != null) {</span>
+<span class="nc bnc" id="L688" title="All 2 branches missed.">    if (bagInfo != null) {</span>
       // Update BagInfo with all seen gemeenteIdentificaties in case we processed a ZIP with
       // multiple gemeentestanden
-<span class="nc" id="L687">      bagInfo.setGemeenteIdentificaties(gemeenteIdentificaties);</span>
+<span class="nc" id="L691">      bagInfo.setGemeenteIdentificaties(gemeenteIdentificaties);</span>
     }
-<span class="nc" id="L689">    return bagInfo;</span>
+<span class="nc" id="L693">    return bagInfo;</span>
   }
 
   private static BAG2ObjectType getObjectTypeFromFilename(String filename) {
-<span class="nc" id="L693">    Matcher m =</span>
-<span class="nc" id="L694">        Pattern.compile(&quot;.*[0-9]{4}(IA)?(MUT|STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)&quot;)</span>
-<span class="nc" id="L695">            .matcher(filename);</span>
-<span class="nc bnc" id="L696" title="All 2 branches missed.">    if (!m.matches()) {</span>
-<span class="nc" id="L697">      throw new IllegalArgumentException(&quot;Invalid BAG2 filename: &quot; + filename);</span>
+<span class="nc" id="L697">    Matcher m =</span>
+<span class="nc" id="L698">        Pattern.compile(&quot;.*[0-9]{4}(IA)?(MUT|STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)&quot;)</span>
+<span class="nc" id="L699">            .matcher(filename);</span>
+<span class="nc bnc" id="L700" title="All 2 branches missed.">    if (!m.matches()) {</span>
+<span class="nc" id="L701">      throw new IllegalArgumentException(&quot;Invalid BAG2 filename: &quot; + filename);</span>
     }
-<span class="nc" id="L699">    String objectTypeName = null;</span>
-<span class="nc bnc" id="L700" title="All 9 branches missed.">    switch (m.group(2)) {</span>
+<span class="nc" id="L703">    String objectTypeName = null;</span>
+<span class="nc bnc" id="L704" title="All 9 branches missed.">    switch (m.group(2)) {</span>
       case &quot;MUT&quot;:
-<span class="nc" id="L702">        break;</span>
+<span class="nc" id="L706">        break;</span>
       case &quot;STA&quot;:
-<span class="nc" id="L704">        objectTypeName = &quot;Standplaats&quot;;</span>
-<span class="nc" id="L705">        break;</span>
+<span class="nc" id="L708">        objectTypeName = &quot;Standplaats&quot;;</span>
+<span class="nc" id="L709">        break;</span>
       case &quot;OPR&quot;:
-<span class="nc" id="L707">        objectTypeName = &quot;OpenbareRuimte&quot;;</span>
-<span class="nc" id="L708">        break;</span>
+<span class="nc" id="L711">        objectTypeName = &quot;OpenbareRuimte&quot;;</span>
+<span class="nc" id="L712">        break;</span>
       case &quot;VBO&quot;:
-<span class="nc" id="L710">        objectTypeName = &quot;Verblijfsobject&quot;;</span>
-<span class="nc" id="L711">        break;</span>
+<span class="nc" id="L714">        objectTypeName = &quot;Verblijfsobject&quot;;</span>
+<span class="nc" id="L715">        break;</span>
       case &quot;NUM&quot;:
-<span class="nc" id="L713">        objectTypeName = &quot;Nummeraanduiding&quot;;</span>
-<span class="nc" id="L714">        break;</span>
+<span class="nc" id="L717">        objectTypeName = &quot;Nummeraanduiding&quot;;</span>
+<span class="nc" id="L718">        break;</span>
       case &quot;LIG&quot;:
-<span class="nc" id="L716">        objectTypeName = &quot;Ligplaats&quot;;</span>
-<span class="nc" id="L717">        break;</span>
+<span class="nc" id="L720">        objectTypeName = &quot;Ligplaats&quot;;</span>
+<span class="nc" id="L721">        break;</span>
       case &quot;PND&quot;:
-<span class="nc" id="L719">        objectTypeName = &quot;Pand&quot;;</span>
-<span class="nc" id="L720">        break;</span>
+<span class="nc" id="L723">        objectTypeName = &quot;Pand&quot;;</span>
+<span class="nc" id="L724">        break;</span>
       case &quot;WPL&quot;:
-<span class="nc" id="L722">        objectTypeName = &quot;Woonplaats&quot;;</span>
+<span class="nc" id="L726">        objectTypeName = &quot;Woonplaats&quot;;</span>
         break;
     }
-<span class="nc bnc" id="L725" title="All 2 branches missed.">    if (objectTypeName == null) {</span>
-<span class="nc" id="L726">      return null;</span>
+<span class="nc bnc" id="L729" title="All 2 branches missed.">    if (objectTypeName == null) {</span>
+<span class="nc" id="L730">      return null;</span>
     } else {
-<span class="nc" id="L728">      return BAG2Schema.getInstance().getObjectTypeByName(objectTypeName);</span>
+<span class="nc" id="L732">      return BAG2Schema.getInstance().getObjectTypeByName(objectTypeName);</span>
     }
   }
 
@@ -738,28 +742,28 @@ import picocli.CommandLine.Parameters;
       throws Exception {
     // Check if metadata table already exists. For PostgreSQL we can use the metadata table in
     // the public schema
-<span class="nc bnc" id="L741" title="All 2 branches missed.">    if (!db.getDialect().tableExists(db.getConnection(), METADATA_TABLE_NAME)) {</span>
+<span class="nc bnc" id="L745" title="All 2 branches missed.">    if (!db.getDialect().tableExists(db.getConnection(), METADATA_TABLE_NAME)) {</span>
       // Create a new metadata table, for Oracle as BAG is in separate schema, for PostgreSQL
       // if loading BAG
       // into a non-brmo RSGB database
-<span class="nc" id="L745">      db.createMetadataTable(loadOptions);</span>
+<span class="nc" id="L749">      db.createMetadataTable(loadOptions);</span>
     }
 
-<span class="nc" id="L748">    db.setMetadataValue(</span>
-<span class="nc" id="L749">        BAG2SchemaMapper.Metadata.LOADER_VERSION, BAG2LoaderUtils.getLoaderVersion());</span>
-<span class="nc" id="L750">    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc bnc" id="L751" title="All 2 branches missed.">    if (stand) {</span>
-<span class="nc" id="L752">      db.setMetadataValue(</span>
-<span class="nc" id="L753">          STAND_LOAD_TIME, new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date()));</span>
-<span class="nc" id="L754">      db.setMetadataValue(STAND_LOAD_TECHNISCHE_DATUM, df.format(standTechnischeDatum));</span>
-<span class="nc" id="L755">      db.setMetadataValue(GEMEENTE_CODES, String.join(&quot;,&quot;, gemeenteIdentificaties));</span>
+<span class="nc" id="L752">    db.setMetadataValue(</span>
+<span class="nc" id="L753">        BAG2SchemaMapper.Metadata.LOADER_VERSION, BAG2LoaderUtils.getLoaderVersion());</span>
+<span class="nc" id="L754">    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc bnc" id="L755" title="All 2 branches missed.">    if (stand) {</span>
+<span class="nc" id="L756">      db.setMetadataValue(</span>
+<span class="nc" id="L757">          STAND_LOAD_TIME, new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date()));</span>
+<span class="nc" id="L758">      db.setMetadataValue(STAND_LOAD_TECHNISCHE_DATUM, df.format(standTechnischeDatum));</span>
+<span class="nc" id="L759">      db.setMetadataValue(GEMEENTE_CODES, String.join(&quot;,&quot;, gemeenteIdentificaties));</span>
     }
-<span class="nc" id="L757">    db.setMetadataValue(CURRENT_TECHNISCHE_DATUM, df.format(standTechnischeDatum));</span>
-<span class="nc" id="L758">  }</span>
+<span class="nc" id="L761">    db.setMetadataValue(CURRENT_TECHNISCHE_DATUM, df.format(standTechnischeDatum));</span>
+<span class="nc" id="L762">  }</span>
 
   private void clearDuplicatesCache() {
-<span class="nc" id="L761">    keysPerObjectType = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L762">  }</span>
+<span class="nc" id="L765">    keysPerObjectType = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L766">  }</span>
 
   private BAG2GMLMutatieGroepStream.BagInfo loadXmlEntriesFromZipFile(
       BAG2Database db,
@@ -770,50 +774,50 @@ import picocli.CommandLine.Parameters;
       ZipArchiveInputStream zip,
       ZipArchiveEntry entry)
       throws Exception {
-<span class="nc" id="L773">    BAG2ObjectType objectType = getObjectTypeFromFilename(name);</span>
+<span class="nc" id="L777">    BAG2ObjectType objectType = getObjectTypeFromFilename(name);</span>
     // objectType is null for mutaties, which contain mixed object types instead of a single
     // object type with stand
-<span class="nc bnc" id="L776" title="All 4 branches missed.">    boolean schemaCreated = objectType == null || objectTypesWithSchemaCreated.contains(objectType);</span>
-<span class="nc" id="L777">    BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);</span>
-<span class="nc" id="L778">    writer.setProgressUpdater(progressReporter);</span>
-<span class="nc bnc" id="L779" title="All 2 branches missed.">    writer.setCreateSchema(!schemaCreated);</span>
-<span class="nc" id="L780">    writer.setCreateKeysAndIndexes(false);</span>
-<span class="nc" id="L781">    writer.setKeysPerObjectType(keysPerObjectType);</span>
-<span class="nc" id="L782">    writer.start(); // sets InitialLoad to true</span>
-<span class="nc" id="L783">    writer</span>
-<span class="nc bnc" id="L784" title="All 2 branches missed.">        .getProgress()</span>
-<span class="nc" id="L785">        .setInitialLoad(!schemaCreated); // For a COPY in transaction, table must be created or</span>
+<span class="nc bnc" id="L780" title="All 4 branches missed.">    boolean schemaCreated = objectType == null || objectTypesWithSchemaCreated.contains(objectType);</span>
+<span class="nc" id="L781">    BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);</span>
+<span class="nc" id="L782">    writer.setProgressUpdater(progressReporter);</span>
+<span class="nc bnc" id="L783" title="All 2 branches missed.">    writer.setCreateSchema(!schemaCreated);</span>
+<span class="nc" id="L784">    writer.setCreateKeysAndIndexes(false);</span>
+<span class="nc" id="L785">    writer.setKeysPerObjectType(keysPerObjectType);</span>
+<span class="nc" id="L786">    writer.start(); // sets InitialLoad to true</span>
+<span class="nc" id="L787">    writer</span>
+<span class="nc bnc" id="L788" title="All 2 branches missed.">        .getProgress()</span>
+<span class="nc" id="L789">        .setInitialLoad(!schemaCreated); // For a COPY in transaction, table must be created or</span>
     // truncated in it
-<span class="nc bnc" id="L787" title="All 2 branches missed.">    if (objectType == null) {</span>
+<span class="nc bnc" id="L791" title="All 2 branches missed.">    if (objectType == null) {</span>
       // When processing mutaties, set batch size to 1 so all mutaties are processed
       // sequentially and can not
       // conflict with deleting and inserting of old/new versions
-<span class="nc" id="L791">      writer.setBatchSize(1);</span>
+<span class="nc" id="L795">      writer.setBatchSize(1);</span>
       // Disable multithreading so deletion of previous versions and new inserts are processed
       // sequentially
-<span class="nc" id="L794">      writer.setMultithreading(false);</span>
+<span class="nc" id="L798">      writer.setMultithreading(false);</span>
     }
-<span class="nc" id="L796">    progressReporter.startNewFile(name);</span>
+<span class="nc" id="L800">    progressReporter.startNewFile(name);</span>
     try {
-<span class="nc bnc" id="L798" title="All 2 branches missed.">      while (entry != null) {</span>
-<span class="nc" id="L799">        progressReporter.startNextSplitFile(entry.getName());</span>
-<span class="nc" id="L800">        writer.write(CloseShieldInputStream.wrap(zip));</span>
-<span class="nc bnc" id="L801" title="All 2 branches missed.">        if (loadOptions.getMaxObjects() != null</span>
-<span class="nc bnc" id="L802" title="All 2 branches missed.">            &amp;&amp; writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {</span>
-<span class="nc" id="L803">          break;</span>
+<span class="nc bnc" id="L802" title="All 2 branches missed.">      while (entry != null) {</span>
+<span class="nc" id="L803">        progressReporter.startNextSplitFile(entry.getName());</span>
+<span class="nc" id="L804">        writer.write(CloseShieldInputStream.wrap(zip));</span>
+<span class="nc bnc" id="L805" title="All 2 branches missed.">        if (loadOptions.getMaxObjects() != null</span>
+<span class="nc bnc" id="L806" title="All 2 branches missed.">            &amp;&amp; writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {</span>
+<span class="nc" id="L807">          break;</span>
         }
-<span class="nc" id="L805">        entry = zip.getNextEntry();</span>
+<span class="nc" id="L809">        entry = zip.getNextEntry();</span>
       }
-<span class="nc" id="L807">      writer.complete();</span>
+<span class="nc" id="L811">      writer.complete();</span>
 
-<span class="nc bnc" id="L809" title="All 4 branches missed.">      if (writer.getProgress().getObjectCount() &gt; 0 &amp;&amp; objectType != null) {</span>
-<span class="nc" id="L810">        objectTypesWithSchemaCreated.add(objectType);</span>
+<span class="nc bnc" id="L813" title="All 4 branches missed.">      if (writer.getProgress().getObjectCount() &gt; 0 &amp;&amp; objectType != null) {</span>
+<span class="nc" id="L814">        objectTypesWithSchemaCreated.add(objectType);</span>
       }
 
-<span class="nc" id="L813">      return writer.getProgress().getMutatieInfo();</span>
-<span class="nc" id="L814">    } catch (Exception e) {</span>
-<span class="nc" id="L815">      writer.abortWorkerThread();</span>
-<span class="nc" id="L816">      throw e;</span>
+<span class="nc" id="L817">      return writer.getProgress().getMutatieInfo();</span>
+<span class="nc" id="L818">    } catch (Exception e) {</span>
+<span class="nc" id="L819">      writer.abortWorkerThread();</span>
+<span class="nc" id="L820">      throw e;</span>
     }
   }
 }

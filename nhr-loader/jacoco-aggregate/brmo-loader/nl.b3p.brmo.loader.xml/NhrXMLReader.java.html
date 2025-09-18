@@ -189,46 +189,57 @@ public class NhrXMLReader extends BrmoXMLReader {
 <span class="nc" id="L189">                  .replace(&quot;(&quot;, &quot;&quot;)</span>
 <span class="nc" id="L190">                  .replace(&quot;)&quot;, &quot;&quot;)</span>
                   // komt in bedrijfsnaam voor '&amp; Co'
-<span class="nc" id="L192">                  .replace(&quot;&amp;&quot;, &quot;&quot;);</span>
-<span class="nc" id="L193">          bsnHashes.put(_cleanName, getHash(_cleanName));</span>
+<span class="nc" id="L192">                  .replace(&quot;&amp;&quot;, &quot;&quot;)</span>
+                  // komt in bedrijfsnaam voor 'Radley + Co. Limited' of 'Jan Wilhelm Arntz GmbH +
+                  // Co.KG'
+<span class="nc" id="L195">                  .replace(&quot;+&quot;, &quot;&quot;)</span>
+                  // komt in bedrijfsnaam voor 'UAB &quot;MANTINGA GROUP&quot;'
+<span class="nc" id="L197">                  .replace(&quot;\&quot;&quot;, &quot;&quot;)</span>
+                  //  U+0218 LATIN CAPITAL LETTER S WITH COMMA BELOW, bijv. in 'KESER Makina İmalat
+                  // Montaj Sanayi ve Ticaret Limited Șirketi'
+<span class="nc" id="L200">                  .replace(&quot;Ș&quot;, &quot;S&quot;)</span>
+                  // komt voor in bedrijfsnaam 'OMG@Mathews Ltd'
+<span class="nc" id="L202">                  .replace(&quot;@&quot;, &quot;&quot;)</span>
+<span class="nc" id="L203">                  .replace(&quot;?&quot;, &quot;&quot;);</span>
+<span class="nc" id="L204">          bsnHashes.put(_cleanName, getHash(_cleanName));</span>
         }
       }
-<span class="nc" id="L196">    } catch (ParserConfigurationException | SAXException | IOException e) {</span>
-<span class="nc" id="L197">      LOG.error(&quot;Fout tijdens toevoegen bsn hashes&quot;, e);</span>
-<span class="nc" id="L198">    }</span>
-<span class="nc" id="L199">    return bsnHashes;</span>
+<span class="nc" id="L207">    } catch (ParserConfigurationException | SAXException | IOException e) {</span>
+<span class="nc" id="L208">      LOG.error(&quot;Fout tijdens toevoegen bsn hashes&quot;, e);</span>
+<span class="nc" id="L209">    }</span>
+<span class="nc" id="L210">    return bsnHashes;</span>
   }
 
   public String getXML(Map&lt;String, String&gt; map) {
-<span class="nc" id="L203">    StringBuilder root = new StringBuilder();</span>
-<span class="nc bnc" id="L204" title="All 2 branches missed.">    if (!map.isEmpty()) {</span>
-<span class="nc" id="L205">      root.append(</span>
+<span class="nc" id="L214">    StringBuilder root = new StringBuilder();</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">    if (!map.isEmpty()) {</span>
+<span class="nc" id="L216">      root.append(</span>
           &quot;&lt;cat:bsnhashes xmlns:cat=\&quot;http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02\&quot;&gt;&quot;);
 
       String type;
-<span class="nc bnc" id="L209" title="All 2 branches missed.">      for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
-<span class="nc bnc" id="L210" title="All 4 branches missed.">        if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
-<span class="nc" id="L211">          root.append(&quot;&lt;cat:&quot;);</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">      for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
+<span class="nc bnc" id="L221" title="All 4 branches missed.">        if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
+<span class="nc" id="L222">          root.append(&quot;&lt;cat:&quot;);</span>
           // NB BSN's kunnen met een 0 beginnen, dus niet NumberUtils#isCreatable
           // gebruiken
-<span class="nc bnc" id="L214" title="All 2 branches missed.">          if (NumberUtils.isParsable(entry.getKey())) {</span>
-<span class="nc" id="L215">            type = PREFIX_BSN;</span>
+<span class="nc bnc" id="L225" title="All 2 branches missed.">          if (NumberUtils.isParsable(entry.getKey())) {</span>
+<span class="nc" id="L226">            type = PREFIX_BSN;</span>
           } else {
-<span class="nc" id="L217">            type = PREFIX_NAAM;</span>
+<span class="nc" id="L228">            type = PREFIX_NAAM;</span>
           }
-<span class="nc" id="L219">          root.append(type)</span>
-<span class="nc" id="L220">              .append(entry.getKey())</span>
-<span class="nc" id="L221">              .append(&quot;&gt;&quot;)</span>
-<span class="nc" id="L222">              .append(entry.getValue())</span>
-<span class="nc" id="L223">              .append(&quot;&lt;/cat:&quot;)</span>
-<span class="nc" id="L224">              .append(type)</span>
-<span class="nc" id="L225">              .append(entry.getKey())</span>
-<span class="nc" id="L226">              .append(&quot;&gt;&quot;);</span>
+<span class="nc" id="L230">          root.append(type)</span>
+<span class="nc" id="L231">              .append(entry.getKey())</span>
+<span class="nc" id="L232">              .append(&quot;&gt;&quot;)</span>
+<span class="nc" id="L233">              .append(entry.getValue())</span>
+<span class="nc" id="L234">              .append(&quot;&lt;/cat:&quot;)</span>
+<span class="nc" id="L235">              .append(type)</span>
+<span class="nc" id="L236">              .append(entry.getKey())</span>
+<span class="nc" id="L237">              .append(&quot;&gt;&quot;);</span>
         }
-<span class="nc" id="L228">      }</span>
-<span class="nc" id="L229">      root.append(&quot;&lt;/cat:bsnhashes&gt;&quot;);</span>
+<span class="nc" id="L239">      }</span>
+<span class="nc" id="L240">      root.append(&quot;&lt;/cat:bsnhashes&gt;&quot;);</span>
     }
-<span class="nc" id="L231">    return root.toString();</span>
+<span class="nc" id="L242">    return root.toString();</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
