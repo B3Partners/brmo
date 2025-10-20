@@ -64,7 +64,9 @@ updates:
     assignees:
       - mprins
     labels:
-      - "bouw- en testinfrastuctuur"
+      - "dependency update"
+    commit-message:
+      prefix: "🐳 "
     ignore: # stay on Tomcat 9/Java 17 for now
       - dependency-name: "tomcat"
         versions:
