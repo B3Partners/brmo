@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        postgis: [ 14-3.5 ]
+        postgis: [ 14-3.6 ]
 
     services:
       postgres:
@@ -83,8 +83,6 @@ jobs:
           .build/ci/pgsql-execute-upgrades.sh rsgbbgt
           .build/ci/pgsql-execute-upgrades.sh bag
           .build/ci/pgsql-execute-upgrades.sh brk
-#          de topnl database/user worden niet (meer) aangemaakt
-#          .build/ci/pgsql-execute-upgrade-extras.sh topnl
 
       - name: 'Test'
         run: |
