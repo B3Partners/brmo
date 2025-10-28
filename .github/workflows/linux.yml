@@ -30,18 +30,18 @@ jobs:
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
-            # t/m november 2025
-            - 13-3.5-alpine
             # t/m november 2027
             - 15-3.5-alpine
             # t/m november 2028
             - 16-3.5-alpine
             # t/m november 2029
-            - 17-3.5-alpine
+            - 17-3.6-alpine
+            # t/m november 2030
+            #- 18-3.6-alpine
         include:
           - java: 21
             java-dist: 'temurin'
-            postgis: 17-3.5-alpine
+            postgis: 18-3.6-alpine
 
     steps:
       - uses: actions/checkout@v5
