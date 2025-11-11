@@ -2,16 +2,15 @@
 
 ## Ondersteund / Supported
 
-| Release        | Datum       | Ondersteund/supported | valid database versions (fully patched/mainstream support)                                | runtime (fully patched)               |
-|----------------|-------------|-----------------------|-------------------------------------------------------------------------------------------|---------------------------------------|
-| 6.0.x-SNAPSHOT |             | ❌ (development)       | Current PostgreSQL 14 - 18 + PostGIS 3.6, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free | Java 17, Java 21, Tomcat 9, Docker 28 |
-| 6.0.1          |             | ✔️                    | Current PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free | Java 17, Java 21, Tomcat 9, Docker 28 |
-| 6.0.0          |             | ✔️ (deprecated)       | Current PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free | Java 17, Java 21, Tomcat 9, Docker 28 |
-| =< 5.0.2       | 16-may-2025 | ❌ (superceded)        | PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free         | Java 17, Java 21, Tomcat 9, Docker 27 |
-| 4.0.0          | 15-nov-2024 | ❌                     | PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free         | Java 17, Java 21, Tomcat 9, Docker 27 |
-| =< 3.0.2       | 7-feb-2024  | ❌                     | PostgreSQL 12 - 16 + PostGIS 3.4, Oracle 19c/21c + Spatial                                | Java 11, Tomcat 9, Docker 25          |
-| =< 2.3.x       | 29-nov-2022 | ❌                     | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial                                | Java 11, Tomcat 8.5/9, Docker 20      |
-
+| Release        | Datum       | Ondersteund/supported | valid database versions (fully patched/mainstream support)                                    | runtime (fully patched)               |
+|----------------|-------------|-----------------------|-----------------------------------------------------------------------------------------------|---------------------------------------|
+| 6.0.x-SNAPSHOT |             | ❌ (development)       | Current PostgreSQL 14 - 18 + PostGIS 3.5/3.6, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free | Java 17, Java 21, Tomcat 9, Docker 28 |
+| 6.0.1          |             | ✔️                    | Current PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free     | Java 17, Java 21, Tomcat 9, Docker 28 |
+| 6.0.0          |             | ✔️ (deprecated)       | Current PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free     | Java 17, Java 21, Tomcat 9, Docker 28 |
+| =< 5.0.2       | 16-may-2025 | ❌ (superceded)        | PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free             | Java 17, Java 21, Tomcat 9, Docker 27 |
+| 4.0.0          | 15-nov-2024 | ❌                     | PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free             | Java 17, Java 21, Tomcat 9, Docker 27 |
+| =< 3.0.2       | 7-feb-2024  | ❌                     | PostgreSQL 12 - 16 + PostGIS 3.4, Oracle 19c/21c + Spatial                                    | Java 11, Tomcat 9, Docker 25          |
+| =< 2.3.x       | 29-nov-2022 | ❌                     | PostgreSQL 11 - 15 + PostGIS 3.3, Oracle 19c/21c + Spatial                                    | Java 11, Tomcat 8.5/9, Docker 20      |
 
 _zie ook/see also: https://github.com/B3Partners/brmo/wiki/Systeemeisen_
 

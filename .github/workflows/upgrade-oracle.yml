@@ -65,8 +65,6 @@ jobs:
           .build/ci/oracle-execute-upgrades.sh rsgbbgt
           .build/ci/oracle-execute-upgrades.sh bag
           .build/ci/oracle-execute-upgrades.sh brk
-#          de topnl schema's worden niet (meer) aangemaakt
-#          .build/ci/oracle-execute-upgrade-extras.sh topnl
 
       - name: 'Test'
         run: |
