@@ -16,6 +16,7 @@ select na.objectid,
        na.huisletter,
        na.huisnummertoevoeging,
        na.postcode,
+       COALESCE(opr.naam, '') || ' ' || COALESCE(TO_CHAR(na.huisnummer), '') || COALESCE(na.huisletter, '') ||  COALESCE(na.huisnummertoevoeging, '') || ', ' ||  COALESCE(na.postcode, '') || ' ' || COALESCE(wp.naam, '')  AS adres_totaal,
        opr.identificatie as identificatieopenbareruimte,
        wp.identificatie  as identificatiewoonplaats,
        null              as gemeentecode
@@ -42,6 +43,7 @@ select qry.objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
+       qry.adres_totaal,
        qry.geometrie,
        qry.geometrie_centroide
 from (select 'true'                                 as ishoofdadres,
@@ -57,6 +59,7 @@ from (select 'true'                                 as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             a.adres_totaal,
              sdo_geom.sdo_centroid(lp.geometrie, 2) as geometrie_centroide,
              lp.geometrie
       from v_ligplaats_actueel lp
@@ -75,6 +78,7 @@ from (select 'true'                                 as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             a.adres_totaal,
              sdo_geom.sdo_centroid(lpa.geometrie, 2) as geometrie_centroide,
              lpa.geometrie
       from v_ligplaats_actueel lpa
@@ -104,6 +108,7 @@ select qry.objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
+       qry.adres_totaal,
        qry.geometrie,
        qry.geometrie_centroide
 from (select 'true'                                 as ishoofdadres,
@@ -119,6 +124,7 @@ from (select 'true'                                 as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             a.adres_totaal,
              sdo_geom.sdo_centroid(sp.geometrie, 2) as geometrie_centroide,
              sp.geometrie
       from v_standplaats_actueel sp
@@ -137,6 +143,7 @@ from (select 'true'                                 as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             a.adres_totaal,
              sdo_geom.sdo_centroid(spa.geometrie, 2) as geometrie_centroide,
              spa.geometrie
       from v_standplaats_actueel spa
@@ -166,6 +173,7 @@ select qry.objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
+       qry.adres_totaal,
        qry.maaktdeeluitvan,
        qry.gebruiksdoelen,
        qry.oppervlakte,
@@ -184,6 +192,7 @@ from (select 'true'                                                             
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             a.adres_totaal,
              (select listagg(vbod.maaktdeeluitvan, ', ')
               from verblijfsobject_maaktdeeluitvan vbod
               where (vbod.identificatie = vo.identificatie and vbod.voorkomenidentificatie =
@@ -211,6 +220,7 @@ from (select 'true'                                                             
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
+             a.adres_totaal,
              (select listagg(vbod.maaktdeeluitvan, ', ')
               from verblijfsobject_maaktdeeluitvan vbod
               where (vbod.identificatie = voa.identificatie and vbod.voorkomenidentificatie =
