@@ -16,7 +16,7 @@ select na.objectid,
        na.huisletter,
        na.huisnummertoevoeging,
        na.postcode,
-       COALESCE(opr.naam, '') || ' ' || COALESCE(TO_CHAR(na.huisnummer), '') || COALESCE(na.huisletter, '') ||  COALESCE(na.huisnummertoevoeging, '') || ', ' ||  COALESCE(na.postcode, '') || ' ' || COALESCE(wp.naam, '')  AS adres_totaal,
+       TRIM(COALESCE(opr.naam, '') || ' ' || COALESCE(TO_CHAR(na.huisnummer), '') || COALESCE(na.huisletter, '') || COALESCE(na.huisnummertoevoeging, '') || ', ' || COALESCE(na.postcode, '') || ' ' || COALESCE(wp.naam, '')) AS adres_totaal,
        opr.identificatie as identificatieopenbareruimte,
        wp.identificatie  as identificatiewoonplaats,
        null              as gemeentecode
