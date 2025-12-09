@@ -131,7 +131,7 @@ select
 		vp.geometrie
 from mb_kvk_adres kvk
 -- koppel pand geometrie
-join brmo_bag.v_pand_actueel vp on INSTR(',' || kvk.maaktdeeluitvan || ',', ',' || vp.identificatie || ',') > 0
+join brmo_bag.v_pand_actueel vp on INSTR(',' || kvk.maaktdeeluitvan || ',', ',' || vp.identificatie || ',') > 0;
 
 delete
 from user_sdo_geom_metadata
