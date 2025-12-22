@@ -49,7 +49,7 @@ jobs:
           lfs: true
 
       - name: 'Cache test data'
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/downloads
           key: downloads-${{ hashFiles('**/pom.xml') }}
@@ -256,7 +256,7 @@ jobs:
     needs: [ build, javadoc, qacheck ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.m2/repository
           key: maven-${{ hashFiles('**/pom.xml') }}
