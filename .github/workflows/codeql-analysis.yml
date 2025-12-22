@@ -34,7 +34,7 @@ jobs:
           lfs: false
 
       - name: 'Cache Maven repository'
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2/repository
           key: maven-${{ hashFiles('**/pom.xml') }}
@@ -94,7 +94,7 @@ jobs:
           sarif_file: "sarif-results/${{ matrix.language }}.sarif"
 
       - name: 'Upload loc as a Build Artifact'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: "sarif-results.${{ matrix.language }}"
           path: 'sarif-results'
