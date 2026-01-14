@@ -67,6 +67,8 @@ COMMENT ON MATERIALIZED VIEW mb_subject IS
         beschikbare kolommen:
     * objectid: uniek id bruikbaar voor geoserver/arcgis,
     * subject_identif: natuurlijke id van subject
+    * isgebaseerdop: -
+    * isgebaseerdop2: -
     * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
     * geslachtsnaam: -
     * voorvoegsel: -
