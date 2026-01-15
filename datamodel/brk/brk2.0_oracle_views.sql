@@ -646,19 +646,19 @@ FROM vb_util_zk_recht uzr
      ON
          uzr.subject_identif = vs.subject_identif
          LEFT JOIN 
-     brk.stukdeel sd1 
+     stukdeel sd1 
      ON 
          sd1.identificatie = uzr.isgebaseerdop
          LEFT JOIN 
-     brk.stukdeel sd2 
+     stukdeel sd2 
      ON 
          sd2.identificatie = uzr.isgebaseerdop2
          LEFT JOIN 
-     brk.stuk st1 
+     stuk st1 
      ON 
          sd1.deelvan = st1.identificatie
          LEFT JOIN 
-     brk.stuk st2 
+     stuk st2 
      ON 
          sd2.deelvan = st2.identificatie;
 
