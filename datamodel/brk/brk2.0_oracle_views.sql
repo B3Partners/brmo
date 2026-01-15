@@ -527,7 +527,7 @@ SELECT zakrecht.identificatie                                            AS zr_i
        mandeligheid.identificatie                                        AS mandeligheid_identif,
        vuzrok.rustop_zak_recht                                                   AS koz_identif,
        CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
-       zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
+       zakrecht.aard                                                     AS omschr_aard_verkregenr_recht,
        zakrecht.aard                                                     AS fk_3avr_aand,
        (SELECT LISTAGG(
                        'id: ' || COALESCE(aantekening.identificatie, '') || ', '
