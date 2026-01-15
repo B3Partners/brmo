@@ -644,23 +644,23 @@ FROM vb_util_zk_recht uzr
          JOIN
      mb_subject vs
      ON
-         uzr.subject_identif = vs.subject_identif;
+         uzr.subject_identif = vs.subject_identif
          LEFT JOIN 
      brk.stukdeel sd1 
      ON 
-         sd1.identificatie::text = uzr.isgebaseerdop::text
+         sd1.identificatie = uzr.isgebaseerdop
          LEFT JOIN 
      brk.stukdeel sd2 
      ON 
-         sd2.identificatie::text = uzr.isgebaseerdop2::text
+         sd2.identificatie = uzr.isgebaseerdop2
          LEFT JOIN 
      brk.stuk st1 
      ON 
-         sd1.deelvan::text = st1.identificatie::text
+         sd1.deelvan = st1.identificatie
          LEFT JOIN 
      brk.stuk st2 
      ON 
-         sd2.deelvan::text = st2.identificatie::text
+         sd2.deelvan = st2.identificatie;
 
 CREATE UNIQUE INDEX mb_zr_rechth_objectid ON mb_zr_rechth (objectid ASC);
 CREATE INDEX mb_zr_rechth_identif ON mb_zr_rechth (zr_identif ASC);
