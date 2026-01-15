@@ -542,7 +542,7 @@ SELECT zakrecht.identificatie                             AS zr_identif,
        COALESCE(tenaamstelling2.tennamevan, '')
                                                           AS subject_identif,
        -- BRMO-401: Bijvoegen van de isgebaseerdop
-        (COALESCE(tenaamstelling.tennamevan, ''::character varying)::text || COALESCE(vve.heeftverenigingvaneigenaren, ''::character varying)::text) || COALESCE(tenaamstelling2.tennamevan, ''::character varying)::text AS subject_identif,
+        (COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '')) || COALESCE(tenaamstelling2.tennamevan, '') AS subject_identif,
         CASE
             WHEN tenaamstelling.isgebaseerdop IS NULL THEN mandeligheid.isgebaseerdop
             ELSE tenaamstelling.isgebaseerdop
@@ -667,8 +667,8 @@ SELECT row_number() OVER () AS objectid,
        persoon.kvk_nummer
 FROM vb_util_zk_recht uzr
          JOIN mb_subject persoon ON uzr.subject_identif = persoon.subject_identif
-         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie::text = uzr.isgebaseerdop::text
-         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie::text = uzr.isgebaseerdop2::text
+         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie::text = uzr.isgebaseerdop
+         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie::text = uzr.isgebaseerdop2
          LEFT JOIN brk.stuk st1 ON sd1.deelvan::text = st1.identificatie::text
          LEFT JOIN brk.stuk st2 ON sd2.deelvan::text = st2.identificatie::text
 WITH NO DATA;
