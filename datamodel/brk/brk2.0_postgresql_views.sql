@@ -542,7 +542,6 @@ SELECT zakrecht.identificatie                             AS zr_identif,
        COALESCE(tenaamstelling2.tennamevan, '')
                                                           AS subject_identif,
        -- BRMO-401: Bijvoegen van de isgebaseerdop
-        (COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '')) || COALESCE(tenaamstelling2.tennamevan, '') AS subject_identif,
         CASE
             WHEN tenaamstelling.isgebaseerdop IS NULL THEN mandeligheid.isgebaseerdop
             ELSE tenaamstelling.isgebaseerdop
