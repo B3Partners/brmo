@@ -122,7 +122,7 @@ select
 		vp.geometrie
 from mb_kvk_adres kvk
 -- koppel pand geometrie
-join bag.v_pand_actueel vp on kvk.maaktdeeluitvan = vp.identificatie;
+join bag.v_pand_actueel vp ON vp.identificatie::text = ANY (string_to_array(kvk.maaktdeeluitvan, ','::text));
 CREATE INDEX mb_kvk_pand_geometrie_idx ON public.mb_kvk_pand USING gist (geometrie);
 CREATE UNIQUE INDEX mb_kvk_pand_objectid ON public.mb_kvk_pand USING btree (objectid);
 
