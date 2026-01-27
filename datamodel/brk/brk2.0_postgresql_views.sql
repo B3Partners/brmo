@@ -520,6 +520,8 @@ CREATE OR REPLACE VIEW
              ar_teller,
              ar_noemer,
              subject_identif,
+             isgebaseerdop,
+             isgebaseerdop2,
              mandeligheid_identif,
              koz_identif,
              indic_betrokken_in_splitsing,
@@ -539,9 +541,18 @@ SELECT zakrecht.identificatie                             AS zr_identif,
        COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') || 
        COALESCE(tenaamstelling2.tennamevan, '')
                                                           AS subject_identif,
+       -- BRMO-401: Bijvoegen van de isgebaseerdop
+        CASE
+            WHEN tenaamstelling.isgebaseerdop IS NULL THEN mandeligheid.isgebaseerdop
+            ELSE tenaamstelling.isgebaseerdop
+        END AS isgebaseerdop,
+        CASE
+            WHEN tenaamstelling.isgebaseerdop2 IS NULL THEN mandeligheid.isgebaseerdop2
+            ELSE tenaamstelling.isgebaseerdop2
+        END AS isgebaseerdop2,
        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.                                                               
        mandeligheid.identificatie                         AS mandeligheid_identif,
-       vuzrok.rustop_zak_recht 							  AS koz_identif,
+       vuzrok.rustop_zak_recht 	           	          AS koz_identif,
        (zakrecht.isbetrokkenbij is not NULL)::bool        AS indic_betrokken_in_splitsing,
        zakrecht.aard                                      AS omschr_aard_verkregen_recht,
        zakrecht.aard                                      AS fk_3avr_aand,
@@ -578,6 +589,8 @@ COMMENT ON VIEW vb_util_zk_recht IS
     * ar_teller: teller van aandeel,
     * ar_noemer: noemer van aandeel,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * isgebaseerdop: -
+    * isgebaseerdop2: -
     * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * indic_betrokken_in_splitsing: -,
@@ -591,6 +604,10 @@ CREATE MATERIALIZED VIEW mb_zr_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             isgebaseerdop,
+             tijdstipaanbieding,
+             isgebaseerdop2,
+             tijdstipaanbieding2,
              mandeligheid_identif,
              koz_identif,
              aandeel,
@@ -620,6 +637,10 @@ SELECT row_number() OVER () AS objectid,
        uzr.zr_identif,
        uzr.ingangsdatum_recht,
        uzr.subject_identif,
+       uzr.isgebaseerdop,
+       st1.tijdstipaanbieding,
+       uzr.isgebaseerdop2,
+       st2.tijdstipaanbieding                         AS tijdstipaanbieding2,
        uzr.mandeligheid_identif,
        uzr.koz_identif,
        uzr.aandeel,
@@ -645,6 +666,10 @@ SELECT row_number() OVER () AS objectid,
        persoon.kvk_nummer
 FROM vb_util_zk_recht uzr
          JOIN mb_subject persoon ON uzr.subject_identif = persoon.subject_identif
+         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie::text = uzr.isgebaseerdop
+         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie::text = uzr.isgebaseerdop2
+         LEFT JOIN brk.stuk st1 ON sd1.deelvan::text = st1.identificatie::text
+         LEFT JOIN brk.stuk st2 ON sd2.deelvan::text = st2.identificatie::text
 WITH NO DATA;
 
 CREATE UNIQUE INDEX mb_zr_rechth_objectid ON mb_zr_rechth USING btree (objectid);
@@ -658,6 +683,10 @@ COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * isgebaseerdop: -
+    * tijdstipaanbieding: -
+    * isgebaseerdop2: -
+    * tijdstipaanbieding2: -
     * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
@@ -689,6 +718,10 @@ CREATE MATERIALIZED VIEW mb_avg_zr_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             isgebaseerdop,
+             tijdstipaanbieding,
+             isgebaseerdop2,
+             tijdstipaanbieding2,
              mandeligheid_identif,
              koz_identif,
              aandeel,
@@ -718,6 +751,10 @@ SELECT row_number() OVER () AS objectid,
        uzr.zr_identif       as zr_identif,
        uzr.ingangsdatum_recht,
        uzr.subject_identif,
+       uzr.isgebaseerdop,
+       st1.tijdstipaanbieding,
+       uzr.isgebaseerdop2,
+       st2.tijdstipaanbieding                         AS tijdstipaanbieding2,
        uzr.mandeligheid_identif,
        uzr.koz_identif,
        uzr.aandeel,
@@ -743,6 +780,10 @@ SELECT row_number() OVER () AS objectid,
        avgpersoon.kvk_nummer
 FROM vb_util_zk_recht uzr
          JOIN mb_avg_subject avgpersoon ON uzr.subject_identif = avgpersoon.subject_identif
+     LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie::text = uzr.isgebaseerdop::text
+     LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie::text = uzr.isgebaseerdop2::text
+     LEFT JOIN brk.stuk st1 ON sd1.deelvan::text = st1.identificatie::text
+     LEFT JOIN brk.stuk st2 ON sd2.deelvan::text = st2.identificatie::text
 WITH NO DATA;
 
 CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth USING btree (objectid);
@@ -756,6 +797,10 @@ COMMENT ON MATERIALIZED VIEW mb_avg_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * isgebaseerdop: -
+    * tijdstipaanbieding: -
+    * isgebaseerdop2: -
+    * tijdstipaanbieding2: -
     * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
