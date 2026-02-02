@@ -9,8 +9,6 @@ updates:
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
     target-branch: master
-    assignees:
-      - mprins
     labels:
       - "bouw- en testinfrastuctuur"
       - "dependency update"
@@ -61,8 +59,6 @@ updates:
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
     target-branch: master
-    assignees:
-      - mprins
     labels:
       - "dependency update"
     commit-message:
