@@ -4,7 +4,7 @@
 
 | Release        | Datum       | Ondersteund/supported | valid database versions (fully patched/mainstream support)                                    | runtime (fully patched)               |
 |----------------|-------------|-----------------------|-----------------------------------------------------------------------------------------------|---------------------------------------|
-| 6.0.x-SNAPSHOT |             | ❌ (development)       | Current PostgreSQL 14 - 18 + PostGIS 3.5/3.6, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free | Java 17, Java 21, Tomcat 9, Docker 28 |
+| 6.0.x-SNAPSHOT |             | ❌ (development)       | Current PostgreSQL 14 - 18 + PostGIS 3.5/3.6, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free | Java 17, Java 21, Tomcat 9, Docker 29 |
 | 6.0.1          |             | ✔️                    | Current PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free     | Java 17, Java 21, Tomcat 9, Docker 28 |
 | 6.0.0          |             | ✔️ (deprecated)       | Current PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free     | Java 17, Java 21, Tomcat 9, Docker 28 |
 | =< 5.0.2       | 16-may-2025 | ❌ (superceded)        | PostgreSQL 13 - 17 + PostGIS 3.5, Oracle 19c/21c/23ai + Spatial, 21 XE, 23ai Free             | Java 17, Java 21, Tomcat 9, Docker 27 |
