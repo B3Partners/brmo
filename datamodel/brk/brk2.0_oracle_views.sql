@@ -494,6 +494,8 @@ CREATE OR REPLACE VIEW vb_util_zk_recht
              ar_teller,
              ar_noemer,
              subject_identif,
+             isgebaseerdop,
+             isgebaseerdop2,
              mandeligheid_identif,
              koz_identif,
              indic_betrokken_in_splitsing,
@@ -512,11 +514,20 @@ SELECT zakrecht.identificatie                                            AS zr_i
        -- BRMO-340: samenvoegen van de tennamevan (tenaamstelling) op de zakelijke rechten die bestemd zijn tot een mandeligheid
        COALESCE(tenaamstelling.tennamevan, '') || COALESCE(vve.heeftverenigingvaneigenaren, '') ||
        COALESCE(tenaamstelling2.tennamevan, '')                          AS subject_identif,
+       -- BRMO-401: Bijvoegen van de isgebaseerdop
+        CASE
+            WHEN tenaamstelling.isgebaseerdop IS NULL THEN mandeligheid.isgebaseerdop
+            ELSE tenaamstelling.isgebaseerdop
+        END AS isgebaseerdop,
+        CASE
+            WHEN tenaamstelling.isgebaseerdop2 IS NULL THEN mandeligheid.isgebaseerdop2
+            ELSE tenaamstelling.isgebaseerdop2
+        END AS isgebaseerdop2,
        -- BRMO-340: toevoegen van mandeligheidsidentificatie, zodat het duidelijk is dat het een mandelige zaak betreft.
        mandeligheid.identificatie                                        AS mandeligheid_identif,
        vuzrok.rustop_zak_recht                                                   AS koz_identif,
        CASE WHEN (zakrecht.isbetrokkenbij is not NULL) THEN 1 ELSE 0 END AS indic_betrokken_in_splitsing,
-       zakrecht.aard                                                     AS omschr_aard_verkregen_recht,
+       zakrecht.aard                                                     AS omschr_aard_verkregenr_recht,
        zakrecht.aard                                                     AS fk_3avr_aand,
        (SELECT LISTAGG(
                        'id: ' || COALESCE(aantekening.identificatie, '') || ', '
@@ -552,6 +563,8 @@ COMMENT ON TABLE vb_util_zk_recht IS
     * ar_teller: teller van aandeel,
     * ar_noemer: noemer van aandeel,
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * isgebaseerdop: -
+    * isgebaseerdop2: -
     * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * indic_betrokken_in_splitsing: -,
@@ -565,6 +578,10 @@ CREATE MATERIALIZED VIEW mb_zr_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             isgebaseerdop,
+             tijdstipaanbieding,
+             isgebaseerdop2,
+             tijdstipaanbieding2,
              mandeligheid_identif,
              koz_identif,
              aandeel,
@@ -596,6 +613,10 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        uzr.zr_identif          as zr_identif,
        uzr.ingangsdatum_recht,
        uzr.subject_identif,
+       uzr.isgebaseerdop,
+       st1.tijdstipaanbieding,
+       uzr.isgebaseerdop2,
+       st2.tijdstipaanbieding                         AS tijdstipaanbieding2,
        uzr.mandeligheid_identif,
        uzr.koz_identif,
        uzr.aandeel,
@@ -623,7 +644,23 @@ FROM vb_util_zk_recht uzr
          JOIN
      mb_subject vs
      ON
-         uzr.subject_identif = vs.subject_identif;
+         uzr.subject_identif = vs.subject_identif
+         LEFT JOIN 
+     stukdeel sd1 
+     ON 
+         sd1.identificatie = uzr.isgebaseerdop
+         LEFT JOIN 
+     stukdeel sd2 
+     ON 
+         sd2.identificatie = uzr.isgebaseerdop2
+         LEFT JOIN 
+     stuk st1 
+     ON 
+         sd1.deelvan = st1.identificatie
+         LEFT JOIN 
+     stuk st2 
+     ON 
+         sd2.deelvan = st2.identificatie;
 
 CREATE UNIQUE INDEX mb_zr_rechth_objectid ON mb_zr_rechth (objectid ASC);
 CREATE INDEX mb_zr_rechth_identif ON mb_zr_rechth (zr_identif ASC);
@@ -636,6 +673,10 @@ COMMENT ON MATERIALIZED VIEW mb_zr_rechth IS
     * zr_identif: natuurlijke id van zakelijk recht,
     * ingangsdatum_recht: -
     * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+    * isgebaseerdop: -
+    * tijdstipaanbieding: -
+    * isgebaseerdop2: -
+    * tijdstipaanbieding2: -
     * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak,
     * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
     * aandeel: samenvoeging van teller en noemer (1/2),
