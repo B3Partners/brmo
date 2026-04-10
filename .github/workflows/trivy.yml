@@ -40,11 +40,6 @@ jobs:
       - name: "Build Java ${{ matrix.java }}"
         run: mvn -U package -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -DskipQA=true -Dmaven.javadoc.skip=true
 
-      - name: 'Trivy Cache'
-        uses: yogeshlonkar/trivy-cache-action@v0.1.17
-        with:
-          gh-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: "Run Trivy vulnerability scanner on ${{ matrix.docker-image }}"
         uses: aquasecurity/trivy-action@0.35.0
         # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image ghcr.io/b3partners/brmo-service:snapshot
@@ -54,7 +49,6 @@ jobs:
           output: "${{ matrix.docker-image }}-trivy-results.sarif"
           severity: 'HIGH,CRITICAL'
           limit-severities-for-sarif: true
-          cache-dir: .trivy
 
       - name: 'Check file existence'
         id: check_files
