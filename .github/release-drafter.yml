@@ -20,37 +20,45 @@ template: |
 
 categories:
   - title: 🚀 Nieuwe functies en verbeteringen
-    labels:
-      - enhancement
-      - feature
-      - 'functie wens'
+    when:
+      labels:
+        - enhancement
+        - feature
+        - 'functie wens'
   - title: 🔨 Security fixes en updates
-    labels:
-      - security
+    when:
+      labels:
+        - security
   - title: ⛓️‍💥 Breaking changes
-    label: breaking      
+    when:
+      label: breaking      
   - title: 🐛 Bug Fixes
-    labels:
-      - bug
-      - fix
-      - bugfix
-      - regressie
+    when:
+      labels:
+        - bug
+        - fix
+        - bugfix
+        - regressie
   - title: ⚠️ Deprecated of verwijderd
-    label: deprecated
+    when:
+      label: deprecated
   - title: 📖 Documentatie
-    labels: 
-      - documentation
-      - 'vraag of documentatie'
+    when:
+      labels: 
+        - documentation
+        - 'vraag of documentatie'
   - title: ♻ Dependency updates
-    labels:
-      - dependencies
-      - 'dependency update'
+    when:
+      labels:
+        - dependencies
+        - 'dependency update'
     collapse-after: 10
   - title: 🚦 Tests en Infrastructuur
-    labels:
-      - tests
-      - infrastructure
-      - 'bouw- en testinfrastuctuur'
+    when:
+      labels:
+        - tests
+        - infrastructure
+        - 'bouw- en testinfrastuctuur'
     collapse-after: 10
 
 replacers:
