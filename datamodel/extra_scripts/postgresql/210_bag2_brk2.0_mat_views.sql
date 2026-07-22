@@ -124,6 +124,11 @@ FROM (SELECT p.identificatie,
          LEFT JOIN brk.objectlocatie o2 ON o2.heeft = o.identificatie
          LEFT JOIN brk.adres a2 ON a2.identificatie = o2.betreft
          LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject
+          -- [BRMO-401] GROUP BY, om dubbellingen te voorkomen. Deze ontstaan als een verblijfsobject in meerdere panden zit.
+      GROUP BY o.identificatie, o.begingeldigheid, a2.adresseerbaarobject, qry.type, ((COALESCE(o.sectie, ''::character varying)::text || ' '::text) || COALESCE(o.perceelnummer::text, ''::text)), ((((((COALESCE(o.akrkadastralegemeente, ''::character varying)::text || ' '::text) || COALESCE(o.sectie, ''::character varying)::text) || ' '::text) || COALESCE(o.perceelnummer::text, ''::text)) || ' '::text) || COALESCE(o.appartementsrechtvolgnummer::text, ''::text)), o.sectie, o.perceelnummer, o.appartementsrechtvolgnummer, o.akrkadastralegemeente, qry.soortgrootte, qry.kadastralegrootte, (st_area(qry.begrenzing_perceel)), NULL::text, o.aard_cultuur_onbebouwd, o.koopsom_bedrag, o.koopsom_koopjaar, o.koopsom_indicatiemeerobjecten, o.koopsom_valuta, (array_to_string(( SELECT array_agg(((((((((((((((((((('id: '::text || r.identificatie::text) || ', '::text) || 'aard: '::text) || COALESCE(r.aard, ''::character varying)::text) || ', '::text) || 'begin: '::text) || COALESCE(r.begingeldigheid::text, ''::text)) || ', '::text) || 'beschrijving: '::text) || COALESCE(r.omschrijving, ''::character varying)::text) || ', '::text) || 'eind: '::text) || COALESCE(r.einddatum::text, ''::text)) || ', '::text) || 'koz-id: '::text) || COALESCE(r.aantekeningkadastraalobject, ''::character varying)::text) || ', '::text) || 'subject-id: '::text) || COALESCE(r.betrokkenpersoon, ''::character varying)::text) || '; '::text) AS array_agg
+           FROM brk.recht r
+          WHERE r.aantekeningkadastraalobject::text = o.identificatie::text), ' & '::text)), maogb.identificatienummeraanduiding, maogb.nummeraanduidingstatus, maogb.gemeente, maogb.woonplaats, maogb.straatnaam, maogb.huisnummer, maogb.huisletter, maogb.huisnummertoevoeging, maogb.postcode, maogb.gebruiksdoelen, maogb.oppervlakte, (st_x(st_transform(qry.plaatscoordinaten, 4326))), (st_y(st_transform(qry.plaatscoordinaten, 4326))), qry.begrenzing_perceel
+
 WITH NO DATA;
 
 COMMENT ON MATERIALIZED VIEW public.mb_kadastraleonroerendezakenmetadres
@@ -306,15 +311,12 @@ SELECT row_number() OVER ()             AS objectid,
        koz.lon,
        koz.lat,
        koz.begrenzing_perceel,
-       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
-       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
+       -- BRMO-401: tijdstipaanbieding nu uit mb_zr_rechth te halen.
+       zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
+       zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM brk.mb_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON zrr.koz_identif = koz.identificatie
-         JOIN brk.recht r on  zrr.zr_identif = r.van
-         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
-         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
-         LEFT JOIN brk.stuk st1 ON sd1.deelvan = st1.identificatie
-         LEFT JOIN brk.stuk st2 ON sd2.deelvan = st2.identificatie
+ GROUP BY koz.identificatie, koz.begingeldigheid, koz.begingeldigheid_datum, koz.type, koz.aanduiding, koz.aanduiding2, koz.sectie, koz.perceelnummer, koz.appartementsrechtvolgnummer, koz.akrkadastralegemeente, koz.soortgrootte, koz.kadastralegrootte, koz.oppervlakte_geom, koz.deelperceelnummer, koz.omschr_deelperceel, koz.verkoop_datum, koz.aard_cultuur_onbebouwd, koz.koopsom_bedrag, koz.koopsom_koopjaar, koz.koopsom_indicatiemeerobjecten, koz.koopsom_valuta, koz.loc_omschr, zrr.zr_identif, zrr.ingangsdatum_recht, zrr.mandeligheid_identif, zrr.subject_identif, zrr.aandeel, zrr.omschr_aard_verkregen_recht, zrr.indic_betrokken_in_splitsing, zrr.soort, zrr.geslachtsnaam, zrr.voorvoegsel, zrr.voornamen, zrr.aand_naamgebruik, zrr.geslachtsaand, zrr.naam, zrr.woonadres, zrr.geboortedatum, zrr.geboorteplaats, zrr.overlijdensdatum, zrr.bsn, zrr.organisatie_naam, zrr.rechtsvorm, zrr.statutaire_zetel, zrr.rsin, zrr.kvk_nummer, zrr.aantekeningen, koz.gemeente, koz.woonplaats, koz.straatnaam, koz.huisnummer, koz.huisletter, koz.huisnummertoevoeging, koz.postcode, koz.lon, koz.lat, koz.begrenzing_perceel, zrr.tijdstipaanbieding, zrr.tijdstipaanbieding2
 WITH NO DATA;
 -- View indexes:
 CREATE INDEX mb_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON public.mb_onroerendezakenmetrechthebbenden USING gist (begrenzing_perceel);
@@ -510,15 +512,12 @@ SELECT row_number() OVER ()             AS objectid,
        koz.lon,
        koz.lat,
        koz.begrenzing_perceel,
-       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
-       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
+       -- BRMO-401: tijdstipaanbieding nu uit mb_zr_rechth te halen.
+       zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
+       zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM brk.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON zrr.koz_identif = koz.identificatie
-         JOIN brk.recht r on  zrr.zr_identif = r.van
-         LEFT JOIN brk.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
-         LEFT JOIN brk.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
-         LEFT JOIN brk.stuk st1 ON sd1.deelvan = st1.identificatie
-         LEFT JOIN brk.stuk st2 ON sd2.deelvan = st2.identificatie
+ GROUP BY koz.identificatie, koz.begingeldigheid, koz.begingeldigheid_datum, koz.type, koz.aanduiding, koz.aanduiding2, koz.sectie, koz.perceelnummer, koz.appartementsrechtvolgnummer, koz.akrkadastralegemeente, koz.soortgrootte, koz.kadastralegrootte, koz.oppervlakte_geom, koz.deelperceelnummer, koz.omschr_deelperceel, koz.verkoop_datum, koz.aard_cultuur_onbebouwd, koz.koopsom_bedrag, koz.koopsom_koopjaar, koz.koopsom_indicatiemeerobjecten, koz.koopsom_valuta, koz.loc_omschr, zrr.zr_identif, zrr.ingangsdatum_recht, zrr.mandeligheid_identif, zrr.subject_identif, zrr.aandeel, zrr.omschr_aard_verkregen_recht, zrr.indic_betrokken_in_splitsing, zrr.soort, zrr.geslachtsnaam, zrr.voorvoegsel, zrr.voornamen, zrr.aand_naamgebruik, zrr.geslachtsaand, zrr.naam, zrr.woonadres, zrr.geboortedatum, zrr.geboorteplaats, zrr.overlijdensdatum, zrr.bsn, zrr.organisatie_naam, zrr.rechtsvorm, zrr.statutaire_zetel, zrr.rsin, zrr.kvk_nummer, zrr.aantekeningen, koz.gemeente, koz.woonplaats, koz.straatnaam, koz.huisnummer, koz.huisletter, koz.huisnummertoevoeging, koz.postcode, koz.lon, koz.lat, koz.begrenzing_perceel, zrr.tijdstipaanbieding, zrr.tijdstipaanbieding2
 WITH NO DATA;
 -- View indexes:
 CREATE INDEX mb_avg_onroerendezakenmetrechthebbenden_begrenzing_perceel_idx ON public.mb_avg_onroerendezakenmetrechthebbenden USING gist (begrenzing_perceel);

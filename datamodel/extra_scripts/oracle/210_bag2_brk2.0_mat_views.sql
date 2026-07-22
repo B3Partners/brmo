@@ -92,6 +92,11 @@ FROM (SELECT p.identificatie      AS identificatie,
          LEFT JOIN BRMO_BRK.objectlocatie o2 ON o2.heeft = o.identificatie
          LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
          LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
+         -- [BRMO-401] GROUP BY, om dubbellingen te voorkomen. Deze ontstaan als een verblijfsobject in meerdere panden zit.
+         GROUP BY o.identificatie, o.begingeldigheid, a2.adresseerbaarobject, qry.type, ((COALESCE(o.sectie, '') || ' ') || COALESCE(o.perceelnummer, '')), ((((((COALESCE(o.akrkadastralegemeente, '') || ' ') || COALESCE(o.sectie, '')) || ' ') || COALESCE(o.perceelnummer, '')) || ' ') || COALESCE(o.appartementsrechtvolgnummer, '')), o.sectie, o.perceelnummer, o.appartementsrechtvolgnummer, o.akrkadastralegemeente, qry.soortgrootte, qry.kadastralegrootte, (st_area(qry.begrenzing_perceel)), NULL, o.aard_cultuur_onbebouwd, o.koopsom_bedrag, o.koopsom_koopjaar, o.koopsom_indicatiemeerobjecten, o.koopsom_valuta, (array_to_string(( SELECT array_agg(((((((((((((((((((('id: ' || r.identificatie) || ', ') || 'aard: ') || COALESCE(r.aard, '')) || ', ') || 'begin: ') || COALESCE(r.begingeldigheid, '')) || ', ') || 'beschrijving: ') || COALESCE(r.omschrijving, '')) || ', ') || 'eind: ') || COALESCE(r.einddatum, '')) || ', ') || 'koz-id: ') || COALESCE(r.aantekeningkadastraalobject, '')) || ', ') || 'subject-id: ') || COALESCE(r.betrokkenpersoon, '')) || '; ') AS array_agg
+         FROM brk.recht r
+         WHERE r.aantekeningkadastraalobject = o.identificatie), ' & ')), maogb.identificatienummeraanduiding, maogb.nummeraanduidingstatus, maogb.gemeente, maogb.woonplaats, maogb.straatnaam, maogb.huisnummer, maogb.huisletter, maogb.huisnummertoevoeging, maogb.postcode, maogb.gebruiksdoelen, maogb.oppervlakte, (st_x(st_transform(qry.plaatscoordinaten, 4326))), (st_y(st_transform(qry.plaatscoordinaten, 4326))), qry.begrenzing_perceel
+
 
 COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
@@ -209,15 +214,12 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.lon,
        koz.lat,
        koz.begrenzing_perceel,
-       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
-       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
+       -- BRMO-401: tijdstipaanbieding nu uit mb_zr_rechth te halen.
+       zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
+       zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
-         JOIN BRMO_BRK.recht r on  zrr.zr_identif = r.van
-         LEFT JOIN BRMO_BRK.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
-         LEFT JOIN BRMO_BRK.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
-         LEFT JOIN BRMO_BRK.stuk st1 ON sd1.deelvan = st1.identificatie
-         LEFT JOIN BRMO_BRK.stuk st2 ON sd2.deelvan = st2.identificatie;
+ GROUP BY koz.identificatie, koz.begingeldigheid_datum, koz.type, koz.aanduiding, koz.aanduiding2, koz.sectie, koz.perceelnummer, koz.appartementsrechtvolgnummer, koz.akrkadastralegemeente, koz.soortgrootte, koz.kadastralegrootte, koz.oppervlakte_geom, koz.deelperceelnummer, koz.omschr_deelperceel, koz.verkoop_datum, koz.aard_cultuur_onbebouwd, koz.koopsom_bedrag, koz.koopsom_koopjaar, koz.koopsom_indicatiemeerobjecten, koz.koopsom_valuta, koz.loc_omschr, zrr.zr_identif, zrr.ingangsdatum_recht, zrr.mandeligheid_identif, zrr.subject_identif, zrr.aandeel, zrr.omschr_aard_verkregenr_recht, zrr.indic_betrokken_in_splitsing, zrr.soort, zrr.geslachtsnaam, zrr.voorvoegsel, zrr.voornamen, zrr.aand_naamgebruik, zrr.geslachtsaand, zrr.naam, zrr.woonadres, zrr.geboortedatum, zrr.geboorteplaats, zrr.overlijdensdatum, zrr.bsn, zrr.organisatie_naam, zrr.rechtsvorm, zrr.statutaire_zetel, zrr.rsin, zrr.kvk_nummer, zrr.aantekeningen, koz.gemeente, koz.woonplaats, koz.straatnaam, koz.huisnummer, koz.huisletter, koz.huisnummertoevoeging, koz.postcode, koz.lon, koz.lat, koz.begrenzing_perceel, zrr.tijdstipaanbieding, zrr.tijdstipaanbieding2;
 
 COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
@@ -356,15 +358,12 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.lon,
        koz.lat,
        koz.begrenzing_perceel,
-       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
-       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
+       -- BRMO-401: tijdstipaanbieding nu uit mb_zr_rechth te halen.
+       zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
+       zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
-         JOIN BRMO_BRK.recht r on  zrr.zr_identif = r.van
-         LEFT JOIN BRMO_BRK.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
-         LEFT JOIN BRMO_BRK.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
-         LEFT JOIN BRMO_BRK.stuk st1 ON sd1.deelvan = st1.identificatie
-         LEFT JOIN BRMO_BRK.stuk st2 ON sd2.deelvan = st2.identificatie;
+ GROUP BY koz.identificatie, koz.begingeldigheid_datum, koz.type, koz.aanduiding, koz.aanduiding2, koz.sectie, koz.perceelnummer, koz.appartementsrechtvolgnummer, koz.akrkadastralegemeente, koz.soortgrootte, koz.kadastralegrootte, koz.oppervlakte_geom, koz.deelperceelnummer, koz.omschr_deelperceel, koz.verkoop_datum, koz.aard_cultuur_onbebouwd, koz.koopsom_bedrag, koz.koopsom_koopjaar, koz.koopsom_indicatiemeerobjecten, koz.koopsom_valuta, koz.loc_omschr, zrr.zr_identif, zrr.ingangsdatum_recht, zrr.mandeligheid_identif, zrr.subject_identif, zrr.aandeel, zrr.omschr_aard_verkregenr_recht, zrr.indic_betrokken_in_splitsing, zrr.soort, zrr.geslachtsnaam, zrr.voorvoegsel, zrr.voornamen, zrr.aand_naamgebruik, zrr.geslachtsaand, zrr.naam, zrr.woonadres, zrr.geboortedatum, zrr.geboorteplaats, zrr.overlijdensdatum, zrr.bsn, zrr.organisatie_naam, zrr.rechtsvorm, zrr.statutaire_zetel, zrr.rsin, zrr.kvk_nummer, zrr.aantekeningen, koz.gemeente, koz.woonplaats, koz.straatnaam, koz.huisnummer, koz.huisletter, koz.huisnummertoevoeging, koz.postcode, koz.lon, koz.lat, koz.begrenzing_perceel, zrr.tijdstipaanbieding, zrr.tijdstipaanbieding2;
 
 COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
