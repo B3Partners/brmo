@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd"
-              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+              xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
     <suppress>
         <notes><![CDATA[
-                    file name: javasimon-console-embed-4.2.0.jar: jquery.js
+    file name: javasimon-console-embed-4.2.0.jar: jquery.js
 
-                    Negeer meldingen mbt jquery in de simon console;
-                    moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
-                    zie: https://github.com/virgo47/javasimon/issues/27
+    Negeer meldingen mbt jquery in de simon console;
+    moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
+    zie: https://github.com/virgo47/javasimon/issues/27
 
-                    de impact lijkt gering
+    de impact lijkt gering
    ]]></notes>
         <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
         <cve>CVE-2012-6708</cve>
@@ -23,13 +23,13 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-                    file name: javasimon-console-embed-4.2.0.jar: jquery-ui.js
+    file name: javasimon-console-embed-4.2.0.jar: jquery-ui.js
 
-                    Negeer meldingen mbt jquery-ui in de simon console;
-                    moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
-                    zie: https://github.com/virgo47/javasimon/issues/27
+    Negeer meldingen mbt jquery-ui in de simon console;
+    moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
+    zie: https://github.com/virgo47/javasimon/issues/27
 
-                    de impact lijkt gering
+    de impact lijkt gering
        ]]></notes>
         <packageUrl regex="true">^pkg:javascript/jquery\-ui@.*$</packageUrl>
         <cve>CVE-2021-41182</cve>
@@ -39,77 +39,10 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-                   file name: kernel-*.jar
-                   see: https://github.com/jeremylong/DependencyCheck/issues/4613
-                   DISPUTED
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.itextpdf/kernel@.*$</packageUrl>
-        <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: commons-jxpath-1.3.jar
-
-                   Voor zover bekend zijn deze CVEs niet van toepassing op BRMO aangezien we:
-                   - alleen vertrouwde gegevens verwerken
-                   - we zelf geen JXPath gebruiken
-
-                   CVE-2022-41852: REJECTED
-                   CVE-2022-40159: DISPUTED
-                   CVE-2022-40160: DISPUTED
-       ]]></notes>
-        <packageUrl regex="true">^pkg:maven/commons\-jxpath/commons\-jxpath@.*$</packageUrl>
-        <cve>CVE-2022-41852</cve>
-        <cve>CVE-2022-40159</cve>
-        <cve>CVE-2022-40160</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: json-20220924.jar
-
-                   CVE is voor hutool-json v5.8.10 die doorverwijst naar org.json:json.
-                   We gebruiken de XML.toJSONObject(...) functie niet en sowieso wordt er alleen vertrouwde data geparsed.
-                   zie: https://github.com/stleary/JSON-java/issues/708
+    file name: javasimon-console-embed-4.2.0.jar: jquery.js
     ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.json/json@.*$</packageUrl>
-        <vulnerabilityName>CVE-2022-45688</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: cxf-rt-bindings-soap-3.5.5.jar
-                   CXF is niet de kwetsbare lib/component, maar Apache soap..
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.cxf/cxf\-rt\-bindings\-soap@.*$</packageUrl>
-        <cve>CVE-2022-40705</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: quartz-2.3.2.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.quartz\-scheduler/quartz@.*$</packageUrl>
-        <cve>CVE-2023-39017</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: quartz-jobs-2.3.2.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.quartz\-scheduler/quartz\-jobs@.*$</packageUrl>
-        <cve>CVE-2023-39017</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: jackson-databind-2.15.2.jar
-                   ** DISPUTED ** the vendor's perspective is that this is not a valid vulnerability report.
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson\.core/jackson\-databind@.*$</packageUrl>
-        <cve>CVE-2023-35116</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-                   file name: bcprov-jdk18on-1.71.jar
-                   LDAP wordt niet gebruikt in BRMO
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.bouncycastle/bcprov\-jdk18on@.*$</packageUrl>
-        <cve>CVE-2023-33201</cve>
+        <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
+        <vulnerabilityName>jquery issue: 11974</vulnerabilityName>
+        <vulnerabilityName>jquery issue: 162</vulnerabilityName>
     </suppress>
 </suppressions>
