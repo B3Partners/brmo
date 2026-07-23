@@ -91,9 +91,11 @@
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.8</jakarta.mail.version>
         <apache.cxf.version>3.6.11</apache.cxf.version>
+        <bouncycastle.version>1.85</bouncycastle.version>
         <apache.poi.version>5.5.1</apache.poi.version>
         <quartz.version>2.4.1</quartz.version>
         <slf4j.version>2.0.18</slf4j.version>
+        <log4j2.version>2.26.1</log4j2.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
         <jaxb.impl.version>2.3.9</jaxb.impl.version>
         <jackson.version>2.22.1</jackson.version>
@@ -160,7 +162,12 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-to-slf4j</artifactId>
-                <version>2.26.1</version>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
             </dependency>
             <dependency>
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
@@ -627,6 +634,11 @@
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-ws-security</artifactId>
                 <version>${apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jdom</groupId>
