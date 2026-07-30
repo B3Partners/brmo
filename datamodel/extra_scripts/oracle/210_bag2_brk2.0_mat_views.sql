@@ -11,7 +11,7 @@ SELECT CAST(ROWNUM AS INTEGER)                                                 A
        o.begingeldigheid                                                       AS begingeldigheid_datum,
        -- koppeling met BAG
        CAST(NULL AS VARCHAR2(255 CHAR))                                        AS benoemdobj_identif,
-       LOWER(o.type)                                                           AS type, -- 'perceel' of 'appartement' uit de basistabel
+       qry.type                                                                AS type,
        NVL(o.sectie, '') || ' ' || NVL(TO_CHAR(o.perceelnummer), '')         AS aanduiding,
        NVL(o.akrkadastralegemeente, '') || ' ' || NVL(o.sectie, '') || ' ' ||
        NVL(TO_CHAR(o.perceelnummer), '') ||
@@ -20,9 +20,9 @@ SELECT CAST(ROWNUM AS INTEGER)                                                 A
        o.perceelnummer                                                         AS perceelnummer,
        o.appartementsrechtvolgnummer,
        o.akrkadastralegemeente,
-       p_direct.soortgrootte                                                   AS soortgrootte,
-       p_direct.kadastralegrootte                                              AS kadastralegrootte,
-       SDO_GEOM.SDO_AREA(NVL(p_direct.begrenzing_perceel, NVL(p_app1.begrenzing_perceel, p_app2.begrenzing_perceel)), 0.1) AS oppervlakte_geom,
+       qry.soortgrootte,
+       qry.kadastralegrootte,
+       SDO_GEOM.SDO_AREA(NVL(p_geom.begrenzing_perceel, p_geom2.begrenzing_perceel), 0.1) AS oppervlakte_geom,
        -- bestaat niet
        CAST(NULL AS VARCHAR2(4 CHAR))                                          AS deelperceelnummer,
        -- bestaat niet
@@ -48,43 +48,53 @@ SELECT CAST(ROWNUM AS INTEGER)                                                 A
        maogb.postcode,
        maogb.gebruiksdoelen,
        maogb.oppervlakte,
-       SDO_CS.TRANSFORM(p_direct.plaatscoordinaten, 4326).SDO_POINT.X          AS lon,
-       SDO_CS.TRANSFORM(p_direct.plaatscoordinaten, 4326).SDO_POINT.Y          AS lat,
-       NVL(p_direct.begrenzing_perceel, NVL(p_app1.begrenzing_perceel, p_app2.begrenzing_perceel)) AS begrenzing_perceel
-
-FROM BRMO_BRK.onroerendezaak o
-LEFT JOIN BRMO_BRK.perceel p_direct 
-       ON o.identificatie = p_direct.identificatie
-LEFT JOIN BRMO_BRK.appartementsrecht a 
-       ON o.identificatie = a.identificatie
-LEFT JOIN BRMO_BRK.recht r 
-       ON a.hoofdsplitsing = r.isbetrokkenbij
-LEFT JOIN BRMO_BRK.perceel p_app1 
-       ON r.rustop = p_app1.identificatie
-LEFT JOIN BRMO_BRK.recht_isbelastmet ribm 
-       ON r.identificatie = ribm.isbelastmet
-LEFT JOIN BRMO_BRK.recht r2 
-       ON ribm.zakelijkrecht = r2.identificatie
-LEFT JOIN BRMO_BRK.perceel p_app2 
-       ON r2.rustop = p_app2.identificatie
-LEFT JOIN (
-    SELECT r_aant.aantekeningkadastraalobject,
-           LISTAGG(
-               'id: ' || NVL(r_aant.identificatie, '') || ', '
-               || 'aard: ' || NVL(r_aant.aard, '') || ', '
-               || 'begin: ' || NVL(TO_CHAR(r_aant.begingeldigheid), '') || ', '
-               || 'beschrijving: ' || NVL(r_aant.omschrijving, '') || ', '
-               || 'eind: ' || NVL(TO_CHAR(r_aant.einddatum), '') || ', '
-               || 'koz-id: ' || NVL(r_aant.aantekeningkadastraalobject, '') || ', '
-               || 'subject-id: ' || NVL(r_aant.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW TRUNCATE WITH COUNT)
-           WITHIN GROUP ( ORDER BY r_aant.aantekeningkadastraalobject ) AS aantekeningen
-    FROM BRMO_BRK.recht r_aant
-    GROUP BY r_aant.aantekeningkadastraalobject
-) aantekeningen ON o.identificatie = aantekeningen.aantekeningkadastraalobject
-
-LEFT JOIN BRMO_BRK.objectlocatie o2 ON o2.heeft = o.identificatie
-LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
-LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
+       SDO_CS.TRANSFORM((p_geom.plaatscoordinaten), 4326).SDO_POINT.X          AS lon,
+       SDO_CS.TRANSFORM((p_geom.plaatscoordinaten), 4326).SDO_POINT.Y          AS lat,
+       NVL(p_geom.begrenzing_perceel, p_geom2.begrenzing_perceel)              AS begrenzing_perceel
+FROM (
+      SELECT p.identificatie      AS identificatie,
+             'perceel'            AS type,
+             p.soortgrootte       AS soortgrootte,
+             p.kadastralegrootte  AS kadastralegrootte,
+             p.identificatie      AS geom_perceel_id,
+             CAST(NULL AS VARCHAR2(40)) AS geom_perceel_id2
+      FROM BRMO_BRK.perceel p
+      UNION ALL
+      SELECT a.identificatie             AS identificatie,
+             'appartement'               AS type,
+             CAST(NULL AS VARCHAR2(100)) AS soortgrootte,
+             CAST(NULL AS NUMBER)        AS kadastralegrootte,
+             p.identificatie             AS geom_perceel_id,
+             p2.identificatie            AS geom_perceel_id2
+      FROM BRMO_BRK.appartementsrecht a
+               LEFT JOIN BRMO_BRK.recht r ON (a.hoofdsplitsing = r.isbetrokkenbij)
+               LEFT JOIN BRMO_BRK.perceel p ON (r.rustop = p.identificatie)
+               LEFT JOIN BRMO_BRK.recht_isbelastmet ribm ON (r.identificatie = ribm.isbelastmet)
+               LEFT JOIN BRMO_BRK.recht r2 ON (ribm.zakelijkrecht = r2.identificatie)
+               LEFT JOIN BRMO_BRK.perceel p2 ON (r2.rustop = p2.identificatie)
+     ) qry
+         JOIN BRMO_BRK.onroerendezaak o ON qry.identificatie = o.identificatie
+         LEFT JOIN BRMO_BRK.perceel p_geom ON qry.geom_perceel_id = p_geom.identificatie
+         LEFT JOIN BRMO_BRK.perceel p_geom2 ON qry.geom_perceel_id2 = p_geom2.identificatie
+         LEFT JOIN (
+             SELECT r.aantekeningkadastraalobject,
+                    LISTAGG(
+                            'id: ' || NVL(r.identificatie, '') || ', '
+                                || 'aard: ' || NVL(r.aard, '') || ', '
+                                || 'begin: ' || NVL(TO_CHAR(r.begingeldigheid), '') || ', '
+                                || 'beschrijving: ' || NVL(r.omschrijving, '') || ', '
+                                || 'eind: ' || NVL(TO_CHAR(r.einddatum), '') || ', '
+                                || 'koz-id: ' || NVL(r.aantekeningkadastraalobject, '') || ', '
+                                || 'subject-id: ' || NVL(r.betrokkenpersoon, '') || '; ', ' & ' ON OVERFLOW
+                            TRUNCATE WITH COUNT)
+                            WITHIN GROUP ( ORDER BY r.aantekeningkadastraalobject ) AS aantekeningen
+             FROM BRMO_BRK.recht r
+             GROUP BY r.aantekeningkadastraalobject
+         ) aantekeningen ON o.identificatie = aantekeningen.aantekeningkadastraalobject
+         LEFT JOIN BRMO_BRK.onroerendezaak onrnd ON qry.identificatie = onrnd.identificatie
+         LEFT JOIN BRMO_BRK.objectlocatie o2 ON o2.heeft = o.identificatie
+         LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
+         LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
 
 COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
