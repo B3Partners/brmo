@@ -93,7 +93,6 @@ FROM (SELECT p.identificatie      AS identificatie,
          LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
          LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
 
-
 COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
