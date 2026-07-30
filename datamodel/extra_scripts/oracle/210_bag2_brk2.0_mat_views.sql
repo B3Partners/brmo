@@ -93,6 +93,7 @@ FROM (SELECT p.identificatie      AS identificatie,
          LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
          LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
 
+
 COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
@@ -151,10 +152,7 @@ CREATE UNIQUE INDEX mb_kadastraleonroerendezakenmetadres_objectid ON mb_kadastra
 
 CREATE MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
 AS
-SELECT CAST(ROWNUM AS INTEGER) AS objectid,
-       t.*
-FROM (
-SELECT DISTINCT
+SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.identificatie,
        TO_CHAR(koz.begingeldigheid_datum) AS begingeldigheid,
        koz.begingeldigheid_datum,
@@ -217,8 +215,7 @@ SELECT DISTINCT
        zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
-) t;
-       
+
 COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
@@ -298,10 +295,7 @@ CREATE UNIQUE INDEX mb_onroerendezakenmetrechthebbenden_objectid ON mb_onroerend
 
 CREATE MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
 AS
-SELECT CAST(ROWNUM AS INTEGER) AS objectid,
-       t.*
-FROM (
-SELECT DISTINCT
+SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.identificatie,
        TO_CHAR(koz.begingeldigheid_datum) AS begingeldigheid,
        koz.begingeldigheid_datum,
@@ -364,8 +358,7 @@ SELECT DISTINCT
        zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
-) t;
-       
+
 COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
