@@ -214,7 +214,7 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
        zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_zr_rechth zrr
-         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
+         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
 
 COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
@@ -357,7 +357,7 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
        zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_avg_zr_rechth zrr
-         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
+         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
 
 COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
