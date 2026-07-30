@@ -151,7 +151,10 @@ CREATE UNIQUE INDEX mb_kadastraleonroerendezakenmetadres_objectid ON mb_kadastra
 
 CREATE MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
 AS
-SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
+SELECT CAST(ROWNUM AS INTEGER) AS objectid,
+       t.*
+FROM (
+SELECT DISTINCT
        koz.identificatie,
        TO_CHAR(koz.begingeldigheid_datum) AS begingeldigheid,
        koz.begingeldigheid_datum,
@@ -214,8 +217,8 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
- GROUP BY koz.identificatie, koz.begingeldigheid_datum, koz.type, koz.aanduiding, koz.aanduiding2, koz.sectie, koz.perceelnummer, koz.appartementsrechtvolgnummer, koz.akrkadastralegemeente, koz.soortgrootte, koz.kadastralegrootte, koz.oppervlakte_geom, koz.deelperceelnummer, koz.omschr_deelperceel, koz.verkoop_datum, koz.aard_cultuur_onbebouwd, koz.koopsom_bedrag, koz.koopsom_koopjaar, koz.koopsom_indicatiemeerobjecten, koz.koopsom_valuta, koz.loc_omschr, zrr.zr_identif, zrr.ingangsdatum_recht, zrr.mandeligheid_identif, zrr.subject_identif, zrr.aandeel, zrr.omschr_aard_verkregenr_recht, zrr.indic_betrokken_in_splitsing, zrr.soort, zrr.geslachtsnaam, zrr.voorvoegsel, zrr.voornamen, zrr.aand_naamgebruik, zrr.geslachtsaand, zrr.naam, zrr.woonadres, zrr.geboortedatum, zrr.geboorteplaats, zrr.overlijdensdatum, zrr.bsn, zrr.organisatie_naam, zrr.rechtsvorm, zrr.statutaire_zetel, zrr.rsin, zrr.kvk_nummer, zrr.aantekeningen, koz.gemeente, koz.woonplaats, koz.straatnaam, koz.huisnummer, koz.huisletter, koz.huisnummertoevoeging, koz.postcode, koz.lon, koz.lat, zrr.tijdstipaanbieding, zrr.tijdstipaanbieding2;
-
+) t;
+       
 COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
@@ -295,7 +298,10 @@ CREATE UNIQUE INDEX mb_onroerendezakenmetrechthebbenden_objectid ON mb_onroerend
 
 CREATE MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
 AS
-SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
+SELECT CAST(ROWNUM AS INTEGER) AS objectid,
+       t.*
+FROM (
+SELECT DISTINCT
        koz.identificatie,
        TO_CHAR(koz.begingeldigheid_datum) AS begingeldigheid,
        koz.begingeldigheid_datum,
@@ -358,8 +364,8 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_avg_zr_rechth zrr
          RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
- GROUP BY koz.identificatie, koz.begingeldigheid_datum, koz.type, koz.aanduiding, koz.aanduiding2, koz.sectie, koz.perceelnummer, koz.appartementsrechtvolgnummer, koz.akrkadastralegemeente, koz.soortgrootte, koz.kadastralegrootte, koz.oppervlakte_geom, koz.deelperceelnummer, koz.omschr_deelperceel, koz.verkoop_datum, koz.aard_cultuur_onbebouwd, koz.koopsom_bedrag, koz.koopsom_koopjaar, koz.koopsom_indicatiemeerobjecten, koz.koopsom_valuta, koz.loc_omschr, zrr.zr_identif, zrr.ingangsdatum_recht, zrr.mandeligheid_identif, zrr.subject_identif, zrr.aandeel, zrr.omschr_aard_verkregenr_recht, zrr.indic_betrokken_in_splitsing, zrr.soort, zrr.geslachtsnaam, zrr.voorvoegsel, zrr.voornamen, zrr.aand_naamgebruik, zrr.geslachtsaand, zrr.naam, zrr.woonadres, zrr.geboortedatum, zrr.geboorteplaats, zrr.overlijdensdatum, zrr.bsn, zrr.organisatie_naam, zrr.rechtsvorm, zrr.statutaire_zetel, zrr.rsin, zrr.kvk_nummer, zrr.aantekeningen, koz.gemeente, koz.woonplaats, koz.straatnaam, koz.huisnummer, koz.huisletter, koz.huisnummertoevoeging, koz.postcode, koz.lon, koz.lat, zrr.tijdstipaanbieding, zrr.tijdstipaanbieding2;
-
+) t;
+       
 COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
     kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
