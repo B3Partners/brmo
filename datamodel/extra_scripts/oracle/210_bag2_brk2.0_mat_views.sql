@@ -1,6 +1,9 @@
 -- volgende scripts uitvoeren in het rsgb schema
 ALTER SESSION SET NLS_LENGTH_SEMANTICS='CHAR';
 SET DEFINE OFF;
+SET LINESIZE 32767;
+SET TRIMSPOOL ON;
+SET LONGC_CHUNKSIZE 32767;
 WHENEVER SQLERROR EXIT sql.sqlcode;
 
 CREATE MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres
