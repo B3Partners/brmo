@@ -707,6 +707,10 @@ CREATE MATERIALIZED VIEW mb_avg_zr_rechth
              zr_identif,
              ingangsdatum_recht,
              subject_identif,
+             isgebaseerdop,
+             tijdstipaanbieding,
+             isgebaseerdop2,
+             tijdstipaanbieding2,
              mandeligheid_identif,
              koz_identif,
              aandeel,
@@ -738,6 +742,10 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        uzr.zr_identif          AS zr_identif,
        uzr.ingangsdatum_recht,
        uzr.subject_identif,
+       uzr.isgebaseerdop,
+       st1.tijdstipaanbieding,
+       uzr.isgebaseerdop2,
+       st2.tijdstipaanbieding                         AS tijdstipaanbieding2,
        uzr.mandeligheid_identif,
        uzr.koz_identif,
        uzr.aandeel,
@@ -762,7 +770,23 @@ SELECT CAST(ROWNUM AS INTEGER) AS objectid,
        vs.rsin,
        vs.kvk_nummer
 FROM vb_util_zk_recht uzr
-         JOIN mb_avg_subject vs ON uzr.subject_identif = vs.subject_identif;
+         JOIN mb_avg_subject vs ON uzr.subject_identif = vs.subject_identif
+         LEFT JOIN 
+     stukdeel sd1 
+     ON 
+         sd1.identificatie = uzr.isgebaseerdop
+         LEFT JOIN 
+     stukdeel sd2 
+     ON 
+         sd2.identificatie = uzr.isgebaseerdop2
+         LEFT JOIN 
+     stuk st1 
+     ON 
+         sd1.deelvan = st1.identificatie
+         LEFT JOIN 
+     stuk st2 
+     ON 
+         sd2.deelvan = st2.identificatie;
 
 CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth (objectid ASC);
 CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth (zr_identif ASC);
