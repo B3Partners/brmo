@@ -8,6 +8,8 @@ updates:
       time: "05:00"
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
+    cooldown:
+      default-days: 0
     target-branch: master
     labels:
       - "bouw- en testinfrastuctuur"
@@ -57,6 +59,8 @@ updates:
       day: monday
       time: "22:00"
       timezone: Europe/Amsterdam
+    cooldown:
+      default-days: 0
     open-pull-requests-limit: 25
     target-branch: master
     labels:
