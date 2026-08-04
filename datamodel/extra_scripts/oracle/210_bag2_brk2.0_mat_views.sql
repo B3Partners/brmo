@@ -93,6 +93,7 @@ FROM (SELECT p.identificatie      AS identificatie,
          LEFT JOIN BRMO_BRK.adres a2 ON a2.identificatie = o2.betreft
          LEFT JOIN mb_adresseerbaar_object_geometrie_bag maogb ON maogb.identificatie = a2.adresseerbaarobject;
 
+
 COMMENT ON MATERIALIZED VIEW mb_kadastraleonroerendezakenmetadres IS
     'commentaar view mb_kad_onrrnd_zk_adres:
     alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
@@ -209,15 +210,11 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.lon,
        koz.lat,
        koz.begrenzing_perceel,
-       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
-       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
+       -- BRMO-401: tijdstipaanbieding nu uit mb_zr_rechth te halen.
+       zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
+       zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_zr_rechth zrr
-         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
-         JOIN BRMO_BRK.recht r on  zrr.zr_identif = r.van
-         LEFT JOIN BRMO_BRK.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
-         LEFT JOIN BRMO_BRK.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
-         LEFT JOIN BRMO_BRK.stuk st1 ON sd1.deelvan = st1.identificatie
-         LEFT JOIN BRMO_BRK.stuk st2 ON sd2.deelvan = st2.identificatie;
+         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
 
 COMMENT ON MATERIALIZED VIEW mb_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_onroerendezakenmetrechthebbenden:
@@ -356,15 +353,11 @@ SELECT CAST(ROWNUM AS INTEGER)            AS objectid,
        koz.lon,
        koz.lat,
        koz.begrenzing_perceel,
-       st1.tijdstipaanbieding as tijdstipaanbieding_stuk,
-       st2.tijdstipaanbieding as tijdstipaanbieding_stuk2
+       -- BRMO-401: tijdstipaanbieding nu uit mb_zr_rechth te halen.
+       zrr.tijdstipaanbieding            AS tijdstipaanbieding_stuk,
+       zrr.tijdstipaanbieding2           AS tijdstipaanbieding_stuk2
 FROM BRMO_BRK.mb_avg_zr_rechth zrr
-         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie)
-         JOIN BRMO_BRK.recht r on  zrr.zr_identif = r.van
-         LEFT JOIN BRMO_BRK.stukdeel sd1 ON sd1.identificatie = r.isgebaseerdop
-         LEFT JOIN BRMO_BRK.stukdeel sd2 ON sd2.identificatie = r.isgebaseerdop2
-         LEFT JOIN BRMO_BRK.stuk st1 ON sd1.deelvan = st1.identificatie
-         LEFT JOIN BRMO_BRK.stuk st2 ON sd2.deelvan = st2.identificatie;
+         RIGHT JOIN mb_kadastraleonroerendezakenmetadres koz ON (zrr.koz_identif = koz.identificatie);
 
 COMMENT ON MATERIALIZED VIEW mb_avg_onroerendezakenmetrechthebbenden
     IS 'commentaar view mb_avg_onroerendezakenmetrechthebbenden:
