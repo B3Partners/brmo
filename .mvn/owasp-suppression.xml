@@ -45,4 +45,15 @@
         <vulnerabilityName>jquery issue: 11974</vulnerabilityName>
         <vulnerabilityName>jquery issue: 162</vulnerabilityName>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+    file name: tomcat-catalina-9.0.120.jar
+
+    Users are recommended to remove the examples web application or to upgrade to version 11.0.25, 10.1.58 or 9.0.121 (when released), which fix the issue.
+
+    examples web app zit niet in onze packaging
+    ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat/tomcat-catalina@.*$</packageUrl>
+        <cve>CVE-2026-66299</cve>
+    </suppress>
 </suppressions>
