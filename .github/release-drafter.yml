@@ -64,3 +64,5 @@ categories:
 replacers:
   - search: '/CVE-(\d{4})-(\d+)/g'
     replace: 'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-$1-$2'
+  - search: '/BRMO-(\d+)/g'
+    replace: '[BRMO-$1](https://b3partners.atlassian.net/browse/BRMO-$1)'
