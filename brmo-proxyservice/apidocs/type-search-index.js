@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nl.b3p.brmo.service.proxy","l":"BerichtEndpointFileServlet"},{"p":"nl.b3p.brmo.service.proxy","l":"BerichtEndpointProxyServlet"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"nl.b3p.brmo.service.proxy","l":"BerichtEndpointFileServlet"},{"p":"nl.b3p.brmo.service.proxy","l":"BerichtEndpointProxyServlet"}];updateSearchResults();

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
   DeltaCustomDownloadResponseLinks.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.24.0&quot;)
 public class DeltaCustomDownloadResponseLinks {
   public static final String JSON_PROPERTY_STATUS = &quot;status&quot;;
   @javax.annotation.Nullable
@@ -51,14 +51,14 @@ public class DeltaCustomDownloadResponseLinks {
    * @return status
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public HalLink getStatus() {
 <span class="nc" id="L57">    return status;</span>
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(@javax.annotation.Nullable HalLink status) {
 <span class="nc" id="L64">    this.status = status;</span>
@@ -99,11 +99,8 @@ public class DeltaCustomDownloadResponseLinks {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L102" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L103">      return &quot;null&quot;;</span>
-    }
-<span class="nc" id="L105">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">    return o == null ? &quot;null&quot; : o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

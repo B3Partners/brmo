@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadRequest.JSON_PROPERTY_FORMAT,
   DeltaCustomDownloadRequest.JSON_PROPERTY_GEOFILTER
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.24.0&quot;)
 public class DeltaCustomDownloadRequest {
   public static final String JSON_PROPERTY_DELTA_ID = &quot;deltaId&quot;;
   @javax.annotation.Nullable
@@ -204,14 +204,14 @@ public class DeltaCustomDownloadRequest {
    * @return deltaId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DELTA_ID)
+  @JsonProperty(value = JSON_PROPERTY_DELTA_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getDeltaId() {
 <span class="nc" id="L210">    return deltaId;</span>
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DELTA_ID)
+  @JsonProperty(value = JSON_PROPERTY_DELTA_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeltaId(@javax.annotation.Nullable String deltaId) {
 <span class="nc" id="L217">    this.deltaId = deltaId;</span>
@@ -236,7 +236,7 @@ public class DeltaCustomDownloadRequest {
    * @return featuretypes
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FEATURETYPES)
+  @JsonProperty(value = JSON_PROPERTY_FEATURETYPES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Set&lt;FeaturetypesEnum&gt; getFeaturetypes() {
 <span class="nc" id="L242">    return featuretypes;</span>
@@ -244,7 +244,7 @@ public class DeltaCustomDownloadRequest {
 
 
   @JsonDeserialize(as = LinkedHashSet.class)
-  @JsonProperty(JSON_PROPERTY_FEATURETYPES)
+  @JsonProperty(value = JSON_PROPERTY_FEATURETYPES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFeaturetypes(@javax.annotation.Nonnull Set&lt;FeaturetypesEnum&gt; featuretypes) {
 <span class="nc" id="L250">    this.featuretypes = featuretypes;</span>
@@ -261,14 +261,14 @@ public class DeltaCustomDownloadRequest {
    * @return format
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FORMAT)
+  @JsonProperty(value = JSON_PROPERTY_FORMAT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public FormatEnum getFormat() {
 <span class="nc" id="L267">    return format;</span>
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FORMAT)
+  @JsonProperty(value = JSON_PROPERTY_FORMAT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFormat(@javax.annotation.Nonnull FormatEnum format) {
 <span class="nc" id="L274">    this.format = format;</span>
@@ -285,14 +285,14 @@ public class DeltaCustomDownloadRequest {
    * @return geofilter
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GEOFILTER)
+  @JsonProperty(value = JSON_PROPERTY_GEOFILTER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getGeofilter() {
 <span class="nc" id="L291">    return geofilter;</span>
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GEOFILTER)
+  @JsonProperty(value = JSON_PROPERTY_GEOFILTER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGeofilter(@javax.annotation.Nullable String geofilter) {
 <span class="nc" id="L298">    this.geofilter = geofilter;</span>
@@ -339,11 +339,8 @@ public class DeltaCustomDownloadRequest {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L342" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L343">      return &quot;null&quot;;</span>
-    }
-<span class="nc" id="L345">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">    return o == null ? &quot;null&quot; : o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

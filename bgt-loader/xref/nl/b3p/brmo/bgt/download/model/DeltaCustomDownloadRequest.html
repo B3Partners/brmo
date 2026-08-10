@@ -45,7 +45,7 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>    DeltaCustomDownloadRequest.JSON_PROPERTY_FORMAT,
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>    DeltaCustomDownloadRequest.JSON_PROPERTY_GEOFILTER
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  })
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  @javax.annotation.Generated(value = <span class="jxr_string">"org.openapitools.codegen.languages.JavaClientCodegen"</span>, comments = <span class="jxr_string">"Generator version: 7.15.0"</span>)
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  @javax.annotation.Generated(value = <span class="jxr_string">"org.openapitools.codegen.languages.JavaClientCodegen"</span>, comments = <span class="jxr_string">"Generator version: 7.24.0"</span>)
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> DeltaCustomDownloadRequest {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JSON_PROPERTY_DELTA_ID = <span class="jxr_string">"deltaId"</span>;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>    @javax.annotation.Nullable
@@ -212,14 +212,14 @@
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">   * @return deltaId</em>
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>   @javax.annotation.Nullable
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>   @JsonProperty(JSON_PROPERTY_DELTA_ID)
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>   @JsonProperty(value = JSON_PROPERTY_DELTA_ID, required = false)
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>   <strong class="jxr_keyword">public</strong> String getDeltaId() {
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>     <strong class="jxr_keyword">return</strong> deltaId;
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>   }
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> 
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> 
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>   @JsonProperty(JSON_PROPERTY_DELTA_ID)
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>   @JsonProperty(value = JSON_PROPERTY_DELTA_ID, required = false)
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setDeltaId(@javax.annotation.Nullable String deltaId) {
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>     <strong class="jxr_keyword">this</strong>.deltaId = deltaId;
@@ -244,7 +244,7 @@
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">   * @return featuretypes</em>
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>   @javax.annotation.Nonnull
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>   @JsonProperty(JSON_PROPERTY_FEATURETYPES)
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>   @JsonProperty(value = JSON_PROPERTY_FEATURETYPES, required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>   <strong class="jxr_keyword">public</strong> Set&lt;FeaturetypesEnum&gt; getFeaturetypes() {
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">return</strong> featuretypes;
@@ -252,7 +252,7 @@
 <a class="jxr_linenumber" name="L244" href="#L244">244</a> 
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>   @JsonDeserialize(as = LinkedHashSet.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>   @JsonProperty(JSON_PROPERTY_FEATURETYPES)
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>   @JsonProperty(value = JSON_PROPERTY_FEATURETYPES, required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFeaturetypes(@javax.annotation.Nonnull Set&lt;FeaturetypesEnum&gt; featuretypes) {
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>     <strong class="jxr_keyword">this</strong>.featuretypes = featuretypes;
@@ -269,14 +269,14 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">   * @return format</em>
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>   @javax.annotation.Nonnull
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>   @JsonProperty(JSON_PROPERTY_FORMAT)
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>   @JsonProperty(value = JSON_PROPERTY_FORMAT, required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>   <strong class="jxr_keyword">public</strong> FormatEnum getFormat() {
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>     <strong class="jxr_keyword">return</strong> format;
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>   }
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> 
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>   @JsonProperty(JSON_PROPERTY_FORMAT)
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>   @JsonProperty(value = JSON_PROPERTY_FORMAT, required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFormat(@javax.annotation.Nonnull FormatEnum format) {
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>     <strong class="jxr_keyword">this</strong>.format = format;
@@ -293,14 +293,14 @@
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">   * @return geofilter</em>
 <a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>   @javax.annotation.Nullable
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>   @JsonProperty(JSON_PROPERTY_GEOFILTER)
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>   @JsonProperty(value = JSON_PROPERTY_GEOFILTER, required = false)
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L290" href="#L290">290</a>   <strong class="jxr_keyword">public</strong> String getGeofilter() {
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">return</strong> geofilter;
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>   }
 <a class="jxr_linenumber" name="L293" href="#L293">293</a> 
 <a class="jxr_linenumber" name="L294" href="#L294">294</a> 
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>   @JsonProperty(JSON_PROPERTY_GEOFILTER)
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>   @JsonProperty(value = JSON_PROPERTY_GEOFILTER, required = false)
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setGeofilter(@javax.annotation.Nullable String geofilter) {
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>     <strong class="jxr_keyword">this</strong>.geofilter = geofilter;
@@ -347,15 +347,12 @@
 <a class="jxr_linenumber" name="L339" href="#L339">339</a> <em class="jxr_javadoccomment">   * (except the first line).</em>
 <a class="jxr_linenumber" name="L340" href="#L340">340</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L341" href="#L341">341</a>   <strong class="jxr_keyword">private</strong> String toIndentedString(Object o) {
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>     <strong class="jxr_keyword">if</strong> (o == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L343" href="#L343">343</a>       <strong class="jxr_keyword">return</strong> <span class="jxr_string">"null"</span>;
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>     }
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>     <strong class="jxr_keyword">return</strong> o.toString().replace(<span class="jxr_string">"\n"</span>, <span class="jxr_string">"\n    "</span>);
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>   }
-<a class="jxr_linenumber" name="L347" href="#L347">347</a> }
-<a class="jxr_linenumber" name="L348" href="#L348">348</a> 
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>     <strong class="jxr_keyword">return</strong> o == <strong class="jxr_keyword">null</strong> ? <span class="jxr_string">"null"</span> : o.toString().replace(<span class="jxr_string">"\n"</span>, <span class="jxr_string">"\n    "</span>);
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>   }
+<a class="jxr_linenumber" name="L344" href="#L344">344</a> }
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> 
 </pre>
 <hr/>
-<div id="footer">© 2014–2025 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
+<div id="footer">© 2014–2026 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>

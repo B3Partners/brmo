@@ -84,7 +84,7 @@
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body clearfix">
-                            <p>commentaar view vb_util_zk_recht: zakelijk recht met opgezocht aard recht en berekend aandeel beschikbare kolommen: * zr_identif: natuurlijke id van zakelijk recht * ingangsdatum_recht: - * aandeel: samenvoeging van teller en noemer (1/2), * ar_teller: teller van aandeel, * ar_noemer: noemer van aandeel, * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is, * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak, * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is, * indic_betrokken_in_splitsing: -, * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht, * fk_3avr_aand: code aard recht, * aantekeningen: samenvoeging van alle aantekening op dit recht</p>
+                            <p>commentaar view vb_util_zk_recht: zakelijk recht met opgezocht aard recht en berekend aandeel beschikbare kolommen: * zr_identif: natuurlijke id van zakelijk recht * ingangsdatum_recht: - * aandeel: samenvoeging van teller en noemer (1/2), * ar_teller: teller van aandeel, * ar_noemer: noemer van aandeel, * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is, * isgebaseerdop: - * isgebaseerdop2: - * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak, * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is, * indic_betrokken_in_splitsing: -, * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht, * fk_3avr_aand: code aard recht, * aantekeningen: samenvoeging van alle aantekening op dit recht</p>
                         </div><!-- /.box-body -->
                     </div>
                 </section>
@@ -224,6 +224,40 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td><span id="isgebaseerdop">isgebaseerdop</span></td>
+                                    <td>varchar</td>
+                                    <td>255</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="isgebaseerdop2">isgebaseerdop2</span></td>
+                                    <td>varchar</td>
+                                    <td>255</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td><span id="mandeligheid_identif">mandeligheid_identif</span></td>
                                     <td>varchar</td>
                                     <td>255</td>
@@ -347,7 +381,7 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="vb_util_zk_recht.html" target="_top" title="vb_util_zk_recht" alt="" coords="5,5,467,403">
+<area shape="rect" id="node1" href="vb_util_zk_recht.html" target="_top" title="vb_util_zk_recht" alt="" coords="5,5,487,461">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/vb_util_zk_recht.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
@@ -365,7 +399,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT zakrecht.identificatie AS zr_identif,&#10;    zakrecht.begingeldigheid AS ingangsdatum_recht,&#10;    ((COALESCE((tenaamstelling.aandeel_teller)::text, &#39;0&#39;::text) || &#39;/&#39;::text) || COALESCE((tenaamstelling.aandeel_noemer)::text, &#39;0&#39;::text)) AS aandeel,&#10;    tenaamstelling.aandeel_teller AS ar_teller,&#10;    tenaamstelling.aandeel_noemer AS ar_noemer,&#10;    (((COALESCE(tenaamstelling.tennamevan, &#39;&#39;::character varying))::text || (COALESCE(vve.heeftverenigingvaneigenaren, &#39;&#39;::character varying))::text) || (COALESCE(tenaamstelling2.tennamevan, &#39;&#39;::character varying))::text) AS subject_identif,&#10;    mandeligheid.identificatie AS mandeligheid_identif,&#10;    vuzrok.rustop_zak_recht AS koz_identif,&#10;    (zakrecht.isbetrokkenbij IS NOT NULL) AS indic_betrokken_in_splitsing,&#10;    zakrecht.aard AS omschr_aard_verkregen_recht,&#10;    zakrecht.aard AS fk_3avr_aand,&#10;    array_to_string(( SELECT array_agg(((((((((((((((((((((&#39;id: &#39;::text || (aantekening.identificatie)::text) || &#39;, &#39;::text) || &#39;aard: &#39;::text) || (COALESCE(aantekening.aard, &#39;&#39;::character varying))::text) || &#39;, &#39;::text) || &#39;begin: &#39;::text) || COALESCE((aantekening.begingeldigheid)::text, &#39;&#39;::text)) || &#39;, &#39;::text) || &#39;beschrijving: &#39;::text) || (COALESCE(aantekening.omschrijving, &#39;&#39;::character varying))::text) || &#39;, &#39;::text) || &#39;eind: &#39;::text) || COALESCE((aantekening.einddatum)::text, &#39;&#39;::text)) || &#39;, &#39;::text) || &#39;koz-id: &#39;::text) || (COALESCE(aantekening.aantekeningkadastraalobject, &#39;&#39;::character varying))::text) || &#39;, &#39;::text) || &#39;subject-id: &#39;::text) || (COALESCE(aantekening.betrokkenpersoon, &#39;&#39;::character varying))::text) || &#39;; &#39;::text)) AS array_agg&#10;           FROM brk.recht aantekening&#10;          WHERE ((aantekening.aantekeningkadastraalobject)::text &#61; (vuzrok.rustop_zak_recht)::text)), &#39; &amp; &#39;::text) AS aantekeningen&#10;   FROM ((((((brk.recht zakrecht&#10;     LEFT JOIN brk.recht tenaamstelling ON (((zakrecht.identificatie)::text &#61; (tenaamstelling.van)::text)))&#10;     LEFT JOIN brk.recht vve ON (((zakrecht.isbetrokkenbij)::text &#61; (vve.identificatie)::text)))&#10;     LEFT JOIN brk.vb_util_zk_recht_op_koz vuzrok ON (((zakrecht.identificatie)::text &#61; (vuzrok.identificatie)::text)))&#10;     LEFT JOIN brk.recht mandeligheid ON (((zakrecht.isbestemdtot)::text &#61; (mandeligheid.identificatie)::text)))&#10;     LEFT JOIN brk.vb_util_zk_recht_op_koz vuzrok2 ON (((mandeligheid.heefthoofdzaak)::text &#61; (vuzrok2.rustop_zak_recht)::text)))&#10;     LEFT JOIN brk.recht tenaamstelling2 ON (((vuzrok2.identificatie)::text &#61; (tenaamstelling2.van)::text)))&#10;  WHERE (split_part((zakrecht.identificatie)::text, &#39;:&#39;::text, 1) &#61; &#39;NL.IMKAD.ZakelijkRecht&#39;::text);</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT zakrecht.identificatie AS zr_identif,&#10;    zakrecht.begingeldigheid AS ingangsdatum_recht,&#10;    ((COALESCE((tenaamstelling.aandeel_teller)::text, &#39;0&#39;::text) || &#39;/&#39;::text) || COALESCE((tenaamstelling.aandeel_noemer)::text, &#39;0&#39;::text)) AS aandeel,&#10;    tenaamstelling.aandeel_teller AS ar_teller,&#10;    tenaamstelling.aandeel_noemer AS ar_noemer,&#10;    (((COALESCE(tenaamstelling.tennamevan, &#39;&#39;::character varying))::text || (COALESCE(vve.heeftverenigingvaneigenaren, &#39;&#39;::character varying))::text) || (COALESCE(tenaamstelling2.tennamevan, &#39;&#39;::character varying))::text) AS subject_identif,&#10;        CASE&#10;            WHEN (tenaamstelling.isgebaseerdop IS NULL) THEN mandeligheid.isgebaseerdop&#10;            ELSE tenaamstelling.isgebaseerdop&#10;        END AS isgebaseerdop,&#10;        CASE&#10;            WHEN (tenaamstelling.isgebaseerdop2 IS NULL) THEN mandeligheid.isgebaseerdop2&#10;            ELSE tenaamstelling.isgebaseerdop2&#10;        END AS isgebaseerdop2,&#10;    mandeligheid.identificatie AS mandeligheid_identif,&#10;    vuzrok.rustop_zak_recht AS koz_identif,&#10;    (zakrecht.isbetrokkenbij IS NOT NULL) AS indic_betrokken_in_splitsing,&#10;    zakrecht.aard AS omschr_aard_verkregen_recht,&#10;    zakrecht.aard AS fk_3avr_aand,&#10;    array_to_string(( SELECT array_agg(((((((((((((((((((((&#39;id: &#39;::text || (aantekening.identificatie)::text) || &#39;, &#39;::text) || &#39;aard: &#39;::text) || (COALESCE(aantekening.aard, &#39;&#39;::character varying))::text) || &#39;, &#39;::text) || &#39;begin: &#39;::text) || COALESCE((aantekening.begingeldigheid)::text, &#39;&#39;::text)) || &#39;, &#39;::text) || &#39;beschrijving: &#39;::text) || (COALESCE(aantekening.omschrijving, &#39;&#39;::character varying))::text) || &#39;, &#39;::text) || &#39;eind: &#39;::text) || COALESCE((aantekening.einddatum)::text, &#39;&#39;::text)) || &#39;, &#39;::text) || &#39;koz-id: &#39;::text) || (COALESCE(aantekening.aantekeningkadastraalobject, &#39;&#39;::character varying))::text) || &#39;, &#39;::text) || &#39;subject-id: &#39;::text) || (COALESCE(aantekening.betrokkenpersoon, &#39;&#39;::character varying))::text) || &#39;; &#39;::text)) AS array_agg&#10;           FROM brk.recht aantekening&#10;          WHERE ((aantekening.aantekeningkadastraalobject)::text &#61; (vuzrok.rustop_zak_recht)::text)), &#39; &amp; &#39;::text) AS aantekeningen&#10;   FROM ((((((brk.recht zakrecht&#10;     LEFT JOIN brk.recht tenaamstelling ON (((zakrecht.identificatie)::text &#61; (tenaamstelling.van)::text)))&#10;     LEFT JOIN brk.recht vve ON (((zakrecht.isbetrokkenbij)::text &#61; (vve.identificatie)::text)))&#10;     LEFT JOIN brk.vb_util_zk_recht_op_koz vuzrok ON (((zakrecht.identificatie)::text &#61; (vuzrok.identificatie)::text)))&#10;     LEFT JOIN brk.recht mandeligheid ON (((zakrecht.isbestemdtot)::text &#61; (mandeligheid.identificatie)::text)))&#10;     LEFT JOIN brk.vb_util_zk_recht_op_koz vuzrok2 ON (((mandeligheid.heefthoofdzaak)::text &#61; (vuzrok2.rustop_zak_recht)::text)))&#10;     LEFT JOIN brk.recht tenaamstelling2 ON (((vuzrok2.identificatie)::text &#61; (tenaamstelling2.van)::text)))&#10;  WHERE (split_part((zakrecht.identificatie)::text, &#39;:&#39;::text, 1) &#61; &#39;NL.IMKAD.ZakelijkRecht&#39;::text);</textarea>
                             <div style="padding-top: 5px;"><hr></div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">
@@ -394,7 +428,7 @@
                         <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
                         <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
                     </div>
-                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.2.4</a></strong>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 7.0.2</a></strong>
                 </div>
                 <!-- /.container -->
             </footer>

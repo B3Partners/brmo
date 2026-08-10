@@ -84,7 +84,7 @@
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body clearfix">
-                            <p>commentaar view mb_avg_zr_rechth: alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht) beschikbare kolommen: * objectid: uniek id bruikbaar voor geoserver/arcgis, * zr_identif: natuurlijke id van zakelijk recht, * ingangsdatum_recht: -, * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is, * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak, * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is, * aandeel: samenvoeging van teller en noemer (1/2), * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht, * indic_betrokken_in_splitsing: -, * aantekeningen: samenvoeging van alle aantekeningen van dit recht * soort: soort subject zoals natuurlijk, niet-natuurlijk enz. * geslachtsnaam: NULL (avg) * voorvoegsel: NULL (avg) * voornamen: NULL (avg) * aand_naamgebruik: NULL (avg) * geslachtsaand:NULL (avg) * naam: gelijk aan organisatie_naam * woonadres: NULL (avg) * geboortedatum: NULL (avg) * geboorteplaats: NULL (avg) * overlijdensdatum: NULL (avg) * bsn: NULL (avg) * organisatie_naam: naam niet natuurlijk subject * rechtsvorm: - * statutaire_zetel: - * rsin: - * kvk_nummer: -</p>
+                            <p>commentaar view mb_avg_zr_rechth: alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht) beschikbare kolommen: * objectid: uniek id bruikbaar voor geoserver/arcgis, * zr_identif: natuurlijke id van zakelijk recht, * ingangsdatum_recht: -, * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is, * isgebaseerdop: - * tijdstipaanbieding: - * isgebaseerdop2: - * tijdstipaanbieding2: - * mandeligheid_identif: identificatie van een mandeligheid, een gemeenschappelijk eigendom van een onroerende zaak, * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is, * aandeel: samenvoeging van teller en noemer (1/2), * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht, * indic_betrokken_in_splitsing: -, * aantekeningen: samenvoeging van alle aantekeningen van dit recht * soort: soort subject zoals natuurlijk, niet-natuurlijk enz. * geslachtsnaam: NULL (avg) * voorvoegsel: NULL (avg) * voornamen: NULL (avg) * aand_naamgebruik: NULL (avg) * geslachtsaand:NULL (avg) * naam: gelijk aan organisatie_naam * woonadres: NULL (avg) * geboortedatum: NULL (avg) * geboorteplaats: NULL (avg) * overlijdensdatum: NULL (avg) * bsn: NULL (avg) * organisatie_naam: naam niet natuurlijk subject * rechtsvorm: - * statutaire_zetel: - * rsin: - * kvk_nummer: -</p>
                         </div><!-- /.box-body -->
                     </div>
                 </section>
@@ -176,6 +176,74 @@
                                     <td><span id="subject_identif">subject_identif</span></td>
                                     <td>text</td>
                                     <td>2147483647</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="isgebaseerdop">isgebaseerdop</span></td>
+                                    <td>varchar</td>
+                                    <td>255</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="tijdstipaanbieding">tijdstipaanbieding</span></td>
+                                    <td>timestamp</td>
+                                    <td>29,6</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="isgebaseerdop2">isgebaseerdop2</span></td>
+                                    <td>varchar</td>
+                                    <td>255</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="tijdstipaanbieding2">tijdstipaanbieding2</span></td>
+                                    <td>timestamp</td>
+                                    <td>29,6</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
                                     <td>null</td>
@@ -602,7 +670,7 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="mb_avg_zr_rechth.html" target="_top" title="mb_avg_zr_rechth" alt="" coords="5,5,467,843">
+<area shape="rect" id="node1" href="mb_avg_zr_rechth.html" target="_top" title="mb_avg_zr_rechth" alt="" coords="5,5,487,960">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/mb_avg_zr_rechth.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
@@ -620,7 +688,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT row_number() OVER () AS objectid,&#10;    uzr.zr_identif,&#10;    uzr.ingangsdatum_recht,&#10;    uzr.subject_identif,&#10;    uzr.mandeligheid_identif,&#10;    uzr.koz_identif,&#10;    uzr.aandeel,&#10;    uzr.omschr_aard_verkregen_recht,&#10;    uzr.indic_betrokken_in_splitsing,&#10;    uzr.aantekeningen,&#10;    avgpersoon.soort,&#10;    avgpersoon.geslachtsnaam,&#10;    avgpersoon.voorvoegsel,&#10;    avgpersoon.voornamen,&#10;    avgpersoon.aand_naamgebruik,&#10;    avgpersoon.geslachtsaand,&#10;    avgpersoon.naam,&#10;    avgpersoon.woonadres,&#10;    avgpersoon.geboortedatum,&#10;    avgpersoon.geboorteplaats,&#10;    avgpersoon.overlijdensdatum,&#10;    avgpersoon.bsn,&#10;    avgpersoon.organisatie_naam,&#10;    avgpersoon.rechtsvorm,&#10;    avgpersoon.statutaire_zetel,&#10;    avgpersoon.rsin,&#10;    avgpersoon.kvk_nummer&#10;   FROM (brk.vb_util_zk_recht uzr&#10;     JOIN brk.mb_avg_subject avgpersoon ON ((uzr.subject_identif &#61; (avgpersoon.subject_identif)::text)));</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT row_number() OVER () AS objectid,&#10;    uzr.zr_identif,&#10;    uzr.ingangsdatum_recht,&#10;    uzr.subject_identif,&#10;    uzr.isgebaseerdop,&#10;    st1.tijdstipaanbieding,&#10;    uzr.isgebaseerdop2,&#10;    st2.tijdstipaanbieding AS tijdstipaanbieding2,&#10;    uzr.mandeligheid_identif,&#10;    uzr.koz_identif,&#10;    uzr.aandeel,&#10;    uzr.omschr_aard_verkregen_recht,&#10;    uzr.indic_betrokken_in_splitsing,&#10;    uzr.aantekeningen,&#10;    avgpersoon.soort,&#10;    avgpersoon.geslachtsnaam,&#10;    avgpersoon.voorvoegsel,&#10;    avgpersoon.voornamen,&#10;    avgpersoon.aand_naamgebruik,&#10;    avgpersoon.geslachtsaand,&#10;    avgpersoon.naam,&#10;    avgpersoon.woonadres,&#10;    avgpersoon.geboortedatum,&#10;    avgpersoon.geboorteplaats,&#10;    avgpersoon.overlijdensdatum,&#10;    avgpersoon.bsn,&#10;    avgpersoon.organisatie_naam,&#10;    avgpersoon.rechtsvorm,&#10;    avgpersoon.statutaire_zetel,&#10;    avgpersoon.rsin,&#10;    avgpersoon.kvk_nummer&#10;   FROM (((((brk.vb_util_zk_recht uzr&#10;     JOIN brk.mb_avg_subject avgpersoon ON ((uzr.subject_identif &#61; (avgpersoon.subject_identif)::text)))&#10;     LEFT JOIN brk.stukdeel sd1 ON (((sd1.identificatie)::text &#61; (uzr.isgebaseerdop)::text)))&#10;     LEFT JOIN brk.stukdeel sd2 ON (((sd2.identificatie)::text &#61; (uzr.isgebaseerdop2)::text)))&#10;     LEFT JOIN brk.stuk st1 ON (((sd1.deelvan)::text &#61; (st1.identificatie)::text)))&#10;     LEFT JOIN brk.stuk st2 ON (((sd2.deelvan)::text &#61; (st2.identificatie)::text)));</textarea>
                             <div style="padding-top: 5px;"><hr></div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">
@@ -649,7 +717,7 @@
                         <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
                         <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
                     </div>
-                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.2.4</a></strong>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 7.0.2</a></strong>
                 </div>
                 <!-- /.container -->
             </footer>

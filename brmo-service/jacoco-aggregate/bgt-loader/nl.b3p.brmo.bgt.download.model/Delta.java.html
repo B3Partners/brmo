@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Delta.JSON_PROPERTY_ID,
   Delta.JSON_PROPERTY_TIME_WINDOW
 })
-@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.15.0&quot;)
+@javax.annotation.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;, comments = &quot;Generator version: 7.24.0&quot;)
 public class Delta {
   public static final String JSON_PROPERTY_ID = &quot;id&quot;;
   @javax.annotation.Nullable
@@ -59,7 +59,7 @@ public class Delta {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getId() {
 <span class="nc" id="L65">    return id;</span>
@@ -78,14 +78,14 @@ public class Delta {
    * @return timeWindow
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
+  @JsonProperty(value = JSON_PROPERTY_TIME_WINDOW, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public DeltaTimeWindow getTimeWindow() {
 <span class="nc" id="L84">    return timeWindow;</span>
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
+  @JsonProperty(value = JSON_PROPERTY_TIME_WINDOW, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeWindow(@javax.annotation.Nullable DeltaTimeWindow timeWindow) {
 <span class="nc" id="L91">    this.timeWindow = timeWindow;</span>
@@ -128,11 +128,8 @@ public class Delta {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L131" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L132">      return &quot;null&quot;;</span>
-    }
-<span class="nc" id="L134">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">    return o == null ? &quot;null&quot; : o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

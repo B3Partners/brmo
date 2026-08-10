@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>    HalLink.JSON_PROPERTY_REL,
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>    HalLink.JSON_PROPERTY_TYPE
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  })
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  @javax.annotation.Generated(value = <span class="jxr_string">"org.openapitools.codegen.languages.JavaClientCodegen"</span>, comments = <span class="jxr_string">"Generator version: 7.15.0"</span>)
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  @javax.annotation.Generated(value = <span class="jxr_string">"org.openapitools.codegen.languages.JavaClientCodegen"</span>, comments = <span class="jxr_string">"Generator version: 7.24.0"</span>)
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> HalLink {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String JSON_PROPERTY_HREF = <span class="jxr_string">"href"</span>;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>    @javax.annotation.Nonnull
@@ -68,14 +68,14 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">   * @return href</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>    @javax.annotation.Nonnull
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>    @JsonProperty(JSON_PROPERTY_HREF)
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>    @JsonProperty(value = JSON_PROPERTY_HREF, required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>    @JsonInclude(value = JsonInclude.Include.ALWAYS)
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>    <strong class="jxr_keyword">public</strong> String getHref() {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">return</strong> href;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>    }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>    @JsonProperty(JSON_PROPERTY_HREF)
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>    @JsonProperty(value = JSON_PROPERTY_HREF, required = <strong class="jxr_keyword">true</strong>)
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>    @JsonInclude(value = JsonInclude.Include.ALWAYS)
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setHref(@javax.annotation.Nonnull String href) {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">this</strong>.href = href;
@@ -92,14 +92,14 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">   * @return rel</em>
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>    @javax.annotation.Nullable
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>    @JsonProperty(JSON_PROPERTY_REL)
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>    @JsonProperty(value = JSON_PROPERTY_REL, required = false)
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>    <strong class="jxr_keyword">public</strong> String getRel() {
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">return</strong> rel;
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>    }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>    @JsonProperty(JSON_PROPERTY_REL)
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>    @JsonProperty(value = JSON_PROPERTY_REL, required = false)
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setRel(@javax.annotation.Nullable String rel) {
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">this</strong>.rel = rel;
@@ -116,14 +116,14 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">   * @return type</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>   @javax.annotation.Nullable
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>   @JsonProperty(JSON_PROPERTY_TYPE)
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>   @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>   <strong class="jxr_keyword">public</strong> String getType() {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">return</strong> type;
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>   }
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> 
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>   @JsonProperty(JSON_PROPERTY_TYPE)
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>   @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setType(@javax.annotation.Nullable String type) {
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>     <strong class="jxr_keyword">this</strong>.type = type;
@@ -168,15 +168,12 @@
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">   * (except the first line).</em>
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>   <strong class="jxr_keyword">private</strong> String toIndentedString(Object o) {
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">if</strong> (o == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>       <strong class="jxr_keyword">return</strong> <span class="jxr_string">"null"</span>;
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     }
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>     <strong class="jxr_keyword">return</strong> o.toString().replace(<span class="jxr_string">"\n"</span>, <span class="jxr_string">"\n    "</span>);
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>   }
-<a class="jxr_linenumber" name="L168" href="#L168">168</a> }
-<a class="jxr_linenumber" name="L169" href="#L169">169</a> 
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">return</strong> o == <strong class="jxr_keyword">null</strong> ? <span class="jxr_string">"null"</span> : o.toString().replace(<span class="jxr_string">"\n"</span>, <span class="jxr_string">"\n    "</span>);
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>   }
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> }
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> 
 </pre>
 <hr/>
-<div id="footer">© 2014–2025 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
+<div id="footer">© 2014–2026 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
 </body>
 </html>
