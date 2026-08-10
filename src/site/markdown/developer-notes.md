@@ -43,6 +43,22 @@ commandline worden meegegeven, bijvoorbeeld:
 mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=6.0.1-SNAPSHOT -DreleaseVersion=6.0.0 -Dtag=v6.0.0 -T1
 mvn release:perform -l rel-perform.log -T1
 ```
+Vanwege BUG https://b3partners.atlassian.net/browse/BRMO-84 zal de eerste keer dat een release wordt gemaakt het commando 
+`mvn release:prepare` mislukken, voer dan onderstaande commando's uit.
+```bash
+cd target/checkout/
+mvn install
+# NB voor maken van documentatie is een draaiende rsgb database op jdbc:postgresql://127.0.0.1:5432/rsgb nodig
+export POSTGRES_PASSWORD=postgres
+export PGPASSWORD=postgres
+.build/ci/pgsql-start-docker.sh 18-3.6-alpine
+.build/ci/pgsql-create-databases.sh
+.build/ci/pgsql-setup.sh
+mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader' -DskipQA=true
+.build/ci/pgsql-setup-bag2_views.sh
+cd ../..
+mvn release:perform -l rel-perform.log -T1
+```
 
 _NB_ Voor het maken van de database documentatie is een draaiende, up-2-date databases met de betreffende RSGB
 schema's (public, brk, bag) nodig op `jdbc:postgresql://127.0.0.1:5432/rsgb`, dat kan met onderstaande commando's:
