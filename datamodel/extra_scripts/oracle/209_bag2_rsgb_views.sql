@@ -49,10 +49,7 @@ comment on materialized view mb_adres_bag is 'volledig actueel adres zonder loca
 
 
 -- maakt een materialized view van vb_adresseerbaar_object_geometrie tbv performance bij zeer grote datasets.
-create materialized view mb_adresseerbaar_object_geometrie_bag
-build deferred
-refresh on demand
-as
+create materialized view mb_adresseerbaar_object_geometrie_bag build deferred refresh on demand as
 select qry.objectid,
        qry.ishoofdadres,
        qry.status,
