@@ -27,6 +27,8 @@ jobs:
             contains(steps.metadata.outputs.dependency-names, 'mockito') ||
             contains(steps.metadata.outputs.dependency-names, 'xmlunit') ||
             contains(steps.metadata.outputs.dependency-names, 'jsonunit') ||
+            contains(steps.metadata.outputs.dependency-names, 'dbunit') ||
+            contains(steps.metadata.outputs.dependency-names, 'slf4j') ||
             contains(steps.metadata.outputs.dependency-names, 'log4j') ||
             contains(steps.metadata.outputs.dependency-names, 'commons-') ||
             contains(steps.metadata.outputs.dependency-names, 'net.postgis') ||
