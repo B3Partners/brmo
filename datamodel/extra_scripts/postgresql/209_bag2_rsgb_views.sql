@@ -37,7 +37,7 @@ select qry.objectid,
        qry.identificatie,
        qry.identificatienummeraanduiding,
        qry.nummeraanduidingstatus,
-       qry.gemeente,
+       g.naam as gemeente,
        qry.woonplaats,
        qry.straatnaam,
        qry.huisnummer,
@@ -50,69 +50,78 @@ select qry.objectid,
        qry.oppervlakte,
        qry.geometrie,
        qry.geometrie_centroide
-from (select vla.ishoofdadres,
-             vla.status,
-             vla.objectid,
-             vla.identificatie,
-             vla.identificatienummeraanduiding,
-             vla.nummeraanduidingstatus,
-             vla.gemeente,
-             vla.woonplaats,
-             vla.straatnaam,
-             vla.huisnummer,
-             vla.huisletter,
-             vla.huisnummertoevoeging,
-             vla.postcode,
-             'ligplaats' as soort,
-             null        as maaktdeeluitvan,
-             null        as gebruiksdoelen,
-             null        as oppervlakte,
-             vla.geometrie_centroide,
-             vla.geometrie
-      from bag.vb_ligplaats_adres vla
-      union all
-      select vsa.ishoofdadres,
-             vsa.status,
-             vsa.objectid,
-             vsa.identificatie,
-             vsa.identificatienummeraanduiding,
-             vsa.nummeraanduidingstatus,
-             vsa.gemeente,
-             vsa.woonplaats,
-             vsa.straatnaam,
-             vsa.huisnummer,
-             vsa.huisletter,
-             vsa.huisnummertoevoeging,
-             vsa.postcode,
-             'standplaats' as soort,
-             null          as maaktdeeluitvan,
-             null          as gebruiksdoelen,
-             null          as oppervlakte,
-             vsa.geometrie_centroide,
-             vsa.geometrie
-      from bag.vb_standplaats_adres vsa
-      union all
-      select vva.ishoofdadres,
-             vva.status,
-             vva.objectid,
-             vva.identificatie,
-             vva.identificatienummeraanduiding,
-             vva.nummeraanduidingstatus,
-             vva.gemeente,
-             vva.woonplaats,
-             vva.straatnaam,
-             vva.huisnummer,
-             vva.huisletter,
-             vva.huisnummertoevoeging,
-             vva.postcode,
-             'verblijfsobject'     as soort,
-             vva.maaktdeeluitvan,
-             vva.gebruiksdoelen,
-             vva.oppervlakte::text as oppervlakte,
-             vva.geometrie_centroide,
-             vva.geometrie
-      from bag.vb_verblijfsobject_adres vva) qry
+from (
+    select vla.ishoofdadres,
+           vla.status,
+           vla.objectid,
+           vla.identificatie,
+           vla.identificatienummeraanduiding,
+           vla.nummeraanduidingstatus,
+           vla.woonplaats,
+           vla.straatnaam,
+           vla.huisnummer,
+           vla.huisletter,
+           vla.huisnummertoevoeging,
+           vla.postcode,
+           'ligplaats' as soort,
+           null        as maaktdeeluitvan,
+           null        as gebruiksdoelen,
+           null        as oppervlakte,
+           vla.geometrie_centroide,
+           vla.geometrie
+    from bag.vb_ligplaats_adres vla
+
+    union all
+
+    select vsa.ishoofdadres,
+           vsa.status,
+           vsa.objectid,
+           vsa.identificatie,
+           vsa.identificatienummeraanduiding,
+           vsa.nummeraanduidingstatus,
+           vsa.woonplaats,
+           vsa.straatnaam,
+           vsa.huisnummer,
+           vsa.huisletter,
+           vsa.huisnummertoevoeging,
+           vsa.postcode,
+           'standplaats' as soort,
+           null          as maaktdeeluitvan,
+           null          as gebruiksdoelen,
+           null          as oppervlakte,
+           vsa.geometrie_centroide,
+           vsa.geometrie
+    from bag.vb_standplaats_adres vsa
+
+    union all
+
+    select vva.ishoofdadres,
+           vva.status,
+           vva.objectid,
+           vva.identificatie,
+           vva.identificatienummeraanduiding,
+           vva.nummeraanduidingstatus,
+           vva.woonplaats,
+           vva.straatnaam,
+           vva.huisnummer,
+           vva.huisletter,
+           vva.huisnummertoevoeging,
+           vva.postcode,
+           'verblijfsobject' as soort,
+           vva.maaktdeeluitvan,
+           vva.gebruiksdoelen,
+           vva.oppervlakte::text as oppervlakte,
+           vva.geometrie_centroide,
+           vva.geometrie
+    from bag.vb_verblijfsobject_adres vva
+) qry
+left join gemeente g
+       on ST_Within(
+              qry.geometrie_centroide,
+              g.geom
+          )
 with no data;
+
 
 create index mb_adresseerbaar_object_geometrie_bag_geom on mb_adresseerbaar_object_geometrie_bag using gist (geometrie);
 create index mb_adresseerbaar_object_geometrie_bag_centroid on mb_adresseerbaar_object_geometrie_bag using gist (geometrie_centroide);
