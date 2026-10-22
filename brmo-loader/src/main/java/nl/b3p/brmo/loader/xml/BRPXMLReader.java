@@ -42,6 +42,7 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -71,15 +72,12 @@ public class BRPXMLReader extends BrmoXMLReader {
   @Override
   public void init() throws Exception {
     soort = BrmoFramework.BR_BRP;
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();
     factory.setNamespaceAware(true);
-    factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-    factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     DocumentBuilder builder = factory.newDocumentBuilder();
     Document doc = builder.parse(in);
 
-    TransformerFactory tf = TransformerFactory.newInstance();
+    TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
     tf.setURIResolver(
         (href, base) ->
             new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href)));
@@ -113,7 +111,7 @@ public class BRPXMLReader extends BrmoXMLReader {
     if (old != null) {
       t = this.template.newTransformer();
     } else {
-      t = TransformerFactory.newInstance().newTransformer();
+      t = SecureXmlFactories.newTransformerFactory().newTransformer();
     }
 
     t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");

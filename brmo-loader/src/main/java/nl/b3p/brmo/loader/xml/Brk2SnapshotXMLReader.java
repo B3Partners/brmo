@@ -21,6 +21,7 @@ import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Brk2Bericht;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -63,7 +64,7 @@ public class Brk2SnapshotXMLReader extends BrmoXMLReader {
     factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
     factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
     streamReader = factory.createXMLStreamReader(in);
-    TransformerFactory tf = TransformerFactory.newInstance();
+    TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
     transformer = tf.newTransformer();
 
     init();

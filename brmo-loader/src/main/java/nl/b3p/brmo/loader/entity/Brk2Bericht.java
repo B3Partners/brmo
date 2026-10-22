@@ -19,6 +19,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,7 +63,7 @@ public class Brk2Bericht extends Bericht {
 
     // dit moet dus een standbericht zijn
     try {
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();
       DocumentBuilder builder = factory.newDocumentBuilder();
 
       Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));
@@ -135,7 +136,7 @@ public class Brk2Bericht extends Bericht {
           "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/";
       XPathFactory xPathfactory = XPathFactory.newInstance();
       XPath xpath = xPathfactory.newXPath();
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();
       DocumentBuilder builder = factory.newDocumentBuilder();
       Document doc = builder.parse(new InputSource(new StringReader(this.getBrXml())));
 

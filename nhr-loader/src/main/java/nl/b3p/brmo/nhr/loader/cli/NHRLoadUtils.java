@@ -17,7 +17,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.ws.BindingProvider;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
@@ -74,9 +73,6 @@ public class NHRLoadUtils {
   public static Dataservice getDataservice(
       String targetLocation, boolean preprod, NHRCertificateOptions certificateOptions)
       throws Exception {
-    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-    documentBuilderFactory.setNamespaceAware(true);
-
     DataserviceService dataServiceService = new DataserviceService();
     Dataservice dataService = dataServiceService.getDataserviceSoap11();
     Client client = ClientProxy.getClient(dataService);

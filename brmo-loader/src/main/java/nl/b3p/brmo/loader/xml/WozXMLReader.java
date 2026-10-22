@@ -31,6 +31,7 @@ import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.WozBericht;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -69,18 +70,15 @@ public class WozXMLReader extends BrmoXMLReader {
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
     in = new TeeInputStream(in, bos, true);
 
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();
     factory.setNamespaceAware(true);
-    factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-    factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     DocumentBuilder builder = factory.newDocumentBuilder();
     Document doc = builder.parse(in);
 
     brOrigXML = bos.toString(StandardCharsets.UTF_8);
     LOG.trace("Originele WOZ xml is: \n" + brOrigXML);
 
-    TransformerFactory tf = TransformerFactory.newInstance();
+    TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
     tf.setURIResolver(
         (href, base) -> {
           LOG.debug("looking for: " + href + " base: " + base);
@@ -169,7 +167,7 @@ public class WozXMLReader extends BrmoXMLReader {
       t = this.template.newTransformer();
     } else {
       LOG.debug("gebruik extractie xsl");
-      t = TransformerFactory.newInstance().newTransformer();
+      t = SecureXmlFactories.newTransformerFactory().newTransformer();
     }
 
     t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");

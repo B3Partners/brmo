@@ -32,6 +32,7 @@ import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stax.StAXSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.GbavBericht;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -56,7 +57,7 @@ public class GbavXMLReader extends BrmoXMLReader {
     factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
     factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
     streamReader = factory.createXMLStreamReader(in);
-    TransformerFactory tf = TransformerFactory.newInstance();
+    TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
     transformer = tf.newTransformer();
     xmlof = XMLOutputFactory.newInstance();
     // xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
