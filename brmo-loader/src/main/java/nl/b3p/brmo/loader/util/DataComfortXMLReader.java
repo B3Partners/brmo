@@ -22,13 +22,10 @@ public class DataComfortXMLReader {
   private static final int LEVEL_COMFORT = 2;
   private static final int LEVEL_TABLE = 3;
   private static final int LEVEL_DELETE = 4;
-  private final XMLInputFactory xif = XMLInputFactory.newInstance();
+  private final XMLInputFactory xif = SecureXmlFactories.newXMLInputFactory();
 
   public DataComfortXMLReader() {
     xif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
-    xif.setProperty(
-        XMLInputFactory.SUPPORT_DTD,
-        Boolean.FALSE); // No XML entity expansions or external entities
   }
 
   public List<TableData> readDataXML(Source dataXML) throws Exception {

@@ -196,6 +196,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
     xmlInputFactory.setProperty(
         XMLInputFactory.SUPPORT_DTD,
         Boolean.FALSE); // No XML entity expansions or external entities
+    xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
 
     return new SMInputFactory(xmlInputFactory);
   }

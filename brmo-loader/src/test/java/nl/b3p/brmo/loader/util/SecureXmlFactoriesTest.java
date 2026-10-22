@@ -9,6 +9,8 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
@@ -96,5 +98,28 @@ class SecureXmlFactoriesTest {
         db.parse(new InputSource(new StringReader("<r>ok</r>")))
             .getDocumentElement()
             .getTextContent());
+  }
+
+  @Test
+  void xmlInputFactoryRejectsEntities() throws Exception {
+    String xml = xxe("r");
+    XMLStreamReader r =
+        SecureXmlFactories.newXMLInputFactory().createXMLStreamReader(new StringReader(xml));
+    assertThrows(
+        XMLStreamException.class,
+        () -> {
+          while (r.hasNext()) {
+            r.next();
+          }
+        });
+  }
+
+  @Test
+  void xmlInputFactoryAllowsPlainXml() throws Exception {
+    XMLStreamReader r =
+        SecureXmlFactories.newXMLInputFactory()
+            .createXMLStreamReader(new StringReader("<r>ok</r>"));
+    r.nextTag();
+    assertEquals("ok", r.getElementText());
   }
 }

@@ -3,6 +3,7 @@ package nl.b3p.brmo.loader.util;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 
@@ -47,5 +48,18 @@ public final class SecureXmlFactories {
     dbf.setXIncludeAware(false);
     dbf.setExpandEntityReferences(false);
     return dbf;
+  }
+
+  /**
+   * Create a {@link XMLInputFactory} which does not support DTDs and external entities, so no
+   * external entities, external DTDs or entity expansion (billion laughs) are possible.
+   *
+   * @return hardened StAX input factory
+   */
+  public static XMLInputFactory newXMLInputFactory() {
+    XMLInputFactory xif = XMLInputFactory.newInstance();
+    xif.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+    xif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+    return xif;
   }
 }

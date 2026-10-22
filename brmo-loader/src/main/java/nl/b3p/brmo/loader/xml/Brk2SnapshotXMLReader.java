@@ -60,9 +60,7 @@ public class Brk2SnapshotXMLReader extends BrmoXMLReader {
   public Brk2SnapshotXMLReader(InputStream in)
       throws XMLStreamException, TransformerConfigurationException {
 
-    factory = XMLInputFactory.newInstance();
-    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
-    factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
+    factory = SecureXmlFactories.newXMLInputFactory();
     streamReader = factory.createXMLStreamReader(in);
     TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
     transformer = tf.newTransformer();
