@@ -22,12 +22,12 @@ import java.util.Map;
 import java.util.Queue;
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import nl.b3p.brmo.bgt.schema.BGTObject;
 import nl.b3p.brmo.bgt.schema.BGTObjectType;
 import nl.b3p.brmo.bgt.schema.BGTSchema;
+import nl.b3p.brmo.util.StaxMateFactories;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
@@ -180,20 +180,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
   }
 
   protected SMInputFactory buildSMInputFactory() {
-    // Using alternative StAX parsers explicitly:
-    // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
-    final XMLInputFactory xmlInputFactory =
-        XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or
-    // javax.xml.stream.XMLInputFactory property, can be SJSXP
-    log.trace("StAX XMLInputFactory: " + xmlInputFactory.getClass().getName());
-
-    xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
-    xmlInputFactory.setProperty(
-        XMLInputFactory.SUPPORT_DTD,
-        Boolean.FALSE); // No XML entity expansions or external entities
-    xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
-
-    return new SMInputFactory(xmlInputFactory);
+    return StaxMateFactories.newSMInputFactory();
   }
 
   @Override

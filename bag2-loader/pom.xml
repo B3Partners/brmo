@@ -39,6 +39,10 @@ SPDX-License-Identifier: MIT
             <artifactId>staxmate</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-secure-xml</artifactId>
+        </dependency>
+        <dependency>
             <!-- StaxMate requires a Stax2 implementation such as Woodstox, with the JDK parser
             elements after a geometry read by XmlStreamGeometryReader are skipped -->
             <groupId>com.fasterxml.woodstox</groupId>
