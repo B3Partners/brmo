@@ -165,7 +165,6 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
   protected SMInputFactory buildSMInputFactory() {
     // Using alternative StAX parsers explicitly:
     // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
-    // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
     final XMLInputFactory xmlInputFactory =
         XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or
     // javax.xml.stream.XMLInputFactory property, can be SJSXP

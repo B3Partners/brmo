@@ -122,10 +122,6 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
       throw new IllegalArgumentException("XML root element moet CityModel of bgtMutaties zijn");
     }
 
-    // Note: when using StaxMate childElementCursor() or similar, only an local name string
-    // element does not work
-    // when using Aalto. Always use a QName parameter!
-
     if (isMutaties) {
       cursor = cursor.childElementCursor(MUTATIE_BERICHT).advance().childElementCursor().advance();
       label:
@@ -186,7 +182,6 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
   protected SMInputFactory buildSMInputFactory() {
     // Using alternative StAX parsers explicitly:
     // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
-    // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
     final XMLInputFactory xmlInputFactory =
         XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or
     // javax.xml.stream.XMLInputFactory property, can be SJSXP

@@ -97,10 +97,6 @@
                     <groupId>net.postgis</groupId>
                     <artifactId>postgis-jdbc</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml</groupId>
-                    <artifactId>aalto-xml</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -119,10 +115,6 @@
                     <groupId>net.postgis</groupId>
                     <artifactId>postgis-jdbc</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml</groupId>
-                    <artifactId>aalto-xml</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -140,10 +132,6 @@
                 <exclusion>
                     <groupId>net.postgis</groupId>
                     <artifactId>postgis-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml</groupId>
-                    <artifactId>aalto-xml</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

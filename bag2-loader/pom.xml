@@ -39,9 +39,10 @@ SPDX-License-Identifier: MIT
             <artifactId>staxmate</artifactId>
         </dependency>
         <dependency>
-            <!-- Aalto is a fast StAX parser, used via XMLInputFactory SPI -->
-            <groupId>com.fasterxml</groupId>
-            <artifactId>aalto-xml</artifactId>
+            <!-- StaxMate requires a Stax2 implementation such as Woodstox, with the JDK parser
+            elements after a geometry read by XmlStreamGeometryReader are skipped -->
+            <groupId>com.fasterxml.woodstox</groupId>
+            <artifactId>woodstox-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
