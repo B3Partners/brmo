@@ -1,7 +1,13 @@
 version: 2
+registries:
+  b3p-nexus:
+    type: maven-repository
+    url: https://repo.b3p.nl/nexus/repository/public/
 updates:
   - package-ecosystem: maven
     directory: "/"
+    registries:
+      - b3p-nexus
     schedule:
       interval: weekly
       day: tuesday
