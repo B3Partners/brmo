@@ -1,6 +1,7 @@
 package nl.b3p.brmo.loader.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,21 +13,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import nl.b3p.brmo.loader.xml.NhrXMLReader;
-import org.apache.commons.io.input.ReaderInputStream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
 class SecureXmlFactoriesTest {
+  private static final String SECRET = "SECRET";
+
   @TempDir Path tempDir;
 
   private String xxe(String root) throws Exception {
-    Path secret = Files.writeString(tempDir.resolve("secret.txt"), "SECRET");
+    Path secret = Files.writeString(tempDir.resolve("secret.txt"), SECRET);
     return "<?xml version=\"1.0\"?><!DOCTYPE "
         + root
         + " [<!ENTITY x SYSTEM \""
@@ -39,15 +40,13 @@ class SecureXmlFactoriesTest {
   }
 
   @Test
-  void transformerBlocksExternalEntity() throws Exception {
+  void transformerDoesNotResolveExternalEntity() throws Exception {
     Transformer t = SecureXmlFactories.newTransformerFactory().newTransformer();
+    t.setOutputProperty("omit-xml-declaration", "yes");
     StringWriter sw = new StringWriter();
-    String xml = xxe("r");
-    TransformerException e =
-        assertThrows(
-            TransformerException.class,
-            () -> t.transform(new StreamSource(new StringReader(xml)), new StreamResult(sw)));
-    assertTrue(e.getMessage().contains("accessExternalDTD"), e.getMessage());
+    t.transform(new StreamSource(new StringReader(xxe("r"))), new StreamResult(sw));
+    assertFalse(sw.toString().contains(SECRET), "External entity resolved");
+    assertEquals("<r/>", sw.toString());
   }
 
   @Test
@@ -60,15 +59,23 @@ class SecureXmlFactoriesTest {
   }
 
   @Test
-  void nhrXMLReaderBlocksExternalEntity() throws Exception {
-    String xml = xxe("Envelope");
-    Exception e =
-        assertThrows(
-            Exception.class,
-            () ->
-                new NhrXMLReader(
-                    ReaderInputStream.builder().setReader(new StringReader(xml)).get()));
-    assertTrue(e.getMessage().contains("accessExternalDTD"), e.getMessage());
+  void templatesWithURIResolverDoNotResolveExternalEntity() throws Exception {
+    // Like the brmo XSL stylesheets: xsl:import resolved from the classpath by a URIResolver
+    String imported =
+        "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
+            + "<xsl:template match=\"r\"><out><xsl:value-of select=\".\"/></out></xsl:template>"
+            + "</xsl:stylesheet>";
+    String main =
+        "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
+            + "<xsl:import href=\"imported.xsl\"/></xsl:stylesheet>";
+    TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
+    tf.setURIResolver((href, base) -> new StreamSource(new StringReader(imported)));
+    Transformer t = tf.newTemplates(new StreamSource(new StringReader(main))).newTransformer();
+    t.setOutputProperty("omit-xml-declaration", "yes");
+    StringWriter sw = new StringWriter();
+    t.transform(new StreamSource(new StringReader(xxe("r"))), new StreamResult(sw));
+    assertFalse(sw.toString().contains(SECRET), "External entity resolved");
+    assertEquals("<out/>", sw.toString());
   }
 
   @Test

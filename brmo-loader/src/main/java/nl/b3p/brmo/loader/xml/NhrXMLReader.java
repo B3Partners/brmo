@@ -62,7 +62,7 @@ public class NhrXMLReader extends BrmoXMLReader {
     // Split input naar multiple berichten
     DOMResult r = new DOMResult();
     Transformer transformer = splitTemplates.newTransformer();
-    // External entities and DTDs are blocked by the factory used to create splitTemplates
+    // External entities and DTDs are not resolved by the factory used to create splitTemplates
     StreamSource source = new StreamSource(in);
     source.setSystemId("");
     transformer.transform(source, r);
