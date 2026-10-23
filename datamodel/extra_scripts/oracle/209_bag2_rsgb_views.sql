@@ -56,7 +56,7 @@ select qry.objectid,
        qry.identificatie,
        qry.identificatienummeraanduiding,
        qry.nummeraanduidingstatus,
-       qry.gemeente,
+       g.naam as gemeente,
        qry.woonplaats,
        qry.straatnaam,
        qry.huisnummer,
@@ -75,7 +75,7 @@ from (select vla.ishoofdadres,
              vla.identificatie,
              vla.identificatienummeraanduiding,
              vla.nummeraanduidingstatus,
-             cast(null as varchar2(40))   as gemeente,
+             cast(null as varchar2(40)) as gemeente,
              vla.woonplaats,
              vla.straatnaam,
              vla.huisnummer,
@@ -130,7 +130,13 @@ from (select vla.ishoofdadres,
              vva.oppervlakte,
              vva.geometrie_centroide,
              vva.geometrie
-      from jenkins_bag.vb_verblijfsobject_adres vva) qry;
+      from jenkins_bag.vb_verblijfsobject_adres vva) qry
+left join gemeente g
+       on SDO_RELATE(
+              qry.geometrie_centroide,
+              g.geom,
+              'mask=INSIDE'
+          ) = 'TRUE';
 
 comment on materialized view mb_adresseerbaar_object_geometrie_bag is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
 delete
