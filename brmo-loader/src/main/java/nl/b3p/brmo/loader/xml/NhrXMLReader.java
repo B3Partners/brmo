@@ -20,6 +20,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import nl.b3p.brmo.loader.entity.NhrBerichten;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
@@ -61,8 +62,8 @@ public class NhrXMLReader extends BrmoXMLReader {
     // Split input naar multiple berichten
     DOMResult r = new DOMResult();
     Transformer transformer = splitTemplates.newTransformer();
+    // External entities and DTDs are not resolved by the factory used to create splitTemplates
     StreamSource source = new StreamSource(in);
-    // Prevent external entity resolution
     source.setSystemId("");
     transformer.transform(source, r);
 
@@ -92,12 +93,12 @@ public class NhrXMLReader extends BrmoXMLReader {
       LOG.info("Initializing NHR split XSL templates...");
       Source xsl =
           new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/nhr-split-3.0.xsl"));
-      TransformerFactory tf = TransformerFactory.newInstance();
+      TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
       tf.setURIResolver(
           (href, base) -> new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/" + href)));
       NhrXMLReader.splitTemplates = tf.newTemplates(xsl);
 
-      t = TransformerFactory.newInstance().newTransformer();
+      t = SecureXmlFactories.newTransformerFactory().newTransformer();
     }
   }
 
@@ -145,7 +146,7 @@ public class NhrXMLReader extends BrmoXMLReader {
     Map<String, String> bsnHashes = new HashMap<>();
     //        LOG.trace("deel bericht xml: "+brXml);
     try {
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();
       factory.setNamespaceAware(true);
       DocumentBuilder builder = factory.newDocumentBuilder();
       Document doc = builder.parse(new InputSource(new StringReader(brXml)));

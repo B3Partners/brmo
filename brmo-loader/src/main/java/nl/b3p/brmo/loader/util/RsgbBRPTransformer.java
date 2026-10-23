@@ -83,7 +83,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
     XPath xpath = xPathFactory.newXPath();
     XPathExpression expression = xpath.compile("/root/data");
 
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory docBuilderFactory = SecureXmlFactories.newDocumentBuilderFactory();
     docBuilderFactory.setIgnoringElementContentWhitespace(true);
     DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
     Document base = docBuilder.parse(new InputSource(new StringReader(oldFile)));
@@ -153,7 +153,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
   }
 
   protected static String print(Document doc) throws Exception {
-    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    TransformerFactory transformerFactory = SecureXmlFactories.newTransformerFactory();
     Transformer transformer = transformerFactory.newTransformer();
     DOMSource source = new DOMSource(doc);
     StringWriter sw = new StringWriter();

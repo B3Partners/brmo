@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.SQLException;
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -48,11 +47,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
       throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
     final XPathExpression expression = XPathFactory.newInstance().newXPath().compile("/root/data");
 
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    // to prevent XXE
-    docBuilderFactory.setExpandEntityReferences(false);
-    docBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-    docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    DocumentBuilderFactory docBuilderFactory = SecureXmlFactories.newDocumentBuilderFactory();
     docBuilderFactory.setIgnoringElementContentWhitespace(true);
     docBuilderFactory.setNamespaceAware(false);
 
@@ -84,11 +79,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
   }
 
   protected static String print(Document doc) throws TransformerException {
-    TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    // to prevent XXE
-    transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-    transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-    transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+    TransformerFactory transformerFactory = SecureXmlFactories.newTransformerFactory();
 
     Transformer transformer = transformerFactory.newTransformer();
     transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");

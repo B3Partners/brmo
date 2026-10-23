@@ -20,7 +20,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
@@ -30,6 +29,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
@@ -195,7 +195,7 @@ public class StUFBGasynchroon {
       InputStream in = new ByteArrayInputStream(baos.toByteArray());
 
       // maak er een document van
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();
       factory.setNamespaceAware(true);
       DocumentBuilder builder = factory.newDocumentBuilder();
 
@@ -219,7 +219,7 @@ public class StUFBGasynchroon {
 
       // Vertaal xml naar inputstream voor verwerking in brmo framework
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-      Transformer t = TransformerFactory.newInstance().newTransformer();
+      Transformer t = SecureXmlFactories.newTransformerFactory().newTransformer();
       t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
       t.transform(new DOMSource(root), new StreamResult(outputStream));
       InputStream is = new ByteArrayInputStream(outputStream.toByteArray());

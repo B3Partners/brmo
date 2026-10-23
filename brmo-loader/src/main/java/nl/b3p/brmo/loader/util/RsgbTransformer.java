@@ -36,13 +36,13 @@ public class RsgbTransformer {
       throws TransformerConfigurationException, ParserConfigurationException {
 
     Source xsl = new StreamSource(RsgbTransformer.class.getResourceAsStream(pathToXsl));
-    TransformerFactory tf = TransformerFactory.newInstance();
+    TransformerFactory tf = SecureXmlFactories.newTransformerFactory();
     tf.setURIResolver(
         (href, base) ->
             new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href)));
     this.t = tf.newTemplates(xsl);
 
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory dbf = SecureXmlFactories.newDocumentBuilderFactory();
     dbf.setNamespaceAware(true);
     this.db = dbf.newDocumentBuilder();
   }
