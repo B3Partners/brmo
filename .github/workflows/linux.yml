@@ -148,10 +148,10 @@ jobs:
           maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Javadoc'
-        run: mvn compile javadoc:javadoc -DskipQA=true
+        run: mvn compile javadoc:javadoc -DskipQA=true -pl '!brmo-dist,!docker'
 
       - name: 'Test Javadoc'
-        run: mvn test-compile javadoc:test-javadoc -DskipQA=true
+        run: mvn test-compile javadoc:test-javadoc -DskipQA=true -pl '!brmo-dist,!docker'
 
 
   dependency-review:
