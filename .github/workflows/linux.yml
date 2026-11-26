@@ -42,6 +42,9 @@ jobs:
           - java: 21
             java-dist: 'temurin'
             postgis: 18-3.7-alpine
+          - java: 21
+            java-dist: 'temurin'
+            postgis: 19-3.7-alpine
 
     steps:
       - uses: actions/checkout@v7
