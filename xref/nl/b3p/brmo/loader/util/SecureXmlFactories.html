@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>SecureXmlFactories xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/loader/util/SecureXmlFactories.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.loader.util;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> javax.xml.XMLConstants;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> javax.xml.parsers.DocumentBuilderFactory;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> javax.xml.parsers.ParserConfigurationException;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> javax.xml.stream.XMLInputFactory;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javax.xml.transform.TransformerConfigurationException;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.xml.transform.TransformerFactory;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.apache.commons.xml.secure.SecureDocumentBuilderFactory;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.xml.secure.SecureTransformerFactory;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.xml.secure.SecureXMLInputFactory;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * Factories for XML processing which are hardened against XXE attacks using Apache Commons Secure</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * XML, which resolves external references to empty content. On top of that the {@link</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * DocumentBuilderFactory} and {@link XMLInputFactory} reject documents with a DOCTYPE, so a</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * malicious document fails instead of being silently processed.</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="SecureXmlFactories" href="../../../../../nl/b3p/brmo/loader/util/SecureXmlFactories.html#SecureXmlFactories">SecureXmlFactories</a> {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>    <strong class="jxr_keyword">private</strong> <a name="SecureXmlFactories" href="../../../../../nl/b3p/brmo/loader/util/SecureXmlFactories.html#SecureXmlFactories">SecureXmlFactories</a>() {}
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment">   * Create a {@link TransformerFactory} which resolves external entities, DTDs, stylesheets and</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">   * documents to empty content and has secure processing enabled (entity expansion limits, no</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">   * extension functions). Stylesheets loaded via a {@link javax.xml.transform.URIResolver} set on</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">   * the factory are still allowed.</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">   * @return hardened transformer factory</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">   * @throws TransformerConfigurationException if the implementation does not support secure</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">   *     processing</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> TransformerFactory newTransformerFactory()
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>        <strong class="jxr_keyword">throws</strong> TransformerConfigurationException {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      TransformerFactory tf = SecureTransformerFactory.newInstance();
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">return</strong> tf;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">   * Create a {@link DocumentBuilderFactory} which rejects documents with a DOCTYPE declaration, so</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   * no external entities, external DTDs or entity expansion (billion laughs) are possible.</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">   * @return hardened document builder factory</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">   * @throws ParserConfigurationException if the implementation does not support the required</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">   *     features</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> DocumentBuilderFactory newDocumentBuilderFactory()
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>        <strong class="jxr_keyword">throws</strong> ParserConfigurationException {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      DocumentBuilderFactory dbf = SecureDocumentBuilderFactory.newInstance();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      dbf.setFeature(<span class="jxr_string">"http://apache.org/xml/features/disallow-doctype-decl"</span>, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">return</strong> dbf;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    }
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">   * Create a {@link XMLInputFactory} which does not support DTDs, so no external entities, external</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">   * DTDs or entity expansion (billion laughs) are possible.</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">   * @return hardened StAX input factory</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> XMLInputFactory newXMLInputFactory() {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      XMLInputFactory xif = SecureXMLInputFactory.newInstance();
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      xif.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">return</strong> xif;
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>    }
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2014–2026 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
+</body>
+</html>

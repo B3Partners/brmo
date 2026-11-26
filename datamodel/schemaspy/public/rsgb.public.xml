@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 18.4">
+<database name="rsgb" schema="public" type="PostgreSQL - 18.7">
    <tables>
       <table catalog="rsgb" name="academische_titel" remarks="RSGB referentielijst ACADEMISCHE TITEL" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="code" nullable="false" remarks="Referentielijst property ACADEMISCHE TITEL.Academische titelcode - Academische titelcode" size="3" type="varchar" typeCode="12">
@@ -365,7 +365,7 @@
             <column ascending="true" name="fk_nn_rh_gem_code"/>
          </index>
       </table>
-      <table catalog="rsgb" name="geography_columns" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT current_database() AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geography_column,&#10;    postgis_typmod_dims(a.atttypmod) AS coord_dimension,&#10;    postgis_typmod_srid(a.atttypmod) AS srid,&#10;    postgis_typmod_type(a.atttypmod) AS type&#10;   FROM pg_class c,&#10;    pg_attribute a,&#10;    pg_type t,&#10;    pg_namespace n&#10;  WHERE ((t.typname = 'geography'::name) AND (a.attisdropped = false) AND (a.atttypid = t.oid) AND (a.attrelid = c.oid) AND (c.relnamespace = n.oid) AND (c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 'v'::&quot;char&quot;, 'm'::&quot;char&quot;, 'f'::&quot;char&quot;, 'p'::&quot;char&quot;])) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_table_privilege(c.oid, 'SELECT'::text));">
+      <table catalog="rsgb" name="geography_columns" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT current_database() AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geography_column,&#10;    postgis_typmod_dims(a.atttypmod) AS coord_dimension,&#10;    postgis_typmod_srid(a.atttypmod) AS srid,&#10;    postgis_typmod_type(a.atttypmod) AS type&#10;   FROM pg_class c,&#10;    pg_attribute a,&#10;    pg_type t,&#10;    pg_namespace n&#10;  WHERE ((t.typname = 'geography'::name) AND (a.attisdropped = false) AND (a.atttypid = t.oid) AND (a.attrelid = c.oid) AND (c.relnamespace = n.oid) AND (c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 'v'::&quot;char&quot;, 'm'::&quot;char&quot;, 'f'::&quot;char&quot;, 'p'::&quot;char&quot;])) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_column_privilege(c.oid, (a.attname)::text, 'SELECT'::text));">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="f_table_catalog" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="f_table_schema" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="f_table_name" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
@@ -376,7 +376,7 @@
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
       </table>
-      <table catalog="rsgb" name="geometry_columns" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT (current_database())::character varying(256) AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geometry_column,&#10;    COALESCE(postgis_typmod_dims(a.atttypmod), sn.ndims, 2) AS coord_dimension,&#10;    COALESCE(NULLIF(postgis_typmod_srid(a.atttypmod), 0), sr.srid, 0) AS srid,&#10;    (replace(replace(COALESCE(NULLIF(upper(postgis_typmod_type(a.atttypmod)), 'GEOMETRY'::text), st.type, 'GEOMETRY'::text), 'ZM'::text, ''::text), 'Z'::text, ''::text))::character varying(30) AS type&#10;   FROM ((((((pg_class c&#10;     JOIN pg_attribute a ON (((a.attrelid = c.oid) AND (NOT a.attisdropped))))&#10;     JOIN pg_namespace n ON ((c.relnamespace = n.oid)))&#10;     JOIN pg_type t ON ((a.atttypid = t.oid)))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            (regexp_match(s.consrc, 'geometrytype\(\w+\)\s*=\s*''(\w+)'''::text, 'i'::text))[1] AS type&#10;           FROM ( SELECT pg_constraint.connamespace,&#10;                    pg_constraint.conrelid,&#10;                    pg_constraint.conkey,&#10;                    pg_get_constraintdef(pg_constraint.oid) AS consrc&#10;                   FROM pg_constraint) s&#10;          WHERE (s.consrc ~* 'geometrytype\(\w+\)\s*=\s*''\w+'''::text)) st ON (((st.connamespace = n.oid) AND (st.conrelid = c.oid) AND (a.attnum = ANY (st.conkey)))))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            ((regexp_match(s.consrc, 'ndims\(\w+\)\s*=\s*(\d+)'::text, 'i'::text))[1])::integer AS ndims&#10;           FROM ( SELECT pg_constraint.connamespace,&#10;                    pg_constraint.conrelid,&#10;                    pg_constraint.conkey,&#10;                    pg_get_constraintdef(pg_constraint.oid) AS consrc&#10;                   FROM pg_constraint) s&#10;          WHERE (s.consrc ~* 'ndims\(\w+\)\s*=\s*\d+'::text)) sn ON (((sn.connamespace = n.oid) AND (sn.conrelid = c.oid) AND (a.attnum = ANY (sn.conkey)))))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            ((regexp_match(s.consrc, 'srid\(\w+\)\s*=\s*(\d+)'::text, 'i'::text))[1])::integer AS srid&#10;           FROM ( SELECT pg_constraint.connamespace,&#10;                    pg_constraint.conrelid,&#10;                    pg_constraint.conkey,&#10;                    pg_get_constraintdef(pg_constraint.oid) AS consrc&#10;                   FROM pg_constraint) s&#10;          WHERE (s.consrc ~* 'srid\(\w+\)\s*=\s*\d+'::text)) sr ON (((sr.connamespace = n.oid) AND (sr.conrelid = c.oid) AND (a.attnum = ANY (sr.conkey)))))&#10;  WHERE ((c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 'v'::&quot;char&quot;, 'm'::&quot;char&quot;, 'f'::&quot;char&quot;, 'p'::&quot;char&quot;])) AND (NOT (c.relname = 'raster_columns'::name)) AND (t.typname = 'geometry'::name) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_table_privilege(c.oid, 'SELECT'::text));">
+      <table catalog="rsgb" name="geometry_columns" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" WITH s AS NOT MATERIALIZED (&#10;         SELECT pg_constraint.connamespace,&#10;            pg_constraint.conrelid,&#10;            pg_constraint.conkey,&#10;            regexp_replace(pg_get_constraintdef(pg_constraint.oid), '\s+NOT\s+VALID'::text, ''::text, 'i'::text) AS consrc&#10;           FROM pg_constraint&#10;          WHERE (pg_constraint.contype = 'c'::&quot;char&quot;)&#10;        )&#10; SELECT (current_database())::character varying(256) AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geometry_column,&#10;    COALESCE(postgis_typmod_dims(a.atttypmod), sn.ndims, 2) AS coord_dimension,&#10;    COALESCE(NULLIF(postgis_typmod_srid(a.atttypmod), 0), sr.srid, 0) AS srid,&#10;    (replace(replace(COALESCE(NULLIF(upper(postgis_typmod_type(a.atttypmod)), 'GEOMETRY'::text), st.type, 'GEOMETRY'::text), 'ZM'::text, ''::text), 'Z'::text, ''::text))::character varying(30) AS type&#10;   FROM ((((((pg_class c&#10;     JOIN pg_attribute a ON (((a.attrelid = c.oid) AND (NOT a.attisdropped))))&#10;     JOIN pg_namespace n ON ((c.relnamespace = n.oid)))&#10;     JOIN pg_type t ON ((a.atttypid = t.oid)))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            (regexp_match(s.consrc, 'geometrytype\(\w+\)\s*=\s*''(\w+)'''::text, 'i'::text))[1] AS type&#10;           FROM s&#10;          WHERE (s.consrc ~* 'geometrytype\(\w+\)\s*=\s*''\w+'''::text)) st ON (((st.conrelid = c.oid) AND (a.attnum = ANY (st.conkey)))))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            ((regexp_match(s.consrc, 'ndims\(\w+\)\s*=\s*(\d+)'::text, 'i'::text))[1])::integer AS ndims&#10;           FROM s&#10;          WHERE (s.consrc ~* 'ndims\(\w+\)\s*=\s*\d+'::text)) sn ON (((sn.conrelid = c.oid) AND (a.attnum = ANY (sn.conkey)))))&#10;     LEFT JOIN ( SELECT s.connamespace,&#10;            s.conrelid,&#10;            s.conkey,&#10;            ((regexp_match(s.consrc, 'srid\(\w+\)\s*=\s*(\d+)'::text, 'i'::text))[1])::integer AS srid&#10;           FROM s&#10;          WHERE (s.consrc ~* 'srid\(\w+\)\s*=\s*\d+'::text)) sr ON (((sr.conrelid = c.oid) AND (a.attnum = ANY (sr.conkey)))))&#10;  WHERE ((c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 'v'::&quot;char&quot;, 'm'::&quot;char&quot;, 'f'::&quot;char&quot;, 'p'::&quot;char&quot;])) AND (NOT (c.relname = 'raster_columns'::name)) AND (t.typname = 'geometry'::name) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND&#10;        CASE&#10;            WHEN has_schema_privilege(c.relnamespace, 'USAGE'::text) THEN&#10;            CASE&#10;                WHEN ((to_regclass(format('%I.%I'::text, n.nspname, c.relname)))::oid = c.oid) THEN has_column_privilege(c.oid, (a.attname)::text, 'SELECT'::text)&#10;                ELSE false&#10;            END&#10;            ELSE has_column_privilege(c.oid, (a.attname)::text, 'SELECT'::text)&#10;        END AND ((EXISTS ( SELECT 1&#10;           FROM pg_roles&#10;          WHERE ((pg_roles.rolname = CURRENT_USER) AND pg_roles.rolsuper))) OR (EXISTS ( SELECT 1&#10;           FROM pg_roles&#10;          WHERE ((pg_roles.rolname = 'pg_read_all_data'::name) AND pg_has_role(CURRENT_USER, pg_roles.oid, 'USAGE'::text)))) OR (EXISTS ( SELECT 1&#10;           FROM aclexplode(COALESCE(c.relacl, acldefault('r'::&quot;char&quot;, c.relowner))) acl(grantor, grantee, privilege_type, is_grantable)&#10;          WHERE ((acl.privilege_type = 'SELECT'::text) AND ((acl.grantee = (0)::oid) OR pg_has_role(acl.grantee, 'USAGE'::text))))) OR (EXISTS ( SELECT 1&#10;           FROM aclexplode(a.attacl) acl(grantor, grantee, privilege_type, is_grantable)&#10;          WHERE ((acl.privilege_type = 'SELECT'::text) AND ((acl.grantee = (0)::oid) OR pg_has_role(acl.grantee, 'USAGE'::text)))))));">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="f_table_catalog" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="f_table_schema" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="f_table_name" nullable="true" remarks="" size="2147483647" type="name" typeCode="12"/>
@@ -1910,6 +1910,14 @@
       </table>
    </tables>
    <routines>
+      <routine dataAccess="MODIFIES" deterministic="true" name="_postgis_check_library_version(scripts_version text, library_version text)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="scripts_version" type="text"/>
+            <parameter mode="IN" name="library_version" type="text"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="_postgis_deprecate(oldname text, newname text, version text)" returnType="void" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -1950,6 +1958,13 @@
          <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="_postgis_scripts_version_cmp_key(ver text)" returnType="integer[]" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="ver" type="text"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="false" name="_postgis_selectivity(tbl regclass, att_name text, geom geometry, mode text DEFAULT '2'::text)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
@@ -2549,6 +2564,14 @@
             <parameter mode="IN" type="internal"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="geog_brin_inclusion_mergeable(internal, internal)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="internal"/>
+            <parameter mode="IN" type="internal"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="geography(bytea)" returnType="geography" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -2838,6 +2861,14 @@
             <parameter mode="IN" type="internal"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="geom3d_brin_inclusion_mergeable(internal, internal)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="internal"/>
+            <parameter mode="IN" type="internal"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="false" name="geom4d_brin_inclusion_add_value(internal, internal, internal, internal)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -2849,6 +2880,14 @@
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="false" name="geom4d_brin_inclusion_merge(internal, internal)" returnType="internal" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="internal"/>
+            <parameter mode="IN" type="internal"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="geom4d_brin_inclusion_mergeable(internal, internal)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
@@ -4372,6 +4411,14 @@
             <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_3dinterpolatepoint(line geometry, point geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="line" type="geometry"/>
+            <parameter mode="IN" name="point" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_3dintersects(geom1 geometry, geom2 geometry)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -5095,6 +5142,14 @@
             <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_catmullromsmoothing(geometry, integer DEFAULT 5)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+            <parameter mode="IN" type="integer"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_centroid(geography, use_spheroid boolean DEFAULT true)" returnType="geography" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -5211,6 +5266,14 @@
             <parameter mode="IN" name="geom" type="geometry"/>
             <parameter mode="IN" name="k" type="integer"/>
             <parameter mode="IN" name="max_radius" type="double precision"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_clusterrelatewin(geom geometry, relate_matrix text)" returnType="integer" securityType="INVOKER" type="WINDOW">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="geom" type="geometry"/>
+            <parameter mode="IN" name="relate_matrix" type="text"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_clusterwithin(geometry, double precision)" returnType="geometry[]" securityType="INVOKER" type="AGGREGATE">
@@ -5330,6 +5393,13 @@
             <parameter mode="IN" name="geom2" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_controlpoints(nurbscurve geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_convexhull(geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -5352,6 +5422,22 @@
             <parameter mode="IN" name="gapmaximumwidth" type="double precision"/>
             <parameter mode="IN" name="snappingdistance" type="double precision"/>
             <parameter mode="IN" name="overlapmergestrategy" type="text"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_coverageedges(geom geometry, edgetype integer DEFAULT 0)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="geom" type="geometry"/>
+            <parameter mode="IN" name="edgetype" type="integer"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_coverageedges(geoms geometry[], edgetype integer DEFAULT 0)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="geoms" type="geometry[]"/>
+            <parameter mode="IN" name="edgetype" type="integer"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_coverageinvalidedges(geom geometry, tolerance double precision DEFAULT 0.0)" returnType="geometry" securityType="INVOKER" type="WINDOW">
@@ -5466,6 +5552,13 @@
             <parameter mode="IN" name="tol" type="double precision"/>
             <parameter mode="IN" name="toltype" type="integer"/>
             <parameter mode="IN" name="flags" type="integer"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_degree(nurbscurve geometry)" returnType="integer" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_delaunaytriangles(g1 geometry, tolerance double precision DEFAULT 0.0, flags integer DEFAULT 0)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -5633,6 +5726,13 @@
             <parameter mode="IN" type="double precision"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_endm(geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_endpoint(geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -5680,6 +5780,14 @@
             <parameter mode="IN" type="text"/>
             <parameter mode="IN" type="text"/>
             <parameter mode="IN" type="boolean"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_evaluate(nurbscurve geometry, parameter double precision)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
+            <parameter mode="IN" name="parameter" type="double precision"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_expand(box box2d, dx double precision, dy double precision)" returnType="box2d" securityType="INVOKER" type="FUNCTION">
@@ -5840,7 +5948,7 @@
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_forcepolygonccw(geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
          <comment/>
-         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="geometry"/>
          </parameters>
@@ -6302,6 +6410,13 @@
             <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_isnurbscurve(geometry)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_ispolygonccw(geometry)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -6328,6 +6443,17 @@
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_issimpledetail(geom geometry, findalllocations integer DEFAULT 0, boundarynoderule integer DEFAULT 1, OUT simple boolean, OUT location geometry)" returnType="record" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="geom" type="geometry"/>
+            <parameter mode="IN" name="findalllocations" type="integer"/>
+            <parameter mode="IN" name="boundarynoderule" type="integer"/>
+            <parameter mode="OUT" name="simple" type="boolean"/>
+            <parameter mode="OUT" name="location" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_isvalid(geometry)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
@@ -6373,6 +6499,13 @@
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_knots(nurbscurve geometry)" returnType="double precision[]" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_largestemptycircle(geom geometry, tolerance double precision DEFAULT 0.0, boundary geometry DEFAULT '0101000000000000000000F87F000000000000F87F'::geometry, OUT center geometry, OUT nearest geometry, OUT radius double precision)" returnType="record" securityType="INVOKER" type="FUNCTION">
@@ -6671,6 +6804,13 @@
             <parameter mode="IN" name="toelevation" type="double precision"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_longestline(geom geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="geom" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_longestline(geom1 geometry, geom2 geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -6725,6 +6865,16 @@
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="geometry[]"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_makenurbscurve(degree integer, control_points geometry, weights double precision[] DEFAULT NULL::double precision[], knots double precision[] DEFAULT NULL::double precision[])" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="degree" type="integer"/>
+            <parameter mode="IN" name="control_points" type="geometry"/>
+            <parameter mode="IN" name="weights" type="double precision[]"/>
+            <parameter mode="IN" name="knots" type="double precision[]"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_makepoint(double precision, double precision)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -6793,6 +6943,13 @@
             <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_maxdistance(geom geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="geom" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_maxdistance(geom1 geometry, geom2 geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -6809,13 +6966,6 @@
             <parameter mode="OUT" name="center" type="geometry"/>
             <parameter mode="OUT" name="nearest" type="geometry"/>
             <parameter mode="OUT" name="radius" type="double precision"/>
-         </parameters>
-      </routine>
-      <routine dataAccess="MODIFIES" deterministic="true" name="st_memcollect(geometry)" returnType="geometry" securityType="INVOKER" type="AGGREGATE">
-         <comment/>
-         <definition language="internal"><![CDATA[Redacted, use --include-routine-definition]]></definition>
-         <parameters>
-            <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_memsize(geometry)" returnType="integer" securityType="INVOKER" type="FUNCTION">
@@ -6863,6 +7013,13 @@
             <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_minimumspanningtree(geometry)" returnType="integer" securityType="INVOKER" type="WINDOW">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_mlinefromtext(text)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -6891,6 +7048,20 @@
          <parameters>
             <parameter mode="IN" type="bytea"/>
             <parameter mode="IN" type="integer"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_mmax(geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_mmin(geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_mpointfromtext(text)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -6951,6 +7122,13 @@
          <parameters>
             <parameter mode="IN" type="bytea"/>
             <parameter mode="IN" type="integer"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_msize(geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_multi(geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -7069,6 +7247,13 @@
             <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_numcontrolpoints(nurbscurve geometry)" returnType="integer" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_numcurves(geometry geometry)" returnType="integer" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -7109,6 +7294,21 @@
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="geometry"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_nurbscurveisrational(nurbscurve geometry)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_nurbstolinestring(nurbscurve geometry, num_segments integer DEFAULT 32)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
+            <parameter mode="IN" name="num_segments" type="integer"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_offsetcurve(line geometry, distance double precision, params text DEFAULT ''::text)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -7623,6 +7823,14 @@
             <parameter mode="IN" type="integer"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_setendm(geometry, double precision)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+            <parameter mode="IN" type="double precision"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_setpoint(geometry, integer, geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -7646,6 +7854,14 @@
          <parameters>
             <parameter mode="IN" name="geom" type="geometry"/>
             <parameter mode="IN" name="srid" type="integer"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_setstartm(geometry, double precision)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
+            <parameter mode="IN" type="double precision"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_sharedpaths(geom1 geometry, geom2 geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -7820,6 +8036,13 @@
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" name="geom" type="geometry"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_startm(geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="geometry"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_startpoint(geometry)" returnType="geometry" securityType="INVOKER" type="FUNCTION">
@@ -8041,6 +8264,13 @@
             <parameter mode="IN" name="extend_to" type="geometry"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_weights(nurbscurve geometry)" returnType="double precision[]" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="nurbscurve" type="geometry"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_within(geom1 geometry, geom2 geometry)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -8093,6 +8323,13 @@
             <parameter mode="IN" type="box3d"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_xsize(box3d)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="box3d"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="true" name="st_y(geometry)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
@@ -8110,6 +8347,13 @@
       <routine dataAccess="MODIFIES" deterministic="true" name="st_ymin(box3d)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="box3d"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_ysize(box3d)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="box3d"/>
          </parameters>
@@ -8138,6 +8382,13 @@
       <routine dataAccess="MODIFIES" deterministic="true" name="st_zmin(box3d)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="c"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" type="box3d"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="st_zsize(box3d)" returnType="double precision" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="sql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
             <parameter mode="IN" type="box3d"/>
          </parameters>

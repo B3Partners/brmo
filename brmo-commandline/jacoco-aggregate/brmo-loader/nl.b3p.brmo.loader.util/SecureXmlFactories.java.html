@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SecureXmlFactories.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO commandline</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">SecureXmlFactories.java</span></div><h1>SecureXmlFactories.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.util;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import org.apache.commons.xml.secure.SecureDocumentBuilderFactory;
+import org.apache.commons.xml.secure.SecureTransformerFactory;
+import org.apache.commons.xml.secure.SecureXMLInputFactory;
+
+/**
+ * Factories for XML processing which are hardened against XXE attacks using Apache Commons Secure
+ * XML, which resolves external references to empty content. On top of that the {@link
+ * DocumentBuilderFactory} and {@link XMLInputFactory} reject documents with a DOCTYPE, so a
+ * malicious document fails instead of being silently processed.
+ */
+public final class SecureXmlFactories {
+  private SecureXmlFactories() {}
+
+  /**
+   * Create a {@link TransformerFactory} which resolves external entities, DTDs, stylesheets and
+   * documents to empty content and has secure processing enabled (entity expansion limits, no
+   * extension functions). Stylesheets loaded via a {@link javax.xml.transform.URIResolver} set on
+   * the factory are still allowed.
+   *
+   * @return hardened transformer factory
+   * @throws TransformerConfigurationException if the implementation does not support secure
+   *     processing
+   */
+  public static TransformerFactory newTransformerFactory()
+      throws TransformerConfigurationException {
+<span class="fc" id="L34">    TransformerFactory tf = SecureTransformerFactory.newInstance();</span>
+<span class="fc" id="L35">    tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
+<span class="fc" id="L36">    return tf;</span>
+  }
+
+  /**
+   * Create a {@link DocumentBuilderFactory} which rejects documents with a DOCTYPE declaration, so
+   * no external entities, external DTDs or entity expansion (billion laughs) are possible.
+   *
+   * @return hardened document builder factory
+   * @throws ParserConfigurationException if the implementation does not support the required
+   *     features
+   */
+  public static DocumentBuilderFactory newDocumentBuilderFactory()
+      throws ParserConfigurationException {
+<span class="fc" id="L49">    DocumentBuilderFactory dbf = SecureDocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L50">    dbf.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);</span>
+<span class="fc" id="L51">    return dbf;</span>
+  }
+
+  /**
+   * Create a {@link XMLInputFactory} which does not support DTDs, so no external entities, external
+   * DTDs or entity expansion (billion laughs) are possible.
+   *
+   * @return hardened StAX input factory
+   */
+  public static XMLInputFactory newXMLInputFactory() {
+<span class="fc" id="L61">    XMLInputFactory xif = SecureXMLInputFactory.newInstance();</span>
+<span class="fc" id="L62">    xif.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);</span>
+<span class="fc" id="L63">    return xif;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

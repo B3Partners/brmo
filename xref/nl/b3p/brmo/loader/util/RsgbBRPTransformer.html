@@ -91,7 +91,7 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      XPath xpath = xPathFactory.newXPath();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      XPathExpression expression = xpath.compile(<span class="jxr_string">"/root/data"</span>);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      DocumentBuilderFactory docBuilderFactory = SecureXmlFactories.newDocumentBuilderFactory();
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      docBuilderFactory.setIgnoringElementContentWhitespace(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      Document base = docBuilder.parse(<strong class="jxr_keyword">new</strong> InputSource(<strong class="jxr_keyword">new</strong> StringReader(oldFile)));
@@ -161,7 +161,7 @@
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>   }
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> String print(Document doc) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>     TransformerFactory transformerFactory = TransformerFactory.newInstance();
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>     TransformerFactory transformerFactory = SecureXmlFactories.newTransformerFactory();
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     Transformer transformer = transformerFactory.newTransformer();
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     DOMSource source = <strong class="jxr_keyword">new</strong> DOMSource(doc);
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();

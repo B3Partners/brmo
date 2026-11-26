@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>StaxMateFactories.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util</a> &gt; <span class="el_source">StaxMateFactories.java</span></div><h1>StaxMateFactories.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2026 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.util;
+
+import java.io.StringReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import org.apache.commons.xml.secure.SecureXMLInputFactory;
+import org.codehaus.stax2.XMLStreamReader2;
+import org.codehaus.staxmate.SMInputFactory;
+
+/** Factory for StaxMate input factories for parsing GML with StaxMate and GeoTools. */
+public final class StaxMateFactories {
+  private StaxMateFactories() {}
+
+  /**
+   * Create a StaxMate input factory using a StAX implementation which is secured against XXE by
+   * Apache Commons Secure XML, coalesces characters and does not support DTDs.
+   *
+   * &lt;p&gt;The StAX implementation must natively implement Stax2, such as Woodstox. For other
+   * implementations (such as the JDK default) StaxMate wraps the reader in a {@link
+   * org.codehaus.stax2.ri.Stax2ReaderAdapter} which does not track the element depth for {@link
+   * XMLStreamReader#nextTag()}. The GeoTools XmlStreamGeometryReader uses that method, so after
+   * reading some geometries (such as curves) StaxMate cursors silently skip the elements after it.
+   *
+   * &lt;p&gt;The GeoTools geometry reader reads from {@link
+   * org.codehaus.staxmate.in.SMInputCursor#getStreamReader()} directly, bypassing the cursors.
+   * StaxMate allows this but discourages it, because advancing the reader directly can desync the
+   * cursors (see &lt;a href=&quot;https://github.com/FasterXML/StaxMate/issues/2&quot;&gt;StaxMate issue #2&lt;/a&gt;).
+   * As of StaxMate 2.4.2 this works because cursors resync using {@code getDepth()} of the reader,
+   * which is only correct for all methods with a native Stax2 implementation, and because the
+   * geometry is read within the element of a child cursor which is not used afterward.
+   *
+   * &lt;p&gt;If a future StaxMate version resolves issue #2 (for instance by wrapping the returned reader
+   * to keep the cursors synchronized), this check may no longer be needed. Note that StaxMate may
+   * be upgraded by automatic dependency updates without anyone checking whether that issue has been
+   * resolved, so keep the check unless it has been verified to be unnecessary.
+   *
+   * @return the StaxMate input factory
+   * @throws IllegalStateException if the StAX implementation does not natively implement Stax2
+   */
+  public static SMInputFactory newSMInputFactory() {
+<span class="fc" id="L48">    final XMLInputFactory xmlInputFactory = SecureXMLInputFactory.newFactory();</span>
+<span class="fc" id="L49">    xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters</span>
+<span class="fc" id="L50">    xmlInputFactory.setProperty(</span>
+        XMLInputFactory.SUPPORT_DTD,
+        Boolean.FALSE); // No XML entity expansions or external entities
+
+    try {
+<span class="fc" id="L55">      XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new StringReader(&quot;&lt;r/&gt;&quot;));</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">      if (!(reader instanceof XMLStreamReader2)) {</span>
+<span class="fc" id="L57">        throw new IllegalStateException(</span>
+            &quot;StAX implementation &quot;
+<span class="fc" id="L59">                + reader.getClass().getName()</span>
+                + &quot; does not implement Stax2, use Woodstox&quot;);
+      }
+<span class="fc" id="L62">      reader.close();</span>
+<span class="nc" id="L63">    } catch (XMLStreamException e) {</span>
+<span class="nc" id="L64">      throw new IllegalStateException(&quot;Error checking StAX implementation&quot;, e);</span>
+<span class="fc" id="L65">    }</span>
+
+<span class="fc" id="L67">    return new SMInputFactory(xmlInputFactory);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

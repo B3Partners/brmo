@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>StaxMateFactories xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/nl/b3p/brmo/util/StaxMateFactories.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2026 B3Partners B.V.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * SPDX-License-Identifier: MIT</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.util;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.io.StringReader;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.xml.stream.XMLInputFactory;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.xml.stream.XMLStreamException;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.xml.stream.XMLStreamReader;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.xml.secure.SecureXMLInputFactory;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.codehaus.stax2.XMLStreamReader2;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.codehaus.staxmate.SMInputFactory;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment">/** Factory for StaxMate input factories for parsing GML with StaxMate and GeoTools. */</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="StaxMateFactories" href="../../../../nl/b3p/brmo/util/StaxMateFactories.html#StaxMateFactories">StaxMateFactories</a> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>    <strong class="jxr_keyword">private</strong> <a name="StaxMateFactories" href="../../../../nl/b3p/brmo/util/StaxMateFactories.html#StaxMateFactories">StaxMateFactories</a>() {}
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>    <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment">   * Create a StaxMate input factory using a StAX implementation which is secured against XXE by</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment">   * Apache Commons Secure XML, coalesces characters and does not support DTDs.</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">   * &lt;p&gt;The StAX implementation must natively implement Stax2, such as Woodstox. For other</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">   * implementations (such as the JDK default) StaxMate wraps the reader in a {@link</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">   * org.codehaus.stax2.ri.Stax2ReaderAdapter} which does not track the element depth for {@link</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">   * XMLStreamReader#nextTag()}. The GeoTools XmlStreamGeometryReader uses that method, so after</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">   * reading some geometries (such as curves) StaxMate cursors silently skip the elements after it.</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">   * &lt;p&gt;The GeoTools geometry reader reads from {@link</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">   * org.codehaus.staxmate.in.SMInputCursor#getStreamReader()} directly, bypassing the cursors.</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">   * StaxMate allows this but discourages it, because advancing the reader directly can desync the</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">   * cursors (see &lt;a href="<a href="https://github.com/FasterXML/StaxMate/issues/2" target="alexandria_uri">https://github.com/FasterXML/StaxMate/issues/2</a>"&gt;StaxMate issue #2&lt;/a&gt;).</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">   * As of StaxMate 2.4.2 this works because cursors resync using {@code getDepth()} of the reader,</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">   * which is only correct for all methods with a native Stax2 implementation, and because the</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">   * geometry is read within the element of a child cursor which is not used afterward.</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">   * &lt;p&gt;If a future StaxMate version resolves issue #2 (for instance by wrapping the returned reader</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">   * to keep the cursors synchronized), this check may no longer be needed. Note that StaxMate may</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">   * be upgraded by automatic dependency updates without anyone checking whether that issue has been</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">   * resolved, so keep the check unless it has been verified to be unnecessary.</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">   * @return the StaxMate input factory</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">   * @throws IllegalStateException if the StAX implementation does not natively implement Stax2</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> SMInputFactory newSMInputFactory() {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">final</strong> XMLInputFactory xmlInputFactory = SecureXMLInputFactory.newFactory();
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); <em class="jxr_comment">// Coalesce characters</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      xmlInputFactory.setProperty(
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          XMLInputFactory.SUPPORT_DTD,
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          Boolean.FALSE); <em class="jxr_comment">// No XML entity expansions or external entities</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>        XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(<strong class="jxr_keyword">new</strong> StringReader(<span class="jxr_string">"&lt;r/&gt;"</span>));
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>        <strong class="jxr_keyword">if</strong> (!(reader instanceof XMLStreamReader2)) {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>              <span class="jxr_string">"StAX implementation "</span>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>                  + reader.getClass().getName()
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>                  + <span class="jxr_string">" does not implement Stax2, use Woodstox"</span>);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>        }
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>        reader.close();
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      } <strong class="jxr_keyword">catch</strong> (XMLStreamException e) {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">"Error checking StAX implementation"</span>, e);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> SMInputFactory(xmlInputFactory);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>    }
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2014–2026 <a href="https://www.b3partners.nl/">B3Partners B.V.</a></div>
+</body>
+</html>

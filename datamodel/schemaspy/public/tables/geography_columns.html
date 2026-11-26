@@ -256,22 +256,22 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="geography_columns.html" target="_top" title="geography_columns" alt="" coords="5,5,391,256">
+<area shape="rect" id="node1" href="geography_columns.html" target="_top" title="geography_columns" alt="" coords="5,5,430,258">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/geography_columns.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="geography_columns.html" target="_top" title="geography_columns" alt="" coords="257,5,643,256">
-<area shape="rect" id="node2" href="spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="5,155,213,272">
+<area shape="rect" id="node1" href="geography_columns.html" target="_top" title="geography_columns" alt="" coords="257,5,682,258">
+<area shape="rect" id="node2" href="spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="5,154,213,277">
 </map>
                                         <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/geography_columns.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="geography_columns.html" target="_top" title="geography_columns" alt="" coords="257,5,643,256">
-<area shape="rect" id="node2" href="spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="5,213,213,331">
-<area shape="rect" id="node3" href="geometry_columns.html" target="_top" title="geometry_columns" alt="" coords="327,273,573,337">
+<area shape="rect" id="node1" href="geography_columns.html" target="_top" title="geography_columns" alt="" coords="257,5,682,258">
+<area shape="rect" id="node2" href="spatial_ref_sys.html" target="_top" title="spatial_ref_sys" alt="" coords="5,214,213,337">
+<area shape="rect" id="node3" href="geometry_columns.html" target="_top" title="geometry_columns" alt="" coords="347,275,592,343">
 </map>
                                         <a name='diagram'><img id="twoimpliedDegreeImg" src="../diagrams/tables/geography_columns.implied2degrees.png" usemap="#twoDegreesRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
@@ -289,7 +289,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT current_database() AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geography_column,&#10;    postgis_typmod_dims(a.atttypmod) AS coord_dimension,&#10;    postgis_typmod_srid(a.atttypmod) AS srid,&#10;    postgis_typmod_type(a.atttypmod) AS type&#10;   FROM pg_class c,&#10;    pg_attribute a,&#10;    pg_type t,&#10;    pg_namespace n&#10;  WHERE ((t.typname &#61; &#39;geography&#39;::name) AND (a.attisdropped &#61; false) AND (a.atttypid &#61; t.oid) AND (a.attrelid &#61; c.oid) AND (c.relnamespace &#61; n.oid) AND (c.relkind &#61; ANY (ARRAY[&#39;r&#39;::&quot;char&quot;, &#39;v&#39;::&quot;char&quot;, &#39;m&#39;::&quot;char&quot;, &#39;f&#39;::&quot;char&quot;, &#39;p&#39;::&quot;char&quot;])) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_table_privilege(c.oid, &#39;SELECT&#39;::text));</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT current_database() AS f_table_catalog,&#10;    n.nspname AS f_table_schema,&#10;    c.relname AS f_table_name,&#10;    a.attname AS f_geography_column,&#10;    postgis_typmod_dims(a.atttypmod) AS coord_dimension,&#10;    postgis_typmod_srid(a.atttypmod) AS srid,&#10;    postgis_typmod_type(a.atttypmod) AS type&#10;   FROM pg_class c,&#10;    pg_attribute a,&#10;    pg_type t,&#10;    pg_namespace n&#10;  WHERE ((t.typname &#61; &#39;geography&#39;::name) AND (a.attisdropped &#61; false) AND (a.atttypid &#61; t.oid) AND (a.attrelid &#61; c.oid) AND (c.relnamespace &#61; n.oid) AND (c.relkind &#61; ANY (ARRAY[&#39;r&#39;::&quot;char&quot;, &#39;v&#39;::&quot;char&quot;, &#39;m&#39;::&quot;char&quot;, &#39;f&#39;::&quot;char&quot;, &#39;p&#39;::&quot;char&quot;])) AND (NOT pg_is_other_temp_schema(c.relnamespace)) AND has_column_privilege(c.oid, (a.attname)::text, &#39;SELECT&#39;::text));</textarea>
                             <div style="padding-top: 5px;"><hr></div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">

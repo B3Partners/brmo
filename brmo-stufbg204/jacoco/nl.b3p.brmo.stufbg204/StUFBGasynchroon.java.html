@@ -20,7 +20,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
@@ -30,6 +29,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.SecureXmlFactories;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.stufbg204.util.StUFbg204Util;
 import nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht;
@@ -195,7 +195,7 @@ import org.xml.sax.SAXException;
 <span class="nc" id="L195">      InputStream in = new ByteArrayInputStream(baos.toByteArray());</span>
 
       // maak er een document van
-<span class="nc" id="L198">      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L198">      DocumentBuilderFactory factory = SecureXmlFactories.newDocumentBuilderFactory();</span>
 <span class="nc" id="L199">      factory.setNamespaceAware(true);</span>
 <span class="nc" id="L200">      DocumentBuilder builder = factory.newDocumentBuilder();</span>
 
@@ -219,7 +219,7 @@ import org.xml.sax.SAXException;
 
       // Vertaal xml naar inputstream voor verwerking in brmo framework
 <span class="nc" id="L221">      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
-<span class="nc" id="L222">      Transformer t = TransformerFactory.newInstance().newTransformer();</span>
+<span class="nc" id="L222">      Transformer t = SecureXmlFactories.newTransformerFactory().newTransformer();</span>
 <span class="nc" id="L223">      t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
 <span class="nc" id="L224">      t.transform(new DOMSource(root), new StreamResult(outputStream));</span>
 <span class="nc" id="L225">      InputStream is = new ByteArrayInputStream(outputStream.toByteArray());</span>
@@ -264,4 +264,4 @@ import org.xml.sax.SAXException;
     }
 <span class="nc" id="L265">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

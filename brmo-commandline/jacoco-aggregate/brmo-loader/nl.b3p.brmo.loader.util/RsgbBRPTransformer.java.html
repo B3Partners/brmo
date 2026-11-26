@@ -83,7 +83,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
 <span class="nc" id="L83">    XPath xpath = xPathFactory.newXPath();</span>
 <span class="nc" id="L84">    XPathExpression expression = xpath.compile(&quot;/root/data&quot;);</span>
 
-<span class="nc" id="L86">    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L86">    DocumentBuilderFactory docBuilderFactory = SecureXmlFactories.newDocumentBuilderFactory();</span>
 <span class="nc" id="L87">    docBuilderFactory.setIgnoringElementContentWhitespace(true);</span>
 <span class="nc" id="L88">    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();</span>
 <span class="nc" id="L89">    Document base = docBuilder.parse(new InputSource(new StringReader(oldFile)));</span>
@@ -153,7 +153,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
   }
 
   protected static String print(Document doc) throws Exception {
-<span class="nc" id="L156">    TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+<span class="nc" id="L156">    TransformerFactory transformerFactory = SecureXmlFactories.newTransformerFactory();</span>
 <span class="nc" id="L157">    Transformer transformer = transformerFactory.newTransformer();</span>
 <span class="nc" id="L158">    DOMSource source = new DOMSource(doc);</span>
 <span class="nc" id="L159">    StringWriter sw = new StringWriter();</span>
@@ -162,4 +162,4 @@ public class RsgbBRPTransformer extends RsgbTransformer {
 <span class="nc" id="L162">    return sw.toString();</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

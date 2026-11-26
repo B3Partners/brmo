@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.SQLException;
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,38 +33,34 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class RsgbWOZTransformer extends RsgbTransformer {
-<span class="fc" id="L37">  private static final Log LOG = LogFactory.getLog(RsgbWOZTransformer.class);</span>
+<span class="fc" id="L36">  private static final Log LOG = LogFactory.getLog(RsgbWOZTransformer.class);</span>
   private static final String STUF_GEEN_WAARDE = &quot;geenWaarde&quot;;
   private final StagingProxy staging;
 
   public RsgbWOZTransformer(String pathToXsl, StagingProxy staging)
       throws TransformerConfigurationException, ParserConfigurationException {
-<span class="nc" id="L43">    super(pathToXsl);</span>
-<span class="nc" id="L44">    this.staging = staging;</span>
-<span class="nc" id="L45">  }</span>
+<span class="nc" id="L42">    super(pathToXsl);</span>
+<span class="nc" id="L43">    this.staging = staging;</span>
+<span class="nc" id="L44">  }</span>
 
   protected static Document merge(String oldDBxml, String newDBxml)
       throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
-<span class="fc" id="L49">    final XPathExpression expression = XPathFactory.newInstance().newXPath().compile(&quot;/root/data&quot;);</span>
+<span class="fc" id="L48">    final XPathExpression expression = XPathFactory.newInstance().newXPath().compile(&quot;/root/data&quot;);</span>
 
-<span class="fc" id="L51">    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();</span>
-    // to prevent XXE
-<span class="fc" id="L53">    docBuilderFactory.setExpandEntityReferences(false);</span>
-<span class="fc" id="L54">    docBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
-<span class="fc" id="L55">    docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
-<span class="fc" id="L56">    docBuilderFactory.setIgnoringElementContentWhitespace(true);</span>
-<span class="fc" id="L57">    docBuilderFactory.setNamespaceAware(false);</span>
+<span class="fc" id="L50">    DocumentBuilderFactory docBuilderFactory = SecureXmlFactories.newDocumentBuilderFactory();</span>
+<span class="fc" id="L51">    docBuilderFactory.setIgnoringElementContentWhitespace(true);</span>
+<span class="fc" id="L52">    docBuilderFactory.setNamespaceAware(false);</span>
 
-<span class="fc" id="L59">    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();</span>
-<span class="fc" id="L60">    Document base = docBuilder.parse(new InputSource(new StringReader(oldDBxml)));</span>
+<span class="fc" id="L54">    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();</span>
+<span class="fc" id="L55">    Document base = docBuilder.parse(new InputSource(new StringReader(oldDBxml)));</span>
 
-<span class="fc" id="L62">    Element old = (Element) expression.evaluate(base, XPathConstants.NODE);</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">    if (old == null) {</span>
-<span class="nc" id="L64">      throw new IOException(oldDBxml + &quot;: expression does not evaluate to node&quot;);</span>
+<span class="fc" id="L57">    Element old = (Element) expression.evaluate(base, XPathConstants.NODE);</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">    if (old == null) {</span>
+<span class="nc" id="L59">      throw new IOException(oldDBxml + &quot;: expression does not evaluate to node&quot;);</span>
     }
-<span class="fc" id="L66">    LOG.trace(&quot;oldDBxml bericht is: &quot; + oldDBxml);</span>
-<span class="fc" id="L67">    LOG.trace(&quot;newDBxml bericht is: &quot; + newDBxml);</span>
-<span class="fc" id="L68">    Document merge = docBuilder.parse(new InputSource(new StringReader(newDBxml)));</span>
+<span class="fc" id="L61">    LOG.trace(&quot;oldDBxml bericht is: &quot; + oldDBxml);</span>
+<span class="fc" id="L62">    LOG.trace(&quot;newDBxml bericht is: &quot; + newDBxml);</span>
+<span class="fc" id="L63">    Document merge = docBuilder.parse(new InputSource(new StringReader(newDBxml)));</span>
 
     /*
        (1)Voor elke node in merge, kijk of hij bestaat in base
@@ -77,42 +72,38 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                        zo ja, overschrijf waarde
                zo nee, recurse in (1)
     */
-<span class="fc" id="L80">    XmlCombiner combiner = new XmlCombiner();</span>
-<span class="fc" id="L81">    combiner.combine(base);</span>
-<span class="fc" id="L82">    combiner.combine(merge);</span>
-<span class="fc" id="L83">    return combiner.buildDocument();</span>
+<span class="fc" id="L75">    XmlCombiner combiner = new XmlCombiner();</span>
+<span class="fc" id="L76">    combiner.combine(base);</span>
+<span class="fc" id="L77">    combiner.combine(merge);</span>
+<span class="fc" id="L78">    return combiner.buildDocument();</span>
   }
 
   protected static String print(Document doc) throws TransformerException {
-<span class="fc" id="L87">    TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
-    // to prevent XXE
-<span class="fc" id="L89">    transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
-<span class="fc" id="L90">    transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, &quot;&quot;);</span>
-<span class="fc" id="L91">    transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, &quot;&quot;);</span>
+<span class="fc" id="L82">    TransformerFactory transformerFactory = SecureXmlFactories.newTransformerFactory();</span>
 
-<span class="fc" id="L93">    Transformer transformer = transformerFactory.newTransformer();</span>
-<span class="fc" id="L94">    transformer.setOutputProperty(OutputKeys.ENCODING, &quot;UTF-8&quot;);</span>
-<span class="fc" id="L95">    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
-<span class="fc" id="L96">    transformer.setOutputProperty(OutputKeys.INDENT, &quot;no&quot;);</span>
-<span class="fc" id="L97">    DOMSource source = new DOMSource(doc);</span>
-<span class="fc" id="L98">    StringWriter sw = new StringWriter();</span>
-<span class="fc" id="L99">    Result result = new StreamResult(sw);</span>
-<span class="fc" id="L100">    transformer.transform(source, result);</span>
-<span class="fc" id="L101">    return sw.toString();</span>
+<span class="fc" id="L84">    Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="fc" id="L85">    transformer.setOutputProperty(OutputKeys.ENCODING, &quot;UTF-8&quot;);</span>
+<span class="fc" id="L86">    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
+<span class="fc" id="L87">    transformer.setOutputProperty(OutputKeys.INDENT, &quot;no&quot;);</span>
+<span class="fc" id="L88">    DOMSource source = new DOMSource(doc);</span>
+<span class="fc" id="L89">    StringWriter sw = new StringWriter();</span>
+<span class="fc" id="L90">    Result result = new StreamResult(sw);</span>
+<span class="fc" id="L91">    transformer.transform(source, result);</span>
+<span class="fc" id="L92">    return sw.toString();</span>
   }
 
   @Override
   public String transformToDbXml(Bericht bericht)
       throws SAXException, IOException, TransformerException {
-<span class="nc" id="L107">    String current = super.transformToDbXml(bericht);</span>
-<span class="nc" id="L108">    StringBuilder loadLog = new StringBuilder();</span>
+<span class="nc" id="L98">    String current = super.transformToDbXml(bericht);</span>
+<span class="nc" id="L99">    StringBuilder loadLog = new StringBuilder();</span>
 
-<span class="nc" id="L110">    LOG.debug(&quot;actuele bericht is: &quot; + bericht);</span>
+<span class="nc" id="L101">    LOG.debug(&quot;actuele bericht is: &quot; + bericht);</span>
     try {
-<span class="nc" id="L112">      Bericht previousBericht = staging.getPreviousBericht(bericht, loadLog);</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">      if (previousBericht != null) {</span>
-<span class="nc" id="L114">        LOG.debug(&quot;vorige bericht is: &quot; + previousBericht);</span>
-<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (null == previousBericht.getDbXml()) {</span>
+<span class="nc" id="L103">      Bericht previousBericht = staging.getPreviousBericht(bericht, loadLog);</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">      if (previousBericht != null) {</span>
+<span class="nc" id="L105">        LOG.debug(&quot;vorige bericht is: &quot; + previousBericht);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (null == previousBericht.getDbXml()) {</span>
           // TODO mogelijk op te lossen door previousBericht nogmaals te transformeren via
           //      oldDBXml = super.transformToDbXml(previousBericht);
           //      voor nu zetten we de pipelining.enabled op false in de
@@ -121,24 +112,24 @@ public class RsgbWOZTransformer extends RsgbTransformer {
           //      Het probleem is dat het vorige bericht nog in de pipeline kan zitten en
           // niet committed
           //      is naar de bericht tabel
-<span class="nc" id="L124">          LOG.warn(&quot;Er is wel een vorig bericht, maar de DB_XML ontbreekt&quot;);</span>
+<span class="nc" id="L115">          LOG.warn(&quot;Er is wel een vorig bericht, maar de DB_XML ontbreekt&quot;);</span>
         }
-<span class="nc" id="L126">        Document d = merge(previousBericht.getDbXml(), current);</span>
+<span class="nc" id="L117">        Document d = merge(previousBericht.getDbXml(), current);</span>
 
-<span class="nc" id="L128">        String mergedDBXML = print(d);</span>
-<span class="nc" id="L129">        bericht.setDbXml(mergedDBXML);</span>
-<span class="nc" id="L130">        LOG.trace(&quot;mergedDBXML bericht is: &quot; + mergedDBXML);</span>
-<span class="nc" id="L131">        current = mergedDBXML;</span>
+<span class="nc" id="L119">        String mergedDBXML = print(d);</span>
+<span class="nc" id="L120">        bericht.setDbXml(mergedDBXML);</span>
+<span class="nc" id="L121">        LOG.trace(&quot;mergedDBXML bericht is: &quot; + mergedDBXML);</span>
+<span class="nc" id="L122">        current = mergedDBXML;</span>
       }
-<span class="nc" id="L133">    } catch (SQLException</span>
+<span class="nc" id="L124">    } catch (SQLException</span>
         | XPathExpressionException
         | ParserConfigurationException
         | IOException
         | SAXException ex) {
-<span class="nc" id="L138">      LOG.error(&quot;Vorige bericht kon niet worden opgehaald: &quot;, ex);</span>
-<span class="nc" id="L139">    }</span>
-<span class="nc" id="L140">    LOG.debug(loadLog);</span>
-<span class="nc" id="L141">    return current;</span>
+<span class="nc" id="L129">      LOG.error(&quot;Vorige bericht kon niet worden opgehaald: &quot;, ex);</span>
+<span class="nc" id="L130">    }</span>
+<span class="nc" id="L131">    LOG.debug(loadLog);</span>
+<span class="nc" id="L132">    return current;</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>
