@@ -222,7 +222,9 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
       }
 
-      new LoggingQueryRunner().update(db.getConnection(), "create sequence objectid_seq");
+      if (!loadOptions.isNoCreateSchema()) {
+        new LoggingQueryRunner().update(db.getConnection(), "create sequence objectid_seq");
+      }
 
       loadStandFiles(db, dbOptions, loadOptions, progressReporter, filenames, cookieManager);
     } else {
@@ -292,7 +294,11 @@ public class BAG2LoaderMain implements IVersionProvider {
         // and a future change with such an object will fail. Should create entire schema
         // up-front instead of when first
         // encountering object type
-        createKeysAndIndexes(db, loadOptions, dbOptions, progressReporter);
+        if (!loadOptions.isNoCreateSchema()) {
+          createKeysAndIndexes(db, loadOptions, dbOptions, progressReporter);
+        } else {
+          // TODO: enable previously disabled constraints
+        }
 
         updateMetadata(
             db, loadOptions, true, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
@@ -780,7 +786,7 @@ public class BAG2LoaderMain implements IVersionProvider {
     boolean schemaCreated = objectType == null || objectTypesWithSchemaCreated.contains(objectType);
     BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
     writer.setProgressUpdater(progressReporter);
-    writer.setCreateSchema(!schemaCreated);
+    writer.setCreateSchema(!loadOptions.isNoCreateSchema() && !schemaCreated);
     writer.setCreateKeysAndIndexes(false);
     writer.setKeysPerObjectType(keysPerObjectType);
     writer.start(); // sets InitialLoad to true

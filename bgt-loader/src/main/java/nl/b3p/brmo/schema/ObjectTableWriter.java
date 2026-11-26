@@ -251,11 +251,13 @@ public class ObjectTableWriter {
             qr.update(connection, sql);
           }
         } else {
-          truncateTable(connection, object.getObjectType());
+          // TODO: disable constraints
+          emptyTable(connection, object.getObjectType());
           for (ObjectType oneToManyObjectType :
               object.getObjectType().getOneToManyAttributeObjectTypes()) {
-            truncateTable(connection, oneToManyObjectType);
+            emptyTable(connection, oneToManyObjectType);
           }
+
         }
       }
     }
@@ -512,13 +514,13 @@ public class ObjectTableWriter {
     }
   }
 
-  private void truncateTable(Connection c, ObjectType objectType) throws SQLException {
+  private void emptyTable(Connection c, ObjectType objectType) throws SQLException {
     // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
     new LoggingQueryRunner()
         .execute(
             c,
             String.format(
-                "truncate table %s",
+                "delete from %s",
                 schemaSQLMapper.getTableNameForObjectType(objectType, tablePrefix)));
   }
 
