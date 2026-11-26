@@ -5,8 +5,8 @@
 ### Vereisten
 
 - Java 17
-- Maven 3.9.16 of hoger
-- Docker 29.x met buildx 0.35.x en compose 5.x of hoger (dit vereiste kan worden overgeslagen als je geen 
+- Maven 3.10.0 of hoger
+- Docker 29.x met buildx 0.36.x en compose 5.x of hoger (dit vereiste kan worden overgeslagen als je geen 
   docker images wilt bouwen en/of geen release artifacten wilt bouwen)
 - Graphviz 2.40.x of hoger (voor het maken van de database documentatie)
 
